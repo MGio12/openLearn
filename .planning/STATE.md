@@ -17,9 +17,11 @@ progress:
 ## Current Phase
 
 **Phase 3 — Paiement Stripe**
-Status: Ready to plan
+Status: Code implemented; Stripe dashboard setup required
 
 ## Last Action
+
+Phase 3 code implemented directly after nested `codex exec "/gsd-execute-phase 3"` was blocked by network socket policy. Added checkout.html, merci.html, scripts/checkout.js, and sidebar navigation. PAY-02/PAY-04 still require a real Stripe Payment Link and dashboard verification.
 
 Phase 2 complete — ats.html fully dynamic. ATS-05 through ATS-10 verified. Zero static topic data in HTML body. Dynamic heatmap, filter tabs, and priority list all rendering from weighted-topics.json.
 
@@ -41,4 +43,4 @@ Phase 2 complete — ats.html fully dynamic. ATS-05 through ATS-10 verified. Zer
 
 ## Next Step
 
-/gsd-discuss-phase 3 (Stripe checkout) or /gsd-plan-phase 3
+Configure Stripe Payment Link for the 10 EUR/month subscription, set success URL to merci.html, test checkout, then verify active subscription in Stripe Dashboard.

@@ -60,7 +60,7 @@ Plans:
 **Plans**: TBD
 
 Plans:
-- [ ] 03-01: Landing page + integration Stripe checkout
+- [x] 03-01: Landing page + integration Stripe checkout (code complete; Stripe dashboard setup pending for live validation)
 
 ### Phase 4: Contenu et Audience
 **Goal**: Blog methodes + SEO + workflow video quotidien — construire l'audience maintenant qu'on sait que le business model fonctionne

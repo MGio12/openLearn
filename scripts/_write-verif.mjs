@@ -1,0 +1,1 @@
+﻿import fs from "fs"; const d = "C:/Users/Administrateur/Documents/projetPrepaV2/.planning/phases/02-heatmap-ats-dynamique/02-VERIFICATION.md"; fs.writeFileSync(d, "placeholder", {encoding:"utf8"}); console.log("ok");

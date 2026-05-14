@@ -1,0 +1,1070 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Outil Prepa — Abonnement 10 €/mois</title>
+  <meta name="description" content="Outil Prepa : un cockpit qui te dit quoi travailler maintenant. 10 €/mois, paiement sécurisé par Stripe, annulable à tout moment.">
+  <meta name="stripe-checkout-url" content="https://buy.stripe.com/test_9B65kCcn337o06h0em2go00">
+  <link rel="stylesheet" href="colors_and_type.css">
+  <style>
+    /* ============================================================
+       CHECKOUT — carnet de prépa vivant + affiche stabilo
+       ============================================================ */
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      background-color: var(--paper);
+      background-image:
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+      background-size: var(--grid-step) var(--grid-step);
+      color: var(--ink);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+    }
+
+    /* ===== Layout shell ===== */
+    .wrap { max-width: 1240px; margin: 0 auto; padding: 0 clamp(18px, 4vw, 40px); }
+
+    /* ===== Nav ===== */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 18px;
+      padding: 14px clamp(18px, 4vw, 40px);
+      background: rgba(246, 242, 235, 0.92);
+      backdrop-filter: blur(6px);
+      border-bottom: 1.5px solid #2A272422;
+    }
+    .brand { display: inline-flex; align-items: center; gap: 12px; color: var(--ink); text-decoration: none; }
+    .brand .mark {
+      position: relative; width: 36px; height: 36px;
+    }
+    .brand .mark .tile {
+      position: absolute; inset: 0; background: var(--stabilo);
+      border: 3px solid var(--ink); border-radius: 9px; transform: rotate(-6deg);
+      box-shadow: 3px 3px 0 var(--ink);
+    }
+    .brand .mark .glyph {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      font-family: var(--font-display); font-size: 18px; transform: rotate(-6deg);
+    }
+    .brand .name { font-family: var(--font-display); font-size: 17px; text-transform: uppercase; letter-spacing: -.01em; }
+    .nav-right { display: flex; align-items: center; gap: 14px; }
+    .nav-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 7px 12px;
+      border: 2px solid var(--ink); border-radius: 999px;
+      background: var(--paper-2);
+      font-family: var(--font-body); font-weight: 800; font-size: 11px;
+      letter-spacing: .08em; text-transform: uppercase;
+    }
+    .nav-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green-2); border: 1.5px solid var(--ink); }
+    .nav-link {
+      font-family: var(--font-body); font-weight: 700; font-size: 14px;
+      color: var(--ink); text-decoration: none;
+    }
+    .nav-link:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+
+    /* ===== HERO ===== */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+      gap: clamp(28px, 5vw, 64px);
+      align-items: center;
+      padding: clamp(40px, 6vw, 84px) 0 clamp(30px, 4vw, 56px);
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 7px 14px;
+      background: var(--stabilo); color: var(--ink);
+      border: 2.5px solid var(--ink); border-radius: 6px;
+      box-shadow: 3px 3px 0 var(--ink);
+      font-family: var(--font-body); font-weight: 900; font-size: 11px;
+      letter-spacing: .14em; text-transform: uppercase;
+      width: fit-content;
+      transform: rotate(-1.5deg);
+    }
+    .hero h1 {
+      font-family: var(--font-display); text-transform: uppercase;
+      font-size: clamp(52px, 7.4vw, 104px);
+      line-height: .92; letter-spacing: -0.015em;
+      margin: 22px 0 18px;
+      text-wrap: balance;
+    }
+    .hero h1 .hl {
+      background-image: linear-gradient(transparent 58%, var(--stabilo) 58%, var(--stabilo) 96%, transparent 96%);
+      padding: 0 6px;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+    .hero h1 .hl-red {
+      background-image: linear-gradient(transparent 58%, #F2B6B0 58%, #F2B6B0 96%, transparent 96%);
+      padding: 0 6px;
+    }
+    .hero p.lede {
+      font-family: var(--font-body);
+      font-size: clamp(17px, 1.4vw, 19px);
+      color: var(--ink-2);
+      max-width: 560px;
+      line-height: 1.55; font-weight: 550;
+      margin: 0 0 28px;
+    }
+
+    /* Price + CTA cluster */
+    .price-block {
+      display: flex; flex-wrap: wrap; gap: 14px; align-items: stretch;
+      margin-bottom: 22px;
+    }
+    .price-card {
+      position: relative;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 14px 20px;
+      background: #FFFDF8;
+      border: 3px solid var(--ink); border-radius: 12px;
+      box-shadow: 6px 6px 0 var(--ink);
+      transform: rotate(-1deg);
+    }
+    .price-card .meta {
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--ink-soft); margin-bottom: 2px;
+    }
+    .price-card .amount {
+      display: flex; align-items: baseline; gap: 8px;
+      font-family: var(--font-display); font-size: 44px; line-height: 1;
+      color: var(--ink);
+    }
+    .price-card .amount .per {
+      font-family: var(--font-body); font-weight: 800; font-size: 14px;
+      color: var(--ink-soft); text-transform: uppercase; letter-spacing: .08em;
+    }
+    .price-card .tape {
+      position: absolute; top: -10px; right: 14px;
+      padding: 3px 10px;
+      background: var(--green-2); color: var(--ink);
+      border: 2px solid var(--ink); border-radius: 4px;
+      font-family: var(--font-body); font-size: 10px; font-weight: 900;
+      letter-spacing: .12em; text-transform: uppercase;
+      transform: rotate(6deg);
+    }
+
+    .cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 18px 26px;
+      background: var(--ink); color: var(--paper);
+      border: 3px solid var(--ink); border-radius: 12px;
+      box-shadow: 6px 6px 0 var(--ink);
+      font-family: var(--font-body); font-weight: 900; font-size: 17px;
+      letter-spacing: .01em; text-decoration: none;
+      cursor: pointer;
+      transition: transform .2s var(--ease-calm), box-shadow .2s var(--ease-calm), background .15s;
+    }
+    .cta:hover { transform: translate(2px, 2px); box-shadow: 4px 4px 0 var(--ink); background: #1F1B17; }
+    .cta:active { transform: translate(6px, 6px); box-shadow: 0 0 0 var(--ink); }
+    .cta .arrow {
+      display: inline-block; transition: transform .2s var(--ease-calm);
+    }
+    .cta:hover .arrow { transform: translateX(3px); }
+    .cta--big { font-size: 19px; padding: 22px 32px; }
+    .cta--stabilo { background: var(--stabilo); color: var(--ink); }
+    .cta--stabilo:hover { background: var(--stabilo-2); }
+
+    /* Trust chips */
+    .trust-row {
+      display: flex; gap: 8px; flex-wrap: wrap;
+    }
+    .trust-chip {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 7px 11px;
+      border: 2px solid var(--ink); border-radius: 8px;
+      background: var(--paper-2);
+      font-family: var(--font-body); font-weight: 800; font-size: 12px;
+    }
+    .trust-chip svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    /* ===== DOSSIER — the hero visual ===== */
+    .dossier {
+      position: relative;
+      height: clamp(440px, 48vw, 560px);
+      perspective: 1200px;
+    }
+    .dossier-stage {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    /* big stabilo splash behind */
+    .dossier::before {
+      content: "";
+      position: absolute;
+      inset: 28px 14px 28px 38px;
+      background: var(--stabilo-wash);
+      border: 3px solid var(--ink); border-radius: 22px;
+      transform: rotate(3deg);
+      box-shadow: 10px 10px 0 var(--ink);
+      z-index: 0;
+    }
+    .fiche {
+      position: absolute;
+      width: min(86%, 460px);
+      background: #FFFDF8;
+      border: 3px solid var(--ink); border-radius: 14px;
+      box-shadow: 8px 8px 0 var(--ink);
+      padding: 16px 18px;
+      transition: transform .55s cubic-bezier(.22,.61,.36,1),
+                  box-shadow .55s cubic-bezier(.22,.61,.36,1);
+      will-change: transform;
+    }
+    .fiche__tab {
+      position: absolute; top: -14px; left: 22px;
+      padding: 4px 12px 6px;
+      background: var(--ink); color: var(--paper);
+      border: 3px solid var(--ink);
+      border-radius: 8px 8px 0 0;
+      font-family: var(--font-display); font-size: 11px;
+      letter-spacing: .12em; text-transform: uppercase;
+    }
+    .fiche--missions {
+      top: 4%; left: 6%;
+      transform: rotate(-7deg) translate(0, 0);
+      z-index: 1;
+      background: var(--blue);
+    }
+    .fiche--missions .fiche__tab { background: var(--blue-2); color: var(--ink); }
+    .fiche--ats {
+      top: 28%; right: 4%;
+      transform: rotate(5deg) translate(0, 0);
+      z-index: 2;
+      background: var(--green);
+    }
+    .fiche--ats .fiche__tab { background: var(--green-2); color: var(--ink); }
+    .fiche--cockpit {
+      top: 18%; left: 50%;
+      transform: translateX(-50%) rotate(-1.5deg);
+      z-index: 3;
+      width: min(94%, 520px);
+      padding: 18px 18px 20px;
+    }
+
+    .dossier:hover .fiche--missions {
+      transform: rotate(-11deg) translate(-46px, -34px);
+      box-shadow: 12px 12px 0 var(--ink);
+    }
+    .dossier:hover .fiche--ats {
+      transform: rotate(8deg) translate(46px, -28px);
+      box-shadow: 12px 12px 0 var(--ink);
+    }
+    .dossier:hover .fiche--cockpit {
+      transform: translateX(-50%) rotate(-1.5deg) translateY(6px);
+      box-shadow: 14px 14px 0 var(--ink);
+    }
+    .dossier:hover::before {
+      transform: rotate(4deg);
+    }
+
+    /* Fiche internals */
+    .fc-head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .fc-title {
+      font-family: var(--font-display); font-size: 15px;
+      text-transform: uppercase; letter-spacing: -.005em;
+    }
+    .fc-pill {
+      padding: 3px 8px; border: 2px solid var(--ink); border-radius: 6px;
+      background: var(--paper); font-family: var(--font-mono); font-size: 10px;
+      font-weight: 600;
+    }
+
+    /* Cockpit mini */
+    .cockpit-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+      margin-bottom: 10px;
+    }
+    .cockpit-stat {
+      padding: 10px 12px; border: 2px solid var(--ink); border-radius: 8px;
+      background: var(--paper);
+    }
+    .cockpit-stat .k { font-family: var(--font-mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); }
+    .cockpit-stat .v { font-family: var(--font-display); font-size: 22px; line-height: 1; margin-top: 4px; }
+    .cockpit-stat .v small { font-family: var(--font-body); font-weight: 800; font-size: 11px; color: var(--ink-soft); }
+    .cockpit-stat--accent { background: var(--stabilo); }
+    .cockpit-stat--accent .k { color: var(--ink-2); }
+
+    .next-mission {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px;
+      background: var(--ink); color: var(--paper);
+      border-radius: 10px;
+    }
+    .next-mission .nm-num {
+      width: 36px; height: 36px;
+      display: grid; place-items: center;
+      background: var(--stabilo); color: var(--ink);
+      border-radius: 8px; font-family: var(--font-display); font-size: 16px;
+      box-shadow: 2px 2px 0 #000;
+      flex-shrink: 0;
+    }
+    .next-mission .nm-text { font-family: var(--font-body); font-weight: 750; font-size: 13px; line-height: 1.3; }
+    .next-mission .nm-text small { display: block; color: #CFC9BF; font-weight: 600; font-size: 11px; margin-top: 2px; }
+
+    /* Missions fiche */
+    .missions-list { display: flex; flex-direction: column; gap: 6px; }
+    .missions-list li {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 9px;
+      background: #FFFDF8; border: 2px solid var(--ink); border-radius: 7px;
+      font-family: var(--font-body); font-weight: 700; font-size: 12px;
+      list-style: none;
+    }
+    .missions-list li .ck {
+      width: 16px; height: 16px; border: 2px solid var(--ink); border-radius: 4px;
+      flex-shrink: 0; background: #FFFDF8;
+    }
+    .missions-list li.done .ck { background: var(--green-2); position: relative; }
+    .missions-list li.done .ck::after {
+      content: ""; position: absolute; left: 3px; top: 0;
+      width: 5px; height: 9px; border: solid var(--ink); border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+    .missions-list li.done .lab { text-decoration: line-through; color: var(--ink-soft); }
+    .missions-list { padding: 0; margin: 0; }
+
+    /* ATS heatmap */
+    .heat-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 3px; }
+    .heat-grid div {
+      aspect-ratio: 1; border: 1.5px solid var(--ink); border-radius: 3px;
+      background: #FFFDF8;
+    }
+    .heat-grid div.h1 { background: var(--stabilo-wash); }
+    .heat-grid div.h2 { background: var(--stabilo); }
+    .heat-grid div.h3 { background: var(--orange); }
+    .heat-grid div.h4 { background: var(--red); }
+    .heat-legend {
+      display: flex; align-items: center; gap: 6px; margin-top: 8px;
+      font-family: var(--font-mono); font-size: 10px; color: var(--ink-soft);
+    }
+    .heat-legend .sw { width: 12px; height: 12px; border: 1.5px solid var(--ink); border-radius: 3px; }
+
+    /* Stamp annotation */
+    .stamp {
+      position: absolute; right: -10px; bottom: -18px; z-index: 5;
+      padding: 10px 14px;
+      background: var(--orange);
+      border: 3px solid var(--ink); border-radius: 10px;
+      box-shadow: 4px 4px 0 var(--ink);
+      font-family: var(--font-hand); font-size: 24px; line-height: 1;
+      transform: rotate(6deg);
+      pointer-events: none;
+    }
+    .stamp-2 {
+      position: absolute; left: -16px; top: 14%; z-index: 5;
+      padding: 8px 12px;
+      background: #FFFDF8;
+      border: 2.5px solid var(--ink); border-radius: 8px;
+      box-shadow: 3px 3px 0 var(--ink);
+      font-family: var(--font-hand); font-size: 20px; line-height: 1;
+      transform: rotate(-8deg);
+      pointer-events: none;
+    }
+
+    /* ===== Marquee band ===== */
+    .marquee {
+      border-top: 3px solid var(--ink);
+      border-bottom: 3px solid var(--ink);
+      background: var(--ink); color: var(--paper);
+      padding: 14px 0;
+      overflow: hidden;
+      margin: 0 calc(-1 * clamp(18px, 4vw, 40px));
+    }
+    .marquee__track {
+      display: flex; gap: 36px; white-space: nowrap;
+      font-family: var(--font-display); text-transform: uppercase;
+      font-size: clamp(18px, 2.4vw, 26px);
+      animation: scroll 40s linear infinite;
+    }
+    .marquee__track span.hl { color: var(--stabilo); }
+    .marquee__track .star { color: var(--stabilo); }
+    @keyframes scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ===== Section base ===== */
+    section.block { padding: clamp(54px, 7vw, 96px) 0; }
+    .section-head { max-width: 760px; margin: 0 auto 42px; text-align: center; }
+    .section-head h2 {
+      font-family: var(--font-display); text-transform: uppercase;
+      font-size: clamp(36px, 4.5vw, 60px); line-height: 1; letter-spacing: -.01em;
+      margin: 14px 0 12px;
+      text-wrap: balance;
+    }
+    .section-head p {
+      font-family: var(--font-body); font-size: 17px; color: var(--ink-soft);
+      max-width: 580px; margin: 0 auto; line-height: 1.55;
+    }
+    .kicker {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 12px;
+      background: var(--stabilo); border: 2.5px solid var(--ink); border-radius: 6px;
+      box-shadow: 3px 3px 0 var(--ink);
+      font-family: var(--font-body); font-weight: 900; font-size: 11px;
+      letter-spacing: .14em; text-transform: uppercase;
+    }
+
+    /* ===== Comparaisons "10€ c'est…" ===== */
+    .compare-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+    .compare {
+      position: relative;
+      background: #FFFDF8;
+      border: 3px solid var(--ink); border-radius: 14px;
+      box-shadow: 6px 6px 0 var(--ink);
+      padding: 26px 24px 28px;
+      display: flex; flex-direction: column; gap: 14px;
+      transition: transform .25s var(--ease-calm), box-shadow .25s var(--ease-calm);
+    }
+    .compare:hover { transform: translate(-2px, -2px); box-shadow: 10px 10px 0 var(--ink); }
+    .compare__visual {
+      height: 110px; border: 2.5px solid var(--ink); border-radius: 10px;
+      display: grid; place-items: center;
+      position: relative; overflow: hidden;
+    }
+    .compare__visual .label {
+      font-family: var(--font-display); text-transform: uppercase;
+      font-size: 28px; line-height: 1;
+    }
+    .compare__visual .price-strike {
+      position: absolute; right: 12px; bottom: 10px;
+      padding: 4px 8px; background: #FFFDF8; border: 2px solid var(--ink); border-radius: 6px;
+      font-family: var(--font-mono); font-weight: 700; font-size: 12px;
+      transform: rotate(-3deg);
+    }
+    .compare__visual .price-strike s {
+      text-decoration: line-through;
+      text-decoration-color: var(--red);
+      text-decoration-thickness: 2.5px;
+    }
+    .compare--mcdo .compare__visual { background: var(--red); }
+    .compare--mcdo .compare__visual .label { color: #FFFDF8; }
+    .compare--netflix .compare__visual { background: var(--ink); }
+    .compare--netflix .compare__visual .label { color: var(--stabilo); }
+    .compare--book .compare__visual { background: var(--beige); }
+    .compare__title {
+      font-family: var(--font-display); text-transform: uppercase;
+      font-size: 22px; line-height: 1.05;
+    }
+    .compare__copy {
+      font-family: var(--font-body); font-size: 14px; color: var(--ink-soft);
+      line-height: 1.5; margin: 0;
+    }
+    .verdict {
+      margin-top: 36px;
+      display: grid; place-items: center;
+    }
+    .verdict__inner {
+      display: inline-flex; align-items: center; gap: 16px;
+      padding: 18px 26px;
+      background: var(--stabilo);
+      border: 3px solid var(--ink); border-radius: 14px;
+      box-shadow: 6px 6px 0 var(--ink);
+      font-family: var(--font-display); text-transform: uppercase;
+      font-size: clamp(20px, 2.4vw, 28px); line-height: 1.1;
+      transform: rotate(-1deg);
+      text-align: left;
+    }
+    .verdict__inner .big {
+      font-size: clamp(34px, 4vw, 48px);
+    }
+
+    /* ===== Ce que tu obtiens ===== */
+    .feature-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+    .feat {
+      position: relative;
+      border: 3px solid var(--ink); border-radius: 14px;
+      box-shadow: 6px 6px 0 var(--ink);
+      padding: 24px;
+      display: flex; flex-direction: column; gap: 14px;
+      min-height: 240px;
+      transition: transform .2s var(--ease-calm), box-shadow .2s var(--ease-calm);
+    }
+    .feat:hover { transform: translate(-2px, -2px); box-shadow: 10px 10px 0 var(--ink); }
+    .feat--y { background: var(--stabilo); }
+    .feat--b { background: var(--blue); }
+    .feat--g { background: var(--green); }
+    .feat--o { background: var(--beige); }
+    .feat .num {
+      width: 40px; height: 40px;
+      display: grid; place-items: center;
+      background: #FFFDF8; border: 2.5px solid var(--ink); border-radius: 9px;
+      font-family: var(--font-display); font-size: 16px;
+      box-shadow: 3px 3px 0 var(--ink);
+    }
+    .feat h3 {
+      font-family: var(--font-display); text-transform: uppercase;
+      font-size: 20px; line-height: 1.05; margin: 0;
+    }
+    .feat p {
+      margin: 0; font-family: var(--font-body); font-size: 14px;
+      color: var(--ink-2); line-height: 1.5; font-weight: 600;
+    }
+    .feat__pin {
+      position: absolute; top: -10px; right: 18px;
+      font-family: var(--font-hand); font-size: 22px;
+      background: #FFFDF8; padding: 2px 10px;
+      border: 2.5px solid var(--ink); border-radius: 6px;
+      box-shadow: 2px 2px 0 var(--ink);
+      transform: rotate(4deg);
+    }
+
+    /* ===== Trust & sécurité ===== */
+    .trust-section {
+      background: var(--ink); color: var(--paper);
+      border-top: 3px solid var(--ink); border-bottom: 3px solid var(--ink);
+      padding: clamp(64px, 7vw, 96px) 0;
+      margin: 0 calc(-1 * clamp(18px, 4vw, 40px));
+    }
+    .trust-section .wrap { padding: 0 clamp(18px, 4vw, 40px); }
+    .trust-section h2 { color: var(--paper); }
+    .trust-section .section-head p { color: #CFC9BF; }
+    .trust-section .kicker { background: var(--stabilo); color: var(--ink); }
+
+    .trust-grid {
+      display: grid; grid-template-columns: 1.1fr 1fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+    .trust-main {
+      background: #FFFDF8; color: var(--ink);
+      border: 3px solid var(--stabilo); border-radius: 14px;
+      padding: 30px;
+      display: flex; flex-direction: column; gap: 18px;
+    }
+    .trust-stripe-row {
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+      padding-bottom: 18px; border-bottom: 2px dashed #2A272422;
+    }
+    .stripe-badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 10px 14px;
+      background: #635BFF; color: #FFFDF8;
+      border: 2.5px solid var(--ink); border-radius: 10px;
+      box-shadow: 4px 4px 0 var(--ink);
+      font-family: var(--font-body); font-weight: 900; font-size: 14px;
+      letter-spacing: -.005em;
+    }
+    .stripe-badge .lock {
+      width: 18px; height: 18px;
+    }
+    .trust-list {
+      list-style: none; padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .trust-list li {
+      display: grid; grid-template-columns: 26px 1fr;
+      gap: 12px; align-items: start;
+      font-family: var(--font-body); font-size: 15px; font-weight: 600;
+      line-height: 1.5;
+    }
+    .trust-list li .ic {
+      width: 24px; height: 24px;
+      display: grid; place-items: center;
+      background: var(--green); border: 2px solid var(--ink); border-radius: 6px;
+      box-shadow: 2px 2px 0 var(--ink);
+      flex-shrink: 0; margin-top: 1px;
+    }
+    .trust-list li .ic svg { width: 14px; height: 14px; }
+    .trust-list li strong { display: block; font-weight: 800; color: var(--ink); margin-bottom: 2px; font-size: 14px; }
+    .trust-list li span.copy { color: var(--ink-soft); font-weight: 500; font-size: 13px; }
+
+    .trust-aside {
+      background: var(--paper-2); color: var(--ink);
+      border: 3px solid var(--stabilo); border-radius: 14px;
+      padding: 28px;
+      display: flex; flex-direction: column; gap: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+    .trust-aside::before {
+      content: ""; position: absolute; top: -40px; right: -40px;
+      width: 160px; height: 160px;
+      background: var(--stabilo);
+      border: 3px solid var(--ink); border-radius: 22px;
+      transform: rotate(20deg);
+      opacity: .35;
+    }
+    .trust-aside h3 {
+      font-family: var(--font-display); text-transform: uppercase;
+      font-size: 22px; line-height: 1.05; margin: 0;
+      position: relative;
+    }
+    .trust-aside p.honest {
+      font-family: var(--font-body); font-size: 15px; line-height: 1.55;
+      color: var(--ink-2); margin: 0;
+      position: relative;
+    }
+    .trust-aside .signature {
+      font-family: var(--font-hand); font-size: 26px;
+      transform: rotate(-3deg);
+      position: relative;
+    }
+
+    /* ===== Final CTA ===== */
+    .final {
+      padding: clamp(60px, 7vw, 96px) 0;
+      text-align: center;
+      position: relative;
+    }
+    .final-inner {
+      position: relative;
+      z-index: 1;
+      max-width: min(94%, 940px);
+      margin: 0 auto;
+      padding: clamp(40px, 5vw, 64px) clamp(22px, 4vw, 56px) clamp(44px, 5vw, 60px);
+      background: var(--stabilo-wash);
+      border: 3px solid var(--ink);
+      border-radius: 24px;
+      box-shadow: 8px 8px 0 var(--ink);
+    }
+    .final h2 {
+      font-family: var(--font-display); text-transform: uppercase;
+      font-size: clamp(40px, 6vw, 80px); line-height: .95; letter-spacing: -.01em;
+      max-width: 820px; margin: 16px auto 18px;
+      text-wrap: balance;
+    }
+    .final p.sub {
+      font-family: var(--font-body); font-size: 17px; color: var(--ink-2);
+      max-width: 500px; margin: 0 auto 28px; line-height: 1.55;
+    }
+    .final-actions {
+      display: flex; align-items: center; justify-content: center; gap: 14px;
+      flex-wrap: wrap;
+    }
+    .final-foot {
+      margin-top: 28px;
+      font-family: var(--font-mono); font-size: 12px; color: var(--ink-soft);
+    }
+
+    /* ===== Footer & setup pane ===== */
+    .foot {
+      border-top: 1.5px solid #2A272422;
+      padding: 22px 0 44px;
+      display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap;
+      font-family: var(--font-body); font-size: 13px; color: var(--ink-soft);
+    }
+    .foot a { color: var(--ink); text-decoration: none; font-weight: 700; }
+    .foot a:hover { text-decoration: underline; }
+
+    .setup {
+      max-width: 520px; margin: 0 auto;
+      border: 3px solid var(--ink); border-radius: 12px;
+      background: var(--paper-2);
+      padding: 24px;
+      box-shadow: 6px 6px 0 var(--ink);
+    }
+    .setup[hidden] { display: none; }
+    .setup h3 {
+      font-family: var(--font-display); text-transform: uppercase;
+      font-size: 22px; line-height: 1.05; margin: 0 0 8px;
+    }
+    .setup p {
+      font-family: var(--font-body); font-size: 14px; color: var(--ink-soft);
+      margin: 0 0 14px; line-height: 1.5;
+    }
+    .setup-form { display: grid; gap: 10px; }
+    .setup-form label {
+      font-family: var(--font-body); font-size: 11px; font-weight: 900;
+      letter-spacing: .1em; text-transform: uppercase;
+    }
+    .setup-form input {
+      width: 100%; border: 2.5px solid var(--ink); border-radius: 8px;
+      background: #FFFDF8; padding: 11px 12px;
+      font-family: var(--font-mono); font-size: 12px; color: var(--ink);
+    }
+    .setup-form button {
+      justify-self: start;
+      padding: 11px 16px; background: var(--ink); color: var(--paper);
+      border: 2.5px solid var(--ink); border-radius: 8px;
+      font-family: var(--font-body); font-weight: 800; font-size: 13px;
+      cursor: pointer;
+      box-shadow: 3px 3px 0 var(--ink);
+    }
+    .setup-msg {
+      min-height: 18px; margin: 0; font-family: var(--font-body);
+      font-size: 13px; color: var(--ink-soft); font-weight: 700;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 980px) {
+      .hero { grid-template-columns: 1fr; gap: 36px; }
+      .dossier { height: 460px; }
+      .compare-grid { grid-template-columns: 1fr; }
+      .feature-grid { grid-template-columns: repeat(2, 1fr); }
+      .trust-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 620px) {
+      .nav { padding: 12px 18px; }
+      .nav-right .nav-link { display: none; }
+      .hero h1 { font-size: 44px; }
+      .dossier { height: 420px; }
+      .fiche { width: 76%; padding: 12px 14px; }
+      .fiche--cockpit { width: 84%; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .compare__visual { height: 96px; }
+      .compare__visual .label { font-size: 22px; }
+      .price-card { transform: rotate(-0.5deg); }
+      .cta--big { width: 100%; justify-content: center; }
+      /* Mobile: keep dossier opened so it doesn't require hover */
+      .dossier .fiche--missions { transform: rotate(-10deg) translate(-22px, -16px); }
+      .dossier .fiche--ats { transform: rotate(7deg) translate(22px, -10px); }
+    }
+  </style>
+</head>
+<body data-stripe-checkout-url="">
+
+  <!-- ====== NAV ====== -->
+  <nav class="nav" aria-label="Navigation principale">
+    <a class="brand" href="index.html">
+      <span class="mark">
+        <span class="tile" aria-hidden="true"></span>
+        <span class="glyph">O</span>
+      </span>
+      <span class="name">Outil Prepa</span>
+    </a>
+    <div class="nav-right">
+      <a class="nav-link" href="index.html">Comment ça marche</a>
+      <span class="nav-pill"><span class="dot"></span> Paiement sécurisé</span>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <!-- ====== HERO ====== -->
+    <section class="hero" data-screen-label="01 Hero">
+      <div class="hero-copy">
+        <span class="eyebrow">★ Abonnement Outil Prepa</span>
+        <h1>TRAVAILLE    CE QUI RAPPORTE.</h1>
+        <p class="lede">Outil Prepa transforme tes annales, tes priorités et ton objectif en un plan d'action clair. Tu ouvres l'app, tu sais quoi faire <em>maintenant</em>. Pas dans dix minutes de scroll.</p>
+
+        <div class="price-block">
+          <div class="price-card">
+            <span class="tape">Sans engagement</span>
+            <span class="meta">Tout l'accès</span>
+            <span class="amount">10&nbsp;€ <span class="per">/ mois</span></span>
+          </div>
+          <a href="#configurer-stripe" class="cta cta--big" data-checkout-button>
+            S'abonner maintenant
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+
+        <div class="trust-row">
+          <span class="trust-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
+            Paiement Stripe
+          </span>
+          <span class="trust-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg>
+            Annulable à tout moment
+          </span>
+          <span class="trust-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
+            Accès immédiat
+          </span>
+        </div>
+      </div>
+
+      <!-- DOSSIER hover -->
+      <div class="dossier" aria-label="Aperçu du cockpit Outil Prepa — survole pour ouvrir le dossier">
+        <div class="dossier-stage">
+
+          <!-- Back: ATS heatmap -->
+          <article class="fiche fiche--ats" aria-label="Carte de chaleur ATS">
+            <span class="fiche__tab">ATS</span>
+            <div class="fc-head">
+              <div class="fc-title">Poids des chapitres</div>
+              <span class="fc-pill">12 / 16</span>
+            </div>
+            <div class="heat-grid">
+              <div class="h4"></div><div class="h3"></div><div class="h2"></div><div class="h1"></div>
+              <div class="h2"></div><div class="h4"></div><div class="h3"></div><div class="h1"></div>
+              <div class="h1"></div><div class="h3"></div><div class="h4"></div><div class="h2"></div>
+              <div class="h3"></div><div class="h2"></div><div class="h1"></div><div class="h4"></div>
+            </div>
+            <div class="heat-legend">
+              <span class="sw" style="background: var(--stabilo-wash)"></span>peu
+              <span class="sw" style="background: var(--stabilo); margin-left:8px"></span>moyen
+              <span class="sw" style="background: var(--red); margin-left:8px"></span>fort
+            </div>
+          </article>
+
+          <!-- Back: Missions list -->
+          <article class="fiche fiche--missions" aria-label="Missions du jour">
+            <span class="fiche__tab">Missions</span>
+            <div class="fc-head">
+              <div class="fc-title">Aujourd'hui</div>
+              <span class="fc-pill">3 / 5</span>
+            </div>
+            <ul class="missions-list">
+              <li class="done"><span class="ck"></span><span class="lab">Annale Physique 2021 — Q3</span></li>
+              <li class="done"><span class="ck"></span><span class="lab">Maths · Séries entières</span></li>
+              <li class="done"><span class="ck"></span><span class="lab">Fiches : Optique géo</span></li>
+              <li><span class="ck"></span><span class="lab">Corriger DM Chimie</span></li>
+              <li><span class="ck"></span><span class="lab">Revoir Thermo (faible)</span></li>
+            </ul>
+          </article>
+
+          <!-- Front: Cockpit summary -->
+          <article class="fiche fiche--cockpit" aria-label="Cockpit du jour">
+            <span class="fiche__tab" style="background: var(--stabilo); color: var(--ink);">Cockpit</span>
+            <div class="fc-head">
+              <div class="fc-title">Lundi 12 — semaine 7</div>
+              <span class="fc-pill" style="background: var(--green-2)">+12%</span>
+            </div>
+            <div class="cockpit-row">
+              <div class="cockpit-stat cockpit-stat--accent">
+                <div class="k">Effort utile</div>
+                <div class="v">3h<small> / 4h</small></div>
+              </div>
+              <div class="cockpit-stat">
+                <div class="k">Priorité du jour</div>
+                <div class="v" style="font-size:14px;line-height:1.2">Thermo<br><small style="font-weight:700">Chap. 4 — poids 18%</small></div>
+              </div>
+            </div>
+            <div class="next-mission">
+              <div class="nm-num">→</div>
+              <div class="nm-text">
+                Annale 2022 · Thermo — partie B
+                <small>45 min · à faire maintenant</small>
+              </div>
+            </div>
+          </article>
+
+          <!-- Floating annotations -->
+          <span class="stamp">le bon chapitre, pas une liste infinie</span>
+          <span class="stamp-2">survole !</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ====== MARQUEE ====== -->
+  <div class="wrap">
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Priorités nettes</span><span class="star">★</span>
+        <span class="hl">Missions courtes</span><span class="star">★</span>
+        <span>Annales pondérées</span><span class="star">★</span>
+        <span class="hl">10 €/mois</span><span class="star">★</span>
+        <span>Annulable</span><span class="star">★</span>
+        <span class="hl">Sans engagement</span><span class="star">★</span>
+        <!-- duplicate for seamless scroll -->
+        <span>Priorités nettes</span><span class="star">★</span>
+        <span class="hl">Missions courtes</span><span class="star">★</span>
+        <span>Annales pondérées</span><span class="star">★</span>
+        <span class="hl">10 €/mois</span><span class="star">★</span>
+        <span>Annulable</span><span class="star">★</span>
+        <span class="hl">Sans engagement</span><span class="star">★</span>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <!-- ====== COMPARE — 10€/mois c'est… ====== -->
+    <section class="block" data-screen-label="02 Comparaisons">
+      <div class="section-head">
+        <span class="kicker">★ 10 € / MOIS — AU QUOTIDIEN</span>
+        <h2>Tu paies déjà plus cher pour beaucoup moins utile.</h2>
+        <p>Pas un argument marketing, juste un ordre de grandeur honnête.</p>
+      </div>
+
+      <div class="compare-grid">
+        <article class="compare compare--mcdo">
+          <div class="compare__visual">
+            <div class="label">UN MCDO</div>
+            <span class="price-strike">≈ <s>11 €</s></span>
+          </div>
+          <h3 class="compare__title">Tu le manges en 8 min.</h3>
+          <p class="compare__copy">Outil Prepa, tu l'utilises tous les jours pendant un mois — et tu gagnes 2h par semaine sur "qu'est-ce que je travaille maintenant ?".</p>
+        </article>
+
+        <article class="compare compare--netflix">
+          <div class="compare__visual">
+            <div class="label">Un mois de streaming</div>
+            <span class="price-strike">≈ <s>14 €</s></span>
+          </div>
+          <h3 class="compare__title">Tu regardes 3 séries.</h3>
+          <p class="compare__copy">Pendant ce mois-là, ton planning aurait pu se construire tout seul, basé sur les chapitres qui rapportent vraiment au concours.</p>
+        </article>
+
+        <article class="compare compare--book">
+          <div class="compare__visual">
+            <div class="label">Un manuel de prépa</div>
+            <span class="price-strike">≈ <s>32 €</s></span>
+          </div>
+          <h3 class="compare__title">TU N'AS PAS LE TEMPS DE L'UTILISER.</h3>
+          <p class="compare__copy">Un livre te donne un contenu. Outil Prepa te dit <em>lequel</em> ouvrir, <em>quand</em>, et combien de temps y passer. Méthode > volume.</p>
+        </article>
+      </div>
+
+      <div class="verdict">
+        <div class="verdict__inner">
+          <span>Soit</span>
+          <span class="big">~ 0,33 €</span>
+          <span>par jour<br>pour arrêter de bosser au hasard.</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ====== TRUST — confiance & sécurité ====== -->
+  <section class="trust-section" data-screen-label="03 Confiance">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">★ TRANSPARENCE</span>
+        <h2>UNE TRANSACTION BASÉE SUR L'HONNÊTETÉ.</h2>
+        <p>On ne stocke aucune donnée bancaire. On ne te vend pas du rêve. On te donne une méthode et un cockpit.</p>
+      </div>
+
+      <div class="trust-grid">
+        <article class="trust-main">
+          <div class="trust-stripe-row">
+            <span class="stripe-badge">
+              <svg class="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
+              Paiement traité par Stripe
+            </span>
+            <span style="font-family: var(--font-body); font-weight: 700; font-size: 13px; color: var(--ink-soft);">
+              Norme PCI-DSS. Mêmes rails que Shopify, Notion, OpenAI.
+            </span>
+          </div>
+
+          <ul class="trust-list">
+            <li>
+              <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-10"/></svg></span>
+              <div>
+                <strong>Aucune donnée bancaire chez nous.</strong>
+                <span class="copy">Ton numéro de carte ne touche jamais nos serveurs. Tout est géré côté Stripe.</span>
+              </div>
+            </li>
+            <li>
+              <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-10"/></svg></span>
+              <div>
+                <strong>Annulable à tout moment.</strong>
+                <span class="copy">Un clic depuis ton espace abonné. Pas de mail à envoyer, pas de "raison à donner".</span>
+              </div>
+            </li>
+            <li>
+              <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-10"/></svg></span>
+              <div>
+                <strong>Accès immédiat après paiement.</strong>
+                <span class="copy">Redirection directe vers ton cockpit. Pas d'attente, pas d'email de validation.</span>
+              </div>
+            </li>
+            <li>
+              <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-10"/></svg></span>
+              <div>
+                <strong>Facturation claire.</strong>
+                <span class="copy">10 € le même jour chaque mois. Reçu envoyé automatiquement, dispo dans Stripe.</span>
+              </div>
+            </li>
+          </ul>
+        </article>
+
+        <aside class="trust-aside">
+          <h3>Ce qu'on ne te vend pas.</h3>
+          <p class="honest">On ne te promet pas une mention. On ne te promet pas d'être à l'X. On ne fait pas de "IA magique qui apprend à ta place".</p>
+          <p class="honest">Outil Prepa = un cockpit pour la concentration. Il regarde ton programme, tes annales, ton temps — et te dit quoi faire maintenant. Le travail, c'est toi. La méthode, c'est nous.</p>
+          <span class="signature">— l'équipe Outil Prepa</span>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <main class="wrap">
+
+    <!-- ====== FEATURES — ce que tu obtiens ====== -->
+    <section class="block" data-screen-label="04 Inclus">
+      <div class="section-head">
+        <span class="kicker">★ Ce que tu obtiens dès l'abonnement</span>
+        <h2>Quatre outils, un seul fil rouge :<br>quoi faire <em>maintenant</em>.</h2>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feat feat--y">
+          <span class="feat__pin">priorité #1</span>
+          <div class="num">01</div>
+          <h3>Heatmap ATS</h3>
+          <p>Les chapitres classés par poids réel dans les annales — pas par intuition, pas par ordre du manuel.</p>
+        </article>
+        <article class="feat feat--b">
+          <span class="feat__pin">tous les jours</span>
+          <div class="num">02</div>
+          <h3>Missions courtes</h3>
+          <p>3 à 5 actions par jour, calibrées sur ton temps dispo. Tu ouvres l'app, tu fais, tu coches.</p>
+        </article>
+        <article class="feat feat--g">
+          <span class="feat__pin">vraie progression</span>
+          <div class="num">03</div>
+          <h3>Suivi honnête</h3>
+          <p>Pas de "streak" cosmétique. Un score qui mesure si tu travailles les bons chapitres au bon rythme.</p>
+        </article>
+        <article class="feat feat--o">
+          <span class="feat__pin">mode concours</span>
+          <div class="num">04</div>
+          <h3>Focus session</h3>
+          <p>Une mission, un timer, zéro distraction. Tu fermes l'app avec une chose finie, pas dix entamées.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ====== FINAL CTA ====== -->
+    <section class="final" data-screen-label="05 CTA final">
+      <div class="final-inner">
+        <span class="kicker">★ TES EFFORTS RECOMPENSÉS !!</span>
+        <h2 data-comment-anchor="8f3daf76e7-h2">10 €/mois pour arrêter de bosser <span class="hl" style="background-image: linear-gradient(transparent 58%, var(--stabilo) 58%, var(--stabilo) 96%, transparent 96%); padding: 0 6px;">au hasard</span>.</h2>
+        <p class="sub">Tu peux te désinscrire à tout moment, aucun engagement, service élève 24/7. </p>
+
+        <div class="final-actions">
+          <a href="#configurer-stripe" class="cta cta--stabilo cta--big" data-checkout-button>
+            S'abonner — 10&nbsp;€/mois
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
+          <a href="index.html" class="nav-link" style="padding: 18px 8px;">Voir comment ça marche</a>
+        </div>
+
+        <div class="final-foot">
+          paiement Stripe · annulable · TVA incluse · facture par email
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== Stripe setup pane (dev) ====== -->
+    <section id="configurer-stripe" class="block" style="padding-top: 0;">
+      <aside class="setup" id="checkout-setup" hidden>
+        <h3>Stripe à configurer</h3>
+        <p>Colle ici l'URL Payment Link Stripe de l'abonnement 10 €/mois. Elle sera stockée dans ce navigateur pour tester le flux.</p>
+        <form class="setup-form" data-checkout-config-form>
+          <label for="stripe-url">URL Payment Link</label>
+          <input id="stripe-url" name="stripe-url" type="url" placeholder="https://buy.stripe.com/..." autocomplete="off">
+          <button type="submit">Enregistrer</button>
+          <p class="setup-msg" data-checkout-message></p>
+        </form>
+      </aside>
+    </section>
+
+    <!-- ====== FOOT ====== -->
+    <footer class="foot">
+      <span>© Outil Prepa — fait pour les prépas qui veulent travailler juste.</span>
+      <span><a href="index.html">Accueil</a> · <a href="#configurer-stripe">Configurer Stripe</a> · <a href="mailto:hello@outilprepa.com">Contact</a></span>
+    </footer>
+  </main>
+
+  <script src="scripts/checkout.js"></script>
+</body>
+</html>

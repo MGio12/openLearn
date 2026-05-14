@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Outil Prepa - Paiement confirme</title>
+  <meta name="description" content="Confirmation de paiement Outil Prepa.">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      min-height: 100vh;
+      overflow: auto;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+    }
+
+    .success-wrap {
+      width: min(1040px, 100%);
+      display: grid;
+      grid-template-columns: 1fr 330px;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .success-main,
+    .success-side {
+      border: 3px solid var(--ink);
+      border-radius: 14px;
+      background: #FFFDF8;
+      box-shadow: 8px 8px 0 var(--ink);
+      padding: clamp(24px, 4vw, 44px);
+    }
+
+    .success-main {
+      background:
+        linear-gradient(135deg, rgba(244, 211, 94, .42), transparent 42%),
+        #FFFDF8;
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 32px;
+    }
+
+    .success-mark {
+      width: 72px;
+      height: 72px;
+      display: grid;
+      place-items: center;
+      border: 3px solid var(--ink);
+      border-radius: 16px;
+      background: var(--green);
+      box-shadow: 5px 5px 0 var(--ink);
+      font-family: var(--font-display);
+      font-size: 34px;
+      transform: rotate(-5deg);
+    }
+
+    .success-main h1 {
+      font-size: clamp(46px, 7vw, 84px);
+      max-width: 760px;
+    }
+
+    .success-main p {
+      max-width: 640px;
+      margin: 0;
+      font-size: 18px;
+      color: var(--ink-2);
+      font-weight: 700;
+    }
+
+    .success-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .success-side {
+      background: var(--paper-2);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .success-side h2 {
+      font-size: 26px;
+    }
+
+    .next-list {
+      display: grid;
+      gap: 12px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .next-list li {
+      border: 2.5px solid var(--ink);
+      border-radius: 10px;
+      background: #FFFDF8;
+      padding: 12px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.4;
+    }
+
+    .receipt-note {
+      margin-top: auto;
+      border-top: 2px solid rgba(18,18,18,.18);
+      padding-top: 14px;
+      font-family: var(--font-body);
+      font-size: 12px;
+      color: var(--ink-soft);
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 820px) {
+      .success-wrap {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="success-wrap">
+    <section class="success-main">
+      <div>
+        <div class="success-mark">OK</div>
+      </div>
+      <div>
+        <h1>Paiement confirme.</h1>
+        <p>Ton acces Outil Prepa est pret. Le cockpit peut maintenant servir de point d'entree abonne pour le parcours personnalise.</p>
+      </div>
+      <div class="success-actions">
+        <a class="op-btn op-btn--dark" href="index.html">Ouvrir le cockpit</a>
+        <a class="op-btn op-btn--ghost" href="ats.html">Voir les priorites ATS</a>
+      </div>
+    </section>
+
+    <aside class="success-side">
+      <h2>Prochaines etapes</h2>
+      <ul class="next-list">
+        <li>Verifier l'abonnement actif dans le dashboard Stripe.</li>
+        <li>Associer l'email Stripe a l'acces abonne quand le backend arrive.</li>
+        <li>Continuer vers la Phase 5 pour verrouiller le parcours personnalise.</li>
+      </ul>
+      <p class="receipt-note">Stripe envoie le recu et gere l'abonnement. Cette page confirme seulement le retour post-paiement.</p>
+    </aside>
+  </main>
+</body>
+</html>

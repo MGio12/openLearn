@@ -23,9 +23,9 @@
 
 ### Paiement
 
-- [ ] **PAY-01**: Landing page presentant l'offre (acces parcours personnalise) avec un bouton d'achat clair
+- [x] **PAY-01**: Landing page presentant l'offre (acces parcours personnalise) avec un bouton d'achat clair
 - [ ] **PAY-02**: Checkout Stripe s'ouvre et accepte un vrai paiement de 10EUR/mois (mode live ou test)
-- [ ] **PAY-03**: Page de confirmation post-paiement s'affiche et confirme l'acces
+- [x] **PAY-03**: Page de confirmation post-paiement s'affiche et confirme l'acces
 - [ ] **PAY-04**: Un abonnement actif est visible et trackable dans le dashboard Stripe
 
 ### Contenu
@@ -68,9 +68,9 @@
 | ATS-08 | Phase 2 | Complete |
 | ATS-09 | Phase 2 | Complete |
 | ATS-10 | Phase 2 | Complete |
-| PAY-01 | Phase 3 | Pending |
+| PAY-01 | Phase 3 | Complete |
 | PAY-02 | Phase 3 | Pending |
-| PAY-03 | Phase 3 | Pending |
+| PAY-03 | Phase 3 | Complete |
 | PAY-04 | Phase 3 | Pending |
 | CONTENT-01 | Phase 4 | Pending |
 | CONTENT-02 | Phase 4 | Pending |
