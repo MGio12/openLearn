@@ -101,32 +101,67 @@
       <div class="page-head">
         <div>
           <h1>Bonjour, Maïe.</h1>
-          <div class="sub">Lundi 13 mai · 4 missions aujourd'hui · 2h30 prévues</div>
+          <div class="sub">Lundi 13 mai · commence par une mission courte, puis on ajuste le reste.</div>
         </div>
         <button class="btn btn--dark">+ Nouvelle mission</button>
       </div>
 
-      <!-- Stats row -->
+      <section class="daily-brief daily-mission card" data-testid="daily-mission" data-contract="daily-mission" aria-labelledby="daily-brief-title">
+        <div class="card-head">
+          <div>
+            <div class="daily-brief__label">Mission du jour · Maths · maintenant</div>
+            <h3 id="daily-brief-title">Théorème de Rolle &amp; conséquences</h3>
+          </div>
+          <div class="actions support-signals" aria-label="Signaux de soutien">
+            <span class="chip" style="background:var(--stabilo)">45 min</span>
+            <span class="chip">Maîtrise 62%</span>
+            <span class="chip">Concours récurrents</span>
+          </div>
+        </div>
+        <p class="daily-reason" style="font-family:var(--font-body);font-size:15px;line-height:1.55;color:var(--ink);margin:0 0 18px;max-width:760px">
+          Aujourd'hui, le bon pari est de reprendre Rolle&nbsp;: c'est court, fréquent dans les sujets, et ton signal ATS indique une maîtrise encore fragile autour de 62%.
+        </p>
+        <div class="daily-brief__actions" style="display:flex;flex-direction:column;gap:10px;margin-bottom:18px">
+          <div class="daily-action mission-action" data-mission-action>
+            <span class="chip" style="background:var(--paper-2)">10 min</span>
+            <span>Relire l'énoncé clé et noter les hypothèses à ne pas oublier.</span>
+          </div>
+          <div class="daily-action mission-action" data-mission-action>
+            <span class="chip" style="background:var(--paper-2)">15 min</span>
+            <span>Refaire la démonstration sans support, lentement, comme au tableau.</span>
+          </div>
+          <div class="daily-action mission-action" data-mission-action>
+            <span class="chip" style="background:var(--paper-2)">20 min</span>
+            <span>Appliquer sur deux conséquences ou exercices liés au TAF.</span>
+          </div>
+        </div>
+        <div class="daily-brief__actions" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+          <a class="btn btn--dark" href="mission.html" style="text-decoration:none">Commencer la mission · 45 min</a>
+          <a class="btn btn--ghost" href="ats.html" style="text-decoration:none">Voir pourquoi c'est prioritaire</a>
+        </div>
+      </section>
+
+      <!-- Supporting signals row -->
       <div class="stats">
         <div class="stat stat--stabilo">
-          <div class="label">Régularité</div>
+          <div class="label">Signal régularité</div>
           <div class="value">7 j</div>
-          <div class="delta" style="color:#5C4A0A">+1 depuis hier</div>
+          <div class="delta" style="color:#5C4A0A">De l'élan pour une séance courte</div>
         </div>
         <div class="stat stat--blue">
-          <div class="label">Couverture ATS</div>
+          <div class="label">Signal ATS</div>
           <div class="value">73%</div>
-          <div class="delta" style="color:#3A5654">+8% cette semaine</div>
+          <div class="delta" style="color:#3A5654">Rolle reste prioritaire en maths</div>
         </div>
         <div class="stat stat--green">
-          <div class="label">Travail · semaine</div>
+          <div class="label">Temps déjà posé</div>
           <div class="value">12<span style="font-size:24px">h45</span></div>
-          <div class="delta" style="color:#3F5418">Objectif&nbsp;: 18h</div>
+          <div class="delta" style="color:#3F5418">45 min utiles maintenant</div>
         </div>
         <div class="stat stat--beige">
-          <div class="label">Missions terminées</div>
+          <div class="label">Reste de la semaine</div>
           <div class="value">18<span style="font-size:24px;color:var(--ink-soft)">/24</span></div>
-          <div class="delta" style="color:#6C4A28">Cette semaine</div>
+          <div class="delta" style="color:#6C4A28">Des missions en soutien, pas en urgence</div>
         </div>
       </div>
 
@@ -136,10 +171,10 @@
           <!-- Missions card -->
           <div class="card">
             <div class="card-head">
-              <h3>Missions du jour</h3>
+              <h3>Après cette mission</h3>
               <div class="actions">
-                <span class="chip">4 missions</span>
-                <span class="chip" style="background:var(--green)">1 terminée</span>
+                <span class="chip">3 prochaines</span>
+                <span class="chip" style="background:var(--green)">1 déjà faite</span>
               </div>
             </div>
             <div style="display:flex;flex-direction:column;gap:10px">
@@ -151,11 +186,11 @@
                 </div>
                 <div class="duration">45 min</div>
               </div>
-              <div class="mission" onclick="window.location.href='mission.html'">
-                <div class="check" onclick="event.stopPropagation()"></div>
+              <div class="mission">
+                <div class="check"></div>
                 <div class="meta">
-                  <div class="top"><span style="color:#5C4A0A">Maths · maintenant</span></div>
-                  <div class="title">Démontrer le théorème de Rolle &amp; conséquences</div>
+                  <div class="top"><span style="color:#5C4A0A">Maths · mission du jour</span></div>
+                  <div class="title"><a href="mission.html" style="color:inherit;text-decoration:none">Démontrer le théorème de Rolle &amp; conséquences</a></div>
                 </div>
                 <div class="duration">45 min</div>
               </div>
