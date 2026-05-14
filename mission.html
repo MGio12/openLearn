@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Outil Prepa — Mission · Théorème de Rolle</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Mission-page specific */
+    .crumb {
+      display: flex; align-items: center; gap: 8px;
+      font-family: var(--font-body); font-size: 12px; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-bottom: 12px;
+    }
+    .crumb a { color: inherit; text-decoration: none; }
+    .crumb a:hover { color: var(--ink); }
+
+    .mission-hero {
+      background: var(--stabilo);
+      border: 3px solid var(--ink);
+      border-radius: 18px;
+      box-shadow: 8px 8px 0 var(--ink);
+      padding: 32px 36px;
+      display: flex; flex-direction: column; gap: 22px;
+      margin-bottom: 28px;
+    }
+    .mission-hero .tags { display: flex; gap: 10px; flex-wrap: wrap; }
+    .mission-hero .tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 14px;
+      background: #FFFDF8;
+      border: 2.5px solid var(--ink); border-radius: 999px;
+      font-family: var(--font-body); font-weight: 800; font-size: 11px;
+      letter-spacing: .1em; text-transform: uppercase;
+    }
+    .mission-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 4.5vw, 52px);
+      line-height: 1.02; letter-spacing: -.01em; text-transform: uppercase;
+      margin: 0;
+    }
+    .mission-hero .why {
+      font-family: var(--font-body); font-size: 16px; color: var(--ink); line-height: 1.55;
+      max-width: 720px;
+    }
+    .mission-hero .meta-row {
+      display: flex; gap: 28px; flex-wrap: wrap;
+      padding-top: 14px;
+      border-top: 2px dashed rgba(18, 18, 18, 0.2);
+    }
+    .mission-hero .meta-row .item .lbl {
+      font-family: var(--font-body); font-size: 10px; font-weight: 800;
+      letter-spacing: .12em; text-transform: uppercase; color: #5C4A0A;
+    }
+    .mission-hero .meta-row .item .val {
+      font-family: var(--font-display); font-size: 22px;
+      line-height: 1.2; margin-top: 2px;
+    }
+
+    /* Sub-task checklist */
+    .checklist { display: flex; flex-direction: column; gap: 8px; }
+    .checklist .item {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 14px 16px;
+      background: var(--paper);
+      border: 2.5px solid var(--ink);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background .12s;
+    }
+    .checklist .item:hover { background: var(--paper-2); }
+    .checklist .item.done { background: var(--green); }
+    .checklist .item.done .label { opacity: .65; text-decoration: line-through; text-decoration-thickness: 2px; }
+    .checklist .item .box {
+      width: 22px; height: 22px; flex-shrink: 0; margin-top: 1px;
+      border: 2.5px solid var(--ink); border-radius: 6px;
+      background: #FFFDF8;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-size: 13px;
+    }
+    .checklist .item.done .box { background: var(--stabilo); }
+    .checklist .item .label {
+      font-family: var(--font-body); font-weight: 600; font-size: 15px;
+      line-height: 1.4;
+    }
+    .checklist .item .dur {
+      margin-left: auto; flex-shrink: 0;
+      font-family: var(--font-mono); font-size: 12px; color: var(--ink-soft);
+    }
+
+    /* Resources */
+    .resource {
+      display: flex; align-items: center; gap: 14px;
+      padding: 12px 14px;
+      background: var(--paper);
+      border: 2.5px solid var(--ink);
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--ink);
+      transition: background .12s;
+      cursor: pointer;
+    }
+    .resource:hover { background: var(--paper-2); }
+    .resource .ic {
+      width: 36px; height: 36px; flex-shrink: 0;
+      border: 2.5px solid var(--ink); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-size: 14px;
+    }
+    .resource .copy { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+    .resource .copy .name { font-family: var(--font-body); font-weight: 700; font-size: 14px; }
+    .resource .copy .meta { font-family: var(--font-body); font-size: 11px; color: var(--ink-soft); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+    .resource .arrow { color: var(--ink-soft); font-family: var(--font-display); }
+
+    /* Big primary action */
+    .start-block {
+      background: var(--ink); color: var(--paper);
+      border: 3px solid var(--ink);
+      border-radius: 14px;
+      box-shadow: 6px 6px 0 var(--ink);
+      padding: 22px 24px;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .start-block h3 {
+      font-family: var(--font-display); font-size: 20px;
+      text-transform: uppercase; letter-spacing: -.005em;
+      color: var(--paper); margin: 0;
+    }
+    .start-block .lede { font-family: var(--font-body); font-size: 13px; color: rgba(246, 242, 235, 0.7); line-height: 1.4; margin: 0; }
+    .start-block .start-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 14px 22px;
+      background: var(--stabilo); color: var(--ink);
+      border: 2.5px solid var(--ink); border-radius: 10px;
+      font-family: var(--font-body); font-weight: 800; font-size: 16px;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 4px 4px 0 var(--paper-2);
+      transition: transform .2s var(--ease-calm), box-shadow .2s;
+    }
+    .start-btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--paper-2); }
+    .start-block .alt { display: flex; gap: 8px; }
+    .start-block .alt button {
+      flex: 1;
+      font-family: var(--font-body); font-weight: 700; font-size: 12px;
+      padding: 8px 12px;
+      background: transparent; color: var(--paper);
+      border: 1.5px solid rgba(246, 242, 235, 0.3); border-radius: 8px;
+      cursor: pointer;
+    }
+    .start-block .alt button:hover { background: rgba(246, 242, 235, 0.08); }
+
+    /* Past performance bars */
+    .perf-row { display: flex; flex-direction: column; gap: 4px; }
+    .perf-row .top { display: flex; justify-content: space-between; font-family: var(--font-body); font-size: 12px; }
+    .perf-row .top .nm { font-weight: 700; }
+    .perf-row .top .pct { font-family: var(--font-mono); color: var(--ink-soft); }
+    .perf-row .bar { height: 8px; background: var(--paper-2); border: 1.5px solid var(--ink); border-radius: 999px; overflow: hidden; }
+    .perf-row .bar .fill { height: 100%; background: var(--blue-2); }
+
+    /* Next-up preview */
+    .next-up {
+      padding: 16px 18px;
+      background: var(--paper);
+      border: 2.5px dashed rgba(18, 18, 18, 0.35);
+      border-radius: 12px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .next-up .lbl {
+      font-family: var(--font-body); font-size: 10px; font-weight: 800;
+      letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft);
+    }
+    .next-up .title { font-family: var(--font-body); font-weight: 700; font-size: 14px; line-height: 1.4; }
+    .next-up .meta { font-family: var(--font-body); font-size: 11px; color: var(--ink-mute); display: flex; gap: 12px; }
+  </style>
+</head>
+<body>
+
+<div class="app">
+  <!-- Sidebar (same shell) -->
+  <aside class="sidebar">
+    <div class="sb-brand">
+      <span class="mark"><span class="tile"></span><span class="glyph">O</span></span>
+      <span class="name">Outil Prepa</span>
+    </div>
+    <div class="sb-group">
+      <div class="head">Cockpit</div>
+      <a href="index.html" class="sb-item active" style="text-decoration:none">
+        <span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg></span>
+        Aujourd'hui
+      </a>
+      <a href="index.html" class="sb-item" style="text-decoration:none">
+        <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
+        Planning
+      </a>
+      <a href="index.html" class="sb-item" style="text-decoration:none">
+        <span class="ic"><svg viewBox="0 0 24 24"><path d="M3 17l4-4 4 4 5-7 5 7"/><path d="M3 21h18"/></svg></span>
+        Progression
+      </a>
+      <a href="focus.html" class="sb-item" style="text-decoration:none">
+        <span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+        Focus
+      </a>
+    </div>
+    <div class="sb-group">
+      <div class="head">Travail</div>
+      <a href="ats.html" class="sb-item" style="text-decoration:none">
+        <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>
+        ATS
+      </a>
+      <div class="sb-item">
+        <span class="ic"><svg viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 012-2h11l3 3v13a2 2 0 01-2 2H6a2 2 0 01-2-2z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span>
+        Fiches
+      </div>
+      <div class="sb-item">
+        <span class="ic"><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18.5 21 12 17l-6.5 4 2-7.5L2 9h7z"/></svg></span>
+        Annales
+      </div>
+    </div>
+    <div class="sb-profile">
+      <div class="av">MD</div>
+      <div class="who">
+        <span class="nm">Maïe Durand</span>
+        <span class="role">MPSI · 1ère année</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="main">
+    <header class="topbar">
+      <div class="search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input type="text" placeholder="Chercher…" />
+      </div>
+      <span class="spacer"></span>
+      <div class="icon-btn"><svg viewBox="0 0 24 24"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5z"/></svg></div>
+      <div class="icon-btn"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0112 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 003.4 0"/></svg><span class="badge">2</span></div>
+      <div class="me"><div class="av">MD</div><span class="nm">Maïe</span></div>
+    </header>
+
+    <section class="view active" data-screen-label="Mission Detail">
+      <div class="crumb">
+        <a href="index.html">Aujourd'hui</a> · Mission 2 sur 4
+      </div>
+
+      <!-- ============ MISSION HERO ============ -->
+      <div class="mission-hero">
+        <div class="tags">
+          <span class="tag">Maths · analyse</span>
+          <span class="tag">Démonstration</span>
+          <span class="tag" style="background:var(--ink);color:var(--stabilo);border-color:var(--ink)">★ Prioritaire</span>
+        </div>
+        <h1>Théorème de Rolle<br/>&amp; ses conséquences</h1>
+        <p class="why">Ce chapitre est tombé à <strong>6 concours sur 6</strong> ces 6 dernières années. C'est l'une des bases sur lesquelles s'appuient les démonstrations du théorème des accroissements finis et de la formule de Taylor — qui tombent aussi régulièrement.</p>
+        <div class="meta-row">
+          <div class="item">
+            <div class="lbl">Durée estimée</div>
+            <div class="val">45 min</div>
+          </div>
+          <div class="item">
+            <div class="lbl">Difficulté</div>
+            <div class="val">● ● ○</div>
+          </div>
+          <div class="item">
+            <div class="lbl">Ta maîtrise actuelle</div>
+            <div class="val">62%</div>
+          </div>
+          <div class="item">
+            <div class="lbl">Prévu pour</div>
+            <div class="val">Maintenant</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ SPLIT ============ -->
+      <div class="split">
+        <!-- Left: checklist + resources -->
+        <div style="display:flex;flex-direction:column;gap:24px">
+          <div class="card">
+            <div class="card-head">
+              <h3>Étapes de la mission</h3>
+              <div style="display:flex;gap:8px">
+                <span class="chip">4 étapes</span>
+                <span class="chip" style="background:var(--green)">1 terminée</span>
+              </div>
+            </div>
+            <div class="checklist">
+              <div class="item done">
+                <div class="box">✓</div>
+                <div class="label">Relire l'énoncé du théorème dans le cours</div>
+                <div class="dur">5 min</div>
+              </div>
+              <div class="item">
+                <div class="box"></div>
+                <div class="label">Comprendre les hypothèses — continuité sur [a,b], dérivabilité sur ]a,b[</div>
+                <div class="dur">10 min</div>
+              </div>
+              <div class="item">
+                <div class="box"></div>
+                <div class="label">Rédiger la démonstration au propre, sans regarder le cours</div>
+                <div class="dur">15 min</div>
+              </div>
+              <div class="item">
+                <div class="box"></div>
+                <div class="label">Faire l'exercice 4 du polycopié — application directe</div>
+                <div class="dur">15 min</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head"><h3>Ressources liées</h3></div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <a class="resource">
+                <div class="ic" style="background:var(--blue)">F</div>
+                <div class="copy">
+                  <span class="name">Fiche · Théorèmes d'analyse · Rolle, TAF, Taylor</span>
+                  <span class="meta">3 pages · révisée 2 fois</span>
+                </div>
+                <span class="arrow">→</span>
+              </a>
+              <a class="resource">
+                <div class="ic" style="background:var(--beige)">P</div>
+                <div class="copy">
+                  <span class="name">Polycopié Maths · chapitre 7 §3</span>
+                  <span class="meta">Cours officiel · 8 pages</span>
+                </div>
+                <span class="arrow">→</span>
+              </a>
+              <a class="resource">
+                <div class="ic" style="background:var(--green)">A</div>
+                <div class="copy">
+                  <span class="name">Annales · Mines-Ponts 2023 · partie I</span>
+                  <span class="meta">Application directe · corrigé inclus</span>
+                </div>
+                <span class="arrow">→</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: action + context -->
+        <div style="display:flex;flex-direction:column;gap:24px">
+          <!-- Big primary action -->
+          <div class="start-block">
+            <h3>Prête à commencer&nbsp;?</h3>
+            <p class="lede">25 minutes de focus, notifications coupées, lofi en fond. Tu peux t'arrêter quand tu veux.</p>
+            <a href="focus.html" class="start-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+              Commencer le focus · 25 min
+            </a>
+            <div class="alt">
+              <button>Plus tard</button>
+              <button>Reporter à demain</button>
+            </div>
+          </div>
+
+          <!-- Past performance -->
+          <div class="card">
+            <div class="card-head"><h3>Sur des sujets proches</h3></div>
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <div class="perf-row">
+                <div class="top"><span class="nm">Suites &amp; séries</span><span class="pct">88%</span></div>
+                <div class="bar"><div class="fill" style="width:88%"></div></div>
+              </div>
+              <div class="perf-row">
+                <div class="top"><span class="nm">Limites &amp; continuité</span><span class="pct">79%</span></div>
+                <div class="bar"><div class="fill" style="width:79%"></div></div>
+              </div>
+              <div class="perf-row">
+                <div class="top"><span class="nm">Dérivation</span><span class="pct">71%</span></div>
+                <div class="bar"><div class="fill" style="width:71%"></div></div>
+              </div>
+            </div>
+            <p style="font-family:var(--font-body);font-size:13px;color:var(--ink-soft);margin:0;line-height:1.5">Tu maîtrises bien les bases. La démonstration ne devrait pas te poser de problème — concentre-toi sur la rigueur de la rédaction.</p>
+          </div>
+
+          <!-- Next up -->
+          <div class="next-up">
+            <span class="lbl">Mission suivante · 14h00</span>
+            <span class="title">La Princesse de Clèves — relecture chapitre 4</span>
+            <span class="meta"><span>Français</span><span>30 min</span><span>Lecture calme</span></span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script>
+  // Checklist toggle
+  document.querySelectorAll('.checklist .item').forEach(item => {
+    item.addEventListener('click', () => {
+      item.classList.toggle('done');
+      const box = item.querySelector('.box');
+      box.textContent = item.classList.contains('done') ? '✓' : '';
+    });
+  });
+</script>
+
+</body>
+</html>

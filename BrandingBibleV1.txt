@@ -1,0 +1,721 @@
+OUTIL PREPA — BRANDING BIBLE V1
+Vision du produit
+
+Outil Prepa n’est pas simplement une application éducative.
+
+C’est un environnement de progression pour étudiants ambitieux.
+
+Le produit doit donner la sensation de :
+
+reprendre le contrôle,
+voir clairement sa progression,
+réduire la surcharge mentale,
+travailler dans un environnement calme et maîtrisé,
+construire une discipline durable.
+
+Le produit ne doit jamais ressembler à :
+
+un LMS froid,
+un SaaS corporate,
+un clone Notion,
+une app gaming,
+une plateforme “fun étudiant”.
+
+La sensation cible :
+
+“Un cockpit de travail premium pour étudiant sérieux.”
+
+1. BRAND POSITIONING
+Ce qu’Outil Prepa vend réellement
+
+Outil Prepa ne vend pas :
+
+des quiz,
+des fiches,
+des statistiques,
+des PDF.
+
+Outil Prepa vend :
+
+de la clarté mentale,
+de la maîtrise,
+de la progression visible,
+de l’organisation,
+une meilleure version de l’étudiant.
+2. CORE BRAND VALUES
+1. Calm
+
+Le produit doit toujours sembler :
+
+calme,
+respirant,
+non agressif,
+stable.
+
+Jamais :
+
+saturé,
+bruyant,
+anxiogène,
+hyper-animé.
+2. Strategic
+
+Chaque élément doit sembler :
+
+utile,
+réfléchi,
+intelligent,
+orienté décision.
+
+Le produit doit aider à :
+
+prioriser,
+organiser,
+comprendre,
+agir.
+3. Premium Human
+
+Le produit doit sembler :
+
+haut de gamme,
+éditorial,
+tangible,
+chaleureux.
+
+Pas :
+
+luxe froid,
+Apple copycat,
+corporate.
+4. Academic
+
+L’identité doit rappeler :
+
+un vrai travail sérieux,
+un bureau étudiant,
+des cahiers,
+des annotations,
+des outils de concentration.
+
+Mais de manière modernisée.
+
+3. VISUAL IDENTITY
+Sensation visuelle globale
+
+Le produit doit évoquer :
+
+un bureau cozy,
+un cahier haut de gamme,
+une ambiance lofi studieuse,
+une interface moderne et tangible.
+
+Inspirations visuelles :
+
+Linear
+Didasko
+Lofi Girl
+dashboards éditoriaux modernes
+interfaces print/comics premium
+4. COLOR SYSTEM V1
+Main Background
+
+Papier chaud principal :
+
+#F6F2EB
+
+Jamais blanc pur.
+
+Secondary Surface
+
+#EFE7DC
+
+Utilisation :
+
+panels,
+surfaces secondaires,
+hover subtils,
+sections.
+Text
+Primary Text
+
+#121212
+
+Pas noir absolu.
+
+Secondary Text
+
+#5F5B57
+
+Évite les gris froids type startup SaaS.
+
+Primary Brand Color
+Stabilo Premium
+
+#F4D35E
+
+Utilisation :
+
+CTA,
+highlights,
+active states,
+progression importante.
+
+Très forte couleur.
+À utiliser avec parcimonie.
+
+Data Colors
+Soft Academic Blue
+
+#C7D9D7
+
+Analytics, dashboards, graphes.
+
+Focus Green
+
+#D8E6C3
+
+Validation, progression, streaks.
+
+Study Orange
+
+#F4A261
+
+Temps de travail, énergie, focus.
+
+Notebook Beige
+
+#E8C7A9
+
+Notes, cartes éducatives, contenu secondaire.
+
+Controlled Red
+
+#D96C5F
+
+Alertes importantes.
+
+Jamais agressif.
+
+5. TYPOGRAPHY SYSTEM
+Headings
+Primary Font
+
+Archivo Black
+
+Pourquoi :
+
+massif,
+mémorable,
+moderne,
+académique,
+branding fort.
+Body Font
+Plus Jakarta Sans
+
+Pourquoi :
+
+humain,
+lisible,
+premium,
+chaleureux,
+excellent en UI.
+Handwriting Accent Font
+Caveat
+
+ou
+
+Kalam
+
+Usage extrêmement rare.
+
+Uniquement :
+
+onboarding,
+annotations,
+storytelling,
+micro-motion.
+
+Jamais comme vraie UI.
+
+6. TYPO SCALE
+Landing
+H1
+
+72–96px
+
+Très massif.
+
+H2
+
+48–64px
+
+H3
+
+32–40px
+
+Dashboard
+Titles
+
+20–28px
+
+Body
+
+16–18px
+
+Small UI
+
+14px
+
+7. COMPONENT LANGUAGE V1
+Borders
+
+Toujours :
+
+noires,
+visibles,
+assumées.
+
+Desktop :
+
+3px
+
+Mobile :
+
+2px
+
+Jamais :
+
+border grise subtile,
+glassmorphism,
+blur moderne.
+Shadows
+
+Signature du produit.
+
+Toujours :
+
+shadow noire nette,
+offset uniquement,
+aucun blur.
+
+Exemple :
+
+box-shadow: 6px 6px 0px #111111;
+
+Hover :
+
+transform: translate(2px, 2px);
+box-shadow: 4px 4px 0px #111111;
+Buttons
+
+Les boutons doivent sembler :
+
+tangibles,
+imprimés,
+physiques,
+ultra lisibles.
+CTA primaire
+fond jaune stabilo,
+texte noir bold,
+border noire,
+shadow offset.
+
+Jamais :
+
+glow,
+gradients flashy,
+animations excessives.
+Cards
+
+Les cartes doivent être :
+
+respirantes,
+structurées,
+très lisibles,
+tangibles.
+
+Style :
+
+coins légèrement arrondis,
+border noire,
+fond pastel,
+shadow offset.
+
+Le contenu doit être :
+
+data-centric,
+hiérarchisé,
+simple à scanner.
+8. BACKGROUND SYSTEM
+Quadrillage
+
+Élément très important.
+
+Le fond doit rappeler :
+
+du papier technique,
+du papier millimétré premium,
+un cahier haut de gamme.
+
+Mais :
+
+extrêmement subtil,
+faible opacité,
+jamais décoratif.
+
+Le fond sert :
+
+la profondeur,
+pas l’attention.
+
+9. DASHBOARD PHILOSOPHY
+Règle principale
+
+Le dashboard ne doit jamais provoquer :
+
+surcharge cognitive,
+fatigue visuelle,
+chaos.
+Focus-based UI
+
+L’utilisateur choisit une vue :
+
+progression,
+planning,
+missions,
+ATS,
+statistiques,
+focus.
+
+Et l’interface s’adapte.
+
+Le dashboard doit sembler :
+
+intelligent,
+organisé,
+calme,
+maîtrisé.
+Density Rules
+
+Maximum :
+
+1 information principale par bloc,
+hiérarchie ultra claire,
+beaucoup d’espace négatif.
+
+Jamais :
+
+20 métriques visibles simultanément,
+dashboards “finance crypto”,
+murs de données.
+10. NAVIGATION PHILOSOPHY
+Maximum 3 niveaux de profondeur
+
+L’utilisateur ne doit jamais se perdre.
+
+Navigation cible
+sidebar claire,
+catégories simples,
+transitions rapides,
+retour arrière évident.
+UX Principle
+
+L’utilisateur doit toujours savoir :
+
+où il est,
+ce qu’il doit faire,
+ce qui est important.
+11. GAMIFICATION PHILOSOPHY
+Gamification discrète
+
+Objectif :
+
+motiver sans infantiliser.
+
+Ce qu’on veut
+streaks subtils,
+progression visible,
+couverture ATS,
+missions validées,
+heatmaps,
+radar de maîtrise.
+Ce qu’on refuse
+XP partout,
+badges Fortnite,
+effets néon,
+“LEVEL UP!!!”,
+dopamine agressive.
+Sensation recherchée
+
+“Je progresse réellement.”
+
+Pas :
+
+“je joue à une app.”
+
+12. IA PHILOSOPHY
+Positionnement IA
+
+L’IA n’est PAS le héros du produit.
+
+Le héros :
+
+c’est l’étudiant.
+
+L’IA doit être
+calme,
+stratégique,
+silencieuse,
+utile,
+contextuelle.
+L’IA ne doit jamais être
+cartoon,
+intrusive,
+bavarde,
+mascotte principale.
+Positionnement exact
+
+“Calm Strategic Assistant”
+
+Mission réelle de l’IA
+
+Réduire la fatigue mentale.
+
+Exemples d’utilisation
+planning intelligent,
+réorganisation automatique,
+priorisation,
+intégration Google Calendar,
+recommandations stratégiques,
+adaptation au niveau réel.
+13. ONBOARDING PHILOSOPHY
+Objectif
+
+Créer un engagement psychologique progressif.
+
+Pas simplement créer un compte.
+
+STEP 1 — Projection
+
+Questionner l’objectif :
+
+intégrer une grande école,
+retrouver confiance,
+arrêter de subir,
+devenir régulier,
+majorer.
+STEP 2 — Contexte
+filière,
+année,
+concours,
+niveau ressenti,
+matières fortes/faibles.
+
+Ton :
+
+conversationnel,
+calme,
+rassurant.
+STEP 3 — Rythme réaliste
+
+Jamais :
+
+“Combien d’heures veux-tu travailler ?”
+
+Mais :
+
+“Quel rythme semble réaliste pour toi ?”
+
+STEP 4 — Projection émotionnelle
+
+Montrer :
+
+dashboard,
+progression,
+focus mode,
+missions,
+ambiance.
+
+L’utilisateur doit se projeter dans un environnement.
+
+STEP 5 — Première victoire immédiate
+
+L’utilisateur doit :
+
+réussir quelque chose,
+ressentir une mini progression,
+comprendre le système.
+STEP 6 — Email plus tard
+
+L’inscription arrive après l’investissement psychologique.
+
+14. ONBOARDING INTERACTION RULES
+Zéro friction inutile
+
+Les choix doivent fonctionner :
+
+en un clic,
+validation immédiate,
+transition automatique.
+Pas de bouton “Suivant”
+
+Le clic sur une option valide immédiatement la réponse.
+
+Feedback visuel
+
+Chaque choix déclenche :
+
+légère animation,
+changement de couleur,
+confirmation instantanée.
+Retour arrière possible
+
+Toujours.
+
+Mais jamais lourd.
+
+Important
+
+Ne jamais montrer :
+
+“Question 2/14”
+progression froide.
+
+L’expérience doit sembler fluide et naturelle.
+
+15. MOTION SYSTEM
+Motion Philosophy
+
+Les animations doivent :
+
+respirer,
+ralentir le rythme,
+guider l’attention.
+
+Pas divertir.
+
+Style
+transitions douces,
+mouvement lent,
+micro-interactions sobres,
+animations contextuelles.
+Interdits
+motion agressive,
+bounce excessif,
+flashy,
+sur-animation.
+16. LANDING PHILOSOPHY
+La landing ne vend pas une app
+
+Elle vend :
+
+une future version de l’utilisateur.
+
+Hero Experience
+
+Landing immersive avec :
+
+bureau cozy,
+ambiance focus,
+dashboard vivant,
+pluie légère,
+lumière chaude,
+cahier,
+écran actif.
+Direction visuelle
+
+POV semi-immersif :
+
+angle 3/4 arrière,
+bureau visible,
+environnement vivant,
+inspiration lofi.
+Important
+
+L’utilisateur doit ressentir :
+
+“J’ai envie de m’installer et travailler.”
+
+Pas :
+
+“Regarde mon animation cool.”
+
+17. LANDING STRUCTURE
+Structure cible
+Hero immersif
+Démonstration produit silencieuse
+Projection émotionnelle
+Focus sur clarté/progression
+Responsive proof
+Fonctionnalités principales
+IA stratégique
+Social proof
+CTA calme et premium
+18. MULTI DEVICE STRATEGY
+
+Le produit doit sembler :
+
+natif,
+cohérent,
+premium sur tous supports.
+
+Afficher rapidement :
+
+desktop,
+tablette,
+mobile.
+
+Sur la landing.
+
+19. LONG TERM ECOSYSTEM VISION
+
+Outil Prepa peut devenir :
+
+un OS de travail étudiant,
+un environnement de focus,
+un système de progression,
+une identité étudiante.
+
+Extensions possibles :
+
+focus rooms,
+Chrome extension,
+musique,
+communauté,
+travail collaboratif,
+réputation académique,
+analytics avancées.
+20. MVP DISCIPLINE
+Danger principal
+
+Over-design et complexification.
+
+Règle absolue
+
+Toujours prioriser :
+
+utilité réelle,
+clarté,
+simplicité,
+vitesse de shipping.
+
+Avant :
+
+perfection visuelle,
+fonctionnalités secondaires,
+écosystème complet.
+21. FINAL BRAND PRINCIPLE
+
+Chaque écran doit donner la sensation :
+
+d’être plus organisé,
+plus calme,
+plus concentré,
+plus stratégique,
+plus en contrôle de son année.
+
+La DA ne doit jamais exister seule.
+
+Elle doit toujours servir :
+
+la progression réelle de l’étudiant.

@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Outil Prepa — Cockpit</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="app">
+  <!-- ============================================================ SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sb-brand">
+      <span class="mark"><span class="tile"></span><span class="glyph">O</span></span>
+      <span class="name">Outil Prepa</span>
+    </div>
+
+    <div class="sb-group">
+      <div class="head">Cockpit</div>
+      <div class="sb-item active" data-view="today">
+        <span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg></span>
+        Aujourd'hui
+      </div>
+      <div class="sb-item" data-view="planning">
+        <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
+        Planning
+      </div>
+      <div class="sb-item" data-view="progress">
+        <span class="ic"><svg viewBox="0 0 24 24"><path d="M3 17l4-4 4 4 5-7 5 7"/><path d="M3 21h18"/></svg></span>
+        Progression
+      </div>
+      <a href="focus.html" class="sb-item" style="text-decoration:none">
+        <span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+        Focus
+      </a>
+    </div>
+
+    <div class="sb-group">
+      <div class="head">Travail</div>
+      <a href="ats.html" class="sb-item" style="text-decoration:none">
+        <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>
+        ATS
+        <span class="count">3</span>
+      </a>
+      <div class="sb-item">
+        <span class="ic"><svg viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 012-2h11l3 3v13a2 2 0 01-2 2H6a2 2 0 01-2-2z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span>
+        Fiches
+      </div>
+      <div class="sb-item">
+        <span class="ic"><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18.5 21 12 17l-6.5 4 2-7.5L2 9h7z"/></svg></span>
+        Annales
+      </div>
+    </div>
+
+    <div class="sb-group">
+      <div class="head">Réglages</div>
+      <div class="sb-item">
+        <span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6 1.65 1.65 0 0010 3.09V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06A1.65 1.65 0 0019.4 9c.14.32.4.59.73.73h.09a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></span>
+        Préférences
+      </div>
+    </div>
+
+    <div class="sb-profile">
+      <div class="av">MD</div>
+      <div class="who">
+        <span class="nm">Maïe Durand</span>
+        <span class="role">MPSI · 1ère année</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============================================================ MAIN -->
+  <div class="main">
+    <!-- top bar -->
+    <header class="topbar">
+      <div class="search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input type="text" placeholder="Chercher un chapitre, une fiche, une notion…" />
+      </div>
+      <span class="spacer"></span>
+      <div class="icon-btn" title="IA">
+        <svg viewBox="0 0 24 24"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5z"/><path d="M5 16l1 2 2 1-2 1-1 2-1-2-2-1 2-1z"/></svg>
+      </div>
+      <div class="icon-btn" title="Notifications">
+        <svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0112 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 003.4 0"/></svg>
+        <span class="badge">2</span>
+      </div>
+      <div class="me">
+        <div class="av">MD</div>
+        <span class="nm">Maïe</span>
+      </div>
+    </header>
+
+    <!-- ============================================================ TODAY VIEW -->
+    <section class="view active" id="view-today" data-screen-label="01 Today">
+      <div class="page-head">
+        <div>
+          <h1>Bonjour, Maïe.</h1>
+          <div class="sub">Lundi 13 mai · 4 missions aujourd'hui · 2h30 prévues</div>
+        </div>
+        <button class="btn btn--dark">+ Nouvelle mission</button>
+      </div>
+
+      <!-- Stats row -->
+      <div class="stats">
+        <div class="stat stat--stabilo">
+          <div class="label">Régularité</div>
+          <div class="value">7 j</div>
+          <div class="delta" style="color:#5C4A0A">+1 depuis hier</div>
+        </div>
+        <div class="stat stat--blue">
+          <div class="label">Couverture ATS</div>
+          <div class="value">73%</div>
+          <div class="delta" style="color:#3A5654">+8% cette semaine</div>
+        </div>
+        <div class="stat stat--green">
+          <div class="label">Travail · semaine</div>
+          <div class="value">12<span style="font-size:24px">h45</span></div>
+          <div class="delta" style="color:#3F5418">Objectif&nbsp;: 18h</div>
+        </div>
+        <div class="stat stat--beige">
+          <div class="label">Missions terminées</div>
+          <div class="value">18<span style="font-size:24px;color:var(--ink-soft)">/24</span></div>
+          <div class="delta" style="color:#6C4A28">Cette semaine</div>
+        </div>
+      </div>
+
+      <!-- Split: missions + side column -->
+      <div class="split">
+        <div style="display:flex;flex-direction:column;gap:24px">
+          <!-- Missions card -->
+          <div class="card">
+            <div class="card-head">
+              <h3>Missions du jour</h3>
+              <div class="actions">
+                <span class="chip">4 missions</span>
+                <span class="chip" style="background:var(--green)">1 terminée</span>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div class="mission done">
+                <div class="check">✓</div>
+                <div class="meta">
+                  <div class="top"><span>Physique · 8h00</span></div>
+                  <div class="title">Mouvements à force centrale — exercices 4 et 5</div>
+                </div>
+                <div class="duration">45 min</div>
+              </div>
+              <div class="mission" onclick="window.location.href='mission.html'">
+                <div class="check" onclick="event.stopPropagation()"></div>
+                <div class="meta">
+                  <div class="top"><span style="color:#5C4A0A">Maths · maintenant</span></div>
+                  <div class="title">Démontrer le théorème de Rolle &amp; conséquences</div>
+                </div>
+                <div class="duration">45 min</div>
+              </div>
+              <div class="mission">
+                <div class="check"></div>
+                <div class="meta">
+                  <div class="top"><span>Français · 14h00</span></div>
+                  <div class="title">La Princesse de Clèves — relecture chapitre 4</div>
+                </div>
+                <div class="duration">30 min</div>
+              </div>
+              <div class="mission">
+                <div class="check"></div>
+                <div class="meta">
+                  <div class="top"><span>Chimie · 16h30</span></div>
+                  <div class="title">Cinétique des réactions — fiche révision</div>
+                </div>
+                <div class="duration">30 min</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Weekly bar chart -->
+          <div class="card">
+            <div class="card-head">
+              <h3>Heures de travail</h3>
+              <div class="actions">
+                <span class="chip">Cette semaine</span>
+              </div>
+            </div>
+            <div class="bars">
+              <div class="bar"><div class="col"><div class="seg" style="height:55%"></div></div><div class="label">L</div></div>
+              <div class="bar"><div class="col"><div class="seg" style="height:78%"></div></div><div class="label">M</div></div>
+              <div class="bar"><div class="col"><div class="seg" style="height:35%;background:var(--beige)"></div></div><div class="label">M</div></div>
+              <div class="bar"><div class="col"><div class="seg" style="height:88%"></div></div><div class="label">J</div></div>
+              <div class="bar"><div class="col"><div class="seg" style="height:62%"></div></div><div class="label">V</div></div>
+              <div class="bar"><div class="col"><div class="seg" style="height:48%;background:var(--beige)"></div></div><div class="label">S</div></div>
+              <div class="bar"><div class="col"><div class="seg" style="height:16%;background:var(--paper-3)"></div></div><div class="label">D</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- right column -->
+        <div style="display:flex;flex-direction:column;gap:24px">
+          <!-- IA suggestion -->
+          <div class="ia">
+            <div class="head">
+              <div class="av">IA</div>
+              <span class="tag">Suggestion · ce matin</span>
+            </div>
+            <div class="body">J'ai déplacé ta séance de physique à demain matin — tu seras plus frais. Veux-tu que je rééquilibre la fin de semaine&nbsp;?</div>
+            <div class="actions">
+              <button class="btn">Appliquer</button>
+              <button class="btn btn--ghost">Ignorer</button>
+            </div>
+          </div>
+
+          <!-- ATS coverage -->
+          <div class="card">
+            <div class="card-head">
+              <h3>Couverture ATS</h3>
+            </div>
+            <div style="display:flex;align-items:center;gap:18px">
+              <svg width="100" height="100" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="40" fill="none" stroke="#EFE7DC" stroke-width="12"/>
+                <circle cx="50" cy="50" r="40" fill="none" stroke="#121212" stroke-width="12" stroke-dasharray="184 252" transform="rotate(-90 50 50)"/>
+                <text x="50" y="48" text-anchor="middle" font-family="Archivo Black, sans-serif" font-size="20" fill="#121212">73%</text>
+                <text x="50" y="64" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="9" font-weight="700" letter-spacing="0.1em" fill="#5F5B57">CIBLE 85%</text>
+              </svg>
+              <div style="flex:1;display:flex;flex-direction:column;gap:8px;font-family:var(--font-body);font-size:13px">
+                <div style="display:flex;justify-content:space-between"><span>Maths</span><span style="font-family:var(--font-mono);color:var(--ink-soft)">86%</span></div>
+                <div style="display:flex;justify-content:space-between"><span>Physique</span><span style="font-family:var(--font-mono);color:var(--ink-soft)">71%</span></div>
+                <div style="display:flex;justify-content:space-between"><span>Chimie</span><span style="font-family:var(--font-mono);color:var(--ink-soft)">62%</span></div>
+                <div style="display:flex;justify-content:space-between"><span>Français</span><span style="font-family:var(--font-mono);color:var(--ink-soft)">74%</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Streak card -->
+          <div class="card" style="background:var(--stabilo)">
+            <div class="card-head"><h3>Régularité</h3></div>
+            <div style="display:flex;align-items:center;gap:18px">
+              <div style="font-family:var(--font-display);font-size:64px;line-height:1;letter-spacing:-.02em">7</div>
+              <div>
+                <div style="font-family:var(--font-body);font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase">Jours d'affilée</div>
+                <div style="font-family:var(--font-body);font-size:13px;color:#5C4A0A;line-height:1.5;margin-top:4px">Tu es à 4 jours de ton record (11 jours).</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ PLANNING VIEW -->
+    <section class="view" id="view-planning" data-screen-label="02 Planning">
+      <div class="page-head">
+        <div>
+          <h1>Planning</h1>
+          <div class="sub">Semaine du lundi 13 mai · ajustée par l'IA il y a 2 h</div>
+        </div>
+        <div style="display:flex;gap:10px">
+          <button class="btn btn--ghost">‹ Sem. précédente</button>
+          <button class="btn">Demander à l'IA</button>
+        </div>
+      </div>
+
+      <div class="cal">
+        <div></div>
+        <div class="col-head">Lun 13</div>
+        <div class="col-head">Mar 14</div>
+        <div class="col-head">Mer 15</div>
+        <div class="col-head">Jeu 16</div>
+        <div class="col-head">Ven 17</div>
+        <div class="col-head" style="opacity:.5">Sam 18</div>
+        <div class="col-head" style="opacity:.5">Dim 19</div>
+
+        <div class="row-head">08:00</div>
+        <div class="cell"></div>
+        <div class="evt evt--maths"><span class="who">Maths · DM</span><span>Rolle &amp; TAF</span></div>
+        <div class="cell"></div>
+        <div class="evt evt--phys"><span class="who">Physique · TD</span><span>Force centrale</span></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+
+        <div class="row-head">10:00</div>
+        <div class="evt evt--phys"><span class="who">Physique · cours</span><span>Mécanique 4</span></div>
+        <div class="evt evt--chim"><span class="who">Chimie · TP</span><span>Cinétique</span></div>
+        <div class="evt evt--maths"><span class="who">Maths · cours</span><span>Suites &amp; séries</span></div>
+        <div class="cell"></div>
+        <div class="evt evt--maths"><span class="who">Maths · DS</span><span>Analyse</span></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+
+        <div class="row-head">14:00</div>
+        <div class="evt evt--maths"><span class="who">Maths · TD</span><span>Limites</span></div>
+        <div class="evt evt--fr"><span class="who">Français</span><span>Pr. de Clèves</span></div>
+        <div class="evt evt--si"><span class="who">SI</span><span>Asservissements</span></div>
+        <div class="evt evt--fr"><span class="who">Français · oral</span><span>Préparation</span></div>
+        <div class="evt evt--phys"><span class="who">Physique · TP</span><span>Optique</span></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+
+        <div class="row-head">16:00</div>
+        <div class="evt evt--fr"><span class="who">Français</span><span>Lecture ch.4</span></div>
+        <div class="cell"></div>
+        <div class="evt evt--chim"><span class="who">Chimie · cours</span><span>Réactions ac.</span></div>
+        <div class="evt evt--maths"><span class="who">Maths · révision</span><span>Algèbre</span></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+
+        <div class="row-head">18:00</div>
+        <div class="evt evt--chim"><span class="who">Chimie</span><span>Fiche cin.</span></div>
+        <div class="evt evt--maths"><span class="who">Maths · DM</span><span>Exos chap.7</span></div>
+        <div class="cell"></div>
+        <div class="evt evt--phys"><span class="who">Physique · révision</span><span>Mécanique</span></div>
+        <div class="evt evt--fr"><span class="who">Français</span><span>Dissertation</span></div>
+        <div class="cell"></div>
+        <div class="cell"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================ PROGRESS VIEW -->
+    <section class="view" id="view-progress" data-screen-label="03 Progression">
+      <div class="page-head">
+        <div>
+          <h1>Progression</h1>
+          <div class="sub">Couverture ATS · maîtrise par chapitre · 8 semaines avant les concours blancs</div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <span class="chip" style="background:var(--stabilo);border-width:2.5px">Toutes matières</span>
+          <span class="chip">Maths</span>
+          <span class="chip">Physique</span>
+          <span class="chip">Chimie</span>
+        </div>
+      </div>
+
+      <div class="stats" style="grid-template-columns:repeat(3,1fr)">
+        <div class="stat">
+          <div class="label">Couverture globale</div>
+          <div class="value">73%</div>
+          <div class="delta">+8% sur 4 semaines</div>
+        </div>
+        <div class="stat stat--blue">
+          <div class="label">Chapitres maîtrisés</div>
+          <div class="value">42<span style="font-size:24px;color:var(--ink-soft)">/68</span></div>
+          <div class="delta" style="color:#3A5654">+5 cette semaine</div>
+        </div>
+        <div class="stat stat--beige">
+          <div class="label">Temps moyen / jour</div>
+          <div class="value">2<span style="font-size:24px">h32</span></div>
+          <div class="delta" style="color:#6C4A28">Sur 30 jours</div>
+        </div>
+      </div>
+
+      <div class="split">
+        <div class="card">
+          <div class="card-head">
+            <h3>Maîtrise par matière</h3>
+            <div class="actions"><span class="chip">CPGE · MPSI</span></div>
+          </div>
+          <div class="progress-list">
+            <div class="progress-row">
+              <div class="top"><span class="name">Mathématiques</span><span class="pct">86% · 14 / 16 chap.</span></div>
+              <div class="bar"><div class="fill" style="width:86%"></div></div>
+            </div>
+            <div class="progress-row blue">
+              <div class="top"><span class="name">Physique</span><span class="pct">71% · 10 / 14 chap.</span></div>
+              <div class="bar"><div class="fill" style="width:71%"></div></div>
+            </div>
+            <div class="progress-row green">
+              <div class="top"><span class="name">Chimie</span><span class="pct">62% · 8 / 13 chap.</span></div>
+              <div class="bar"><div class="fill" style="width:62%"></div></div>
+            </div>
+            <div class="progress-row beige">
+              <div class="top"><span class="name">Français · Philo</span><span class="pct">74% · 6 / 8 chap.</span></div>
+              <div class="bar"><div class="fill" style="width:74%"></div></div>
+            </div>
+            <div class="progress-row orange">
+              <div class="top"><span class="name">Sciences de l'Ingénieur</span><span class="pct">58% · 7 / 12 chap.</span></div>
+              <div class="bar"><div class="fill" style="width:58%"></div></div>
+            </div>
+            <div class="progress-row">
+              <div class="top"><span class="name">Anglais</span><span class="pct">81% · 5 / 7 chap.</span></div>
+              <div class="bar"><div class="fill" style="width:81%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:24px">
+          <div class="card">
+            <div class="card-head"><h3>À revoir</h3></div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div class="mission">
+                <div class="check" style="background:var(--red);color:#FFFDF8">!</div>
+                <div class="meta">
+                  <div class="top" style="color:#9C3F35">Maths · pas vu depuis 9 jours</div>
+                  <div class="title">Probabilités discrètes</div>
+                </div>
+              </div>
+              <div class="mission">
+                <div class="check" style="background:var(--orange);color:#FFFDF8">!</div>
+                <div class="meta">
+                  <div class="top" style="color:#6C4A28">Physique · 38% maîtrise</div>
+                  <div class="title">Thermodynamique — premier principe</div>
+                </div>
+              </div>
+              <div class="mission">
+                <div class="check" style="background:var(--orange);color:#FFFDF8">!</div>
+                <div class="meta">
+                  <div class="top" style="color:#6C4A28">Chimie · 42% maîtrise</div>
+                  <div class="title">Réactions acide-base — pH</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ia">
+            <div class="head">
+              <div class="av">IA</div>
+              <span class="tag">Recommandation</span>
+            </div>
+            <div class="body">Concentre 1h cette semaine sur les probabilités discrètes. C'est ton chapitre le plus en retard, et il tombe régulièrement au concours.</div>
+            <div class="actions">
+              <button class="btn">Programmer 1h</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ FOCUS LANDING (» focus.html) -->
+    <section class="view" id="view-focus" data-screen-label="04 Focus-entry">
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;text-align:center;gap:18px">
+        <div style="font-family:var(--font-body);font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)">Mode focus immersif</div>
+        <div style="font-family:var(--font-display);font-size:44px;text-transform:uppercase;letter-spacing:-.01em;line-height:1">Prête à te poser&nbsp;?</div>
+        <p style="font-family:var(--font-body);font-size:16px;color:var(--ink-soft);max-width:480px;line-height:1.55">Tu vas basculer en mode focus. Notifications coupées, distractions écartées. Tu peux sortir quand tu veux.</p>
+        <a href="focus.html" class="btn" style="padding:13px 22px;font-size:15px;box-shadow:5px 5px 0 var(--ink);text-decoration:none">Entrer en focus →</a>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script>
+  // View switching
+  const items = document.querySelectorAll('.sb-item[data-view]');
+  const views = document.querySelectorAll('.view');
+  items.forEach(item => {
+    item.addEventListener('click', () => {
+      const target = item.dataset.view;
+      items.forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+      views.forEach(v => {
+        v.classList.toggle('active', v.id === 'view-' + target);
+      });
+    });
+  });
+
+  // Mission toggle
+  document.querySelectorAll('.mission').forEach(m => {
+    m.addEventListener('click', () => {
+      m.classList.toggle('done');
+      const check = m.querySelector('.check');
+      if (check && !check.querySelector('span')) check.textContent = m.classList.contains('done') ? '✓' : '';
+    });
+  });
+</script>
+</body>
+</html>

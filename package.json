@@ -1,0 +1,9 @@
+﻿{
+  "name": "outil-prepa",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "weights": "node scripts/compute-weights.js",
+    "screenshot": "node scripts/screenshot.js"
+  }
+}

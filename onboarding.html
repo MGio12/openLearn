@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Outil Prepa — Installation</title>
+    <link rel="stylesheet" href="onboarding.css" />
+  </head>
+  <body>
+    <div class="ob">
+      <!-- ============================================================ HEADER -->
+      <header class="ob-header">
+        <a href="index.html" class="ob-brand">
+          <span class="mark"
+            ><span class="tile"></span><span class="glyph">O</span></span
+          >
+          <span class="name">Outil Prepa</span>
+        </a>
+        <button class="ob-back" id="back" hidden>
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+          Retour
+        </button>
+      </header>
+
+      <!-- ============================================================ STAGE -->
+      <main class="ob-stage">
+        <!-- STEP 1 — Projection -->
+        <section
+          class="step active"
+          data-step="1"
+          data-screen-label="01 Projection"
+        >
+          <span class="kicker">Pour bien commencer</span>
+          <h1>Qu'est-ce qui t'amène<br />en prépa cette année&nbsp;?</h1>
+          <p class="lede">
+            Pas de bonne ou mauvaise réponse. C'est juste pour comprendre où tu
+            veux aller — on calibrera tout autour de ça.
+          </p>
+          <div class="options" data-options="goal">
+            <button class="opt" data-value="grande-ecole">
+              <span class="ic">✦</span>
+              <span class="copy">
+                <span class="title">Intégrer une grande école</span>
+                <span class="sub">X, ENS, Centrale, Mines, HEC…</span>
+              </span>
+            </button>
+            <button class="opt" data-value="confiance">
+              <span class="ic">◐</span>
+              <span class="copy">
+                <span class="title">Reprendre confiance</span>
+                <span class="sub">Les premières notes ont été dures.</span>
+              </span>
+            </button>
+            <button class="opt" data-value="regularite">
+              <span class="ic">○</span>
+              <span class="copy">
+                <span class="title">Devenir régulier</span>
+                <span class="sub">Tenir un rythme sur toute l'année.</span>
+              </span>
+            </button>
+            <button class="opt" data-value="majorer">
+              <span class="ic">▲</span>
+              <span class="copy">
+                <span class="title">Majorer</span>
+                <span class="sub">Viser le haut du classement.</span>
+              </span>
+            </button>
+            <button class="opt" data-value="controle">
+              <span class="ic">▭</span>
+              <span class="copy">
+                <span class="title">Arrêter de subir l'année</span>
+                <span class="sub">Reprendre le contrôle, calmement.</span>
+              </span>
+            </button>
+          </div>
+        </section>
+
+        <!-- STEP 2 — Filière + année -->
+        <section class="step" data-step="2" data-screen-label="02 Filière">
+          <span class="kicker">Ton contexte</span>
+          <h1>Quelle est ta filière&nbsp;?</h1>
+          <p class="lede">
+            Choisis celle que tu suis actuellement — on ajustera ton planning
+            aux programmes officiels.
+          </p>
+          <div
+            class="options"
+            data-options="filiere"
+            style="grid-template-columns: repeat(3, 1fr)"
+          >
+            <button class="opt" data-value="mpsi">
+              <span class="ic">M</span
+              ><span class="copy"
+                ><span class="title">MPSI</span
+                ><span class="sub">Maths · Physique · SI</span></span
+              >
+            </button>
+            <button class="opt" data-value="pcsi">
+              <span class="ic">P</span
+              ><span class="copy"
+                ><span class="title">PCSI</span
+                ><span class="sub">Physique · Chimie · SI</span></span
+              >
+            </button>
+            <button class="opt" data-value="psi">
+              <span class="ic">Ψ</span
+              ><span class="copy"
+                ><span class="title">PSI</span
+                ><span class="sub">Physique · Sciences Ing.</span></span
+              >
+            </button>
+            <button class="opt" data-value="bcpst">
+              <span class="ic">B</span
+              ><span class="copy"
+                ><span class="title">BCPST</span
+                ><span class="sub">Bio · Chimie · Physique</span></span
+              >
+            </button>
+            <button class="opt" data-value="ecg">
+              <span class="ic">E</span
+              ><span class="copy"
+                ><span class="title">ECG</span
+                ><span class="sub">Économique &amp; commerciale</span></span
+              >
+            </button>
+            <button class="opt" data-value="ats">
+              <span class="ic">A</span
+              ><span class="copy"
+                ><span class="title">ATS</span
+                ><span class="sub">Adaptation Technicien Sup.</span></span
+              >
+            </button>
+          </div>
+        </section>
+
+        <!-- STEP 3 — Année -->
+        <section class="step" data-step="3" data-screen-label="03 Année">
+          <span class="kicker">Ton contexte (suite)</span>
+          <h1>Première ou<br />deuxième année&nbsp;?</h1>
+          <p class="lede">
+            Les deux n'ont pas du tout le même rythme — les concours blancs
+            arrivent vite en deuxième année.
+          </p>
+          <div
+            class="options"
+            data-options="annee"
+            style="grid-template-columns: repeat(2, 1fr)"
+          >
+            <button class="opt" data-value="1">
+              <span class="ic">1</span
+              ><span class="copy"
+                ><span class="title">1ère année</span
+                ><span class="sub"
+                  >Découverte, construction des bases</span
+                ></span
+              >
+            </button>
+            <button class="opt" data-value="2">
+              <span class="ic">2</span
+              ><span class="copy"
+                ><span class="title">2ème année</span
+                ><span class="sub">Concours en ligne de mire</span></span
+              >
+            </button>
+          </div>
+        </section>
+
+        <!-- STEP 4 — Rhythm -->
+        <section class="step" data-step="4" data-screen-label="04 Rhythm">
+          <span class="kicker">Ton rythme</span>
+          <h1>Quel rythme te semble<br />réaliste cette semaine&nbsp;?</h1>
+          <p class="lede">
+            Pas ce que tu devrais faire. Ce que tu peux réellement tenir, en
+            moyenne, sans t'épuiser. On ajustera ensemble.
+          </p>
+          <div
+            class="options"
+            data-options="rythme"
+            style="grid-template-columns: repeat(2, 1fr)"
+          >
+            <button class="opt" data-value="leger">
+              <span class="ic">◔</span>
+              <span class="copy"
+                ><span class="title">Léger</span
+                ><span class="sub"
+                  >Autour de 10 h par semaine, en plus des cours</span
+                ></span
+              >
+            </button>
+            <button class="opt" data-value="moyen">
+              <span class="ic">◑</span>
+              <span class="copy"
+                ><span class="title">Régulier</span
+                ><span class="sub"
+                  >Autour de 18 h — un rythme tenable sur l'année</span
+                ></span
+              >
+            </button>
+            <button class="opt" data-value="intense">
+              <span class="ic">◕</span>
+              <span class="copy"
+                ><span class="title">Intense</span
+                ><span class="sub"
+                  >25 h et plus — ligne droite des concours</span
+                ></span
+              >
+            </button>
+            <button class="opt" data-value="indecis">
+              <span class="ic">?</span>
+              <span class="copy"
+                ><span class="title">Je ne sais pas encore</span
+                ><span class="sub">On le découvrira ensemble.</span></span
+              >
+            </button>
+          </div>
+        </section>
+
+        <!-- STEP 5 — Priorities (multi-select) -->
+        <section class="step" data-step="5" data-screen-label="05 Priorities">
+          <span class="kicker">Tes priorités</span>
+          <h1>Sur quoi veux-tu<br />progresser en premier&nbsp;?</h1>
+          <p class="lede">
+            Choisis 2 ou 3 matières. Pas une liste exhaustive — juste là où tu
+            sens que ça doit bouger en premier.
+          </p>
+          <div class="chips" data-chips="priorites">
+            <button class="chip-opt" data-value="maths">
+              <span class="check"></span>Mathématiques
+            </button>
+            <button class="chip-opt" data-value="physique">
+              <span class="check"></span>Physique
+            </button>
+            <button class="chip-opt" data-value="chimie">
+              <span class="check"></span>Chimie
+            </button>
+            <button class="chip-opt" data-value="si">
+              <span class="check"></span>Sciences de l'Ingénieur
+            </button>
+            <button class="chip-opt" data-value="info">
+              <span class="check"></span>Informatique
+            </button>
+            <button class="chip-opt" data-value="francais">
+              <span class="check"></span>Français · Philo
+            </button>
+            <button class="chip-opt" data-value="anglais">
+              <span class="check"></span>Anglais
+            </button>
+            <button class="chip-opt" data-value="lv2">
+              <span class="check"></span>LV2
+            </button>
+          </div>
+          <button class="ob-continue" id="continue-priorites" disabled>
+            Continuer →
+          </button>
+        </section>
+
+        <!-- STEP 6 — First win / preview -->
+        <section class="step" data-step="6" data-screen-label="06 First-win">
+          <span class="kicker">Ta première semaine</span>
+          <h1>Voici à quoi<br />ça ressemblera.</h1>
+          <p class="lede">
+            Une semaine construite à partir de tes réponses. Tu pourras tout
+            ajuster — ou laisser l'IA s'en occuper.
+          </p>
+
+          <div class="preview-card">
+            <div
+              style="
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+              "
+            >
+              <div
+                style="
+                  font-family: var(--font-display);
+                  font-size: 22px;
+                  text-transform: uppercase;
+                  letter-spacing: -0.005em;
+                "
+              >
+                Lundi · ta journée
+              </div>
+              <span
+                style="
+                  font-family: var(--font-body);
+                  font-size: 12px;
+                  color: var(--ink-soft);
+                  font-weight: 700;
+                  letter-spacing: 0.06em;
+                  text-transform: uppercase;
+                "
+                >3 missions · 2 h 15</span
+              >
+            </div>
+            <div class="preview-row suggest">
+              <div class="ic">★</div>
+              <div class="copy">
+                <div class="top">Suggéré pour commencer · 25 min</div>
+                <div class="title">
+                  Maths — relire le théorème de Rolle &amp; ses conséquences
+                </div>
+              </div>
+              <div class="duration">25 min</div>
+            </div>
+            <div class="preview-row">
+              <div class="ic">P</div>
+              <div class="copy">
+                <div class="top">Physique · matinée</div>
+                <div class="title">
+                  Mouvements à force centrale — exercice 4
+                </div>
+              </div>
+              <div class="duration">45 min</div>
+            </div>
+            <div class="preview-row">
+              <div class="ic">F</div>
+              <div class="copy">
+                <div class="top">Français · début d'après-midi</div>
+                <div class="title">
+                  La Princesse de Clèves — lecture chapitre 4
+                </div>
+              </div>
+              <div class="duration">30 min</div>
+            </div>
+          </div>
+
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 16px;
+              margin-top: 8px;
+            "
+          >
+            <button class="ob-continue" id="continue-preview">
+              Commencer par cette mission →
+            </button>
+            <span
+              style="
+                font-family: var(--font-body);
+                font-size: 13px;
+                color: var(--ink-soft);
+              "
+              >25 min · tu peux t'arrêter quand tu veux</span
+            >
+          </div>
+        </section>
+
+        <!-- STEP 7 — Email (after commitment) -->
+        <section class="step" data-step="7" data-screen-label="07 Email">
+          <span class="kicker">Dernière étape</span>
+          <h1>Pour ne rien perdre,<br />ton email&nbsp;:</h1>
+          <p class="lede">
+            On sauvegarde ta progression, ton planning, tes fiches. Aucune
+            newsletter, aucun spam — promis.
+          </p>
+
+          <div class="email-field">
+            <label for="ob-email">Adresse email</label>
+            <input
+              id="ob-email"
+              type="email"
+              placeholder="ton.prenom@etudiant.fr"
+              autocomplete="email"
+            />
+            <span class="email-note"
+              >Tu pourras te connecter avec ton email seul — pas de mot de passe
+              à retenir.</span
+            >
+          </div>
+
+          <div
+            style="
+              display: flex;
+              gap: 14px;
+              align-items: center;
+              margin-top: 14px;
+            "
+          >
+            <button class="ob-continue" id="finish">Tout est prêt →</button>
+            <span
+              style="
+                font-family: var(--font-body);
+                font-size: 13px;
+                color: var(--ink-mute);
+              "
+              >14 jours d'essai · sans carte bancaire</span
+            >
+          </div>
+        </section>
+
+        <!-- STEP 8 — Done -->
+        <section class="step" data-step="8" data-screen-label="08 Done">
+          <span class="kicker">Tu es prêt</span>
+          <h1>Installe-toi.<br />Commence à travailler.</h1>
+          <p class="lede">
+            Ta première mission t'attend. On a déjà préparé le reste de la
+            semaine — tu pourras la réajuster à tout moment.
+          </p>
+
+          <a
+            href="index.html"
+            class="ob-continue"
+            style="
+              text-decoration: none;
+              background: var(--stabilo);
+              color: var(--ink);
+              box-shadow: 6px 6px 0 var(--ink);
+            "
+          >
+            Ouvrir mon cockpit →
+          </a>
+        </section>
+      </main>
+
+      <!-- ============================================================ PROGRESS -->
+      <div class="ob-progress" id="progress">
+        <span class="dot current"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+
+    <script>
+      const totalSteps = 8;
+      let current = 1;
+      const state = {
+        goal: null,
+        filiere: null,
+        annee: null,
+        rythme: null,
+        priorites: [],
+      };
+
+      const stepNodes = document.querySelectorAll(".step");
+      const dots = document.querySelectorAll("#progress .dot");
+      const backBtn = document.getElementById("back");
+
+      function goTo(n) {
+        if (n < 1 || n > totalSteps) return;
+        current = n;
+        stepNodes.forEach((s) =>
+          s.classList.toggle("active", Number(s.dataset.step) === n),
+        );
+        dots.forEach((d, i) => {
+          d.classList.remove("current", "done");
+          if (i + 1 < n) d.classList.add("done");
+          else if (i + 1 === n) d.classList.add("current");
+        });
+        backBtn.hidden = n === 1 || n === totalSteps;
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      backBtn.addEventListener("click", () => goTo(current - 1));
+
+      // Single-select option click → instant validate + advance
+      document.querySelectorAll("[data-options]").forEach((group) => {
+        const key = group.dataset.options;
+        group.querySelectorAll(".opt").forEach((opt) => {
+          opt.addEventListener("click", () => {
+            group
+              .querySelectorAll(".opt")
+              .forEach((o) => o.classList.remove("selected"));
+            opt.classList.add("selected");
+            state[key] = opt.dataset.value;
+            // small pause to let the visual confirm land
+            setTimeout(() => goTo(current + 1), 280);
+          });
+        });
+      });
+
+      // Multi-select chips (priorities)
+      const chipsGroup = document.querySelector('[data-chips="priorites"]');
+      const continuePriorites = document.getElementById("continue-priorites");
+      if (chipsGroup) {
+        chipsGroup.querySelectorAll(".chip-opt").forEach((chip) => {
+          chip.addEventListener("click", () => {
+            chip.classList.toggle("selected");
+            const val = chip.dataset.value;
+            const idx = state.priorites.indexOf(val);
+            if (idx >= 0) state.priorites.splice(idx, 1);
+            else state.priorites.push(val);
+            continuePriorites.disabled = state.priorites.length === 0;
+          });
+        });
+        continuePriorites.addEventListener("click", () => goTo(current + 1));
+      }
+
+      // First-win → email
+      document
+        .getElementById("continue-preview")
+        .addEventListener("click", () => goTo(current + 1));
+
+      // Finish (validate email format lightly, then advance)
+      document.getElementById("finish").addEventListener("click", () => {
+        const email = document.getElementById("ob-email").value.trim();
+        if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return; // silent — no error shouting
+        goTo(current + 1);
+      });
+    </script>
+  </body>
+</html>

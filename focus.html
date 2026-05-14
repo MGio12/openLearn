@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Outil Prepa — Focus</title>
+  <link rel="stylesheet" href="focus.css">
+</head>
+<body>
+
+<div class="fx" data-screen-label="Focus Mode">
+  <!-- Rain layer (toggles on when "Pluie" is active) -->
+  <div class="rain" id="rain"></div>
+
+  <!-- ============================================================ TOP -->
+  <header class="fx-top">
+    <a href="index.html" class="fx-exit">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Quitter le focus
+    </a>
+    <div class="fx-session">
+      <span class="dot"></span>
+      Session 3 sur 4 · aujourd'hui
+    </div>
+  </header>
+
+  <!-- ============================================================ STAGE -->
+  <main class="fx-stage">
+    <!-- Main column -->
+    <div class="fx-main">
+      <div class="fx-task">
+        <span class="pill">Maths</span>
+        <span class="title">Démontrer le théorème de Rolle &amp; ses conséquences</span>
+      </div>
+
+      <div class="fx-timer" id="timer">24:38</div>
+
+      <div class="fx-progress-ring">
+        <svg viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(246,242,235,0.12)" stroke-width="6"/>
+          <circle id="ring" cx="50" cy="50" r="44" fill="none" stroke="#F4D35E" stroke-width="6" stroke-dasharray="276" stroke-dashoffset="14" stroke-linecap="round" transform="rotate(-90 50 50)"/>
+        </svg>
+        <div class="pct">98%</div>
+      </div>
+
+      <div class="fx-controls">
+        <button class="fx-ctl" title="Précédent">
+          <svg viewBox="0 0 24 24"><polyline points="11 17 6 12 11 7"/><polyline points="18 17 13 12 18 7"/></svg>
+        </button>
+        <button class="fx-ctl primary" id="playPause" title="Pause">
+          <svg viewBox="0 0 24 24" id="play-icon" style="display:none"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+          <svg viewBox="0 0 24 24" id="pause-icon"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+        </button>
+        <button class="fx-ctl" title="Suivant">
+          <svg viewBox="0 0 24 24"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>
+        </button>
+      </div>
+
+      <div class="fx-kicker">Pomodoro · 25 minutes</div>
+    </div>
+
+    <!-- Right panel -->
+    <aside class="fx-side">
+      <div>
+        <h3>Cette session</h3>
+        <div style="margin-top:14px;display:flex;flex-direction:column">
+          <div class="subtask done">
+            <span class="box">✓</span>
+            <span class="label">Relire l'énoncé du théorème</span>
+          </div>
+          <div class="subtask done">
+            <span class="box">✓</span>
+            <span class="label">Comprendre les hypothèses : continuité, dérivabilité</span>
+          </div>
+          <div class="subtask">
+            <span class="box"></span>
+            <span class="label">Rédiger la démonstration au propre</span>
+          </div>
+          <div class="subtask">
+            <span class="box"></span>
+            <span class="label">Faire l'exercice 4 du polycopié</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3>Ambiance</h3>
+        <div class="ambient" style="margin-top:12px">
+          <div class="amb active" data-amb="lofi"><span class="ic">♪</span><span class="nm">Lofi</span></div>
+          <div class="amb" data-amb="rain"><span class="ic">☂</span><span class="nm">Pluie</span></div>
+          <div class="amb" data-amb="cafe"><span class="ic">☕</span><span class="nm">Café</span></div>
+          <div class="amb" data-amb="silence"><span class="ic">○</span><span class="nm">Silence</span></div>
+        </div>
+      </div>
+
+      <div>
+        <h3>Aujourd'hui</h3>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-top:12px;font-family:var(--font-body);font-size:13px">
+          <div style="display:flex;justify-content:space-between"><span style="color:rgba(246,242,235,0.7)">Sessions</span><span style="font-family:var(--font-mono);color:var(--paper)">3 / 4</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:rgba(246,242,235,0.7)">Temps de focus</span><span style="font-family:var(--font-mono);color:var(--paper)">1 h 37</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="color:rgba(246,242,235,0.7)">Régularité</span><span style="font-family:var(--font-mono);color:var(--stabilo)">7 j</span></div>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- ============================================================ BOTTOM -->
+  <footer class="fx-bottom">
+    <div class="fx-bottom-group">
+      <span>● Notifications coupées</span>
+      <span>● Sites distrayants bloqués</span>
+    </div>
+    <div class="fx-bottom-group">
+      <span><strong>Espace</strong> Pause / reprise</span>
+      <span><strong>Échap</strong> Quitter</span>
+    </div>
+  </footer>
+</div>
+
+<script>
+  // Ambient sound picker
+  const ambs = document.querySelectorAll('.amb');
+  const rain = document.getElementById('rain');
+  ambs.forEach(a => {
+    a.addEventListener('click', () => {
+      ambs.forEach(x => x.classList.remove('active'));
+      a.classList.add('active');
+      rain.classList.toggle('on', a.dataset.amb === 'rain');
+    });
+  });
+
+  // Subtask toggle
+  document.querySelectorAll('.subtask').forEach(t => {
+    t.addEventListener('click', () => {
+      t.classList.toggle('done');
+      const box = t.querySelector('.box');
+      box.textContent = t.classList.contains('done') ? '✓' : '';
+    });
+  });
+
+  // Play/pause toggle (visual only)
+  const playPauseBtn = document.getElementById('playPause');
+  const playIcon = document.getElementById('play-icon');
+  const pauseIcon = document.getElementById('pause-icon');
+  let running = true;
+  playPauseBtn.addEventListener('click', () => {
+    running = !running;
+    playIcon.style.display = running ? 'none' : 'block';
+    pauseIcon.style.display = running ? 'block' : 'none';
+  });
+
+  // Countdown timer (just for show — counts down from current value, loops at 0)
+  const timerEl = document.getElementById('timer');
+  const ringEl = document.getElementById('ring');
+  let total = 25 * 60;
+  let remaining = 24 * 60 + 38;
+  setInterval(() => {
+    if (!running) return;
+    remaining--;
+    if (remaining < 0) remaining = total;
+    const m = String(Math.floor(remaining / 60)).padStart(2, '0');
+    const s = String(remaining % 60).padStart(2, '0');
+    timerEl.textContent = m + ':' + s;
+    const circumference = 276;
+    const pct = remaining / total;
+    ringEl.setAttribute('stroke-dashoffset', String(circumference * (1 - pct)));
+  }, 1000);
+
+  // Esc to quit
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') window.location.href = 'index.html';
+    if (e.code === 'Space') { e.preventDefault(); playPauseBtn.click(); }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,307 @@
+/* ============================================================
+   OUTIL PREPA — Colors & Type
+   ------------------------------------------------------------
+   A premium cockpit for ambitious students.
+   Warm paper, strong black borders, offset hard shadows,
+   massive bold headings, calm pastel data colors.
+   ============================================================ */
+
+/* ----- Brand fonts (self-hosted) ----- */
+@font-face {
+  font-family: 'Archivo Black';
+  src: url('fonts/ArchivoBlack-Regular.ttf') format('truetype');
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('fonts/PlusJakartaSans-VariableFont_wght.ttf') format('truetype-variations');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('fonts/PlusJakartaSans-Italic-VariableFont_wght.ttf') format('truetype-variations');
+  font-weight: 200 800;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Caveat';
+  src: url('fonts/Caveat-VariableFont_wght.ttf') format('truetype-variations');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+/* JetBrains Mono is still loaded from Google Fonts for codes / data */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* ===== COLOR TOKENS — RAW ===== */
+
+  /* Paper backgrounds — warm, never pure white */
+  --paper:          #F6F2EB;   /* main warm paper */
+  --paper-2:        #EFE7DC;   /* secondary surface, hover, panels */
+  --paper-3:        #E7DECF;   /* deeper notch / divider rests */
+
+  /* Ink — text colors, never pure black */
+  --ink:            #121212;   /* primary text + borders */
+  --ink-2:          #2A2724;   /* heavy body, headlines on paper-2 */
+  --ink-soft:       #5F5B57;   /* secondary text — warm gray */
+  --ink-mute:       #8B857D;   /* tertiary / placeholders */
+
+  /* Primary brand — stabilo premium */
+  --stabilo:        #F4D35E;   /* primary CTA fill */
+  --stabilo-2:      #F1C53A;   /* pressed / deeper highlight */
+  --stabilo-wash:   #FBEAB0;   /* very faint stabilo for backgrounds */
+
+  /* Data palette — soft academic */
+  --blue:           #C7D9D7;   /* analytics, dashboards, graphs */
+  --blue-2:         #A8C2C0;   /* blue accent / pressed */
+  --green:          #D8E6C3;   /* validation, progression, streaks */
+  --green-2:        #B9D097;   /* green accent / pressed */
+  --orange:         #F4A261;   /* time, energy, focus hours */
+  --orange-2:       #E08A45;   /* orange accent / pressed */
+  --beige:          #E8C7A9;   /* notes, secondary content */
+  --beige-2:        #D6AE89;   /* beige accent / pressed */
+  --red:            #D96C5F;   /* controlled red — alerts only */
+  --red-2:          #BE5347;   /* red pressed */
+
+  /* ===== SEMANTIC ROLES ===== */
+  --bg:             var(--paper);
+  --bg-elev:        var(--paper-2);
+  --bg-panel:       #FFFDF8;        /* slightly lifted card panel */
+  --fg:             var(--ink);
+  --fg-1:           var(--ink);
+  --fg-2:           var(--ink-soft);
+  --fg-3:           var(--ink-mute);
+  --border:         var(--ink);     /* borders are always near-black */
+  --border-soft:    #2A272422;      /* faint hairline only when needed */
+
+  --accent:         var(--stabilo);
+  --accent-press:   var(--stabilo-2);
+
+  --success:        var(--green-2);
+  --info:           var(--blue-2);
+  --warn:           var(--orange-2);
+  --danger:         var(--red);
+
+  /* ===== TYPOGRAPHY TOKENS ===== */
+  --font-display:   'Archivo Black', 'Arial Black', sans-serif;
+  --font-body:      'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  --font-hand:      'Caveat', 'Comic Sans MS', cursive;
+  --font-mono:      'JetBrains Mono', 'Menlo', monospace;
+
+  /* Type scale — landing */
+  --t-display:      clamp(56px, 7vw, 96px);   /* H1 hero */
+  --t-h1:           clamp(44px, 5vw, 64px);   /* H2 section */
+  --t-h2:           clamp(28px, 3vw, 40px);   /* H3 sub */
+  --t-h3:           22px;
+  --t-eyebrow:      13px;
+
+  /* Type scale — dashboard / app */
+  --t-app-title:    24px;
+  --t-app-section:  20px;
+  --t-body:         16px;
+  --t-body-sm:      14px;
+  --t-meta:         12px;
+
+  /* ===== SPACING (8pt grid w/ a 4pt half) ===== */
+  --s-0:   0px;
+  --s-05:  4px;
+  --s-1:   8px;
+  --s-2:   12px;
+  --s-3:   16px;
+  --s-4:   24px;
+  --s-5:   32px;
+  --s-6:   48px;
+  --s-7:   64px;
+  --s-8:   96px;
+  --s-9:   128px;
+
+  /* ===== RADII ===== */
+  --r-1:   6px;     /* chips, small */
+  --r-2:   10px;    /* buttons, inputs */
+  --r-3:   14px;    /* cards */
+  --r-4:   22px;    /* hero blocks */
+  --r-pill: 999px;
+
+  /* ===== BORDERS — desktop 3px, mobile 2px ===== */
+  --b:     3px;
+  --b-mob: 2px;
+  --b-thin: 1.5px;
+
+  /* ===== SHADOWS — hard offset, NEVER blurred ===== */
+  --sh-1:  3px 3px 0 #121212;
+  --sh-2:  6px 6px 0 #121212;
+  --sh-3:  10px 10px 0 #121212;
+  --sh-hover: 4px 4px 0 #121212;   /* paired with translate(2px,2px) */
+
+  /* ===== MOTION ===== */
+  --ease-calm:    cubic-bezier(.22, .61, .36, 1);
+  --ease-press:   cubic-bezier(.4, 0, .2, 1);
+  --d-fast:       120ms;
+  --d-base:       200ms;
+  --d-slow:       380ms;
+
+  /* ===== PAPER GRID (subtle background texture) ===== */
+  --grid-color:   rgba(18, 18, 18, 0.045);
+  --grid-step:    24px;
+}
+
+/* ============================================================
+   ELEMENT DEFAULTS (semantic baseline)
+   ============================================================ */
+
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: var(--t-body);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Subtle paper-grid utility — apply as a class on the page bg */
+.bg-paper {
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: var(--grid-step) var(--grid-step);
+}
+
+h1, .h1, .display {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: var(--t-display);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  color: var(--fg-1);
+  text-transform: uppercase;
+  text-wrap: balance;
+  margin: 0;
+}
+
+h2, .h2 {
+  font-family: var(--font-display);
+  font-size: var(--t-h1);
+  line-height: 1.02;
+  letter-spacing: -0.005em;
+  color: var(--fg-1);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+h3, .h3 {
+  font-family: var(--font-display);
+  font-size: var(--t-h2);
+  line-height: 1.05;
+  color: var(--fg-1);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+h4, .h4 {
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: var(--t-h3);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--t-eyebrow);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-1);
+}
+
+p, .body {
+  font-family: var(--font-body);
+  font-size: var(--t-body);
+  line-height: 1.55;
+  color: var(--fg-2);
+  text-wrap: pretty;
+}
+
+small, .meta {
+  font-family: var(--font-body);
+  font-size: var(--t-meta);
+  color: var(--fg-3);
+  letter-spacing: 0.02em;
+}
+
+code, .mono {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--fg-1);
+}
+
+.handwritten {
+  font-family: var(--font-hand);
+  font-weight: 600;
+  color: var(--fg-1);
+  /* Use sparingly — annotations, onboarding only. */
+}
+
+/* ============================================================
+   PRIMITIVE: PAPER CARD (the workhorse)
+   ============================================================ */
+.op-card {
+  background: var(--bg-panel);
+  border: var(--b) solid var(--border);
+  border-radius: var(--r-3);
+  box-shadow: var(--sh-2);
+  padding: var(--s-4);
+}
+
+/* ============================================================
+   PRIMITIVE: BUTTON
+   ============================================================ */
+.op-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-1);
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  padding: 12px 20px;
+  border: var(--b) solid var(--border);
+  border-radius: var(--r-2);
+  background: var(--accent);
+  color: var(--ink);
+  box-shadow: var(--sh-2);
+  cursor: pointer;
+  transition: transform var(--d-base) var(--ease-calm),
+              box-shadow var(--d-base) var(--ease-calm),
+              background var(--d-fast) var(--ease-calm);
+}
+.op-btn:hover {
+  transform: translate(2px, 2px);
+  box-shadow: var(--sh-hover);
+}
+.op-btn:active {
+  transform: translate(6px, 6px);
+  box-shadow: 0 0 0 #121212;
+  background: var(--accent-press);
+}
+.op-btn--ghost {
+  background: transparent;
+  box-shadow: none;
+}
+.op-btn--ghost:hover {
+  background: var(--paper-2);
+  transform: none;
+  box-shadow: none;
+}
+.op-btn--dark {
+  background: var(--ink);
+  color: var(--paper);
+}
