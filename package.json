@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "weights": "node scripts/compute-weights.js",
-    "screenshot": "node scripts/screenshot.js"
+    "screenshot": "node scripts/screenshot.js",
+    "verify:s01": "node scripts/verify-s01-dashboard.mjs"
   },
   "devDependencies": {
     "pdf-parse": "^2.4.5",
