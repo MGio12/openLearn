@@ -14,9 +14,9 @@ A web-based study platform that generates personalized daily study missions from
 - **Visual testing:** Playwright screenshots + Claude review loop
 - **Shell:** PowerShell 5.1 on Windows 11 — all JSON writes use `[System.IO.File]::WriteAllText` with no-BOM UTF-8
 
-## Codebase State (Phase 1 Delivered)
+## Codebase State (Phase 2 Delivered)
 - `index.html` — Landing page
-- `ats.html` — ATS deep-dive: static heatmap + frequency data (needs to become dynamic)
+- `ats.html` — ATS deep-dive: fully dynamic heatmap from weighted-topics.json (Phase 2 complete)
 - `focus.html` — Focus/planning page
 - `data/ats/sujets/{2018-2024}/mathematiques.json` — Tagged topic data
 - `data/ats/poids/weighted-topics.json` — Generated weighted scores (4 math topics)
@@ -37,3 +37,6 @@ A web-based study platform that generates personalized daily study missions from
 4. AI is silent — suggests, doesn't shout. Calm strategic assistant.
 5. Human-first branding — photos, videos, blog — all organic, sourced
 6. MVP discipline — utility + shipping speed before visual perfection
+
+---
+*Last updated: 2026-05-14 — Phase 2 complete: ats.html dynamic heatmap delivered*

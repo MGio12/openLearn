@@ -14,12 +14,12 @@
 
 ### Heatmap Dynamique
 
-- [ ] **ATS-05**: Les lignes de la heatmap sont generees en JS depuis weighted-topics.json (zero HTML statique pour les donnees)
-- [ ] **ATS-06**: Les colonnes annees sont calculees dynamiquement depuis la plage reelle des donnees
-- [ ] **ATS-07**: Les etats cellules (rempli/vide) sont calcules depuis le tableau years du topic
-- [ ] **ATS-08**: La colonne Total affiche le compte Nx et une barre proportionnelle depuis le score JSON
-- [ ] **ATS-09**: Les onglets de filtre par matiere fonctionnent (afficher/masquer par slug de matiere)
-- [ ] **ATS-10**: La liste de priorite des topics est rendue sous la heatmap, classee par score descendant
+- [x] **ATS-05**: Les lignes de la heatmap sont generees en JS depuis weighted-topics.json (zero HTML statique pour les donnees)
+- [x] **ATS-06**: Les colonnes annees sont calculees dynamiquement depuis la plage reelle des donnees
+- [x] **ATS-07**: Les etats cellules (rempli/vide) sont calcules depuis le tableau years du topic
+- [x] **ATS-08**: La colonne Total affiche le compte Nx et une barre proportionnelle depuis le score JSON
+- [x] **ATS-09**: Les onglets de filtre par matiere fonctionnent (afficher/masquer par slug de matiere)
+- [x] **ATS-10**: La liste de priorite des topics est rendue sous la heatmap, classee par score descendant
 
 ### Paiement
 
@@ -62,12 +62,12 @@
 | ATS-02 | Phase 1 | Complete |
 | ATS-03 | Phase 1 | Complete |
 | ATS-04 | Phase 1 | Complete |
-| ATS-05 | Phase 2 | Pending |
-| ATS-06 | Phase 2 | Pending |
-| ATS-07 | Phase 2 | Pending |
-| ATS-08 | Phase 2 | Pending |
-| ATS-09 | Phase 2 | Pending |
-| ATS-10 | Phase 2 | Pending |
+| ATS-05 | Phase 2 | Complete |
+| ATS-06 | Phase 2 | Complete |
+| ATS-07 | Phase 2 | Complete |
+| ATS-08 | Phase 2 | Complete |
+| ATS-09 | Phase 2 | Complete |
+| ATS-10 | Phase 2 | Complete |
 | PAY-01 | Phase 3 | Pending |
 | PAY-02 | Phase 3 | Pending |
 | PAY-03 | Phase 3 | Pending |

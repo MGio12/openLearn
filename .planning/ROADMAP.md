@@ -7,7 +7,7 @@ Plateforme d'apprentissage qui donne aux etudiants ATS et lyceens un coup d'avan
 ## Phases
 
 - [x] **Phase 1: MVP ATS Dashboard** - Dashboard HTML/CSS/JS, heatmap statique, donnees 2018-2024 taguees, script compute-weights
-- [ ] **Phase 2: Heatmap ATS Dynamique** - Rendre ats.html entierement dynamique depuis weighted-topics.json
+- [x] **Phase 2: Heatmap ATS Dynamique** - Rendre ats.html entierement dynamique depuis weighted-topics.json
 - [ ] **Phase 3: Paiement Stripe** - Landing page + checkout Stripe 10EUR/mois + page de confirmation — valider le PMF avant de construire le produit complet
 - [ ] **Phase 4: Contenu et Audience** - Blog methodes, SEO, workflow video quotidien
 - [ ] **Phase 5: Lyceens** - Onboarding objectif-driven, parcours personnalise, acces reserve aux abonnes
@@ -105,7 +105,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. MVP ATS Dashboard | 4/4 | Complete | 2026-05-14 |
-| 2. Heatmap ATS Dynamique | 1/1 | Executing | - |
+| 2. Heatmap ATS Dynamique | 1/1 | Complete | 2026-05-14 |
 | 3. Paiement Stripe | 0/1 | Not started | - |
 | 4. Contenu et Audience | 0/1 | Not started | - |
 | 5. Lyceens | 0/1 | Not started | - |
