@@ -5,7 +5,8 @@
   "scripts": {
     "weights": "node scripts/compute-weights.js",
     "screenshot": "node scripts/screenshot.js",
-    "verify:s01": "node scripts/verify-s01-dashboard.mjs"
+    "verify:s01": "node scripts/verify-s01-dashboard.mjs",
+    "verify:s02": "node scripts/verify-s02-routine.mjs"
   },
   "devDependencies": {
     "pdf-parse": "^2.4.5",
