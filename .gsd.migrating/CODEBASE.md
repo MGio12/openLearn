@@ -1,7 +1,7 @@
 # Codebase Map
 
-Generated: 2026-05-14T19:04:29Z | Files: 500 | Described: 0/500
-<!-- gsd:codebase-meta {"generatedAt":"2026-05-14T19:04:29Z","fingerprint":"02374755f0006c3568e980998ec5e4d76f95b23e","fileCount":500,"truncated":true} -->
+Generated: 2026-05-14T19:30:42Z | Files: 500 | Described: 0/500
+<!-- gsd:codebase-meta {"generatedAt":"2026-05-14T19:30:42Z","fingerprint":"a78db82a3bd9f2615ba016f0af1b0d5f75398c59","fileCount":500,"truncated":true} -->
 Note: Truncated to first 500 files. Run with higher --max-files to include all.
 
 ### (root)/
@@ -12,6 +12,8 @@ Note: Truncated to first 500 files. Run with higher --max-files to include all.
 - `.gsd.migrating/gsd.db`
 - `.gsd.migrating/gsd.db-shm`
 - `.gsd.migrating/gsd.db-wal`
+- `.gsd.migrating/notifications.jsonl`
+- `.gsd.migrating/STATE.md`
 
 ### .gsd.migrating/runtime/home/agent/
 - `.gsd.migrating/runtime/home/agent/GSD-WORKFLOW.md`
@@ -208,8 +210,6 @@ Note: Truncated to first 500 files. Run with higher --max-files to include all.
 
 ### .gsd.migrating/runtime/home/agent/extensions/gsd/state-reconciliation/
 - `.gsd.migrating/runtime/home/agent/extensions/gsd/state-reconciliation/errors.js`
-- `.gsd.migrating/runtime/home/agent/extensions/gsd/state-reconciliation/index.js`
-- `.gsd.migrating/runtime/home/agent/extensions/gsd/state-reconciliation/registry.js`
 
 ### .gsd.migrating/runtime/home/agent/extensions/gsd/state-reconciliation/drift/
 - `.gsd.migrating/runtime/home/agent/extensions/gsd/state-reconciliation/drift/completion.js`
