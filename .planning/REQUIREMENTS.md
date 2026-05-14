@@ -21,6 +21,13 @@
 - [ ] **ATS-09**: Les onglets de filtre par matiere fonctionnent (afficher/masquer par slug de matiere)
 - [ ] **ATS-10**: La liste de priorite des topics est rendue sous la heatmap, classee par score descendant
 
+### Paiement
+
+- [ ] **PAY-01**: Landing page presentant l'offre (acces parcours personnalise) avec un bouton d'achat clair
+- [ ] **PAY-02**: Checkout Stripe s'ouvre et accepte un vrai paiement de 10EUR/mois (mode live ou test)
+- [ ] **PAY-03**: Page de confirmation post-paiement s'affiche et confirme l'acces
+- [ ] **PAY-04**: Un abonnement actif est visible et trackable dans le dashboard Stripe
+
 ### Contenu
 
 - [ ] **CONTENT-01**: Blog avec articles methodes de travail (Feynman, Pomodoro, active recall) — format 3 paragraphes
@@ -31,7 +38,7 @@
 
 - [ ] **LYCEEN-01**: Onboarding objectif-driven — l'utilisateur declare son objectif et recoit un parcours
 - [ ] **LYCEEN-02**: Mission quotidienne generee depuis le programme + objectif declare
-- [ ] **LYCEEN-03**: Abonnement Stripe 10EUR/mois fonctionnel end-to-end
+- [ ] **LYCEEN-03**: Acces au parcours reserve aux abonnes (webhook Stripe verifie l'abonnement actif)
 
 ### Ecosysteme
 
@@ -43,7 +50,7 @@
 | Feature | Reason |
 |---------|--------|
 | Framework JS (React, Vue) | Vanilla JS only — MVP discipline |
-| Backend / base de donnees | Phase 1-2 sont 100% statiques |
+| Backend / base de donnees | Phases 1-2 sont 100% statiques |
 | Gamification agressive | Interdit par les regles produit permanentes |
 | Interface LMS froide | Contraire au positionnement "anti-usine, human-first" |
 
@@ -61,19 +68,24 @@
 | ATS-08 | Phase 2 | Pending |
 | ATS-09 | Phase 2 | Pending |
 | ATS-10 | Phase 2 | Pending |
-| CONTENT-01 | Phase 3 | Pending |
-| CONTENT-02 | Phase 3 | Pending |
-| CONTENT-03 | Phase 3 | Pending |
-| LYCEEN-01 | Phase 4 | Pending |
-| LYCEEN-02 | Phase 4 | Pending |
-| LYCEEN-03 | Phase 4 | Pending |
-| ECO-01 | Phase 5 | Pending |
-| ECO-02 | Phase 5 | Pending |
+| PAY-01 | Phase 3 | Pending |
+| PAY-02 | Phase 3 | Pending |
+| PAY-03 | Phase 3 | Pending |
+| PAY-04 | Phase 3 | Pending |
+| CONTENT-01 | Phase 4 | Pending |
+| CONTENT-02 | Phase 4 | Pending |
+| CONTENT-03 | Phase 4 | Pending |
+| LYCEEN-01 | Phase 5 | Pending |
+| LYCEEN-02 | Phase 5 | Pending |
+| LYCEEN-03 | Phase 5 | Pending |
+| ECO-01 | Phase 6 | Pending |
+| ECO-02 | Phase 6 | Pending |
 
 **Coverage:**
-- v1 requirements: 18 total
-- Mapped to phases: 18
+- v1 requirements: 22 total
+- Mapped to phases: 22
 - Unmapped: 0
 
 ---
 *Requirements defined: 2026-05-14*
+*Updated: 2026-05-14 — paiement Stripe avance en Phase 3 (principe vibe coding : valider le PMF avant de construire le produit complet)*
