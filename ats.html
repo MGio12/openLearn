@@ -333,6 +333,7 @@ function renderHeatmapRows(el, topics, years, maxSc, matiereSlug) {
 function renderPriorityList(topics) {
   var listEl = document.getElementById("topic-list");
   listEl.innerHTML = "";
+  topics = topics.slice().sort(function(a, b) { return b.score - a.score; });
   if (topics.length === 0) {
     var empty = document.createElement("div");
     empty.className = "topic-row";
@@ -424,6 +425,7 @@ function buildFilterTabs(data) {
 async function loadData() {
   try {
     var res = await fetch("./data/ats/poids/weighted-topics.json");
+    if (!res.ok) { throw new Error("HTTP " + res.status); }
     var data = await res.json();
     var yearsFlat = [];
     var keys = Object.keys(data);
@@ -445,11 +447,12 @@ async function loadData() {
         allScores.push(sTopics[t2].score);
       }
     }
-    maxScore = Math.max.apply(null, allScores);
+    maxScore = allScores.length > 0 ? Math.max.apply(null, allScores) : 1;
     heatmapEl = document.querySelector(".heatmap");
     buildYearHeader(heatmapEl, allYears);
-    renderHeatmapRows(heatmapEl, data["mathematiques"], allYears, maxScore, "mathematiques");
-    renderPriorityList(data["mathematiques"]);
+    var mathTopics = data["mathematiques"] || [];
+    renderHeatmapRows(heatmapEl, mathTopics, allYears, maxScore, "mathematiques");
+    renderPriorityList(mathTopics);
     buildFilterTabs(data);
   } catch (e) {
     var hm = document.querySelector(".heatmap");
