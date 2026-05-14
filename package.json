@@ -8,7 +8,8 @@
     "verify:s01": "node scripts/verify-s01-dashboard.mjs",
     "verify:s02": "node scripts/verify-s02-routine.mjs",
     "verify:s03": "node scripts/verify-s03-checkout.mjs",
-    "verify:s04": "node scripts/verify-s04-craft.mjs"
+    "verify:s04": "node scripts/verify-s04-craft.mjs",
+    "verify:s05": "node scripts/verify-s05-tunnel.mjs"
   },
   "devDependencies": {
     "pdf-parse": "^2.4.5",

@@ -97,7 +97,7 @@ async function visibleAnchor(page, selector, message) {
 }
 
 async function visibleAnchorIn(page, parentSelector, href, message) {
-  return visibleAnchor(page, `${parentSelector} a[href="${href}"]`, message);
+  return visibleAnchor(page, `:is(${parentSelector}) a[href="${href}"]`, message);
 }
 
 async function assertNoHorizontalOverflow(page, fileName, viewportLabel) {

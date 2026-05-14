@@ -132,6 +132,33 @@
     .filter-bar .chip.active {
       background: var(--ink); color: var(--paper);
     }
+
+    @media (max-width: 900px) {
+      .ats-hero { grid-template-columns: 1fr !important; }
+      .split { grid-template-columns: 1fr !important; }
+      .card { min-width: 0; }
+      .heatmap {
+        grid-template-columns: minmax(86px, 1.25fr) repeat(6, minmax(24px, 1fr)) minmax(44px, .7fr) !important;
+        gap: 2px;
+      }
+      .heatmap .col-head { font-size: 9px; padding: 3px 1px; }
+      .heatmap .row-head {
+        min-width: 0;
+        overflow-wrap: anywhere;
+        padding: 4px 4px 4px 0;
+        font-size: 11px;
+      }
+      .heatmap .row-end { padding-left: 4px; }
+      .freq-total { font-size: 14px; }
+      .hm-cell {
+        height: 28px;
+        border-width: 1.5px;
+        border-radius: 5px;
+        font-size: 10px;
+      }
+      .topic-row { grid-template-columns: 1fr; }
+      .topic-row .pct { text-align: left; }
+    }
   </style>
 </head>
 <body>
@@ -257,7 +284,7 @@
             </div>
             <div class="body">Trois chapitres tombent à chaque concours et ta maîtrise reste en dessous de 50%. Si tu corriges juste ces trois en 8 semaines, ta couverture passe de 73% à 88%.</div>
             <div class="actions">
-              <button class="btn">Construire un plan de 8 semaines</button>
+              <a href="checkout.html" class="btn" style="text-decoration:none">Voir l'abonnement</a>
               <button class="btn btn--ghost">Plus tard</button>
             </div>
           </div>
@@ -426,11 +453,36 @@ function buildFilterTabs(data) {
   });
 }
 
+var FALLBACK_WEIGHTED_TOPICS = {
+  "_meta": {
+    "source": "ats.html file-mode fallback",
+    "formula": "score = frequency x recencyWeight(0.9^age) + juryBonus(0.2)"
+  },
+  "mathematiques": [
+    { "id": "analyse", "nom": "Analyse", "totalOccurrences": 14, "score": 8.611613010000001, "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024] },
+    { "id": "algebre-lineaire", "nom": "Algèbre linéaire", "totalOccurrences": 10, "score": 6.1423361100000005, "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024] },
+    { "id": "geometrie", "nom": "Géométrie", "totalOccurrences": 3, "score": 2.0172969000000003, "years": [2019, 2023, 2024] },
+    { "id": "calcul-differentiel", "nom": "Calcul différentiel", "totalOccurrences": 1, "score": 0.4304672100000001, "years": [2018] }
+  ],
+  "physique-chimie": [],
+  "francais": [],
+  "anglais": [],
+  "sciences-de-lingenieur": []
+};
+
+async function loadWeightedTopics() {
+  if (window.location.protocol === "file:") {
+    return FALLBACK_WEIGHTED_TOPICS;
+  }
+
+  var res = await fetch("./data/ats/poids/weighted-topics.json");
+  if (!res.ok) { throw new Error("HTTP " + res.status); }
+  return res.json();
+}
+
 async function loadData() {
   try {
-    var res = await fetch("./data/ats/poids/weighted-topics.json");
-    if (!res.ok) { throw new Error("HTTP " + res.status); }
-    var data = await res.json();
+    var data = await loadWeightedTopics();
     var yearsFlat = [];
     var keys = Object.keys(data);
     for (var k = 0; k < keys.length; k++) {
