@@ -1,9 +1,16 @@
-﻿{
+{
   "name": "outil-prepa",
   "version": "0.1.0",
   "type": "module",
   "scripts": {
     "weights": "node scripts/compute-weights.js",
     "screenshot": "node scripts/screenshot.js"
+  },
+  "devDependencies": {
+    "pdf-parse": "^2.4.5",
+    "playwright": "^1.60.0"
+  },
+  "dependencies": {
+    "pdfjs-dist": "^5.7.284"
   }
 }
