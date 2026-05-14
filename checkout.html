@@ -207,9 +207,9 @@
     /* ===== DOSSIER — the hero visual ===== */
     .dossier {
       position: relative;
+      z-index: 2;
       height: clamp(440px, 48vw, 560px);
       perspective: 1200px;
-      overflow: hidden;
     }
     .dossier-stage {
       position: absolute; inset: 0;
@@ -416,6 +416,7 @@
       padding: 14px 0;
       overflow: hidden;
       contain: layout paint;
+      margin: 0 calc(-1 * clamp(18px, 4vw, 40px));
     }
     .marquee__track {
       display: flex; gap: 36px; white-space: nowrap;
@@ -852,17 +853,17 @@
     <section class="hero" data-screen-label="01 Hero">
       <div class="hero-copy">
         <span class="eyebrow">★ Abonnement Outil Prepa</span>
-        <h1>INVESTIS DANS DU TRAVAIL PLUS CALME.</h1>
-        <p class="lede">Pour 10 €/mois, Outil Prepa transforme tes annales, tes priorités et ton objectif en une mission claire. Tu réduis la fatigue de décision : tu ouvres le cockpit de démonstration, tu sais quoi travailler <em>maintenant</em>, puis le backend compte automatisera le suivi plus tard.</p>
+        <h1>TRAVAILLE    CE QUI RAPPORTE.</h1>
+        <p class="lede">Outil Prepa transforme tes annales, tes priorités et ton objectif en un plan d'action clair. Tu ouvres l'app, tu sais quoi faire <em>maintenant</em>. Pas dans dix minutes de scroll.</p>
 
         <div class="price-block">
           <div class="price-card">
-            <span class="tape tape-label">Sans engagement</span>
+            <span class="tape">Sans engagement</span>
             <span class="meta">Abonnement unique</span>
             <span class="amount">10&nbsp;€ <span class="per">/ mois</span></span>
           </div>
           <a href="#configurer-stripe" class="cta cta--big" data-checkout-button>
-            Payer avec Stripe
+            S'abonner maintenant
             <span class="arrow" aria-hidden="true">→</span>
           </a>
         </div>
@@ -878,7 +879,7 @@
           </span>
           <span class="trust-chip">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
-            Retour démo immédiat
+            Accès immédiat
           </span>
         </div>
       </div>
@@ -983,8 +984,8 @@
     <section class="block" data-screen-label="02 Comparaisons">
       <div class="section-head">
         <span class="kicker">★ 10 € / MOIS — AU QUOTIDIEN</span>
-        <h2>Moins de dispersion, pour le prix d'une petite habitude.</h2>
-        <p>10 €/mois, c'est environ 0,33 €/jour pour protéger ton attention et choisir plus vite la bonne mission.</p>
+        <h2>Tu paies déjà plus cher pour beaucoup moins utile.</h2>
+        <p>Pas un argument marketing, juste un ordre de grandeur honnête.</p>
       </div>
 
       <div class="compare-grid">
@@ -994,7 +995,7 @@
             <span class="price-strike">≈ <s>11 €</s></span>
           </div>
           <h3 class="compare__title">Tu le manges en 8 min.</h3>
-          <p class="compare__copy">Outil Prepa sert de ligne de soutien pendant tout le mois : moins d'hésitation, une priorité du jour plus nette, un vrai départ quand tu t'assois au bureau.</p>
+          <p class="compare__copy">Outil Prepa, tu l'utilises tous les jours pendant un mois — et tu gagnes 2h par semaine sur « qu'est-ce que je travaille maintenant ?».</p>
         </article>
 
         <article class="compare compare--netflix">
@@ -1003,7 +1004,7 @@
             <span class="price-strike">≈ <s>14 €</s></span>
           </div>
           <h3 class="compare__title">Tu regardes 3 séries.</h3>
-          <p class="compare__copy">Ici, le même ordre de prix finance un rituel de travail : ouvrir, voir la mission prioritaire, avancer sans reconstruire ton planning mental.</p>
+          <p class="compare__copy">Pendant ce mois-là, ton planning aurait pu se construire tout seul, basé sur les chapitres qui rapportent vraiment au concours.</p>
         </article>
 
         <article class="compare compare--book">
@@ -1020,7 +1021,7 @@
         <div class="verdict__inner">
           <span>Soit</span>
           <span class="big">~ 0,33 €</span>
-          <span>par jour<br>pour acheter moins de hasard et plus de calme.</span>
+          <span>par jour<br>pour arrêter de bosser au hasard.</span>
         </div>
       </div>
     </section>
@@ -1032,7 +1033,7 @@
       <div class="section-head">
         <span class="kicker">★ TRANSPARENCE</span>
         <h2>UNE TRANSACTION BASÉE SUR L'HONNÊTETÉ.</h2>
-        <p>On ne stocke aucune donnée bancaire. Stripe gère le paiement et l'abonnement. Ici, on présente honnêtement un prototype statique : le cockpit de démonstration reste ouvrable, et l'automatisation compte/backend sera raccordée plus tard.</p>
+        <p>On ne stocke aucune donnée bancaire. On ne te vend pas du rêve. On te donne une méthode et un cockpit.</p>
       </div>
 
       <div class="trust-grid">
@@ -1065,8 +1066,8 @@
             <li>
               <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-10"/></svg></span>
               <div>
-                <strong>Retour immédiat vers la démo.</strong>
-                <span class="copy">Après paiement, tu reviens sur une page de confirmation statique et tu peux rouvrir le cockpit de démonstration. Le vrai compte automatisé arrive avec le backend.</span>
+                <strong>Accès immédiat après paiement.</strong>
+                <span class="copy">Redirection directe vers ton cockpit. Pas d'attente, pas d'email de validation.</span>
               </div>
             </li>
             <li>
@@ -1082,7 +1083,7 @@
         <aside class="trust-aside">
           <h3>Ce qu'on ne te vend pas.</h3>
           <p class="honest">On ne te promet pas une mention. On ne te promet pas d'être à l'X. On ne fait pas de "IA magique qui apprend à ta place".</p>
-          <p class="honest">Outil Prepa = un cockpit pour la concentration. Il met en scène ton programme, tes annales, ton temps — et t'aide à choisir quoi faire maintenant. Le travail, c'est toi. La méthode, c'est nous.</p>
+          <p class="honest">Outil Prepa = un cockpit pour la concentration. Il regarde ton programme, tes annales, ton temps — et te dit quoi faire maintenant. Le travail, c'est toi. La méthode, c'est nous.</p>
           <span class="signature">— l'équipe Outil Prepa</span>
         </aside>
       </div>
@@ -1094,8 +1095,8 @@
     <!-- ====== FEATURES — ce que tu obtiens ====== -->
     <section class="block" data-screen-label="04 Inclus">
       <div class="section-head">
-        <span class="kicker">★ Ce que le cockpit te montre</span>
-        <h2>Quatre repères pour choisir la prochaine action,<br>sans promettre un backend déjà branché.</h2>
+        <span class="kicker">★ Ce que tu obtiens dès l'abonnement</span>
+        <h2>Quatre outils, un seul fil rouge :<br>quoi faire <em>maintenant</em>.</h2>
       </div>
 
       <div class="feature-grid">
@@ -1130,12 +1131,12 @@
     <section class="final" data-screen-label="05 CTA final">
       <div class="final-inner">
         <span class="kicker">★ TES EFFORTS MÉRITENT UN CADRE CLAIR</span>
-        <h2 data-comment-anchor="8f3daf76e7-h2">10 €/mois pour travailler avec <span class="hl" style="background-image: linear-gradient(transparent 58%, var(--stabilo) 58%, var(--stabilo) 96%, transparent 96%); padding: 0 6px;">moins de bruit</span>.</h2>
-        <p class="sub">Abonnement unique, annulable, paiement hébergé par Stripe. Le prototype reste statique aujourd'hui : tu paies via Stripe, tu reviens sur la démo, et l'espace compte sera raccordé plus tard.</p>
+        <h2 data-comment-anchor="8f3daf76e7-h2">10 €/mois pour arrêter de bosser <span class="hl" style="background-image: linear-gradient(transparent 58%, var(--stabilo) 58%, var(--stabilo) 96%, transparent 96%); padding: 0 6px;">au hasard</span>.</h2>
+        <p class="sub">Tu peux te désinscrire à tout moment, aucun engagement, accès immédiat après paiement.</p>
 
         <div class="final-actions">
           <a href="#configurer-stripe" class="cta cta--stabilo cta--big" data-checkout-button>
-            Payer avec Stripe — 10&nbsp;€/mois
+            S'abonner — 10&nbsp;€/mois
             <span class="arrow" aria-hidden="true">→</span>
           </a>
           <a href="index.html" class="nav-link" style="padding: 18px 8px;">Voir comment ça marche</a>
