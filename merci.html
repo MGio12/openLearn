@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Outil Prepa - Paiement confirme</title>
-  <meta name="description" content="Confirmation de paiement Outil Prepa.">
+  <title>Outil Prepa - Retour paiement Stripe</title>
+  <meta name="description" content="Retour de paiement Stripe Outil Prepa : confirmation statique, reçu et abonnement gérés par Stripe.">
   <link rel="stylesheet" href="styles.css">
   <style>
     body {
@@ -131,11 +131,12 @@
         <div class="success-mark">OK</div>
       </div>
       <div>
-        <h1>Paiement confirme.</h1>
-        <p>Ton acces Outil Prepa est pret. Le cockpit peut maintenant servir de point d'entree abonne pour le parcours personnalise.</p>
+        <h1>Retour paiement confirme.</h1>
+        <p>Merci : Stripe a pris en charge le paiement et renverra le recu d'abonnement. Cette page est une confirmation statique de retour vers la demo Outil Prepa, pas encore un tableau de bord abonne automatise.</p>
       </div>
       <div class="success-actions">
-        <a class="op-btn op-btn--dark" href="index.html">Ouvrir le cockpit</a>
+        <a class="op-btn op-btn--dark" href="index.html">Retour au cockpit demo</a>
+        <a class="op-btn op-btn--ghost" href="mission.html">Voir la mission du jour</a>
         <a class="op-btn op-btn--ghost" href="ats.html">Voir les priorites ATS</a>
       </div>
     </section>
@@ -143,11 +144,11 @@
     <aside class="success-side">
       <h2>Prochaines etapes</h2>
       <ul class="next-list">
-        <li>Verifier l'abonnement actif dans le dashboard Stripe.</li>
-        <li>Associer l'email Stripe a l'acces abonne quand le backend arrive.</li>
-        <li>Continuer vers la Phase 5 pour verrouiller le parcours personnalise.</li>
+        <li>Garder le recu Stripe : il confirme le paiement et les details de l'abonnement.</li>
+        <li>Revenir au cockpit demo pour reprendre le fil : accueil, mission du jour, puis priorites ATS.</li>
+        <li>Quand le backend arrive, l'association email Stripe -> compte abonne sera raccordee proprement.</li>
       </ul>
-      <p class="receipt-note">Stripe envoie le recu et gere l'abonnement. Cette page confirme seulement le retour post-paiement.</p>
+      <p class="receipt-note">Stripe envoie le recu et gere l'abonnement. Cette page confirme seulement le retour post-paiement dans un prototype statique : elle ne provisionne pas encore de compte ni d'acces reel.</p>
     </aside>
   </main>
 </body>
