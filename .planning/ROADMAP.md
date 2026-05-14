@@ -46,7 +46,7 @@ Plans:
 **Plans**: 1 plan
 
 Plans:
-- [ ] 02-01: Fetch et rendu dynamique de la heatmap
+- [x] 02-01: Fetch et rendu dynamique de la heatmap
 
 ### Phase 3: Paiement Stripe
 **Goal**: Landing page + checkout Stripe 10EUR/mois fonctionnel — valider que des gens paient avant de construire le produit lyceen complet
@@ -105,7 +105,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. MVP ATS Dashboard | 4/4 | Complete | 2026-05-14 |
-| 2. Heatmap ATS Dynamique | 0/1 | Not started | - |
+| 2. Heatmap ATS Dynamique | 1/1 | Executing | - |
 | 3. Paiement Stripe | 0/1 | Not started | - |
 | 4. Contenu et Audience | 0/1 | Not started | - |
 | 5. Lyceens | 0/1 | Not started | - |
