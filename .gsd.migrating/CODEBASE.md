@@ -1,142 +1,221 @@
 # Codebase Map
 
-Generated: 2026-05-14T18:56:11Z | Files: 88 | Described: 0/88
-<!-- gsd:codebase-meta {"generatedAt":"2026-05-14T18:56:11Z","fingerprint":"ec189286e9b3151492059bdc78f7fb9605674e27","fileCount":88,"truncated":false} -->
+Generated: 2026-05-14T19:04:29Z | Files: 500 | Described: 0/500
+<!-- gsd:codebase-meta {"generatedAt":"2026-05-14T19:04:29Z","fingerprint":"02374755f0006c3568e980998ec5e4d76f95b23e","fileCount":500,"truncated":true} -->
+Note: Truncated to first 500 files. Run with higher --max-files to include all.
 
 ### (root)/
 - `.gitignore`
-- `ats.html`
-- `BrandingBibleV1.txt`
-- `colors_and_type.css`
-- `focus.css`
-- `focus.html`
-- `index.html`
-- `mission.html`
-- `onboarding.css`
-- `onboarding.html`
-- `package-lock.json`
-- `package.json`
-- `styles.css`
-- `WORKFLOW.md`
 
-### data/ats/jurys/2018/
-- `data/ats/jurys/2018/rapport.json`
+### .gsd.migrating/
+- `.gsd.migrating/CODEBASE.md`
+- `.gsd.migrating/gsd.db`
+- `.gsd.migrating/gsd.db-shm`
+- `.gsd.migrating/gsd.db-wal`
 
-### data/ats/jurys/2019/
-- `data/ats/jurys/2019/rapport.json`
+### .gsd.migrating/runtime/home/agent/
+- `.gsd.migrating/runtime/home/agent/GSD-WORKFLOW.md`
 
-### data/ats/jurys/2020/
-- `data/ats/jurys/2020/rapport.json`
+### .gsd.migrating/runtime/home/agent/agents/
+- `.gsd.migrating/runtime/home/agent/agents/debugger.md`
+- `.gsd.migrating/runtime/home/agent/agents/doc-writer.md`
+- `.gsd.migrating/runtime/home/agent/agents/git-ops.md`
+- `.gsd.migrating/runtime/home/agent/agents/javascript-pro.md`
+- `.gsd.migrating/runtime/home/agent/agents/planner.md`
+- `.gsd.migrating/runtime/home/agent/agents/refactorer.md`
+- `.gsd.migrating/runtime/home/agent/agents/researcher.md`
+- `.gsd.migrating/runtime/home/agent/agents/reviewer.md`
+- `.gsd.migrating/runtime/home/agent/agents/scout.md`
+- `.gsd.migrating/runtime/home/agent/agents/security.md`
+- `.gsd.migrating/runtime/home/agent/agents/tester.md`
+- `.gsd.migrating/runtime/home/agent/agents/typescript-pro.md`
+- `.gsd.migrating/runtime/home/agent/agents/worker.md`
 
-### data/ats/jurys/2021/
-- `data/ats/jurys/2021/rapport.json`
+### .gsd.migrating/runtime/home/agent/extensions/
+- `.gsd.migrating/runtime/home/agent/extensions/ask-user-questions.js`
+- `.gsd.migrating/runtime/home/agent/extensions/get-secrets-from-user.js`
 
-### data/ats/jurys/2022/
-- `data/ats/jurys/2022/rapport.json`
+### .gsd.migrating/runtime/home/agent/extensions/async-jobs/
+- `.gsd.migrating/runtime/home/agent/extensions/async-jobs/async-bash-tool.js`
+- `.gsd.migrating/runtime/home/agent/extensions/async-jobs/await-tool.js`
+- `.gsd.migrating/runtime/home/agent/extensions/async-jobs/cancel-job-tool.js`
+- `.gsd.migrating/runtime/home/agent/extensions/async-jobs/extension-manifest.json`
+- `.gsd.migrating/runtime/home/agent/extensions/async-jobs/index.js`
+- `.gsd.migrating/runtime/home/agent/extensions/async-jobs/job-manager.js`
 
-### data/ats/jurys/2023/
-- `data/ats/jurys/2023/rapport.json`
+### .gsd.migrating/runtime/home/agent/extensions/aws-auth/
+- `.gsd.migrating/runtime/home/agent/extensions/aws-auth/index.js`
 
-### data/ats/jurys/2024/
-- `data/ats/jurys/2024/rapport.json`
+### .gsd.migrating/runtime/home/agent/extensions/bg-shell/
+- `.gsd.migrating/runtime/home/agent/extensions/bg-shell/bg-shell-command.js`
+- `.gsd.migrating/runtime/home/agent/extensions/bg-shell/bg-shell-lifecycle.js`
+- `.gsd.migrating/runtime/home/agent/extensions/bg-shell/bg-shell-tool.js`
+- `.gsd.migrating/runtime/home/agent/extensions/bg-shell/extension-manifest.json`
+- `.gsd.migrating/runtime/home/agent/extensions/bg-shell/index.js`
+- `.gsd.migrating/runtime/home/agent/extensions/bg-shell/interaction.js`
+- `.gsd.migrating/runtime/home/agent/extensions/bg-shell/output-formatter.js`
+- `.gsd.migrating/runtime/home/agent/extensions/bg-shell/overlay.js`
+- `.gsd.migrating/runtime/home/agent/extensions/bg-shell/process-manager.js`
+- `.gsd.migrating/runtime/home/agent/extensions/bg-shell/readiness-detector.js`
+- `.gsd.migrating/runtime/home/agent/extensions/bg-shell/types.js`
+- `.gsd.migrating/runtime/home/agent/extensions/bg-shell/utilities.js`
 
-### data/ats/jurys/2025/
-- `data/ats/jurys/2025/rapport.json`
+### .gsd.migrating/runtime/home/agent/extensions/browser-tools/
+- `.gsd.migrating/runtime/home/agent/extensions/browser-tools/BROWSER-TOOLS-V2-PROPOSAL.md`
+- `.gsd.migrating/runtime/home/agent/extensions/browser-tools/capture.js`
+- `.gsd.migrating/runtime/home/agent/extensions/browser-tools/core.js`
+- `.gsd.migrating/runtime/home/agent/extensions/browser-tools/evaluate-helpers.js`
+- `.gsd.migrating/runtime/home/agent/extensions/browser-tools/extension-manifest.json`
+- `.gsd.migrating/runtime/home/agent/extensions/browser-tools/index.js`
+- `.gsd.migrating/runtime/home/agent/extensions/browser-tools/lifecycle.js`
+- `.gsd.migrating/runtime/home/agent/extensions/browser-tools/package.json`
+- `.gsd.migrating/runtime/home/agent/extensions/browser-tools/refs.js`
+- `.gsd.migrating/runtime/home/agent/extensions/browser-tools/settle.js`
+- `.gsd.migrating/runtime/home/agent/extensions/browser-tools/state.js`
+- `.gsd.migrating/runtime/home/agent/extensions/browser-tools/utils.js`
 
-### data/ats/jurys/2026/
-- `data/ats/jurys/2026/rapport.json`
+### .gsd.migrating/runtime/home/agent/extensions/browser-tools/tools/
+- *(22 files: 22 .js)*
 
-### data/ats/poids/
-- `data/ats/poids/weighted-topics.json`
+### .gsd.migrating/runtime/home/agent/extensions/claude-code-cli/
+- `.gsd.migrating/runtime/home/agent/extensions/claude-code-cli/index.js`
+- `.gsd.migrating/runtime/home/agent/extensions/claude-code-cli/models.js`
+- `.gsd.migrating/runtime/home/agent/extensions/claude-code-cli/package.json`
+- `.gsd.migrating/runtime/home/agent/extensions/claude-code-cli/partial-builder.js`
+- `.gsd.migrating/runtime/home/agent/extensions/claude-code-cli/readiness.js`
+- `.gsd.migrating/runtime/home/agent/extensions/claude-code-cli/sdk-types.js`
+- `.gsd.migrating/runtime/home/agent/extensions/claude-code-cli/stream-adapter.js`
 
-### data/ats/sujets/
-- `data/ats/sujets/INSTRUCTIONS_TAGGING.md`
-- `data/ats/sujets/TEMPLATE.json`
+### .gsd.migrating/runtime/home/agent/extensions/cmux/
+- `.gsd.migrating/runtime/home/agent/extensions/cmux/index.js`
+- `.gsd.migrating/runtime/home/agent/extensions/cmux/package.json`
 
-### data/ats/sujets/2018/
-- `data/ats/sujets/2018/anglais.json`
-- `data/ats/sujets/2018/francais.json`
-- `data/ats/sujets/2018/mathematiques.json`
-- `data/ats/sujets/2018/physique-chimie.json`
-- `data/ats/sujets/2018/sciences-de-lingenieur-solution.json`
-- `data/ats/sujets/2018/sciences-de-lingenieur.json`
+### .gsd.migrating/runtime/home/agent/extensions/context7/
+- `.gsd.migrating/runtime/home/agent/extensions/context7/extension-manifest.json`
+- `.gsd.migrating/runtime/home/agent/extensions/context7/index.js`
+- `.gsd.migrating/runtime/home/agent/extensions/context7/package.json`
 
-### data/ats/sujets/2019/
-- `data/ats/sujets/2019/anglais.json`
-- `data/ats/sujets/2019/francais.json`
-- `data/ats/sujets/2019/mathematiques.json`
-- `data/ats/sujets/2019/physique-chimie.json`
-- `data/ats/sujets/2019/sciences-de-lingenieur-solution.json`
-- `data/ats/sujets/2019/sciences-de-lingenieur.json`
+### .gsd.migrating/runtime/home/agent/extensions/github-sync/
+- `.gsd.migrating/runtime/home/agent/extensions/github-sync/cli.js`
+- `.gsd.migrating/runtime/home/agent/extensions/github-sync/index.js`
+- `.gsd.migrating/runtime/home/agent/extensions/github-sync/mapping.js`
+- `.gsd.migrating/runtime/home/agent/extensions/github-sync/sync.js`
+- `.gsd.migrating/runtime/home/agent/extensions/github-sync/templates.js`
+- `.gsd.migrating/runtime/home/agent/extensions/github-sync/types.js`
 
-### data/ats/sujets/2020/
-- `data/ats/sujets/2020/anglais.json`
-- `data/ats/sujets/2020/francais.json`
-- `data/ats/sujets/2020/mathematiques.json`
-- `data/ats/sujets/2020/physique-chimie.json`
-- `data/ats/sujets/2020/sciences-de-lingenieur-solution.json`
-- `data/ats/sujets/2020/sciences-de-lingenieur.json`
+### .gsd.migrating/runtime/home/agent/extensions/google-search/
+- `.gsd.migrating/runtime/home/agent/extensions/google-search/extension-manifest.json`
+- `.gsd.migrating/runtime/home/agent/extensions/google-search/index.js`
+- `.gsd.migrating/runtime/home/agent/extensions/google-search/package.json`
 
-### data/ats/sujets/2021/
-- `data/ats/sujets/2021/anglais.json`
-- `data/ats/sujets/2021/francais.json`
-- `data/ats/sujets/2021/mathematiques.json`
-- `data/ats/sujets/2021/physique-chimie.json`
-- `data/ats/sujets/2021/sciences-de-lingenieur-solution.json`
-- `data/ats/sujets/2021/sciences-de-lingenieur.json`
+### .gsd.migrating/runtime/home/agent/extensions/gsd/
+- *(252 files: 250 .js, 2 .json)*
 
-### data/ats/sujets/2022/
-- `data/ats/sujets/2022/anglais.json`
-- `data/ats/sujets/2022/francais.json`
-- `data/ats/sujets/2022/mathematiques.json`
-- `data/ats/sujets/2022/physique-chimie.json`
-- `data/ats/sujets/2022/sciences-de-lingenieur-solution.json`
-- `data/ats/sujets/2022/sciences-de-lingenieur.json`
+### .gsd.migrating/runtime/home/agent/extensions/gsd/auto/
+- *(35 files: 35 .js)*
 
-### data/ats/sujets/2023/
-- `data/ats/sujets/2023/anglais.json`
-- `data/ats/sujets/2023/francais.json`
-- `data/ats/sujets/2023/mathematiques.json`
-- `data/ats/sujets/2023/physique-chimie.json`
-- `data/ats/sujets/2023/sciences-de-lingenieur-solution.json`
-- `data/ats/sujets/2023/sciences-de-lingenieur.json`
+### .gsd.migrating/runtime/home/agent/extensions/gsd/bootstrap/
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/bootstrap/agent-end-recovery.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/bootstrap/crash-log.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/bootstrap/db-tools.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/bootstrap/dynamic-tools.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/bootstrap/exec-tools.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/bootstrap/journal-tools.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/bootstrap/memory-tools.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/bootstrap/notify-interceptor.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/bootstrap/provider-error-resume.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/bootstrap/query-tools.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/bootstrap/register-extension.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/bootstrap/register-hooks.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/bootstrap/register-shortcuts.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/bootstrap/sanitize-complete-milestone.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/bootstrap/subagent-input.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/bootstrap/system-context.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/bootstrap/tool-call-loop-guard.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/bootstrap/write-gate.js`
 
-### data/ats/sujets/2024/
-- `data/ats/sujets/2024/anglais.json`
-- `data/ats/sujets/2024/francais.json`
-- `data/ats/sujets/2024/mathematiques.json`
-- `data/ats/sujets/2024/physique-chimie.json`
-- `data/ats/sujets/2024/sciences-de-lingenieur-solution.json`
-- `data/ats/sujets/2024/sciences-de-lingenieur.json`
+### .gsd.migrating/runtime/home/agent/extensions/gsd/commands/
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/commands/catalog.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/commands/context.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/commands/dispatcher.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/commands/index.js`
 
-### data/ats/sujets/2025/
-- `data/ats/sujets/2025/anglais.json`
-- `data/ats/sujets/2025/francais.json`
-- `data/ats/sujets/2025/mathematiques.json`
-- `data/ats/sujets/2025/physique-chimie.json`
-- `data/ats/sujets/2025/sciences-de-lingenieur-solution.json`
-- `data/ats/sujets/2025/sciences-de-lingenieur.json`
+### .gsd.migrating/runtime/home/agent/extensions/gsd/commands/handlers/
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/commands/handlers/auto.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/commands/handlers/core.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/commands/handlers/escalate.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/commands/handlers/notifications-handler.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/commands/handlers/onboarding.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/commands/handlers/ops.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/commands/handlers/parallel.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/commands/handlers/workflow.js`
 
-### data/ats/sujets/2026/
-- `data/ats/sujets/2026/anglais.json`
-- `data/ats/sujets/2026/francais.json`
-- `data/ats/sujets/2026/mathematiques.json`
-- `data/ats/sujets/2026/physique-chimie.json`
-- `data/ats/sujets/2026/sciences-de-lingenieur-solution.json`
-- `data/ats/sujets/2026/sciences-de-lingenieur.json`
+### .gsd.migrating/runtime/home/agent/extensions/gsd/db/
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/db/auto-workers.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/db/command-queue.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/db/milestone-leases.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/db/runtime-kv.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/db/unit-dispatches.js`
 
-### docs/
-- `docs/vibe-coding-methode.md`
+### .gsd.migrating/runtime/home/agent/extensions/gsd/docs/
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/docs/claude-marketplace-import.md`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/docs/COORDINATION.md`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/docs/preferences-reference.md`
 
-### docs/superpowers/plans/
-- `docs/superpowers/plans/2026-05-14-phase1-ats.md`
+### .gsd.migrating/runtime/home/agent/extensions/gsd/ecosystem/
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/ecosystem/gsd-extension-api.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/ecosystem/loader.js`
 
-### docs/superpowers/specs/
-- `docs/superpowers/specs/2026-05-14-outil-prepa-dashboard-design.md`
-- `docs/superpowers/specs/2026-05-14-vision-produit.md`
+### .gsd.migrating/runtime/home/agent/extensions/gsd/migrate/
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/migrate/command.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/migrate/index.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/migrate/parser.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/migrate/parsers.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/migrate/preview.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/migrate/transformer.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/migrate/types.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/migrate/validator.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/migrate/writer.js`
 
-### scripts/
-- `scripts/_clip.mjs`
-- `scripts/_server.cjs`
-- `scripts/compute-weights.js`
-- `scripts/screenshot.js`
+### .gsd.migrating/runtime/home/agent/extensions/gsd/prompts/
+- *(43 files: 43 .md)*
+
+### .gsd.migrating/runtime/home/agent/extensions/gsd/safety/
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/safety/content-validator.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/safety/destructive-guard.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/safety/evidence-collector.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/safety/evidence-cross-ref.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/safety/file-change-validator.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/safety/git-checkpoint.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/safety/safety-harness.js`
+
+### .gsd.migrating/runtime/home/agent/extensions/gsd/schemas/
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/schemas/parsers.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/schemas/validate.js`
+
+### .gsd.migrating/runtime/home/agent/extensions/gsd/schemas/__fixtures__/
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/schemas/__fixtures__/valid-project.md`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/schemas/__fixtures__/valid-requirements.md`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/schemas/__fixtures__/valid-roadmap.md`
+
+### .gsd.migrating/runtime/home/agent/extensions/gsd/skills/gsd-headless/
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/skills/gsd-headless/SKILL.md`
+
+### .gsd.migrating/runtime/home/agent/extensions/gsd/skills/gsd-headless/references/
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/skills/gsd-headless/references/answer-injection.md`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/skills/gsd-headless/references/commands.md`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/skills/gsd-headless/references/multi-session.md`
+
+### .gsd.migrating/runtime/home/agent/extensions/gsd/state-reconciliation/
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/state-reconciliation/errors.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/state-reconciliation/index.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/state-reconciliation/registry.js`
+
+### .gsd.migrating/runtime/home/agent/extensions/gsd/state-reconciliation/drift/
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/state-reconciliation/drift/completion.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/state-reconciliation/drift/merge-state.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/state-reconciliation/drift/project-md.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/state-reconciliation/drift/roadmap.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/state-reconciliation/drift/sketch-flag.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/state-reconciliation/drift/stale-render.js`
+- `.gsd.migrating/runtime/home/agent/extensions/gsd/state-reconciliation/drift/stale-worker.js`

@@ -1,0 +1,5 @@
+{"id":"c1de110c-96a4-42f5-949f-5662082234db","ts":"2026-05-14T18:58:39.621Z","severity":"warning","message":"External state migration warning: Migration rename/copy failed: EPERM, Permission denied: \\\\?\\C:\\Users\\Administrateur\\Documents\\projetPrepaV2\\.gsd '\\\\?\\C:\\Users\\Administrateur\\Documents\\projetPrepaV2\\.gsd'","source":"notify","read":false}
+{"id":"71c92312-bf66-4002-a596-392841dbd650","ts":"2026-05-14T18:58:45.913Z","severity":"info","message":"Analyzing codebase...","source":"notify","read":false}
+{"id":"e035af46-e5da-4eb2-852c-c2a49dd93a18","ts":"2026-05-14T18:58:45.944Z","severity":"success","message":"✓ Analyzed codebase","source":"notify","read":false}
+{"id":"021cbfb1-ef77-42f1-a7be-aefdb2e6186a","ts":"2026-05-14T18:58:45.944Z","severity":"info","message":"Reviewing prior context...","source":"notify","read":false}
+{"id":"5cb018cf-4e67-43b3-9da0-43eab784b175","ts":"2026-05-14T18:58:45.955Z","severity":"success","message":"✓ Reviewed prior context","source":"notify","read":false}
