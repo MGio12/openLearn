@@ -99,10 +99,10 @@
       border-radius: 10px;
       text-decoration: none;
       color: var(--ink);
-      transition: background .12s;
-      cursor: pointer;
     }
-    .resource:hover { background: var(--paper-2); }
+    .resource--static {
+      cursor: default;
+    }
     .resource .ic {
       width: 36px; height: 36px; flex-shrink: 0;
       border: 2.5px solid var(--ink); border-radius: 8px;
@@ -141,16 +141,40 @@
       transition: transform .2s var(--ease-calm), box-shadow .2s;
     }
     .start-btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--paper-2); }
-    .start-block .alt { display: flex; gap: 8px; }
-    .start-block .alt button {
+    .start-block .alt { display: flex; gap: 8px; flex-wrap: wrap; }
+    .start-block .prototype-chip {
       flex: 1;
+      min-width: 130px;
       font-family: var(--font-body); font-weight: 700; font-size: 12px;
       padding: 8px 12px;
-      background: transparent; color: var(--paper);
-      border: 1.5px solid rgba(246, 242, 235, 0.3); border-radius: 8px;
-      cursor: pointer;
+      background: rgba(246, 242, 235, 0.08); color: var(--paper);
+      border: 1.5px dashed rgba(246, 242, 235, 0.35); border-radius: 8px;
+      text-align: center;
     }
-    .start-block .alt button:hover { background: rgba(246, 242, 235, 0.08); }
+    .routine-continuation {
+      background: var(--paper);
+      color: var(--ink);
+      border: 3px solid var(--ink);
+      border-radius: 14px;
+      box-shadow: 6px 6px 0 var(--ink);
+      padding: 20px 22px;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .routine-continuation h3 {
+      font-family: var(--font-display); font-size: 20px;
+      text-transform: uppercase; letter-spacing: -.005em; margin: 0;
+    }
+    .routine-continuation p { font-family: var(--font-body); font-size: 13px; line-height: 1.45; color: var(--ink-soft); margin: 0; }
+    .routine-continuation .links { display: flex; flex-direction: column; gap: 8px; }
+    .routine-continuation .route {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 12px 14px;
+      border: 2.5px solid var(--ink); border-radius: 10px;
+      background: var(--paper-2); color: var(--ink);
+      font-family: var(--font-body); font-weight: 800; font-size: 13px;
+      text-decoration: none;
+    }
+    .routine-continuation .route:hover { background: var(--stabilo); }
 
     /* Past performance bars */
     .perf-row { display: flex; flex-direction: column; gap: 4px; }
@@ -173,7 +197,24 @@
       letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft);
     }
     .next-up .title { font-family: var(--font-body); font-weight: 700; font-size: 14px; line-height: 1.4; }
-    .next-up .meta { font-family: var(--font-body); font-size: 11px; color: var(--ink-mute); display: flex; gap: 12px; }
+    @media (max-width: 640px) {
+      .mission-hero {
+        padding: 18px 16px;
+        gap: 12px;
+        margin-bottom: 18px;
+        border-width: var(--b-mob);
+        box-shadow: 4px 4px 0 var(--ink);
+      }
+      .mission-hero .tags { gap: 6px; }
+      .mission-hero .tag { padding: 4px 9px; font-size: 10px; }
+      .mission-hero h1 { font-size: 30px; line-height: 1.04; }
+      .mission-hero .why { font-size: 14px; line-height: 1.42; }
+      .mission-hero .meta-row { gap: 12px; padding-top: 10px; }
+      .mission-hero .meta-row .item { flex: 1 1 42%; }
+      .mission-hero .meta-row .item .val { font-size: 18px; }
+      .checklist .item { padding: 12px; gap: 10px; }
+      .checklist .item .dur { white-space: nowrap; }
+    }
   </style>
 </head>
 <body>
@@ -187,15 +228,15 @@
     </div>
     <div class="sb-group">
       <div class="head">Cockpit</div>
-      <a href="index.html" class="sb-item active" style="text-decoration:none">
+      <a href="index.html#today" class="sb-item active" style="text-decoration:none">
         <span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg></span>
         Aujourd'hui
       </a>
-      <a href="index.html" class="sb-item" style="text-decoration:none">
+      <a href="index.html#planning" class="sb-item" style="text-decoration:none">
         <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
         Planning
       </a>
-      <a href="index.html" class="sb-item" style="text-decoration:none">
+      <a href="index.html#progression" class="sb-item" style="text-decoration:none">
         <span class="ic"><svg viewBox="0 0 24 24"><path d="M3 17l4-4 4 4 5-7 5 7"/><path d="M3 21h18"/></svg></span>
         Progression
       </a>
@@ -206,7 +247,7 @@
     </div>
     <div class="sb-group">
       <div class="head">Travail</div>
-      <a href="ats.html" class="sb-item" style="text-decoration:none">
+      <a href="ats.html#signal" class="sb-item" style="text-decoration:none">
         <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>
         ATS
       </a>
@@ -243,18 +284,19 @@
 
     <section class="view active" data-screen-label="Mission Detail">
       <div class="crumb">
-        <a href="index.html">Aujourd'hui</a> · Mission 2 sur 4
+        <a href="index.html">Aujourd'hui</a> · Mission du jour · Routine 45 min
       </div>
 
       <!-- ============ MISSION HERO ============ -->
       <div class="mission-hero">
         <div class="tags">
+          <span class="tag">Mission du jour</span>
           <span class="tag">Maths · analyse</span>
           <span class="tag">Démonstration</span>
           <span class="tag" style="background:var(--ink);color:var(--stabilo);border-color:var(--ink)">★ Prioritaire</span>
         </div>
-        <h1>Théorème de Rolle<br/>&amp; ses conséquences</h1>
-        <p class="why">Ce chapitre est tombé à <strong>6 concours sur 6</strong> ces 6 dernières années. C'est l'une des bases sur lesquelles s'appuient les démonstrations du théorème des accroissements finis et de la formule de Taylor — qui tombent aussi régulièrement.</p>
+        <h1>Mission du jour&nbsp;:<br/>Rolle &amp; ses conséquences</h1>
+        <p class="why">Depuis tes priorités du jour, le bon pari est de reprendre Rolle maintenant&nbsp;: c'est court, fréquent dans les sujets, et ton signal ATS indique une maîtrise encore fragile autour de 62%. Cette routine de 45 min consolide les hypothèses, la démonstration et une application directe sans promettre de validation sauvegardée.</p>
         <div class="meta-row">
           <div class="item">
             <div class="lbl">Durée estimée</div>
@@ -314,30 +356,30 @@
           <div class="card">
             <div class="card-head"><h3>Ressources liées</h3></div>
             <div style="display:flex;flex-direction:column;gap:10px">
-              <a class="resource">
+              <div class="resource resource--static" aria-label="Ressource indiquée dans le prototype statique">
                 <div class="ic" style="background:var(--blue)">F</div>
                 <div class="copy">
                   <span class="name">Fiche · Théorèmes d'analyse · Rolle, TAF, Taylor</span>
-                  <span class="meta">3 pages · révisée 2 fois</span>
+                  <span class="meta">Contexte ressource · prototype statique, ouverture non simulée</span>
                 </div>
-                <span class="arrow">→</span>
-              </a>
-              <a class="resource">
+                <span class="arrow">·</span>
+              </div>
+              <div class="resource resource--static" aria-label="Ressource indiquée dans le prototype statique">
                 <div class="ic" style="background:var(--beige)">P</div>
                 <div class="copy">
                   <span class="name">Polycopié Maths · chapitre 7 §3</span>
-                  <span class="meta">Cours officiel · 8 pages</span>
+                  <span class="meta">Cours officiel · repère de travail, sans lien mort</span>
                 </div>
-                <span class="arrow">→</span>
-              </a>
-              <a class="resource">
+                <span class="arrow">·</span>
+              </div>
+              <div class="resource resource--static" aria-label="Ressource indiquée dans le prototype statique">
                 <div class="ic" style="background:var(--green)">A</div>
                 <div class="copy">
                   <span class="name">Annales · Mines-Ponts 2023 · partie I</span>
-                  <span class="meta">Application directe · corrigé inclus</span>
+                  <span class="meta">Application directe · ressource mentionnée, non cliquable</span>
                 </div>
-                <span class="arrow">→</span>
-              </a>
+                <span class="arrow">·</span>
+              </div>
             </div>
           </div>
         </div>
@@ -347,14 +389,24 @@
           <!-- Big primary action -->
           <div class="start-block">
             <h3>Prête à commencer&nbsp;?</h3>
-            <p class="lede">25 minutes de focus, notifications coupées, lofi en fond. Tu peux t'arrêter quand tu veux.</p>
+            <p class="lede">25 minutes de focus maintenant, puis 20 minutes de rédaction/application pour boucler la routine de 45 min. Le prototype ne sauvegarde pas l’état&nbsp;: il te donne seulement le bon chemin de travail.</p>
             <a href="focus.html" class="start-btn">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>
               Commencer le focus · 25 min
             </a>
-            <div class="alt">
-              <button>Plus tard</button>
-              <button>Reporter à demain</button>
+            <div class="alt" aria-label="Notes prototype sans planification sauvegardée">
+              <span class="prototype-chip">Pause possible · rien n’est enregistré</span>
+              <span class="prototype-chip">Pas de report automatique demain</span>
+            </div>
+          </div>
+
+          <div class="routine-continuation" aria-labelledby="routine-continuation-title">
+            <h3 id="routine-continuation-title">Après cette mission</h3>
+            <p>Choisis la suite réelle du prototype statique&nbsp;: revenir au cockpit, vérifier le signal ATS, ou découvrir l’abonnement qui débloque une routine plus guidée. Aucune complétion ni planification n’est sauvegardée ici.</p>
+            <div class="links">
+              <a class="route" href="index.html"><span>Revenir aux priorités du jour</span><span>→</span></a>
+              <a class="route" href="ats.html"><span>Voir pourquoi c’est prioritaire</span><span>→</span></a>
+              <a class="route" href="checkout.html"><span>Continuer la routine · s’abonner</span><span>→</span></a>
             </div>
           </div>
 
