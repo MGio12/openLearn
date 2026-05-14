@@ -69,6 +69,24 @@
       color: var(--ink); text-decoration: none;
     }
     .nav-link:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+    .brand:focus-visible,
+    .nav-link:focus-visible,
+    .cta:focus-visible,
+    .setup a:focus-visible,
+    .setup-form input:focus-visible,
+    .setup-form button:focus-visible,
+    #configurer-stripe a:focus-visible,
+    #checkout-setup a:focus-visible {
+      outline: 3px solid var(--stabilo);
+      outline-offset: 4px;
+      box-shadow: 0 0 0 6px rgba(245, 221, 91, 0.35), 4px 4px 0 var(--ink);
+      border-radius: 10px;
+    }
+    .cta:focus-visible,
+    .setup-form button:focus-visible {
+      transform: translate(2px, 2px);
+      box-shadow: 0 0 0 6px rgba(245, 221, 91, 0.35), 4px 4px 0 var(--ink);
+    }
 
     /* ===== HERO ===== */
     .hero {
@@ -250,20 +268,37 @@
       padding: 18px 18px 20px;
     }
 
-    .dossier:hover .fiche--missions {
-      transform: rotate(-11deg) translate(-46px, -34px);
-      box-shadow: 12px 12px 0 var(--ink);
+    @media (hover: hover) and (pointer: fine) {
+      .dossier:hover .fiche--missions {
+        transform: rotate(-11deg) translate(-46px, -34px);
+        box-shadow: 12px 12px 0 var(--ink);
+      }
+      .dossier:hover .fiche--ats {
+        transform: rotate(8deg) translate(46px, -28px);
+        box-shadow: 12px 12px 0 var(--ink);
+      }
+      .dossier:hover .fiche--cockpit {
+        transform: translateX(-50%) rotate(-1.5deg) translateY(6px);
+        box-shadow: 14px 14px 0 var(--ink);
+      }
+      .dossier:hover::before {
+        transform: rotate(4deg);
+      }
     }
-    .dossier:hover .fiche--ats {
-      transform: rotate(8deg) translate(46px, -28px);
-      box-shadow: 12px 12px 0 var(--ink);
-    }
-    .dossier:hover .fiche--cockpit {
-      transform: translateX(-50%) rotate(-1.5deg) translateY(6px);
-      box-shadow: 14px 14px 0 var(--ink);
-    }
-    .dossier:hover::before {
-      transform: rotate(4deg);
+
+    @media (hover: none), (pointer: coarse) {
+      .dossier .fiche--missions {
+        transform: rotate(-10deg) translate(-28px, -18px);
+      }
+      .dossier .fiche--ats {
+        transform: rotate(7deg) translate(28px, -12px);
+      }
+      .dossier .fiche--cockpit {
+        transform: translateX(-50%) rotate(-1.5deg) translateY(4px);
+      }
+      .stamp-2::after {
+        content: " touche";
+      }
     }
 
     /* Fiche internals */
@@ -736,14 +771,59 @@
         scroll-behavior: auto !important;
         transition-duration: .01ms !important;
       }
-      .dossier,
-      .dossier::before,
+      .marquee__track {
+        animation: none !important;
+        transform: none !important;
+      }
+      .dossier {
+        height: auto;
+        min-height: 0;
+        perspective: none;
+        overflow: visible;
+      }
+      .dossier-stage {
+        position: relative;
+        inset: auto;
+        display: grid;
+        gap: 16px;
+        padding: 18px 0 28px;
+      }
+      .dossier::before {
+        inset: 6px 0 6px 0;
+        transform: none !important;
+      }
       .fiche,
-      .cta,
+      .fiche--missions,
+      .fiche--ats,
+      .fiche--cockpit {
+        position: relative;
+        top: auto;
+        right: auto;
+        left: auto;
+        width: min(100%, 560px);
+        margin: 0 auto;
+        transform: none !important;
+        transition: none !important;
+        will-change: auto;
+      }
+      .stamp,
+      .stamp-2,
       .price-card,
       .eyebrow,
       .brand .mark .tile,
       .brand .mark .glyph {
+        transform: none !important;
+      }
+      .stamp,
+      .stamp-2 {
+        position: relative;
+        inset: auto;
+        display: inline-flex;
+        width: fit-content;
+        margin: 0 auto;
+      }
+      .cta .arrow {
+        transition: none !important;
         transform: none !important;
       }
     }
