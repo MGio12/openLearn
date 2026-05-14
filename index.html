@@ -97,7 +97,7 @@
     </header>
 
     <!-- ============================================================ TODAY VIEW -->
-    <section class="view active" id="view-today" data-screen-label="01 Today">
+    <section class="view active" id="view-today" name="today" data-screen-label="01 Today">
       <div class="page-head">
         <div>
           <h1>Bonjour, Maïe.</h1>
@@ -106,7 +106,8 @@
         <button class="btn btn--dark">+ Nouvelle mission</button>
       </div>
 
-      <section class="daily-brief daily-mission card" data-testid="daily-mission" data-contract="daily-mission" aria-labelledby="daily-brief-title">
+      <section class="daily-brief daily-mission card paper-folder pressable" data-testid="daily-mission" data-contract="daily-mission" aria-labelledby="daily-brief-title">
+        <div class="tape-label" aria-hidden="true">Dossier du jour</div>
         <div class="card-head">
           <div>
             <div class="daily-brief__label">Mission du jour · Maths · maintenant</div>
@@ -121,6 +122,7 @@
         <p class="daily-reason">
           Aujourd'hui, le bon pari est de reprendre Rolle&nbsp;: c'est court, fréquent dans les sujets, et ton signal ATS indique une maîtrise encore fragile autour de 62%.
         </p>
+        <p class="study-note">Note carnet&nbsp;: mission courte, hypothèses visibles, puis application directe — aucun état n’est caché derrière le survol.</p>
         <div class="daily-brief__actions daily-brief__actions--steps">
           <div class="daily-action mission-action" data-mission-action>
             <span class="chip" style="background:var(--paper-2)">10 min</span>
@@ -136,8 +138,8 @@
           </div>
         </div>
         <div class="daily-brief__actions">
-          <a class="btn btn--dark" href="mission.html">Commencer la mission · 45 min</a>
-          <a class="btn btn--ghost" href="ats.html">Voir pourquoi c'est prioritaire</a>
+          <a class="btn btn--dark pressable" href="mission.html">Commencer la mission · 45 min</a>
+          <a class="btn btn--ghost pressable" href="ats.html">Voir pourquoi c'est prioritaire</a>
         </div>
       </section>
 
@@ -285,7 +287,7 @@
     </section>
 
     <!-- ============================================================ PLANNING VIEW -->
-    <section class="view" id="view-planning" data-screen-label="02 Planning">
+    <section class="view" id="view-planning" name="planning" data-screen-label="02 Planning">
       <div class="page-head">
         <div>
           <h1>Planning</h1>
@@ -355,7 +357,7 @@
     </section>
 
     <!-- ============================================================ PROGRESS VIEW -->
-    <section class="view" id="view-progress" data-screen-label="03 Progression">
+    <section class="view" id="view-progress" name="progression" data-screen-label="03 Progression">
       <div class="page-head">
         <div>
           <h1>Progression</h1>

@@ -152,6 +152,136 @@ body {
 .view.active { display: block; }
 @keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 
+/* ===== S04 shared notebook craft layer ===== */
+.study-note,
+.tape-label,
+.paper-folder { position: relative; }
+
+.study-note {
+  width: fit-content;
+  max-width: min(100%, 620px);
+  padding: 10px 13px;
+  background: var(--stabilo-wash);
+  border: 2px dashed var(--ink);
+  border-radius: 10px;
+  box-shadow: 3px 3px 0 rgba(18, 18, 18, .18);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+.tape-label {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 5px 11px;
+  background: var(--green);
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  box-shadow: 2px 2px 0 var(--ink);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  transform: rotate(-1.5deg);
+}
+
+.paper-folder {
+  isolation: isolate;
+  border: 3px solid var(--ink);
+}
+
+.paper-folder::after {
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: 22px;
+  width: 92px;
+  height: 18px;
+  background: var(--paper-2);
+  border: 3px solid var(--ink);
+  border-bottom: 0;
+  border-radius: 10px 10px 0 0;
+  z-index: -1;
+}
+
+.pressable,
+.btn,
+.start-btn,
+.routine-continuation .route,
+.op-btn,
+.checklist .item,
+.mission,
+.icon-btn,
+.topbar .me {
+  touch-action: manipulation;
+}
+
+.pressable:active,
+.btn:active,
+.start-btn:active,
+.routine-continuation .route:active,
+.op-btn:active,
+.checklist .item:active,
+.mission:active,
+.icon-btn:active,
+.topbar .me:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--ink);
+}
+
+.op-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 12px 16px;
+  border: 2.5px solid var(--ink);
+  border-radius: 10px;
+  background: var(--paper-2);
+  color: var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 900;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform .18s var(--ease-calm), box-shadow .18s var(--ease-calm), background .15s var(--ease-calm);
+}
+.op-btn--dark { background: var(--ink); color: var(--paper); }
+.op-btn--ghost { background: #FFFDF8; }
+
+.btn:focus-visible,
+.sb-item:focus-visible,
+.icon-btn:focus-visible,
+.topbar .me:focus-visible,
+.search input:focus-visible,
+.start-btn:focus-visible,
+.routine-continuation .route:focus-visible,
+.op-btn:focus-visible,
+.checklist .item:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pressable:hover,
+  .op-btn:hover,
+  .routine-continuation .route:hover,
+  .checklist .item:hover,
+  .mission:hover,
+  .icon-btn:hover,
+  .topbar .me:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--ink);
+  }
+
+  .paper-folder:hover::after { background: var(--stabilo-wash); }
+}
+
 .page-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 28px; gap: 16px; flex-wrap: wrap; }
 .page-head h1 {
   font-family: var(--font-display);
@@ -805,4 +935,31 @@ body {
   .ia .actions,
   .focus-controls { flex-wrap: wrap; }
   .bars { gap: 10px; height: 170px; }
+  .paper-folder::after { left: 14px; width: 72px; height: 14px; top: -12px; border-width: var(--b-mob); }
+  .study-note { width: 100%; font-size: 12px; }
+  .tape-label { font-size: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+
+  .view,
+  .daily-brief::before,
+  .success-mark,
+  .tape-label,
+  .paper-folder::after,
+  .btn,
+  .start-btn,
+  .routine-continuation .route,
+  .op-btn,
+  .pressable {
+    transform: none !important;
+  }
 }
