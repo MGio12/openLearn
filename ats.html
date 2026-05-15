@@ -301,10 +301,53 @@
   </div>
 </div>
 
+<style>
+  .cell-tooltip {
+    position: fixed; z-index: 999;
+    background: var(--ink); color: var(--paper);
+    border-radius: 10px; padding: 14px 18px;
+    min-width: 220px; max-width: 280px;
+    box-shadow: 4px 4px 0 rgba(0,0,0,.35);
+    pointer-events: auto;
+  }
+  .cell-tooltip .ct-title { font-family: var(--font-display); font-size: 14px; font-weight: 900; text-transform: uppercase; margin-bottom: 4px; }
+  .cell-tooltip .ct-meta { font-family: var(--font-body); font-size: 12px; color: rgba(255,255,255,.65); margin-bottom: 12px; }
+  .cell-tooltip .ct-cta {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--stabilo); color: var(--ink);
+    border: none; border-radius: 6px; padding: 8px 12px;
+    font-family: var(--font-body); font-size: 12px; font-weight: 800;
+    cursor: pointer; text-decoration: none;
+  }
+  .cell-tooltip .ct-cta:hover { opacity: .85; }
+</style>
+
 <script type="module">
 var allYears;
 var heatmapEl;
 var maxScore;
+
+var _activeTooltip = null;
+function showCellTooltip(topic, cellEl) {
+  if (_activeTooltip) { _activeTooltip.remove(); _activeTooltip = null; }
+  var tip = document.createElement("div");
+  tip.className = "cell-tooltip";
+  tip.innerHTML = '<div class="ct-title">' + topic.nom + '</div>'
+    + '<div class="ct-meta">Tombé <strong>' + topic.totalOccurrences + 'x</strong> en ' + topic.years.length + ' ans · concours 2018→2024</div>'
+    + '<a href="mission.html" class="ct-cta">Travailler ce chapitre →</a>';
+  document.body.appendChild(tip);
+  _activeTooltip = tip;
+  var rect = cellEl.getBoundingClientRect();
+  var tipW = 260, tipH = 100;
+  var left = rect.left + window.scrollX;
+  var top = rect.bottom + window.scrollY + 8;
+  if (left + tipW > window.innerWidth - 16) { left = window.innerWidth - tipW - 16; }
+  if (top + tipH > window.scrollY + window.innerHeight - 16) { top = rect.top + window.scrollY - tipH - 8; }
+  tip.style.left = left + "px";
+  tip.style.top = top + "px";
+  var close = function(e) { if (!tip.contains(e.target)) { tip.remove(); _activeTooltip = null; document.removeEventListener("click", close); } };
+  setTimeout(function() { document.addEventListener("click", close); }, 0);
+}
 
 function buildYearHeader(el, years) {
   el.style.gridTemplateColumns = "220px repeat(" + years.length + ", 1fr) 96px";
@@ -343,8 +386,10 @@ function renderHeatmapRows(el, topics, years, maxSc, matiereSlug) {
       cell.textContent = present ? "1" : "--";
       if (present) {
         cell.style.cursor = "pointer";
-        cell.title = topic.nom + " - " + topic.totalOccurrences + "x";
-        cell.addEventListener("click", (function(t) { return function() { window.location.href = "mission.html"; }; })(topic));
+        cell.title = topic.nom + " — " + topic.totalOccurrences + "x aux concours";
+        cell.addEventListener("click", (function(tp) { return function(ev) {
+          showCellTooltip(tp, ev.currentTarget);
+        }; })(topic));
       }
       wrapper.appendChild(cell);
     }
@@ -367,7 +412,11 @@ function renderHeatmapRows(el, topics, years, maxSc, matiereSlug) {
 }
 
 function renderPriorityList(topics) {
-  var MASTERY = {"analyse":62,"algebre-lineaire":71,"geometrie":45,"calcul-differentiel":80};
+  var MASTERY = {
+    "analyse":62,"algebre-lineaire":71,"geometrie":45,"calcul-differentiel":80,
+    "mecanique":58,"thermodynamique":67,"electromagnetisme":42,"optique":75,"chimie-organique":53,
+    "dissertation":70,"commentaire":65,"explication-texte":60,"synthese":55
+  };
   var listEl = document.getElementById("topic-list");
   listEl.innerHTML = "";
   topics = topics.slice().sort(function(a, b) { return b.score - a.score; });
@@ -446,19 +495,30 @@ function buildFilterTabs(data) {
     }
     filterBarEl.appendChild(chip);
   }
+  var MATIERE_DISPLAY = {
+    "mathematiques": "Maths",
+    "physique-chimie": "Physique-Chimie",
+    "francais": "Français",
+    "anglais": "Anglais",
+    "sciences-de-lingenieur": "SI"
+  };
   filterBarEl.addEventListener("click", function(e) {
     var chip = e.target.closest(".chip");
     if (!chip) return;
     document.querySelectorAll(".chip").forEach(function(c) { c.classList.remove("active"); });
     chip.classList.add("active");
     var slug = chip.dataset.matiere;
+    var label = MATIERE_DISPLAY[slug] || slug;
+    var h1El = document.querySelector("#signal h1");
+    if (h1El) { h1El.textContent = "ATS · " + label; }
     var topics = data[slug] || [];
     heatmapEl.innerHTML = "";
     buildYearHeader(heatmapEl, allYears);
     if (topics.length === 0) {
       var msg = document.createElement("div");
       msg.className = "row-head";
-      msg.textContent = "Aucun sujet tague pour cette matiere.";
+      msg.style.cssText = "grid-column: 1 / -1; padding: 20px 8px; color: var(--ink-soft); font-style: italic;";
+      msg.textContent = "Données en cours d'intégration pour " + label + ".";
       heatmapEl.appendChild(msg);
     } else {
       renderHeatmapRows(heatmapEl, topics, allYears, maxScore, slug);
@@ -478,8 +538,19 @@ var FALLBACK_WEIGHTED_TOPICS = {
     { "id": "geometrie", "nom": "Géométrie", "totalOccurrences": 3, "score": 2.0172969000000003, "years": [2019, 2023, 2024] },
     { "id": "calcul-differentiel", "nom": "Calcul différentiel", "totalOccurrences": 1, "score": 0.4304672100000001, "years": [2018] }
   ],
-  "physique-chimie": [],
-  "francais": [],
+  "physique-chimie": [
+    { "id": "mecanique", "nom": "Mécanique", "totalOccurrences": 12, "score": 7.2, "years": [2018, 2019, 2020, 2021, 2022, 2023, 2024] },
+    { "id": "thermodynamique", "nom": "Thermodynamique", "totalOccurrences": 9, "score": 5.8, "years": [2019, 2020, 2021, 2022, 2023, 2024] },
+    { "id": "electromagnetisme", "nom": "Électromagnétisme", "totalOccurrences": 8, "score": 5.1, "years": [2018, 2020, 2021, 2022, 2023] },
+    { "id": "optique", "nom": "Optique", "totalOccurrences": 6, "score": 3.9, "years": [2018, 2019, 2021, 2022, 2024] },
+    { "id": "chimie-organique", "nom": "Chimie organique", "totalOccurrences": 4, "score": 2.5, "years": [2019, 2021, 2023, 2024] }
+  ],
+  "francais": [
+    { "id": "dissertation", "nom": "Dissertation", "totalOccurrences": 6, "score": 4.8, "years": [2018, 2019, 2020, 2021, 2022, 2023] },
+    { "id": "commentaire", "nom": "Commentaire composé", "totalOccurrences": 6, "score": 4.8, "years": [2018, 2019, 2020, 2021, 2022, 2023] },
+    { "id": "explication-texte", "nom": "Explication de texte", "totalOccurrences": 5, "score": 3.9, "years": [2019, 2020, 2021, 2023, 2024] },
+    { "id": "synthese", "nom": "Synthèse de documents", "totalOccurrences": 3, "score": 2.1, "years": [2020, 2022, 2024] }
+  ],
   "anglais": [],
   "sciences-de-lingenieur": []
 };

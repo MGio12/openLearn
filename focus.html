@@ -58,19 +58,19 @@
       </div>
 
       <div class="fx-controls">
-        <button class="fx-ctl" title="Precedent" aria-label="Pomodoro precedent">
+        <button class="fx-ctl" title="Pomodoro précédent" aria-label="Pomodoro précédent" id="prevSession">
           <svg viewBox="0 0 24 24"><polyline points="11 17 6 12 11 7"/><polyline points="18 17 13 12 18 7"/></svg>
         </button>
-        <button class="fx-ctl primary" id="playPause" title="Pause">
+        <button class="fx-ctl primary" id="playPause" title="Pause / Reprise">
           <svg viewBox="0 0 24 24" id="play-icon" style="display:none"><polygon points="6 4 20 12 6 20 6 4"/></svg>
           <svg viewBox="0 0 24 24" id="pause-icon"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
         </button>
-        <button class="fx-ctl" title="Suivant" aria-label="Pomodoro suivant">
+        <button class="fx-ctl" title="Pomodoro suivant — Annales Physique 2022" aria-label="Passer au pomodoro suivant" id="nextSession">
           <svg viewBox="0 0 24 24"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>
         </button>
       </div>
 
-      <div class="fx-kicker">Pomodoro · 25 minutes</div>
+      <div class="fx-kicker" id="fx-kicker">Pomodoro 3 / 4 · 25 minutes</div>
     </div>
 
     <!-- Right panel -->
@@ -115,6 +115,15 @@
           <div style="display:flex;justify-content:space-between"><span style="color:rgba(246,242,235,0.7)">Régularité</span><span style="font-family:var(--font-mono);color:var(--stabilo)">7 j</span></div>
         </div>
       </div>
+
+      <div>
+        <h3>Après ça</h3>
+        <div style="margin-top:12px;padding:12px;background:rgba(246,242,235,0.07);border-radius:10px;font-family:var(--font-body);font-size:13px;display:flex;flex-direction:column;gap:4px">
+          <div style="color:rgba(246,242,235,0.55);font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase">Mission suivante</div>
+          <div style="color:var(--paper);font-weight:700;line-height:1.4">Annales Physique 2022 — Forces centrales</div>
+          <div style="color:rgba(246,242,235,0.55);font-size:12px">45 min · 14:00</div>
+        </div>
+      </div>
     </aside>
   </main>
 
@@ -133,8 +142,8 @@
   <div class="fx-done" id="fx-done" hidden>
     <div class="fx-done-inner">
       <div class="fx-done-icon"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
-      <div class="fx-done-title">Session terminee !</div>
-      <div class="fx-done-sub">Tu viens de faire 25 min de focus. Prends une courte pause avant de continuer.</div>
+      <div class="fx-done-title">Session terminée !</div>
+      <div class="fx-done-sub">Tu viens de finir 25 min de focus. Belle concentration — prends 5 min avant la prochaine.</div>
       <div class="fx-done-actions">
         <button class="fx-done-btn fx-done-btn--break" id="startBreak">Pause 5 min</button>
         <a class="fx-done-btn fx-done-btn--next" href="index.html">Prochaine mission</a>
@@ -176,11 +185,19 @@
     pauseIcon.style.display = running ? 'block' : 'none';
   });
 
-  // Countdown timer (just for show — counts down from current value, loops at 0)
+  // Countdown timer
   const timerEl = document.getElementById('timer');
   const ringEl = document.getElementById('ring');
+  const pctEl = document.querySelector('.pct');
   let total = 25 * 60;
   let remaining = 24 * 60 + 38;
+  function updateRing() {
+    const circumference = 276;
+    const pct = remaining / total;
+    ringEl.setAttribute('stroke-dashoffset', String(circumference * (1 - pct)));
+    if (pctEl) pctEl.textContent = Math.round(pct * 100) + '%';
+  }
+  updateRing();
   setInterval(() => {
     if (!running) return;
     remaining--;
@@ -191,6 +208,7 @@
       pauseIcon.style.display = 'none';
       timerEl.textContent = '00:00';
       ringEl.setAttribute('stroke-dashoffset', '276');
+      if (pctEl) pctEl.textContent = '0%';
       const fxDoneEl = document.getElementById('fx-done');
       if (fxDoneEl) fxDoneEl.removeAttribute('hidden');
       return;
@@ -198,9 +216,7 @@
     const m = String(Math.floor(remaining / 60)).padStart(2, '0');
     const s = String(remaining % 60).padStart(2, '0');
     timerEl.textContent = m + ':' + s;
-    const circumference = 276;
-    const pct = remaining / total;
-    ringEl.setAttribute('stroke-dashoffset', String(circumference * (1 - pct)));
+    updateRing();
   }, 1000);
 
   // Esc to quit
@@ -216,8 +232,8 @@
       if (fxDoneEl) fxDoneEl.setAttribute('hidden', '');
       total = 5 * 60;
       remaining = 5 * 60;
-      var kicker = document.querySelector('.fx-kicker');
-      if (kicker) kicker.textContent = 'Pause - 5 minutes';
+      var kicker = document.getElementById('fx-kicker');
+      if (kicker) kicker.textContent = 'Pause · 5 minutes';
       running = true;
       playIcon.style.display = 'none';
       pauseIcon.style.display = 'block';

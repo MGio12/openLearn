@@ -74,9 +74,7 @@
     .cta:focus-visible,
     .setup a:focus-visible,
     .setup-form input:focus-visible,
-    .setup-form button:focus-visible,
-    #configurer-stripe a:focus-visible,
-    #checkout-setup a:focus-visible {
+    .setup-form button:focus-visible {
       outline: 3px solid var(--stabilo);
       outline-offset: 4px;
       box-shadow: 0 0 0 6px rgba(245, 221, 91, 0.35), 4px 4px 0 var(--ink);
@@ -1136,26 +1134,9 @@
     <section class="testimonial-band" data-screen-label="04b Temoignage">
       <div class="wrap">
         <blockquote>
-          
-“
-Avant j
-’
-ouvrais mes fiches au hasard. L
-à
- j
-’
-ai un truc 
-à
- faire chaque matin — 25 min, c
-’
-est fait. J
-’
-ai pris 3 points en maths en un mois.
-”
+          “Avant j’ouvrais mes fiches au hasard. Là j’ai un truc à faire chaque matin — 25 min, c’est fait. J’ai pris 3 points en maths en un mois.”
         </blockquote>
-        <cite>Camille, MPSI — Lyc
-é
-e Sainte-Barbe, Paris</cite>
+        <cite>Camille, MPSI — Lycée Sainte-Barbe, Paris</cite>
       </div>
     </section>
 
@@ -1180,19 +1161,15 @@ e Sainte-Barbe, Paris</cite>
       </div>
     </section>
 
-    <!-- ====== Stripe setup pane (dev) ====== -->
-    <section id="configurer-stripe" class="block" style="padding-top: 0;">
+    <div id="configurer-stripe" style="display:none" aria-hidden="true">
       <aside class="setup" id="checkout-setup" hidden>
-        <h3>Stripe à configurer</h3>
-        <p>Colle ici l'URL Payment Link Stripe de l'abonnement 10 €/mois. Elle sera stockée dans ce navigateur pour tester le flux.</p>
         <form class="setup-form" data-checkout-config-form>
-          <label for="stripe-url">URL Payment Link</label>
           <input id="stripe-url" name="stripe-url" type="url" placeholder="https://buy.stripe.com/..." autocomplete="off">
-          <button type="submit">Enregistrer</button>
+          <button type="submit">OK</button>
           <p class="setup-msg" data-checkout-message></p>
         </form>
       </aside>
-    </section>
+    </div>
 
     <!-- ====== FOOT ====== -->
     <footer class="foot">

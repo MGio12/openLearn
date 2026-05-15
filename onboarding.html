@@ -394,27 +394,15 @@
             semaine — tu pourras la réajuster à tout moment.
           </p>
 
+          <div id="done-recap" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px"></div>
+
           <div class="preview-card" id="done-mission-card" style="margin-bottom: 20px;">
-            <div style="font-family: var(--font-body); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--ink-soft); margin-bottom: 12px;">Ta premi
-è
-re mission</div>
+            <div style="font-family: var(--font-body); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--ink-soft); margin-bottom: 12px;">Ta première mission</div>
             <div class="preview-row suggest">
               <div class="ic" id="done-ic">M</div>
               <div class="copy">
-                <div class="top" id="done-top">Maths 
-—
- sugg
-é
-r
-é
- pour commencer</div>
-                <div class="title" id="done-title">Relire le th
-é
-or
-è
-me de Rolle et ses cons
-é
-quences</div>
+                <div class="top" id="done-top">Maths — suggéré pour commencer</div>
+                <div class="title" id="done-title">Relire le théorème de Rolle et ses conséquences</div>
               </div>
               <div class="duration" id="done-dur">25 min</div>
             </div>
@@ -498,12 +486,28 @@ quences</div>
         }
       }
 
+      const FILIERE_LABELS = { mpsi:'MPSI', pcsi:'PCSI', psi:'PSI', bcpst:'BCPST', ecg:'ECG', ats:'ATS' };
+      const RYTHME_LABELS = { leger:'~10 h/sem.', moyen:'~18 h/sem.', intense:'25 h+/sem.', indecis:'À calibrer' };
+      const GOAL_LABELS = { 'grande-ecole':'Grande école', confiance:'Reprendre confiance', regularite:'Régularité', majorer:'Majorer', controle:'Reprendre le contrôle' };
+
       function updateDoneCard() {
         const m = getPreviewMission(0);
         document.getElementById('done-ic').textContent = m.ic;
-        document.getElementById('done-top').textContent = m.label + ' — pour commencer';
+        document.getElementById('done-top').textContent = m.label + ' — suggéré pour commencer';
         document.getElementById('done-title').textContent = m.title;
         document.getElementById('done-dur').textContent = m.duration;
+
+        const recap = document.getElementById('done-recap');
+        if (!recap) return;
+        const chips = [
+          state.goal ? GOAL_LABELS[state.goal] : null,
+          state.filiere ? FILIERE_LABELS[state.filiere] : null,
+          state.annee ? (state.annee === '1' ? '1ère année' : '2ème année') : null,
+          state.rythme ? RYTHME_LABELS[state.rythme] : null,
+        ].filter(Boolean);
+        recap.innerHTML = chips.map(c =>
+          '<span style="font-family:var(--font-body);font-size:12px;font-weight:700;padding:5px 11px;border:2px solid var(--ink);border-radius:999px;letter-spacing:.03em">' + c + '</span>'
+        ).join('');
       }
       function goTo(n) {
         if (n < 1 || n > totalSteps) return;
