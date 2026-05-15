@@ -284,7 +284,7 @@
             </div>
             <div class="body">Trois chapitres tombent à chaque concours et ta maîtrise reste en dessous de 50%. Si tu corriges juste ces trois en 8 semaines, ta couverture passe de 73% à 88%.</div>
             <div class="actions">
-              <a href="checkout.html" class="btn" style="text-decoration:none">Voir l'abonnement</a>
+              <a href="index.html" class="btn" style="text-decoration:none">Planifier ces chapitres</a>
               <button class="btn btn--ghost">Plus tard</button>
             </div>
           </div>
@@ -341,6 +341,11 @@ function renderHeatmapRows(el, topics, years, maxSc, matiereSlug) {
       var cell = document.createElement("div");
       cell.className = "hm-cell " + (present ? hmClass : "hm-0");
       cell.textContent = present ? "1" : "--";
+      if (present) {
+        cell.style.cursor = "pointer";
+        cell.title = topic.nom + " - " + topic.totalOccurrences + "x";
+        cell.addEventListener("click", (function(t) { return function() { window.location.href = "mission.html"; }; })(topic));
+      }
       wrapper.appendChild(cell);
     }
     var rowEnd = document.createElement("div");
@@ -362,6 +367,7 @@ function renderHeatmapRows(el, topics, years, maxSc, matiereSlug) {
 }
 
 function renderPriorityList(topics) {
+  var MASTERY = {"analyse":62,"algebre-lineaire":71,"geometrie":45,"calcul-differentiel":80};
   var listEl = document.getElementById("topic-list");
   listEl.innerHTML = "";
   topics = topics.slice().sort(function(a, b) { return b.score - a.score; });
@@ -402,11 +408,13 @@ function renderPriorityList(topics) {
     masteryDiv.className = "mastery";
     var mastFill = document.createElement("div");
     mastFill.className = "fill";
-    mastFill.style.width = "50%";
+    var mastery = MASTERY[topic.id] || 50;
+    mastFill.style.width = mastery + "%";
+    if (mastery < 50) { masteryDiv.classList.add("mastery-low"); } else if (mastery < 70) { masteryDiv.classList.add("mastery-mid"); }
     masteryDiv.appendChild(mastFill);
     var pctDiv = document.createElement("div");
     pctDiv.className = "pct";
-    pctDiv.textContent = "--";
+    pctDiv.textContent = mastery + "%";
     row.appendChild(nameDiv);
     row.appendChild(freqDiv);
     row.appendChild(masteryDiv);
@@ -430,6 +438,12 @@ function buildFilterTabs(data) {
     chip.className = slug === "mathematiques" ? "chip active" : "chip";
     chip.dataset.matiere = slug;
     chip.textContent = MATIERE_LABELS[slug] || slug;
+    if ((data[slug] || []).length === 0) {
+      chip.style.opacity = "0.35";
+      chip.title = "Donnees en cours d integration";
+      chip.style.pointerEvents = "none";
+      chip.style.cursor = "default";
+    }
     filterBarEl.appendChild(chip);
   }
   filterBarEl.addEventListener("click", function(e) {

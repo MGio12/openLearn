@@ -5,6 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Outil Prepa — Focus</title>
   <link rel="stylesheet" href="focus.css">
+<style>
+  .fx-done { position:fixed; inset:0; background:rgba(18,18,18,.82); display:flex; align-items:center; justify-content:center; z-index:100; animation:fdIn .35s ease; }
+  .fx-done[hidden] { display:none; }
+  @keyframes fdIn { from{opacity:0;transform:scale(.96)} to{opacity:1;transform:scale(1)} }
+  .fx-done-inner { background:#FFFDF8; border:3px solid #121212; border-radius:18px; box-shadow:10px 10px 0 #F4D35E; padding:36px 44px; text-align:center; max-width:420px; display:flex; flex-direction:column; gap:14px; align-items:center; }
+  .fx-done-icon { color:#121212; }
+  .fx-done-title { font-family:var(--font-display); font-size:32px; text-transform:uppercase; letter-spacing:-.01em; color:#121212; }
+  .fx-done-sub { font-family:var(--font-body); font-size:14px; color:#5F5B57; line-height:1.55; max-width:320px; }
+  .fx-done-actions { display:flex; gap:12px; justify-content:center; margin-top:6px; }
+  .fx-done-btn { padding:11px 18px; border:2.5px solid #121212; border-radius:9px; font-family:var(--font-body); font-weight:800; font-size:13px; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; box-shadow:4px 4px 0 #121212; transition:transform .12s,box-shadow .12s; background:none; }
+  .fx-done-btn:hover { transform:translate(2px,2px); box-shadow:2px 2px 0 #121212; }
+  .fx-done-btn--break { background:#F4D35E; color:#121212; }
+  .fx-done-btn--next { background:#121212; color:#FFFDF8; }
+</style>
 </head>
 <body>
 
@@ -44,14 +58,14 @@
       </div>
 
       <div class="fx-controls">
-        <button class="fx-ctl" title="Précédent">
+        <button class="fx-ctl" title="Precedent" aria-label="Pomodoro precedent">
           <svg viewBox="0 0 24 24"><polyline points="11 17 6 12 11 7"/><polyline points="18 17 13 12 18 7"/></svg>
         </button>
         <button class="fx-ctl primary" id="playPause" title="Pause">
           <svg viewBox="0 0 24 24" id="play-icon" style="display:none"><polygon points="6 4 20 12 6 20 6 4"/></svg>
           <svg viewBox="0 0 24 24" id="pause-icon"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
         </button>
-        <button class="fx-ctl" title="Suivant">
+        <button class="fx-ctl" title="Suivant" aria-label="Pomodoro suivant">
           <svg viewBox="0 0 24 24"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>
         </button>
       </div>
@@ -115,6 +129,19 @@
       <span><strong>Échap</strong> Quitter</span>
     </div>
   </footer>
+  <!-- Session-done overlay -->
+  <div class="fx-done" id="fx-done" hidden>
+    <div class="fx-done-inner">
+      <div class="fx-done-icon"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+      <div class="fx-done-title">Session terminee !</div>
+      <div class="fx-done-sub">Tu viens de faire 25 min de focus. Prends une courte pause avant de continuer.</div>
+      <div class="fx-done-actions">
+        <button class="fx-done-btn fx-done-btn--break" id="startBreak">Pause 5 min</button>
+        <a class="fx-done-btn fx-done-btn--next" href="index.html">Prochaine mission</a>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -157,7 +184,17 @@
   setInterval(() => {
     if (!running) return;
     remaining--;
-    if (remaining < 0) remaining = total;
+    if (remaining <= 0) {
+      remaining = 0;
+      running = false;
+      playIcon.style.display = 'block';
+      pauseIcon.style.display = 'none';
+      timerEl.textContent = '00:00';
+      ringEl.setAttribute('stroke-dashoffset', '276');
+      const fxDoneEl = document.getElementById('fx-done');
+      if (fxDoneEl) fxDoneEl.removeAttribute('hidden');
+      return;
+    }
     const m = String(Math.floor(remaining / 60)).padStart(2, '0');
     const s = String(remaining % 60).padStart(2, '0');
     timerEl.textContent = m + ':' + s;
@@ -171,6 +208,21 @@
     if (e.key === 'Escape') window.location.href = 'index.html';
     if (e.code === 'Space') { e.preventDefault(); playPauseBtn.click(); }
   });
+  // Break button
+  var startBreakBtn = document.getElementById('startBreak');
+  if (startBreakBtn) {
+    startBreakBtn.addEventListener('click', function() {
+      var fxDoneEl = document.getElementById('fx-done');
+      if (fxDoneEl) fxDoneEl.setAttribute('hidden', '');
+      total = 5 * 60;
+      remaining = 5 * 60;
+      var kicker = document.querySelector('.fx-kicker');
+      if (kicker) kicker.textContent = 'Pause - 5 minutes';
+      running = true;
+      playIcon.style.display = 'none';
+      pauseIcon.style.display = 'block';
+    });
+  }
 </script>
 
 </body>

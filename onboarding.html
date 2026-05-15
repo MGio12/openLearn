@@ -41,7 +41,7 @@
           data-step="1"
           data-screen-label="01 Projection"
         >
-          <span class="kicker">Pour bien commencer</span>
+          <span class="kicker">Pour bien commencer · 2 minutes</span>
           <h1>Qu'est-ce qui t'amène<br />en prépa cette année&nbsp;?</h1>
           <p class="lede">
             Pas de bonne ou mauvaise réponse. C'est juste pour comprendre où tu
@@ -274,7 +274,7 @@
             ajuster — ou laisser l'IA s'en occuper.
           </p>
 
-          <div class="preview-card">
+          <div class="preview-card" id="preview-week-card">
             <div
               style="
                 display: flex;
@@ -381,24 +381,8 @@
             >
           </div>
 
-          <div
-            style="
-              display: flex;
-              gap: 14px;
-              align-items: center;
-              margin-top: 14px;
-            "
-          >
-            <button class="ob-continue" id="finish">Tout est prêt →</button>
-            <span
-              style="
-                font-family: var(--font-body);
-                font-size: 13px;
-                color: var(--ink-mute);
-              "
-              >14 jours d'essai · sans carte bancaire</span
-            >
-          </div>
+          <p style="font-family: var(--font-body); font-size: 13px; color: var(--ink-mute); margin: 14px 0 10px;">14 jours d'essai · sans carte bancaire</p>
+          <button class="ob-continue" id="finish">Tout est prêt →</button>
         </section>
 
         <!-- STEP 8 — Done -->
@@ -410,6 +394,31 @@
             semaine — tu pourras la réajuster à tout moment.
           </p>
 
+          <div class="preview-card" id="done-mission-card" style="margin-bottom: 20px;">
+            <div style="font-family: var(--font-body); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--ink-soft); margin-bottom: 12px;">Ta premi
+è
+re mission</div>
+            <div class="preview-row suggest">
+              <div class="ic" id="done-ic">M</div>
+              <div class="copy">
+                <div class="top" id="done-top">Maths 
+—
+ sugg
+é
+r
+é
+ pour commencer</div>
+                <div class="title" id="done-title">Relire le th
+é
+or
+è
+me de Rolle et ses cons
+é
+quences</div>
+              </div>
+              <div class="duration" id="done-dur">25 min</div>
+            </div>
+          </div>
           <a
             href="index.html"
             class="ob-continue"
@@ -453,6 +462,49 @@
       const dots = document.querySelectorAll("#progress .dot");
       const backBtn = document.getElementById("back");
 
+      const MISSIONS = {
+        maths:    { ic: 'M', label: 'Maths',       title: 'Relire le theoreme de Rolle et ses consequences', duration: '25 min' },
+        physique: { ic: 'P', label: 'Physique',     title: 'Mouvements a force centrale — exercice 4',        duration: '45 min' },
+        chimie:   { ic: 'C', label: 'Chimie',       title: 'Cinetique chimique — reviser les ordres de reaction', duration: '35 min' },
+        si:       { ic: 'S', label: 'Sc. Ing.',     title: 'Modelisation — lire le poly chapitre 2',           duration: '40 min' },
+        info:     { ic: 'I', label: 'Informatique', title: 'Algorithmes de tri — comprendre merge sort',       duration: '30 min' },
+        francais: { ic: 'F', label: 'Francais',     title: 'La Princesse de Cleves — lecture chapitre 3',      duration: '30 min' },
+        anglais:  { ic: 'A', label: 'Anglais',      title: 'Expression ecrite — reformuler 5 textes courts',   duration: '25 min' },
+        lv2:      { ic: 'L', label: 'LV2',          title: 'Vocabulaire thematique — fiche memo 20 mots',      duration: '20 min' }
+      };
+      const FILIERE_DEF = { mpsi: 'physique', pcsi: 'chimie', psi: 'si', bcpst: 'chimie', ecg: 'francais', ats: 'physique' };
+
+      function getPreviewMission(idx) {
+        const keys = [
+          state.priorites[0] || FILIERE_DEF[state.filiere] || 'maths',
+          state.priorites[1] || 'physique',
+          state.priorites[2] || 'francais'
+        ];
+        if (keys[1] === keys[0]) keys[1] = keys[0] === 'physique' ? 'chimie' : 'physique';
+        if (keys[2] === keys[0] || keys[2] === keys[1]) keys[2] = 'francais';
+        return MISSIONS[keys[idx]] || MISSIONS['maths'];
+      }
+
+      function updatePreview() {
+        const suffixes = [' — pour commencer', ' — matinée', ' — après-midi'];
+        const card = document.getElementById('preview-week-card');
+        const rows = card.querySelectorAll('.preview-row');
+        for (let i = 0; i < 3; i++) {
+          const m = getPreviewMission(i);
+          rows[i].querySelector('.ic').textContent = m.ic;
+          rows[i].querySelector('.top').textContent = m.label + suffixes[i];
+          rows[i].querySelector('.title').textContent = m.title;
+          rows[i].querySelector('.duration').textContent = m.duration;
+        }
+      }
+
+      function updateDoneCard() {
+        const m = getPreviewMission(0);
+        document.getElementById('done-ic').textContent = m.ic;
+        document.getElementById('done-top').textContent = m.label + ' — pour commencer';
+        document.getElementById('done-title').textContent = m.title;
+        document.getElementById('done-dur').textContent = m.duration;
+      }
       function goTo(n) {
         if (n < 1 || n > totalSteps) return;
         current = n;
@@ -466,6 +518,8 @@
         });
         backBtn.hidden = n === 1 || n === totalSteps;
         window.scrollTo({ top: 0, behavior: "smooth" });
+        if (n === 6) updatePreview();
+        if (n === 8) updateDoneCard();
       }
 
       backBtn.addEventListener("click", () => goTo(current - 1));

@@ -408,6 +408,8 @@
       pointer-events: none;
     }
 
+    .stamp-2 { opacity: 0; transition: opacity .25s; }
+    .dossier:hover .stamp-2 { opacity: 1; }
     /* ===== Marquee band ===== */
     .marquee {
       border-top: 3px solid var(--ink);
@@ -431,6 +433,9 @@
       to { transform: translateX(-50%); }
     }
 
+    .testimonial-band { padding: clamp(40px, 5vw, 72px) 0; border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); background: var(--stabilo); }
+    .testimonial-band blockquote { font-family: var(--font-body); font-size: clamp(18px, 2vw, 24px); line-height: 1.5; font-weight: 600; max-width: 720px; margin: 0 auto 16px; color: var(--ink); }
+    .testimonial-band cite { display: block; font-family: var(--font-body); font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); opacity: .65; font-style: normal; max-width: 720px; margin: 0 auto; }
     /* ===== Section base ===== */
     section.block { padding: clamp(54px, 7vw, 96px) 0; }
     .section-head { max-width: 760px; margin: 0 auto 42px; text-align: center; }
@@ -1127,6 +1132,33 @@
       </div>
     </section>
 
+    <!-- ====== TESTIMONIAL ====== -->
+    <section class="testimonial-band" data-screen-label="04b Temoignage">
+      <div class="wrap">
+        <blockquote>
+          
+“
+Avant j
+’
+ouvrais mes fiches au hasard. L
+à
+ j
+’
+ai un truc 
+à
+ faire chaque matin — 25 min, c
+’
+est fait. J
+’
+ai pris 3 points en maths en un mois.
+”
+        </blockquote>
+        <cite>Camille, MPSI — Lyc
+é
+e Sainte-Barbe, Paris</cite>
+      </div>
+    </section>
+
     <!-- ====== FINAL CTA ====== -->
     <section class="final" data-screen-label="05 CTA final">
       <div class="final-inner">
@@ -1165,7 +1197,7 @@
     <!-- ====== FOOT ====== -->
     <footer class="foot">
       <span>© Outil Prepa — fait pour les prépas qui veulent travailler juste.</span>
-      <span><a href="index.html">Accueil</a> · <a href="#configurer-stripe">Configurer Stripe</a> · <a href="mailto:hello@outilprepa.com">Contact</a></span>
+      <span><a href="index.html">Accueil</a> · <a href="mailto:hello@outilprepa.com">Contact</a></span>
     </footer>
   </main>
 

@@ -77,6 +77,8 @@
       .checklist .item { padding: 12px; gap: 10px; }
       .checklist .item .dur { white-space: nowrap; }
     }
+    .countdown-chip { display: inline-flex; gap: 10px; align-items: center; background: var(--ink); color: var(--paper); padding: 7px 14px; border-radius: 8px; font-family: var(--font-body); font-size: 13px; font-weight: 800; margin: 6px 0 14px; }
+    .cc-val { background: var(--stabilo); color: var(--ink); padding: 2px 8px; border-radius: 4px; }
   </style>
 </head>
 <body>
@@ -158,9 +160,9 @@
           <span class="tag">Démonstration</span>
           <span class="tag" style="background:var(--ink);color:var(--stabilo);border-color:var(--ink)">★ Prioritaire</span>
         </div>
+        <div class="countdown-chip">Commence maintenant <span class="cc-val">45 min</span></div>
         <h1>Mission du jour&nbsp;:<br/>Rolle &amp; ses conséquences</h1>
-        <p class="why">Depuis tes priorités du jour, le bon pari est de reprendre Rolle maintenant&nbsp;: c'est court, fréquent dans les sujets, et ton signal ATS indique une maîtrise encore fragile autour de 62%. Cette routine de 45 min consolide les hypothèses, la démonstration et une application directe sans promettre de validation sauvegardée.</p>
-        <p class="study-note">Annotation honnête&nbsp;: coche les étapes pour te repérer dans cette page seulement&nbsp;; le prototype statique ne mémorise pas la progression.</p>
+        <p class="why">Depuis tes priorités du jour, le bon pari est de reprendre Rolle maintenant&nbsp;: c'est court, fréquent dans les sujets, et ton signal ATS indique une maîtrise encore fragile autour de 62%. Cette routine de 45 min consolide les hypothèses, la démonstration et une application directe.</p>
         <div class="meta-row">
           <div class="item">
             <div class="lbl">Durée estimée</div>
@@ -220,27 +222,27 @@
           <div class="card">
             <div class="card-head"><h3>Ressources liées</h3></div>
             <div style="display:flex;flex-direction:column;gap:10px">
-              <div class="resource resource--static" aria-label="Ressource indiquée dans le prototype statique">
+              <div class="resource resource--static" aria-label="Ouvrir cette ressource">
                 <div class="ic" style="background:var(--blue)">F</div>
                 <div class="copy">
                   <span class="name">Fiche · Théorèmes d'analyse · Rolle, TAF, Taylor</span>
-                  <span class="meta">Contexte ressource · prototype statique, ouverture non simulée</span>
+                  <span class="meta">Theoremes de l analyse — Rolle, TAF, Taylor-Lagrange</span>
                 </div>
                 <span class="arrow">·</span>
               </div>
-              <div class="resource resource--static" aria-label="Ressource indiquée dans le prototype statique">
+              <div class="resource resource--static" aria-label="Ouvrir cette ressource">
                 <div class="ic" style="background:var(--beige)">P</div>
                 <div class="copy">
                   <span class="name">Polycopié Maths · chapitre 7 §3</span>
-                  <span class="meta">Cours officiel · repère de travail, sans lien mort</span>
+                  <span class="meta">Chapitre 7, section 3 — derivation et applications</span>
                 </div>
                 <span class="arrow">·</span>
               </div>
-              <div class="resource resource--static" aria-label="Ressource indiquée dans le prototype statique">
+              <div class="resource resource--static" aria-label="Ouvrir cette ressource">
                 <div class="ic" style="background:var(--green)">A</div>
                 <div class="copy">
                   <span class="name">Annales · Mines-Ponts 2023 · partie I</span>
-                  <span class="meta">Application directe · ressource mentionnée, non cliquable</span>
+                  <span class="meta">Partie I, exercices 1-3 — application du TAF</span>
                 </div>
                 <span class="arrow">·</span>
               </div>
@@ -253,20 +255,16 @@
           <!-- Big primary action -->
           <div class="start-block">
             <h3>Prête à commencer&nbsp;?</h3>
-            <p class="lede">25 minutes de focus maintenant, puis 20 minutes de rédaction/application pour boucler la routine de 45 min. Le prototype ne sauvegarde pas l’état&nbsp;: il te donne seulement le bon chemin de travail.</p>
+            <p class="lede">25 minutes de focus maintenant, puis 20 minutes de rédaction/application pour boucler la routine de 45 min. Commence par 25 minutes de focus sur les hypotheses et la demonstration, puis 20 minutes d application directe. Tu peux t arreter entre les deux si tu as besoin d une courte pause.</p>
             <a href="focus.html" class="start-btn pressable">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>
               Commencer le focus · 25 min
             </a>
-            <div class="alt" aria-label="Notes prototype sans planification sauvegardée">
-              <span class="prototype-chip">Pause possible · rien n’est enregistré</span>
-              <span class="prototype-chip">Pas de report automatique demain</span>
-            </div>
           </div>
 
           <div class="routine-continuation" aria-labelledby="routine-continuation-title">
             <h3 id="routine-continuation-title">Après cette mission</h3>
-            <p>Choisis la suite réelle du prototype statique&nbsp;: revenir au cockpit, vérifier le signal ATS, ou découvrir l’abonnement qui débloque une routine plus guidée. Aucune complétion ni planification n’est sauvegardée ici.</p>
+            <p>Mission terminée ? Lance la suivante, vérifie ton signal ATS, ou reviens aux priorités du jour.</p>
             <div class="links">
               <a class="route pressable" href="index.html"><span>Revenir aux priorités du jour</span><span>→</span></a>
               <a class="route pressable" href="ats.html"><span>Voir pourquoi c’est prioritaire</span><span>→</span></a>
