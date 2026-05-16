@@ -9,14 +9,14 @@ const ROOT = join(__dirname, '..');
 const FILES = {
   'index.html': join(ROOT, 'index.html'),
   'mission.html': join(ROOT, 'mission.html'),
-  'ats.html': join(ROOT, 'ats.html'),
+  'objectif.html': join(ROOT, 'objectif.html'),
   'checkout.html': join(ROOT, 'checkout.html'),
   'merci.html': join(ROOT, 'merci.html'),
   'styles.css': join(ROOT, 'styles.css'),
   'scripts/checkout.js': join(ROOT, 'scripts', 'checkout.js'),
 };
 
-const CORE_PAGES = ['index.html', 'mission.html', 'ats.html', 'checkout.html', 'merci.html'];
+const CORE_PAGES = ['index.html', 'mission.html', 'objectif.html', 'checkout.html', 'merci.html'];
 
 const VIEWPORTS = [
   { label: 'desktop', width: 1440, height: 900 },
@@ -159,7 +159,7 @@ async function assertDashboardPrimaryMissionRoute(browser, viewport) {
 
 async function assertMissionVisibleRoutes(browser, viewport) {
   const routes = [
-    { href: 'ats.html', label: 'ATS continuation' },
+    { href: 'objectif.html', label: 'Objectif continuation' },
     { href: 'checkout.html', label: 'checkout continuation' },
   ];
 
@@ -184,21 +184,21 @@ async function assertMissionVisibleRoutes(browser, viewport) {
   }
 }
 
-async function assertAtsCheckoutRoute(browser, viewport) {
+async function assertObjectifCheckoutRoute(browser, viewport) {
   const page = await browser.newPage();
-  const failures = await collectPageFailures(page, 'ats.html', viewport.label);
+  const failures = await collectPageFailures(page, 'objectif.html', viewport.label);
 
   try {
     await page.setViewportSize({ width: viewport.width, height: viewport.height });
-    await gotoLocalPage(page, 'ats.html');
+    await gotoLocalPage(page, 'objectif.html');
     const checkoutLink = await visibleAnchor(
       page,
       'a[href="checkout.html"]',
-      `${viewport.label} ats.html: visible subscription/checkout route must target checkout.html`,
+      `${viewport.label} objectif.html: visible subscription/checkout route must target checkout.html`,
     );
     const text = normalizeText(await checkoutLink.textContent());
-    assert(/abonnement|checkout|s.?abonner|stripe|payer/i.test(text), `${viewport.label} ats.html: checkout route text must describe subscription/checkout intent, got “${text}”`);
-    await clickAndAssertLocalRoute(page, checkoutLink, 'checkout.html', `${viewport.label} ats.html subscription/checkout route`);
+    assert(/abonnement|checkout|s.?abonner|stripe|payer/i.test(text), `${viewport.label} objectif.html: checkout route text must describe subscription/checkout intent, got “${text}”`);
+    await clickAndAssertLocalRoute(page, checkoutLink, 'checkout.html', `${viewport.label} objectif.html subscription/checkout route`);
     assert(failures.length === 0, failures.join(' | '));
   } finally {
     await page.close();
@@ -206,7 +206,7 @@ async function assertAtsCheckoutRoute(browser, viewport) {
 }
 
 async function assertMerciContinuationRoutes(browser, viewport) {
-  const expectedRoutes = ['index.html', 'mission.html', 'ats.html'];
+  const expectedRoutes = ['index.html', 'mission.html', 'objectif.html'];
 
   for (const href of expectedRoutes) {
     const page = await browser.newPage();
@@ -289,7 +289,7 @@ try {
 
     await assertDashboardPrimaryMissionRoute(browser, viewport);
     await assertMissionVisibleRoutes(browser, viewport);
-    await assertAtsCheckoutRoute(browser, viewport);
+    await assertObjectifCheckoutRoute(browser, viewport);
     await assertMerciContinuationRoutes(browser, viewport);
     await assertCheckoutPaymentLinkReadiness(browser, viewport);
   }

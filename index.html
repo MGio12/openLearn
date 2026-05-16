@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Outil Prepa — Cockpit</title>
+  <title>Objectif Lycée — Cockpit</title>
   <link rel="stylesheet" href="styles.css">
 <style>
   .mission-action { cursor:pointer; border-radius:8px; padding:8px 10px; margin:0 -10px; transition:background .12s; display:flex; align-items:flex-start; gap:10px; }
@@ -26,6 +26,39 @@
   .ma-content { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
   .ma-text { font-family:var(--font-body); font-size:14px; }
   .bar .val { font-family:var(--font-mono); font-size:10px; color:var(--ink-soft); text-align:center; margin-bottom:3px; }
+  .free-trial-banner {
+    display:flex; align-items:center; flex-wrap:wrap; gap:10px;
+    margin-top:10px;
+    font-family:var(--font-body); font-size:13px; color:var(--ink-soft);
+  }
+  .free-trial-banner__chip {
+    display:inline-flex; align-items:center; gap:6px;
+    background:var(--green); color:var(--ink);
+    border:2px solid var(--ink); border-radius:999px;
+    padding:4px 12px;
+    font-weight:800; font-size:12px; letter-spacing:.02em;
+  }
+  .free-trial-banner__chip span[data-free-trial-count] { font-family:var(--font-mono); font-weight:700; }
+  .free-trial-banner.is-locked .free-trial-banner__chip { background:var(--stabilo); }
+  .free-trial-banner__hint { font-style:italic; }
+  .free-trial-banner__cta {
+    color:var(--ink); font-weight:800; text-decoration:none;
+    border-bottom:2px solid var(--ink);
+    transition:transform .12s var(--ease-calm,ease);
+  }
+  .free-trial-banner__cta:hover { transform:translateX(2px); }
+  @media (max-width: 640px) {
+    .free-trial-banner {
+      margin-top: 6px; gap: 6px;
+      font-size: 11px;
+    }
+    .free-trial-banner__chip {
+      padding: 3px 9px; font-size: 11px;
+    }
+    /* Hide hint on mobile to save fold space; chip + locked CTA carry the message */
+    .free-trial-banner__hint { display: none; }
+    .free-trial-banner.is-locked .free-trial-banner__hint { display: inline; font-size: 11px; }
+  }
 </style>
 </head>
 <body>
@@ -35,7 +68,7 @@
   <aside class="sidebar">
     <div class="sb-brand">
       <span class="mark"><span class="tile"></span><span class="glyph">O</span></span>
-      <span class="name">Outil Prepa</span>
+      <span class="name">Objectif Lycée</span>
     </div>
 
     <div class="sb-group">
@@ -48,10 +81,10 @@
         <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
         Planning
       </div>
-      <div class="sb-item" data-view="progress">
+      <a href="progression.html" class="sb-item" style="text-decoration:none">
         <span class="ic"><svg viewBox="0 0 24 24"><path d="M3 17l4-4 4 4 5-7 5 7"/><path d="M3 21h18"/></svg></span>
         Progression
-      </div>
+      </a>
       <a href="focus.html" class="sb-item" style="text-decoration:none">
         <span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
         Focus
@@ -64,9 +97,9 @@
 
     <div class="sb-group">
       <div class="head">Travail</div>
-      <a href="ats.html" class="sb-item" style="text-decoration:none">
+      <a href="objectif.html" class="sb-item" style="text-decoration:none">
         <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>
-        ATS
+        Objectif
         <span class="count">3</span>
       </a>
       <div class="sb-item">
@@ -75,7 +108,7 @@
       </div>
       <div class="sb-item">
         <span class="ic"><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18.5 21 12 17l-6.5 4 2-7.5L2 9h7z"/></svg></span>
-        Annales
+        Contrôles
       </div>
     </div>
 
@@ -91,7 +124,7 @@
       <div class="av">MD</div>
       <div class="who">
         <span class="nm">Maïe Durand</span>
-        <span class="role">MPSI · 1ère année</span>
+        <span class="role">Terminale · spé maths/physique</span>
       </div>
     </div>
   </aside>
@@ -124,6 +157,13 @@
         <div>
           <h1>Bonjour, Maïe.</h1>
           <div class="sub">Lundi 13 mai · commence par une mission courte, puis on ajuste le reste.</div>
+          <div class="free-trial-banner" data-free-trial-banner>
+            <span class="free-trial-banner__chip">
+              <span data-free-trial-count>3</span> <span data-free-trial-noun>missions offertes</span>
+            </span>
+            <span class="free-trial-banner__hint" data-free-trial-hint>Pas de carte bancaire — tu commences en cochant tes premières étapes.</span>
+            <a href="checkout.html" class="free-trial-banner__cta" data-free-trial-cta hidden>Garder le plan personnalisé →</a>
+          </div>
         </div>
         <button class="btn btn--dark">+ Nouvelle mission</button>
       </div>
@@ -132,44 +172,45 @@
         <div class="tape-label" aria-hidden="true">Dossier du jour</div>
         <div class="card-head">
           <div>
-            <div class="daily-brief__label">Mission du jour · Maths · maintenant</div>
-            <h3 id="daily-brief-title">Théorème de Rolle &amp; conséquences</h3>
+            <div class="daily-brief__label">Mission du jour · Maths spé · maintenant</div>
+            <h3 id="daily-brief-title">Exponentielle &amp; dérivation</h3>
           </div>
           <div class="actions support-signals" aria-label="Signaux de soutien"><span class="chip step-counter" id="step-counter" style="background:var(--paper-3);font-variant-numeric:tabular-nums">0/3 étapes</span>
             <span class="chip" style="background:var(--stabilo)">45 min</span>
             <span class="chip">Maîtrise 62%</span>
-            <span class="chip">Concours récurrents</span>
+            <span class="chip">Dossier Parcoursup</span>
           </div>
         </div>
         <p class="daily-reason">
-          Aujourd'hui, le bon pari est de reprendre Rolle&nbsp;: c'est court, fréquent dans les sujets, et ton signal ATS indique une maîtrise encore fragile autour de 62%.
+          Aujourd'hui, le bon pari est de reprendre l'exponentielle&nbsp;: c'est court, utile pour le contrôle de vendredi, et ton objectif école d'ingénieur demande un dossier solide en maths.
         </p>
+        <p class="study-note">Note dossier : une mission courte terminée vaut mieux qu'une grosse séance repoussée.</p>
+        <div class="daily-brief__actions">
+          <a class="btn btn--dark pressable" href="mission.html">Commencer la mission · 45 min</a>
+          <a class="btn btn--ghost pressable" href="objectif.html">Voir l'impact sur ton objectif</a>
+        </div>
         <div class="daily-brief__actions daily-brief__actions--steps">
           <div class="daily-action mission-action" data-mission-action>
             <span class="ma-check" aria-hidden="true"></span>
             <div class="ma-content">
               <span class="chip" style="background:var(--paper-2)">10 min</span>
-              <span class="ma-text">Relire l'énoncé clé et noter les hypothèses à ne pas oublier.</span>
+              <span class="ma-text">Relire la définition de l'exponentielle et noter les deux formules à sécuriser.</span>
             </div>
           </div>
           <div class="daily-action mission-action" data-mission-action>
             <span class="ma-check" aria-hidden="true"></span>
             <div class="ma-content">
               <span class="chip" style="background:var(--paper-2)">15 min</span>
-              <span class="ma-text">Refaire la démonstration sans support, lentement, comme au tableau.</span>
+              <span class="ma-text">Refaire trois dérivées avec enchaînement de fonctions, sans regarder la correction.</span>
             </div>
           </div>
           <div class="daily-action mission-action" data-mission-action>
             <span class="ma-check" aria-hidden="true"></span>
             <div class="ma-content">
               <span class="chip" style="background:var(--paper-2)">20 min</span>
-              <span class="ma-text">Appliquer sur deux conséquences ou exercices liés au TAF.</span>
+              <span class="ma-text">Corriger un exercice type contrôle et garder une erreur à revoir demain.</span>
             </div>
           </div>
-        </div>
-        <div class="daily-brief__actions">
-          <a class="btn btn--dark pressable" href="mission.html">Commencer la mission · 45 min</a>
-          <a class="btn btn--ghost pressable" href="ats.html">Voir pourquoi c'est prioritaire</a>
         </div>
       </section>
 
@@ -181,9 +222,9 @@
           <div class="delta" style="color:#5C4A0A">De l'élan pour une séance courte</div>
         </div>
         <div class="stat stat--blue">
-          <div class="label">Signal ATS</div>
+          <div class="label">Signal dossier</div>
           <div class="value">73%</div>
-          <div class="delta" style="color:#3A5654">Rolle reste prioritaire en maths</div>
+          <div class="delta" style="color:#3A5654">Les maths restent le levier n°1</div>
         </div>
         <div class="stat stat--green">
           <div class="label">Temps déjà posé</div>
@@ -214,7 +255,7 @@
                 <div class="check">✓</div>
                 <div class="meta">
                   <div class="top"><span>Physique · 8h00</span></div>
-                  <div class="title">Mouvements à force centrale — exercices 4 et 5</div>
+                  <div class="title">Physique-chimie — énergie cinétique, exercices 4 et 5</div>
                 </div>
                 <div class="duration">45 min</div>
               </div>
@@ -222,7 +263,7 @@
                 <div class="check"></div>
                 <div class="meta">
                   <div class="top"><span style="color:#5C4A0A">Maths · mission du jour</span></div>
-                  <div class="title"><a href="mission.html" style="color:inherit;text-decoration:none">Démontrer le théorème de Rolle &amp; conséquences</a></div>
+                  <div class="title"><a href="mission.html" style="color:inherit;text-decoration:none">Exponentielle &amp; dérivation — exercice type contrôle</a></div>
                 </div>
                 <div class="duration">45 min</div>
               </div>
@@ -230,7 +271,7 @@
                 <div class="check"></div>
                 <div class="meta">
                   <div class="top"><span>Français · 14h00</span></div>
-                  <div class="title">La Princesse de Clèves — relecture chapitre 4</div>
+                  <div class="title">Philo — plan détaillé sur la technique</div>
                 </div>
                 <div class="duration">30 min</div>
               </div>
@@ -238,7 +279,7 @@
                 <div class="check"></div>
                 <div class="meta">
                   <div class="top"><span>Chimie · 16h30</span></div>
-                  <div class="title">Cinétique des réactions — fiche révision</div>
+                  <div class="title">Grand oral — reformuler la problématique</div>
                 </div>
                 <div class="duration">30 min</div>
               </div>
@@ -281,10 +322,10 @@
             </div>
           </div>
 
-          <!-- ATS coverage -->
+          <!-- Objective coverage -->
           <div class="card">
             <div class="card-head">
-              <h3>Couverture ATS</h3>
+              <h3>Dossier cible</h3>
             </div>
             <div style="display:flex;align-items:center;gap:18px">
               <svg width="100" height="100" viewBox="0 0 100 100">
@@ -294,10 +335,10 @@
                 <text x="50" y="64" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="9" font-weight="700" letter-spacing="0.1em" fill="#5F5B57">CIBLE 85%</text>
               </svg>
               <div style="flex:1;display:flex;flex-direction:column;gap:8px;font-family:var(--font-body);font-size:13px">
-                <div style="display:flex;justify-content:space-between"><span>Maths</span><span style="font-family:var(--font-mono);color:var(--ink-soft)">86%</span></div>
-                <div style="display:flex;justify-content:space-between"><span>Physique</span><span style="font-family:var(--font-mono);color:var(--ink-soft)">71%</span></div>
-                <div style="display:flex;justify-content:space-between"><span>Chimie</span><span style="font-family:var(--font-mono);color:var(--ink-soft)">62%</span></div>
-                <div style="display:flex;justify-content:space-between"><span>Français</span><span style="font-family:var(--font-mono);color:var(--ink-soft)">74%</span></div>
+                <div style="display:flex;justify-content:space-between"><span>Maths spé</span><span style="font-family:var(--font-mono);color:var(--ink-soft)">86%</span></div>
+                <div style="display:flex;justify-content:space-between"><span>Physique-chimie</span><span style="font-family:var(--font-mono);color:var(--ink-soft)">71%</span></div>
+                <div style="display:flex;justify-content:space-between"><span>Dossier continu</span><span style="font-family:var(--font-mono);color:var(--ink-soft)">62%</span></div>
+                <div style="display:flex;justify-content:space-between"><span>Projet motivé</span><span style="font-family:var(--font-mono);color:var(--ink-soft)">74%</span></div>
               </div>
             </div>
           </div>
@@ -342,45 +383,45 @@
 
         <div class="row-head">08:00</div>
         <div class="cell"></div>
-        <div class="evt evt--maths"><span class="who">Maths · DM</span><span>Rolle &amp; TAF</span></div>
+        <div class="evt evt--maths"><span class="who">Maths spé · DM</span><span>Exponentielle</span></div>
         <div class="cell"></div>
-        <div class="evt evt--phys"><span class="who">Physique · TD</span><span>Force centrale</span></div>
+        <div class="evt evt--phys"><span class="who">Physique-chimie · TD</span><span>Énergie</span></div>
         <div class="cell"></div>
         <div class="cell"></div>
         <div class="cell"></div>
 
         <div class="row-head">10:00</div>
-        <div class="evt evt--phys"><span class="who">Physique · cours</span><span>Mécanique 4</span></div>
-        <div class="evt evt--chim"><span class="who">Chimie · TP</span><span>Cinétique</span></div>
-        <div class="evt evt--maths"><span class="who">Maths · cours</span><span>Suites &amp; séries</span></div>
+        <div class="evt evt--phys"><span class="who">Physique-chimie · cours</span><span>Ondes</span></div>
+        <div class="evt evt--chim"><span class="who">SVT · TP</span><span>Génétique</span></div>
+        <div class="evt evt--maths"><span class="who">Maths spé · cours</span><span>Suites</span></div>
         <div class="cell"></div>
-        <div class="evt evt--maths"><span class="who">Maths · DS</span><span>Analyse</span></div>
+        <div class="evt evt--maths"><span class="who">Maths spé · DS</span><span>Fonctions</span></div>
         <div class="cell"></div>
         <div class="cell"></div>
 
         <div class="row-head">14:00</div>
-        <div class="evt evt--maths"><span class="who">Maths · TD</span><span>Limites</span></div>
-        <div class="evt evt--fr"><span class="who">Français</span><span>Pr. de Clèves</span></div>
-        <div class="evt evt--si"><span class="who">SI</span><span>Asservissements</span></div>
-        <div class="evt evt--fr"><span class="who">Français · oral</span><span>Préparation</span></div>
-        <div class="evt evt--phys"><span class="who">Physique · TP</span><span>Optique</span></div>
+        <div class="evt evt--maths"><span class="who">Maths spé · TD</span><span>Limites</span></div>
+        <div class="evt evt--fr"><span class="who">Philo</span><span>La technique</span></div>
+        <div class="evt evt--si"><span class="who">Grand oral</span><span>Plan</span></div>
+        <div class="evt evt--fr"><span class="who">Français · oral</span><span>Entraînement</span></div>
+        <div class="evt evt--phys"><span class="who">Physique-chimie · TP</span><span>Dosage</span></div>
         <div class="cell"></div>
         <div class="cell"></div>
 
         <div class="row-head">16:00</div>
         <div class="evt evt--fr"><span class="who">Français</span><span>Lecture ch.4</span></div>
         <div class="cell"></div>
-        <div class="evt evt--chim"><span class="who">Chimie · cours</span><span>Réactions ac.</span></div>
-        <div class="evt evt--maths"><span class="who">Maths · révision</span><span>Algèbre</span></div>
+        <div class="evt evt--chim"><span class="who">Spé · cours</span><span>Réactions ac.</span></div>
+        <div class="evt evt--maths"><span class="who">Maths spé · révision</span><span>Suites</span></div>
         <div class="cell"></div>
         <div class="cell"></div>
         <div class="cell"></div>
 
         <div class="row-head">18:00</div>
-        <div class="evt evt--chim"><span class="who">Chimie</span><span>Fiche cin.</span></div>
-        <div class="evt evt--maths"><span class="who">Maths · DM</span><span>Exos chap.7</span></div>
+        <div class="evt evt--chim"><span class="who">Physique-chimie</span><span>Fiche énergie</span></div>
+        <div class="evt evt--maths"><span class="who">Maths spé · DM</span><span>Exos chap.7</span></div>
         <div class="cell"></div>
-        <div class="evt evt--phys"><span class="who">Physique · révision</span><span>Mécanique</span></div>
+        <div class="evt evt--phys"><span class="who">Physique-chimie · révision</span><span>Ondes</span></div>
         <div class="evt evt--fr"><span class="who">Français</span><span>Dissertation</span></div>
         <div class="cell"></div>
         <div class="cell"></div>
@@ -392,24 +433,24 @@
       <div class="page-head">
         <div>
           <h1>Progression</h1>
-          <div class="sub">Couverture ATS · maîtrise par chapitre · 8 semaines avant les concours blancs</div>
+          <div class="sub">Dossier cible · spécialités · 8 semaines avant les choix Parcoursup</div>
         </div>
         <div style="display:flex;gap:8px">
           <span class="chip" style="background:var(--stabilo);border-width:2.5px">Toutes matières</span>
           <span class="chip">Maths</span>
-          <span class="chip">Physique</span>
-          <span class="chip">Chimie</span>
+          <span class="chip">Physique-chimie</span>
+          <span class="chip">Projet motivé</span>
         </div>
       </div>
 
       <div class="stats" style="grid-template-columns:repeat(3,1fr)">
         <div class="stat">
-          <div class="label">Couverture globale</div>
+          <div class="label">Dossier construit</div>
           <div class="value">73%</div>
           <div class="delta">+8% sur 4 semaines</div>
         </div>
         <div class="stat stat--blue">
-          <div class="label">Chapitres maîtrisés</div>
+          <div class="label">Chapitres sécurisés</div>
           <div class="value">42<span style="font-size:24px;color:var(--ink-soft)">/68</span></div>
           <div class="delta" style="color:#3A5654">+5 cette semaine</div>
         </div>
@@ -424,7 +465,7 @@
         <div class="card">
           <div class="card-head">
             <h3>Maîtrise par matière</h3>
-            <div class="actions"><span class="chip">CPGE · MPSI</span></div>
+            <div class="actions"><span class="chip">Terminale générale</span></div>
           </div>
           <div class="progress-list">
             <div class="progress-row">
@@ -432,19 +473,19 @@
               <div class="bar"><div class="fill" style="width:86%"></div></div>
             </div>
             <div class="progress-row blue">
-              <div class="top"><span class="name">Physique</span><span class="pct">71% · 10 / 14 chap.</span></div>
+              <div class="top"><span class="name">Physique-chimie</span><span class="pct">71% · 10 / 14 chap.</span></div>
               <div class="bar"><div class="fill" style="width:71%"></div></div>
             </div>
             <div class="progress-row green">
-              <div class="top"><span class="name">Chimie</span><span class="pct">62% · 8 / 13 chap.</span></div>
+              <div class="top"><span class="name">Dossier continu</span><span class="pct">62% · 8 / 13 attendus</span></div>
               <div class="bar"><div class="fill" style="width:62%"></div></div>
             </div>
             <div class="progress-row beige">
-              <div class="top"><span class="name">Français · Philo</span><span class="pct">74% · 6 / 8 chap.</span></div>
+              <div class="top"><span class="name">Philo · expression</span><span class="pct">74% · 6 / 8 axes</span></div>
               <div class="bar"><div class="fill" style="width:74%"></div></div>
             </div>
             <div class="progress-row orange">
-              <div class="top"><span class="name">Sciences de l'Ingénieur</span><span class="pct">58% · 7 / 12 chap.</span></div>
+              <div class="top"><span class="name">Projet motivé</span><span class="pct">58% · 7 / 12 preuves</span></div>
               <div class="bar"><div class="fill" style="width:58%"></div></div>
             </div>
             <div class="progress-row">
@@ -461,22 +502,22 @@
               <div class="mission">
                 <div class="check" style="background:var(--red);color:#FFFDF8">!</div>
                 <div class="meta">
-                  <div class="top" style="color:#9C3F35">Maths · pas vu depuis 9 jours</div>
-                  <div class="title">Probabilités discrètes</div>
+                  <div class="top" style="color:#9C3F35">Maths spé · pas vu depuis 9 jours</div>
+                  <div class="title">Fonctions exponentielles</div>
                 </div>
               </div>
               <div class="mission">
                 <div class="check" style="background:var(--orange);color:#FFFDF8">!</div>
                 <div class="meta">
-                  <div class="top" style="color:#6C4A28">Physique · 38% maîtrise</div>
-                  <div class="title">Thermodynamique — premier principe</div>
+                  <div class="top" style="color:#6C4A28">Physique-chimie · 38% maîtrise</div>
+                  <div class="title">Énergie mécanique</div>
                 </div>
               </div>
               <div class="mission">
                 <div class="check" style="background:var(--orange);color:#FFFDF8">!</div>
                 <div class="meta">
-                  <div class="top" style="color:#6C4A28">Chimie · 42% maîtrise</div>
-                  <div class="title">Réactions acide-base — pH</div>
+                  <div class="top" style="color:#6C4A28">Projet motivé · 42% prêt</div>
+                  <div class="title">Argumenter le choix d'école</div>
                 </div>
               </div>
             </div>
@@ -487,7 +528,7 @@
               <div class="av">IA</div>
               <span class="tag">Recommandation</span>
             </div>
-            <div class="body">Concentre 1h cette semaine sur les probabilités discrètes. C'est ton chapitre le plus en retard, et il tombe régulièrement au concours.</div>
+            <div class="body">Concentre 1h cette semaine sur l'exponentielle. C'est ton chapitre le plus fragile, et il pèse sur le prochain contrôle de maths.</div>
             <div class="actions">
               <button class="btn">Programmer 1h</button>
             </div>
@@ -508,6 +549,7 @@
   </div>
 </div>
 
+<script src="scripts/state.js"></script>
 <script>
   // View switching
   var sbItems = document.querySelectorAll('.sb-item[data-view]');
@@ -535,7 +577,7 @@
   // Mission-action steps — clickable with counter
   var stepActions = document.querySelectorAll('.mission-action[data-mission-action]');
   var stepCounter = document.getElementById('step-counter');
-  function updateStepCounter() {
+  window.updateStepCounter = function updateStepCounter() {
     var total = stepActions.length;
     var done = document.querySelectorAll('.mission-action.done').length;
     if (!stepCounter) return;
@@ -547,7 +589,7 @@
     } else {
       stepCounter.style.background = 'var(--paper-3)';
     }
-  }
+  };
   stepActions.forEach(function(action) {
     action.setAttribute('role', 'checkbox');
     action.setAttribute('tabindex', '0');
@@ -556,7 +598,7 @@
       var isDone = !action.classList.contains('done');
       action.classList.toggle('done', isDone);
       action.setAttribute('aria-checked', String(isDone));
-      updateStepCounter();
+      window.updateStepCounter();
     });
     action.addEventListener('keydown', function(e) {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); action.click(); }

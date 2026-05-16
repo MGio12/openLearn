@@ -8,8 +8,8 @@ const ROOT = join(__dirname, '..');
 const OUT_DIR = join(ROOT, 'screenshots');
 mkdirSync(OUT_DIR, { recursive: true });
 
-const url = process.argv[2] || 'http://127.0.0.1:8080/ats.html';
-const name = process.argv[3] || 'ats';
+const url = process.argv[2] || 'http://127.0.0.1:8080/objectif.html';
+const name = process.argv[3] || 'objectif';
 
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });

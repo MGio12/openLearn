@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Outil Prepa — Installation</title>
+    <title>Objectif Lycée — Installation</title>
     <link rel="stylesheet" href="onboarding.css" />
   </head>
   <body>
@@ -14,7 +14,7 @@
           <span class="mark"
             ><span class="tile"></span><span class="glyph">O</span></span
           >
-          <span class="name">Outil Prepa</span>
+          <span class="name">Objectif Lycée</span>
         </a>
         <button class="ob-back" id="back" hidden>
           <svg
@@ -42,135 +42,119 @@
           data-screen-label="01 Projection"
         >
           <span class="kicker">Pour bien commencer · 2 minutes</span>
-          <h1>Qu'est-ce qui t'amène<br />en prépa cette année&nbsp;?</h1>
+          <h1>Quelle école veux-tu<br />pouvoir viser&nbsp;?</h1>
           <p class="lede">
-            Pas de bonne ou mauvaise réponse. C'est juste pour comprendre où tu
-            veux aller — on calibrera tout autour de ça.
+            Pas besoin d'avoir déjà tout verrouillé. On part de ton objectif,
+            de tes spécialités et de ton dossier actuel.
           </p>
           <div class="options" data-options="goal">
-            <button class="opt" data-value="grande-ecole">
+            <button class="opt" data-value="ingenieur">
               <span class="ic">✦</span>
               <span class="copy">
-                <span class="title">Intégrer une grande école</span>
-                <span class="sub">X, ENS, Centrale, Mines, HEC…</span>
+                <span class="title">École d'ingénieur</span>
+                <span class="sub">INSA, UTC, Polytech, écoles post-bac…</span>
               </span>
             </button>
-            <button class="opt" data-value="confiance">
+            <button class="opt" data-value="commerce">
               <span class="ic">◐</span>
               <span class="copy">
-                <span class="title">Reprendre confiance</span>
-                <span class="sub">Les premières notes ont été dures.</span>
+                <span class="title">École de commerce</span>
+                <span class="sub">Post-bac, IEP, double diplôme, commerce.</span>
               </span>
             </button>
-            <button class="opt" data-value="regularite">
+            <button class="opt" data-value="sante">
               <span class="ic">○</span>
               <span class="copy">
-                <span class="title">Devenir régulier</span>
-                <span class="sub">Tenir un rythme sur toute l'année.</span>
+                <span class="title">Santé ou sciences</span>
+                <span class="sub">PASS, LAS, licence sélective, CPES.</span>
               </span>
             </button>
-            <button class="opt" data-value="majorer">
+            <button class="opt" data-value="droit-sciencespo">
               <span class="ic">▲</span>
               <span class="copy">
-                <span class="title">Majorer</span>
-                <span class="sub">Viser le haut du classement.</span>
+                <span class="title">Droit, IEP, sciences po</span>
+                <span class="sub">Dossier régulier, expression claire, méthode.</span>
               </span>
             </button>
-            <button class="opt" data-value="controle">
+            <button class="opt" data-value="indecis">
               <span class="ic">▭</span>
               <span class="copy">
-                <span class="title">Arrêter de subir l'année</span>
-                <span class="sub">Reprendre le contrôle, calmement.</span>
+                <span class="title">Je ne sais pas encore</span>
+                <span class="sub">On construit d'abord un dossier solide.</span>
               </span>
             </button>
           </div>
         </section>
 
-        <!-- STEP 2 — Filière + année -->
-        <section class="step" data-step="2" data-screen-label="02 Filière">
+        <!-- STEP 2 — Classe -->
+        <section class="step" data-step="2" data-screen-label="02 Classe">
           <span class="kicker">Ton contexte</span>
-          <h1>Quelle est ta filière&nbsp;?</h1>
+          <h1>Tu es en quelle classe&nbsp;?</h1>
           <p class="lede">
-            Choisis celle que tu suis actuellement — on ajustera ton planning
-            aux programmes officiels.
+            Le calendrier n'est pas le même si tu construis ton dossier ou si
+            Parcoursup arrive déjà.
           </p>
           <div
             class="options"
-            data-options="filiere"
-            style="grid-template-columns: repeat(3, 1fr)"
+            data-options="classe"
+            style="grid-template-columns: repeat(2, 1fr)"
           >
-            <button class="opt" data-value="mpsi">
-              <span class="ic">M</span
+            <button class="opt" data-value="premiere">
+              <span class="ic">1</span
               ><span class="copy"
-                ><span class="title">MPSI</span
-                ><span class="sub">Maths · Physique · SI</span></span
+                ><span class="title">Première</span
+                ><span class="sub">Construire les bases et les notes du dossier</span></span
               >
             </button>
-            <button class="opt" data-value="pcsi">
-              <span class="ic">P</span
+            <button class="opt" data-value="terminale">
+              <span class="ic">T</span
               ><span class="copy"
-                ><span class="title">PCSI</span
-                ><span class="sub">Physique · Chimie · SI</span></span
-              >
-            </button>
-            <button class="opt" data-value="psi">
-              <span class="ic">Ψ</span
-              ><span class="copy"
-                ><span class="title">PSI</span
-                ><span class="sub">Physique · Sciences Ing.</span></span
-              >
-            </button>
-            <button class="opt" data-value="bcpst">
-              <span class="ic">B</span
-              ><span class="copy"
-                ><span class="title">BCPST</span
-                ><span class="sub">Bio · Chimie · Physique</span></span
-              >
-            </button>
-            <button class="opt" data-value="ecg">
-              <span class="ic">E</span
-              ><span class="copy"
-                ><span class="title">ECG</span
-                ><span class="sub">Économique &amp; commerciale</span></span
-              >
-            </button>
-            <button class="opt" data-value="ats">
-              <span class="ic">A</span
-              ><span class="copy"
-                ><span class="title">ATS</span
-                ><span class="sub">Adaptation Technicien Sup.</span></span
+                ><span class="title">Terminale</span
+                ><span class="sub">Sécuriser les contrôles, le bac et Parcoursup</span></span
               >
             </button>
           </div>
         </section>
 
-        <!-- STEP 3 — Année -->
-        <section class="step" data-step="3" data-screen-label="03 Année">
-          <span class="kicker">Ton contexte (suite)</span>
-          <h1>Première ou<br />deuxième année&nbsp;?</h1>
+        <!-- STEP 3 — Spécialités -->
+        <section class="step" data-step="3" data-screen-label="03 Spécialités">
+          <span class="kicker">Tes spécialités</span>
+          <h1>Quel est ton duo<br />principal&nbsp;?</h1>
           <p class="lede">
-            Les deux n'ont pas du tout le même rythme — les concours blancs
-            arrivent vite en deuxième année.
+            On s'en sert pour prioriser les matières qui comptent vraiment
+            dans le dossier.
           </p>
           <div
             class="options"
-            data-options="annee"
+            data-options="specialite"
             style="grid-template-columns: repeat(2, 1fr)"
           >
-            <button class="opt" data-value="1">
-              <span class="ic">1</span
+            <button class="opt" data-value="maths-pc">
+              <span class="ic">M</span
               ><span class="copy"
-                ><span class="title">1ère année</span
-                ><span class="sub"
-                  >Découverte, construction des bases</span
-                ></span
+                ><span class="title">Maths · Physique-chimie</span
+                ><span class="sub">Ingénieur, sciences, santé</span></span
               >
             </button>
-            <button class="opt" data-value="2">
-              <span class="ic">2</span
+            <button class="opt" data-value="maths-svt">
+              <span class="ic">S</span
               ><span class="copy"
-                ><span class="title">2ème année</span
-                ><span class="sub">Concours en ligne de mire</span></span
+                ><span class="title">Maths · SVT</span
+                ><span class="sub">Santé, bio, écoles scientifiques</span></span
+              >
+            </button>
+            <button class="opt" data-value="ses-hggsp">
+              <span class="ic">E</span
+              ><span class="copy"
+                ><span class="title">SES · HGGSP</span
+                ><span class="sub">Commerce, droit, IEP</span></span
+              >
+            </button>
+            <button class="opt" data-value="autre">
+              <span class="ic">+</span
+              ><span class="copy"
+                ><span class="title">Autre combinaison</span
+                ><span class="sub">On partira de tes priorités</span></span
               >
             </button>
           </div>
@@ -194,7 +178,7 @@
               <span class="copy"
                 ><span class="title">Léger</span
                 ><span class="sub"
-                  >Autour de 10 h par semaine, en plus des cours</span
+                  >2 à 3 h par semaine, sans casser ton rythme</span
                 ></span
               >
             </button>
@@ -203,7 +187,7 @@
               <span class="copy"
                 ><span class="title">Régulier</span
                 ><span class="sub"
-                  >Autour de 18 h — un rythme tenable sur l'année</span
+                  >4 à 6 h — assez pour faire bouger les notes</span
                 ></span
               >
             </button>
@@ -212,7 +196,7 @@
               <span class="copy"
                 ><span class="title">Intense</span
                 ><span class="sub"
-                  >25 h et plus — ligne droite des concours</span
+                  >7 h et plus — période de contrôles ou Parcoursup</span
                 ></span
               >
             </button>
@@ -239,16 +223,16 @@
               <span class="check"></span>Mathématiques
             </button>
             <button class="chip-opt" data-value="physique">
-              <span class="check"></span>Physique
+              <span class="check"></span>Physique-chimie
             </button>
-            <button class="chip-opt" data-value="chimie">
-              <span class="check"></span>Chimie
+            <button class="chip-opt" data-value="svt">
+              <span class="check"></span>SVT
             </button>
-            <button class="chip-opt" data-value="si">
-              <span class="check"></span>Sciences de l'Ingénieur
+            <button class="chip-opt" data-value="ses">
+              <span class="check"></span>SES
             </button>
-            <button class="chip-opt" data-value="info">
-              <span class="check"></span>Informatique
+            <button class="chip-opt" data-value="hggsp">
+              <span class="check"></span>HGGSP
             </button>
             <button class="chip-opt" data-value="francais">
               <span class="check"></span>Français · Philo
@@ -258,6 +242,9 @@
             </button>
             <button class="chip-opt" data-value="lv2">
               <span class="check"></span>LV2
+            </button>
+            <button class="chip-opt" data-value="grand-oral">
+              <span class="check"></span>Grand oral
             </button>
           </div>
           <button class="ob-continue" id="continue-priorites" disabled>
@@ -309,7 +296,7 @@
               <div class="copy">
                 <div class="top">Suggéré pour commencer · 25 min</div>
                 <div class="title">
-                  Maths — relire le théorème de Rolle &amp; ses conséquences
+                  Maths spé — exponentielle &amp; dérivation
                 </div>
               </div>
               <div class="duration">25 min</div>
@@ -317,9 +304,9 @@
             <div class="preview-row">
               <div class="ic">P</div>
               <div class="copy">
-                <div class="top">Physique · matinée</div>
+                <div class="top">Physique-chimie · matinée</div>
                 <div class="title">
-                  Mouvements à force centrale — exercice 4
+                  Énergie mécanique — exercice type contrôle
                 </div>
               </div>
               <div class="duration">45 min</div>
@@ -327,9 +314,9 @@
             <div class="preview-row">
               <div class="ic">F</div>
               <div class="copy">
-                <div class="top">Français · début d'après-midi</div>
+                <div class="top">Objectif · début d'après-midi</div>
                 <div class="title">
-                  La Princesse de Clèves — lecture chapitre 4
+                  Projet motivé — noter 3 preuves concrètes
                 </div>
               </div>
               <div class="duration">30 min</div>
@@ -372,7 +359,7 @@
             <input
               id="ob-email"
               type="email"
-              placeholder="ton.prenom@etudiant.fr"
+              placeholder="ton.prenom@lycee.fr"
               autocomplete="email"
             />
             <span class="email-note"
@@ -381,14 +368,14 @@
             >
           </div>
 
-          <p style="font-family: var(--font-body); font-size: 13px; color: var(--ink-mute); margin: 14px 0 10px;">14 jours d'essai · sans carte bancaire</p>
+          <p style="font-family: var(--font-body); font-size: 13px; color: var(--ink-mute); margin: 14px 0 10px;">Tes 3 premières missions sont offertes · sans carte bancaire</p>
           <button class="ob-continue" id="finish">Tout est prêt →</button>
         </section>
 
         <!-- STEP 8 — Done -->
         <section class="step" data-step="8" data-screen-label="08 Done">
-          <span class="kicker">Tu es prêt</span>
-          <h1>Installe-toi.<br />Commence à travailler.</h1>
+          <span class="kicker">Ton dossier commence</span>
+          <h1>Installe-toi.<br />Travaille le bon sujet.</h1>
           <p class="lede">
             Ta première mission t'attend. On a déjà préparé le reste de la
             semaine — tu pourras la réajuster à tout moment.
@@ -401,8 +388,8 @@
             <div class="preview-row suggest">
               <div class="ic" id="done-ic">M</div>
               <div class="copy">
-                <div class="top" id="done-top">Maths — suggéré pour commencer</div>
-                <div class="title" id="done-title">Relire le théorème de Rolle et ses conséquences</div>
+                <div class="top" id="done-top">Maths spé — suggéré pour commencer</div>
+                <div class="title" id="done-title">Exponentielle &amp; dérivation — exercice type contrôle</div>
               </div>
               <div class="duration" id="done-dur">25 min</div>
             </div>
@@ -440,8 +427,8 @@
       let current = 1;
       const state = {
         goal: null,
-        filiere: null,
-        annee: null,
+        classe: null,
+        specialite: null,
         rythme: null,
         priorites: [],
       };
@@ -451,25 +438,26 @@
       const backBtn = document.getElementById("back");
 
       const MISSIONS = {
-        maths:    { ic: 'M', label: 'Maths',       title: 'Relire le theoreme de Rolle et ses consequences', duration: '25 min' },
-        physique: { ic: 'P', label: 'Physique',     title: 'Mouvements a force centrale — exercice 4',        duration: '45 min' },
-        chimie:   { ic: 'C', label: 'Chimie',       title: 'Cinetique chimique — reviser les ordres de reaction', duration: '35 min' },
-        si:       { ic: 'S', label: 'Sc. Ing.',     title: 'Modelisation — lire le poly chapitre 2',           duration: '40 min' },
-        info:     { ic: 'I', label: 'Informatique', title: 'Algorithmes de tri — comprendre merge sort',       duration: '30 min' },
-        francais: { ic: 'F', label: 'Francais',     title: 'La Princesse de Cleves — lecture chapitre 3',      duration: '30 min' },
-        anglais:  { ic: 'A', label: 'Anglais',      title: 'Expression ecrite — reformuler 5 textes courts',   duration: '25 min' },
-        lv2:      { ic: 'L', label: 'LV2',          title: 'Vocabulaire thematique — fiche memo 20 mots',      duration: '20 min' }
+        maths:       { ic: 'M', label: 'Maths spé',        title: 'Exponentielle et dérivation — exercice type contrôle', duration: '25 min' },
+        physique:    { ic: 'P', label: 'Physique-chimie',  title: 'Énergie mécanique — refaire l exercice clé',           duration: '35 min' },
+        svt:         { ic: 'S', label: 'SVT',              title: 'Génétique — schéma bilan et questions flash',          duration: '30 min' },
+        ses:         { ic: 'E', label: 'SES',              title: 'Croissance — relier deux notions au cours',            duration: '30 min' },
+        hggsp:       { ic: 'H', label: 'HGGSP',            title: 'Composer une intro sur la puissance',                  duration: '30 min' },
+        francais:    { ic: 'F', label: 'Français · Philo', title: 'Plan détaillé sur la technique',                       duration: '30 min' },
+        anglais:     { ic: 'A', label: 'Anglais',          title: 'Expression écrite — reformuler 5 arguments',           duration: '25 min' },
+        lv2:         { ic: 'L', label: 'LV2',              title: 'Vocabulaire thématique — fiche mémo 20 mots',          duration: '20 min' },
+        'grand-oral':{ ic: 'O', label: 'Grand oral',       title: 'Projet motivé — noter 3 preuves concrètes',            duration: '25 min' }
       };
-      const FILIERE_DEF = { mpsi: 'physique', pcsi: 'chimie', psi: 'si', bcpst: 'chimie', ecg: 'francais', ats: 'physique' };
+      const SPECIALITE_DEF = { 'maths-pc': 'maths', 'maths-svt': 'svt', 'ses-hggsp': 'ses', autre: 'maths' };
 
       function getPreviewMission(idx) {
         const keys = [
-          state.priorites[0] || FILIERE_DEF[state.filiere] || 'maths',
+          state.priorites[0] || SPECIALITE_DEF[state.specialite] || 'maths',
           state.priorites[1] || 'physique',
-          state.priorites[2] || 'francais'
+          state.priorites[2] || 'grand-oral'
         ];
-        if (keys[1] === keys[0]) keys[1] = keys[0] === 'physique' ? 'chimie' : 'physique';
-        if (keys[2] === keys[0] || keys[2] === keys[1]) keys[2] = 'francais';
+        if (keys[1] === keys[0]) keys[1] = keys[0] === 'physique' ? 'maths' : 'physique';
+        if (keys[2] === keys[0] || keys[2] === keys[1]) keys[2] = 'grand-oral';
         return MISSIONS[keys[idx]] || MISSIONS['maths'];
       }
 
@@ -486,9 +474,10 @@
         }
       }
 
-      const FILIERE_LABELS = { mpsi:'MPSI', pcsi:'PCSI', psi:'PSI', bcpst:'BCPST', ecg:'ECG', ats:'ATS' };
-      const RYTHME_LABELS = { leger:'~10 h/sem.', moyen:'~18 h/sem.', intense:'25 h+/sem.', indecis:'À calibrer' };
-      const GOAL_LABELS = { 'grande-ecole':'Grande école', confiance:'Reprendre confiance', regularite:'Régularité', majorer:'Majorer', controle:'Reprendre le contrôle' };
+      const CLASSE_LABELS = { premiere:'Première', terminale:'Terminale' };
+      const SPECIALITE_LABELS = { 'maths-pc':'Maths · physique-chimie', 'maths-svt':'Maths · SVT', 'ses-hggsp':'SES · HGGSP', autre:'Spécialités à préciser' };
+      const RYTHME_LABELS = { leger:'2-3 h/sem.', moyen:'4-6 h/sem.', intense:'7 h+/sem.', indecis:'À calibrer' };
+      const GOAL_LABELS = { ingenieur:'École d ingénieur', commerce:'École de commerce', sante:'Santé ou sciences', 'droit-sciencespo':'Droit / IEP', indecis:'Objectif à préciser' };
 
       function updateDoneCard() {
         const m = getPreviewMission(0);
@@ -501,8 +490,8 @@
         if (!recap) return;
         const chips = [
           state.goal ? GOAL_LABELS[state.goal] : null,
-          state.filiere ? FILIERE_LABELS[state.filiere] : null,
-          state.annee ? (state.annee === '1' ? '1ère année' : '2ème année') : null,
+          state.classe ? CLASSE_LABELS[state.classe] : null,
+          state.specialite ? SPECIALITE_LABELS[state.specialite] : null,
           state.rythme ? RYTHME_LABELS[state.rythme] : null,
         ].filter(Boolean);
         recap.innerHTML = chips.map(c =>

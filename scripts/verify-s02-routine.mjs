@@ -91,12 +91,12 @@ async function assertDashboardNavigation(page, viewportLabel) {
 
 async function assertMissionContract(page, viewportLabel) {
   const bodyText = normalizeText(await page.locator('body').textContent());
-  const heading = page.locator('h1, h2, h3').filter({ hasText: /(Rolle|mission)/i }).first();
-  await assertInViewport(page, heading, `${viewportLabel} mission.html: page must expose a visible heading mentioning Rolle or mission`);
+  const heading = page.locator('h1, h2, h3').filter({ hasText: /(Exponentielle|mission)/i }).first();
+  await assertInViewport(page, heading, `${viewportLabel} mission.html: page must expose a visible heading mentioning the mission`);
 
   assert(/45\s*(min|mn|minutes?)/i.test(bodyText), `${viewportLabel} mission.html: mission contract must show an estimated duration around 45 min`);
   assert(
-    /(prioritaire|priorit[ée]|pourquoi|why|bon pari|signal|concours|tomb[ée])/i.test(bodyText),
+    /(prioritaire|priorit[ée]|pourquoi|why|bon pari|signal|dossier|objectif|Parcoursup)/i.test(bodyText),
     `${viewportLabel} mission.html: mission contract must explain why this work is priority/rationalized`,
   );
 
@@ -107,7 +107,7 @@ async function assertMissionContract(page, viewportLabel) {
 }
 
 async function assertVisibleRoute(page, href, viewportLabel) {
-  const route = page.locator(`a[href="${href}"]`).filter({ hasText: /\S/ }).first();
+  const route = page.locator(`.routine-continuation a[href="${href}"]`).filter({ hasText: /\S/ }).first();
   await expectVisible(route, `${viewportLabel} mission.html: routine continuation must include a visible anchor to ${href}`);
 }
 
@@ -121,7 +121,7 @@ function localHtmlPath(href) {
 
 async function assertRoutineRoutes(page, viewportLabel) {
   await assertVisibleRoute(page, 'index.html', viewportLabel);
-  await assertVisibleRoute(page, 'ats.html', viewportLabel);
+  await assertVisibleRoute(page, 'objectif.html', viewportLabel);
   await assertVisibleRoute(page, 'checkout.html', viewportLabel);
 }
 

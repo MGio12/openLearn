@@ -104,8 +104,8 @@ async function assertStaticContract(page) {
   const primaryLink = missionBlock.locator('a[href="mission.html"]').first();
   await expectVisible(primaryLink, 'daily mission block must include a primary link with href="mission.html"');
 
-  const supportLink = missionBlock.locator('a[href="ats.html"]').first();
-  await expectVisible(supportLink, 'daily mission block must include a support link with href="ats.html"');
+  const supportLink = missionBlock.locator('a[href="objectif.html"]').first();
+  await expectVisible(supportLink, 'daily mission block must include a support link with href="objectif.html"');
 
   return { missionBlock, heading, primaryLink, supportLink };
 }
@@ -154,7 +154,7 @@ async function assertNavigation(page) {
   const contract = await assertStaticContract(page);
   await contract.supportLink.click();
   await page.waitForLoadState('networkidle');
-  assert(page.url().endsWith('/ats.html'), `support ATS link must navigate to /ats.html, got ${page.url()}`);
+  assert(page.url().endsWith('/objectif.html'), `support Objectif link must navigate to /objectif.html, got ${page.url()}`);
 }
 
 if (!existsSync(INDEX_PATH)) {

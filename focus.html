@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Outil Prepa — Focus</title>
+  <title>Objectif Lycée — Focus</title>
   <link rel="stylesheet" href="focus.css">
 <style>
   .fx-done { position:fixed; inset:0; background:rgba(18,18,18,.82); display:flex; align-items:center; justify-content:center; z-index:100; animation:fdIn .35s ease; }
@@ -43,8 +43,8 @@
     <!-- Main column -->
     <div class="fx-main">
       <div class="fx-task">
-        <span class="pill">Maths</span>
-        <span class="title">Démontrer le théorème de Rolle &amp; ses conséquences</span>
+        <span class="pill">Maths spé</span>
+        <span class="title">Exponentielle &amp; dérivation — exercice type contrôle</span>
       </div>
 
       <div class="fx-timer" id="timer">24:38</div>
@@ -65,7 +65,7 @@
           <svg viewBox="0 0 24 24" id="play-icon" style="display:none"><polygon points="6 4 20 12 6 20 6 4"/></svg>
           <svg viewBox="0 0 24 24" id="pause-icon"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
         </button>
-        <button class="fx-ctl" title="Pomodoro suivant — Annales Physique 2022" aria-label="Passer au pomodoro suivant" id="nextSession">
+        <button class="fx-ctl" title="Pomodoro suivant — projet motivé" aria-label="Passer au pomodoro suivant" id="nextSession">
           <svg viewBox="0 0 24 24"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>
         </button>
       </div>
@@ -80,19 +80,19 @@
         <div style="margin-top:14px;display:flex;flex-direction:column">
           <div class="subtask done">
             <span class="box">✓</span>
-            <span class="label">Relire l'énoncé du théorème</span>
+            <span class="label">Relire les deux propriétés de l'exponentielle</span>
           </div>
           <div class="subtask done">
             <span class="box">✓</span>
-            <span class="label">Comprendre les hypothèses : continuité, dérivabilité</span>
+            <span class="label">Refaire trois dérivées avec composition</span>
           </div>
           <div class="subtask">
             <span class="box"></span>
-            <span class="label">Rédiger la démonstration au propre</span>
+            <span class="label">Rédiger une correction propre</span>
           </div>
           <div class="subtask">
             <span class="box"></span>
-            <span class="label">Faire l'exercice 4 du polycopié</span>
+            <span class="label">Noter l'erreur à revoir demain</span>
           </div>
         </div>
       </div>
@@ -120,8 +120,8 @@
         <h3>Après ça</h3>
         <div style="margin-top:12px;padding:12px;background:rgba(246,242,235,0.07);border-radius:10px;font-family:var(--font-body);font-size:13px;display:flex;flex-direction:column;gap:4px">
           <div style="color:rgba(246,242,235,0.55);font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase">Mission suivante</div>
-          <div style="color:var(--paper);font-weight:700;line-height:1.4">Annales Physique 2022 — Forces centrales</div>
-          <div style="color:rgba(246,242,235,0.55);font-size:12px">45 min · 14:00</div>
+          <div style="color:var(--paper);font-weight:700;line-height:1.4">Projet motivé — 3 preuves concrètes</div>
+          <div style="color:rgba(246,242,235,0.55);font-size:12px">25 min · 14:00</div>
         </div>
       </div>
     </aside>
@@ -143,7 +143,7 @@
     <div class="fx-done-inner">
       <div class="fx-done-icon"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
       <div class="fx-done-title">Session terminée !</div>
-      <div class="fx-done-sub">Tu viens de finir 25 min de focus. Belle concentration — prends 5 min avant la prochaine.</div>
+      <div class="fx-done-sub">Tu viens de finir 25 min de focus. Ta mission avance et ton dossier garde une trace de plus.</div>
       <div class="fx-done-actions">
         <button class="fx-done-btn fx-done-btn--break" id="startBreak">Pause 5 min</button>
         <a class="fx-done-btn fx-done-btn--next" href="index.html">Prochaine mission</a>

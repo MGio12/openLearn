@@ -31,6 +31,12 @@
   }
 
   function showSetup(text) {
+    var setupAnchor = document.getElementById("configurer-stripe");
+    if (setupAnchor) {
+      setupAnchor.style.display = "block";
+      setupAnchor.setAttribute("aria-hidden", "false");
+    }
+
     if (setupPanel) {
       setupPanel.hidden = false;
     }

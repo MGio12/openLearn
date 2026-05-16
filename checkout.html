@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Outil Prepa — Abonnement 10 €/mois</title>
-  <meta name="description" content="Outil Prepa : un cockpit qui réduit la fatigue de décision et te donne une mission claire. 10 €/mois, paiement sécurisé par Stripe, annulable à tout moment.">
+  <title>Objectif Lycée — Abonnement 10 €/mois</title>
+  <meta name="description" content="Objectif Lycée : un cockpit qui réduit la fatigue de décision et te donne une mission claire. 10 €/mois, paiement sécurisé par Stripe, annulable à tout moment.">
   <meta name="stripe-checkout-url" content="https://buy.stripe.com/test_9B65kCcn337o06h0em2go00">
   <link rel="stylesheet" href="colors_and_type.css">
   <style>
     /* ============================================================
-       CHECKOUT — carnet de prépa vivant + affiche stabilo
+       CHECKOUT — carnet de lycée vivant + affiche stabilo
        ============================================================ */
     * { box-sizing: border-box; }
     html, body { margin: 0; padding: 0; }
@@ -104,6 +104,22 @@
       letter-spacing: .14em; text-transform: uppercase;
       width: fit-content;
       transform: rotate(-1.5deg);
+    }
+    .tape-label {
+      display: inline-flex; align-items: center;
+      width: fit-content;
+      margin-top: 12px;
+      padding: 5px 11px;
+      background: var(--green);
+      border: 2px solid var(--ink);
+      border-radius: 6px;
+      box-shadow: 2px 2px 0 var(--ink);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transform: rotate(1deg);
     }
     .hero h1 {
       font-family: var(--font-display); text-transform: uppercase;
@@ -368,7 +384,7 @@
     .missions-list li.done .lab { text-decoration: line-through; color: var(--ink-soft); }
     .missions-list { padding: 0; margin: 0; }
 
-    /* ATS heatmap */
+    /* Objectif heatmap */
     .heat-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 3px; }
     .heat-grid div {
       aspect-ratio: 1; border: 1.5px solid var(--ink); border-radius: 3px;
@@ -767,6 +783,71 @@
       /* Mobile: keep dossier opened so it doesn't require hover */
       .dossier .fiche--missions { transform: rotate(-10deg) translate(-22px, -16px); }
       .dossier .fiche--ats { transform: rotate(7deg) translate(22px, -10px); }
+      /* Sticky bottom CTA — toujours sous la main quand on scrolle */
+      body { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
+      .sticky-cta { display: flex !important; }
+      .foot { padding-bottom: 24px; }
+    }
+
+    /* ===== Sticky mobile CTA — caché sur desktop ===== */
+    .sticky-cta {
+      display: none;
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      z-index: 50;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px calc(10px + env(safe-area-inset-bottom, 0px));
+      background: var(--paper);
+      border-top: 3px solid var(--ink);
+      box-shadow: 0 -3px 0 rgba(18, 18, 18, .06);
+      text-decoration: none;
+    }
+    .sticky-cta__price {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: baseline;
+      gap: 4px;
+      padding: 6px 10px;
+      background: var(--stabilo);
+      border: 2.5px solid var(--ink);
+      border-radius: 10px;
+      font-family: var(--font-display);
+      font-size: 18px;
+      line-height: 1;
+      color: var(--ink);
+      box-shadow: 2px 2px 0 var(--ink);
+    }
+    .sticky-cta__price small {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .sticky-cta__btn {
+      flex: 1;
+      min-width: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 12px;
+      background: var(--ink);
+      color: var(--paper);
+      border: 2.5px solid var(--ink);
+      border-radius: 10px;
+      font-family: var(--font-body);
+      font-weight: 900;
+      font-size: 14px;
+      letter-spacing: .01em;
+      box-shadow: 3px 3px 0 var(--stabilo);
+      transition: transform .12s var(--ease-press, ease), box-shadow .12s var(--ease-press, ease);
+    }
+    .sticky-cta:active .sticky-cta__btn {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 var(--stabilo);
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
@@ -842,7 +923,7 @@
         <span class="tile" aria-hidden="true"></span>
         <span class="glyph">O</span>
       </span>
-      <span class="name">Outil Prepa</span>
+      <span class="name">Objectif Lycée</span>
     </a>
     <div class="nav-right">
       <a class="nav-link" href="index.html">Comment ça marche</a>
@@ -855,18 +936,19 @@
     <!-- ====== HERO ====== -->
     <section class="hero" data-screen-label="01 Hero">
       <div class="hero-copy">
-        <span class="eyebrow">★ Abonnement Outil Prepa</span>
+        <span class="eyebrow">★ Garde ton plan personnalisé</span>
+        <span class="tape-label">Dossier lycée</span>
         <h1>TRAVAILLE    CE QUI RAPPORTE.</h1>
-        <p class="lede">Outil Prepa transforme tes annales, tes priorités et ton objectif en un plan d'action clair. Tu ouvres l'app, tu sais quoi faire <em>maintenant</em>. Pas dans dix minutes de scroll.</p>
+        <p class="lede">Tu as essayé tes 3 missions offertes. Si le cockpit t'aide vraiment à travailler plus juste, garde le plan quotidien personnalisé qui te le fait tenir — pour <em>10 €/mois</em>.</p>
 
         <div class="price-block">
           <div class="price-card">
             <span class="tape">Sans engagement</span>
-            <span class="meta">Abonnement unique</span>
+            <span class="meta">Après tes 3 missions offertes</span>
             <span class="amount">10&nbsp;€ <span class="per">/ mois</span></span>
           </div>
           <a href="#configurer-stripe" class="cta cta--big" data-checkout-button>
-            S'abonner maintenant
+            Garder le plan personnalisé
             <span class="arrow" aria-hidden="true">→</span>
           </a>
         </div>
@@ -882,20 +964,20 @@
           </span>
           <span class="trust-chip">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
-            Accès immédiat
+            Démo active maintenant
           </span>
         </div>
       </div>
 
       <!-- DOSSIER hover -->
-      <div class="dossier" aria-label="Aperçu du cockpit Outil Prepa — survole pour ouvrir le dossier">
+      <div class="dossier" aria-label="Aperçu du cockpit Objectif Lycée — survole pour ouvrir le dossier">
         <div class="dossier-stage">
 
-          <!-- Back: ATS heatmap -->
-          <article class="fiche fiche--ats" aria-label="Carte de chaleur ATS">
-            <span class="fiche__tab">ATS</span>
+          <!-- Back: objectif heatmap -->
+          <article class="fiche fiche--ats" aria-label="Carte d'impact objectif">
+            <span class="fiche__tab">Objectif</span>
             <div class="fc-head">
-              <div class="fc-title">Poids des chapitres</div>
+              <div class="fc-title">Impact dossier</div>
               <span class="fc-pill">12 / 16</span>
             </div>
             <div class="heat-grid">
@@ -919,11 +1001,11 @@
               <span class="fc-pill">3 / 5</span>
             </div>
             <ul class="missions-list">
-              <li class="done"><span class="ck"></span><span class="lab">Annale Physique 2021 — Q3</span></li>
-              <li class="done"><span class="ck"></span><span class="lab">Maths · Séries entières</span></li>
-              <li class="done"><span class="ck"></span><span class="lab">Fiches : Optique géo</span></li>
-              <li><span class="ck"></span><span class="lab">Corriger DM Chimie</span></li>
-              <li><span class="ck"></span><span class="lab">Revoir Thermo (faible)</span></li>
+              <li class="done"><span class="ck"></span><span class="lab">Maths spé · exponentielle</span></li>
+              <li class="done"><span class="ck"></span><span class="lab">Physique-chimie · énergie</span></li>
+              <li class="done"><span class="ck"></span><span class="lab">Projet motivé · 3 preuves</span></li>
+              <li><span class="ck"></span><span class="lab">Corriger DM maths</span></li>
+              <li><span class="ck"></span><span class="lab">Revoir le chapitre fragile</span></li>
             </ul>
           </article>
 
@@ -941,13 +1023,13 @@
               </div>
               <div class="cockpit-stat">
                 <div class="k">Priorité du jour</div>
-                <div class="v" style="font-size:14px;line-height:1.2">Thermo<br><small style="font-weight:700">Chap. 4 — poids 18%</small></div>
+                <div class="v" style="font-size:14px;line-height:1.2">Exponentielle<br><small style="font-weight:700">Contrôle — impact fort</small></div>
               </div>
             </div>
             <div class="next-mission">
               <div class="nm-num">→</div>
               <div class="nm-text">
-                Annale 2022 · Thermo — partie B
+                Maths spé · exponentielle — exercice type
                 <small>45 min · à faire maintenant</small>
               </div>
             </div>
@@ -967,17 +1049,17 @@
       <div class="marquee__track">
         <span>Priorités nettes</span><span class="star">★</span>
         <span class="hl">Missions courtes</span><span class="star">★</span>
-        <span>Annales pondérées</span><span class="star">★</span>
+        <span>Impact dossier</span><span class="star">★</span>
         <span class="hl">10 €/mois</span><span class="star">★</span>
         <span>Annulable</span><span class="star">★</span>
-        <span class="hl">Sans engagement</span><span class="star">★</span>
+        <span class="hl">3 missions offertes</span><span class="star">★</span>
         <!-- duplicate for seamless scroll -->
         <span>Priorités nettes</span><span class="star">★</span>
         <span class="hl">Missions courtes</span><span class="star">★</span>
-        <span>Annales pondérées</span><span class="star">★</span>
+        <span>Impact dossier</span><span class="star">★</span>
         <span class="hl">10 €/mois</span><span class="star">★</span>
         <span>Annulable</span><span class="star">★</span>
-        <span class="hl">Sans engagement</span><span class="star">★</span>
+        <span class="hl">3 missions offertes</span><span class="star">★</span>
       </div>
     </div>
   </div>
@@ -998,7 +1080,7 @@
             <span class="price-strike">≈ <s>11 €</s></span>
           </div>
           <h3 class="compare__title">Tu le manges en 8 min.</h3>
-          <p class="compare__copy">Outil Prepa, tu l'utilises tous les jours pendant un mois — et tu gagnes 2h par semaine sur « qu'est-ce que je travaille maintenant ?».</p>
+          <p class="compare__copy">Objectif Lycée, tu l'utilises tous les jours pendant un mois — et tu gagnes 2h par semaine sur « qu'est-ce que je travaille maintenant ?».</p>
         </article>
 
         <article class="compare compare--netflix">
@@ -1007,16 +1089,16 @@
             <span class="price-strike">≈ <s>14 €</s></span>
           </div>
           <h3 class="compare__title">Tu regardes 3 séries.</h3>
-          <p class="compare__copy">Pendant ce mois-là, ton planning aurait pu se construire tout seul, basé sur les chapitres qui rapportent vraiment au concours.</p>
+          <p class="compare__copy">Pendant ce mois-là, ton planning aurait pu se construire tout seul, basé sur les chapitres qui comptent vraiment pour tes notes et ton dossier.</p>
         </article>
 
         <article class="compare compare--book">
           <div class="compare__visual">
-            <div class="label">Un manuel de prépa</div>
+            <div class="label">Un manuel de spécialité</div>
             <span class="price-strike">≈ <s>32 €</s></span>
           </div>
           <h3 class="compare__title">TU N'AS PAS LE TEMPS DE L'UTILISER.</h3>
-          <p class="compare__copy">Un livre te donne du contenu. Outil Prepa t'aide à décider <em>lequel</em> ouvrir, <em>quand</em>, et combien de temps y passer. Méthode > volume.</p>
+          <p class="compare__copy">Un livre te donne du contenu. Objectif Lycée t'aide à décider <em>lequel</em> ouvrir, <em>quand</em>, et combien de temps y passer. Méthode > volume.</p>
         </article>
       </div>
 
@@ -1069,8 +1151,8 @@
             <li>
               <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-10"/></svg></span>
               <div>
-                <strong>Accès immédiat après paiement.</strong>
-                <span class="copy">Redirection directe vers ton cockpit. Pas d'attente, pas d'email de validation.</span>
+                <strong>Redirection vers le cockpit de démonstration.</strong>
+                <span class="copy">Le prototype te ramène directement vers le cockpit. Le vrai accès abonné sera branché quand le backend arrive.</span>
               </div>
             </li>
             <li>
@@ -1086,8 +1168,8 @@
         <aside class="trust-aside">
           <h3>Ce qu'on ne te vend pas.</h3>
           <p class="honest">On ne te promet pas une mention. On ne te promet pas d'être à l'X. On ne fait pas de "IA magique qui apprend à ta place".</p>
-          <p class="honest">Outil Prepa = un cockpit pour la concentration. Il regarde ton programme, tes annales, ton temps — et te dit quoi faire maintenant. Le travail, c'est toi. La méthode, c'est nous.</p>
-          <span class="signature">— l'équipe Outil Prepa</span>
+          <p class="honest">Objectif Lycée = un cockpit pour la concentration. Il regarde ton programme, ton dossier, ton temps — et te dit quoi faire maintenant. Le travail, c'est toi. La méthode, c'est nous.</p>
+          <span class="signature">— l'équipe Objectif Lycée</span>
         </aside>
       </div>
     </div>
@@ -1106,8 +1188,8 @@
         <article class="feat feat--y">
           <span class="feat__pin">priorité #1</span>
           <div class="num">01</div>
-          <h3>Heatmap ATS</h3>
-          <p>Les chapitres classés par poids réel dans les annales — pas par intuition, pas par ordre du manuel.</p>
+          <h3>Carte d'impact objectif</h3>
+          <p>Les chapitres classés par impact sur les notes, le dossier et l'école visée — pas par intuition, pas par ordre du manuel.</p>
         </article>
         <article class="feat feat--b">
           <span class="feat__pin">tous les jours</span>
@@ -1122,7 +1204,7 @@
           <p>Pas de "streak" cosmétique. Un score qui mesure si tu travailles les bons chapitres au bon rythme.</p>
         </article>
         <article class="feat feat--o">
-          <span class="feat__pin">mode concours</span>
+          <span class="feat__pin">mode contrôle</span>
           <div class="num">04</div>
           <h3>Focus session</h3>
           <p>Une mission, un timer, zéro distraction. Tu fermes l'app avec une chose finie, pas dix entamées.</p>
@@ -1136,7 +1218,7 @@
         <blockquote>
           “Avant j’ouvrais mes fiches au hasard. Là j’ai un truc à faire chaque matin — 25 min, c’est fait. J’ai pris 3 points en maths en un mois.”
         </blockquote>
-        <cite>Camille, MPSI — Lycée Sainte-Barbe, Paris</cite>
+        <cite>Camille, Terminale — spécialités maths/physique</cite>
       </div>
     </section>
 
@@ -1145,7 +1227,7 @@
       <div class="final-inner">
         <span class="kicker">★ TES EFFORTS MÉRITENT UN CADRE CLAIR</span>
         <h2 data-comment-anchor="8f3daf76e7-h2">10 €/mois pour arrêter de bosser <span class="hl" style="background-image: linear-gradient(transparent 58%, var(--stabilo) 58%, var(--stabilo) 96%, transparent 96%); padding: 0 6px;">au hasard</span>.</h2>
-        <p class="sub">Tu peux te désinscrire à tout moment, aucun engagement, accès immédiat après paiement.</p>
+        <p class="sub">Tu peux te désinscrire à tout moment, aucun engagement, prototype visible maintenant et accès abonné complet quand le backend arrive.</p>
 
         <div class="final-actions">
           <a href="#configurer-stripe" class="cta cta--stabilo cta--big" data-checkout-button>
@@ -1173,10 +1255,16 @@
 
     <!-- ====== FOOT ====== -->
     <footer class="foot">
-      <span>© Outil Prepa — fait pour les prépas qui veulent travailler juste.</span>
-      <span><a href="index.html">Accueil</a> · <a href="mailto:hello@outilprepa.com">Contact</a></span>
+      <span>© Objectif Lycée — fait pour les lycéens qui veulent travailler juste.</span>
+      <span><a href="index.html">Accueil</a> · <a href="mailto:hello@objectiflycee.fr">Contact</a></span>
     </footer>
   </main>
+
+  <!-- ====== STICKY MOBILE CTA ====== -->
+  <a href="#configurer-stripe" class="sticky-cta" data-checkout-button aria-label="Garder le plan personnalisé · 10 € par mois">
+    <span class="sticky-cta__price">10&nbsp;€<small> /mo</small></span>
+    <span class="sticky-cta__btn">Garder le plan →</span>
+  </a>
 
   <script src="scripts/checkout.js"></script>
 </body>

@@ -113,6 +113,7 @@ avant perfection visuelle, fonctionnalités secondaires, ou écosystème complet
 | Fichier | Rôle |
 |---|---|
 | `docs/superpowers/specs/2026-05-14-vision-produit.md` | Boussole produit — le QUOI |
+| `docs/mission-valeur-monetisation.md` | Mission du site, valeur utilisateur, funnel et monétisation |
 | `WORKFLOW.md` | Ce fichier — le COMMENT |
 | `data/ats/sujets/INSTRUCTIONS_TAGGING.md` | Guide de tagging des sujets ATS |
 | `data/ats/poids/weighted-topics.json` | Scores calculés (généré, ne pas éditer) |

@@ -158,7 +158,7 @@ async function assertTrustCopy(page, viewportLabel) {
   const text = await visibleText(page);
   const trustChecks = [
     { label: 'Stripe handles payment', pattern: /(paiement\s+(trait[eé]|g[eé]r[eé])\s+par\s+Stripe|Stripe\s+(g[eèé]re|traite|envoie))/i },
-    { label: 'card number not stored/touched by Outil Prepa servers', pattern: /(num[eé]ro\s+de\s+carte|donn[eé]e\s+bancaire).*?(ne\s+.*?(stock|touche)|jamais).*?(serveurs?|Stripe)/i },
+    { label: 'card number not stored/touched by app servers', pattern: /(num[eé]ro\s+de\s+carte|donn[eé]e\s+bancaire).*?(ne\s+.*?(stock|touche)|jamais).*?(serveurs?|Stripe)/i },
     { label: 'monthly subscription', pattern: /(abonnement|mensuel|chaque\s+mois|\/\s*mois)/i },
     { label: 'cancellable subscription', pattern: /(annulable|r[eé]siliable|annuler|r[eé]silier)/i },
     { label: 'transparent price', pattern: /(10\s*€\s*(\/|par)?\s*mois|10\s*€.*chaque\s+mois|TVA\s+incluse|prix\s+transparent)/i },
