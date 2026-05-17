@@ -283,7 +283,7 @@
         <div class="stat stat--stabilo">
           <div class="label">Dossier construit</div>
           <div class="value">73%<span style="font-size:18px;color:#5C4A0A;font-weight:800;margin-left:8px">/ 85% attendu</span></div>
-          <div class="note">Tu es à 12 points du niveau de régularité conseillé pour les écoles post-bac visées.</div>
+          <div class="note">12 points sous le rythme conseillé pour les écoles post-bac que tu vises.</div>
         </div>
         <div class="stat">
           <div class="label">Leviers prioritaires</div>
@@ -292,8 +292,8 @@
         </div>
         <div class="stat stat--beige">
           <div class="label">Avant Parcoursup</div>
-          <div class="value">8<span style="font-size:24px">sem.</span></div>
-          <div class="note">Assez pour installer un rythme visible sur le dossier.</div>
+          <div class="value">8<span style="font-size:24px;margin-left:6px">sem.</span></div>
+          <div class="note">Assez pour que la régularité se voie sur ton dossier.</div>
         </div>
       </div>
 
@@ -361,10 +361,23 @@
   .cell-tooltip .ct-cta:hover { opacity: .85; }
 </style>
 
+<script src="scripts/model.js"></script>
+<script src="scripts/state.js"></script>
+<script src="scripts/mission-ui.js"></script>
 <script type="module">
 var allYears;
 var heatmapEl;
 var maxScore;
+var DAILY_MISSION = window.OutilPrepaMissionUI
+  ? window.OutilPrepaMissionUI.getMission()
+  : null;
+
+function dailyMissionTopic() {
+  if (window.OutilPrepaMissionUI && DAILY_MISSION) {
+    return window.OutilPrepaMissionUI.toObjectiveTopic(DAILY_MISSION);
+  }
+  return { id: "daily-mission", nom: "Mission du jour", totalOccurrences: 1, score: 1, years: [] };
+}
 
 var _activeTooltip = null;
 function showCellTooltip(topic, cellEl) {
@@ -452,10 +465,13 @@ function renderHeatmapRows(el, topics, years, maxSc, matiereSlug) {
 
 function renderPriorityList(topics) {
   var MASTERY = {
-    "expo-derivee":62,"suites":74,"probabilites":49,"redaction-maths":68,
+    "suites":74,"probabilites":49,"redaction-maths":68,
     "energie":58,"ondes":67,"dosage":54,"projet-motive":42,
     "expression":70,"anglais-argument":65,"grand-oral":60
   };
+  if (DAILY_MISSION && DAILY_MISSION.topicId) {
+    MASTERY[DAILY_MISSION.topicId] = DAILY_MISSION.masteryPercent || 0;
+  }
   var listEl = document.getElementById("topic-list");
   listEl.innerHTML = "";
   topics = topics.slice().sort(function(a, b) { return b.score - a.score; });
@@ -570,7 +586,7 @@ var OBJECTIF_TOPICS = {
     "formula": "score = impact dossier + urgence scolaire + objectif ecole"
   },
   "maths-spe": [
-    { "id": "expo-derivee", "nom": "Exponentielle & dérivation", "totalOccurrences": 5, "score": 9.4, "years": ["S1", "S2", "S3", "S5", "S6"] },
+    dailyMissionTopic(),
     { "id": "suites", "nom": "Suites et limites", "totalOccurrences": 4, "score": 7.2, "years": ["S1", "S2", "S4", "S6"] },
     { "id": "probabilites", "nom": "Probabilités", "totalOccurrences": 3, "score": 5.7, "years": ["S2", "S4", "S5"] },
     { "id": "redaction-maths", "nom": "Rédaction de correction", "totalOccurrences": 3, "score": 5.1, "years": ["S1", "S3", "S6"] }

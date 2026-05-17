@@ -34,7 +34,8 @@ Boucle Ralph itérative pour auditer le funnel et améliorer rétention/hiérarc
 - [x] onboarding.html (pass 2) — Tightening lede step 4 "Quel rythme" : suppression de "réellement" et "en moyenne" (mots filler). Tentative de retrait des `<br>` codés en dur reverté : `text-wrap: balance` cassait "VEUX-TU" au trait d'union. Les `<br>` éditoriaux sont volontaires et bien placés, on les garde. **Apprentissage à appliquer aux passes suivantes** : ne pas toucher les line-breaks manuels sur la voix éditoriale française (mots composés avec trait d'union créent des cassures inattendues avec balance).
 - [x] focus.html (pass 2) — **Vrai bug d'interaction** : `.subtask` du panel droit étaient cliquables (JS toggle `.done` sur clic) mais `cursor: auto` — aucun signal visuel d'interactivité. Ajout de `cursor: pointer`, `padding+margin` négatif pour zone cliquable confortable, `:hover { background: rgba(paper, 0.06) }` pour feedback subtil, et transition sur la checkbox border-color au survol. Affordance maintenant claire pendant la session de focus.
 - [x] mission.html (pass 2) — Meta row label "TA MAÎTRISE ACTUELLE" (20 chars) → "MAÎTRISE" (8 chars). Deux redondances supprimées : "Ta" (toute l'UI est déjà en direct address) et "actuelle" (implicite — la valeur affichée est forcément celle du moment). Plus dense visuellement, plus rapide à scanner.
-- [ ] objectif.html → NEXT (pass 2)
+- [x] objectif.html (pass 2) — Espace manquant dans "8sem." (3e stat card, AVANT PARCOURSUP) — la valeur "8" était collée à son unité "sem." sans séparation. Ajout de `margin-left: 6px` sur le span de l'unité. Typographie française standard pour les nombres + unités abrégées (vs "12h45" où l'absence d'espace est correcte pour les heures).
+- [ ] progression.html → NEXT (pass 2)
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html
