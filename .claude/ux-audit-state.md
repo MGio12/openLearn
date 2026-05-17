@@ -67,7 +67,9 @@ Boucle Ralph itérative pour auditer le funnel et améliorer rétention/hiérarc
 - [x] objectif.html (pass 4) — 2 derniers "vraiment" filler sur le site nettoyés. (1) objectif analyse stratégique : "Trois leviers **changent vraiment** ton dossier" → "Trois leviers **font bouger** ton dossier" (verbe plus actif, cohérent avec "font bouger les notes" déjà sur la même page). (2) checkout compare paragraph : "chapitres qui **comptent vraiment** pour tes notes" → "chapitres qui **pèsent** sur tes notes" (verbe précis). Site entier maintenant à 0 occurrence de "vraiment".
 - [x] progression.html (pass 4) — Slideover objective copy "73% des **priorités utiles** au dossier sont déjà travaillées" — "priorités utiles" est tautologique (toute priorité est utile par définition), c'est un hedge AI typique. Remplacé par "73% des **chapitres prioritaires pour ton dossier** sont déjà travaillés" — unité concrète (chapitres) + direct address (ton). La page principale est globalement très propre niveau voice (le "pas avec du scroll" est même une voix de marque distinctive, à garder).
 - [x] checkout.html (pass 4) — H2 "UNE **TRANSACTION BASÉE SUR** L'HONNÊTETÉ" — vocabulaire corporate/AI en désaccord avec le ton anti-corporate du reste de la page ("On ne te vend pas", "On te donne", "Le travail c'est toi"). Remplacé par "ON NE PROMET QUE CE QU'ON SAIT TENIR" — anaphorique avec le "On" qui rythme la section suivante ("On ne te promet pas une mention. On ne te promet pas d'être à l'X..."). Voice maintenant cohérente sur les 4 H2 de la page.
-- [ ] merci.html → NEXT (pass 4)
+- [x] merci.html (pass 4) — Study-note disait "Ton plan reste centré sur **une chose**" puis énumérait **trois actions** — incohérence du compteur classique de l'AI ("the key thing is X, Y, and Z"). Remplacé par "Ton plan tient en **trois gestes** : ouvrir le cockpit, finir la bonne mission, voir ton dossier avancer." Le compteur matche maintenant les éléments listés. "Gestes" plus organique que "actions" pour la voix du site.
+
+## Pass 4 — funnel complet
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html
