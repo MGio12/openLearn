@@ -141,7 +141,8 @@ Note pour pass suivantes : à propager sur mission/objectif/progression/focus qu
 - [x] onboarding.html (pass 9) — **Typo apostrophe** dans la fixture JS MISSIONS (ligne 399) : `'Énergie mécanique — refaire l exercice clé'` → `'Énergie mécanique — refaire l\'exercice clé'`. Cette chaîne s'affichait dans la preview du step 6 et dans le payload d'onboarding envoyé au modèle. Le reste de la page n'a pas de debris : pas de console.log, pas de TODO, les commentaires HTML sont des dividers structurels.
 - [x] focus.html (pass 9) — Format heure anglais "14:00" dans `.fx-next-meta` → français "14h00" (convention française du `h` en séparateur, déjà utilisée ailleurs sur le site comme "12h45"). Sweep du reste de la page clean (pas de console.log, JS et copy propres).
 - [x] mission.html (pass 9) — 3 routes "Après cette mission" avec `<span>→</span>` non-marqués `aria-hidden`. Le lecteur d'écran annonçait "Revenir aux priorités du jour right arrow" sur chaque route. Propagation du pattern iter 23 : `<span aria-hidden="true">→</span>`. Vérifié : tree walker excluant aria-hidden produit "Revenir aux priorités du jour", "Voir pourquoi c'est prioritaire", "Garder le plan personnalisé" — clean.
-- [ ] objectif.html → NEXT (pass 9)
+- [x] objectif.html (pass 9) — Arrow `→` non-`aria-hidden` dans le tooltip CTA généré par JS ("Travailler ce levier →"). Fix : `<span aria-hidden="true">→</span>`. **Découverte** : faux positif de l'iter 37 sur le heatmap. J'avais conclu "clic mort" en comparant `cellBefore !== cellAfter` sur le `outerHTML` de la cell — mais le clic crée un tooltip via `document.body.appendChild(tip)`, qui ne modifie pas la cell elle-même. Le heatmap **est** interactif. À retirer du registre flag.
+- [ ] progression.html → NEXT (pass 9)
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html

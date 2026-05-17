@@ -179,7 +179,7 @@ function showCellTooltip(topic, cellEl) {
   tip.className = "cell-tooltip";
   tip.innerHTML = '<div class="ct-title">' + topic.nom + '</div>'
     + '<div class="ct-meta">Impact fort sur <strong>' + topic.totalOccurrences + '</strong> jalons · dossier, contrôle, Parcoursup</div>'
-    + '<a href="mission.html" class="ct-cta">Travailler ce levier →</a>';
+    + '<a href="mission.html" class="ct-cta">Travailler ce levier <span aria-hidden="true">→</span></a>';
   document.body.appendChild(tip);
   _activeTooltip = tip;
   var rect = cellEl.getBoundingClientRect();
