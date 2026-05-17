@@ -64,7 +64,8 @@ Boucle Ralph itérative pour auditer le funnel et améliorer rétention/hiérarc
 - [x] onboarding.html (pass 4) — Deux ledes assainies. Step 2 : "si tu construis ton dossier ou si Parcoursup arrive déjà" (formulation forcée, "arrive déjà" sonne mécanique) → "Le calendrier change selon ta classe : construire ton dossier ou attaquer Parcoursup". Step 3 : "matières qui comptent vraiment dans le dossier" → "matières qui pèsent dans le dossier" (drop filler "vraiment" + verbe plus précis "pèsent").
 - [x] focus.html (pass 4) — Deux `completionSummary` dans `scripts/model.js` avec templated "garde une trace de plus" / "garde une trace réelle". "Trace + adjectif vague" = AI tell typique. Remplacés par : (1) "Ta mission avance, ton dossier s'épaissit." (utilise la métaphore dossier déjà présente sur le site) ; (2) "Mission terminée, ta progression suit." (verbe simple, concret).
 - [x] mission.html (pass 4) — Study-note "À garder : une correction propre aujourd'hui devient **une preuve de régularité demain**" — template AI motivationnel (X aujourd'hui → Y demain) + claim vague "preuve de régularité". Remplacé par un argument concret : "ce que tu corriges propre aujourd'hui ne sera pas à refaire avant le contrôle" — promesse mesurable, ancrée dans le réel scolaire (vendredi = contrôle).
-- [ ] objectif.html → NEXT (pass 4)
+- [x] objectif.html (pass 4) — 2 derniers "vraiment" filler sur le site nettoyés. (1) objectif analyse stratégique : "Trois leviers **changent vraiment** ton dossier" → "Trois leviers **font bouger** ton dossier" (verbe plus actif, cohérent avec "font bouger les notes" déjà sur la même page). (2) checkout compare paragraph : "chapitres qui **comptent vraiment** pour tes notes" → "chapitres qui **pèsent** sur tes notes" (verbe précis). Site entier maintenant à 0 occurrence de "vraiment".
+- [ ] progression.html → NEXT (pass 4)
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html
