@@ -28,8 +28,7 @@ Boucle Ralph itérative pour auditer le funnel et améliorer rétention/hiérarc
 
 ## File d'attente (funnel order)
 
-- [ ] checkout.html → NEXT
-- [ ] merci.html
+- [ ] merci.html → NEXT
 
 ## Done
 
@@ -39,6 +38,7 @@ Boucle Ralph itérative pour auditer le funnel et améliorer rétention/hiérarc
 - [x] **mission.html** (iter 4) — Supprimé le préfixe "Mission du jour :" du H1 (redondant avec breadcrumb + chip déjà présents au-dessus). H1 passe de 2 lignes à 1 ligne, hero 550→497px (-53px). Surtout : la CTA primaire "Commencer le focus · 25 min" passe sous le fold à y=814 (visible). C'est l'action attendue à l'arrivée sur la page — la rendre visible sans scroll est l'effet de levier le plus direct sur l'engagement.
 - [x] **objectif.html** (iter 5, scope cross-page) — Bug architectural découvert : `body { overflow: hidden, height: 900px }` + `.view { overflow-y: auto }` crée un scroll interne **sans aucun indicateur visuel**. 285px de contenu caché sur objectif (priorités stratégiques + grille de progression coupées), et même 796px sur le cockpit. Ajout d'un scroll-shadow CSS classique (cover layers `local` + shadow layers `scroll`) qui s'auto-cache en haut/bas et révèle l'overflow par une ombre douce. Pattern self-adjusting : n'apparaît que si la page déborde réellement. Concerne toutes les vues utilisant `.view`.
 - [x] **progression.html** (iter 6) — État vide "JOUR 0" affichait un planter de 280px dans une carte de 589px (la moitié du fold pour "rien à montrer"). Stats row (CETTE SEMAINE, JOURS ACTIFS, MISSION DU JOUR) repoussée à y=829, sous le fold. Ajout d'un style `.garden-empty` qui compacte le tout : SVG 280→150px, padding 36→22px, gap réduit. Carte passe de 589 à 386px (-34%), stats visibles à y=625, et même la reminder "Mission du jour" remonte au-dessus du fold. L'état vide encourage maintenant la 1ère action sans submerger.
+- [x] **checkout.html** (iter 7) — H1 "TRAVAILLE CE QUI RAPPORTE." passe de `clamp(52px, 7.4vw, 104px)` à `clamp(44px, 5vw, 72px)`. Hauteur H1 : 287→207px (-80px). Sur une page checkout, l'éditorial ne doit pas écraser la mécanique de conversion. Le bloc "10€/MOIS" remonte à y=495 et la CTA "Garder le plan personnalisé" à y=662 — prix + action clairement co-visibles dans le fold avec la bande de trust signals.
 
 ## Notes inter-itérations
 
