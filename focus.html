@@ -4,21 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Objectif Lycée — Focus</title>
-  <link rel="stylesheet" href="focus.css">
-<style>
-  .fx-done { position:fixed; inset:0; background:rgba(18,18,18,.82); display:flex; align-items:center; justify-content:center; z-index:100; animation:fdIn .35s ease; }
-  .fx-done[hidden] { display:none; }
-  @keyframes fdIn { from{opacity:0;transform:scale(.96)} to{opacity:1;transform:scale(1)} }
-  .fx-done-inner { background:#FFFDF8; border:3px solid #121212; border-radius:18px; box-shadow:10px 10px 0 #F4D35E; padding:36px 44px; text-align:center; max-width:420px; display:flex; flex-direction:column; gap:14px; align-items:center; }
-  .fx-done-icon { color:#121212; }
-  .fx-done-title { font-family:var(--font-display); font-size:32px; text-transform:uppercase; letter-spacing:-.01em; color:#121212; }
-  .fx-done-sub { font-family:var(--font-body); font-size:14px; color:#5F5B57; line-height:1.55; max-width:320px; }
-  .fx-done-actions { display:flex; gap:12px; justify-content:center; margin-top:6px; }
-  .fx-done-btn { padding:11px 18px; border:2.5px solid #121212; border-radius:9px; font-family:var(--font-body); font-weight:800; font-size:13px; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; box-shadow:4px 4px 0 #121212; transition:transform .12s,box-shadow .12s; background:none; }
-  .fx-done-btn:hover { transform:translate(2px,2px); box-shadow:2px 2px 0 #121212; }
-  .fx-done-btn--break { background:#F4D35E; color:#121212; }
-  .fx-done-btn--next { background:#121212; color:#FFFDF8; }
-</style>
+  <link rel="stylesheet" href="assets/css/pages/focus.css">
 </head>
 <body>
 
@@ -43,8 +29,8 @@
     <!-- Main column -->
     <div class="fx-main">
       <div class="fx-task">
-        <span class="pill">Maths spé</span>
-        <span class="title">Exponentielle &amp; dérivation — exercice type contrôle</span>
+        <span class="pill" data-daily-mission-subject>Matière</span>
+        <span class="title" data-daily-mission-task-title>Mission du jour</span>
       </div>
 
       <div class="fx-timer" id="timer">24:38</div>
@@ -62,7 +48,7 @@
           <svg viewBox="0 0 24 24"><polyline points="11 17 6 12 11 7"/><polyline points="18 17 13 12 18 7"/></svg>
         </button>
         <button class="fx-ctl primary" id="playPause" title="Pause / Reprise">
-          <svg viewBox="0 0 24 24" id="play-icon" style="display:none"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+          <svg viewBox="0 0 24 24" id="play-icon" class="fx-icon-hidden"><polygon points="6 4 20 12 6 20 6 4"/></svg>
           <svg viewBox="0 0 24 24" id="pause-icon"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
         </button>
         <button class="fx-ctl" title="Pomodoro suivant — projet motivé" aria-label="Passer au pomodoro suivant" id="nextSession">
@@ -70,58 +56,42 @@
         </button>
       </div>
 
-      <div class="fx-kicker" id="fx-kicker">Pomodoro 3 / 4 · 25 minutes</div>
+      <div class="fx-kicker" id="fx-kicker">Focus · <span data-daily-mission-focus-duration>Durée</span></div>
     </div>
 
     <!-- Right panel -->
     <aside class="fx-side">
       <div>
         <h3>Cette session</h3>
-        <div style="margin-top:14px;display:flex;flex-direction:column">
-          <div class="subtask done">
-            <span class="box">✓</span>
-            <span class="label">Relire les deux propriétés de l'exponentielle</span>
-          </div>
-          <div class="subtask done">
-            <span class="box">✓</span>
-            <span class="label">Refaire trois dérivées avec composition</span>
-          </div>
-          <div class="subtask">
-            <span class="box"></span>
-            <span class="label">Rédiger une correction propre</span>
-          </div>
-          <div class="subtask">
-            <span class="box"></span>
-            <span class="label">Noter l'erreur à revoir demain</span>
-          </div>
-        </div>
+        <div class="fx-session-steps" data-daily-mission-focus-steps></div>
+        <button class="fx-complete" id="finishMission" type="button">Marquer la mission terminée</button>
       </div>
 
       <div>
         <h3>Ambiance</h3>
-        <div class="ambient" style="margin-top:12px">
-          <div class="amb active" data-amb="lofi"><span class="ic">♪</span><span class="nm">Lofi</span></div>
-          <div class="amb" data-amb="rain"><span class="ic">☂</span><span class="nm">Pluie</span></div>
-          <div class="amb" data-amb="cafe"><span class="ic">☕</span><span class="nm">Café</span></div>
-          <div class="amb" data-amb="silence"><span class="ic">○</span><span class="nm">Silence</span></div>
+        <div class="ambient fx-ambient" role="radiogroup" aria-label="Ambiance sonore">
+          <button type="button" class="amb active" data-amb="lofi" role="radio" aria-checked="true"><span class="ic" aria-hidden="true">♪</span><span class="nm">Lofi</span></button>
+          <button type="button" class="amb" data-amb="rain" role="radio" aria-checked="false"><span class="ic" aria-hidden="true">☂</span><span class="nm">Pluie</span></button>
+          <button type="button" class="amb" data-amb="cafe" role="radio" aria-checked="false"><span class="ic" aria-hidden="true">☕</span><span class="nm">Café</span></button>
+          <button type="button" class="amb" data-amb="silence" role="radio" aria-checked="false"><span class="ic" aria-hidden="true">○</span><span class="nm">Silence</span></button>
         </div>
       </div>
 
       <div>
         <h3>Aujourd'hui</h3>
-        <div style="display:flex;flex-direction:column;gap:6px;margin-top:12px;font-family:var(--font-body);font-size:13px">
-          <div style="display:flex;justify-content:space-between"><span style="color:rgba(246,242,235,0.7)">Sessions</span><span style="font-family:var(--font-mono);color:var(--paper)">3 / 4</span></div>
-          <div style="display:flex;justify-content:space-between"><span style="color:rgba(246,242,235,0.7)">Temps de focus</span><span style="font-family:var(--font-mono);color:var(--paper)">1 h 37</span></div>
-          <div style="display:flex;justify-content:space-between"><span style="color:rgba(246,242,235,0.7)">Régularité</span><span style="font-family:var(--font-mono);color:var(--stabilo)">7 j</span></div>
+        <div class="fx-today-metrics">
+          <div class="fx-today-row"><span class="fx-muted-label">Sessions</span><span class="fx-paper-stat">3 / 4</span></div>
+          <div class="fx-today-row"><span class="fx-muted-label">Temps de focus</span><span class="fx-paper-stat">1 h 37</span></div>
+          <div class="fx-today-row"><span class="fx-muted-label">Régularité</span><span class="fx-paper-stat fx-paper-stat--accent">7 j</span></div>
         </div>
       </div>
 
       <div>
         <h3>Après ça</h3>
-        <div style="margin-top:12px;padding:12px;background:rgba(246,242,235,0.07);border-radius:10px;font-family:var(--font-body);font-size:13px;display:flex;flex-direction:column;gap:4px">
-          <div style="color:rgba(246,242,235,0.55);font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase">Mission suivante</div>
-          <div style="color:var(--paper);font-weight:700;line-height:1.4">Projet motivé — 3 preuves concrètes</div>
-          <div style="color:rgba(246,242,235,0.55);font-size:12px">25 min · 14:00</div>
+        <div class="fx-next-card">
+          <div class="fx-next-eyebrow">Mission suivante</div>
+          <div class="fx-next-title">Projet motivé — 3 preuves concrètes</div>
+          <div class="fx-next-meta">25 min · 14:00</div>
         </div>
       </div>
     </aside>
@@ -143,24 +113,31 @@
     <div class="fx-done-inner">
       <div class="fx-done-icon"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
       <div class="fx-done-title">Session terminée !</div>
-      <div class="fx-done-sub">Tu viens de finir 25 min de focus. Ta mission avance et ton dossier garde une trace de plus.</div>
+      <div class="fx-done-sub" data-daily-mission-done-summary>Ta mission avance.</div>
       <div class="fx-done-actions">
         <button class="fx-done-btn fx-done-btn--break" id="startBreak">Pause 5 min</button>
-        <a class="fx-done-btn fx-done-btn--next" href="index.html">Prochaine mission</a>
+        <a class="fx-done-btn fx-done-btn--next" href="progression.html">Voir ma progression</a>
       </div>
     </div>
   </div>
 
 </div>
 
+<script src="scripts/model.js"></script>
+<script src="scripts/state.js"></script>
+<script src="scripts/mission-ui.js"></script>
 <script>
   // Ambient sound picker
   const ambs = document.querySelectorAll('.amb');
   const rain = document.getElementById('rain');
   ambs.forEach(a => {
     a.addEventListener('click', () => {
-      ambs.forEach(x => x.classList.remove('active'));
+      ambs.forEach(x => {
+        x.classList.remove('active');
+        x.setAttribute('aria-checked', 'false');
+      });
       a.classList.add('active');
+      a.setAttribute('aria-checked', 'true');
       rain.classList.toggle('on', a.dataset.amb === 'rain');
     });
   });
@@ -189,28 +166,49 @@
   const timerEl = document.getElementById('timer');
   const ringEl = document.getElementById('ring');
   const pctEl = document.querySelector('.pct');
-  let total = 25 * 60;
-  let remaining = 24 * 60 + 38;
+  const mission = (window.OutilPrepa && window.OutilPrepa.mission)
+    || (window.OutilPrepaModel && window.OutilPrepaModel.DEFAULT_MISSION)
+    || {};
+  if (window.OutilPrepa && typeof window.OutilPrepa.startFocusSession === 'function') {
+    window.OutilPrepa.startFocusSession();
+  }
+  let total = (mission.focusDurationMinutes || 25) * 60;
+  let remaining = Math.max(0, total - 22);
+  let completionHandled = false;
   function updateRing() {
     const circumference = 276;
     const pct = remaining / total;
     ringEl.setAttribute('stroke-dashoffset', String(circumference * (1 - pct)));
     if (pctEl) pctEl.textContent = Math.round(pct * 100) + '%';
   }
+  function showDoneOverlay() {
+    const fxDoneEl = document.getElementById('fx-done');
+    if (fxDoneEl) fxDoneEl.removeAttribute('hidden');
+  }
+  function finishFocusSession() {
+    if (completionHandled) {
+      showDoneOverlay();
+      return;
+    }
+    completionHandled = true;
+    remaining = 0;
+    running = false;
+    timerEl.textContent = '00:00';
+    ringEl.setAttribute('stroke-dashoffset', '276');
+    if (pctEl) pctEl.textContent = '0%';
+    playIcon.style.display = 'block';
+    pauseIcon.style.display = 'none';
+    if (window.OutilPrepa && typeof window.OutilPrepa.completeMissionToday === 'function') {
+      window.OutilPrepa.completeMissionToday();
+    }
+    showDoneOverlay();
+  }
   updateRing();
   setInterval(() => {
     if (!running) return;
     remaining--;
     if (remaining <= 0) {
-      remaining = 0;
-      running = false;
-      playIcon.style.display = 'block';
-      pauseIcon.style.display = 'none';
-      timerEl.textContent = '00:00';
-      ringEl.setAttribute('stroke-dashoffset', '276');
-      if (pctEl) pctEl.textContent = '0%';
-      const fxDoneEl = document.getElementById('fx-done');
-      if (fxDoneEl) fxDoneEl.removeAttribute('hidden');
+      finishFocusSession();
       return;
     }
     const m = String(Math.floor(remaining / 60)).padStart(2, '0');
@@ -232,12 +230,17 @@
       if (fxDoneEl) fxDoneEl.setAttribute('hidden', '');
       total = 5 * 60;
       remaining = 5 * 60;
+      completionHandled = false;
       var kicker = document.getElementById('fx-kicker');
       if (kicker) kicker.textContent = 'Pause · 5 minutes';
       running = true;
       playIcon.style.display = 'none';
       pauseIcon.style.display = 'block';
     });
+  }
+  var finishMissionBtn = document.getElementById('finishMission');
+  if (finishMissionBtn) {
+    finishMissionBtn.addEventListener('click', finishFocusSession);
   }
 </script>
 
