@@ -62,7 +62,8 @@ Boucle Ralph itérative pour auditer le funnel et améliorer rétention/hiérarc
 
 - [x] index.html (pass 4) — AI tell flagrant : "**ajustée depuis ton état utilisateur**" — formulation translation-y typique ("user state" mot-à-mot). Aucun lycéen ne dit "état utilisateur". Remplacé par "ajustée à ta progression" (français natif). 3 occurrences fixées : index.html static, objectif.html static, et user-context-ui.js dynamique. Objectif page : "Impact dossier · état utilisateur · ..." → "Impact dossier · ta progression · ...".
 - [x] onboarding.html (pass 4) — Deux ledes assainies. Step 2 : "si tu construis ton dossier ou si Parcoursup arrive déjà" (formulation forcée, "arrive déjà" sonne mécanique) → "Le calendrier change selon ta classe : construire ton dossier ou attaquer Parcoursup". Step 3 : "matières qui comptent vraiment dans le dossier" → "matières qui pèsent dans le dossier" (drop filler "vraiment" + verbe plus précis "pèsent").
-- [ ] focus.html → NEXT (pass 4)
+- [x] focus.html (pass 4) — Deux `completionSummary` dans `scripts/model.js` avec templated "garde une trace de plus" / "garde une trace réelle". "Trace + adjectif vague" = AI tell typique. Remplacés par : (1) "Ta mission avance, ton dossier s'épaissit." (utilise la métaphore dossier déjà présente sur le site) ; (2) "Mission terminée, ta progression suit." (verbe simple, concret).
+- [ ] mission.html → NEXT (pass 4)
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html
