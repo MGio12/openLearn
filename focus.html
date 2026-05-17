@@ -44,15 +44,15 @@
       </div>
 
       <div class="fx-controls">
-        <button class="fx-ctl" title="Pomodoro précédent" aria-label="Pomodoro précédent" id="prevSession">
-          <svg viewBox="0 0 24 24"><polyline points="11 17 6 12 11 7"/><polyline points="18 17 13 12 18 7"/></svg>
+        <button type="button" class="fx-ctl" id="prevSession" disabled aria-label="Pomodoro précédent — bientôt disponible">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="11 17 6 12 11 7"/><polyline points="18 17 13 12 18 7"/></svg>
         </button>
-        <button class="fx-ctl primary" id="playPause" title="Pause / Reprise">
-          <svg viewBox="0 0 24 24" id="play-icon" class="fx-icon-hidden"><polygon points="6 4 20 12 6 20 6 4"/></svg>
-          <svg viewBox="0 0 24 24" id="pause-icon"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+        <button type="button" class="fx-ctl primary" id="playPause" aria-label="Pause ou reprise (Espace)">
+          <svg viewBox="0 0 24 24" id="play-icon" class="fx-icon-hidden" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+          <svg viewBox="0 0 24 24" id="pause-icon" aria-hidden="true"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
         </button>
-        <button class="fx-ctl" title="Pomodoro suivant — projet motivé" aria-label="Passer au pomodoro suivant" id="nextSession">
-          <svg viewBox="0 0 24 24"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>
+        <button type="button" class="fx-ctl" id="nextSession" disabled aria-label="Pomodoro suivant — bientôt disponible">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>
         </button>
       </div>
 
@@ -126,123 +126,7 @@
 <script src="scripts/model.js"></script>
 <script src="scripts/state.js"></script>
 <script src="scripts/mission-ui.js"></script>
-<script>
-  // Ambient sound picker
-  const ambs = document.querySelectorAll('.amb');
-  const rain = document.getElementById('rain');
-  ambs.forEach(a => {
-    a.addEventListener('click', () => {
-      ambs.forEach(x => {
-        x.classList.remove('active');
-        x.setAttribute('aria-checked', 'false');
-      });
-      a.classList.add('active');
-      a.setAttribute('aria-checked', 'true');
-      rain.classList.toggle('on', a.dataset.amb === 'rain');
-    });
-  });
-
-  // Subtask toggle
-  document.querySelectorAll('.subtask').forEach(t => {
-    t.addEventListener('click', () => {
-      t.classList.toggle('done');
-      const box = t.querySelector('.box');
-      box.textContent = t.classList.contains('done') ? '✓' : '';
-    });
-  });
-
-  // Play/pause toggle (visual only)
-  const playPauseBtn = document.getElementById('playPause');
-  const playIcon = document.getElementById('play-icon');
-  const pauseIcon = document.getElementById('pause-icon');
-  let running = true;
-  playPauseBtn.addEventListener('click', () => {
-    running = !running;
-    playIcon.style.display = running ? 'none' : 'block';
-    pauseIcon.style.display = running ? 'block' : 'none';
-  });
-
-  // Countdown timer
-  const timerEl = document.getElementById('timer');
-  const ringEl = document.getElementById('ring');
-  const pctEl = document.querySelector('.pct');
-  const mission = (window.OutilPrepa && window.OutilPrepa.mission)
-    || (window.OutilPrepaModel && window.OutilPrepaModel.DEFAULT_MISSION)
-    || {};
-  if (window.OutilPrepa && typeof window.OutilPrepa.startFocusSession === 'function') {
-    window.OutilPrepa.startFocusSession();
-  }
-  let total = (mission.focusDurationMinutes || 25) * 60;
-  let remaining = Math.max(0, total - 22);
-  let completionHandled = false;
-  function updateRing() {
-    const circumference = 276;
-    const pct = remaining / total;
-    ringEl.setAttribute('stroke-dashoffset', String(circumference * (1 - pct)));
-    if (pctEl) pctEl.textContent = Math.round(pct * 100) + '%';
-  }
-  function showDoneOverlay() {
-    const fxDoneEl = document.getElementById('fx-done');
-    if (fxDoneEl) fxDoneEl.removeAttribute('hidden');
-  }
-  function finishFocusSession() {
-    if (completionHandled) {
-      showDoneOverlay();
-      return;
-    }
-    completionHandled = true;
-    remaining = 0;
-    running = false;
-    timerEl.textContent = '00:00';
-    ringEl.setAttribute('stroke-dashoffset', '276');
-    if (pctEl) pctEl.textContent = '0%';
-    playIcon.style.display = 'block';
-    pauseIcon.style.display = 'none';
-    if (window.OutilPrepa && typeof window.OutilPrepa.completeMissionToday === 'function') {
-      window.OutilPrepa.completeMissionToday();
-    }
-    showDoneOverlay();
-  }
-  updateRing();
-  setInterval(() => {
-    if (!running) return;
-    remaining--;
-    if (remaining <= 0) {
-      finishFocusSession();
-      return;
-    }
-    const m = String(Math.floor(remaining / 60)).padStart(2, '0');
-    const s = String(remaining % 60).padStart(2, '0');
-    timerEl.textContent = m + ':' + s;
-    updateRing();
-  }, 1000);
-
-  // Esc to quit
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') window.location.href = 'index.html';
-    if (e.code === 'Space') { e.preventDefault(); playPauseBtn.click(); }
-  });
-  // Break button
-  var startBreakBtn = document.getElementById('startBreak');
-  if (startBreakBtn) {
-    startBreakBtn.addEventListener('click', function() {
-      var fxDoneEl = document.getElementById('fx-done');
-      if (fxDoneEl) fxDoneEl.setAttribute('hidden', '');
-      total = 5 * 60;
-      remaining = 5 * 60;
-      completionHandled = false;
-      var kicker = document.getElementById('fx-kicker');
-      if (kicker) kicker.textContent = 'Pause · 5 minutes';
-      running = true;
-      playIcon.style.display = 'none';
-      pauseIcon.style.display = 'block';
-    });
-  }
-  var finishMissionBtn = document.getElementById('finishMission');
-  if (finishMissionBtn) {
-    finishMissionBtn.addEventListener('click', finishFocusSession);
-  }
-</script>
+<script src="assets/js/pages/focus.js"></script>
 
 </body>
 </html>

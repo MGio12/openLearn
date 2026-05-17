@@ -79,7 +79,8 @@ Boucle Ralph itérative pour auditer le funnel et améliorer rétention/hiérarc
 
 Note pour pass suivantes : à propager sur mission/objectif/progression/focus qui dupliquent la même sidebar avec les mêmes dead items.
 - [x] onboarding.html (pass 5) — **2 bugs runtime combinés** sur le step 7 (email). (1) input pas `required`, l'onboarding pouvait se terminer **sans email** alors que la lede promet "On sauvegarde ta progression". (2) handler `finish` faisait un `return` silencieux si format invalide — bouton qui semble cassé. Fix : `required` + `aria-describedby` sur l'input, handler revu pour montrer un état visuel (`is-invalid` + border rouge + bg pâle), un `<span role="alert">` qui apparaît avec le message, focus auto sur l'input, et un listener `input` qui efface l'erreur dès que l'utilisateur tape un email valide. Console + network propres sur le reste de la page. Flow step 1→2 et back testés OK.
-- [ ] focus.html → NEXT (pass 5)
+- [x] focus.html (pass 5) — Espace + Échap shortcuts confirmés câblés (testés au clavier, fonctionnent). **Bug runtime** : boutons "Pomodoro précédent" / "Pomodoro suivant" présents en JSX mais **aucun handler dans focus.js** — clic silencieux. Marqués `disabled` + `aria-label` revus ("bientôt disponible"). CSS : `.fx-ctl:disabled` opacity 0.35 + cursor not-allowed + hover désactivé. `.fx-ctl:focus-visible` outline stabilo. Le play/pause central reste vibrant pour bien distinguer le control actif des inactifs.
+- [ ] mission.html → NEXT (pass 5)
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html

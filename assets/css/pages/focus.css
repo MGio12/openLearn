@@ -119,7 +119,13 @@ body {
   color: var(--paper);
   transition: background .12s var(--ease-calm), transform .15s var(--ease-calm);
 }
-.fx-ctl:hover { background: rgba(246, 242, 235, 0.12); }
+.fx-ctl:hover:not(:disabled) { background: rgba(246, 242, 235, 0.12); }
+.fx-ctl:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+  background: rgba(246, 242, 235, 0.04);
+}
+.fx-ctl:focus-visible { outline: 2px solid var(--stabilo); outline-offset: 3px; }
 .fx-ctl svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 .fx-ctl.primary {
   width: 80px; height: 80px;
