@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Objectif Lycée — Installation</title>
-    <link rel="stylesheet" href="onboarding.css" />
+    <link rel="stylesheet" href="assets/css/pages/onboarding.css" />
   </head>
   <body>
     <div class="ob">
@@ -91,14 +91,9 @@
           <span class="kicker">Ton contexte</span>
           <h1>Tu es en quelle classe&nbsp;?</h1>
           <p class="lede">
-            Le calendrier n'est pas le même si tu construis ton dossier ou si
-            Parcoursup arrive déjà.
+            Le calendrier change selon ta classe : construire ton dossier ou attaquer Parcoursup.
           </p>
-          <div
-            class="options"
-            data-options="classe"
-            style="grid-template-columns: repeat(2, 1fr)"
-          >
+          <div class="options options--two" data-options="classe">
             <button class="opt" data-value="premiere">
               <span class="ic">1</span
               ><span class="copy"
@@ -121,14 +116,9 @@
           <span class="kicker">Tes spécialités</span>
           <h1>Quel est ton duo<br />principal&nbsp;?</h1>
           <p class="lede">
-            On s'en sert pour prioriser les matières qui comptent vraiment
-            dans le dossier.
+            On s'en sert pour prioriser les matières qui pèsent dans le dossier.
           </p>
-          <div
-            class="options"
-            data-options="specialite"
-            style="grid-template-columns: repeat(2, 1fr)"
-          >
+          <div class="options options--two" data-options="specialite">
             <button class="opt" data-value="maths-pc">
               <span class="ic">M</span
               ><span class="copy"
@@ -167,11 +157,7 @@
           <p class="lede">
             Pas ce que tu devrais faire. Ce que tu peux tenir sans t'épuiser. On ajustera ensemble.
           </p>
-          <div
-            class="options"
-            data-options="rythme"
-            style="grid-template-columns: repeat(2, 1fr)"
-          >
+          <div class="options options--two" data-options="rythme">
             <button class="opt" data-value="leger">
               <span class="ic">◔</span>
               <span class="copy"
@@ -261,34 +247,11 @@
           </p>
 
           <div class="preview-card" id="preview-week-card">
-            <div
-              style="
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-              "
-            >
-              <div
-                style="
-                  font-family: var(--font-display);
-                  font-size: 22px;
-                  text-transform: uppercase;
-                  letter-spacing: -0.005em;
-                "
-              >
-                Lundi · ta journée
+            <div class="preview-card-header">
+              <div class="preview-card-title">
+                <span data-current-day-name>Aujourd'hui</span> · ta journée
               </div>
-              <span
-                style="
-                  font-family: var(--font-body);
-                  font-size: 12px;
-                  color: var(--ink-soft);
-                  font-weight: 700;
-                  letter-spacing: 0.06em;
-                  text-transform: uppercase;
-                "
-                >3 missions · 2 h 15</span
-              >
+              <span class="preview-card-meta">3 missions · 2 h 15</span>
             </div>
             <div class="preview-row suggest">
               <div class="ic">★</div>
@@ -322,25 +285,11 @@
             </div>
           </div>
 
-          <div
-            style="
-              display: flex;
-              align-items: center;
-              gap: 16px;
-              margin-top: 8px;
-            "
-          >
+          <div class="preview-actions">
             <button class="ob-continue" id="continue-preview">
-              Commencer par cette mission →
+              Ouvrir cette mission →
             </button>
-            <span
-              style="
-                font-family: var(--font-body);
-                font-size: 13px;
-                color: var(--ink-soft);
-              "
-              >25 min · tu peux t'arrêter quand tu veux</span
-            >
+            <span class="preview-action-note">25 min · tu peux t'arrêter quand tu veux</span>
           </div>
         </section>
 
@@ -367,7 +316,7 @@
             >
           </div>
 
-          <p style="font-family: var(--font-body); font-size: 13px; color: var(--ink-mute); margin: 14px 0 10px;">Tes 3 premières missions sont offertes · sans carte bancaire</p>
+          <p class="email-offer-note">Tes 3 premières missions sont offertes · sans carte bancaire</p>
           <button class="ob-continue" id="finish">Tout est prêt →</button>
         </section>
 
@@ -380,10 +329,10 @@
             semaine — tu pourras la réajuster à tout moment.
           </p>
 
-          <div id="done-recap" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px"></div>
+          <div class="done-recap" id="done-recap"></div>
 
-          <div class="preview-card" id="done-mission-card" style="margin-bottom: 20px;">
-            <div style="font-family: var(--font-body); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--ink-soft); margin-bottom: 12px;">Ta première mission</div>
+          <div class="preview-card done-mission-card" id="done-mission-card">
+            <div class="done-mission-eyebrow">Ta première mission</div>
             <div class="preview-row suggest">
               <div class="ic" id="done-ic">M</div>
               <div class="copy">
@@ -394,16 +343,10 @@
             </div>
           </div>
           <a
-            href="index.html"
-            class="ob-continue"
-            style="
-              text-decoration: none;
-              background: var(--stabilo);
-              color: var(--ink);
-              box-shadow: 6px 6px 0 var(--ink);
-            "
+            href="mission.html"
+            class="ob-continue ob-continue--primary-link"
           >
-            Ouvrir mon cockpit →
+            Ouvrir ma première mission →
           </a>
         </section>
       </main>
@@ -421,6 +364,9 @@
       </div>
     </div>
 
+    <script src="scripts/model.js"></script>
+    <script src="scripts/state.js"></script>
+    <script src="scripts/user-context-ui.js"></script>
     <script>
       const totalSteps = 8;
       let current = 1;
@@ -448,8 +394,58 @@
         'grand-oral':{ ic: 'O', label: 'Grand oral',       title: 'Projet motivé — noter 3 preuves concrètes',            duration: '25 min' }
       };
       const SPECIALITE_DEF = { 'maths-pc': 'maths', 'maths-svt': 'svt', 'ses-hggsp': 'ses', autre: 'maths' };
+      const SUBJECT_ICONS = {
+        maths: 'M',
+        'physique-chimie': 'P',
+        svt: 'S',
+        ses: 'E',
+        hggsp: 'H',
+        'francais-philo': 'F',
+        anglais: 'A',
+        lv2: 'L',
+        'grand-oral': 'O',
+      };
+
+      function onboardingPayload(extra) {
+        const emailInput = document.getElementById("ob-email");
+        return Object.assign({
+          goal: state.goal,
+          classe: state.classe,
+          specialite: state.specialite,
+          rythme: state.rythme,
+          priorites: state.priorites.slice(),
+          email: emailInput ? emailInput.value.trim() : null,
+        }, extra || {});
+      }
+
+      function firstMissionFromModel() {
+        if (!window.OutilPrepaModel || typeof window.OutilPrepaModel.createMissionFromOnboarding !== 'function') {
+          return null;
+        }
+        return window.OutilPrepaModel.createMissionFromOnboarding(onboardingPayload());
+      }
+
+      function previewFromMission(mission) {
+        if (!mission) return null;
+        const minutes = mission.focusDurationMinutes || mission.durationMinutes || 25;
+        return {
+          ic: SUBJECT_ICONS[mission.subjectId] || 'M',
+          label: mission.subjectLabel || 'Mission',
+          title: mission.taskTitle || mission.title,
+          duration: minutes + ' min',
+        };
+      }
+
+      function persistOnboarding(extra) {
+        if (!window.OutilPrepa || typeof window.OutilPrepa.applyOnboarding !== 'function') return;
+        window.OutilPrepa.applyOnboarding(onboardingPayload(extra));
+      }
 
       function getPreviewMission(idx) {
+        if (idx === 0) {
+          const missionPreview = previewFromMission(firstMissionFromModel());
+          if (missionPreview) return missionPreview;
+        }
         const keys = [
           state.priorites[0] || SPECIALITE_DEF[state.specialite] || 'maths',
           state.priorites[1] || 'physique',
@@ -493,9 +489,13 @@
           state.specialite ? SPECIALITE_LABELS[state.specialite] : null,
           state.rythme ? RYTHME_LABELS[state.rythme] : null,
         ].filter(Boolean);
-        recap.innerHTML = chips.map(c =>
-          '<span style="font-family:var(--font-body);font-size:12px;font-weight:700;padding:5px 11px;border:2px solid var(--ink);border-radius:999px;letter-spacing:.03em">' + c + '</span>'
-        ).join('');
+        recap.innerHTML = '';
+        chips.forEach((c) => {
+          const chip = document.createElement('span');
+          chip.className = 'done-recap-chip';
+          chip.textContent = c;
+          recap.appendChild(chip);
+        });
       }
       function goTo(n) {
         if (n < 1 || n > totalSteps) return;
@@ -549,15 +549,19 @@
         continuePriorites.addEventListener("click", () => goTo(current + 1));
       }
 
-      // First-win → email
+      // First-win → first mission
       document
         .getElementById("continue-preview")
-        .addEventListener("click", () => goTo(current + 1));
+        .addEventListener("click", () => {
+          persistOnboarding();
+          window.location.href = "mission.html";
+        });
 
       // Finish (validate email format lightly, then advance)
       document.getElementById("finish").addEventListener("click", () => {
         const email = document.getElementById("ob-email").value.trim();
         if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return; // silent — no error shouting
+        persistOnboarding({ email });
         goTo(current + 1);
       });
     </script>
