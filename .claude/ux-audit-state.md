@@ -98,7 +98,8 @@ Note pour pass suivantes : à propager sur mission/objectif/progression/focus qu
 - [x] mission.html (pass 6) — Propagation `mobile-tabs` (CSS déjà global dans `styles.css`, copie du `<nav>` markup avant `</body>`). Mission étant une sous-page du cockpit, l'onglet "Aujourd'hui" est `is-active` + `aria-current="page"`. Le user mobile peut maintenant naviguer vers Progression/Objectif/Focus sans être piégé.
 - [x] objectif.html (pass 6) — Propagation `mobile-tabs` avec "Objectif" comme tab active (`is-active` + `aria-current="page"`). Pattern maintenant cohérent sur 3/5 pages dashboard (index, mission, objectif). Reste : progression, focus.
 - [x] progression.html (pass 6) — Propagation `mobile-tabs` avec "Progression" `is-active`. 4/5 pages dashboard. Reste : focus (qui n'a pas le shell sidebar/topbar, donc le mobile-tab y est probablement déjà cohérent vu son layout particulier).
-- [ ] checkout.html → NEXT (pass 6)
+- [x] checkout.html (pass 6) — Sur mobile, sticky CTA fonctionne bien (visible bas de fold). **Bug** : un second lien "Voir comment ça marche" (`.nav-link--final`) en bas de page pointait `href="index.html"` au lieu du même anchor `#comment-ca-marche` fixé en iter 39. Désormais cohérent. Bonus mobile : le top-nav "Comment ça marche" est `display:none` sur mobile (CSS existant) — mais ce second lien "Voir comment ça marche" reste visible et remplit ce rôle.
+- [ ] merci.html → NEXT (pass 6)
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html
