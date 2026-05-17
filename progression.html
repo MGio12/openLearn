@@ -373,8 +373,11 @@
   /* Garden-specific stat tweaks */
   .stats--garden .stat .value { font-variant-numeric: tabular-nums; }
 
-  /* Empty state subtle adjustments */
-  .garden-empty .garden-plant { opacity: .85; }
+  /* Empty state: shrink the seed visual so stats stay visible.
+     There is nothing to show yet — the card shouldn't dominate the fold. */
+  .garden-empty { padding: 22px 30px 20px; gap: 10px; }
+  .garden-empty .garden-plant { opacity: .85; width: min(150px, 30vw); }
+  .garden-empty .garden-card__caption .handwritten { font-size: 22px; }
 
   @media (max-width: 900px) {
     .garden-card { padding: 26px 18px 20px; box-shadow: 5px 5px 0 var(--ink); }
@@ -722,8 +725,8 @@
 
     var STAGE_LABELS = {
       seed:   { label: 'Graine',     caption: 'Tu n\'as pas encore commencé — coche ta première étape.' },
-      sprout: { label: 'Pousse',     caption: 'La pousse a démarré. Continue, jour après jour.' },
-      stem:   { label: 'Tige',       caption: 'La tige se renforce. Tu es en train de tenir un vrai rythme.' },
+      sprout: { label: 'Pousse',     caption: 'La pousse a démarré. Reviens demain.' },
+      stem:   { label: 'Tige',       caption: 'La tige tient. Tu installes un vrai rythme.' },
       plant:  { label: 'Plante',     caption: 'Belle plante. Ton avance est claire.' },
       bloom:  { label: 'Floraison',  caption: 'Elle fleurit. Ta régularité parle pour toi.' }
     };
