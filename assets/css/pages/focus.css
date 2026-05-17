@@ -431,3 +431,11 @@ body {
   .fx-side { margin: 0; }
   .fx-timer { font-size: 22vw; }
 }
+
+@media (max-width: 640px) {
+  /* Keyboard shortcuts are useless on mobile — hide the right group,
+     keep the "Notifications coupées / Sites distrayants bloqués"
+     status indicator which is still relevant. */
+  .fx-bottom-group:last-child { display: none; }
+  .fx-bottom { justify-content: center; }
+}
