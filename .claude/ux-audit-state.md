@@ -28,7 +28,17 @@ Boucle Ralph itérative pour auditer le funnel et améliorer rétention/hiérarc
 
 ## File d'attente (funnel order)
 
-(funnel complet audité — voir Done)
+**Pass 2** — angle : copy clarity (mots flous, redondances, jargons), interactions (hover/active/disabled states, feedback animation, micro-copy de bouton).
+
+- [x] index.html (pass 2) — Stat "Reste de la semaine 18/24" sans unité (h ? missions ? jours ?) → label renommé "Missions de la semaine" pour rendre l'unité implicite. Delta resserré ("Le reste est en soutien"). Atomique, copy-only.
+- [ ] onboarding.html → NEXT (pass 2)
+- [ ] onboarding.html
+- [ ] focus.html
+- [ ] mission.html
+- [ ] objectif.html
+- [ ] progression.html
+- [ ] checkout.html
+- [ ] merci.html
 
 ## Done
 
