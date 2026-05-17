@@ -28,7 +28,7 @@ Boucle Ralph itérative pour auditer le funnel et améliorer rétention/hiérarc
 
 ## File d'attente (funnel order)
 
-- [ ] merci.html → NEXT
+(funnel complet audité — voir Done)
 
 ## Done
 
@@ -39,6 +39,7 @@ Boucle Ralph itérative pour auditer le funnel et améliorer rétention/hiérarc
 - [x] **objectif.html** (iter 5, scope cross-page) — Bug architectural découvert : `body { overflow: hidden, height: 900px }` + `.view { overflow-y: auto }` crée un scroll interne **sans aucun indicateur visuel**. 285px de contenu caché sur objectif (priorités stratégiques + grille de progression coupées), et même 796px sur le cockpit. Ajout d'un scroll-shadow CSS classique (cover layers `local` + shadow layers `scroll`) qui s'auto-cache en haut/bas et révèle l'overflow par une ombre douce. Pattern self-adjusting : n'apparaît que si la page déborde réellement. Concerne toutes les vues utilisant `.view`.
 - [x] **progression.html** (iter 6) — État vide "JOUR 0" affichait un planter de 280px dans une carte de 589px (la moitié du fold pour "rien à montrer"). Stats row (CETTE SEMAINE, JOURS ACTIFS, MISSION DU JOUR) repoussée à y=829, sous le fold. Ajout d'un style `.garden-empty` qui compacte le tout : SVG 280→150px, padding 36→22px, gap réduit. Carte passe de 589 à 386px (-34%), stats visibles à y=625, et même la reminder "Mission du jour" remonte au-dessus du fold. L'état vide encourage maintenant la 1ère action sans submerger.
 - [x] **checkout.html** (iter 7) — H1 "TRAVAILLE CE QUI RAPPORTE." passe de `clamp(52px, 7.4vw, 104px)` à `clamp(44px, 5vw, 72px)`. Hauteur H1 : 287→207px (-80px). Sur une page checkout, l'éditorial ne doit pas écraser la mécanique de conversion. Le bloc "10€/MOIS" remonte à y=495 et la CTA "Garder le plan personnalisé" à y=662 — prix + action clairement co-visibles dans le fold avec la bande de trust signals.
+- [x] **merci.html** (iter 8) — Page post-conversion affichait 3 CTAs au même niveau visuel : "Ouvrir mon cockpit" (dark) + "Voir la mission du jour" (ghost) + "Voir l'impact objectif" (ghost). Décision paralysie classique après le paiement. Restructuration `.success-actions` : la CTA dark devient l'action évidente, les 2 ghost passent en liens texte underlinés (padding/border supprimés, font 14px, color ink-soft). Pattern "1 primaire + N alternatives discrètes" qui réduit le time-to-first-value après l'achat.
 
 ## Notes inter-itérations
 
