@@ -117,6 +117,20 @@ Note pour pass suivantes : à propager sur mission/objectif/progression/focus qu
 - [x] merci.html (pass 7) — Déjà très léger (3KB CSS, 0 scripts). Mais l'utilisateur converti va systématiquement cliquer "Ouvrir mon cockpit" → ajout `<link rel="prefetch" href="index.html">` pour pré-charger la prochaine page en idle. Vérifié : index.html fetché à 13ms, page-suivante instantanée au clic. Caveat font 394KB téléchargé mais aucun élément ne l'utilise sur cette page (cache hit). Géré par le navigateur, OK pour maintenant.
 
 ## Pass 7 — funnel complet
+
+## File d'attente (funnel order) — Pass 8
+
+**Pass 8** — angle : **HTML metadata** (meta description, theme-color pour browser-chrome mobile, favicon, OG tags pour pages publiques). Diminishing returns mais pertinent pour SEO/social.
+
+- [x] index.html (pass 8) — 0 meta tag utile au-delà du viewport (pas de description, pas de favicon, pas de theme-color). Ajout : (1) `<meta name="description">` cohérente avec la voix de la page ("Ton cockpit du jour : une mission claire... Pas de scroll infini") ; (2) `<meta name="theme-color" content="#F4D35E">` pour matcher la chrome mobile au stabilo jaune ; (3) favicon SVG inline data-URI qui reproduit la mark de la sidebar (carré stabilo, border ink, lettre O rotation -6°). Aucun fichier nouveau, pas de requête supplémentaire. **À propager sur les 7 autres pages.**
+- [ ] onboarding.html → NEXT (pass 8)
+- [ ] onboarding.html
+- [ ] focus.html
+- [ ] mission.html
+- [ ] objectif.html
+- [ ] progression.html
+- [ ] checkout.html
+- [ ] merci.html
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html
