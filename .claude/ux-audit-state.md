@@ -55,6 +55,20 @@ Boucle Ralph itérative pour auditer le funnel et améliorer rétention/hiérarc
 - [x] merci.html (pass 3) — Badge décoratif "OK" (`.success-mark`) n'avait pas `aria-hidden` → lecteur d'écran annonçait "OK" avant l'H1 "Paiement confirmé", redondance pure. Le tape-label "PAIEMENT REÇU" était déjà bien `aria-hidden`. Ajout `aria-hidden="true"` sur le `.success-mark`. Vérification : la séquence annoncée est maintenant H1 → P → study-note, sans bruit décoratif.
 
 ## Pass 3 — funnel complet
+
+## File d'attente (funnel order) — Pass 4
+
+**Pass 4** — angle : AI tells (formulations templatées, mots de remplissage banals "vraiment", "simplement"), brand voice française cohérente, claims vagues ou pompeux.
+
+- [x] index.html (pass 4) — AI tell flagrant : "**ajustée depuis ton état utilisateur**" — formulation translation-y typique ("user state" mot-à-mot). Aucun lycéen ne dit "état utilisateur". Remplacé par "ajustée à ta progression" (français natif). 3 occurrences fixées : index.html static, objectif.html static, et user-context-ui.js dynamique. Objectif page : "Impact dossier · état utilisateur · ..." → "Impact dossier · ta progression · ...".
+- [ ] onboarding.html → NEXT (pass 4)
+- [ ] onboarding.html
+- [ ] focus.html
+- [ ] mission.html
+- [ ] objectif.html
+- [ ] progression.html
+- [ ] checkout.html
+- [ ] merci.html
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html
