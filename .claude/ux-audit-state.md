@@ -114,7 +114,9 @@ Note pour pass suivantes : à propager sur mission/objectif/progression/focus qu
 - [x] objectif.html (pass 7) — 4 scripts classic sync (model.js, state.js, user-context-ui.js, mission-ui.js) bloquaient le parser HTML pendant leur exécution. Ajout de `defer` sur les 4 → ils téléchargent en parallèle + s'exécutent en ordre APRÈS le parsing HTML. Ordre relatif inchangé (le `<script type="module">` inline garde son comportement deferred par défaut). DOMContentLoaded plus tôt = FCP plus rapide. Console clean + filter bar + heatmap (24 cells) + hero stat tous validés. Pattern à propager sur autres pages dashboard.
 - [x] progression.html (pass 7) — Propagation `defer` sur les 4 scripts classiques. L'inline `<script>` qui suit dépend de `window.OutilPrepa` mais se self-defers déjà via `if (document.readyState === 'loading') addEventListener('DOMContentLoaded', init)`. Vérifié : stage "GRAINE", garden card, 3 stats, OutilPrepa défini, console clean.
 - [x] checkout.html (pass 7) — Ajout `defer` sur `scripts/demo-fixtures.js` + `scripts/checkout.js`. CTA + marquee + console clean. **Future opportunité notée** : Caveat-VariableFont 394KB téléchargé pour ~50 chars de stamps/signature (priorité #1, tous les jours, etc.). Subsetting ou remplacement = gros gain perf, mais multi-iter dédié.
-- [ ] merci.html → NEXT (pass 7)
+- [x] merci.html (pass 7) — Déjà très léger (3KB CSS, 0 scripts). Mais l'utilisateur converti va systématiquement cliquer "Ouvrir mon cockpit" → ajout `<link rel="prefetch" href="index.html">` pour pré-charger la prochaine page en idle. Vérifié : index.html fetché à 13ms, page-suivante instantanée au clic. Caveat font 394KB téléchargé mais aucun élément ne l'utilise sur cette page (cache hit). Géré par le navigateur, OK pour maintenant.
+
+## Pass 7 — funnel complet
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html
