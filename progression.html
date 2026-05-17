@@ -485,7 +485,7 @@
       <div class="page-head">
         <div>
           <h1>Ton avance</h1>
-          <div class="sub" data-garden-status>Plante une première mission pour voir ton jardin pousser.</div>
+          <div class="sub" data-garden-status>Plante ta première mission pour voir ton jardin pousser.</div>
         </div>
         <button type="button" class="op-btn" data-open-slideover aria-haspopup="dialog" aria-controls="slideover-mastery">
           Détails par matière →
@@ -613,7 +613,7 @@
         <div class="reminder-card__icon" aria-hidden="true">→</div>
         <div class="reminder-card__copy">
           <span class="lbl">Mission du jour</span>
-          <span id="reminder-title" class="title">Exponentielle &amp; dérivation — 45 min</span>
+          <span id="reminder-title" class="title" data-daily-mission-reminder-title>Mission du jour</span>
         </div>
         <a class="btn btn--dark" href="mission.html">Ouvrir la mission</a>
       </section>
@@ -691,7 +691,7 @@
         <ul class="revoir-list">
           <li>
             <span class="lbl">Maths spé · pas vu depuis 9 jours</span>
-            <span class="title">Fonctions exponentielles</span>
+            <span class="title" data-daily-mission-review-title>Chapitre à revoir</span>
           </li>
           <li>
             <span class="lbl">Physique-chimie · 38% maîtrise</span>
@@ -710,7 +710,7 @@
           <div class="av">IA</div>
           <span style="font-family:var(--font-body);font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft)">Recommandation</span>
         </div>
-        <p style="margin:0 0 10px">Concentre 1 h cette semaine sur l'exponentielle — chapitre fragile avant le contrôle de maths.</p>
+        <p style="margin:0 0 10px" data-daily-mission-recommendation>Recommandation du jour.</p>
         <a class="op-btn op-btn--dark" href="objectif.html" style="text-decoration:none">Voir l'impact sur l'objectif →</a>
       </div>
 
@@ -718,7 +718,9 @@
   </aside>
 </div>
 
+<script src="scripts/model.js"></script>
 <script src="scripts/state.js"></script>
+<script src="scripts/mission-ui.js"></script>
 <script>
   (function () {
     'use strict';
@@ -766,7 +768,7 @@
       var status = document.querySelector('[data-garden-status]');
       if (status) {
         if (activeN === 0) {
-          status.textContent = 'Plante une première mission pour voir ton jardin pousser.';
+          status.textContent = 'Plante ta première mission pour voir ton jardin pousser.';
         } else {
           status.textContent = 'Jour ' + activeN + ' actif · ' + (streak >= 2 ? streak + ' jours de suite' : 'reprends le rythme aujourd\'hui') + '.';
         }
