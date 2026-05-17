@@ -31,7 +31,8 @@ Boucle Ralph itérative pour auditer le funnel et améliorer rétention/hiérarc
 **Pass 2** — angle : copy clarity (mots flous, redondances, jargons), interactions (hover/active/disabled states, feedback animation, micro-copy de bouton).
 
 - [x] index.html (pass 2) — Stat "Reste de la semaine 18/24" sans unité (h ? missions ? jours ?) → label renommé "Missions de la semaine" pour rendre l'unité implicite. Delta resserré ("Le reste est en soutien"). Atomique, copy-only.
-- [ ] onboarding.html → NEXT (pass 2)
+- [x] onboarding.html (pass 2) — Tightening lede step 4 "Quel rythme" : suppression de "réellement" et "en moyenne" (mots filler). Tentative de retrait des `<br>` codés en dur reverté : `text-wrap: balance` cassait "VEUX-TU" au trait d'union. Les `<br>` éditoriaux sont volontaires et bien placés, on les garde. **Apprentissage à appliquer aux passes suivantes** : ne pas toucher les line-breaks manuels sur la voix éditoriale française (mots composés avec trait d'union créent des cassures inattendues avec balance).
+- [ ] focus.html → NEXT (pass 2)
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html
