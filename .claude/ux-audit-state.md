@@ -46,7 +46,8 @@ Boucle Ralph itérative pour auditer le funnel et améliorer rétention/hiérarc
 **Pass 3** — angle : accessibilité (focus-visible, aria-labels), cohérence cross-page (composants partagés divergents), états edge (empty, error, disabled).
 
 - [x] index.html (pass 3) — Topbar icon-btns (IA + Notifications) étaient des `<div>` avec `title=` uniquement. `title` n'est pas annoncé fiablement par les lecteurs d'écran, et les `<div>` ne sont pas focusables au clavier. Conversion en `<button type="button" aria-label="...">` proprement : focusables Tab, annoncés correctement ("Demander à l'IA", "Notifications, 2 nouvelles"). Badge "2" passé en `aria-hidden` (déjà dans le label). CSS reset minimal (padding 0, color/font inherit) pour neutraliser les defaults `<button>` du navigateur.
-- [ ] onboarding.html → NEXT (pass 3)
+- [x] onboarding.html (pass 3) — Options `.opt` n'avaient **aucun `:focus-visible`** : un utilisateur clavier qui tab à travers les 5 choix d'écoles perd visuellement où il est. Ajout d'un focus ring 3px solid stabilo avec outline-offset 3px (assez espacé pour être lisible). Cas spécial `.opt.selected:focus-visible` : outline en ink (noir) au lieu de stabilo pour rester visible sur le fond jaune.
+- [ ] focus.html → NEXT (pass 3)
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html

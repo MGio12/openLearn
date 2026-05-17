@@ -93,7 +93,16 @@ body {
   transition: transform .18s var(--ease-calm), background .12s, box-shadow .18s;
 }
 .opt:hover { background: var(--paper-2); transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
+.opt:focus-visible {
+  outline: 3px solid var(--stabilo);
+  outline-offset: 3px;
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
 .opt.selected { background: var(--stabilo); transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
+/* When a selected option also has keyboard focus, keep the outline visible
+   above the yellow background so the focus ring is unambiguous. */
+.opt.selected:focus-visible { outline-color: var(--ink); }
 .opt .ic {
   flex-shrink: 0;
   width: 36px; height: 36px;
