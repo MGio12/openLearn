@@ -84,7 +84,9 @@ Note pour pass suivantes : à propager sur mission/objectif/progression/focus qu
 - [x] objectif.html (pass 5) — Console + network propres. **Propagation** : sidebar Fiches/Contrôles marqués `is-soon`. **Découverte non corrigée (future iter)** : `.hm-cell` heatmap a cursor:pointer mais ne fait que tooltip natif (title attr) — pas de handler clic. `.topic-row` aussi cursor:pointer mais clic mort. Curseur mensonger sur tout le grid central. À traiter dans une itération dédiée pour ne pas mélanger 2 fix.
 - [x] progression.html (pass 5) — Console + network propres. Slideover "Détails par matière →" trigger confirmé fonctionnel (passe de hidden→visible au clic). Propagation `is-soon` sur 3 dead items : Fiches, Contrôles, Préférences (cette page a aussi le groupe Réglages avec Préférences, contrairement à mission/objectif).
 - [x] checkout.html (pass 5) — Console + network propres. 3 CTAs Stripe pointent toutes la même URL **test_** (déjà flaggé iter 23, à vérifier avant prod). **Bug nav** : lien "Comment ça marche" en topbar pointait vers `index.html` (le dashboard) au lieu d'anchor sur la section features de la même page. Trompeur — l'utilisateur ne s'attend pas à quitter la page checkout. Fix : ajout `id="comment-ca-marche"` sur la section `<section class="block">` qui contient le H2 "Quatre outils, un seul fil rouge", et lien nav passe en `href="#comment-ca-marche"`. Scroll smooth fonctionnel.
-- [ ] merci.html → NEXT (pass 5)
+- [x] merci.html (pass 5) — Console + network propres, 3 liens internes valides. **Bug claim sans action** : receipt-note disait "Annulable à tout moment **depuis le portail Stripe**" mais aucun lien vers ledit portail nulle part sur la page. Le portail customer Stripe nécessite un URL spécifique ou un lien magique par email. Plus honnête : rephrasé pour pointer vers le canal réel — "le lien « Gérer mon abonnement » dans n'importe quel email Stripe". Tout email Stripe (reçu, change de carte, etc.) contient ce lien.
+
+## Pass 5 — funnel complet
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html
