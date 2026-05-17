@@ -125,7 +125,8 @@ Note pour pass suivantes : à propager sur mission/objectif/progression/focus qu
 - [x] index.html (pass 8) — 0 meta tag utile au-delà du viewport (pas de description, pas de favicon, pas de theme-color). Ajout : (1) `<meta name="description">` cohérente avec la voix de la page ("Ton cockpit du jour : une mission claire... Pas de scroll infini") ; (2) `<meta name="theme-color" content="#F4D35E">` pour matcher la chrome mobile au stabilo jaune ; (3) favicon SVG inline data-URI qui reproduit la mark de la sidebar (carré stabilo, border ink, lettre O rotation -6°). Aucun fichier nouveau, pas de requête supplémentaire. **À propager sur les 7 autres pages.**
 - [x] onboarding.html (pass 8) — Propagation favicon SVG + theme-color stabilo. Description page-specific : "2 minutes pour caler ton cockpit : objectif, classe, spécialités, rythme. 3 missions offertes pour démarrer." — reflète l'angle de conversion (durée + gratuité).
 - [x] focus.html (pass 8) — Propagation metadata avec **variante page-specific** : `theme-color: #121212` (ink) au lieu de stabilo car le fond focus est dark — la chrome mobile colle au design immersif. Favicon SVG identique (cohérence brand). Description : "25 min de focus, une mission, zéro distraction. Notifications coupées, sites distrayants bloqués." (matche les status indicators de la page).
-- [ ] mission.html → NEXT (pass 8)
+- [x] mission.html (pass 8) — Propagation metadata. Description : "La mission du jour : court, ciblé, ancré sur ce qui pèse pour ton dossier et ton prochain contrôle." (reprend les piliers déjà présents dans `.why` + study-note de la page : court/utile, dossier, contrôle).
+- [ ] objectif.html → NEXT (pass 8)
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html
