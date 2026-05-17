@@ -36,7 +36,8 @@ Boucle Ralph itérative pour auditer le funnel et améliorer rétention/hiérarc
 - [x] mission.html (pass 2) — Meta row label "TA MAÎTRISE ACTUELLE" (20 chars) → "MAÎTRISE" (8 chars). Deux redondances supprimées : "Ta" (toute l'UI est déjà en direct address) et "actuelle" (implicite — la valeur affichée est forcément celle du moment). Plus dense visuellement, plus rapide à scanner.
 - [x] objectif.html (pass 2) — Espace manquant dans "8sem." (3e stat card, AVANT PARCOURSUP) — la valeur "8" était collée à son unité "sem." sans séparation. Ajout de `margin-left: 6px` sur le span de l'unité. Typographie française standard pour les nombres + unités abrégées (vs "12h45" où l'absence d'espace est correcte pour les heures).
 - [x] progression.html (pass 2) — Subtitle "Plante **une** première mission..." → "Plante **ta** première mission..." (le subtitle + le fallback JS dans le `data-garden-status`). Direct address (tutoiement) cohérent avec le reste de l'UI ("ton avance", "ton jardin", "ta première étape"). "Une" sonne neutre/froid dans un contexte qui parle au lycéen directement.
-- [ ] checkout.html → NEXT (pass 2)
+- [x] checkout.html (pass 2) — Lede resserrée. Avant : "...Si le cockpit t'aide **vraiment** à travailler plus juste, garde le **plan quotidien personnalisé qui te le fait tenir** — pour 10€/mois." Trois problèmes : "vraiment" filler, "quotidien personnalisé" redondant, et "qui te le fait tenir" avec un référent pronominal flou ("le" pour quoi ?). Après : "...Si le cockpit t'aide à travailler plus juste, garde ton plan personnalisé — 10€/mois." Plus direct, le pronom flou est éliminé.
+- [ ] merci.html → NEXT (pass 2)
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html
