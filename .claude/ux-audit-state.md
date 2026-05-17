@@ -147,6 +147,19 @@ Note pour pass suivantes : à propager sur mission/objectif/progression/focus qu
 - [x] merci.html (pass 9) — Page très propre globalement (1 h1, 1 h2, main landmark, 868 chars, lang=fr). **2 incohérences sur le title** : (1) plain hyphen `-` au lieu de l'em-dash `—` utilisé par les 7 autres pages ; (2) "Retour paiement Stripe" est du jargon technique alors que la h1 dit "Paiement confirmé" — title plus user-facing aligné avec la h1. Nouveau title : "Objectif Lycée — Paiement confirmé". Cohérence inter-page + matche le h1.
 
 ## Pass 9 — funnel complet
+
+## File d'attente (funnel order) — Pass 10
+
+**Pass 10** — angle : cross-page consistency (composants dupliqués sur 5+ HTMLs — drift à corriger).
+
+- [ ] index.html → NEXT (pass 10)
+- [ ] onboarding.html
+- [ ] focus.html
+- [ ] mission.html
+- [ ] objectif.html
+- [ ] progression.html
+- [ ] checkout.html
+- [ ] merci.html
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html
