@@ -127,7 +127,8 @@ Note pour pass suivantes : à propager sur mission/objectif/progression/focus qu
 - [x] focus.html (pass 8) — Propagation metadata avec **variante page-specific** : `theme-color: #121212` (ink) au lieu de stabilo car le fond focus est dark — la chrome mobile colle au design immersif. Favicon SVG identique (cohérence brand). Description : "25 min de focus, une mission, zéro distraction. Notifications coupées, sites distrayants bloqués." (matche les status indicators de la page).
 - [x] mission.html (pass 8) — Propagation metadata. Description : "La mission du jour : court, ciblé, ancré sur ce qui pèse pour ton dossier et ton prochain contrôle." (reprend les piliers déjà présents dans `.why` + study-note de la page : court/utile, dossier, contrôle).
 - [x] objectif.html (pass 8) — Propagation metadata. Description : "Carte d'impact de ton dossier : leviers prioritaires, chapitres qui pèsent, échéance Parcoursup. Pas d'intuition, des données." (matche les 3 stats hero + le feature copy "Pas par intuition, pas par ordre du manuel" du checkout).
-- [ ] progression.html → NEXT (pass 8)
+- [x] progression.html (pass 8) — Page avait déjà une `meta description` (la seule du site jusqu'ici, brand voice : "pousse jour après jour... pas avec du scroll"). Ajout theme-color stabilo + favicon SVG pour aligner avec les autres pages.
+- [ ] checkout.html → NEXT (pass 8)
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html
