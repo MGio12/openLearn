@@ -143,7 +143,7 @@
           </div>
 
           <div class="routine-continuation" aria-labelledby="routine-continuation-title">
-            <p class="study-note">À garder : une correction propre aujourd'hui devient une preuve de régularité demain.</p>
+            <p class="study-note">À garder : ce que tu corriges propre aujourd'hui ne sera pas à refaire avant le contrôle.</p>
             <h3 id="routine-continuation-title">Après cette mission</h3>
             <p>Mission terminée ? Lance la suivante, vérifie l'impact sur ton objectif, ou reviens aux priorités du jour.</p>
             <div class="links">
@@ -189,26 +189,7 @@
 <script src="scripts/state.js"></script>
 <script src="scripts/user-context-ui.js"></script>
 <script src="scripts/mission-ui.js"></script>
-<script>
-  // Checklist toggle: visual affordance; scripts/state.js persists class changes.
-  function setChecklistState(item, isDone) {
-    item.classList.toggle('done', isDone);
-    item.setAttribute('aria-pressed', String(isDone));
-    const box = item.querySelector('.box');
-    box.textContent = isDone ? '✓' : '';
-  }
-
-  document.querySelectorAll('.checklist .item').forEach(item => {
-    item.addEventListener('click', () => {
-      setChecklistState(item, !item.classList.contains('done'));
-    });
-    item.addEventListener('keydown', (event) => {
-      if (event.key !== 'Enter' && event.key !== ' ') return;
-      event.preventDefault();
-      setChecklistState(item, !item.classList.contains('done'));
-    });
-  });
-</script>
+<script src="assets/js/pages/mission.js"></script>
 
 </body>
 </html>
