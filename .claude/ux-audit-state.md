@@ -138,7 +138,8 @@ Note pour pass suivantes : à propager sur mission/objectif/progression/focus qu
 **Pass 9** — angle : chasse au debris (console.log, TODO/FIXME, hardcoded test data, prototype leftovers, dead CSS classes).
 
 - [x] index.html (pass 9) — **Mini-bug d'incohérence glyph** : missions initialement `done` affichent `✓` (Unicode check). Mais le JS de toggle écrivait literal `'x'` quand l'utilisateur cochait dynamiquement. Donc une mission cochée par l'user affichait `x`, une mission déjà cochée au load affichait `✓` — incohérence visuelle. Fix : JS écrit `'✓'` au lieu de `'x'`. Vérifié au clic. (Pas de console.log/TODO browser-side trouvé, les console.log dans scripts/compute-weights et screenshot sont des CLI tools, intentionnels.)
-- [ ] onboarding.html → NEXT (pass 9)
+- [x] onboarding.html (pass 9) — **Typo apostrophe** dans la fixture JS MISSIONS (ligne 399) : `'Énergie mécanique — refaire l exercice clé'` → `'Énergie mécanique — refaire l\'exercice clé'`. Cette chaîne s'affichait dans la preview du step 6 et dans le payload d'onboarding envoyé au modèle. Le reste de la page n'a pas de debris : pas de console.log, pas de TODO, les commentaires HTML sont des dividers structurels.
+- [ ] focus.html → NEXT (pass 9)
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html
