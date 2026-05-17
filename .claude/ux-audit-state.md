@@ -129,7 +129,9 @@ Note pour pass suivantes : à propager sur mission/objectif/progression/focus qu
 - [x] objectif.html (pass 8) — Propagation metadata. Description : "Carte d'impact de ton dossier : leviers prioritaires, chapitres qui pèsent, échéance Parcoursup. Pas d'intuition, des données." (matche les 3 stats hero + le feature copy "Pas par intuition, pas par ordre du manuel" du checkout).
 - [x] progression.html (pass 8) — Page avait déjà une `meta description` (la seule du site jusqu'ici, brand voice : "pousse jour après jour... pas avec du scroll"). Ajout theme-color stabilo + favicon SVG pour aligner avec les autres pages.
 - [x] checkout.html (pass 8) — Page la plus shareable du funnel. Description existait déjà. Ajout (1) theme-color stabilo + favicon SVG ; (2) **OG/Twitter card complets** : og:title ("un cockpit pour travailler le bon chapitre, pas tout le programme"), og:description (cockpit prépa-Parcoursup + 3 missions offertes + 10€/mois), og:type=website, og:locale=fr_FR, og:site_name. Twitter card summary. Pas d'og:image (pas d'asset, summary card s'affiche bien sans). Share previews sur LinkedIn/Twitter/Slack maintenant cohérents avec le pitch de la page.
-- [ ] merci.html → NEXT (pass 8)
+- [x] merci.html (pass 8) — Description existait déjà. Ajout (1) theme-color stabilo + favicon SVG ; (2) **`<meta name="robots" content="noindex, nofollow">`** — page transactionnelle post-paiement, ne doit pas être indexée par les moteurs de recherche (sinon "merci.html" pourrait apparaître dans les SERPs sans contexte de paiement).
+
+## Pass 8 — funnel complet
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html
