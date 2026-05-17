@@ -108,7 +108,8 @@ Note pour pass suivantes : à propager sur mission/objectif/progression/focus qu
 **Pass 7** — angle : **performance / payload** (poids assets, total bytes, font/CSS bloat, render-blocking, cache headers).
 
 - [x] index.html (pass 7) — **Bug perf cross-page** : colors_and_type.css avait un `@import url('https://fonts.googleapis.com/...')` pour JetBrains Mono, ligne 39, render-blocking sur chaque page. Mais Mono n'est utilisé que sur focus/progression/onboarding (stats numériques + slideover + preview durations). Sur index/mission/objectif/checkout/merci c'était un round-trip Google pour rien. Fix : `@import` supprimé de colors_and_type.css, et `<link rel="preconnect"> + <link rel="stylesheet">` ajoutés en `<head>` uniquement sur focus/progression/onboarding. Vérifié : 0 requête Google Fonts sur index, 1 (Mono) sur focus. Local fonts ont déjà `font-display: swap` (rien à fixer là).
-- [ ] onboarding.html → NEXT (pass 7)
+- [x] onboarding.html (pass 7) — `onboarding.css` ligne 2 faisait `@import url('../../../colors_and_type.css')` → chaîne séquentielle HTML→onboarding.css→colors_and_type.css. Fix : `<link rel="stylesheet" href="colors_and_type.css">` ajouté en head AVANT le link page-specific, + `@import` supprimé. Les 2 CSS partent en parallèle (startTime identique à ~11-14ms). À propager sur styles.css et focus.css (mêmes pattern d'@import).
+- [ ] focus.html → NEXT (pass 7)
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html
