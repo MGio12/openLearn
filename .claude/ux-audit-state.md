@@ -32,7 +32,8 @@ Boucle Ralph itérative pour auditer le funnel et améliorer rétention/hiérarc
 
 - [x] index.html (pass 2) — Stat "Reste de la semaine 18/24" sans unité (h ? missions ? jours ?) → label renommé "Missions de la semaine" pour rendre l'unité implicite. Delta resserré ("Le reste est en soutien"). Atomique, copy-only.
 - [x] onboarding.html (pass 2) — Tightening lede step 4 "Quel rythme" : suppression de "réellement" et "en moyenne" (mots filler). Tentative de retrait des `<br>` codés en dur reverté : `text-wrap: balance` cassait "VEUX-TU" au trait d'union. Les `<br>` éditoriaux sont volontaires et bien placés, on les garde. **Apprentissage à appliquer aux passes suivantes** : ne pas toucher les line-breaks manuels sur la voix éditoriale française (mots composés avec trait d'union créent des cassures inattendues avec balance).
-- [ ] focus.html → NEXT (pass 2)
+- [x] focus.html (pass 2) — **Vrai bug d'interaction** : `.subtask` du panel droit étaient cliquables (JS toggle `.done` sur clic) mais `cursor: auto` — aucun signal visuel d'interactivité. Ajout de `cursor: pointer`, `padding+margin` négatif pour zone cliquable confortable, `:hover { background: rgba(paper, 0.06) }` pour feedback subtil, et transition sur la checkbox border-color au survol. Affordance maintenant claire pendant la session de focus.
+- [ ] mission.html → NEXT (pass 2)
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html
