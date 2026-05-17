@@ -5,61 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Objectif Lycée — Cockpit</title>
   <link rel="stylesheet" href="styles.css">
-<style>
-  .mission-action { cursor:pointer; border-radius:8px; padding:8px 10px; margin:0 -10px; transition:background .12s; display:flex; align-items:flex-start; gap:10px; }
-  .mission-action:hover { background:rgba(42,39,36,.06); }
-  .mission-action.done .ma-text { text-decoration:line-through; color:var(--ink-soft); }
-  .mission-action.done .chip { background:var(--green) !important; }
-  .mission-action.done .ma-check { background:var(--ink); border-color:var(--ink); }
-  .mission-action.done .ma-check::after { opacity:1; }
-  .ma-check {
-    flex-shrink:0; width:18px; height:18px; margin-top:2px;
-    border:2px solid var(--ink); border-radius:4px;
-    position:relative; transition:background .12s, border-color .12s;
-  }
-  .ma-check::after {
-    content:''; position:absolute; left:3px; top:0px;
-    width:6px; height:10px;
-    border-right:2.5px solid var(--paper); border-bottom:2.5px solid var(--paper);
-    transform:rotate(40deg); opacity:0; transition:opacity .1s;
-  }
-  .ma-content { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
-  .ma-text { font-family:var(--font-body); font-size:14px; }
-  .bar .val { font-family:var(--font-mono); font-size:10px; color:var(--ink-soft); text-align:center; margin-bottom:3px; }
-  .free-trial-banner {
-    display:flex; align-items:center; flex-wrap:wrap; gap:10px;
-    margin-top:10px;
-    font-family:var(--font-body); font-size:13px; color:var(--ink-soft);
-  }
-  .free-trial-banner__chip {
-    display:inline-flex; align-items:center; gap:6px;
-    background:var(--green); color:var(--ink);
-    border:2px solid var(--ink); border-radius:999px;
-    padding:4px 12px;
-    font-weight:800; font-size:12px; letter-spacing:.02em;
-  }
-  .free-trial-banner__chip span[data-free-trial-count] { font-family:var(--font-mono); font-weight:700; }
-  .free-trial-banner.is-locked .free-trial-banner__chip { background:var(--stabilo); }
-  .free-trial-banner__hint { font-style:italic; }
-  .free-trial-banner__cta {
-    color:var(--ink); font-weight:800; text-decoration:none;
-    border-bottom:2px solid var(--ink);
-    transition:transform .12s var(--ease-calm,ease);
-  }
-  .free-trial-banner__cta:hover { transform:translateX(2px); }
-  @media (max-width: 640px) {
-    .free-trial-banner {
-      margin-top: 6px; gap: 6px;
-      font-size: 11px;
-    }
-    .free-trial-banner__chip {
-      padding: 3px 9px; font-size: 11px;
-    }
-    /* Hide hint on mobile to save fold space; chip + locked CTA carry the message */
-    .free-trial-banner__hint { display: none; }
-    .free-trial-banner.is-locked .free-trial-banner__hint { display: inline; font-size: 11px; }
-  }
-</style>
+  <link rel="stylesheet" href="assets/css/pages/dashboard.css">
 </head>
 <body>
 
@@ -73,23 +19,23 @@
 
     <div class="sb-group">
       <div class="head">Cockpit</div>
-      <div class="sb-item active" data-view="today">
+      <a href="#today" class="sb-item active dashboard-sidebar-link" data-view="today">
         <span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg></span>
         Aujourd'hui
-      </div>
-      <div class="sb-item" data-view="planning">
+      </a>
+      <a href="#planning" class="sb-item dashboard-sidebar-link" data-view="planning">
         <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
         Planning
-      </div>
-      <a href="progression.html" class="sb-item" style="text-decoration:none">
+      </a>
+      <a href="progression.html" class="sb-item dashboard-sidebar-link">
         <span class="ic"><svg viewBox="0 0 24 24"><path d="M3 17l4-4 4 4 5-7 5 7"/><path d="M3 21h18"/></svg></span>
         Progression
       </a>
-      <a href="focus.html" class="sb-item" style="text-decoration:none">
+      <a href="focus.html" class="sb-item dashboard-sidebar-link">
         <span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
         Focus
       </a>
-      <a href="checkout.html" class="sb-item" style="text-decoration:none">
+      <a href="checkout.html" class="sb-item dashboard-sidebar-link">
         <span class="ic"><svg viewBox="0 0 24 24"><path d="M4 7h16v10H4z"/><path d="M4 10h16"/><path d="M8 14h4"/></svg></span>
         Abonnement
       </a>
@@ -97,7 +43,7 @@
 
     <div class="sb-group">
       <div class="head">Travail</div>
-      <a href="objectif.html" class="sb-item" style="text-decoration:none">
+      <a href="objectif.html" class="sb-item dashboard-sidebar-link">
         <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>
         Objectif
         <span class="count">3</span>
@@ -121,10 +67,10 @@
     </div>
 
     <div class="sb-profile">
-      <div class="av">MD</div>
+      <div class="av" data-user-initials>OP</div>
       <div class="who">
-        <span class="nm">Maïe Durand</span>
-        <span class="role">Terminale · spé maths/physique</span>
+        <span class="nm" data-user-full-name>Profil démo</span>
+        <span class="role" data-user-role>Lycée</span>
       </div>
     </div>
   </aside>
@@ -138,16 +84,16 @@
         <input type="text" placeholder="Chercher un chapitre, une fiche, une notion…" />
       </div>
       <span class="spacer"></span>
-      <div class="icon-btn" title="IA">
-        <svg viewBox="0 0 24 24"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5z"/><path d="M5 16l1 2 2 1-2 1-1 2-1-2-2-1 2-1z"/></svg>
-      </div>
-      <div class="icon-btn" title="Notifications">
-        <svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0112 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 003.4 0"/></svg>
-        <span class="badge">2</span>
-      </div>
+      <button class="icon-btn" type="button" aria-label="Demander à l'IA">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5z"/><path d="M5 16l1 2 2 1-2 1-1 2-1-2-2-1 2-1z"/></svg>
+      </button>
+      <button class="icon-btn" type="button" aria-label="Notifications, 2 nouvelles">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0112 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 003.4 0"/></svg>
+        <span class="badge" aria-hidden="true">2</span>
+      </button>
       <div class="me">
-        <div class="av">MD</div>
-        <span class="nm">Maïe</span>
+        <div class="av" data-user-initials>OP</div>
+        <span class="nm" data-user-first-name>Profil</span>
       </div>
     </header>
 
@@ -155,8 +101,8 @@
     <section class="view active" id="view-today" name="today" data-screen-label="01 Today">
       <div class="page-head">
         <div>
-          <h1>Bonjour, Maïe.</h1>
-          <div class="sub">Lundi 13 mai · commence par une mission courte, puis on ajuste le reste.</div>
+          <h1 data-user-greeting>Bonjour.</h1>
+          <div class="sub" data-today-subtitle>Aujourd'hui · commence par une mission courte, puis on ajuste le reste.</div>
           <div class="free-trial-banner" data-free-trial-banner>
             <span class="free-trial-banner__chip">
               <span data-free-trial-count>3</span> <span data-free-trial-noun>missions offertes</span>
@@ -172,42 +118,41 @@
         <div class="tape-label" aria-hidden="true">Dossier du jour</div>
         <div class="card-head">
           <div>
-            <div class="daily-brief__label">Mission du jour · Maths spé · maintenant</div>
-            <h3 id="daily-brief-title">Exponentielle &amp; dérivation</h3>
+            <div class="daily-brief__label" data-daily-mission-label>Mission du jour</div>
+            <h3 id="daily-brief-title" data-daily-mission-title>Mission du jour</h3>
           </div>
-          <div class="actions support-signals" aria-label="Signaux de soutien"><span class="chip step-counter" id="step-counter" style="background:var(--paper-3);font-variant-numeric:tabular-nums">0/3 étapes</span>
-            <span class="chip" style="background:var(--stabilo)">45 min</span>
-            <span class="chip">Maîtrise 62%</span>
-            <span class="chip">Dossier Parcoursup</span>
+          <div class="actions support-signals" aria-label="Signaux de soutien"><span class="chip chip--paper-3 step-counter" id="step-counter">0/3 étapes</span>
+            <span class="chip chip--stabilo" data-daily-mission-duration>Durée</span>
+            <span class="chip" data-daily-mission-mastery-chip>Maîtrise</span>
+            <span class="chip" data-daily-mission-proof-label>Preuve</span>
           </div>
         </div>
-        <p class="daily-reason">
-          Aujourd'hui, le bon pari est de reprendre l'exponentielle. Court, utile pour le contrôle de vendredi, ton école d'ingé visée veut du solide en maths.
-        </p>
+        <p class="daily-reason" data-daily-mission-reason>Mission utile maintenant.</p>
+        <div class="study-note" data-daily-mission-proof-summary>Preuve: cette mission cible le prochain point utile.</div>
         <div class="daily-brief__actions">
-          <a class="btn btn--dark pressable" href="mission.html">Commencer la mission · 45 min</a>
+          <a class="btn btn--dark pressable" href="mission.html" data-daily-mission-duration-cta>Commencer la mission</a>
           <a class="btn btn--ghost pressable" href="objectif.html">Voir l'impact sur ton objectif</a>
         </div>
         <div class="daily-brief__actions daily-brief__actions--steps">
           <div class="daily-action mission-action" data-mission-action>
             <span class="ma-check" aria-hidden="true"></span>
             <div class="ma-content">
-              <span class="chip" style="background:var(--paper-2)">10 min</span>
-              <span class="ma-text">Relire la définition de l'exponentielle et noter les deux formules à sécuriser.</span>
+              <span class="chip chip--paper" data-daily-mission-step-duration="0">Durée</span>
+              <span class="ma-text" data-daily-mission-step-title="0">Étape 1</span>
             </div>
           </div>
           <div class="daily-action mission-action" data-mission-action>
             <span class="ma-check" aria-hidden="true"></span>
             <div class="ma-content">
-              <span class="chip" style="background:var(--paper-2)">15 min</span>
-              <span class="ma-text">Refaire trois dérivées avec enchaînement de fonctions, sans regarder la correction.</span>
+              <span class="chip chip--paper" data-daily-mission-step-duration="1">Durée</span>
+              <span class="ma-text" data-daily-mission-step-title="1">Étape 2</span>
             </div>
           </div>
           <div class="daily-action mission-action" data-mission-action>
             <span class="ma-check" aria-hidden="true"></span>
             <div class="ma-content">
-              <span class="chip" style="background:var(--paper-2)">20 min</span>
-              <span class="ma-text">Corriger un exercice type contrôle et garder une erreur à revoir demain.</span>
+              <span class="chip chip--paper" data-daily-mission-step-duration="2">Durée</span>
+              <span class="ma-text" data-daily-mission-step-title="2">Étape 3</span>
             </div>
           </div>
         </div>
@@ -218,38 +163,38 @@
         <div class="stat stat--stabilo">
           <div class="label">Signal régularité</div>
           <div class="value">7 j</div>
-          <div class="delta" style="color:#5C4A0A">De l'élan pour une séance courte</div>
+          <div class="delta stat-delta--stabilo">De l'élan pour une séance courte</div>
         </div>
         <div class="stat stat--blue">
           <div class="label">Signal dossier</div>
           <div class="value">73%</div>
-          <div class="delta" style="color:#3A5654">Les maths restent le levier n°1</div>
+          <div class="delta stat-delta--blue">Les maths restent le levier n°1</div>
         </div>
         <div class="stat stat--green">
           <div class="label">Temps déjà posé</div>
-          <div class="value">12<span style="font-size:24px">h45</span></div>
-          <div class="delta" style="color:#3F5418">45 min utiles maintenant</div>
+          <div class="value">12<span class="stat-value-suffix">h45</span></div>
+          <div class="delta stat-delta--green"><span data-daily-mission-duration>Durée</span> utiles maintenant</div>
         </div>
         <div class="stat stat--beige">
           <div class="label">Missions de la semaine</div>
-          <div class="value">18<span style="font-size:24px;color:var(--ink-soft)">/24</span></div>
-          <div class="delta" style="color:#6C4A28">Le reste est en soutien, pas en urgence</div>
+          <div class="value">18<span class="stat-value-suffix stat-value-suffix--muted">/24</span></div>
+          <div class="delta stat-delta--beige">Le reste est en soutien, pas en urgence</div>
         </div>
       </div>
 
       <!-- Split: missions + side column -->
       <div class="split">
-        <div style="display:flex;flex-direction:column;gap:24px">
+        <div class="dashboard-stack">
           <!-- Missions card -->
           <div class="card">
             <div class="card-head">
               <h3>Après cette mission</h3>
               <div class="actions">
                 <span class="chip">3 prochaines</span>
-                <span class="chip" style="background:var(--green)">1 déjà faite</span>
+                <span class="chip chip--green">1 déjà faite</span>
               </div>
             </div>
-            <div style="display:flex;flex-direction:column;gap:10px">
+            <div class="dashboard-list">
               <div class="mission done">
                 <div class="check">✓</div>
                 <div class="meta">
@@ -261,10 +206,10 @@
               <div class="mission">
                 <div class="check"></div>
                 <div class="meta">
-                  <div class="top"><span style="color:#5C4A0A">Maths · mission du jour</span></div>
-                  <div class="title"><a href="mission.html" style="color:inherit;text-decoration:none">Exponentielle &amp; dérivation — exercice type contrôle</a></div>
+                  <div class="top"><span class="mission-topic-current" data-daily-mission-subject>Mission du jour</span></div>
+                  <div class="title"><a href="mission.html" class="dashboard-link-plain" data-daily-mission-task-title>Mission du jour</a></div>
                 </div>
-                <div class="duration">45 min</div>
+                <div class="duration" data-daily-mission-duration>Durée</div>
               </div>
               <div class="mission">
                 <div class="check"></div>
@@ -291,23 +236,23 @@
               <h3>Heures de travail</h3>
               <div class="actions">
                 <span class="chip">Cette semaine</span>
-                <span class="chip" style="background:var(--stabilo);font-family:var(--font-mono)">15h34 total</span>
+                <span class="chip chip--stabilo chip--mono">15h34 total</span>
               </div>
             </div>
             <div class="bars">
-              <div class="bar"><div class="val">2h15</div><div class="col"><div class="seg" style="height:55%"></div></div><div class="label">L</div></div>
-              <div class="bar"><div class="val">3h10</div><div class="col"><div class="seg" style="height:78%"></div></div><div class="label">M</div></div>
-              <div class="bar"><div class="val">1h25</div><div class="col"><div class="seg" style="height:35%;background:var(--beige)"></div></div><div class="label">M</div></div>
-              <div class="bar"><div class="val">3h35</div><div class="col"><div class="seg" style="height:88%"></div></div><div class="label">J</div></div>
-              <div class="bar"><div class="val">2h32</div><div class="col"><div class="seg" style="height:62%"></div></div><div class="label">V</div></div>
-              <div class="bar"><div class="val">1h57</div><div class="col"><div class="seg" style="height:48%;background:var(--beige)"></div></div><div class="label">S</div></div>
-              <div class="bar"><div class="val">0h40</div><div class="col"><div class="seg" style="height:16%;background:var(--paper-3)"></div></div><div class="label">D</div></div>
+              <div class="bar"><div class="val">2h15</div><div class="col"><div class="seg work-bar-seg--55"></div></div><div class="label">L</div></div>
+              <div class="bar"><div class="val">3h10</div><div class="col"><div class="seg work-bar-seg--78"></div></div><div class="label">M</div></div>
+              <div class="bar"><div class="val">1h25</div><div class="col"><div class="seg work-bar-seg--35 work-bar-seg--beige"></div></div><div class="label">M</div></div>
+              <div class="bar"><div class="val">3h35</div><div class="col"><div class="seg work-bar-seg--88"></div></div><div class="label">J</div></div>
+              <div class="bar"><div class="val">2h32</div><div class="col"><div class="seg work-bar-seg--62"></div></div><div class="label">V</div></div>
+              <div class="bar"><div class="val">1h57</div><div class="col"><div class="seg work-bar-seg--48 work-bar-seg--beige"></div></div><div class="label">S</div></div>
+              <div class="bar"><div class="val">0h40</div><div class="col"><div class="seg work-bar-seg--16 work-bar-seg--paper"></div></div><div class="label">D</div></div>
             </div>
           </div>
         </div>
 
         <!-- right column -->
-        <div style="display:flex;flex-direction:column;gap:24px">
+        <div class="dashboard-stack">
           <!-- IA suggestion -->
           <div class="ia">
             <div class="head">
@@ -326,30 +271,30 @@
             <div class="card-head">
               <h3>Dossier cible</h3>
             </div>
-            <div style="display:flex;align-items:center;gap:18px">
+            <div class="objective-snapshot">
               <svg width="100" height="100" viewBox="0 0 100 100">
                 <circle cx="50" cy="50" r="40" fill="none" stroke="#EFE7DC" stroke-width="12"/>
                 <circle cx="50" cy="50" r="40" fill="none" stroke="#121212" stroke-width="12" stroke-dasharray="184 252" transform="rotate(-90 50 50)"/>
                 <text x="50" y="48" text-anchor="middle" font-family="Archivo Black, sans-serif" font-size="20" fill="#121212">73%</text>
                 <text x="50" y="64" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="9" font-weight="700" letter-spacing="0.1em" fill="#5F5B57">CIBLE 85%</text>
               </svg>
-              <div style="flex:1;display:flex;flex-direction:column;gap:8px;font-family:var(--font-body);font-size:13px">
-                <div style="display:flex;justify-content:space-between"><span>Maths spé</span><span style="font-family:var(--font-mono);color:var(--ink-soft)">86%</span></div>
-                <div style="display:flex;justify-content:space-between"><span>Physique-chimie</span><span style="font-family:var(--font-mono);color:var(--ink-soft)">71%</span></div>
-                <div style="display:flex;justify-content:space-between"><span>Dossier continu</span><span style="font-family:var(--font-mono);color:var(--ink-soft)">62%</span></div>
-                <div style="display:flex;justify-content:space-between"><span>Projet motivé</span><span style="font-family:var(--font-mono);color:var(--ink-soft)">74%</span></div>
+              <div class="objective-list">
+                <div class="objective-row"><span>Maths spé</span><span class="objective-pct">86%</span></div>
+                <div class="objective-row"><span>Physique-chimie</span><span class="objective-pct">71%</span></div>
+                <div class="objective-row"><span>Dossier continu</span><span class="objective-pct">62%</span></div>
+                <div class="objective-row"><span>Projet motivé</span><span class="objective-pct">74%</span></div>
               </div>
             </div>
           </div>
 
           <!-- Streak card -->
-          <div class="card" style="background:var(--stabilo)">
+          <div class="card streak-card">
             <div class="card-head"><h3>Régularité</h3></div>
-            <div style="display:flex;align-items:center;gap:18px">
-              <div style="font-family:var(--font-display);font-size:64px;line-height:1;letter-spacing:-.02em">7</div>
+            <div class="streak-content">
+              <div class="streak-number">7</div>
               <div>
-                <div style="font-family:var(--font-body);font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase">Jours d'affilée</div>
-                <div style="font-family:var(--font-body);font-size:13px;color:#5C4A0A;line-height:1.5;margin-top:4px">Tu es à 4 jours de ton record (11 jours).</div>
+                <div class="streak-label">Jours d'affilée</div>
+                <div class="streak-copy">Tu es à 4 jours de ton record (11 jours).</div>
               </div>
             </div>
           </div>
@@ -362,9 +307,9 @@
       <div class="page-head">
         <div>
           <h1>Planning</h1>
-          <div class="sub">Semaine du lundi 13 mai · ajustée par l'IA il y a 2 h</div>
+          <div class="sub" data-planning-subtitle>Semaine en cours · ajustée depuis ton état utilisateur</div>
         </div>
-        <div style="display:flex;gap:10px">
+        <div class="planning-actions">
           <button class="btn btn--ghost">‹ Sem. précédente</button>
           <button class="btn">Demander à l'IA</button>
         </div>
@@ -372,17 +317,17 @@
 
       <div class="cal">
         <div></div>
-        <div class="col-head">Lun 13</div>
-        <div class="col-head">Mar 14</div>
-        <div class="col-head">Mer 15</div>
-        <div class="col-head">Jeu 16</div>
-        <div class="col-head">Ven 17</div>
-        <div class="col-head" style="opacity:.5">Sam 18</div>
-        <div class="col-head" style="opacity:.5">Dim 19</div>
+        <div class="col-head" data-weekday-offset="0">Lun</div>
+        <div class="col-head" data-weekday-offset="1">Mar</div>
+        <div class="col-head" data-weekday-offset="2">Mer</div>
+        <div class="col-head" data-weekday-offset="3">Jeu</div>
+        <div class="col-head" data-weekday-offset="4">Ven</div>
+        <div class="col-head weekend-day" data-weekday-offset="5">Sam</div>
+        <div class="col-head weekend-day" data-weekday-offset="6">Dim</div>
 
         <div class="row-head">08:00</div>
         <div class="cell"></div>
-        <div class="evt evt--maths"><span class="who">Maths spé · DM</span><span>Exponentielle</span></div>
+        <div class="evt evt--maths"><span class="who">Maths spé · DM</span><span data-daily-mission-title>Mission</span></div>
         <div class="cell"></div>
         <div class="evt evt--phys"><span class="who">Physique-chimie · TD</span><span>Énergie</span></div>
         <div class="cell"></div>
@@ -427,122 +372,13 @@
       </div>
     </section>
 
-    <!-- ============================================================ PROGRESS VIEW -->
-    <section class="view" id="view-progress" name="progression" data-screen-label="03 Progression">
-      <div class="page-head">
-        <div>
-          <h1>Progression</h1>
-          <div class="sub">Dossier cible · spécialités · 8 semaines avant les choix Parcoursup</div>
-        </div>
-        <div style="display:flex;gap:8px">
-          <span class="chip" style="background:var(--stabilo);border-width:2.5px">Toutes matières</span>
-          <span class="chip">Maths</span>
-          <span class="chip">Physique-chimie</span>
-          <span class="chip">Projet motivé</span>
-        </div>
-      </div>
-
-      <div class="stats" style="grid-template-columns:repeat(3,1fr)">
-        <div class="stat">
-          <div class="label">Dossier construit</div>
-          <div class="value">73%</div>
-          <div class="delta">+8% sur 4 semaines</div>
-        </div>
-        <div class="stat stat--blue">
-          <div class="label">Chapitres sécurisés</div>
-          <div class="value">42<span style="font-size:24px;color:var(--ink-soft)">/68</span></div>
-          <div class="delta" style="color:#3A5654">+5 cette semaine</div>
-        </div>
-        <div class="stat stat--beige">
-          <div class="label">Temps moyen / jour</div>
-          <div class="value">2<span style="font-size:24px">h32</span></div>
-          <div class="delta" style="color:#6C4A28">Sur 30 jours</div>
-        </div>
-      </div>
-
-      <div class="split">
-        <div class="card">
-          <div class="card-head">
-            <h3>Maîtrise par matière</h3>
-            <div class="actions"><span class="chip">Terminale générale</span></div>
-          </div>
-          <div class="progress-list">
-            <div class="progress-row">
-              <div class="top"><span class="name">Mathématiques</span><span class="pct">86% · 14 / 16 chap.</span></div>
-              <div class="bar"><div class="fill" style="width:86%"></div></div>
-            </div>
-            <div class="progress-row blue">
-              <div class="top"><span class="name">Physique-chimie</span><span class="pct">71% · 10 / 14 chap.</span></div>
-              <div class="bar"><div class="fill" style="width:71%"></div></div>
-            </div>
-            <div class="progress-row green">
-              <div class="top"><span class="name">Dossier continu</span><span class="pct">62% · 8 / 13 attendus</span></div>
-              <div class="bar"><div class="fill" style="width:62%"></div></div>
-            </div>
-            <div class="progress-row beige">
-              <div class="top"><span class="name">Philo · expression</span><span class="pct">74% · 6 / 8 axes</span></div>
-              <div class="bar"><div class="fill" style="width:74%"></div></div>
-            </div>
-            <div class="progress-row orange">
-              <div class="top"><span class="name">Projet motivé</span><span class="pct">58% · 7 / 12 preuves</span></div>
-              <div class="bar"><div class="fill" style="width:58%"></div></div>
-            </div>
-            <div class="progress-row">
-              <div class="top"><span class="name">Anglais</span><span class="pct">81% · 5 / 7 chap.</span></div>
-              <div class="bar"><div class="fill" style="width:81%"></div></div>
-            </div>
-          </div>
-        </div>
-
-        <div style="display:flex;flex-direction:column;gap:24px">
-          <div class="card">
-            <div class="card-head"><h3>À revoir</h3></div>
-            <div style="display:flex;flex-direction:column;gap:10px">
-              <div class="mission">
-                <div class="check" style="background:var(--red);color:#FFFDF8">!</div>
-                <div class="meta">
-                  <div class="top" style="color:#9C3F35">Maths spé · pas vu depuis 9 jours</div>
-                  <div class="title">Fonctions exponentielles</div>
-                </div>
-              </div>
-              <div class="mission">
-                <div class="check" style="background:var(--orange);color:#FFFDF8">!</div>
-                <div class="meta">
-                  <div class="top" style="color:#6C4A28">Physique-chimie · 38% maîtrise</div>
-                  <div class="title">Énergie mécanique</div>
-                </div>
-              </div>
-              <div class="mission">
-                <div class="check" style="background:var(--orange);color:#FFFDF8">!</div>
-                <div class="meta">
-                  <div class="top" style="color:#6C4A28">Projet motivé · 42% prêt</div>
-                  <div class="title">Argumenter le choix d'école</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="ia">
-            <div class="head">
-              <div class="av">IA</div>
-              <span class="tag">Recommandation</span>
-            </div>
-            <div class="body">Concentre 1h cette semaine sur l'exponentielle. C'est ton chapitre le plus fragile, et il pèse sur le prochain contrôle de maths.</div>
-            <div class="actions">
-              <button class="btn">Programmer 1h</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- ============================================================ FOCUS LANDING (» focus.html) -->
     <section class="view" id="view-focus" data-screen-label="04 Focus-entry">
-      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;text-align:center;gap:18px">
-        <div style="font-family:var(--font-body);font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)">Mode focus immersif</div>
-        <div style="font-family:var(--font-display);font-size:44px;text-transform:uppercase;letter-spacing:-.01em;line-height:1">Prête à te poser&nbsp;?</div>
-        <p style="font-family:var(--font-body);font-size:16px;color:var(--ink-soft);max-width:480px;line-height:1.55">Tu vas basculer en mode focus. Notifications coupées, distractions écartées. Tu peux sortir quand tu veux.</p>
-        <a href="focus.html" class="btn" style="padding:13px 22px;font-size:15px;box-shadow:5px 5px 0 var(--ink);text-decoration:none">Entrer en focus →</a>
+      <div class="focus-entry">
+        <div class="focus-entry__label">Mode focus immersif</div>
+        <div class="focus-entry__title">Prête à te poser&nbsp;?</div>
+        <p class="focus-entry__copy">Tu vas basculer en mode focus. Notifications coupées, distractions écartées. Tu peux sortir quand tu veux.</p>
+        <a href="focus.html" class="btn focus-entry__cta">Entrer en focus →</a>
       </div>
     </section>
   </div>
@@ -550,20 +386,41 @@
 
 <script src="scripts/model.js"></script>
 <script src="scripts/state.js"></script>
+<script src="scripts/user-context-ui.js"></script>
+<script src="scripts/mission-ui.js"></script>
 <script>
   // View switching
   var sbItems = document.querySelectorAll('.sb-item[data-view]');
   var views = document.querySelectorAll('.view');
+  function normalizeView(target) {
+    return document.getElementById('view-' + target) ? target : 'today';
+  }
+  function viewFromHash() {
+    return normalizeView((window.location.hash || '#today').slice(1));
+  }
+  function setView(target, updateHash) {
+    target = normalizeView(target || 'today');
+    sbItems.forEach(function(i) {
+      i.classList.toggle('active', i.dataset.view === target);
+    });
+    views.forEach(function(v) {
+      v.classList.toggle('active', v.id === 'view-' + target);
+    });
+    if (updateHash && window.location.hash !== '#' + target) {
+      history.pushState(null, '', '#' + target);
+    }
+  }
   sbItems.forEach(function(item) {
-    item.addEventListener('click', function() {
+    item.addEventListener('click', function(e) {
+      e.preventDefault();
       var target = item.dataset.view;
-      sbItems.forEach(function(i) { i.classList.remove('active'); });
-      item.classList.add('active');
-      views.forEach(function(v) {
-        v.classList.toggle('active', v.id === 'view-' + target);
-      });
+      setView(target, true);
     });
   });
+  window.addEventListener('popstate', function() {
+    setView(viewFromHash(), false);
+  });
+  setView(viewFromHash(), false);
 
   // Mission list toggle (sidebar missions)
   document.querySelectorAll('.mission').forEach(function(m) {
@@ -582,13 +439,8 @@
     var done = document.querySelectorAll('.mission-action.done').length;
     if (!stepCounter) return;
     stepCounter.textContent = done + '/' + total + ' étapes';
-    if (done === total) {
-      stepCounter.style.background = 'var(--green)';
-    } else if (done > 0) {
-      stepCounter.style.background = 'var(--stabilo)';
-    } else {
-      stepCounter.style.background = 'var(--paper-3)';
-    }
+    stepCounter.classList.toggle('step-counter--active', done > 0 && done !== total);
+    stepCounter.classList.toggle('step-counter--done', done === total);
   };
   stepActions.forEach(function(action) {
     action.setAttribute('role', 'checkbox');

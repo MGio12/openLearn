@@ -40,6 +40,20 @@ Boucle Ralph itérative pour auditer le funnel et améliorer rétention/hiérarc
 - [x] merci.html (pass 2) — Item 3 de "Prochaines étapes" disait "Dès la mise en ligne, tu recevras un email pour activer ton accès" — **contradiction directe** avec l'item 2 ("Explore le cockpit dès maintenant") et le ton général de la page (paiement confirmé, cockpit actif). Reste de copy pré-launch oubliée. Remplacé par "Reviens demain — ta prochaine mission sera prête, calibrée sur ce que tu viens de faire." → boucle d'habitude amorcée, séquence (immédiat → maintenant → demain) cohérente.
 
 ## Pass 2 — funnel complet
+
+## File d'attente (funnel order) — Pass 3
+
+**Pass 3** — angle : accessibilité (focus-visible, aria-labels), cohérence cross-page (composants partagés divergents), états edge (empty, error, disabled).
+
+- [x] index.html (pass 3) — Topbar icon-btns (IA + Notifications) étaient des `<div>` avec `title=` uniquement. `title` n'est pas annoncé fiablement par les lecteurs d'écran, et les `<div>` ne sont pas focusables au clavier. Conversion en `<button type="button" aria-label="...">` proprement : focusables Tab, annoncés correctement ("Demander à l'IA", "Notifications, 2 nouvelles"). Badge "2" passé en `aria-hidden` (déjà dans le label). CSS reset minimal (padding 0, color/font inherit) pour neutraliser les defaults `<button>` du navigateur.
+- [ ] onboarding.html → NEXT (pass 3)
+- [ ] onboarding.html
+- [ ] focus.html
+- [ ] mission.html
+- [ ] objectif.html
+- [ ] progression.html
+- [ ] checkout.html
+- [ ] merci.html
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html
