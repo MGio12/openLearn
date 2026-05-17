@@ -5,81 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Objectif Lycée — Mission</title>
   <link rel="stylesheet" href="styles.css">
-  <style>
-    /* Mission-page specific */
-    .crumb {
-      display: flex; align-items: center; gap: 8px;
-      font-family: var(--font-body); font-size: 12px; font-weight: 700;
-      letter-spacing: .08em; text-transform: uppercase;
-      color: var(--ink-soft);
-      margin-bottom: 12px;
-    }
-    .crumb a { color: inherit; text-decoration: none; }
-    .crumb a:hover { color: var(--ink); }
-
-    .mission-hero {
-      background: var(--stabilo);
-      border: 3px solid var(--ink);
-      border-radius: 18px;
-      box-shadow: 8px 8px 0 var(--ink);
-      padding: 32px 36px;
-      display: flex; flex-direction: column; gap: 22px;
-      margin-bottom: 28px;
-    }
-    .mission-hero .tags { display: flex; gap: 10px; flex-wrap: wrap; }
-    .mission-hero .tag {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 6px 14px;
-      background: #FFFDF8;
-      border: 2.5px solid var(--ink); border-radius: 999px;
-      font-family: var(--font-body); font-weight: 800; font-size: 11px;
-      letter-spacing: .1em; text-transform: uppercase;
-    }
-    .mission-hero h1 {
-      font-family: var(--font-display);
-      font-size: clamp(36px, 4.5vw, 52px);
-      line-height: 1.02; letter-spacing: -.01em; text-transform: uppercase;
-      margin: 0;
-    }
-    .mission-hero .why {
-      font-family: var(--font-body); font-size: 16px; color: var(--ink); line-height: 1.55;
-      max-width: 720px;
-    }
-    .mission-hero .meta-row {
-      display: flex; gap: 28px; flex-wrap: wrap;
-      padding-top: 14px;
-      border-top: 2px dashed rgba(18, 18, 18, 0.2);
-    }
-    .mission-hero .meta-row .item .lbl {
-      font-family: var(--font-body); font-size: 10px; font-weight: 800;
-      letter-spacing: .12em; text-transform: uppercase; color: #5C4A0A;
-    }
-    .mission-hero .meta-row .item .val {
-      font-family: var(--font-display); font-size: 22px;
-      line-height: 1.2; margin-top: 2px;
-    }
-
-    @media (max-width: 640px) {
-      .mission-hero {
-        padding: 18px 16px;
-        gap: 12px;
-        margin-bottom: 18px;
-        border-width: var(--b-mob);
-        box-shadow: 4px 4px 0 var(--ink);
-      }
-      .mission-hero .tags { gap: 6px; }
-      .mission-hero .tag { padding: 4px 9px; font-size: 10px; }
-      .mission-hero h1 { font-size: 30px; line-height: 1.04; }
-      .mission-hero .why { font-size: 14px; line-height: 1.42; }
-      .mission-hero .meta-row { gap: 12px; padding-top: 10px; }
-      .mission-hero .meta-row .item { flex: 1 1 42%; }
-      .mission-hero .meta-row .item .val { font-size: 18px; }
-      .checklist .item { padding: 12px; gap: 10px; }
-      .checklist .item .dur { white-space: nowrap; }
-    }
-    .countdown-chip { display: inline-flex; gap: 10px; align-items: center; background: var(--ink); color: var(--paper); padding: 7px 14px; border-radius: 8px; font-family: var(--font-body); font-size: 13px; font-weight: 800; margin: 6px 0 14px; }
-    .cc-val { background: var(--stabilo); color: var(--ink); padding: 2px 8px; border-radius: 4px; }
-  </style>
+  <link rel="stylesheet" href="assets/css/pages/mission.css">
 </head>
 <body data-daily-mission-document-title>
 
@@ -92,26 +18,26 @@
     </div>
     <div class="sb-group">
       <div class="head">Cockpit</div>
-      <a href="index.html#today" class="sb-item active" style="text-decoration:none">
+      <a href="index.html#today" class="sb-item active mission-sidebar-link">
         <span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg></span>
         Aujourd'hui
       </a>
-      <a href="index.html#planning" class="sb-item" style="text-decoration:none">
+      <a href="index.html#planning" class="sb-item mission-sidebar-link">
         <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
         Planning
       </a>
-      <a href="index.html#progression" class="sb-item" style="text-decoration:none">
+      <a href="progression.html" class="sb-item mission-sidebar-link">
         <span class="ic"><svg viewBox="0 0 24 24"><path d="M3 17l4-4 4 4 5-7 5 7"/><path d="M3 21h18"/></svg></span>
         Progression
       </a>
-      <a href="focus.html" class="sb-item" style="text-decoration:none">
+      <a href="focus.html" class="sb-item mission-sidebar-link">
         <span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
         Focus
       </a>
     </div>
     <div class="sb-group">
       <div class="head">Travail</div>
-      <a href="objectif.html" class="sb-item" style="text-decoration:none">
+      <a href="objectif.html" class="sb-item mission-sidebar-link">
         <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>
         Objectif
       </a>
@@ -125,10 +51,10 @@
       </div>
     </div>
     <div class="sb-profile">
-      <div class="av">MD</div>
+      <div class="av" data-user-initials>OP</div>
       <div class="who">
-        <span class="nm">Maïe Durand</span>
-        <span class="role">Terminale · spé maths/physique</span>
+        <span class="nm" data-user-full-name>Profil démo</span>
+        <span class="role" data-user-role>Lycée</span>
       </div>
     </div>
   </aside>
@@ -141,9 +67,9 @@
         <input type="text" placeholder="Chercher…" />
       </div>
       <span class="spacer"></span>
-      <div class="icon-btn"><svg viewBox="0 0 24 24"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5z"/></svg></div>
-      <div class="icon-btn"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0112 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 003.4 0"/></svg><span class="badge">2</span></div>
-      <div class="me"><div class="av">MD</div><span class="nm">Maïe</span></div>
+      <button class="icon-btn" type="button" aria-label="Demander à l'IA"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5z"/></svg></button>
+      <button class="icon-btn" type="button" aria-label="Notifications, 2 nouvelles"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0112 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 003.4 0"/></svg><span class="badge" aria-hidden="true">2</span></button>
+      <div class="me"><div class="av" data-user-initials>OP</div><span class="nm" data-user-first-name>Profil</span></div>
     </header>
 
     <section class="view active" data-screen-label="Mission Detail">
@@ -158,7 +84,7 @@
           <span class="tag">Mission du jour</span>
           <span class="tag" data-daily-mission-subject-topic>Matière</span>
           <span class="tag" data-daily-mission-deadline>Échéance</span>
-          <span class="tag" style="background:var(--ink);color:var(--stabilo);border-color:var(--ink)">★ <span data-daily-mission-priority>Priorité</span></span>
+          <span class="tag tag--priority">★ <span data-daily-mission-priority>Priorité</span></span>
         </div>
         <div class="countdown-chip">Commence maintenant <span class="cc-val" data-daily-mission-duration>Durée</span></div>
         <h1 data-daily-mission-title>Mission du jour</h1>
@@ -186,13 +112,13 @@
       <!-- ============ SPLIT ============ -->
       <div class="split">
         <!-- Left: checklist + resources -->
-        <div style="display:flex;flex-direction:column;gap:24px">
+        <div class="mission-column">
           <div class="card paper-folder">
             <div class="card-head">
               <h3>Étapes de la mission</h3>
-              <div style="display:flex;gap:8px">
+              <div class="mission-card-actions">
                 <span class="chip" data-daily-mission-step-count>Étapes</span>
-                <span class="chip" style="background:var(--green)" data-daily-mission-step-done-count>0 terminée</span>
+                <span class="chip mission-chip--done" data-daily-mission-step-done-count>0 terminée</span>
               </div>
             </div>
             <div class="checklist" data-daily-mission-checklist></div>
@@ -200,12 +126,12 @@
 
           <div class="card">
             <div class="card-head"><h3>Ressources liées</h3><span class="chip" data-daily-mission-resource-count>Ressources</span></div>
-            <div style="display:flex;flex-direction:column;gap:10px" data-daily-mission-resources></div>
+            <div class="mission-resource-list" data-daily-mission-resources></div>
           </div>
         </div>
 
         <!-- Right: action + context -->
-        <div style="display:flex;flex-direction:column;gap:24px">
+        <div class="mission-column">
           <!-- Big primary action -->
           <div class="start-block">
             <h3>Prête à commencer&nbsp;?</h3>
@@ -230,21 +156,21 @@
           <!-- Past performance -->
           <div class="card">
             <div class="card-head"><h3>Sur des sujets proches</h3></div>
-            <div style="display:flex;flex-direction:column;gap:14px">
+            <div class="mission-perf-list">
               <div class="perf-row">
                 <div class="top"><span class="nm">Suites</span><span class="pct">88%</span></div>
-                <div class="bar"><div class="fill" style="width:88%"></div></div>
+                <div class="bar"><div class="fill mission-fill--suites"></div></div>
               </div>
               <div class="perf-row">
                 <div class="top"><span class="nm">Limites &amp; continuité</span><span class="pct">79%</span></div>
-                <div class="bar"><div class="fill" style="width:79%"></div></div>
+                <div class="bar"><div class="fill mission-fill--limites"></div></div>
               </div>
               <div class="perf-row">
                 <div class="top"><span class="nm">Dérivation</span><span class="pct">71%</span></div>
-                <div class="bar"><div class="fill" style="width:71%"></div></div>
+                <div class="bar"><div class="fill mission-fill--derivation"></div></div>
               </div>
             </div>
-            <p style="font-family:var(--font-body);font-size:13px;color:var(--ink-soft);margin:0;line-height:1.5">Tu maîtrises bien les bases. Le point à gagner est la rédaction propre et la régularité avant le contrôle.</p>
+            <p class="mission-perf-note">Tu maîtrises bien les bases. Le point à gagner est la rédaction propre et la régularité avant le contrôle.</p>
           </div>
 
           <!-- Next up -->
@@ -261,6 +187,7 @@
 
 <script src="scripts/model.js"></script>
 <script src="scripts/state.js"></script>
+<script src="scripts/user-context-ui.js"></script>
 <script src="scripts/mission-ui.js"></script>
 <script>
   // Checklist toggle: visual affordance; scripts/state.js persists class changes.
