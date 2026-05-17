@@ -1,5 +1,5 @@
-﻿/* Objectif Lycée — app dashboard styles */
-@import url('./colors_and_type.css');
+﻿/* Objectif Lycée — app dashboard styles. colors_and_type.css is
+   loaded in parallel via a <link> in each page (no sequential @import). */
 
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; height: 100%; }
