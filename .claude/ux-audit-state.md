@@ -82,7 +82,8 @@ Note pour pass suivantes : à propager sur mission/objectif/progression/focus qu
 - [x] focus.html (pass 5) — Espace + Échap shortcuts confirmés câblés (testés au clavier, fonctionnent). **Bug runtime** : boutons "Pomodoro précédent" / "Pomodoro suivant" présents en JSX mais **aucun handler dans focus.js** — clic silencieux. Marqués `disabled` + `aria-label` revus ("bientôt disponible"). CSS : `.fx-ctl:disabled` opacity 0.35 + cursor not-allowed + hover désactivé. `.fx-ctl:focus-visible` outline stabilo. Le play/pause central reste vibrant pour bien distinguer le control actif des inactifs.
 - [x] mission.html (pass 5) — Console + network propres. Checklist `.item` toggle confirmé fonctionnel (le rôle a11y `checkbox` ajouté par le user/linter en plus). Dead sidebar items "Fiches" + "Contrôles" propagation du fix iter 33 : `is-soon` class + pill "bientôt" + `aria-disabled`.
 - [x] objectif.html (pass 5) — Console + network propres. **Propagation** : sidebar Fiches/Contrôles marqués `is-soon`. **Découverte non corrigée (future iter)** : `.hm-cell` heatmap a cursor:pointer mais ne fait que tooltip natif (title attr) — pas de handler clic. `.topic-row` aussi cursor:pointer mais clic mort. Curseur mensonger sur tout le grid central. À traiter dans une itération dédiée pour ne pas mélanger 2 fix.
-- [ ] progression.html → NEXT (pass 5)
+- [x] progression.html (pass 5) — Console + network propres. Slideover "Détails par matière →" trigger confirmé fonctionnel (passe de hidden→visible au clic). Propagation `is-soon` sur 3 dead items : Fiches, Contrôles, Préférences (cette page a aussi le groupe Réglages avec Préférences, contrairement à mission/objectif).
+- [ ] checkout.html → NEXT (pass 5)
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html
