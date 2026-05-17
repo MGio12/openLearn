@@ -144,7 +144,9 @@ Note pour pass suivantes : à propager sur mission/objectif/progression/focus qu
 - [x] objectif.html (pass 9) — Arrow `→` non-`aria-hidden` dans le tooltip CTA généré par JS ("Travailler ce levier →"). Fix : `<span aria-hidden="true">→</span>`. **Découverte** : faux positif de l'iter 37 sur le heatmap. J'avais conclu "clic mort" en comparant `cellBefore !== cellAfter` sur le `outerHTML` de la cell — mais le clic crée un tooltip via `document.body.appendChild(tip)`, qui ne modifie pas la cell elle-même. Le heatmap **est** interactif. À retirer du registre flag.
 - [x] progression.html (pass 9) — 2 arrows loose dans des CTAs ("Détails par matière →" + "Voir l'impact sur l'objectif →") → `<span aria-hidden="true">→</span>`. La 3e arrow (`reminder-card__icon`) était déjà bien sur un `<div aria-hidden>` parent.
 - [x] checkout.html (pass 9) — 2 arrows loose restantes : (1) `<div class="nm-num">→</div>` dans la section `.next-mission` (vraiment décoratif, le `.nm-text` à côté porte le contenu) — `aria-hidden="true"` sur le div ; (2) flèche du sticky CTA mobile — wrappée pour cohérence (le `<a>` parent a déjà `aria-label` qui override, donc fix cosmétique mais consistent avec les autres pages). 0 flèche `→` sans `aria-hidden` sur la page maintenant.
-- [ ] merci.html → NEXT (pass 9)
+- [x] merci.html (pass 9) — Page très propre globalement (1 h1, 1 h2, main landmark, 868 chars, lang=fr). **2 incohérences sur le title** : (1) plain hyphen `-` au lieu de l'em-dash `—` utilisé par les 7 autres pages ; (2) "Retour paiement Stripe" est du jargon technique alors que la h1 dit "Paiement confirmé" — title plus user-facing aligné avec la h1. Nouveau title : "Objectif Lycée — Paiement confirmé". Cohérence inter-page + matche le h1.
+
+## Pass 9 — funnel complet
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html

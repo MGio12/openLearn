@@ -12,6 +12,7 @@ const FILES = {
   'checkout.html': join(ROOT, 'checkout.html'),
   'merci.html': join(ROOT, 'merci.html'),
   'styles.css': join(ROOT, 'styles.css'),
+  'checkout.css': join(ROOT, 'assets', 'css', 'pages', 'checkout.css'),
 };
 
 const PAGES = [
@@ -103,22 +104,22 @@ function assertRequiredFilesExist() {
 
 function assertReducedMotionSource() {
   const styleSource = readProjectFile(FILES['styles.css']);
-  const checkoutSource = readProjectFile(FILES['checkout.html']);
+  const checkoutStyleSource = readProjectFile(FILES['checkout.css']);
 
   assert(
     /@media\s*\(\s*prefers-reduced-motion\s*:\s*reduce\s*\)/i.test(styleSource),
     'styles.css: S04 craft contract requires @media (prefers-reduced-motion: reduce) to disable decorative motion safely',
   );
   assert(
-    /prefers-reduced-motion\s*:\s*reduce/i.test(checkoutSource),
-    'checkout.html: S04 craft contract requires prefers-reduced-motion handling for checkout dossier/marquee motion',
+    /prefers-reduced-motion\s*:\s*reduce/i.test(checkoutStyleSource),
+    'assets/css/pages/checkout.css: S04 craft contract requires prefers-reduced-motion handling for checkout dossier/marquee motion',
   );
 }
 
 function assertFocusAndPressedSource() {
   const styleSource = readProjectFile(FILES['styles.css']);
-  const checkoutSource = readProjectFile(FILES['checkout.html']);
-  const combined = `${styleSource}\n${checkoutSource}`;
+  const checkoutStyleSource = readProjectFile(FILES['checkout.css']);
+  const combined = `${styleSource}\n${checkoutStyleSource}`;
 
   const rules = [
     {
@@ -136,7 +137,7 @@ function assertFocusAndPressedSource() {
   ];
 
   for (const rule of rules) {
-    assert(rule.pattern.test(combined), `S04 CTA craft contract missing ${rule.label} in styles.css or checkout.html`);
+    assert(rule.pattern.test(combined), `S04 CTA craft contract missing ${rule.label} in styles.css or assets/css/pages/checkout.css`);
   }
 }
 

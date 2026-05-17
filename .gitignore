@@ -6,6 +6,9 @@ node_modules/
 .gsd-id
 .mcp.json
 .bg-shell/
+.playwright-mcp/
+.claude/*.local.md
+.claude/*.local.json
 .DS_Store
 Thumbs.db
 *.swp

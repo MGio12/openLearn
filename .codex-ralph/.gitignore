@@ -1,0 +1,8 @@
+logs/
+run/
+events.jsonl
+last-error.json
+status.json
+STOP
+DONE
+BLOCKED.md

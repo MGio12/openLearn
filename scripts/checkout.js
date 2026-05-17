@@ -33,7 +33,7 @@
   function showSetup(text) {
     var setupAnchor = document.getElementById("configurer-stripe");
     if (setupAnchor) {
-      setupAnchor.style.display = "block";
+      setupAnchor.classList.add("is-visible");
       setupAnchor.setAttribute("aria-hidden", "false");
     }
 
