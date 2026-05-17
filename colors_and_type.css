@@ -35,8 +35,10 @@
   font-style: normal;
   font-display: swap;
 }
-/* JetBrains Mono is still loaded from Google Fonts for codes / data */
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+/* JetBrains Mono is loaded from Google Fonts only on pages that need it.
+   Pages using --font-mono (focus, progression, onboarding) include their
+   own <link rel="preconnect"> + <link rel="stylesheet"> in <head>.
+   Everywhere else the system fallback ('Menlo', monospace) is used. */
 
 :root {
   /* ===== COLOR TOKENS — RAW ===== */

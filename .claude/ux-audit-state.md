@@ -102,6 +102,20 @@ Note pour pass suivantes : à propager sur mission/objectif/progression/focus qu
 - [x] merci.html (pass 6) — Layout mobile globalement propre (success-main + aside stackés vertical via media query existante). **Polish thumb-target** : `.success-actions` passe en `flex-direction: column` sur ≤640px, CTA primaire `op-btn--dark` devient `width: 100%` avec padding vertical 14px (tap-target ~285×52, largement >44×44 WCAG). Les liens texte ghost passent en `align-self: flex-start` pour rester left-aligned et lisibles. Plus de wrap chaotique des CTAs.
 
 ## Pass 6 — funnel complet
+
+## File d'attente (funnel order) — Pass 7
+
+**Pass 7** — angle : **performance / payload** (poids assets, total bytes, font/CSS bloat, render-blocking, cache headers).
+
+- [x] index.html (pass 7) — **Bug perf cross-page** : colors_and_type.css avait un `@import url('https://fonts.googleapis.com/...')` pour JetBrains Mono, ligne 39, render-blocking sur chaque page. Mais Mono n'est utilisé que sur focus/progression/onboarding (stats numériques + slideover + preview durations). Sur index/mission/objectif/checkout/merci c'était un round-trip Google pour rien. Fix : `@import` supprimé de colors_and_type.css, et `<link rel="preconnect"> + <link rel="stylesheet">` ajoutés en `<head>` uniquement sur focus/progression/onboarding. Vérifié : 0 requête Google Fonts sur index, 1 (Mono) sur focus. Local fonts ont déjà `font-display: swap` (rien à fixer là).
+- [ ] onboarding.html → NEXT (pass 7)
+- [ ] onboarding.html
+- [ ] focus.html
+- [ ] mission.html
+- [ ] objectif.html
+- [ ] progression.html
+- [ ] checkout.html
+- [ ] merci.html
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html
