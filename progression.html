@@ -6,411 +6,25 @@
   <title>Objectif Lycée — Ton jardin d'avance</title>
   <meta name="description" content="Objectif Lycée : ton avance pousse jour après jour. Une plante qui grandit avec chaque mission terminée — pas avec du scroll.">
   <link rel="stylesheet" href="styles.css">
-<style>
-  /* ============================================================
-     PROGRESSION — Jardin d'avance
-     ============================================================ */
-  .garden-card {
-    position: relative;
-    margin-bottom: 28px;
-    padding: 36px 30px 26px;
-    background:
-      radial-gradient(ellipse 80% 60% at 50% 90%, rgba(244, 211, 94, .25), transparent 70%),
-      #FFFDF8;
-    border: 3px solid var(--ink);
-    border-radius: 22px;
-    box-shadow: 8px 8px 0 var(--ink);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 18px;
-    overflow: hidden;
-  }
-  .garden-card::before {
-    content: "";
-    position: absolute;
-    inset: 18px;
-    border: 2px dashed rgba(18, 18, 18, .12);
-    border-radius: 14px;
-    pointer-events: none;
-  }
-  .garden-card__stamp {
-    align-self: flex-start;
-    transform: rotate(-2deg);
-    z-index: 1;
-  }
-  .garden-card__hero {
-    position: relative;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    z-index: 1;
-  }
-  .garden-plant {
-    width: min(280px, 60vw);
-    height: auto;
-    filter: drop-shadow(4px 4px 0 rgba(18, 18, 18, .14));
-  }
-  /* Stage visibility — earlier groups visible, later hidden until reached */
-  .garden-plant .grow-2,
-  .garden-plant .grow-3,
-  .garden-plant .grow-4,
-  .garden-plant .grow-5 { display: none; }
-  .garden-plant[data-stage="seed"] .seed-only { display: inline; }
-
-  .garden-plant[data-stage="sprout"] .grow-2,
-  .garden-plant[data-stage="stem"]   .grow-2,
-  .garden-plant[data-stage="stem"]   .grow-3,
-  .garden-plant[data-stage="plant"]  .grow-2,
-  .garden-plant[data-stage="plant"]  .grow-3,
-  .garden-plant[data-stage="plant"]  .grow-4,
-  .garden-plant[data-stage="bloom"]  .grow-2,
-  .garden-plant[data-stage="bloom"]  .grow-3,
-  .garden-plant[data-stage="bloom"]  .grow-4,
-  .garden-plant[data-stage="bloom"]  .grow-5 { display: inline; }
-
-  .garden-plant[data-stage="sprout"] .seed-only,
-  .garden-plant[data-stage="stem"]   .seed-only,
-  .garden-plant[data-stage="plant"]  .seed-only,
-  .garden-plant[data-stage="bloom"]  .seed-only { display: none; }
-
-  .garden-card__caption {
-    position: relative;
-    text-align: center;
-    z-index: 1;
-  }
-  .garden-card__caption .handwritten {
-    font-family: var(--font-hand);
-    font-weight: 600;
-    font-size: 26px;
-    color: var(--ink);
-    line-height: 1.2;
-  }
-  .garden-card__caption .meta {
-    display: block;
-    margin-top: 4px;
-    font-family: var(--font-body);
-    font-size: 13px;
-    color: var(--ink-soft);
-  }
-
-  /* Stage label pill */
-  .stage-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 14px;
-    background: var(--green);
-    border: 2.5px solid var(--ink);
-    border-radius: 999px;
-    font-family: var(--font-body);
-    font-weight: 800;
-    font-size: 12px;
-    letter-spacing: .07em;
-    text-transform: uppercase;
-    box-shadow: 3px 3px 0 var(--ink);
-  }
-  .stage-pill__dot { width: 8px; height: 8px; background: var(--ink); border-radius: 50%; }
-
-  /* History strip */
-  .history-card {
-    margin: 0 0 28px;
-    padding: 22px 26px;
-    background: var(--bg-panel, #FFFDF8);
-    border: 3px solid var(--ink);
-    border-radius: 18px;
-    box-shadow: 6px 6px 0 var(--ink);
-  }
-  .history-card .card-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 14px;
-  }
-  .history-card h3 {
-    font-family: var(--font-display);
-    font-size: 22px;
-    text-transform: uppercase;
-    margin: 0;
-  }
-  .history-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-  .history-day {
-    border: 2.5px solid var(--ink);
-    border-radius: 10px;
-    background: var(--paper-2);
-    padding: 12px 8px 10px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    min-height: 76px;
-  }
-  .history-day .dow {
-    font-family: var(--font-body);
-    font-size: 10px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: .08em;
-    color: var(--ink-soft);
-  }
-  .history-day .dom {
-    font-family: var(--font-display);
-    font-size: 18px;
-    line-height: 1;
-  }
-  .history-day .glyph {
-    margin-top: auto;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--ink-mute);
-  }
-  .history-day.is-active {
-    background: var(--green);
-  }
-  .history-day.is-active .glyph::before {
-    content: "✓";
-    font-weight: 700;
-    color: var(--ink);
-  }
-  .history-day.is-today {
-    box-shadow: 3px 3px 0 var(--ink);
-    transform: translate(-1.5px, -1.5px);
-  }
-  .history-note {
-    margin: 6px 0 0;
-    font-family: var(--font-body);
-    font-size: 13px;
-    color: var(--ink-soft);
-    font-style: italic;
-  }
-
-  /* Reminder card — mission du jour pas encore finie */
-  .reminder-card {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    padding: 18px 22px;
-    background: var(--stabilo-wash);
-    border: 3px solid var(--ink);
-    border-radius: 16px;
-    box-shadow: 6px 6px 0 var(--ink);
-    margin-bottom: 28px;
-  }
-  .reminder-card[hidden] { display: none; }
-  .reminder-card__icon {
-    width: 44px; height: 44px;
-    display: flex; align-items: center; justify-content: center;
-    background: var(--stabilo);
-    border: 2.5px solid var(--ink);
-    border-radius: 50%;
-    font-family: var(--font-display);
-    font-size: 24px;
-  }
-  .reminder-card__copy { flex: 1; display: flex; flex-direction: column; }
-  .reminder-card__copy .lbl {
-    font-family: var(--font-body);
-    font-size: 11px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: .08em;
-    color: var(--ink-soft);
-  }
-  .reminder-card__copy .title {
-    font-family: var(--font-body);
-    font-weight: 800;
-    font-size: 15px;
-    color: var(--ink);
-  }
-  .reminder-card .btn {
-    text-decoration: none;
-    white-space: nowrap;
-  }
-
-  .stats--garden { margin-bottom: 24px; }
-
-  /* ===== Slide-over ===== */
-  .slideover {
-    position: fixed;
-    inset: 0;
-    z-index: 60;
-    display: flex;
-    justify-content: flex-end;
-    pointer-events: none;
-  }
-  .slideover[hidden] { display: none; }
-  .slideover__backdrop {
-    position: absolute;
-    inset: 0;
-    background: rgba(18, 18, 18, .32);
-    border: 0; padding: 0; margin: 0;
-    cursor: pointer;
-    opacity: 0;
-    pointer-events: auto;
-    transition: opacity .25s var(--ease-calm);
-  }
-  .slideover.is-open .slideover__backdrop { opacity: 1; }
-  .slideover__panel {
-    position: relative;
-    width: min(440px, 100vw);
-    height: 100vh;
-    background: #FFFDF8;
-    border-left: 3px solid var(--ink);
-    box-shadow: -10px 0 0 rgba(18, 18, 18, .06);
-    display: flex; flex-direction: column;
-    transform: translateX(100%);
-    transition: transform .3s var(--ease-calm);
-    pointer-events: auto;
-    overflow: hidden;
-  }
-  .slideover.is-open .slideover__panel { transform: translateX(0); }
-  .slideover__head {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 22px 26px 18px;
-    background: #FFFDF8;
-    border-bottom: 2.5px solid var(--ink);
-    flex-shrink: 0;
-  }
-  .slideover__head h2 {
-    font-family: var(--font-display);
-    font-size: 24px;
-    line-height: 1;
-    text-transform: uppercase;
-    margin: 0;
-  }
-  .slideover__close {
-    width: 38px; height: 38px;
-    display: flex; align-items: center; justify-content: center;
-    border: 2.5px solid var(--ink);
-    border-radius: 10px;
-    background: var(--paper-2);
-    box-shadow: 3px 3px 0 var(--ink);
-    font-family: var(--font-display);
-    font-size: 18px;
-    cursor: pointer;
-    transition: transform .12s var(--ease-calm), box-shadow .12s var(--ease-calm);
-  }
-  .slideover__close:hover { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
-  .slideover__close:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--ink); }
-  .slideover__body {
-    flex: 1;
-    overflow-y: auto;
-    padding: 22px 26px 32px;
-    display: flex; flex-direction: column; gap: 20px;
-  }
-
-  /* progress-list inside slideover (reused from styles.css) */
-  .slideover .progress-row .top {
-    display: flex; justify-content: space-between;
-    font-family: var(--font-body); font-size: 13px;
-    margin-bottom: 4px;
-  }
-  .slideover .progress-row .pct { font-family: var(--font-mono); color: var(--ink-soft); }
-  .slideover .progress-row .bar {
-    height: 10px; background: var(--paper-3);
-    border: 2px solid var(--ink); border-radius: 999px;
-    overflow: hidden;
-  }
-  .slideover .progress-row .fill { height: 100%; background: var(--stabilo); }
-  .slideover .progress-row.blue .fill { background: var(--blue-2); }
-  .slideover .progress-row.green .fill { background: var(--green-2); }
-  .slideover .progress-row.beige .fill { background: var(--beige-2); }
-  .slideover .progress-row.orange .fill { background: var(--orange); }
-
-  .slideover .mini-card {
-    border: 2.5px solid var(--ink);
-    border-radius: 12px;
-    padding: 14px 16px;
-    background: var(--paper-2);
-  }
-  .slideover .mini-card h3 {
-    font-family: var(--font-display);
-    font-size: 16px;
-    text-transform: uppercase;
-    margin: 0 0 10px;
-  }
-  .slideover .revoir-list { display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; list-style: none; }
-  .slideover .revoir-list li {
-    padding: 10px 12px;
-    border: 2px solid var(--ink);
-    border-radius: 8px;
-    background: #FFFDF8;
-    font-family: var(--font-body);
-    font-size: 13px;
-    line-height: 1.4;
-  }
-  .slideover .revoir-list .lbl {
-    font-weight: 800;
-    font-size: 11px;
-    letter-spacing: .06em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    display: block;
-  }
-  .slideover .revoir-list .title { font-weight: 800; color: var(--ink); }
-  .slideover .ia-mini {
-    background: var(--stabilo-wash);
-    border: 2.5px solid var(--ink);
-    border-radius: 12px;
-    padding: 14px 16px;
-    font-family: var(--font-body); font-size: 13px;
-  }
-  .slideover .ia-mini .head {
-    display: flex; align-items: center; gap: 10px;
-    margin-bottom: 8px;
-  }
-  .slideover .ia-mini .av {
-    width: 28px; height: 28px; border-radius: 8px;
-    background: var(--ink); color: var(--paper);
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-display); font-size: 11px;
-  }
-
-  /* Garden-specific stat tweaks */
-  .stats--garden .stat .value { font-variant-numeric: tabular-nums; }
-
-  /* Empty state: shrink the seed visual so stats stay visible.
-     There is nothing to show yet — the card shouldn't dominate the fold. */
-  .garden-empty { padding: 22px 30px 20px; gap: 10px; }
-  .garden-empty .garden-plant { opacity: .85; width: min(150px, 30vw); }
-  .garden-empty .garden-card__caption .handwritten { font-size: 22px; }
-
-  @media (max-width: 900px) {
-    .garden-card { padding: 26px 18px 20px; box-shadow: 5px 5px 0 var(--ink); }
-    .history-grid { grid-template-columns: repeat(7, 1fr); gap: 6px; }
-    .history-day { padding: 10px 4px 8px; min-height: 64px; }
-    .history-day .dom { font-size: 16px; }
-    .stats--garden { grid-template-columns: repeat(3, 1fr); gap: 10px; }
-    .reminder-card { padding: 14px 16px; gap: 12px; flex-wrap: wrap; }
-  }
-  @media (max-width: 640px) {
-    .garden-plant { width: min(220px, 70vw); }
-    .stats--garden { grid-template-columns: 1fr; }
-    .slideover__panel { width: 100vw; border-left: 0; border-top: 3px solid var(--ink); }
-  }
-</style>
+  <link rel="stylesheet" href="assets/css/pages/progression.css">
 </head>
 <body>
 
 <div class="app">
   <!-- ============================================================ SIDEBAR -->
   <aside class="sidebar">
-    <a class="sb-brand" href="index.html" style="text-decoration:none;color:inherit">
+    <a class="sb-brand progression-brand-link" href="index.html">
       <span class="mark"><span class="tile"></span><span class="glyph">O</span></span>
       <span class="name">Objectif Lycée</span>
     </a>
 
     <div class="sb-group">
       <div class="head">Cockpit</div>
-      <a href="index.html" class="sb-item" style="text-decoration:none">
+      <a href="index.html#today" class="sb-item progression-sidebar-link">
         <span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg></span>
         Aujourd'hui
       </a>
-      <a href="index.html#planning" class="sb-item" style="text-decoration:none">
+      <a href="index.html#planning" class="sb-item progression-sidebar-link">
         <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
         Planning
       </a>
@@ -418,11 +32,11 @@
         <span class="ic"><svg viewBox="0 0 24 24"><path d="M3 17l4-4 4 4 5-7 5 7"/><path d="M3 21h18"/></svg></span>
         Progression
       </div>
-      <a href="focus.html" class="sb-item" style="text-decoration:none">
+      <a href="focus.html" class="sb-item progression-sidebar-link">
         <span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
         Focus
       </a>
-      <a href="checkout.html" class="sb-item" style="text-decoration:none">
+      <a href="checkout.html" class="sb-item progression-sidebar-link">
         <span class="ic"><svg viewBox="0 0 24 24"><path d="M4 7h16v10H4z"/><path d="M4 10h16"/><path d="M8 14h4"/></svg></span>
         Abonnement
       </a>
@@ -430,7 +44,7 @@
 
     <div class="sb-group">
       <div class="head">Travail</div>
-      <a href="objectif.html" class="sb-item" style="text-decoration:none">
+      <a href="objectif.html" class="sb-item progression-sidebar-link">
         <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>
         Objectif
       </a>
@@ -453,10 +67,10 @@
     </div>
 
     <div class="sb-profile">
-      <div class="av">MD</div>
+      <div class="av" data-user-initials>OP</div>
       <div class="who">
-        <span class="nm">Maïe Durand</span>
-        <span class="role">Terminale · spé maths/physique</span>
+        <span class="nm" data-user-full-name>Profil démo</span>
+        <span class="role" data-user-role>Lycée</span>
       </div>
     </div>
   </aside>
@@ -469,15 +83,15 @@
         <input type="text" placeholder="Chercher un chapitre, une fiche, une notion…" />
       </div>
       <span class="spacer"></span>
-      <div class="icon-btn" title="IA">
-        <svg viewBox="0 0 24 24"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5z"/><path d="M5 16l1 2 2 1-2 1-1 2-1-2-2-1 2-1z"/></svg>
-      </div>
-      <div class="icon-btn" title="Notifications">
-        <svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0112 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 003.4 0"/></svg>
-      </div>
+      <button class="icon-btn" type="button" aria-label="Demander à l'IA">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5z"/><path d="M5 16l1 2 2 1-2 1-1 2-1-2-2-1 2-1z"/></svg>
+      </button>
+      <button class="icon-btn" type="button" aria-label="Notifications">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0112 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 003.4 0"/></svg>
+      </button>
       <div class="me">
-        <div class="av">MD</div>
-        <span class="nm">Maïe</span>
+        <div class="av" data-user-initials>OP</div>
+        <span class="nm" data-user-first-name>Profil</span>
       </div>
     </header>
 
@@ -495,7 +109,7 @@
       <!-- ===== GARDEN HERO ===== -->
       <section class="garden-card garden-empty" data-garden-card aria-labelledby="garden-heading">
         <span class="tape-label garden-card__stamp" data-garden-stamp>Jour 0 — Démarre</span>
-        <h2 id="garden-heading" class="visually-hidden" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Plante d'avance</h2>
+        <h2 id="garden-heading" class="visually-hidden">Plante d'avance</h2>
 
         <div class="garden-card__hero">
           <svg class="garden-plant" data-garden-plant data-stage="seed" viewBox="0 0 320 400" aria-hidden="true">
@@ -584,7 +198,7 @@
             <span class="stage-pill__dot"></span>
             <span data-stage-label>Graine</span>
           </span>
-          <p class="handwritten" data-garden-caption style="margin:14px 0 4px">Tu n'as pas encore commencé — coche ta première étape.</p>
+          <p class="handwritten garden-caption-copy" data-garden-caption>Tu n'as pas encore commencé — coche ta première étape.</p>
           <span class="meta" data-garden-sub>0 mission terminée cette semaine</span>
         </div>
       </section>
@@ -594,17 +208,17 @@
         <div class="stat stat--stabilo">
           <div class="label">Cette semaine</div>
           <div class="value" data-week-missions>0</div>
-          <div class="delta" style="color:#5C4A0A">mission terminée</div>
+          <div class="delta delta-week">mission terminée</div>
         </div>
         <div class="stat stat--blue">
           <div class="label">Jours actifs</div>
           <div class="value" data-active-days>0</div>
-          <div class="delta" style="color:#3A5654" data-active-days-delta>au total</div>
+          <div class="delta delta-active" data-active-days-delta>au total</div>
         </div>
         <div class="stat stat--green">
           <div class="label">Mission du jour</div>
-          <div class="value" data-today-status style="font-size:36px">—</div>
-          <div class="delta" style="color:#3F5418" data-today-hint>commence quand tu veux</div>
+          <div class="value today-status" data-today-status>—</div>
+          <div class="delta delta-today" data-today-hint>commence quand tu veux</div>
         </div>
       </div>
 
@@ -645,14 +259,14 @@
       <!-- Couverture globale -->
       <div class="mini-card">
         <h3>Dossier cible</h3>
-        <div style="display:flex;align-items:center;gap:14px">
+        <div class="slideover-objective-score">
           <svg width="80" height="80" viewBox="0 0 100 100" aria-hidden="true">
             <circle cx="50" cy="50" r="40" fill="none" stroke="#E7DECF" stroke-width="12"/>
             <circle cx="50" cy="50" r="40" fill="none" stroke="#121212" stroke-width="12" stroke-dasharray="184 252" transform="rotate(-90 50 50)"/>
             <text x="50" y="48" text-anchor="middle" font-family="Archivo Black, sans-serif" font-size="18" fill="#121212">73%</text>
             <text x="50" y="64" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="8" font-weight="700" letter-spacing="0.1em" fill="#5F5B57">CIBLE 85%</text>
           </svg>
-          <div style="flex:1;font-family:var(--font-body);font-size:13px;color:var(--ink-soft);line-height:1.5">
+          <div class="slideover-objective-copy">
             73% des priorités utiles au dossier sont déjà travaillées cette année. Cible 85% avant les choix Parcoursup.
           </div>
         </div>
@@ -660,34 +274,34 @@
 
       <!-- Maîtrise par matière -->
       <div>
-        <h3 style="font-family:var(--font-display);font-size:18px;text-transform:uppercase;margin:0 0 12px">Maîtrise par matière</h3>
-        <div style="display:flex;flex-direction:column;gap:12px">
+        <h3 class="slideover-section-title">Maîtrise par matière</h3>
+        <div class="slideover-progress-list">
           <div class="progress-row">
             <div class="top"><span class="name">Mathématiques spécialité</span><span class="pct">86% · 14 / 16 chap.</span></div>
-            <div class="bar"><div class="fill" style="width:86%"></div></div>
+            <div class="bar"><div class="fill fill--86"></div></div>
           </div>
           <div class="progress-row blue">
             <div class="top"><span class="name">Physique-chimie</span><span class="pct">71% · 10 / 14 chap.</span></div>
-            <div class="bar"><div class="fill" style="width:71%"></div></div>
+            <div class="bar"><div class="fill fill--71"></div></div>
           </div>
           <div class="progress-row green">
             <div class="top"><span class="name">Dossier continu</span><span class="pct">62% · 8 / 13 attendus</span></div>
-            <div class="bar"><div class="fill" style="width:62%"></div></div>
+            <div class="bar"><div class="fill fill--62"></div></div>
           </div>
           <div class="progress-row beige">
             <div class="top"><span class="name">Philo · expression</span><span class="pct">74% · 6 / 8 axes</span></div>
-            <div class="bar"><div class="fill" style="width:74%"></div></div>
+            <div class="bar"><div class="fill fill--74"></div></div>
           </div>
           <div class="progress-row orange">
             <div class="top"><span class="name">Projet motivé</span><span class="pct">58% · 7 / 12 preuves</span></div>
-            <div class="bar"><div class="fill" style="width:58%"></div></div>
+            <div class="bar"><div class="fill fill--58"></div></div>
           </div>
         </div>
       </div>
 
       <!-- À revoir -->
       <div>
-        <h3 style="font-family:var(--font-display);font-size:18px;text-transform:uppercase;margin:0 0 12px">À revoir en priorité</h3>
+        <h3 class="slideover-section-title">À revoir en priorité</h3>
         <ul class="revoir-list">
           <li>
             <span class="lbl">Maths spé · pas vu depuis 9 jours</span>
@@ -708,10 +322,10 @@
       <div class="ia-mini">
         <div class="head">
           <div class="av">IA</div>
-          <span style="font-family:var(--font-body);font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft)">Recommandation</span>
+          <span class="ia-mini__label">Recommandation</span>
         </div>
-        <p style="margin:0 0 10px" data-daily-mission-recommendation>Recommandation du jour.</p>
-        <a class="op-btn op-btn--dark" href="objectif.html" style="text-decoration:none">Voir l'impact sur l'objectif →</a>
+        <p class="ia-mini__recommendation" data-daily-mission-recommendation>Recommandation du jour.</p>
+        <a class="op-btn op-btn--dark progression-impact-link" href="objectif.html">Voir l'impact sur l'objectif →</a>
       </div>
 
     </div>
@@ -720,6 +334,7 @@
 
 <script src="scripts/model.js"></script>
 <script src="scripts/state.js"></script>
+<script src="scripts/user-context-ui.js"></script>
 <script src="scripts/mission-ui.js"></script>
 <script>
   (function () {
@@ -787,15 +402,16 @@
       // Streak chip
       var streakChip = document.querySelector('[data-streak-chip]');
       if (streakChip) {
+        streakChip.classList.remove('streak-chip--empty', 'streak-chip--active', 'streak-chip--strong');
         if (streak === 0) {
           streakChip.textContent = 'Aucune série en cours';
-          streakChip.style.background = 'var(--paper-3)';
+          streakChip.classList.add('streak-chip--empty');
         } else if (streak === 1) {
           streakChip.textContent = '1 jour actif';
-          streakChip.style.background = 'var(--stabilo-wash)';
+          streakChip.classList.add('streak-chip--active');
         } else {
           streakChip.textContent = streak + ' jours de suite';
-          streakChip.style.background = 'var(--stabilo)';
+          streakChip.classList.add('streak-chip--strong');
         }
       }
 
@@ -857,7 +473,7 @@
           slideover.classList.add('is-open');
         });
       });
-      document.body.style.overflow = 'hidden';
+      document.body.classList.add('has-slideover-open');
       // initial focus
       var panel = slideover.querySelector('.slideover__panel');
       if (panel) panel.focus();
@@ -866,7 +482,7 @@
     function closeSlideover() {
       if (!slideover) return;
       slideover.classList.remove('is-open');
-      document.body.style.overflow = '';
+      document.body.classList.remove('has-slideover-open');
       // wait for transition to finish before hiding
       setTimeout(function () {
         if (!slideover.classList.contains('is-open')) {
