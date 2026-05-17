@@ -309,10 +309,15 @@
               type="email"
               placeholder="ton.prenom@lycee.fr"
               autocomplete="email"
+              required
+              aria-describedby="ob-email-note ob-email-error"
             />
-            <span class="email-note"
+            <span class="email-note" id="ob-email-note"
               >Tu pourras te connecter avec ton email seul — pas de mot de passe
               à retenir.</span
+            >
+            <span class="email-error" id="ob-email-error" hidden role="alert"
+              >Format email invalide — vérifie l'arobase et l'extension.</span
             >
           </div>
 
@@ -557,12 +562,37 @@
           window.location.href = "mission.html";
         });
 
-      // Finish (validate email format lightly, then advance)
+      // Finish (require email, validate format, show feedback if invalid)
       document.getElementById("finish").addEventListener("click", () => {
-        const email = document.getElementById("ob-email").value.trim();
-        if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return; // silent — no error shouting
+        const input = document.getElementById("ob-email");
+        const error = document.getElementById("ob-email-error");
+        const email = input.value.trim();
+        const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        if (!valid) {
+          input.setAttribute("aria-invalid", "true");
+          input.classList.add("is-invalid");
+          if (error) error.hidden = false;
+          input.focus();
+          return;
+        }
+        input.removeAttribute("aria-invalid");
+        input.classList.remove("is-invalid");
+        if (error) error.hidden = true;
         persistOnboarding({ email });
         goTo(current + 1);
+      });
+
+      // Clear error state as user types valid email
+      document.getElementById("ob-email").addEventListener("input", (e) => {
+        const error = document.getElementById("ob-email-error");
+        if (e.target.classList.contains("is-invalid")) {
+          const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.target.value.trim());
+          if (valid) {
+            e.target.removeAttribute("aria-invalid");
+            e.target.classList.remove("is-invalid");
+            if (error) error.hidden = true;
+          }
+        }
       });
     </script>
   </body>
