@@ -140,7 +140,8 @@ Note pour pass suivantes : à propager sur mission/objectif/progression/focus qu
 - [x] index.html (pass 9) — **Mini-bug d'incohérence glyph** : missions initialement `done` affichent `✓` (Unicode check). Mais le JS de toggle écrivait literal `'x'` quand l'utilisateur cochait dynamiquement. Donc une mission cochée par l'user affichait `x`, une mission déjà cochée au load affichait `✓` — incohérence visuelle. Fix : JS écrit `'✓'` au lieu de `'x'`. Vérifié au clic. (Pas de console.log/TODO browser-side trouvé, les console.log dans scripts/compute-weights et screenshot sont des CLI tools, intentionnels.)
 - [x] onboarding.html (pass 9) — **Typo apostrophe** dans la fixture JS MISSIONS (ligne 399) : `'Énergie mécanique — refaire l exercice clé'` → `'Énergie mécanique — refaire l\'exercice clé'`. Cette chaîne s'affichait dans la preview du step 6 et dans le payload d'onboarding envoyé au modèle. Le reste de la page n'a pas de debris : pas de console.log, pas de TODO, les commentaires HTML sont des dividers structurels.
 - [x] focus.html (pass 9) — Format heure anglais "14:00" dans `.fx-next-meta` → français "14h00" (convention française du `h` en séparateur, déjà utilisée ailleurs sur le site comme "12h45"). Sweep du reste de la page clean (pas de console.log, JS et copy propres).
-- [ ] mission.html → NEXT (pass 9)
+- [x] mission.html (pass 9) — 3 routes "Après cette mission" avec `<span>→</span>` non-marqués `aria-hidden`. Le lecteur d'écran annonçait "Revenir aux priorités du jour right arrow" sur chaque route. Propagation du pattern iter 23 : `<span aria-hidden="true">→</span>`. Vérifié : tree walker excluant aria-hidden produit "Revenir aux priorités du jour", "Voir pourquoi c'est prioritaire", "Garder le plan personnalisé" — clean.
+- [ ] objectif.html → NEXT (pass 9)
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html
