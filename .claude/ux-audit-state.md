@@ -97,7 +97,8 @@ Note pour pass suivantes : à propager sur mission/objectif/progression/focus qu
 - [x] focus.html (pass 6) — Footer mobile affichait "Espace Pause / Échap Quitter" — raccourcis inutilisables sans clavier physique. Bruit pour les utilisateurs mobile. `@media (max-width: 640px) { .fx-bottom-group:last-child { display: none } }` masque uniquement le groupe raccourcis. Le 1er groupe ("Notifications coupées / Sites distrayants bloqués") reste affiché — info pertinente sur mobile aussi. Layout flex passe en `justify-content: center` pour bien centrer le groupe restant.
 - [x] mission.html (pass 6) — Propagation `mobile-tabs` (CSS déjà global dans `styles.css`, copie du `<nav>` markup avant `</body>`). Mission étant une sous-page du cockpit, l'onglet "Aujourd'hui" est `is-active` + `aria-current="page"`. Le user mobile peut maintenant naviguer vers Progression/Objectif/Focus sans être piégé.
 - [x] objectif.html (pass 6) — Propagation `mobile-tabs` avec "Objectif" comme tab active (`is-active` + `aria-current="page"`). Pattern maintenant cohérent sur 3/5 pages dashboard (index, mission, objectif). Reste : progression, focus.
-- [ ] progression.html → NEXT (pass 6)
+- [x] progression.html (pass 6) — Propagation `mobile-tabs` avec "Progression" `is-active`. 4/5 pages dashboard. Reste : focus (qui n'a pas le shell sidebar/topbar, donc le mobile-tab y est probablement déjà cohérent vu son layout particulier).
+- [ ] checkout.html → NEXT (pass 6)
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html
