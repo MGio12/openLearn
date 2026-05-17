@@ -293,8 +293,8 @@ body {
 /* Daily mission brief */
 .daily-brief {
   position: relative;
-  margin-bottom: 28px;
-  padding: 28px 30px;
+  margin-bottom: 20px;
+  padding: 22px 30px;
   background:
     linear-gradient(135deg, rgba(244, 211, 94, 0.24), transparent 34%),
     #FFFDF8;
