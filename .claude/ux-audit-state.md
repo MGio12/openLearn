@@ -28,8 +28,7 @@ Boucle Ralph itérative pour auditer le funnel et améliorer rétention/hiérarc
 
 ## File d'attente (funnel order)
 
-- [ ] mission.html → NEXT
-- [ ] objectif.html
+- [ ] objectif.html → NEXT
 - [ ] progression.html
 - [ ] checkout.html
 - [ ] merci.html
@@ -39,6 +38,7 @@ Boucle Ralph itérative pour auditer le funnel et améliorer rétention/hiérarc
 - [x] **index.html** (iter 1) — Mission card height 554→468px (-86px), CTA "Commencer la mission" remontée y=557→y=471 (sous-fold→centre). Stats row (énergie, confiance, temps, semaine) maintenant totalement visible au-dessus du fold. Suppression de `<p class="study-note">` (info redondante avec chip "45 min"), tightening `.daily-brief` padding 28→22px et margin-bottom 28→20px.
 - [x] **onboarding.html** (iter 2) — Titre step 1 "QUELLE ÉCOLE VEUX-TU POUVOIR VISER ?" passe de 3 lignes/210px à 2 lignes/108px. Options remontent de y=527 à y=483 (-44px). Réduction de `.step h1` `clamp(40px, 5.5vw, 64px)` → `clamp(36px, 4vw, 52px)`. Step 1 est l'étape la plus critique pour la complétion : un titre moins imposant baisse la barrière psychologique au 1er clic.
 - [x] **focus.html** (iter 3) — Réduction de la redondance entre le timer (280px "24:35") et le percentage dans le ring (22px "98%" en blanc vif). Le ring jaune montre déjà la progression — le chiffre était du bruit qui diluait la hiérarchie. `.fx-progress-ring .pct` passe à font-mono 14px + opacity 0.55. Le timer redevient l'unique signal primaire, le ring est secondaire (visuel), le % devient référence tertiaire.
+- [x] **mission.html** (iter 4) — Supprimé le préfixe "Mission du jour :" du H1 (redondant avec breadcrumb + chip déjà présents au-dessus). H1 passe de 2 lignes à 1 ligne, hero 550→497px (-53px). Surtout : la CTA primaire "Commencer le focus · 25 min" passe sous le fold à y=814 (visible). C'est l'action attendue à l'arrivée sur la page — la rendre visible sans scroll est l'effet de levier le plus direct sur l'engagement.
 
 ## Notes inter-itérations
 
