@@ -37,7 +37,9 @@ Boucle Ralph itérative pour auditer le funnel et améliorer rétention/hiérarc
 - [x] objectif.html (pass 2) — Espace manquant dans "8sem." (3e stat card, AVANT PARCOURSUP) — la valeur "8" était collée à son unité "sem." sans séparation. Ajout de `margin-left: 6px` sur le span de l'unité. Typographie française standard pour les nombres + unités abrégées (vs "12h45" où l'absence d'espace est correcte pour les heures).
 - [x] progression.html (pass 2) — Subtitle "Plante **une** première mission..." → "Plante **ta** première mission..." (le subtitle + le fallback JS dans le `data-garden-status`). Direct address (tutoiement) cohérent avec le reste de l'UI ("ton avance", "ton jardin", "ta première étape"). "Une" sonne neutre/froid dans un contexte qui parle au lycéen directement.
 - [x] checkout.html (pass 2) — Lede resserrée. Avant : "...Si le cockpit t'aide **vraiment** à travailler plus juste, garde le **plan quotidien personnalisé qui te le fait tenir** — pour 10€/mois." Trois problèmes : "vraiment" filler, "quotidien personnalisé" redondant, et "qui te le fait tenir" avec un référent pronominal flou ("le" pour quoi ?). Après : "...Si le cockpit t'aide à travailler plus juste, garde ton plan personnalisé — 10€/mois." Plus direct, le pronom flou est éliminé.
-- [ ] merci.html → NEXT (pass 2)
+- [x] merci.html (pass 2) — Item 3 de "Prochaines étapes" disait "Dès la mise en ligne, tu recevras un email pour activer ton accès" — **contradiction directe** avec l'item 2 ("Explore le cockpit dès maintenant") et le ton général de la page (paiement confirmé, cockpit actif). Reste de copy pré-launch oubliée. Remplacé par "Reviens demain — ta prochaine mission sera prête, calibrée sur ce que tu viens de faire." → boucle d'habitude amorcée, séquence (immédiat → maintenant → demain) cohérente.
+
+## Pass 2 — funnel complet
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html
