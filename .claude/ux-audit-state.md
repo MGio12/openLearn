@@ -132,6 +132,20 @@ Note pour pass suivantes : à propager sur mission/objectif/progression/focus qu
 - [x] merci.html (pass 8) — Description existait déjà. Ajout (1) theme-color stabilo + favicon SVG ; (2) **`<meta name="robots" content="noindex, nofollow">`** — page transactionnelle post-paiement, ne doit pas être indexée par les moteurs de recherche (sinon "merci.html" pourrait apparaître dans les SERPs sans contexte de paiement).
 
 ## Pass 8 — funnel complet
+
+## File d'attente (funnel order) — Pass 9
+
+**Pass 9** — angle : chasse au debris (console.log, TODO/FIXME, hardcoded test data, prototype leftovers, dead CSS classes).
+
+- [x] index.html (pass 9) — **Mini-bug d'incohérence glyph** : missions initialement `done` affichent `✓` (Unicode check). Mais le JS de toggle écrivait literal `'x'` quand l'utilisateur cochait dynamiquement. Donc une mission cochée par l'user affichait `x`, une mission déjà cochée au load affichait `✓` — incohérence visuelle. Fix : JS écrit `'✓'` au lieu de `'x'`. Vérifié au clic. (Pas de console.log/TODO browser-side trouvé, les console.log dans scripts/compute-weights et screenshot sont des CLI tools, intentionnels.)
+- [ ] onboarding.html → NEXT (pass 9)
+- [ ] onboarding.html
+- [ ] focus.html
+- [ ] mission.html
+- [ ] objectif.html
+- [ ] progression.html
+- [ ] checkout.html
+- [ ] merci.html
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html

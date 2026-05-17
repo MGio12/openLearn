@@ -453,7 +453,7 @@
     m.addEventListener('click', function() {
       m.classList.toggle('done');
       var check = m.querySelector('.check');
-      if (check && !check.querySelector('span')) check.textContent = m.classList.contains('done') ? 'x' : '';
+      if (check && !check.querySelector('span')) check.textContent = m.classList.contains('done') ? '✓' : '';
     });
   });
 
