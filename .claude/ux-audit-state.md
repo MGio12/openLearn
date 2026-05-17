@@ -93,7 +93,8 @@ Note pour pass suivantes : à propager sur mission/objectif/progression/focus qu
 **Pass 6** — angle : **responsive mobile** (jamais testé sur 40 itérations, le user a explicitement mentionné les lycéens cible probable mobile). Viewport iPhone 13 : 390×844.
 
 - [x] index.html (pass 6) — **Bug critique mobile** : à <=640px la sidebar + topbar passent en `display: none` mais **rien ne les remplace** — le user mobile est piégé sur la page courante, aucune navigation possible. Ajout d'une `<nav class="mobile-tabs" aria-label>` avec 4 destinations clés (Aujourd'hui · Progression · Objectif · Focus), position fixed bottom, padding safe-area-inset-bottom, `:focus-visible` stabilo. `.view { padding-bottom: 80px }` pour éviter le contenu masqué par les tabs. **À propager sur les 4 autres pages dashboard** (mission, objectif, progression, focus) — markup et CSS sont déjà dans styles.css.
-- [ ] onboarding.html → NEXT (pass 6)
+- [x] onboarding.html (pass 6) — Sur 390×844 : H1 step 1 faisait 4 lignes/150px à 36px, première option à y=474. Réduction mobile h1 36→28px : 4→3 lignes, hauteur 87px, première option à y=411 (-63px). 3 options entières visibles + 4e partielle (vs 3 avant). Garde le `<br>` éditorial (sinon balance casse "VEUX-TU" au trait d'union, déjà vérifié iter 26). Ajout `padding-bottom: 64px` sur `.ob-stage` pour ne pas que les dots fixes en bas masquent la dernière option.
+- [ ] focus.html → NEXT (pass 6)
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html

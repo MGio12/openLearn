@@ -318,6 +318,14 @@ body {
 }
 
 @media (max-width: 640px) {
-  .step h1 { font-size: 36px; }
+  .step h1 {
+    font-size: 28px;
+    /* The desktop <br> breaks become natural on narrow viewports — keep
+       them so "QUELLE ECOLE VEUX-TU" lands on line 1 + "POUVOIR VISER ?"
+       on line 2, no hyphenated split. */
+  }
   .options { grid-template-columns: 1fr; }
+  /* More breathing room above the fixed step dots so options aren't
+     cut off at the bottom of the scrollable list. */
+  .ob-stage { padding-bottom: 64px; }
 }
