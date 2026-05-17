@@ -112,7 +112,8 @@ Note pour pass suivantes : à propager sur mission/objectif/progression/focus qu
 - [x] focus.html (pass 7) — Propagation du fix waterfall : `@import` retiré de focus.css, `<link colors_and_type.css>` ajouté en head avant focus.css. CSS parallèles vérifiés (startTime 9ms et 10ms).
 - [x] mission.html (pass 7) — Fix `@import` waterfall sur styles.css (utilisé par 5 pages : index, mission, objectif, progression, merci). `@import` retiré + `<link colors_and_type.css>` ajouté en head AVANT styles.css sur les 5 pages. Vérifié sur mission : 3 CSS (colors_and_type, styles, mission.css) partent simultanément à startTime 13ms — au lieu de la chaîne HTML→styles.css→colors_and_type.css. Avec iter 50 (onboarding) et iter 51 (focus), TOUT le site a maintenant un loading parallèle propre.
 - [x] objectif.html (pass 7) — 4 scripts classic sync (model.js, state.js, user-context-ui.js, mission-ui.js) bloquaient le parser HTML pendant leur exécution. Ajout de `defer` sur les 4 → ils téléchargent en parallèle + s'exécutent en ordre APRÈS le parsing HTML. Ordre relatif inchangé (le `<script type="module">` inline garde son comportement deferred par défaut). DOMContentLoaded plus tôt = FCP plus rapide. Console clean + filter bar + heatmap (24 cells) + hero stat tous validés. Pattern à propager sur autres pages dashboard.
-- [ ] progression.html → NEXT (pass 7)
+- [x] progression.html (pass 7) — Propagation `defer` sur les 4 scripts classiques. L'inline `<script>` qui suit dépend de `window.OutilPrepa` mais se self-defers déjà via `if (document.readyState === 'loading') addEventListener('DOMContentLoaded', init)`. Vérifié : stage "GRAINE", garden card, 3 stats, OutilPrepa défini, console clean.
+- [ ] checkout.html → NEXT (pass 7)
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html
