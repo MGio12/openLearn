@@ -1,5 +1,5 @@
-/* Focus Mode — immersive surface. Layers on colors_and_type.css. */
-@import url('../../../colors_and_type.css');
+/* Focus Mode — immersive surface. colors_and_type.css is loaded
+   in parallel via a <link> in focus.html (no sequential @import). */
 
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; height: 100%; }
