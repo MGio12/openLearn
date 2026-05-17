@@ -123,7 +123,8 @@ Note pour pass suivantes : à propager sur mission/objectif/progression/focus qu
 **Pass 8** — angle : **HTML metadata** (meta description, theme-color pour browser-chrome mobile, favicon, OG tags pour pages publiques). Diminishing returns mais pertinent pour SEO/social.
 
 - [x] index.html (pass 8) — 0 meta tag utile au-delà du viewport (pas de description, pas de favicon, pas de theme-color). Ajout : (1) `<meta name="description">` cohérente avec la voix de la page ("Ton cockpit du jour : une mission claire... Pas de scroll infini") ; (2) `<meta name="theme-color" content="#F4D35E">` pour matcher la chrome mobile au stabilo jaune ; (3) favicon SVG inline data-URI qui reproduit la mark de la sidebar (carré stabilo, border ink, lettre O rotation -6°). Aucun fichier nouveau, pas de requête supplémentaire. **À propager sur les 7 autres pages.**
-- [ ] onboarding.html → NEXT (pass 8)
+- [x] onboarding.html (pass 8) — Propagation favicon SVG + theme-color stabilo. Description page-specific : "2 minutes pour caler ton cockpit : objectif, classe, spécialités, rythme. 3 missions offertes pour démarrer." — reflète l'angle de conversion (durée + gratuité).
+- [ ] focus.html → NEXT (pass 8)
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html
