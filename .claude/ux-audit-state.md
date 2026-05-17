@@ -87,6 +87,20 @@ Note pour pass suivantes : à propager sur mission/objectif/progression/focus qu
 - [x] merci.html (pass 5) — Console + network propres, 3 liens internes valides. **Bug claim sans action** : receipt-note disait "Annulable à tout moment **depuis le portail Stripe**" mais aucun lien vers ledit portail nulle part sur la page. Le portail customer Stripe nécessite un URL spécifique ou un lien magique par email. Plus honnête : rephrasé pour pointer vers le canal réel — "le lien « Gérer mon abonnement » dans n'importe quel email Stripe". Tout email Stripe (reçu, change de carte, etc.) contient ce lien.
 
 ## Pass 5 — funnel complet
+
+## File d'attente (funnel order) — Pass 6
+
+**Pass 6** — angle : **responsive mobile** (jamais testé sur 40 itérations, le user a explicitement mentionné les lycéens cible probable mobile). Viewport iPhone 13 : 390×844.
+
+- [x] index.html (pass 6) — **Bug critique mobile** : à <=640px la sidebar + topbar passent en `display: none` mais **rien ne les remplace** — le user mobile est piégé sur la page courante, aucune navigation possible. Ajout d'une `<nav class="mobile-tabs" aria-label>` avec 4 destinations clés (Aujourd'hui · Progression · Objectif · Focus), position fixed bottom, padding safe-area-inset-bottom, `:focus-visible` stabilo. `.view { padding-bottom: 80px }` pour éviter le contenu masqué par les tabs. **À propager sur les 4 autres pages dashboard** (mission, objectif, progression, focus) — markup et CSS sont déjà dans styles.css.
+- [ ] onboarding.html → NEXT (pass 6)
+- [ ] onboarding.html
+- [ ] focus.html
+- [ ] mission.html
+- [ ] objectif.html
+- [ ] progression.html
+- [ ] checkout.html
+- [ ] merci.html
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html
