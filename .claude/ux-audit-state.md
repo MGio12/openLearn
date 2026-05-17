@@ -70,6 +70,22 @@ Boucle Ralph itérative pour auditer le funnel et améliorer rétention/hiérarc
 - [x] merci.html (pass 4) — Study-note disait "Ton plan reste centré sur **une chose**" puis énumérait **trois actions** — incohérence du compteur classique de l'AI ("the key thing is X, Y, and Z"). Remplacé par "Ton plan tient en **trois gestes** : ouvrir le cockpit, finir la bonne mission, voir ton dossier avancer." Le compteur matche maintenant les éléments listés. "Gestes" plus organique que "actions" pour la voix du site.
 
 ## Pass 4 — funnel complet
+
+## File d'attente (funnel order) — Pass 5
+
+**Pass 5** — angle : runtime correctness (console errors, network 404, JS broken handlers, interactions qui n'aboutissent pas, états transients mal gérés).
+
+- [x] index.html (pass 5) — 3 items sidebar dead-clicks (Fiches, Contrôles, Préférences) qui apparaissaient interactifs (cursor:pointer, hover) mais ne faisaient **rien** au clic. Mensonge UI classique de l'app pre-launch. Ajout d'un pattern `.sb-item.is-soon` avec `cursor: not-allowed`, couleur dimmed, hover background neutralisé, et une pill "bientôt" à droite. Plus `aria-disabled="true"`. Console + network propres (0 erreur, 0 404), donc le seul bug runtime trouvé sur cette page était ces 3 fake-links.
+
+Note pour pass suivantes : à propager sur mission/objectif/progression/focus qui dupliquent la même sidebar avec les mêmes dead items.
+- [ ] onboarding.html → NEXT (pass 5)
+- [ ] onboarding.html
+- [ ] focus.html
+- [ ] mission.html
+- [ ] objectif.html
+- [ ] progression.html
+- [ ] checkout.html
+- [ ] merci.html
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html
