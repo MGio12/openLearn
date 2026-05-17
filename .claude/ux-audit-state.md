@@ -96,7 +96,8 @@ Note pour pass suivantes : à propager sur mission/objectif/progression/focus qu
 - [x] onboarding.html (pass 6) — Sur 390×844 : H1 step 1 faisait 4 lignes/150px à 36px, première option à y=474. Réduction mobile h1 36→28px : 4→3 lignes, hauteur 87px, première option à y=411 (-63px). 3 options entières visibles + 4e partielle (vs 3 avant). Garde le `<br>` éditorial (sinon balance casse "VEUX-TU" au trait d'union, déjà vérifié iter 26). Ajout `padding-bottom: 64px` sur `.ob-stage` pour ne pas que les dots fixes en bas masquent la dernière option.
 - [x] focus.html (pass 6) — Footer mobile affichait "Espace Pause / Échap Quitter" — raccourcis inutilisables sans clavier physique. Bruit pour les utilisateurs mobile. `@media (max-width: 640px) { .fx-bottom-group:last-child { display: none } }` masque uniquement le groupe raccourcis. Le 1er groupe ("Notifications coupées / Sites distrayants bloqués") reste affiché — info pertinente sur mobile aussi. Layout flex passe en `justify-content: center` pour bien centrer le groupe restant.
 - [x] mission.html (pass 6) — Propagation `mobile-tabs` (CSS déjà global dans `styles.css`, copie du `<nav>` markup avant `</body>`). Mission étant une sous-page du cockpit, l'onglet "Aujourd'hui" est `is-active` + `aria-current="page"`. Le user mobile peut maintenant naviguer vers Progression/Objectif/Focus sans être piégé.
-- [ ] objectif.html → NEXT (pass 6)
+- [x] objectif.html (pass 6) — Propagation `mobile-tabs` avec "Objectif" comme tab active (`is-active` + `aria-current="page"`). Pattern maintenant cohérent sur 3/5 pages dashboard (index, mission, objectif). Reste : progression, focus.
+- [ ] progression.html → NEXT (pass 6)
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html
