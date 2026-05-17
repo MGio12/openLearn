@@ -99,7 +99,9 @@ Note pour pass suivantes : à propager sur mission/objectif/progression/focus qu
 - [x] objectif.html (pass 6) — Propagation `mobile-tabs` avec "Objectif" comme tab active (`is-active` + `aria-current="page"`). Pattern maintenant cohérent sur 3/5 pages dashboard (index, mission, objectif). Reste : progression, focus.
 - [x] progression.html (pass 6) — Propagation `mobile-tabs` avec "Progression" `is-active`. 4/5 pages dashboard. Reste : focus (qui n'a pas le shell sidebar/topbar, donc le mobile-tab y est probablement déjà cohérent vu son layout particulier).
 - [x] checkout.html (pass 6) — Sur mobile, sticky CTA fonctionne bien (visible bas de fold). **Bug** : un second lien "Voir comment ça marche" (`.nav-link--final`) en bas de page pointait `href="index.html"` au lieu du même anchor `#comment-ca-marche` fixé en iter 39. Désormais cohérent. Bonus mobile : le top-nav "Comment ça marche" est `display:none` sur mobile (CSS existant) — mais ce second lien "Voir comment ça marche" reste visible et remplit ce rôle.
-- [ ] merci.html → NEXT (pass 6)
+- [x] merci.html (pass 6) — Layout mobile globalement propre (success-main + aside stackés vertical via media query existante). **Polish thumb-target** : `.success-actions` passe en `flex-direction: column` sur ≤640px, CTA primaire `op-btn--dark` devient `width: 100%` avec padding vertical 14px (tap-target ~285×52, largement >44×44 WCAG). Les liens texte ghost passent en `align-self: flex-start` pour rester left-aligned et lisibles. Plus de wrap chaotique des CTAs.
+
+## Pass 6 — funnel complet
 - [ ] onboarding.html
 - [ ] focus.html
 - [ ] mission.html
