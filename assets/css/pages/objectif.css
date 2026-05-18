@@ -201,11 +201,6 @@
   align-items: center;
   padding: 14px 8px;
   border-top: 1.5px solid #2A272422;
-  cursor: pointer;
-}
-
-.topic-row:hover {
-  background: var(--paper-2);
 }
 
 .topic-row:first-child {

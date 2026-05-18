@@ -359,6 +359,8 @@
     };
 
     var DOW = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
+    var DOW_LONG = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
+    var MONTHS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
 
     function render() {
       if (!window.OutilPrepa) return;
@@ -433,15 +435,30 @@
         var todayIso = op.today();
         hist.forEach(function (h) {
           var d = new Date(h.date + 'T00:00:00');
+          var isToday = h.date === todayIso;
           var cell = document.createElement('div');
           cell.className = 'history-day';
           if (h.missionCompleted) cell.classList.add('is-active');
-          if (h.date === todayIso) cell.classList.add('is-today');
+          if (isToday) cell.classList.add('is-today');
           cell.setAttribute('role', 'listitem');
-          cell.innerHTML =
-            '<span class="dow">' + DOW[d.getDay()] + '</span>' +
-            '<span class="dom">' + d.getDate() + '</span>' +
-            '<span class="glyph"></span>';
+          var dateLabel = DOW_LONG[d.getDay()] + ' ' + d.getDate() + ' ' + MONTHS[d.getMonth()];
+          var stateLabel = h.missionCompleted ? 'mission terminée' : 'pas de mission';
+          cell.setAttribute('aria-label', dateLabel + (isToday ? ' — aujourd\'hui — ' : ' — ') + stateLabel);
+          if (isToday) cell.setAttribute('aria-current', 'date');
+          var dowSpan = document.createElement('span');
+          dowSpan.className = 'dow';
+          dowSpan.setAttribute('aria-hidden', 'true');
+          dowSpan.textContent = DOW[d.getDay()];
+          var domSpan = document.createElement('span');
+          domSpan.className = 'dom';
+          domSpan.setAttribute('aria-hidden', 'true');
+          domSpan.textContent = d.getDate();
+          var glyphSpan = document.createElement('span');
+          glyphSpan.className = 'glyph';
+          glyphSpan.setAttribute('aria-hidden', 'true');
+          cell.appendChild(dowSpan);
+          cell.appendChild(domSpan);
+          cell.appendChild(glyphSpan);
           grid.appendChild(cell);
         });
       }
