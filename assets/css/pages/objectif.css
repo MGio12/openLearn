@@ -4,26 +4,26 @@
   text-decoration: none;
 }
 
-.ats-hero {
+.objective-hero {
   display: grid;
   grid-template-columns: 1.6fr 1fr 1fr;
   gap: 18px;
   margin-bottom: 28px;
 }
 
-.ats-hero .stat {
+.objective-hero .stat {
   padding: 22px 24px;
 }
 
-.ats-hero .stat .value {
+.objective-hero .stat .value {
   font-size: 48px;
 }
 
-.ats-hero .stat .label {
+.objective-hero .stat .label {
   margin-bottom: 4px;
 }
 
-.ats-hero .stat .note {
+.objective-hero .stat .note {
   font-family: var(--font-body);
   font-size: 13px;
   color: var(--ink-soft);
@@ -347,12 +347,12 @@
 }
 
 @media (max-width: 900px) {
-  .ats-hero {
-    grid-template-columns: 1fr !important;
+  .objective-hero {
+    grid-template-columns: 1fr;
   }
 
-  .split {
-    grid-template-columns: 1fr !important;
+  .split.objective-split {
+    grid-template-columns: 1fr;
   }
 
   .card {
@@ -360,6 +360,8 @@
   }
 
   .heatmap {
+    /* !important : sans cela, la règle desktop l.58 gagne sur grid-template-columns
+       (cascade bizarre vérifiée empiriquement — overflow horizontal mobile sinon). */
     grid-template-columns: minmax(86px, 1.25fr) repeat(6, minmax(24px, 1fr)) minmax(44px, .7fr) !important;
     gap: 2px;
   }
@@ -401,39 +403,39 @@
 }
 
 @media (max-width: 640px) {
-  .ats-hero {
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-    gap: 8px !important;
-    margin-bottom: 14px !important;
+  .objective-hero {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 14px;
   }
 
-  .ats-hero .stat {
+  .objective-hero .stat {
     padding: 12px 10px;
   }
 
-  .ats-hero .stat .label {
+  .objective-hero .stat .label {
     font-size: 9px;
     letter-spacing: .05em;
     margin-bottom: 2px;
   }
 
-  .ats-hero .stat .value {
+  .objective-hero .stat .value {
     font-size: 26px;
     line-height: 1;
   }
 
-  .ats-hero .stat .value span {
-    font-size: 14px !important;
+  .objective-hero .stat .value span {
+    font-size: 14px;
   }
 
-  .ats-hero .stat .note {
+  .objective-hero .stat .note {
     display: none;
   }
 
   #signal .split {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 14px !important;
+    gap: 14px;
   }
 
   #signal .split > .card {

@@ -40,6 +40,21 @@ body {
   position: absolute; inset: 0; display: grid; place-items: center;
   font-family: var(--font-display); font-size: 18px; transform: rotate(-6deg);
 }
+.brand .mark--image {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+.brand .mark--image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.38);
+  transform-origin: center;
+}
 .brand .name { font-family: var(--font-display); font-size: 17px; text-transform: uppercase; letter-spacing: -.01em; }
 .nav-right { display: flex; align-items: center; gap: 14px; }
 .nav-pill {
@@ -219,6 +234,27 @@ body {
   position: absolute; inset: 0;
   display: flex; align-items: center; justify-content: center;
 }
+.checkout-trophy-card {
+  position: absolute;
+  right: -18px;
+  top: -18px;
+  z-index: 6;
+  width: clamp(120px, 15vw, 190px);
+  margin: 0;
+  padding: 8px;
+  background: #FFFDF8;
+  border: 3px solid var(--ink);
+  border-radius: 22px;
+  box-shadow: 8px 8px 0 var(--ink);
+  transform: rotate(7deg);
+  pointer-events: none;
+}
+.checkout-trophy-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+}
 /* big stabilo splash behind */
 .dossier::before {
   content: "";
@@ -257,13 +293,13 @@ body {
   background: var(--blue);
 }
 .fiche--missions .fiche__tab { background: var(--blue-2); color: var(--ink); }
-.fiche--ats {
+.fiche--objectif {
   top: 28%; right: 4%;
   transform: rotate(5deg) translate(0, 0);
   z-index: 2;
   background: var(--green);
 }
-.fiche--ats .fiche__tab { background: var(--green-2); color: var(--ink); }
+.fiche--objectif .fiche__tab { background: var(--green-2); color: var(--ink); }
 .fiche--cockpit {
   top: 18%; left: 50%;
   transform: translateX(-50%) rotate(-1.5deg);
@@ -281,7 +317,7 @@ body {
     transform: rotate(-11deg) translate(-46px, -34px);
     box-shadow: 12px 12px 0 var(--ink);
   }
-  .dossier:hover .fiche--ats {
+  .dossier:hover .fiche--objectif {
     transform: rotate(8deg) translate(46px, -28px);
     box-shadow: 12px 12px 0 var(--ink);
   }
@@ -298,7 +334,7 @@ body {
   .dossier .fiche--missions {
     transform: rotate(-10deg) translate(-28px, -18px);
   }
-  .dossier .fiche--ats {
+  .dossier .fiche--objectif {
     transform: rotate(7deg) translate(28px, -12px);
   }
   .dossier .fiche--cockpit {
@@ -779,35 +815,6 @@ section.block { padding: clamp(54px, 7vw, 96px) 0; }
   font-size: 13px; color: var(--ink-soft); font-weight: 700;
 }
 
-/* ===== Responsive ===== */
-@media (max-width: 980px) {
-  .hero { grid-template-columns: 1fr; gap: 36px; }
-  .dossier { height: 460px; }
-  .compare-grid { grid-template-columns: 1fr; }
-  .feature-grid { grid-template-columns: repeat(2, 1fr); }
-  .trust-grid { grid-template-columns: 1fr; }
-}
-@media (max-width: 620px) {
-  .nav { padding: 12px 18px; }
-  .nav-right .nav-link { display: none; }
-  .hero h1 { font-size: 44px; }
-  .dossier { height: 420px; }
-  .fiche { width: 76%; padding: 12px 14px; }
-  .fiche--cockpit { width: 84%; }
-  .feature-grid { grid-template-columns: 1fr; }
-  .compare__visual { height: 96px; }
-  .compare__visual .label { font-size: 22px; }
-  .price-card { transform: rotate(-0.5deg); }
-  .cta--big { width: 100%; justify-content: center; }
-  /* Mobile: keep dossier opened so it doesn't require hover */
-  .dossier .fiche--missions { transform: rotate(-10deg) translate(-22px, -16px); }
-  .dossier .fiche--ats { transform: rotate(7deg) translate(22px, -10px); }
-  /* Sticky bottom CTA — toujours sous la main quand on scrolle */
-  body { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
-  .sticky-cta { display: flex !important; }
-  .foot { padding-bottom: 24px; }
-}
-
 /* ===== Sticky mobile CTA — caché sur desktop ===== */
 .sticky-cta {
   display: none;
@@ -822,6 +829,48 @@ section.block { padding: clamp(54px, 7vw, 96px) 0; }
   box-shadow: 0 -3px 0 rgba(18, 18, 18, .06);
   text-decoration: none;
 }
+
+/* ===== Responsive ===== */
+@media (max-width: 980px) {
+  .hero { grid-template-columns: 1fr; gap: 36px; }
+  .dossier { height: 460px; }
+  .checkout-trophy-card {
+    right: clamp(0px, 8vw, 48px);
+    top: -28px;
+    width: 132px;
+  }
+  .compare-grid { grid-template-columns: 1fr; }
+  .feature-grid { grid-template-columns: repeat(2, 1fr); }
+  .trust-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 620px) {
+  .nav { padding: 12px 18px; }
+  .nav-right .nav-link { display: none; }
+  .hero h1 { font-size: 44px; }
+  .dossier { height: 420px; }
+  .checkout-trophy-card {
+    right: 8px;
+    top: -24px;
+    width: 104px;
+    border-radius: 18px;
+    box-shadow: 5px 5px 0 var(--ink);
+  }
+  .fiche { width: 76%; padding: 12px 14px; }
+  .fiche--cockpit { width: 84%; }
+  .feature-grid { grid-template-columns: 1fr; }
+  .compare__visual { height: 96px; }
+  .compare__visual .label { font-size: 22px; }
+  .price-card { transform: rotate(-0.5deg); }
+  .cta--big { width: 100%; justify-content: center; }
+  /* Mobile: keep dossier opened so it doesn't require hover */
+  .dossier .fiche--missions { transform: rotate(-10deg) translate(-22px, -16px); }
+  .dossier .fiche--objectif { transform: rotate(7deg) translate(22px, -10px); }
+  /* Sticky bottom CTA — toujours sous la main quand on scrolle */
+  body { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
+  .sticky-cta { display: flex; }
+  .foot { padding-bottom: 24px; }
+}
+
 .sticky-cta__price {
   flex-shrink: 0;
   display: inline-flex;
@@ -898,7 +947,7 @@ section.block { padding: clamp(54px, 7vw, 96px) 0; }
   }
   .fiche,
   .fiche--missions,
-  .fiche--ats,
+  .fiche--objectif,
   .fiche--cockpit {
     position: relative;
     top: auto;
@@ -909,6 +958,14 @@ section.block { padding: clamp(54px, 7vw, 96px) 0; }
     transform: none !important;
     transition: none !important;
     will-change: auto;
+  }
+  .checkout-trophy-card {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 132px;
+    margin: 0 auto;
+    transform: none !important;
   }
   .stamp,
   .stamp-2,

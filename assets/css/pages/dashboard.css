@@ -24,7 +24,7 @@
 }
 
 .mission-action.done .chip {
-  background: var(--green) !important;
+  background: var(--green);
 }
 
 .mission-action.done .ma-check {
