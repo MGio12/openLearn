@@ -49,11 +49,7 @@
     return !!(progress.stepStates[index] && progress.stepStates[index].done);
   }
 
-  function setText(selector, value) {
-    document.querySelectorAll(selector).forEach(function (element) {
-      element.textContent = value;
-    });
-  }
+  var setText = root.OutilPrepaDom.setText;
 
   function setDocumentTitle(mission) {
     var titleTarget = document.querySelector('[data-daily-mission-document-title]');

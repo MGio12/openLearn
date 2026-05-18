@@ -29,13 +29,7 @@
     : 3;
   var FALLBACK_NUM_ACTIONS = 3;
 
-  function todayISO() {
-    var d = new Date();
-    var y = d.getFullYear();
-    var m = String(d.getMonth() + 1).padStart(2, '0');
-    var day = String(d.getDate()).padStart(2, '0');
-    return y + '-' + m + '-' + day;
-  }
+  var todayISO = Model.todayISO;
 
   function defaultState(date) {
     if (Model && typeof Model.createDefaultAppState === 'function') {

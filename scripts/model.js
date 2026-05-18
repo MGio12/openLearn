@@ -890,6 +890,7 @@
     DEFAULT_OBJECTIVE: clone(DEFAULT_OBJECTIVE),
     DEFAULT_MISSION: clone(DEFAULT_MISSION),
     DEFAULT_SUBSCRIPTION_STATE: clone(DEFAULT_SUBSCRIPTION_STATE),
+    todayISO: todayISO,
     createDefaultAppState: createDefaultAppState,
     normalizeAppState: normalizeAppState,
     createProfileFromOnboarding: createProfileFromOnboarding,

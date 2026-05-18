@@ -20,11 +20,7 @@
     },
   };
 
-  function setText(selector, value) {
-    document.querySelectorAll(selector).forEach(function (element) {
-      element.textContent = value;
-    });
-  }
+  var setText = root.OutilPrepaDom.setText;
 
   function renderCheckoutDemo() {
     var demo = FIXTURES.checkoutDemo;

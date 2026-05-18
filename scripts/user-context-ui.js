@@ -57,11 +57,7 @@
     return {};
   }
 
-  function todayISO() {
-    if (root.OutilPrepa && typeof root.OutilPrepa.today === 'function') return root.OutilPrepa.today();
-    var d = new Date();
-    return d.toISOString().slice(0, 10);
-  }
+  var todayISO = root.OutilPrepaModel.todayISO;
 
   function parseISODate(iso) {
     if (!iso) return new Date();
@@ -124,11 +120,7 @@
       || 'Objectif lycee';
   }
 
-  function setText(selector, value) {
-    document.querySelectorAll(selector).forEach(function (element) {
-      element.textContent = value;
-    });
-  }
+  var setText = root.OutilPrepaDom.setText;
 
   function renderWeekHeaders(date) {
     var start = weekStart(date);
