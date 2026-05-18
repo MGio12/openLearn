@@ -445,7 +445,6 @@
   }
 
   function syncDailyMissionChecklistItem(item, isDone) {
-    item.setAttribute('aria-pressed', String(isDone));
     item.setAttribute('aria-checked', String(isDone));
 
     var box = item.querySelector('.box');

@@ -8,7 +8,7 @@
 
   function setChecklistState(item, isDone) {
     item.classList.toggle('done', isDone);
-    item.setAttribute('aria-pressed', String(isDone));
+    item.setAttribute('aria-checked', String(isDone));
 
     var box = item.querySelector('.box');
     if (box) box.textContent = isDone ? '\u2713' : '';

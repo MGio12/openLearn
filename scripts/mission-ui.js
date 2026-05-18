@@ -115,9 +115,9 @@
       var done = isStepDone(index);
       var item = document.createElement('div');
       item.className = 'item' + (done ? ' done' : '');
-      item.setAttribute('role', 'button');
+      item.setAttribute('role', 'checkbox');
       item.setAttribute('tabindex', '0');
-      item.setAttribute('aria-pressed', String(done));
+      item.setAttribute('aria-checked', String(done));
       item.setAttribute('data-mission-step', step.id || String(index + 1));
 
       var box = document.createElement('div');

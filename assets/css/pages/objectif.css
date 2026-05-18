@@ -31,6 +31,8 @@
   margin-top: 10px;
 }
 
+.objective-hero .stat--beige .note { color: var(--ink-2); }
+
 .objective-target {
   font-size: 18px;
   color: #5C4A0A;
@@ -173,7 +175,7 @@
 
 .badge--critical {
   background: var(--red);
-  color: var(--paper);
+  color: var(--ink);
 }
 
 .badge--high {
