@@ -1,35 +1,49 @@
-# Claude Code — Instructions projet
+# Claude Code — ObjectifLycee
 
-## Règle principale : GSD via Codex
+## Profil & stack
+- Solo dev, bases en info, pas ingénieur. Code simple, lisible dans 6 mois par moi-même.
+- Site statique : HTML/CSS/JS **vanilla**, pas de framework.
+- Arbo : `*.html` racine, `assets/css/pages/`, `assets/js/`, `data/`, `scripts/`, `docs/`.
 
-**Toutes les commandes GSD doivent être exécutées via `codex exec` (PowerShell/Bash), pas via le Skill tool Claude.**
+## Règles projet (priment sur les défauts Claude)
+- **Inline > extraction.** Duplique 2× sans réfléchir, extrais à la 3ᵉ. Pas de `utils.js` fourre-tout.
+- **Pas de split de fichier** sauf > 500 lignes ET responsabilités distinctes.
+- **Pas de tests unitaires** sans demande explicite.
+- **Pas de dépendance npm** sans demander d'abord.
+- CSS par page dans `assets/css/pages/` si > 50 lignes, sinon `styles.css`. Tokens dans `:root`.
 
-Quand l'utilisateur invoque `/gsd-<command> [args]` :
-
+## GSD via Codex (CRITIQUE)
+Les commandes `/gsd-*` passent par `codex exec`, **jamais** via Skill :
 ```
-# NE PAS FAIRE :
-Skill("gsd-execute-phase", "3")
-
-# FAIRE À LA PLACE :
-Bash("codex exec '/gsd-execute-phase 3'")
+Bash("codex exec '/gsd-execute-phase 3'")   # OUI
+Skill("gsd-execute-phase", "3")              # NON
 ```
+Raison : skills GSD dans `~/.codex/skills/`. Délègue le compute LLM lourd sur l'abonnement Codex.
+Phases longues : `run_in_background: true` ou `timeout: 600000`.
 
-Raison : les skills GSD sont présents dans `~/.codex/skills/`. Passer par `codex exec` délègue le compute LLM lourd (exécution de phases, vérification, review) sur l'abonnement Codex de l'utilisateur, pas sur l'abonnement Claude.
+## Pré-commit
+1. `/simplify` — duplication, code mort, sur-ingénierie sur le diff.
+2. `/review` — code review pré-merge (sécurité, bugs structurels).
 
-## Invocations types
+## Itération visuelle
+Codex implémente → Playwright capture → Claude critique le screenshot → corrections → recapture. Boucle détaillée : `WORKFLOW.md` (Workflow 2).
 
-```
-codex exec "/gsd-execute-phase 3"
-codex exec "/gsd-plan-phase 3"
-codex exec "/gsd-discuss-phase 3"
-codex exec "/gsd-verify-work 3"
-codex exec "/gsd-progress"
-```
+## Contraintes Windows
+- Hooks PostToolUse échouent (non-bloquant, ignorer).
+- Écriture fichier via PowerShell `WriteAllText` avec `UTF8Encoding(false)`.
+- Pas de backticks dans JS embarqué dans heredocs PowerShell.
 
-Utiliser `run_in_background: true` ou `timeout: 600000` pour les phases longues.
+## Edge case KaTeX
+Ne **jamais** styler un tag générique (`.bloc span`, `.card div`, etc.) dans une zone contenant des formules — KaTeX découpe chaque formule en multiples `<span>`. Utiliser une classe dédiée sur l'élément exact. Cas détaillé : `docs/erreurs-rencontrees.md`.
 
-## Contraintes fichiers (Windows)
-
-- Hooks PostToolUse échouent sur Windows (erreur & en bash) — non-bloquant, ignorer.
-- Toute écriture de fichier via PowerShell WriteAllText avec UTF8Encoding(false).
-- Pas de backticks dans le JS embarqué dans des heredocs PowerShell.
+## Docs domaine (référence — charger si pertinent)
+| Fichier | Sujet |
+|---|---|
+| `docs/mission-valeur-monetisation.md` | Promesse produit, funnel, paywall, pricing |
+| `docs/version-lycee-priorites.md` | Priorités version lycée, ton élève/parent |
+| `docs/pipeline-cours-ia.md` | Pipeline PDF → cours HTML+KaTeX |
+| `docs/generation-image-cours.md` | Règles visuels pédagogiques, prompts imagegen |
+| `docs/vibe-coding-methode.md` | Méthode dev solo (UI → archi → paiement → features) |
+| `WORKFLOW.md` | Pipeline données lycée + boucle Codex+Playwright |
+| `TODO.md` | Roadmap P0–P3 |
+| `SKILLS-GUIDE.md` | Mémo skills (fréquences, plan-review) |
