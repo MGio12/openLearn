@@ -1,7 +1,14 @@
-﻿const pdfParse = require('pdf-parse');
+﻿const { PDFParse } = require('pdf-parse');
 const fs = require('fs');
 const pdfPath = process.argv[2];
 const buf = fs.readFileSync(pdfPath);
-pdfParse(buf).then(data => {
-  console.log(data.text);
-}).catch(e => console.error(e));
+const parser = new PDFParse({ data: buf });
+parser.getText()
+  .then(async (data) => {
+    await parser.destroy();
+    console.log(data.text);
+  })
+  .catch(async (e) => {
+    await parser.destroy();
+    console.error(e);
+  });

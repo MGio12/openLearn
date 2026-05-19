@@ -1,0 +1,314 @@
+1
+Yvan Monka – Académie de Strasbourg – www.maths-et-tiques.fr
+SECOND DEGRÉ – Chapitre 2/2
+Tout le cours en vidéo : https://youtu.be/tc9wvbYuZts
+Partie 1 : Résolution d'une équation du second degré
+Définition : Une équation du second degré est une équation de la forme
+𝑎𝑥! + 𝑏𝑥 + 𝑐 = 0 où 𝑎, 𝑏 et 𝑐 sont des réels avec 𝑎 ≠ 0.
+Exemple :
+L'équation 3𝑥! − 6𝑥 − 2 = 0 est une équation du second degré.
+Définition : On appelle discriminant du trinôme 𝑎𝑥! + 𝑏𝑥 + 𝑐, le nombre D = 𝑏! − 4𝑎𝑐.
+Propriété : Soit D le discriminant du trinôme 𝑎𝑥! + 𝑏𝑥 + 𝑐.
+- Si D < 0 : L'équation 𝑎𝑥! + 𝑏𝑥 + 𝑐 = 0 n'a pas de solution réelle.
+- Si D = 0 : L'équation 𝑎𝑥! + 𝑏𝑥 + 𝑐 = 0 a une unique solution : 𝑥" = !"
+#$.
+- Si D > 0 : L'équation 𝑎𝑥! + 𝑏𝑥 + 𝑐 = 0 a deux solutions distinctes :
+𝑥# = !"!√&
+#$ et 𝑥! = !"'√&
+#$ .
+Démonstration au programme :
+Vidéo https://youtu.be/7VFpZ63Tgis
+On a vu dans « Second degré - Chapitre 1/2 » que la fonction 𝑓 définie sur ℝ par
+𝑓(𝑥) = 𝑎𝑥! + 𝑏𝑥 + 𝑐 peut s'écrire sous sa forme canonique :
+𝑓(𝑥) = 𝑎(𝑥 − 𝛼)! + 𝛽 avec 𝛼 = − "
+#$ et 𝛽 = − "!!($)
+($ .
+Donc :
+𝑎𝑥! + 𝑏𝑥 + 𝑐 = 0 peut s’écrire :
+𝑎 4𝑥 + 𝑏
+2𝑎5
+!
+− 𝑏! − 4𝑎𝑐
+4𝑎 = 0
+𝑎 4𝑥 + 𝑏
+2𝑎5
+!
+− Δ
+4𝑎 = 0
+𝑎 4𝑥 + 𝑏
+2𝑎5
+!
+= Δ
+4𝑎
+4𝑥 + 𝑏
+2𝑎5
+!
+= Δ
+4𝑎!
+car 𝑎 est non nul.
+
+-- 1 of 8 --
+
+2
+Yvan Monka – Académie de Strasbourg – www.maths-et-tiques.fr
+- Si D < 0 : Comme un carré ne peut être négatif 7 Δ
+4𝑎2 < 09, l'équation
+𝑎𝑥! + 𝑏𝑥 + 𝑐 = 0 n'a pas de solution.
+- Si D = 0 : L'équation 𝑎𝑥! + 𝑏𝑥 + 𝑐 = 0 peut s'écrire :
+4𝑥 + 𝑏
+2𝑎5
+!
+= 0
+L'équation n'a qu'une seule solution : 𝑥" = !"
+#$
+- Si D > 0 : L'équation 𝑎𝑥! + 𝑏𝑥 + 𝑐 = 0 est équivalente à :
+𝑥 + "
+#$ = − ! !
+"#! 	ou 	𝑥 + "
+#$ = ! !
+"#!
+𝑥 + "
+#$ = − √&
+#$ ou 	𝑥 + "
+#$ = √&
+#$
+𝑥 = − √&
+#$ − "
+#$ ou 	𝑥 = √&
+#$ − "
+#$
+𝑥 = !"!√&
+#$ ou 	𝑥 = !"'√&
+#$
+L'équation a deux solutions distinctes : 	𝑥# = !"!√&
+#$ et 	𝑥! = !"'√&
+#$
+Méthode : Résoudre une équation du second degré
+Vidéo https://youtu.be/youUIZ-wsYk
+Vidéo https://youtu.be/RhHheS2Wpyk
+Vidéo https://youtu.be/v6fI2RqCCiE
+Résoudre les équations suivantes :
+a) 2𝑥! − 𝑥 − 6 = 0 	b) 2𝑥! − 3𝑥 + 9
+8 = 0 	c) 𝑥! + 3𝑥 + 10 = 0
+Correction
+a) Calculons le discriminant de l'équation 2𝑥! − 𝑥 − 6 = 0 :
+𝑎 = 2, 𝑏 = −1 et 𝑐 = −6 donc D = 𝑏! − 4𝑎𝑐 = (−1)! − 4 × 2 × (−6) = 49.
+Comme D > 0, l'équation possède deux solutions distinctes :
+𝑥# = !"!√&
+#$ = !(!0)!√(2
+#×# = − 4
+#
+𝑥! = !"'√&
+#$ = !(!0)'√(2
+#×# = 2
+b) Calculons le discriminant de l'équation 2𝑥! − 3𝑥 + 9
+8 = 0 :
+
+-- 2 of 8 --
+
+3
+Yvan Monka – Académie de Strasbourg – www.maths-et-tiques.fr
+𝑎 = 2, 𝑏 = −3 et 𝑐 = 9
+8 donc D = 𝑏! − 4𝑎𝑐 = (−3)! − 4 × 2 × 	= 0.
+Comme D = 0, l'équation possède une unique solution :
+𝑥" = − "
+#$ = − !4
+#×# = 4
+(
+c) Calculons le discriminant de l'équation 𝑥! + 3𝑥 + 10 = 0 :
+𝑎 = 1, 𝑏 = 3 et 𝑐 = 10 donc D = 𝑏! − 4𝑎𝑐 = 3! − 4 × 1 × 10 = −31.
+Comme D < 0, l'équation ne possède pas de solution réelle.
+Définition :
+Pour une fonction polynôme 𝑓 du second degré de la forme 𝑓(𝑥) = 𝑎𝑥! + 𝑏𝑥 + 𝑐, les
+solutions de l’équation 𝑎𝑥! + 𝑏𝑥 + 𝑐 = 0 s’appelle les racines de 𝑓.
+Remarque : Dans la pratique, une racine 𝑥# de 𝑓 vérifie 𝑓(𝑥#) = 0.
+La courbe de 𝑓 coupe l’axe des abscisses en 𝑥#.
+Propriété : La somme 𝑆 et le produit 𝑃 des racines d’un polynôme du second degré de la
+forme 𝑎𝑥! + 𝑏𝑥 + 𝑐 sont donnés par : 𝑆 = − "
+$ et 𝑃 = )
+$.
+Méthode : Utiliser les formules de somme et produit des racines
+Vidéo A venir bientôt
+Soit 𝑓 la fonction polynôme du second degré définie sur ℝ par : 𝑓(𝑥) = −2𝑥! + 𝑥 + 1.
+1) Montrer que 𝑥# = 1 est une racine de 𝑓.
+2) Déterminer la deuxième racine.
+Correction
+1) 𝑥# est une racine si elle vérifie 𝑓(𝑥#) = 0.
+𝑓(𝑥#) = 𝑓(1) = −2 × 1! + 1 + 1 = 0.
+Donc 𝑥# est une racine de 𝑓.
+2) En utilisant le produit des racines, on a :
+𝑃 = 𝑥# × 𝑥! = 1 × 𝑥! = 𝑥!
+Et 𝑃 = 𝑐
+𝑎 = 1
+−2 = − 1
+2.
+Donc 𝑥! = − 1
+2
+Et donc 𝑓 admet 𝑥! = − 1
+2 comme deuxième racine.
+9
+8
+
+-- 3 of 8 --
+
+4
+Yvan Monka – Académie de Strasbourg – www.maths-et-tiques.fr
+Partie 2 : Factorisation et signe d'un trinôme
+1) Factorisation
+Propriété : Soit 𝑓 une fonction polynôme du second degré définie sur ℝ par :
+𝑓(𝑥) = 𝑎𝑥! + 𝑏𝑥 + 𝑐.
+- Si D = 0 : 𝑓(𝑥) = 𝑎(𝑥 − 𝑥")!, avec 𝑥" racine de 𝑓.
+- Si D > 0 : 𝑓(𝑥) = 𝑎(𝑥 − 𝑥#)(𝑥 − 𝑥!), avec 𝑥# et 𝑥! racines de 𝑓.
+Remarque : Si D < 0, il n’existe pas de forme factorisée de 𝑓.
+Méthode : Déterminer les fonctions du second degré, s’annulant en deux nombres réels
+distincts
+Vidéo https://youtu.be/JiokX41_2nw
+On considère la fonction polynôme 𝑓 du second degré s’annulant en −1 et 2 et tel que
+𝑓(3) = −2. Déterminer une expression factorisée de la fonction 𝑓.
+Correction
+● Comme la fonction 𝑓 s’annule en −1 et 2, on peut affirmer que −1 et 2 sont les racines de
+𝑓.
+Et donc : 𝑓(𝑥) = 𝑎(𝑥 − (−1))(𝑥 − 2) = 𝑎(𝑥 + 1)(𝑥 − 2).
+● De plus, 𝑓(3) = −2
+Donc : 𝑎(3 + 1)(3 − 2) = −2
+𝑎 × 4 × 1 = −2
+𝑎 = − 2
+4 = − 1
+2
+● On en déduit que : 𝑓(𝑥) = − 1
+2 (𝑥 + 1)(𝑥 − 2).
+Méthode : Factoriser un trinôme
+Vidéo https://youtu.be/eKrZK1Iisc8
+Factoriser les trinômes suivants : a) 4𝑥! + 19𝑥 − 5 	b) 9𝑥! − 6𝑥 + 1
+Correction
+a) On cherche les racines du trinôme 4𝑥! + 19𝑥 − 5 :
+Calcul du discriminant : D = 19! − 4 × 4 × (−5) = 441
+Les racines sont : 𝑥# = !02!√((0
+#×( = −5 et 𝑥! = !02'√((0
+#×( = 0
+(
+
+-- 4 of 8 --
+
+5
+Yvan Monka – Académie de Strasbourg – www.maths-et-tiques.fr
+On a donc :
+4𝑥! + 19𝑥 − 5 = 4B𝑥 − (−5)C 7𝑥 − 1
+49 = 4(𝑥 + 5) 7𝑥 − 1
+49.
+b) On cherche les racines du trinôme 9𝑥! − 6𝑥 + 1 :
+Calcul du discriminant : D = (−6)! − 4 × 9 × 1 = 0
+La racine unique est : 𝑥" = − !9
+#×2 = 0
+4
+On a donc :
+9𝑥! − 6𝑥 + 1 = 9 4𝑥 − 1
+35
+!
+2) Signe d'un trinôme
+Propriété : Soit 𝑓 une fonction polynôme du second degré définie sur ℝ par
+𝑓(𝑥) = 𝑎𝑥! + 𝑏𝑥 + 𝑐.
+- Si D < 0 : 𝑓 ne possède pas de racine. Donc 𝑓 ne s’annule pas.
+- Si D = 0 : 𝑓 possède une unique racine 𝑥". Donc 𝑓 s’annule en 𝑥".
+- Si D > 0 : 𝑓 possède deux racines 𝑥# et 𝑥!. Donc 𝑓 s’annule en 𝑥# et 𝑥!.
+𝑥 	−∞ 	+ ∞
+𝑓(𝑥) 	+
+𝑥 	−∞ 	+ ∞
+𝑓(𝑥) 	−
+𝑥 	−∞ 	𝑥0 + ∞
+𝑓(𝑥) 	+ 	O 	+
+𝑥 	−∞ 	𝑥0 + ∞
+𝑓(𝑥) 	− 	O 	−
+𝑥 	−∞ 	𝑥1 	𝑥! 	+ ∞
+𝑓(𝑥) 	+ 	O 	− 	O 	+
+𝑥 	−∞ 	𝑥1 	𝑥! 	+ ∞
+𝑓(𝑥) 	− 	O 	+ 	O 	−
+a > 0 	a < 0
+a > 0 	a < 0
+𝑥! 	𝑥"
+𝑥! 	𝑥"
+a > 0 	a < 0
+𝑥#
+𝑥#	x
+
+-- 5 of 8 --
+
+6
+Yvan Monka – Académie de Strasbourg – www.maths-et-tiques.fr
+Méthode : Déterminer le signe d’un trinôme
+Vidéo https://youtu.be/pT4xtI2Yg2Q
+Vidéo https://youtu.be/sFNW9KVsTMY
+Vidéo https://youtu.be/JCVotquzIIA
+Démontrer que la fonction polynôme 𝑓 du second degré définie sur ℝ par
+𝑓(𝑥) = 2𝑥! + 𝑥 + 4 est positive.
+Correction
+Le discriminant de 2𝑥! + 𝑥 + 4 est D = 1! − 4 × 2 × 4 = −31 < 0
+La fonction 𝑓 ne possède pas de racine.
+La parabole représentant 𝑓 se trouve donc soit au-dessus de l’axe des
+abscisses, soit en dessous.
+Comme 𝑎 = 2 > 0, la parabole a les branches tournées vers le haut (en
+position « 😊 ») et donc elle se trouve au-dessus de l’axe des abscisses.
+On en déduit que 𝑓 est toujours positive.
+Méthode : Résoudre une inéquation du second degré
+Vidéo https://youtu.be/AEL4qKKNvp8
+Résoudre les inéquations : 	a) 𝑥! − 2𝑥 − 15 < 0
+b) 𝑥! + 3𝑥 − 5 < −𝑥 + 2
+Correction
+a) Le discriminant de 𝑥! − 2𝑥 − 15 est D = (−2)! − 4 × 1 × (−15) = 64 et ses racines
+sont :
+𝑥# = #!√9(
+#×0 = −3 et 𝑥! = #'√9(
+#×0 = 5
+On obtient le tableau de signes :
+On lit dans le tableau de signes que 𝑥! − 2𝑥 − 15 < 0 pour −3 < 𝑥 < 5.
+L'ensemble des solutions de l'inéquation 𝑥! − 2𝑥 − 15 < 0 est donc 𝑆 = ]−3 ; 5[.
+𝑥 	−∞ 	− 3 	5 	+ ∞
+𝑥! − 2𝑥 − 15 	+ 	O 	− 	O 	+
+a =1> 0
+
+-- 6 of 8 --
+
+7
+Yvan Monka – Académie de Strasbourg – www.maths-et-tiques.fr
+b) On commence par rassembler tous les termes dans le membre de gauche afin de pouvoir
+étudier le signe d’un trinôme :
+𝑥! + 3𝑥 − 5 < −𝑥 + 2
+𝑥! + 3𝑥 − 5 + 𝑥 − 2 < 0
+𝑥! + 4𝑥 − 7 < 0.
+Le discriminant de 𝑥! + 4𝑥 − 7 est D = 4! − 4 × 1 × (−7) = 44 et ses racines sont :
+𝑥# = !(!√((
+#×0 = !(!#√00
+# = −2 − √11 et 𝑥! = !('√((
+#×0 = −2 + √11
+On obtient le tableau de signes :
+On lit dans le tableau de signes que 𝑥! + 4𝑥 − 7 < 0 pour −2 − √11 < 𝑥 < −2 + √11.
+L'ensemble des solutions de l'inéquation 𝑥! + 3𝑥 − 5 < −𝑥 + 2 est donc :
+𝑆 = J−2 − √11 ; −2 + √11K.
+3) Application
+Méthode : Étudier la position de deux courbes
+Vidéo https://youtu.be/EyxP5HIfyF4
+Soit 𝑓 et 𝑔 deux fonctions définies sur ℝ par : 𝑓(𝑥) = −𝑥! + 8𝑥 − 11 et 𝑔(𝑥) = 𝑥 − 1.
+Étudier la position relative des courbes représentatives 𝐶& et 𝐶'.
+Correction
+On va étudier le signe de la différence 𝑓(𝑥) − 𝑔(𝑥) :
+𝑓(𝑥) − 𝑔(𝑥) = −𝑥! + 8𝑥 − 11 − 𝑥 + 1 = −𝑥! + 7𝑥 − 10.
+Le discriminant du trinôme −𝑥! + 7𝑥 − 10 est D = 7! − 4 × (−1) × (−10) = 9
+Le trinôme possède deux racines distinctes :
+𝑥# = !:!√2
+#×(!0) = 5 et 𝑥! = !:'√2
+#×(!0) = 2
+On dresse le tableau de signes du trinôme −𝑥! + 7𝑥 − 10 :
+On conclut :
+● 𝑓(𝑥) − 𝑔(𝑥) ≤ 0, soit 𝑓(𝑥) ≤ 𝑔(𝑥) pour tout 𝑥 de ]−∞ ; 2] ∪ [5 ; +∞[.
+La courbe 𝐶& est donc en-dessous de la courbe 𝐶' pour tout 𝑥 de ]−∞ ; 2] ∪ [5 ; +∞[.
+● De même, la courbe 𝐶& est au-dessus de la courbe 𝐶' pour tout 𝑥 de [2 ; 5].
+
+-- 7 of 8 --
+
+8
+Yvan Monka – Académie de Strasbourg – www.maths-et-tiques.fr
+Hors du cadre de la classe, aucune reproduction, même partielle, autres que celles prévues à l'article L 122-5 du
+code de la propriété intellectuelle, ne peut être faite de ce site sans l'autorisation expresse de l'auteur.
+www.maths-et-tiques.fr/index.php/mentions-legales
+
+-- 8 of 8 --

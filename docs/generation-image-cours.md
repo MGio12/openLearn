@@ -16,9 +16,23 @@ Utiliser trois niveaux selon le besoin.
 
 1. **Intuition** : scène réelle ou métaphore visuelle, générée avec imagegen. Elle aide l'élève à ressentir l'idée avant la formule.
 2. **Transition** : imagegen fournit une scène mémorable, puis le cours passe à un graphe exact séparé.
-3. **Mathématique exacte** : SVG, KaTeX ou JSXGraph quand la position d'un point, la pente, une tangente ou une formule doit être fiable.
+3. **Mathématique exacte** : KaTeX, JSXGraph, Desmos, GeoGebra ou tracé calculé depuis une vraie fonction quand la position d'un point, la pente, une tangente ou une formule doit être fiable.
 
 Par défaut, les cours de maths doivent éviter de mélanger une scène imagegen et une courbe mathématique dans le même visuel. L'image sert à installer le contexte mental ; le graphe séparé sert à manipuler la mathématique.
+
+## Règle bloquante : courbes dessinées à la main interdites
+
+Ne jamais dessiner une courbe, parabole, tangente, sécante, axe gradué, graphe ou schéma mathématique approximatif à la main avec SVG, Canvas, CSS, Bézier ou HTML décoratif.
+
+Cette interdiction vaut même pour un schéma "juste intuitif". Une courbe approximative donne une fausse autorité mathématique et peut installer une mauvaise image mentale.
+
+Choisir uniquement l'une de ces options :
+
+- **Langage mathématique exact** : KaTeX, tableau, liste de cas, formule, ou graphe généré par JSXGraph/Desmos/GeoGebra.
+- **Tracé déterministe** : points calculés depuis une vraie fonction, jamais une courbe Bézier dessinée à l'œil.
+- **Imagegen d'intuition** : scène réelle ou métaphore, avec prompt explicite, sans axes, sans graduation, sans formule, sans labels mathématiques critiques.
+
+Si un agent hésite entre "petit SVG rapide" et "explication textuelle", il doit choisir l'explication textuelle.
 
 ## Structure de prompt imagegen
 
@@ -36,7 +50,7 @@ Composition/framing: wide landscape, readable silhouette
 Color role: keep colors compatible with the exact graph that follows
 Text (verbatim): none
 Constraints: no decorative clutter, no watermark, no logo, no random text
-Follow-up visual: exact SVG, KaTeX or JSXGraph graph for the mathematical object
+Follow-up visual: exact KaTeX, JSXGraph, Desmos, GeoGebra, or calculated graph for the mathematical object
 ```
 
 ## Couleurs et légendes
@@ -64,6 +78,7 @@ Règle d'acceptation : si un label ou symbole est faux, flou ou ambigu, ne pas r
 
 - Une belle illustration qui ne répond pas à l'intention pédagogique.
 - Une métaphore qui remplace la mathématique au lieu de préparer le passage au graphe.
+- Une courbe, parabole, tangente, sécante ou axe dessiné à la main en SVG/Canvas/CSS/Bezier.
 - Une tangente, une sécante ou une courbe mathématique dessinée directement sur une image imagegen.
 - Des axes, points ou droites générés approximativement alors que la précision compte.
 - Des formules dans une image raster.
@@ -80,7 +95,7 @@ Avant d'accepter un visuel :
 - L'élève peut identifier en moins de cinq secondes l'objet principal.
 - Les couleurs ont un rôle constant avec le reste du chapitre.
 - Les labels sont courts, lisibles et exacts.
-- Les éléments mathématiques précis sont dans un visuel séparé en SVG, HTML, KaTeX ou JSXGraph.
+- Les éléments mathématiques précis sont en KaTeX, JSXGraph, Desmos, GeoGebra, ou tracés depuis des points calculés.
 - Le visuel reste lisible en mobile.
 - L'alt text décrit l'idée, pas seulement l'apparence.
 - Le fichier final est dans le dossier du chapitre, jamais seulement dans un dossier temporaire imagegen.
@@ -116,7 +131,7 @@ Follow-up visual: JSXGraph function graph with a glider point A and a tangent el
 ### Graphes exacts à privilégier ensuite
 
 - **Tangente** : JSXGraph avec `functiongraph`, point glissant et tangente recalculée.
-- **Taux de variation** : SVG déterministe ou JSXGraph avec deux points \(A\), \(M\) et une sécante.
-- **Signe de la dérivée** : SVG déterministe ou JSXGraph pour distinguer clairement \(f'(x)<0\), \(f'(x)=0\) et \(f'(x)>0\).
+- **Taux de variation** : JSXGraph avec deux points \(A\), \(M\) et une sécante, ou tracé calculé depuis une vraie fonction.
+- **Signe de la dérivée** : JSXGraph ou tableau mathématique exact pour distinguer clairement \(f'(x)<0\), \(f'(x)=0\) et \(f'(x)>0\).
 
-Ne pas générer ces courbes dans imagegen : l'image sert seulement à aider l'élève à imaginer un contexte réel avant de passer à la représentation mathématique.
+Ne pas générer de graphe mathématique exact dans imagegen : l'image sert seulement à aider l'élève à imaginer un contexte réel avant de passer à la représentation mathématique. Si imagegen est utilisé, le prompt doit interdire les axes, graduations, formules et labels mathématiques.

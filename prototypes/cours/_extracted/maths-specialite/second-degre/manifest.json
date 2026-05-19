@@ -1,0 +1,37 @@
+{
+  "inputDir": "/home/user1/Documents/prepaSiteV2/prototypes/cours/_sources/maths-specialite/second-degre",
+  "outputDir": "/home/user1/Documents/prepaSiteV2/prototypes/cours/_extracted/maths-specialite/second-degre",
+  "extractedAt": "2026-05-19T08:28:50.762Z",
+  "expectedCorpusSize": "2-5 PDFs for the prototype",
+  "warnings": [],
+  "sources": [
+    {
+      "id": "source-01-maths-et-tiques-second-degre-partie-1",
+      "filename": "maths-et-tiques-second-degre-partie-1.pdf",
+      "textFile": "source-01-maths-et-tiques-second-degre-partie-1.txt",
+      "pages": 5,
+      "characters": 5699
+    },
+    {
+      "id": "source-02-maths-et-tiques-second-degre-partie-2",
+      "filename": "maths-et-tiques-second-degre-partie-2.pdf",
+      "textFile": "source-02-maths-et-tiques-second-degre-partie-2.txt",
+      "pages": 8,
+      "characters": 9529
+    },
+    {
+      "id": "source-03-maths91-second-degre-cours",
+      "filename": "maths91-second-degre-cours.pdf",
+      "textFile": "source-03-maths91-second-degre-cours.txt",
+      "pages": 12,
+      "characters": 17742
+    },
+    {
+      "id": "source-04-maths91-second-degre-exercices",
+      "filename": "maths91-second-degre-exercices.pdf",
+      "textFile": "source-04-maths91-second-degre-exercices.txt",
+      "pages": 6,
+      "characters": 10205
+    }
+  ]
+}

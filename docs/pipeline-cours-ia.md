@@ -45,7 +45,7 @@ Le format final n'est pas un PDF ni un Markdown : c'est une page **HTML + KaTeX*
    - inline : `\( f'(a) \)`
    - bloc : `\[ f'(a)=\lim_{h\to0}\frac{f(a+h)-f(a)}{h} \]`
 
-5. Les visualisations sont ajoutées uniquement quand elles clarifient une idée. Les règles détaillées sont dans [`docs/generation-image-cours.md`](generation-image-cours.md) : intention pédagogique avant esthétique, scène réelle en style BD pour l'intuition, annotations exactes en HTML/SVG/KaTeX quand la précision compte.
+5. Les visualisations sont ajoutées uniquement quand elles clarifient une idée. Les règles détaillées sont dans [`docs/generation-image-cours.md`](generation-image-cours.md) : intention pédagogique avant esthétique, imagegen pour l'intuition, et représentation mathématique exacte via KaTeX, JSXGraph, Desmos, GeoGebra ou tracé calculé. Les courbes dessinées à la main en SVG/Canvas/CSS/Bezier sont interdites.
 
 6. Le dossier de sortie contient :
 
@@ -60,6 +60,9 @@ Le format final n'est pas un PDF ni un Markdown : c'est une page **HTML + KaTeX*
    - `cours.js`
 
 ## Règles pédagogiques
+
+Les techniques d'apprentissage à appliquer sont centralisées dans [`docs/techniques-apprentissage-maths.md`](techniques-apprentissage-maths.md).
+Les règles de création, de rétention et de monétisation des cours sont dans [`docs/regles-creation-cours-maths.md`](regles-creation-cours-maths.md).
 
 - Le ton doit être celui d'un professeur exigeant, clair, agréable et rassurant.
 - Le cours doit aider l'élève à reprendre confiance sans baisser le niveau.

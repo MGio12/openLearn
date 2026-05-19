@@ -1,0 +1,1342 @@
+# source-01-maths-et-tiques-second-degre-partie-1
+Original file: maths-et-tiques-second-degre-partie-1.pdf
+
+1
+Yvan Monka – Académie de Strasbourg – www.maths-et-tiques.fr
+SECOND DEGRÉ – Chapitre 1/2
+Tout le cours en vidéo : https://youtu.be/WVYWdN13kPE
+Partie 1 : Fonction polynôme du second degré
+Définition : On appelle fonction polynôme du second degré toute fonction 𝑓 définie sur ℝ
+par une expression de la forme :
+𝑓(𝑥) = 𝑎𝑥! + 𝑏𝑥 + 𝑐
+où les coefficients 𝑎, 𝑏 et 𝑐 sont des réels donnés avec 𝑎 ≠ 0.
+Remarque :
+Une fonction polynôme du second degré s'appelle également « trinôme ».
+Exemples et contre-exemples :
+𝑓(𝑥) = 3𝑥! − 7𝑥 + 3
+𝑔(𝑥) = 1
+2 𝑥! − 5𝑥 + 3
+5
+ℎ(𝑥) = 4 − 2𝑥! 	sont des fonctions polynômes du second degré.
+𝑘(𝑥) = (𝑥 − 4)(5 − 2𝑥)
+𝑚(𝑥) = 5𝑥 − 3 	est une fonction polynôme du premier degré (fonction affine).
+𝑛(𝑥) = 5𝑥" − 7𝑥# + 3𝑥 − 8 	est une fonction polynôme de degré 4.
+Partie 2 : Forme canonique d'une fonction polynôme du second degré
+Propriété :
+Toute fonction polynôme 𝑓 du second degré définie sur ℝ par 𝑓(𝑥) = 𝑎𝑥! + 𝑏𝑥 + 𝑐 peut
+s'écrire sous la forme :
+𝑓(𝑥) = 𝑎(𝑥 − 𝛼)! + 𝛽, où 𝛼 et 𝛽 sont deux nombres réels.
+Cette dernière écriture s'appelle la forme canonique de 𝑓.
+Démonstration :
+Comme 𝑎 ≠ 0, on peut écrire :
+𝑓(𝑥) = 𝑎𝑥! + 𝑏𝑥 + 𝑐
+= 𝑎 <𝑥! + 𝑏
+𝑎 𝑥= + 𝑐
+= 𝑎 >𝑥! + 𝑏
+𝑎 𝑥 + ? 𝑏
+2𝑎@
+!
+− ? 𝑏
+2𝑎@
+!
+A + 𝑐
+= 𝑎 >?𝑥 + 𝑏
+2𝑎@
+!
+− ? 𝑏
+2𝑎@
+!
+A + 𝑐
+
+-- 1 of 5 --
+
+2
+Yvan Monka – Académie de Strasbourg – www.maths-et-tiques.fr
+= 𝑎 ?𝑥 + 𝑏
+2𝑎@
+!
+− 𝑎 𝑏!
+4𝑎! + 𝑐
+= 𝑎 ?𝑥 + 𝑏
+2𝑎@
+!
+− 𝑏!
+4𝑎 + 𝑐
+= 𝑎 ?𝑥 + 𝑏
+2𝑎@
+!
+− 𝑏! − 4𝑎𝑐
+4𝑎
+= 𝑎(𝑥 − 𝛼)! + 𝛽 avec 𝛼 = − !
+"# et 𝛽 = − !!$%#&
+%# .
+Méthode : Déterminer la forme canonique d'une fonction polynôme du second degré
+Vidéo https://youtu.be/JcT6kph74O0
+Vidéo https://youtu.be/OQHf-hX9JhM
+Soit la fonction polynôme 𝑓 du second degré définie sur ℝ par : 𝑓(𝑥) = 2𝑥! − 20𝑥 + 10.
+Écrire 𝑓 sous sa forme canonique.
+Correction
+On veut exprimer la fonction 𝑓 sous sa forme canonique :
+𝑓(𝑥) =J(𝑥 −J)2 + J
+où J, J et J sont des nombres réels.
+𝑓(𝑥) = 2𝑥! − 20𝑥 + 10
+= 2[𝑥! − 10𝑥] + 10
+= 2[𝑥! − 10𝑥 + 25 − 25] + 10
+= 2[(𝑥 − 5)! − 25] + 10
+= 2(𝑥 − 5)! − 50 + 10
+= 2(𝑥 − 5)! − 40
+𝑓(𝑥) = 2(𝑥 − 5)! − 40 est la forme canonique de 𝑓.
+Partie 3 : Variations, extremum et représentation graphique
+1) Variations
+Propriétés :
+Soit 𝑓 une fonction polynôme du second degré, telle que 𝑓(𝑥) = 𝑎𝑥! + 𝑏𝑥 + 𝑐.
+- Si 𝑎 est positif, 𝑓 est d’abord décroissante, puis croissante : « 😊 ».
+- Si 𝑎 est négatif, 𝑓 est d’abord croissante, puis décroissante : « ☹ ».
+← car 𝑥! − 10𝑥 est le début du développement
+de (𝑥 − 5)! et (𝑥 − 5)! = 𝑥! − 10𝑥 + 25
+
+-- 2 of 5 --
+
+3
+Yvan Monka – Académie de Strasbourg – www.maths-et-tiques.fr
+𝑎 > 0 	𝑎 < 0
+2) Extremum
+Exemple : Soit la fonction 𝑓 donnée sous sa forme canonique par : 𝑓(𝑥) = 2(𝑥 − 1)! + 3
+On a : 2(𝑥 − 1)! ≥ 0
+Donc : 2(𝑥 − 1)! + 3 ≥ 3
+Soit : 	𝑓(𝑥) ≥ 3
+Or : 𝑓(1) = 3 donc pour tout 𝑥, 𝑓(𝑥) ≥ 𝑓(1).
+𝑓 admet donc un minimum en 1. Ce minimum est égal à 3.
+Propriété :
+Soit 𝑓 une fonction polynôme du second degré définie par 𝑓(𝑥) = 𝑎(𝑥 − 𝛼)! +𝛽,
+avec 𝑎 ≠ 0.
+- Si 𝑎 > 0, 𝑓 admet un minimum pour 𝑥 = 𝛼. Ce minimum est égal à 𝛽.
+- Si 𝑎 < 0, 𝑓 admet un maximum pour 𝑥 = 𝛼. Ce maximum est égal à 𝛽.
+Propriété : Pour 𝑓(𝑥) = 𝑎𝑥! + 𝑏𝑥 + 𝑐, avec 𝑎 ≠ 0, on a : 𝛼 = − !
+"# et 𝛽 = 𝑓 H− 𝑏
+2𝑎I
+
+-- 3 of 5 --
+
+4
+Yvan Monka – Académie de Strasbourg – www.maths-et-tiques.fr
+Si 𝑎 > 0: 	Si 𝑎 < 0 :
+Définition :
+La représentation graphique d'une fonction polynôme 𝑓 du second degré s’appelle une
+parabole.
+Le point de coordonnées (𝛼 ; 𝛽) s’appelle le sommet de la parabole.
+Il correspond à l’extremum de la fonction 𝑓.
+Propriété :
+La parabole admet pour axe de symétrie la droite d’équation 𝑥 = 𝛼.
+Méthode : Déterminer les caractéristiques d’une parabole
+Vidéo https://youtu.be/7IOCVfUnoz0
+Soit la fonction polynôme du second degré défini par 𝑓(𝑥) = 2𝑥! − 12𝑥 + 1.
+Déterminer le sommet de la parabole de 𝑓 et son axe de symétrie.
+Correction
+- Les coordonnées du sommet de la parabole sont (𝛼 ; 𝛽), avec :
+𝛼 = − 𝑏
+2𝑎 = − −12
+2 × 2 = 3
+𝛽 = 𝑓 ?− 𝑏
+2𝑎@ = 𝑓(3) = 2 × 3! − 12 × 3 + 1 = −17
+Le point de coordonnées (3 ; −17) est donc le sommet
+de la parabole.
+Remarque : Comme 𝑎 = 2 > 0, ce sommet correspond
+à un minimum.
+- La parabole possède un axe de symétrie d'équation
+𝑥 = − !
+"#, soit 𝑥 = 3.
+La droite d’équation 𝑥 = 3 est donc axe de symétrie de
+la parabole.
+
+-- 4 of 5 --
+
+5
+Yvan Monka – Académie de Strasbourg – www.maths-et-tiques.fr
+3) Représentation graphique
+Méthode : Représenter graphiquement une fonction polynôme du second degré
+Vidéo https://youtu.be/KK76UohzUW4
+Représenter graphiquement la fonction polynôme 𝑓 du second degré définie sur ℝ par
+𝑓(𝑥) = −𝑥! + 4𝑥.
+Correction
+Commençons par écrire la fonction 𝑓 sous sa forme canonique :
+𝑓(𝑥) = −𝑥! + 4𝑥
+= −(𝑥! − 4𝑥)
+= −(𝑥! − 4𝑥 + 4 − 4)
+= −((𝑥 − 2)! − 4)
+= −(𝑥 − 2)! + 4
+𝑓 admet donc un maximum en 𝛼 = 2 égal à 𝛽 = 4.
+Remarque : On peut aussi appliquer les formules 𝛼 = − !
+"# et 𝛽 = 𝑓 H− 𝑏
+2𝑎I
+Les variations de 𝑓 sont donc données dans le tableau suivant :
+Pour représenter graphiquement la fonction 𝑓, on
+calcule les coordonnées de quelques points
+appartenant à la courbe :
+𝑓(0) = −0! + 4 × 0 = 0
+𝑓(1) = −1! + 4 × 1 = −1 + 4 = 3
+On obtient d’autres points par symétrie par rapport
+à la droite d’équation 𝑥 = 2.
+On trace la courbe représentative de 𝑓 ci-contre.
+Hors du cadre de la classe, aucune reproduction, même partielle, autres que celles prévues à l'article L 122-5 du
+code de la propriété intellectuelle, ne peut être faite de ce site sans l'autorisation expresse de l'auteur.
+www.maths-et-tiques.fr/index.php/mentions-legales
+
+-- 5 of 5 --
+
+---
+
+# source-02-maths-et-tiques-second-degre-partie-2
+Original file: maths-et-tiques-second-degre-partie-2.pdf
+
+1
+Yvan Monka – Académie de Strasbourg – www.maths-et-tiques.fr
+SECOND DEGRÉ – Chapitre 2/2
+Tout le cours en vidéo : https://youtu.be/tc9wvbYuZts
+Partie 1 : Résolution d'une équation du second degré
+Définition : Une équation du second degré est une équation de la forme
+𝑎𝑥! + 𝑏𝑥 + 𝑐 = 0 où 𝑎, 𝑏 et 𝑐 sont des réels avec 𝑎 ≠ 0.
+Exemple :
+L'équation 3𝑥! − 6𝑥 − 2 = 0 est une équation du second degré.
+Définition : On appelle discriminant du trinôme 𝑎𝑥! + 𝑏𝑥 + 𝑐, le nombre D = 𝑏! − 4𝑎𝑐.
+Propriété : Soit D le discriminant du trinôme 𝑎𝑥! + 𝑏𝑥 + 𝑐.
+- Si D < 0 : L'équation 𝑎𝑥! + 𝑏𝑥 + 𝑐 = 0 n'a pas de solution réelle.
+- Si D = 0 : L'équation 𝑎𝑥! + 𝑏𝑥 + 𝑐 = 0 a une unique solution : 𝑥" = !"
+#$.
+- Si D > 0 : L'équation 𝑎𝑥! + 𝑏𝑥 + 𝑐 = 0 a deux solutions distinctes :
+𝑥# = !"!√&
+#$ et 𝑥! = !"'√&
+#$ .
+Démonstration au programme :
+Vidéo https://youtu.be/7VFpZ63Tgis
+On a vu dans « Second degré - Chapitre 1/2 » que la fonction 𝑓 définie sur ℝ par
+𝑓(𝑥) = 𝑎𝑥! + 𝑏𝑥 + 𝑐 peut s'écrire sous sa forme canonique :
+𝑓(𝑥) = 𝑎(𝑥 − 𝛼)! + 𝛽 avec 𝛼 = − "
+#$ et 𝛽 = − "!!($)
+($ .
+Donc :
+𝑎𝑥! + 𝑏𝑥 + 𝑐 = 0 peut s’écrire :
+𝑎 4𝑥 + 𝑏
+2𝑎5
+!
+− 𝑏! − 4𝑎𝑐
+4𝑎 = 0
+𝑎 4𝑥 + 𝑏
+2𝑎5
+!
+− Δ
+4𝑎 = 0
+𝑎 4𝑥 + 𝑏
+2𝑎5
+!
+= Δ
+4𝑎
+4𝑥 + 𝑏
+2𝑎5
+!
+= Δ
+4𝑎!
+car 𝑎 est non nul.
+
+-- 1 of 8 --
+
+2
+Yvan Monka – Académie de Strasbourg – www.maths-et-tiques.fr
+- Si D < 0 : Comme un carré ne peut être négatif 7 Δ
+4𝑎2 < 09, l'équation
+𝑎𝑥! + 𝑏𝑥 + 𝑐 = 0 n'a pas de solution.
+- Si D = 0 : L'équation 𝑎𝑥! + 𝑏𝑥 + 𝑐 = 0 peut s'écrire :
+4𝑥 + 𝑏
+2𝑎5
+!
+= 0
+L'équation n'a qu'une seule solution : 𝑥" = !"
+#$
+- Si D > 0 : L'équation 𝑎𝑥! + 𝑏𝑥 + 𝑐 = 0 est équivalente à :
+𝑥 + "
+#$ = − ! !
+"#! 	ou 	𝑥 + "
+#$ = ! !
+"#!
+𝑥 + "
+#$ = − √&
+#$ ou 	𝑥 + "
+#$ = √&
+#$
+𝑥 = − √&
+#$ − "
+#$ ou 	𝑥 = √&
+#$ − "
+#$
+𝑥 = !"!√&
+#$ ou 	𝑥 = !"'√&
+#$
+L'équation a deux solutions distinctes : 	𝑥# = !"!√&
+#$ et 	𝑥! = !"'√&
+#$
+Méthode : Résoudre une équation du second degré
+Vidéo https://youtu.be/youUIZ-wsYk
+Vidéo https://youtu.be/RhHheS2Wpyk
+Vidéo https://youtu.be/v6fI2RqCCiE
+Résoudre les équations suivantes :
+a) 2𝑥! − 𝑥 − 6 = 0 	b) 2𝑥! − 3𝑥 + 9
+8 = 0 	c) 𝑥! + 3𝑥 + 10 = 0
+Correction
+a) Calculons le discriminant de l'équation 2𝑥! − 𝑥 − 6 = 0 :
+𝑎 = 2, 𝑏 = −1 et 𝑐 = −6 donc D = 𝑏! − 4𝑎𝑐 = (−1)! − 4 × 2 × (−6) = 49.
+Comme D > 0, l'équation possède deux solutions distinctes :
+𝑥# = !"!√&
+#$ = !(!0)!√(2
+#×# = − 4
+#
+𝑥! = !"'√&
+#$ = !(!0)'√(2
+#×# = 2
+b) Calculons le discriminant de l'équation 2𝑥! − 3𝑥 + 9
+8 = 0 :
+
+-- 2 of 8 --
+
+3
+Yvan Monka – Académie de Strasbourg – www.maths-et-tiques.fr
+𝑎 = 2, 𝑏 = −3 et 𝑐 = 9
+8 donc D = 𝑏! − 4𝑎𝑐 = (−3)! − 4 × 2 × 	= 0.
+Comme D = 0, l'équation possède une unique solution :
+𝑥" = − "
+#$ = − !4
+#×# = 4
+(
+c) Calculons le discriminant de l'équation 𝑥! + 3𝑥 + 10 = 0 :
+𝑎 = 1, 𝑏 = 3 et 𝑐 = 10 donc D = 𝑏! − 4𝑎𝑐 = 3! − 4 × 1 × 10 = −31.
+Comme D < 0, l'équation ne possède pas de solution réelle.
+Définition :
+Pour une fonction polynôme 𝑓 du second degré de la forme 𝑓(𝑥) = 𝑎𝑥! + 𝑏𝑥 + 𝑐, les
+solutions de l’équation 𝑎𝑥! + 𝑏𝑥 + 𝑐 = 0 s’appelle les racines de 𝑓.
+Remarque : Dans la pratique, une racine 𝑥# de 𝑓 vérifie 𝑓(𝑥#) = 0.
+La courbe de 𝑓 coupe l’axe des abscisses en 𝑥#.
+Propriété : La somme 𝑆 et le produit 𝑃 des racines d’un polynôme du second degré de la
+forme 𝑎𝑥! + 𝑏𝑥 + 𝑐 sont donnés par : 𝑆 = − "
+$ et 𝑃 = )
+$.
+Méthode : Utiliser les formules de somme et produit des racines
+Vidéo A venir bientôt
+Soit 𝑓 la fonction polynôme du second degré définie sur ℝ par : 𝑓(𝑥) = −2𝑥! + 𝑥 + 1.
+1) Montrer que 𝑥# = 1 est une racine de 𝑓.
+2) Déterminer la deuxième racine.
+Correction
+1) 𝑥# est une racine si elle vérifie 𝑓(𝑥#) = 0.
+𝑓(𝑥#) = 𝑓(1) = −2 × 1! + 1 + 1 = 0.
+Donc 𝑥# est une racine de 𝑓.
+2) En utilisant le produit des racines, on a :
+𝑃 = 𝑥# × 𝑥! = 1 × 𝑥! = 𝑥!
+Et 𝑃 = 𝑐
+𝑎 = 1
+−2 = − 1
+2.
+Donc 𝑥! = − 1
+2
+Et donc 𝑓 admet 𝑥! = − 1
+2 comme deuxième racine.
+9
+8
+
+-- 3 of 8 --
+
+4
+Yvan Monka – Académie de Strasbourg – www.maths-et-tiques.fr
+Partie 2 : Factorisation et signe d'un trinôme
+1) Factorisation
+Propriété : Soit 𝑓 une fonction polynôme du second degré définie sur ℝ par :
+𝑓(𝑥) = 𝑎𝑥! + 𝑏𝑥 + 𝑐.
+- Si D = 0 : 𝑓(𝑥) = 𝑎(𝑥 − 𝑥")!, avec 𝑥" racine de 𝑓.
+- Si D > 0 : 𝑓(𝑥) = 𝑎(𝑥 − 𝑥#)(𝑥 − 𝑥!), avec 𝑥# et 𝑥! racines de 𝑓.
+Remarque : Si D < 0, il n’existe pas de forme factorisée de 𝑓.
+Méthode : Déterminer les fonctions du second degré, s’annulant en deux nombres réels
+distincts
+Vidéo https://youtu.be/JiokX41_2nw
+On considère la fonction polynôme 𝑓 du second degré s’annulant en −1 et 2 et tel que
+𝑓(3) = −2. Déterminer une expression factorisée de la fonction 𝑓.
+Correction
+● Comme la fonction 𝑓 s’annule en −1 et 2, on peut affirmer que −1 et 2 sont les racines de
+𝑓.
+Et donc : 𝑓(𝑥) = 𝑎(𝑥 − (−1))(𝑥 − 2) = 𝑎(𝑥 + 1)(𝑥 − 2).
+● De plus, 𝑓(3) = −2
+Donc : 𝑎(3 + 1)(3 − 2) = −2
+𝑎 × 4 × 1 = −2
+𝑎 = − 2
+4 = − 1
+2
+● On en déduit que : 𝑓(𝑥) = − 1
+2 (𝑥 + 1)(𝑥 − 2).
+Méthode : Factoriser un trinôme
+Vidéo https://youtu.be/eKrZK1Iisc8
+Factoriser les trinômes suivants : a) 4𝑥! + 19𝑥 − 5 	b) 9𝑥! − 6𝑥 + 1
+Correction
+a) On cherche les racines du trinôme 4𝑥! + 19𝑥 − 5 :
+Calcul du discriminant : D = 19! − 4 × 4 × (−5) = 441
+Les racines sont : 𝑥# = !02!√((0
+#×( = −5 et 𝑥! = !02'√((0
+#×( = 0
+(
+
+-- 4 of 8 --
+
+5
+Yvan Monka – Académie de Strasbourg – www.maths-et-tiques.fr
+On a donc :
+4𝑥! + 19𝑥 − 5 = 4B𝑥 − (−5)C 7𝑥 − 1
+49 = 4(𝑥 + 5) 7𝑥 − 1
+49.
+b) On cherche les racines du trinôme 9𝑥! − 6𝑥 + 1 :
+Calcul du discriminant : D = (−6)! − 4 × 9 × 1 = 0
+La racine unique est : 𝑥" = − !9
+#×2 = 0
+4
+On a donc :
+9𝑥! − 6𝑥 + 1 = 9 4𝑥 − 1
+35
+!
+2) Signe d'un trinôme
+Propriété : Soit 𝑓 une fonction polynôme du second degré définie sur ℝ par
+𝑓(𝑥) = 𝑎𝑥! + 𝑏𝑥 + 𝑐.
+- Si D < 0 : 𝑓 ne possède pas de racine. Donc 𝑓 ne s’annule pas.
+- Si D = 0 : 𝑓 possède une unique racine 𝑥". Donc 𝑓 s’annule en 𝑥".
+- Si D > 0 : 𝑓 possède deux racines 𝑥# et 𝑥!. Donc 𝑓 s’annule en 𝑥# et 𝑥!.
+𝑥 	−∞ 	+ ∞
+𝑓(𝑥) 	+
+𝑥 	−∞ 	+ ∞
+𝑓(𝑥) 	−
+𝑥 	−∞ 	𝑥0 + ∞
+𝑓(𝑥) 	+ 	O 	+
+𝑥 	−∞ 	𝑥0 + ∞
+𝑓(𝑥) 	− 	O 	−
+𝑥 	−∞ 	𝑥1 	𝑥! 	+ ∞
+𝑓(𝑥) 	+ 	O 	− 	O 	+
+𝑥 	−∞ 	𝑥1 	𝑥! 	+ ∞
+𝑓(𝑥) 	− 	O 	+ 	O 	−
+a > 0 	a < 0
+a > 0 	a < 0
+𝑥! 	𝑥"
+𝑥! 	𝑥"
+a > 0 	a < 0
+𝑥#
+𝑥#	x
+
+-- 5 of 8 --
+
+6
+Yvan Monka – Académie de Strasbourg – www.maths-et-tiques.fr
+Méthode : Déterminer le signe d’un trinôme
+Vidéo https://youtu.be/pT4xtI2Yg2Q
+Vidéo https://youtu.be/sFNW9KVsTMY
+Vidéo https://youtu.be/JCVotquzIIA
+Démontrer que la fonction polynôme 𝑓 du second degré définie sur ℝ par
+𝑓(𝑥) = 2𝑥! + 𝑥 + 4 est positive.
+Correction
+Le discriminant de 2𝑥! + 𝑥 + 4 est D = 1! − 4 × 2 × 4 = −31 < 0
+La fonction 𝑓 ne possède pas de racine.
+La parabole représentant 𝑓 se trouve donc soit au-dessus de l’axe des
+abscisses, soit en dessous.
+Comme 𝑎 = 2 > 0, la parabole a les branches tournées vers le haut (en
+position « 😊 ») et donc elle se trouve au-dessus de l’axe des abscisses.
+On en déduit que 𝑓 est toujours positive.
+Méthode : Résoudre une inéquation du second degré
+Vidéo https://youtu.be/AEL4qKKNvp8
+Résoudre les inéquations : 	a) 𝑥! − 2𝑥 − 15 < 0
+b) 𝑥! + 3𝑥 − 5 < −𝑥 + 2
+Correction
+a) Le discriminant de 𝑥! − 2𝑥 − 15 est D = (−2)! − 4 × 1 × (−15) = 64 et ses racines
+sont :
+𝑥# = #!√9(
+#×0 = −3 et 𝑥! = #'√9(
+#×0 = 5
+On obtient le tableau de signes :
+On lit dans le tableau de signes que 𝑥! − 2𝑥 − 15 < 0 pour −3 < 𝑥 < 5.
+L'ensemble des solutions de l'inéquation 𝑥! − 2𝑥 − 15 < 0 est donc 𝑆 = ]−3 ; 5[.
+𝑥 	−∞ 	− 3 	5 	+ ∞
+𝑥! − 2𝑥 − 15 	+ 	O 	− 	O 	+
+a =1> 0
+
+-- 6 of 8 --
+
+7
+Yvan Monka – Académie de Strasbourg – www.maths-et-tiques.fr
+b) On commence par rassembler tous les termes dans le membre de gauche afin de pouvoir
+étudier le signe d’un trinôme :
+𝑥! + 3𝑥 − 5 < −𝑥 + 2
+𝑥! + 3𝑥 − 5 + 𝑥 − 2 < 0
+𝑥! + 4𝑥 − 7 < 0.
+Le discriminant de 𝑥! + 4𝑥 − 7 est D = 4! − 4 × 1 × (−7) = 44 et ses racines sont :
+𝑥# = !(!√((
+#×0 = !(!#√00
+# = −2 − √11 et 𝑥! = !('√((
+#×0 = −2 + √11
+On obtient le tableau de signes :
+On lit dans le tableau de signes que 𝑥! + 4𝑥 − 7 < 0 pour −2 − √11 < 𝑥 < −2 + √11.
+L'ensemble des solutions de l'inéquation 𝑥! + 3𝑥 − 5 < −𝑥 + 2 est donc :
+𝑆 = J−2 − √11 ; −2 + √11K.
+3) Application
+Méthode : Étudier la position de deux courbes
+Vidéo https://youtu.be/EyxP5HIfyF4
+Soit 𝑓 et 𝑔 deux fonctions définies sur ℝ par : 𝑓(𝑥) = −𝑥! + 8𝑥 − 11 et 𝑔(𝑥) = 𝑥 − 1.
+Étudier la position relative des courbes représentatives 𝐶& et 𝐶'.
+Correction
+On va étudier le signe de la différence 𝑓(𝑥) − 𝑔(𝑥) :
+𝑓(𝑥) − 𝑔(𝑥) = −𝑥! + 8𝑥 − 11 − 𝑥 + 1 = −𝑥! + 7𝑥 − 10.
+Le discriminant du trinôme −𝑥! + 7𝑥 − 10 est D = 7! − 4 × (−1) × (−10) = 9
+Le trinôme possède deux racines distinctes :
+𝑥# = !:!√2
+#×(!0) = 5 et 𝑥! = !:'√2
+#×(!0) = 2
+On dresse le tableau de signes du trinôme −𝑥! + 7𝑥 − 10 :
+On conclut :
+● 𝑓(𝑥) − 𝑔(𝑥) ≤ 0, soit 𝑓(𝑥) ≤ 𝑔(𝑥) pour tout 𝑥 de ]−∞ ; 2] ∪ [5 ; +∞[.
+La courbe 𝐶& est donc en-dessous de la courbe 𝐶' pour tout 𝑥 de ]−∞ ; 2] ∪ [5 ; +∞[.
+● De même, la courbe 𝐶& est au-dessus de la courbe 𝐶' pour tout 𝑥 de [2 ; 5].
+
+-- 7 of 8 --
+
+8
+Yvan Monka – Académie de Strasbourg – www.maths-et-tiques.fr
+Hors du cadre de la classe, aucune reproduction, même partielle, autres que celles prévues à l'article L 122-5 du
+code de la propriété intellectuelle, ne peut être faite de ce site sans l'autorisation expresse de l'auteur.
+www.maths-et-tiques.fr/index.php/mentions-legales
+
+-- 8 of 8 --
+
+---
+
+# source-03-maths91-second-degre-cours
+Original file: maths91-second-degre-cours.pdf
+
+1ère SPÉCIALITÉ MATHÉMATIQUES 01 − POLYNÔMES DU SECOND DEGRÉ
+POLYNÔMES DU SECOND DEGRÉ
+Première − Chapitre 1
+Table des matières
+I Fonctions polynômes du second degré 2
+1) Forme développée . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2
+2) Forme factorisée . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2
+3) Somme et produit des racines . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+4) Forme canonique . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+5) Variations et courbe représentative . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+II Équations du second degré 6
+1) Définition . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+2) Premiers exemples . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+3) Généralisation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+4) Discriminant et énoncé du théorème . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+5) Exemples rédigés . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+IIISigne d’un trinôme et inéquations du second degré 10
+1) Conjecture graphique . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+2) Énoncé du théorème . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+3) Inéquations du second degré . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+Polycopié de cours de N. PEYRAT Page 1 sur 12 Lycée Saint−Charles
+
+-- 1 of 12 --
+
+1ère SPÉCIALITÉ MATHÉMATIQUES 01 − POLYNÔMES DU SECOND DEGRÉ
+I Fonctions polynômes du second degré
+1) Forme développée
+Soit f une fonction définie sur R.
+On dit que f est une fonction polynôme du second degré, ou fonction trinôme du second degré, si
+et seulement si il existe trois réels a, b et c, avec a ≠ 0, tels que pour tout réel x :
+f (x) = ax2 + bx + c
+Cette forme est appelée la forme développée de f (x).
+DÉFINITION
+La forme développée d’une fonction polynôme du second degré est unique.
+REMARQUE
+● f est une fonction et f (x) est un réel (c’est l’image de x par la fonction f ). Ainsi, les phrases « f (x)
+est une fonction du second degré » ou « f = ax2 + bx + c » sont fausses.
+● Si a, b et c sont des réels, avec a ≠ 0, alors f ∶ x ↦ ax2 + bx + c est une fonction polynôme du second
+degré et f (x) = ax2 + bx + c est un polynôme du second degré.
+VOCABULAIRE
+● f ∶ x ↦ −3x2 + 5x − 1.
+● g ∶ x ↦ 2(5 − x)(4x + 3). (Attention, ce n’est pas la forme développée de g ici)
+● h ∶ x ↦ 5x2 + 2.
+EXEMPLES
+● f ∶ x ↦ 2x + 1 (Fonction polynôme du premier degré, ou fonction affine)
+● g ∶ x ↦ 3x3 (Fonction polynôme du troisième degré)
+● h ∶ x ↦ 5x2 + 1
+x (Fonction rationnelle)
+CONTRE-EXEMPLES
+2) Forme factorisée
+Soit P une fonction polynôme du second degré définie sur R.
+On appelle racine du polynôme P (x) tout nombre réel x0 tel que P (x0) = 0.
+DÉFINITION
+Autrement dit, x0 est une racine de P (x) si et seulement si x0 est une solution de l’équation P (x) = 0.
+VOCABULAIRE
+Polycopié de cours de N. PEYRAT Page 2 sur 12 Lycée Saint−Charles
+
+-- 2 of 12 --
+
+1ère SPÉCIALITÉ MATHÉMATIQUES 01 − POLYNÔMES DU SECOND DEGRÉ
+Soit P (x) = 2x2 − 2x − 4. Calculer P (2) et conclure.
+P (2) = 2 × 22 − 2 × 2 − 4 = 8 − 4 − 4 = 0
+Donc 2 est une racine de P (x)
+EXEMPLE
+Soit P (x) un polynôme du second degré défini sur R par P (x) = ax2 + bx + c, avec a, b et c des réels
+et a ≠ 0.
+On dit que P (x) est mis sous forme factorisée si on peut l’écrire P (x) = a(x − x1)(x − x2), où x1
+et x2 sont deux réels (éventuellement égaux).
+DÉFINITION
+Dans le cas où P (x) admet bien une forme factorisée telle que définie ci-dessus, les réels x1 et x2 sont
+alors les deux racines du polynôme P (x) et les deux seules. En effet :
+∀x ∈ R, P (x) = 0 ⇐⇒ a(x − x1)(x − x2) = 0
+⇐⇒ (x − x1)(x − x2) = 0 (car a ≠ 0)
+⇐⇒ x − x1 = 0 ou x − x2 = 0
+⇐⇒ x = x1 ou x = x2
+REMARQUE
+Certains polynômes du second degré ne peuvent pas être mis sous forme factorisée dans R.
+Considérons par exemple le polynôme défini sur R par P (x) = x2 + 1.
+∀x ∈ R, x2 ⩾ 0 donc x2 + 1 ⩾ 1 > 0.
+Donc l’équation P (x) = 0 n’a pas de solution dans R et P (x) n’a donc pas de racine réelle. Il ne peut
+donc pas être mis sous forme factorisée, car alors il aurait des racines (raisonnement immédiat par
+l’absurde).
+REMARQUE
+3) Somme et produit des racines
+Soit P (x) = ax2 + bx + c un polynôme du second degré défini sur R, avec a, b et c des réels et a ≠ 0.
+Si P (x) admet deux racines x1 et x2 (éventuellement égales), alors on a :
+x1 + x2 = − b
+a et x1x2 = c
+a
+THÉORÈME
+Si x1 et x2 sont les racines de P (x), alors pour tout réel x, on a P (x) = a(x − x1)(x − x2).
+Donc P (x) = a(x2 − xx2 − xx1 + x1x2) = ax2 − a(x1 + x2)x + ax1x2.
+Or pour tout réel x, on a aussi P (x) = ax2 + bx + c.
+La forme développée d’un polynôme étant unique, par identification, on a donc : b = −a(x1 + x2) et
+c = ax1x2. Soit x1 + x2 = − b
+a et x1x2 = c
+a (a ≠ 0).
+DÉMONSTRATION
+Polycopié de cours de N. PEYRAT Page 3 sur 12 Lycée Saint−Charles
+
+-- 3 of 12 --
+
+1ère SPÉCIALITÉ MATHÉMATIQUES 01 − POLYNÔMES DU SECOND DEGRÉ
+L’un des objectifs de ce chapitre sera de déterminer les racines d’un polynôme du second degré donné sous forme
+développée. Autrement dit, savoir passer de la forme développée à la forme factorisée, ou encore savoir résoudre
+une équation dite du second degré. C’est ce que nous allons voir dans la suite. Pour cela, nous allons introduire
+une troisième forme possible d’un polynôme du second degré, la forme canonique.
+4) Forme canonique
+Soit f une fonction polynôme du second degré définie sur R par f (x) = ax2 + bx + c, avec a, b et c des
+réels et a ≠ 0. Alors pour tout réel x :
+f (x) = a(x − α)2 + β, avec α = − b
+2a et β = f (α)
+Cette écriture est appelée la forme canonique de f .
+PROPRIÉTÉ & DÉFINITION
+Déterminons la forme canonique de 3x2 + 6x + 1.
+∀x ∈ R, 3x2 + 6x + 1 = 3(x2 + 2x) + 1
+= 3 [(x + 1)2 − 12] + 1
+= 3 [(x + 1)2 − 1] + 1
+= 3(x + 1)2 − 3 + 1
+= 3(x + 1)2 − 2
+EXEMPLE
+Généralisons le procédé pour tout polynôme du second degré :
+Soit f (x) = ax2 + bx + c un polynôme du second degré avec a, b et c des réels et a ≠ 0.
+Pour tout réel x, on a :
+f (x) = ax2 + bx + c
+= a (x2 + b
+a x) + c (car a ≠ 0)
+= a [(x + b
+2a )
+2
+− ( b
+2a )
+2
+] + c
+= a [(x + b
+2a )
+2
+− b2
+4a2 ] + c
+= a (x + b
+2a )
+2
+− b2
+4a + 4ac
+4a
+= a (x + b
+2a )
+2
+− b2 − 4ac
+4a
+= a(x − α)2 + β, avec α = − b
+2a et β = − b2 − 4ac
+4a
+(On vérifie facilement par le calcul que f (α) = β)
+DÉMONSTRATION
+Polycopié de cours de N. PEYRAT Page 4 sur 12 Lycée Saint−Charles
+
+-- 4 of 12 --
+
+1ère SPÉCIALITÉ MATHÉMATIQUES 01 − POLYNÔMES DU SECOND DEGRÉ
+Déterminer la forme canonique des polynômes définis sur R par P (x) = 3x2−6x+1 et R(x) = −2x2+5x+3.
+EXERCICE
+5) Variations et courbe représentative
+Soit f une fonction polynôme du second degré dont la forme canonique est f (x) = a(x − α)2 + β, avec
+a, α et β des réels et a ≠ 0. Alors son tableau de variation est :
+Si a > 0 Si a < 0
+x
+f
+−∞ α +∞
+ββ
+x
+f
+−∞ α +∞
+ββ
+PROPRIÉTÉ
+Montrons que si a > 0, alors f est strictement croissante sur [α ; +∞[ :
+Soient x1 et x2 deux réels tels que α ⩽ x1 < x2 . Alors 0 ⩽ x1 − α < x2 − α.
+Or la fonction carrée est strictement croissante sur [0 ; +∞[, donc des réels positifs et leurs images
+sont rangées dans le même ordre.
+Donc (x1 − α)2 < (x2 − α)2
+Or a est un réel strictement positif, donc a(x1 − α)2 < (x2 − α)2.
+Et enfin, par somme avec β, on a a(x1 − α)2 + β < (x2 − α)2 + β, soit f (x1) < f (x2) .
+Par définition, f est donc strictement croissante sur [α ; +∞[.
+(On démontre de même les variations sur ] − ∞ ; α] et lorsque a < 0)
+DÉMONSTRATION
+Représentation graphique :
+Dans un repère (O;⃗ ı,⃗ ȷ) du plan, la courbe représentative d’une fonction polynôme du second degré de la forme
+x ↦ a(x − α)2 + β (a, α et β réels et a ≠ 0), est une parabole de sommet le point S(α ; β), et qui admet pour axe
+de symétrique la droite d’équation x = α.
+Polycopié de cours de N. PEYRAT Page 5 sur 12 Lycée Saint−Charles
+
+-- 5 of 12 --
+
+1ère SPÉCIALITÉ MATHÉMATIQUES 01 − POLYNÔMES DU SECOND DEGRÉ
+II Équations du second degré
+1) Définition
+On appelle équation du second degré toute équation pouvant se ramener à la forme ax2 + bx + c = 0
+avec a, b et c des réels tels que a ≠ 0.
+DÉFINITION
+2) Premiers exemples
+On sait déjà résoudre certaines équations du second degré : toutes celles n’ayant que deux termes par exemple, ou
+celles dont le polynôme du second degré est déjà factorisé. Résolvons les avec les méthodes vues en Seconde ou au
+collège :
+Ex 1 : résoudre dans R l’équation x2 = 3 (b = 0)
+∀x ∈ R, x2 = 3 ⇐⇒ x = √3 ou x = −√3
+Ex 2 : résoudre dans R l’équation 4x2 − 2x = 0 (c = 0)
+∀x ∈ R, 4x2 − 2x = 0 ⇐⇒ 2x(2x − 1) = 0
+⇐⇒ 2x = 0 ou 2x − 1 = 0
+⇐⇒ x = 0 ou x = 1
+2
+Ex 3 : résoudre dans R l’équation −5x2 = 0 (b = 0 et c = 0)
+∀x ∈ R, −5x2 = 0 ⇐⇒ x2 = 0
+⇐⇒ x = 0
+Ex 4 : résoudre dans R l’équation (x − 3)(x + 1) = 0 (forme factorisée)
+∀x ∈ R, (x − 3)(x + 1) = 0 ⇐⇒ x − 3 = 0 ou x + 1 = 0
+⇐⇒ x = 3 ou x = −1
+Ex 5 : résoudre dans R l’équation (3x + 2)2 = 0 (carré nul)
+∀x ∈ R, (3x + 2)2 = 0 ⇐⇒ 3x + 2 = 0
+⇐⇒ x = − 2
+3
+Ex 6 : résoudre dans R l’équation x2 + 5 = 0 (pas de solution réelle)
+∀x ∈ R, x2 + 5 = 0 ⇐⇒ x2 = −5.
+Or ∀x ∈ R, x2 ⩾ 0, donc l’équation x2 + 5 = 0 n’a pas de solution dans R
+Polycopié de cours de N. PEYRAT Page 6 sur 12 Lycée Saint−Charles
+
+-- 6 of 12 --
+
+1ère SPÉCIALITÉ MATHÉMATIQUES 01 − POLYNÔMES DU SECOND DEGRÉ
+Ex 7 : résoudre dans R l’équation (4 − 5x)2 + 3 = 0 (idem, pas besoin de développer !)
+∀x ∈ R, (4 − 5x)2 + 3 = 0 ⇐⇒ (4 − 5x)2 = −3.
+Or ∀x ∈ R, (4 − 5x)2 ⩾ 0, donc l’équation (4 − 5x)2 + 3 = 0 n’a pas de solution dans R
+Ex 8 : résoudre dans R l’équation x2 − 2x + 1 = 0 (identité remarquable)
+∀x ∈ R, x2 − 2x + 1 = 0 ⇐⇒ (x − 1)2 = 0
+⇐⇒ x − 1 = 0
+⇐⇒ x = 1
+Considérons maintenant cette équation : −2x2 + x + 1 = 0
+Ici, le membre de droite est nul et le membre de gauche est constitué de trois termes, sans facteur commun ni
+reconnaissance d’une identité remarquable. Comment résoudre cette équation ? En utilisant (pour le moment !) la
+forme canonique :
+∀x ∈ R, −2x2 + x + 1 = 0 ⇔ −2 (x2 + 1
+2 x) + 1 = 0
+⇔ −2 [(x + 1
+4 )
+2
+− 1
+16 ] + 1 = 0
+⇔ −2 (x + 1
+4 )
+2
++ 1
+8 + 8
+8 = 0
+⇔ −2 (x − 1
+4 )
+2
++ 9
+8 = 0
+⇔ −2 (x − 1
+4 )
+2
+= − 9
+8
+⇔ (x − 1
+4 )
+2
+= 9
+16
+⇔ (x − 1
+4 )
+2
+− 9
+16 = 0
+⇔ (x − 1
+4 − 3
+4 ) (x − 1
+4 + 3
+4 ) = 0
+⇔ (x − 1) (x + 1
+2 ) = 0
+⇔ x − 1 = 0 ou x = − 1
+2
+Ouf ! En passant par la forme canonique, on a réussi à factoriser le membre de gauche pour résoudre l’équation.
+3) Généralisation
+Généralisons ce procédé afin d’obtenir notre théorème :
+Soient a, b et c trois réels tels que a ≠ 0.
+∀x ∈ R, ax2 + bx + c = 0 ⇔ a (x + b
+2a )
+2
+− b2 − 4ac
+4a = 0 (d’après la forme canonique)
+⇔ a [(x + b
+2a )
+2
+− b2 − 4ac
+4a2 ] = 0
+⇔ (x + b
+2a )
+2
+− b2 − 4ac
+4a2 = 0 (car a ≠ 0)
+⇔ (x + b
+2a )
+2
+= b2 − 4ac
+4a2
+Polycopié de cours de N. PEYRAT Page 7 sur 12 Lycée Saint−Charles
+
+-- 7 of 12 --
+
+1ère SPÉCIALITÉ MATHÉMATIQUES 01 − POLYNÔMES DU SECOND DEGRÉ
+Posons ∆ = b2 − 4ac. Ainsi :
+∀x ∈ R, ax2 + bx + c = 0 ⇔ (x + b
+2a )
+2
+= ∆
+4a2
+⇔ (x + b
+2a )
+2
+= ∆
+(2a)2
+● Si ∆ < 0 alors ∆
+(2a)2 < 0 (car ∀a ≠ 0, (2a)2 > 0).
+Or ∀x ∈ R, (x + b
+2a )
+2
+⩾ 0.
+Ainsi, si ∆ < 0, l’équation ax2 + bx + c = 0 n’a pas de solution dans R
+● Si ∆ = 0, alors ∆
+(2a)2 = 0. Ainsi :
+∀x ∈ R, ax2 + bx + c = 0 ⇔ (x + b
+2a )
+2
+= 0
+⇔ x + b
+2a = 0
+⇔ x = − b
+2a
+Ainsi, si ∆ > 0, l’équation ax2 + bx + c = 0 admet une unique solution réelle
+● Si ∆ > 0, alors ∆
+(2a)2 = (
+√∆
+2a )
+2
+. Ainsi :
+∀x ∈ R, ax2 + bx + c = 0 ⇔ (x + b
+2a )
+2
+= (
+√∆
+2a )
+2
+⇔ (x + b
+2a )
+2
+− (
+√∆
+2a )
+2
+= 0
+⇔ (x + b
+2a −
+√∆
+2a ) (x + b
+2a +
+√∆
+2a ) = 0
+⇔ (x + b − √∆
+2a ) (x + b + √∆
+2a ) = 0
+⇔ x + b − √∆
+2a = 0 ou x + b + √∆
+2a = 0
+⇔ x = − b − √∆
+2a ou x = − b + √∆
+2a
+⇔ x = −b + √∆
+2a ou x = −b − √∆
+2a
+Ainsi, si ∆ > 0, l’équation ax2 + bx + c = 0 admet deux solutions réelles et distinctes : −b − √∆
+2a et −b + √∆
+2a
+4) Discriminant et énoncé du théorème
+Soit ax2 + bx + c un polynôme du second degré défini sur R, avec a, b et c des réels et a ≠ 0.
+Le réel b2 − 4ac, noté ∆, est appelé le discriminant du polynôme ax2 + bx + c
+DÉFINITION
+.
+Polycopié de cours de N. PEYRAT Page 8 sur 12 Lycée Saint−Charles
+
+-- 8 of 12 --
+
+1ère SPÉCIALITÉ MATHÉMATIQUES 01 − POLYNÔMES DU SECOND DEGRÉ
+Soient a, b et c des réels, avec a ≠ 0, et ∆ le réel défini par ∆ = b2 − 4ac.
+Soit (E) l’équation ax2 + bx + c = 0.
+● Si ∆ < 0, alors (E) n’a pas de solution réelle.
+● Si ∆ = 0, alors (E) admet une unique solution réelle x0 = − b
+2a . On dit que cette solution est double.
+● Si ∆ > 0, alors (E) admet deux solutions réelles : x1 = −b − √∆
+2a et x2 = −b + √∆
+2a .
+THÉORÈME
+La démonstration a été faite dans le 3).
+DÉMONSTRATION
+Les solutions, lorsqu’elles existent, sont les abscisses des points d’intersection de la courbe représentative
+de la fonction x ↦ ax2 + bx + c et de l’axe des abscisses.
+REMARQUE
+Les solutions de l’équation ax2 + bx + c = 0 sont les racines du polynôme ax2 + bx + c.
+Attention à ne pas confondre ces deux mots de vocabulaire !
+VOCABULAIRE
+5) Exemples rédigés
+Ex 1 (cas où ∆ > 0) :
+Résoudre dans R l’équation −2x2 + x + 1 = 0.
+−2x2 + x + 1 est un polynôme du second degré dont le discriminant ∆ est :
+∆ = 12 − 4 × (−2) × 1 = 1 + 8 = 9
+∆ > 0 donc l’équation −2x2 + x + 1 = 0 admet deux solutions réelles qui sont :
+x1 = −1 − √9
+2 × (−2) = −1 − 3
+−4 = −4
+−4 = 1 et et x2 = −1 + √9
+2 × (−2) = −1 + 3
+−4 = 2
+−4 = − 1
+2
+Ainsi, les solutions de l’équation −2x2 + x + 1 = 0 sont − 1
+2 et 1
+EXEMPLE
+Polycopié de cours de N. PEYRAT Page 9 sur 12 Lycée Saint−Charles
+
+-- 9 of 12 --
+
+1ère SPÉCIALITÉ MATHÉMATIQUES 01 − POLYNÔMES DU SECOND DEGRÉ
+Ex 2 (cas où ∆ < 0) :
+Résoudre dans R l’équation 3x2 − 7x + 5 = 0
+3x2 − 7x + 5 est un polynôme du second degré dont le discriminant ∆ est :
+∆ = (−7)2 − 4 × 3 × 5 = 49 − 60 = −11
+∆ < 0 donc l’équation 3x2 − 7x + 5 = 0 n’admet pas de solution dans R
+EXEMPLE
+Ex 3 (cas où ∆ = 0) :
+Résoudre dans R l’équation −x2 − 8x − 16 = 0
+−x2 − 8x − 16 est un polynôme du second degré dont le discriminant ∆ est :
+∆ = (−8)2 − 4 × (−1) × (−16) = 64 − 64 = 0
+∆ = 0 donc l’équation −x2 − 8x − 16 = 0 admet une unique solution dans R qui est x0 = −(−8)
+2 × (−1) = −8
+−2 = 4
+EXEMPLE
+Lorsque l’on obtient ∆ = 0, cela signifie que l’on est passé à côté d’une identité remarquable (le vérifier
+avec l’Ex 3).
+REMARQUE
+III Signe d’un trinôme et inéquations du second degré
+1) Conjecture graphique
+Faire au tableau les trois configurations possibles si a > 0 puis si a < 0. et conjecturer oralement.
+2) Énoncé du théorème
+Soit ax2 + bx + c un trinôme du second degré avec a, b et c des réels et a ≠ 0.
+Alors le trinôme ax2 + bx + c est toujours du signe de a, sauf entre ses racines lorsqu’elles existent.
+THÉORÈME
+Polycopié de cours de N. PEYRAT Page 10 sur 12 Lycée Saint−Charles
+
+-- 10 of 12 --
+
+1ère SPÉCIALITÉ MATHÉMATIQUES 01 − POLYNÔMES DU SECOND DEGRÉ
+● Cas où ∆ < 0 :
+A l’aide de la forme canonique, pour tout réel x, ax2 + bx + c = a [(x + b
+2a )
+2
+− ∆
+4a2 ].
+Or ∀x ∈ R, (x + b
+2a )
+2
+⩾ 0. De plus, ∆ < 0, donc − ∆
+4a2 > 0. Ainsi, par somme, (x + b
+2a )
+2
+− ∆
+4a2 > 0, donc
+le signe de ax2 + bx + c est bien celui de a, pour tout réel x.
+● Cas où ∆ = 0 :
+Alors pour tout réel x, ax2 + bx + c = a (x + b
+2a )
+2
+et pour tout réel x, (x + b
+2a )
+2
+⩾ 0.
+Donc ax2 + bx + c est du signe de a pour tout réel x et s’annule en − b
+2a .
+● Cas où ∆ > 0 :
+A l’aide de la forme factorisée, pour tout réel x, ax2 + bx + c = a(x − x1)(x − x2), où x1 et x2 sont les
+racines du trinôme.
+A l’aide d’un tableau de signe, en supposant que x1 < x2 :
+x
+x − x1
+x − x2
+(x − x1)(x − x2)
+a(x−x1)(x−x2)
+−∞ x1 x2 +∞
+− 0 + +
+− − 0 +
++ 0 − 0 +
+signe de a 0 signe de − a 0 signe de a
+DÉMONSTRATION
+● Déterminer le signe du polynôme P (x) = 4x2 − 5x + 7 sur R.
+4x2 − 5x + 7 est un polynôme du second degré dont le discriminant ∆ est :
+∆ = (−5)2 − 4 × 4 × 7 = 25 − 112 = −87.
+∆ < 0 donc 4x2 − 5x + 7 est du signe de 4, strictement positif, pour tout réel x
+EXEMPLE
+Polycopié de cours de N. PEYRAT Page 11 sur 12 Lycée Saint−Charles
+
+-- 11 of 12 --
+
+1ère SPÉCIALITÉ MATHÉMATIQUES 01 − POLYNÔMES DU SECOND DEGRÉ
+● Déterminer le signe du polynôme Q(x) = −x2 + 6x + 7 sur R.
+−x2 + 6x + 7 est un polynôme du second degré dont le discriminant ∆ est :
+∆ = 62 − 4 × (−1) × 7 = 36 + 28 = 64
+∆ > 0 donc −x2 + 6x + 7 est du signe de −1, strictement négatif, sauf entre ses racines qui sont :
+x1 = −6 − √64
+2 × (−1) = −6 − 8
+−2 = −14
+−2 = 7 et x2 = −6 + √64
+2 × (−1) = −6 + 8
+−2 = 2
+−2 = −1
+Ainsi, le signe de Q(x) sur R est :
+x
+Q(x)
+−∞ −1 7 +∞
+− 0 + 0 −
+EXEMPLE
+3) Inéquations du second degré
+Soient a, b et c des réels avec a ≠ 0.
+Une inéquation du second degré à une inconnue x est une inéquation qui peut s’écrire sous l’une des
+formes suivantes : ax2 + bx + c > 0, ax2 + bx + c ⩾ 0, ax2 + bx + c < 0 ou ax2 + bx + c ⩽ 0.
+DÉFINITION
+Pour résoudre une telle inéquation, on étudie le signe du trinôme ax2 + bx + c.
+REMARQUE
+Résoudre dans R l’inéquation x2 − 4x + 1 ⩽ 0 :
+x2 − 4x + 1 est un polynôme du second degré dont le discriminant ∆ est :
+∆ = (−4)2 − 4 × 1 × 1 = 16 − 4 = 12
+∆ > 0 donc x2 − 4x + 1 est du signe de 1, strictement positif, sauf entre ses racines qui sont :
+x1 = −(−4) − √12
+2 × 1 = 4 − 2√3
+2 = 2 − √3 et x2 = −(−4) + √12
+2 × 1 = 4 + 2√3
+2 = 2 + √3
+Ainsi, le signe de x2 − 4x + 1 sur R est :
+x
+x2 −4x+1
+−∞ 2 − √3 2 + √3 +∞
++ 0 − 0 +
+Conclusion : x2 − 4x + 1 ⩽ 0 ⇐⇒ x ∈ [2 − √3 ; 2 + √3]
+EXEMPLE
+Polycopié de cours de N. PEYRAT Page 12 sur 12 Lycée Saint−Charles
+
+-- 12 of 12 --
+
+---
+
+# source-04-maths91-second-degre-exercices
+Original file: maths91-second-degre-exercices.pdf
+
+1ère Spé Maths Chapitre 1 − Second degré Fiche d’exercices
+I Introduction
+Exercice 1 Formes développées
+Développer, réduire et ordonner les expressions suivantes, où x est un réel quelconque.
+• f (x) = (−3x + 1)(x + 2) • g(x) = (5x − 3)(3 + 6x)
+• h(x) = (2x − 5)2 + (x − 4)(x + 4) • k(x) = 3 − 2
+(
+x + 3
+2
+)2
+Exercice 2 Résolution d’équations
+1) Résoudre dans R l’équation x2 = 25.
+2) Résoudre dans R l’équation 3x2 = 9.
+3) Résoudre dans R l’équation (2x + 5)(x − 3) = 0.
+4) Résoudre dans R l’équation (5 − 2x)(x + 3) = 0.
+5) Résoudre dans R l’inéquation 4x + 3
+5 − 2x ⩾ 0.
+6) Résoudre dans R l’inéquation 5 − 3x
+2x − 2 ⩾ 0.
+Exercice 3 Lectures graphiques
+Soit f une fonction définie sur [−3 ; 7] et dont la
+courbe est représentée ci-contre.
+1) Déterminer graphiquement et sans justifier les
+valeurs de f (−2) et f (6).
+2) Résoudre graphiquement l’inéquation f (x) > 1
+sur [−3 ; 7] (on ne demande pas de justification).
+3) Dresser, sans justifier, le tableau de variations de
+la fonction f sur [−3 ; 7].
+Exercice 4 La meilleure forme
+Soit f la fonction définie sur R par f (x) = 3(x − 1)(x + 2).
+1) Développer, réduire et ordonner f (x).
+2) Montrer que pour tout réel x, f (x) = 3
+(
+x + 1
+2
+)2
+− 27
+4 .
+3) En utilisant la forme la plus adaptée, répondre aux questions suivantes :
+a) Résoudre dans R l’équation f (x) = 0.
+b) Résoudre dans R l’équation f (x) = −6.
+c) Calculer l’image de √2 par f .
+d) Calculer l’image de − 1
+2 par f .
+N. Peyrat Lycée Saint-Charles 1/ 6
+
+-- 1 of 6 --
+
+1ère Spé Maths Chapitre 1 − Second degré Fiche d’exercices
+II Forme factorisée et racines
+Exercice 5
+Soit f la fonction polynôme du second degré telle que f
+( 1
+2
+)
+= 0, f
+(
+− 3
+4
+)
+= 0 et f (0) = 1.
+Déterminer l’expression de f (x) sous forme factorisée, puis sous forme développée.
+Exercice 6
+Soit g une fonction polynôme du second degré. Sa courbe représentative Cg coupe l’axe des abscisses aux points
+d’abscisses −3 et 4 et passe par le point A(3 ; 2).
+Déterminer l’expression de g(x) sous forme factorisée, puis sous forme développée.
+Exercice 7
+Soit f la fonction définie sur R par f (x) = −3x2 − 9x + 30.
+1) Montrer que pour tout réel x, f (x) = (−3x + 6)(x + 5).
+2) En déduire les racines de f .
+3) Déterminer la fonction polynôme du second degré g ayant les mêmes racines que f et telle que g(0) = 20.
+Exercice 8
+Soit f une fonction polynôme du second degré définie sur R telle que f (1) = 1, f (−2) = 4 et f (0) = 6.
+Soit g la fonction polynôme du second degré définie sur R par g(x) = f (x) − x2.
+1) Calculer g(1), g(−2) et g(0).
+2) En déduire une factorisation de g(x).
+3) En déduire alors l’expression de f (x) sous forme développée.
+Exercice 9
+1 2
+1
+0
+f est une fonction polynôme du second degré dont une partie de la
+courbe représentative est donnée ci-contre.
+Déterminer la forme factorisée puis la forme développée de f (x).
+III Forme canonique
+Exercice 10
+Déterminer dans chacun des cas la forme canonique de la fonction polynôme du second degré f :
+(1) f (x) = x2 − 6x + 5 (4) f (x) = 4x2 − 64x − 40 (7) f (x) = 3x2 + 5x − 1
+(2) f (x) = 3x2 + 9x − 4 (5) f (x) = −2x2 + 6x + 2 (8) f (x) = −4x2 + 3x + 5
+(3) f (x) = −2x2 + 8x − 2 (6) f (x) = x2 + x + 1 (9) f (x) = −2x2 + 5x
+N. Peyrat Lycée Saint-Charles 2/ 6
+
+-- 2 of 6 --
+
+1ère Spé Maths Chapitre 1 − Second degré Fiche d’exercices
+Exercice 11
+Soit f la fonction polynôme définie sur R par f (x) = 2x2 − 7x + 1 et C sa courbe représentative dans un repère
+du plan.
+1) Déterminer la forme canonique de f (x).
+2) En déduire le tableau de variations de f sur R.
+3) Donner l’équation de l’axe de symétrie de C et les coordonnées du sommet S de C.
+Exercice 12
+Les fonctions f , g et h sont définies sur R par :
+f (x) = −(x + 1)2 − 1
+g(x) = 1
+2 (x − 1)2 + 1
+h(x) = 2(x − 3)2
+On donne ci-contre leurs courbes représentatives.
+Associer, en justifiant, chaque fonction à sa courbe.
+IV Résolution d’équations
+Exercice 13
+Résoudre dans R les équations suivantes, sans utiliser le discriminant :
+(1) (3x − 1)(2x + 3) = 0 (4) 5x2 − 3x = 0 (7) −9x2 + 24x − 16 = 0
+(2) 5x2 − 4 = 1 (5) −4x2 − 6 = 0 (8) −4x2 + 3x + 8 = 4(x + 2)
+(3) (x − 2)2 − (4 − 3x)2 = 0 (6) 4x2 + 12x + 9 = 0
+Exercice 14
+Résoudre dans R les équations suivantes :
+(1) 3x2 + 2x + 5 = 0 (4) 4x2 + 2x − 3
+4 = 0 (7) −4x2 + x + 2 = 0
+(2) 3x2 − 15x + 18 = 0 (5) 5x2 − 2x − 3 = 0 (8) 5x2 + 5x − 1 = 0
+(3) −2x2 − x + 1 = 0 (6) 9x2 + 30x + 25 = 0 (9) 2x2 + 5 = 0
+Exercice 15
+Soit f la fonction polynôme du second degré définie sur R par f (x) = −4x2 + x + 5.
+1) Déterminer la forme canonique de f (x).
+2) Déterminer les racines de f (x) et en déduire la forme factorisée de f (x).
+3) En utilisant la forme de f (x) la plus adaptée :
+a) Calculer l’image de 0 et l’image de √2 par f .
+b) Résoudre dans R les équations f (x) = 5 et f (x) = 81
+16 .
+c) Dresser le tableau de variations de f sur R.
+d) Déterminer l’extremum de la fonction f et la valeur de x pour laquelle il est atteint.
+N. Peyrat Lycée Saint-Charles 3/ 6
+
+-- 3 of 6 --
+
+1ère Spé Maths Chapitre 1 − Second degré Fiche d’exercices
+Exercice 16
+On se propose de résoudre l’équation (E) : x4 − 5x2 + 4 = 0.
+1) On pose X = x2. Montrer que l’équation (E) est équivalente à l’équation (E′) : X2 − 5X + 4 = 0.
+2) Résoudre dans R l’équation (E′).
+3) En déduire les solutions dans R de l’équation (E).
+4) En suivant le même modèle de résolution, résoudre dans R les équations suivantes :
+(a) 2x4 + 7x2 − 15 = 0 (b) 4x4 − 13x2 + 3 = 0
+Exercice 17
+On considère les fonctions f et g définies sur R par f (x) = 2x2 − 12x + 16 et
+g(x) = 2x + 4.
+Leurs représentations graphiques Cf et Cg sont données ci-contre.
+1) Déterminer les coordonnées des points d’intersection de Cf avec les axes
+du repère.
+2) Justifier que pour tout réel x, f (x)−g(x) = 2x2 −14x+12, puis déterminer
+la forme factorisée de f (x) − g(x).
+3) Déterminer les coordonnées des points d’intersections de Cf et Cg.
+4) Déterminer l’intervalle sur lequel Cf est en-dessous de Cg.
+Exercice 18
+Une entreprise fabrique et vend quotidiennement entre 0 et 1 000 pièces pour l’industrie automobile.
+Le coût total de production de x pièces est donné, en euro, par C(x) = 0, 1x2 + 10x + 1500.
+Chaque pièce est vendu au prix unitaire de 87 euros.
+1) Montrer que le bénéfice, en euros, pour la vente de x pièces est B(x) = −0, 1x2 + 77x − 1500.
+2) Déterminer les points morts de la production, c’est-à-dire le nombre de pièces pour lequel le bénéfice est
+nul.
+3) Déterminer la quantité de pièces que doit vendre cette entreprise pour réaliser un bénéfice de 6 300 euros.
+4) Déterminer la forme canonique de B(x).
+5) Déterminer la quantité de pièces à vendre pour réaliser un bénéfice maximum. Quel est ce bénéfice ?
+Exercice 19
+On considère la fonction f définie sur R et réalisée dans le programme Python suivant :
+1 def f ( x ) :
+2 a = x + 1
+3 b = 5 * x
+4 return -3 * a ** 2 + 5 *b - 4
+1) Exprimer f (x) en fonction de x, puis donner sa forme développée.
+2) Quelle(s) valeur(s) de x faut-il entrer dans la fonction f pour obtenir comme résultat final −1 ?
+Exercice 20
+On considère la fonction f définie par f (x) = x2 − 3x + 2
+x − 1 .
+1) Déterminer l’ensemble de définition D de la fonction f .
+2) Factoriser x2 − 3x + 2.
+3) Pour tout réel x de D, simplifier alors l’expression de f (x).
+N. Peyrat Lycée Saint-Charles 4/ 6
+
+-- 4 of 6 --
+
+1ère Spé Maths Chapitre 1 − Second degré Fiche d’exercices
+Exercice 21
+Déterminer l’ensemble de définition de la fonction g définie par g(x) = 3x − 4
+x2 − 5x − 6 .
+Exercice 22
+Résoudre dans R les équations suivantes :
+(2x + 3)(−x2 + 3x − 2) = 0 ; (4x2 − 3x + 1)(2x2 + 3x + 1) = 0 ; (4x2 − 1)(2x2 − 5x − 1) = 0
+Exercice 23
+On considère la fonction f définie sur R par f (x) = 6x3 − 13x2 + 9x − 2.
+1) Montrer que pour tout réel x, f (x) = (2x − 1)(3x2 − 5x + 2).
+2) Déterminer les antécédents de 0 par la fonction f .
+Exercice 24
+Résoudre dans R les deux équations suivantes :
+x + 1
+x = 3 ; 1
+x + 1 − 1
+x + 2 = 2.
+V Inéquations et signe du trinôme
+Exercice 25
+Déterminer le signe des polynômes suivants, tous définis sur R :
+f (x) = 2x2 − 4x − 6
+g(x) = 2x2 − x − 3
+h(x) = −3x2 − 7x − 2
+k(x) = −x2 + 5x + 1
+m(x) = x2 − 5x
+n(x) = 3x2 + 7x
+q(x) = (2x + 3)(x2 − 5x + 4)
+w(x) = (x2 − 3x + 4)(x − 1)
+z(x) = (x2 − 3x + 2)(2x2 − 7x + 3)
+Exercice 26
+Résoudre dans R les inéquations suivantes :
+−2x2 + 7x + 4 > 0
+−2x2 + 7x + 4 ⩾ 0
+−2x2 + 7x + 4 < 0
+−2x2 + 7x + 4 ⩽ 0
+4x2 + 5x + 6 > 0
+4x2 + 5x + 6 ⩾ 0
+4x2 + 5x + 6 < 0
+4x2 + 5x + 6 ⩽ 0
+5x2 + 4x − 1 > 0
+5x2 + 4x − 1 ⩾ 0
+5x2 + 4x − 1 < 0
+5x2 + 4x − 1 ⩽ 0
+Exercice 27
+Résoudre dans R les deux inéquations suivantes :
+2x − 3
+−2x2 + 9x − 4 ⩾ 0 ; 2x2 − 12x − 17
+−x + 4 ⩽ 1.
+Exercice 28
+Déterminer les ensembles de définition des fonctions f et g définies par :
+f (x) = √3x2 − 5x + 2 et g(x) =
+√3x + 4
+x2 − 5x + 1 .
+N. Peyrat Lycée Saint-Charles 5/ 6
+
+-- 5 of 6 --
+
+1ère Spé Maths Chapitre 1 − Second degré Fiche d’exercices
+VI Exercices de fin de chapitre
+Exercice 29
+1) f est la fonction polynôme définie sur R par f (x) = 4x3 + 2x2 − 2x − 1.
+a) Démontrer que pour tout réel x, f (x) = (2x + 1)(ax2 + bx + c), où a, b et c sont des réels à déterminer.
+b) Résoudre dans R l’équation f (x) = 0.
+2) f est la fonction polynôme définie sur R par f (x) = x3 − 4x2 − 9
+4 x + 9.
+a) Démontrer que pour tout réel x, f (x) = (x − 4)(ax2 + bx + c), où a, b et c sont des réels à déterminer.
+b) Résoudre dans R l’équation f (x) = 0.
+3) On considère la fonction P définie sur R par P (x) = x3 − 5x2 + 5x + 3.
+a) Calculer P (3).
+b) Déterminer les réels a, b et c tels que, pour tout réel x, P (x) = (x − 3)(ax2 + bx + c).
+c) Dresser le tableau de signes de P (x).
+Exercice 30
+Soit m un nombre réel. On considère l’équation (E) : x2 − 2x + m + 1 = 0.
+Déterminer, suivant les valeurs du réel m, le nombre de solutions de cette équation.
+Exercice 31
+Soit m un réel quelconque.
+On considère le polynôme Pm(x) défini pour tout réel x par Pm(x) = 2x2 + (m − 5)x + m + 3.
+Pour quelle(s) valeur(s) de m l’équation Pm(x) = 0 admet-elle deux solutions réelles distinctes ?
+VII Exercices du manuel
+• 154 page 28
+• TP page 33
+• Bilan 1 page 37
+• 114 page 60
+VIII Un défi pour finir
+Exercice 32
+Déterminer deux entiers naturels dont la différence est 2 et la différence de leurs puissances cinquièmes est
+2 882.
+N. Peyrat Lycée Saint-Charles 6/ 6
+
+-- 6 of 6 --

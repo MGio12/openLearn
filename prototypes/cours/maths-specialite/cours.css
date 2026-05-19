@@ -47,6 +47,21 @@ a {
   background: linear-gradient(135deg, #fffdf8 0%, #f6f2eb 56%, #eaf1df 100%);
 }
 
+.has-course-sidebar {
+  --course-sidebar-width: 268px;
+  --course-sidebar-collapsed-width: 58px;
+  --course-sidebar-space: var(--course-sidebar-width);
+}
+
+.has-course-sidebar.is-course-sidebar-collapsed {
+  --course-sidebar-space: var(--course-sidebar-collapsed-width);
+}
+
+.has-course-sidebar .course-hero {
+  padding-left: calc(var(--course-sidebar-space) + clamp(18px, 4vw, 56px));
+  transition: padding-left 180ms ease;
+}
+
 .topline {
   display: flex;
   flex-wrap: wrap;
@@ -128,6 +143,13 @@ h3 {
   line-height: 1;
 }
 
+.mastery-mark {
+  margin: 0 0 12px;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1.15;
+}
+
 .lesson-layout {
   display: grid;
   grid-template-columns: 240px minmax(0, 820px);
@@ -135,6 +157,18 @@ h3 {
   max-width: 1180px;
   margin: 0 auto;
   padding: 38px clamp(18px, 4vw, 56px) 72px;
+}
+
+.course-layout {
+  display: block;
+  max-width: none;
+  margin: 0;
+  padding-left: calc(var(--course-sidebar-space, 0px) + clamp(18px, 4vw, 56px));
+  transition: padding-left 180ms ease;
+}
+
+.course-layout.is-sidebar-collapsed {
+  grid-template-columns: none;
 }
 
 .toc {
@@ -151,26 +185,301 @@ h3 {
   box-shadow: 4px 4px 0 var(--ink);
 }
 
+.course-sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 40;
+  width: var(--course-sidebar-width);
+  height: 100dvh;
+  gap: 10px;
+  max-height: none;
+  align-content: start;
+  overflow: hidden;
+  border-width: 0 3px 0 0;
+  border-radius: 0;
+  box-shadow: var(--shadow);
+  transition: width 180ms ease, padding 180ms ease, box-shadow 180ms ease;
+}
+
+.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar {
+  width: var(--course-sidebar-collapsed-width);
+  padding: 12px 8px;
+  box-shadow: none;
+}
+
+.has-course-sidebar.is-course-sidebar-collapsed:not(.is-sidebar-hover-locked) .course-sidebar:hover {
+  width: var(--course-sidebar-width);
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+
+.course-sidebar::after {
+  content: "Plan";
+  position: absolute;
+  top: 74px;
+  left: 50%;
+  opacity: 0;
+  transform: translateX(-50%);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+  transition: opacity 120ms ease;
+}
+
+.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar:not(:hover)::after,
+.has-course-sidebar.is-course-sidebar-collapsed.is-sidebar-hover-locked .course-sidebar::after {
+  opacity: 1;
+}
+
+.sidebar-head {
+  display: flex;
+  gap: 12px;
+  align-items: start;
+  justify-content: space-between;
+}
+
+.sidebar-subtitle {
+  margin: -4px 0 0;
+  color: var(--ink-soft);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.sidebar-toggle {
+  display: inline-grid;
+  position: relative;
+  z-index: 1;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: var(--line);
+  border-radius: 50%;
+  background: var(--yellow);
+  box-shadow: 2px 2px 0 var(--ink);
+  color: var(--ink);
+  cursor: pointer;
+  font: inherit;
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.sidebar-toggle span {
+  display: block;
+  transform-origin: center;
+  transition: transform 180ms ease;
+}
+
+.sidebar-toggle:hover,
+.sidebar-toggle:focus-visible {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 var(--ink);
+  outline: none;
+}
+
+.toc-links {
+  display: grid;
+  gap: 6px;
+}
+
+.course-sidebar .toc-links {
+  gap: 4px;
+}
+
 .toc a {
-  padding: 8px 10px;
-  border-radius: 10px;
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+  min-height: 38px;
+  padding: 4px 8px 4px 4px;
+  border: 2px solid transparent;
+  border-radius: 14px;
   color: var(--ink-soft);
   font-size: 14px;
   font-weight: 800;
   text-decoration: none;
 }
 
+.course-sidebar .toc a {
+  min-height: 34px;
+  padding: 3px 7px 3px 3px;
+  border-radius: 12px;
+  font-size: 13px;
+}
+
 .toc a:hover,
-.toc a:focus-visible {
+.toc a:focus-visible,
+.toc a.is-active {
   background: var(--blue);
+  border-color: var(--ink);
   color: var(--ink);
   outline: none;
+}
+
+.toc-index {
+  display: inline-grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: #fffdf8;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.course-sidebar .toc-index {
+  width: 28px;
+  height: 28px;
+}
+
+.toc-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebar-checkpoint {
+  padding: 12px;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  background: #eaf1df;
+  color: var(--ink-soft);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.course-sidebar .sidebar-checkpoint {
+  padding: 10px;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.sidebar-checkpoint p {
+  margin: 0;
+}
+
+.sidebar-checkpoint p + p {
+  margin-top: 6px;
+}
+
+.has-course-sidebar.is-course-sidebar-collapsed .sidebar-head {
+  justify-content: center;
+}
+
+.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar:not(:hover) .toc-title,
+.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar:not(:hover) .sidebar-subtitle,
+.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar:not(:hover) .toc-links,
+.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar:not(:hover) .sidebar-checkpoint,
+.has-course-sidebar.is-course-sidebar-collapsed.is-sidebar-hover-locked .course-sidebar .toc-title,
+.has-course-sidebar.is-course-sidebar-collapsed.is-sidebar-hover-locked .course-sidebar .sidebar-subtitle,
+.has-course-sidebar.is-course-sidebar-collapsed.is-sidebar-hover-locked .course-sidebar .toc-links,
+.has-course-sidebar.is-course-sidebar-collapsed.is-sidebar-hover-locked .course-sidebar .sidebar-checkpoint {
+  display: none;
+  pointer-events: none;
+}
+
+.has-course-sidebar.is-course-sidebar-collapsed .sidebar-toggle span {
+  transform: rotate(180deg);
+}
+
+.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar:not(:hover) .toc a {
+  grid-template-columns: 1fr;
+  justify-items: center;
+  padding: 5px;
+}
+
+.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar:not(:hover) .toc-index {
+  width: 38px;
+  height: 38px;
 }
 
 .lesson {
   display: grid;
   gap: 54px;
   min-width: 0;
+}
+
+.course-lesson {
+  gap: 42px;
+  max-width: 1040px;
+  margin: 0 auto;
+}
+
+.course-overview {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.82fr) minmax(360px, 1.18fr);
+  gap: 18px;
+  align-items: stretch;
+  padding: clamp(20px, 3vw, 30px);
+  border: var(--line);
+  border-radius: 20px;
+  background: #121212;
+  color: #fffdf8;
+  box-shadow: var(--shadow);
+}
+
+.course-overview p {
+  margin: 0;
+}
+
+.course-overview .box-title {
+  color: #ffeeb0;
+}
+
+.course-overview .box-title + p {
+  margin-top: 10px;
+  color: #f6f2eb;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.overview-steps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(160px, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.overview-steps li {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  min-height: 82px;
+  padding: 12px;
+  border: 2px solid #fffdf8;
+  border-radius: 14px;
+  background: rgba(255, 253, 248, 0.08);
+}
+
+.overview-steps strong {
+  min-width: 0;
+  color: var(--yellow);
+  font-size: 15px;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+  text-transform: uppercase;
+}
+
+.overview-steps span {
+  min-width: 0;
+  color: #fffdf8;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.32;
+  overflow-wrap: anywhere;
 }
 
 .chapter-section {
@@ -187,6 +496,11 @@ h3 {
 .chapter-section > figure,
 .chapter-section > div {
   margin-top: 22px;
+}
+
+.chapter-section > figure {
+  margin-right: 0;
+  margin-left: 0;
 }
 
 .visual-block {
@@ -262,8 +576,12 @@ h3 {
 .teacher-note,
 .check-card,
 .worked-example,
+.session-target,
+.paywall-card,
+.gate-card,
 .exercise,
 .formula-card {
+  min-width: 0;
   padding: 18px;
   border: var(--line);
   border-radius: 16px;
@@ -285,18 +603,37 @@ h3 {
   background: #f0eafc;
 }
 
-.formula-card {
-  max-width: 100%;
-  overflow-x: auto;
+.session-target {
+  background: #d8cdf0;
+}
+
+.paywall-card {
   background: #121212;
   color: #fffdf8;
-  font-size: 18px;
+}
+
+.gate-card {
+  background: #ffeeb0;
+  box-shadow: 4px 4px 0 var(--red);
+}
+
+.formula-card {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: visible;
+  background: #121212;
+  color: #fffdf8;
+  font-size: clamp(17px, 1.25vw, 20px);
+  line-height: 1.45;
 }
 
 .formula-card .katex-display {
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding-bottom: 4px;
+  overflow: visible;
+  padding-bottom: 0;
+}
+
+.formula-card .katex-display + .katex-display {
+  margin-top: 0.75em;
 }
 
 .katex .katex-mathml {
@@ -349,6 +686,146 @@ h3 {
   border-radius: 14px;
   background: #fff;
   font-weight: 900;
+}
+
+.diagnostic-grid,
+.case-grid,
+.choice-grid,
+.copy-grid,
+.revision-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.diagnostic-grid,
+.case-grid,
+.choice-grid,
+.revision-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.diagnostic-grid > *,
+.case-grid > *,
+.choice-grid > *,
+.copy-grid > *,
+.revision-grid > *,
+.math-language-grid > * {
+  min-width: 0;
+}
+
+.copy-grid {
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  align-items: start;
+}
+
+.case-card,
+.choice-card,
+.revision-card {
+  min-width: 0;
+  padding: 16px;
+  border: var(--line);
+  border-radius: 16px;
+  background: #fff;
+}
+
+.case-card {
+  background: #eaf1df;
+}
+
+.choice-card {
+  background: #c7d9d7;
+}
+
+.revision-card {
+  background: #fffdf8;
+}
+
+.case-title {
+  margin: 0 0 8px;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.hint-line,
+.penalty {
+  font-weight: 900;
+}
+
+.hint-line {
+  color: #3f7f8f;
+}
+
+.penalty {
+  color: #8a2118;
+}
+
+.score-list,
+.exercise-list {
+  padding-left: 22px;
+}
+
+.score-list li + li,
+.exercise-list li + li {
+  margin-top: 8px;
+}
+
+.sign-table {
+  overflow-x: auto;
+  border: var(--line);
+  border-radius: 16px;
+  background: #fff;
+}
+
+.sign-row {
+  display: grid;
+  grid-template-columns: 1.1fr repeat(4, minmax(74px, 1fr));
+  min-width: 520px;
+}
+
+.sign-row + .sign-row {
+  border-top: 2px solid var(--ink);
+}
+
+.sign-row p {
+  display: grid;
+  min-height: 54px;
+  margin: 0;
+  place-items: center;
+  padding: 10px;
+  border-right: 2px solid var(--ink);
+  font-weight: 900;
+  text-align: center;
+}
+
+.sign-row p:last-child {
+  border-right: 0;
+}
+
+.sign-head {
+  background: var(--blue);
+}
+
+.math-language-visual {
+  background: #fffdf8;
+}
+
+.math-language-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  padding: 18px;
+}
+
+.math-language-card {
+  min-width: 0;
+  padding: 16px;
+  border: var(--line);
+  border-radius: 16px;
+  background: #eaf1df;
+}
+
+.math-language-card + .math-language-card {
+  background: #ffe2dc;
 }
 
 .reveal-button {
@@ -415,18 +892,73 @@ h3 {
   line-height: 1;
 }
 
+@media (max-height: 760px) {
+  .course-sidebar .toc a {
+    min-height: 30px;
+    font-size: 12px;
+  }
+
+  .course-sidebar .toc-index {
+    width: 25px;
+    height: 25px;
+    font-size: 11px;
+  }
+
+  .course-sidebar .sidebar-checkpoint {
+    display: none;
+  }
+}
+
 @media (max-width: 900px) {
   .hero-grid,
   .lesson-layout {
     grid-template-columns: 1fr;
   }
 
+  .has-course-sidebar {
+    --course-sidebar-width: min(268px, calc(100vw - 58px));
+    --course-sidebar-collapsed-width: 50px;
+  }
+
+  .has-course-sidebar .course-hero,
+  .course-layout,
+  .course-layout.is-sidebar-collapsed {
+    grid-template-columns: none;
+    padding-left: calc(var(--course-sidebar-space, 0px) + 10px);
+  }
+
   .toc {
     position: static;
   }
 
+  .course-sidebar {
+    position: fixed;
+    max-height: none;
+  }
+
+  .sidebar-toggle {
+    width: 30px;
+    height: 30px;
+    border-width: 2px;
+    font-size: 22px;
+  }
+
+  .course-overview {
+    grid-template-columns: 1fr;
+  }
+
+  .overview-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .method-grid,
-  .formula-list {
+  .formula-list,
+  .diagnostic-grid,
+  .case-grid,
+  .choice-grid,
+  .copy-grid,
+  .revision-grid,
+  .math-language-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -436,22 +968,49 @@ h3 {
     font-size: 16px;
   }
 
+  .has-course-sidebar {
+    --course-sidebar-width: min(268px, calc(100vw - 58px));
+    --course-sidebar-space: var(--course-sidebar-collapsed-width);
+  }
+
   .course-hero {
     padding-inline: 16px;
   }
 
-  .lesson-layout {
-    padding-inline: 14px;
+  .has-course-sidebar .course-hero {
+    padding-left: calc(var(--course-sidebar-space) + 12px);
   }
 
+  .lesson-layout {
+    padding-right: 14px;
+  }
+
+  .overview-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .has-course-sidebar.is-course-sidebar-collapsed .course-sidebar {
+    padding-inline: 6px;
+  }
+
+  .course-overview,
   .chapter-section {
+    padding: 20px;
     border-width: 2px;
     box-shadow: 4px 4px 0 var(--ink);
   }
 
   .formula-card {
     padding: 12px;
-    font-size: 14px;
+  }
+
+  .math-language-card .formula-card,
+  .worked-example .formula-card,
+  .exercise .formula-card,
+  .answer .formula-card {
+    width: calc(100% + 24px);
+    margin-right: -12px;
+    margin-left: -12px;
   }
 
   .formula-card .katex-display {

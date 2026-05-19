@@ -1,0 +1,182 @@
+1
+Yvan Monka – Académie de Strasbourg – www.maths-et-tiques.fr
+SECOND DEGRÉ – Chapitre 1/2
+Tout le cours en vidéo : https://youtu.be/WVYWdN13kPE
+Partie 1 : Fonction polynôme du second degré
+Définition : On appelle fonction polynôme du second degré toute fonction 𝑓 définie sur ℝ
+par une expression de la forme :
+𝑓(𝑥) = 𝑎𝑥! + 𝑏𝑥 + 𝑐
+où les coefficients 𝑎, 𝑏 et 𝑐 sont des réels donnés avec 𝑎 ≠ 0.
+Remarque :
+Une fonction polynôme du second degré s'appelle également « trinôme ».
+Exemples et contre-exemples :
+𝑓(𝑥) = 3𝑥! − 7𝑥 + 3
+𝑔(𝑥) = 1
+2 𝑥! − 5𝑥 + 3
+5
+ℎ(𝑥) = 4 − 2𝑥! 	sont des fonctions polynômes du second degré.
+𝑘(𝑥) = (𝑥 − 4)(5 − 2𝑥)
+𝑚(𝑥) = 5𝑥 − 3 	est une fonction polynôme du premier degré (fonction affine).
+𝑛(𝑥) = 5𝑥" − 7𝑥# + 3𝑥 − 8 	est une fonction polynôme de degré 4.
+Partie 2 : Forme canonique d'une fonction polynôme du second degré
+Propriété :
+Toute fonction polynôme 𝑓 du second degré définie sur ℝ par 𝑓(𝑥) = 𝑎𝑥! + 𝑏𝑥 + 𝑐 peut
+s'écrire sous la forme :
+𝑓(𝑥) = 𝑎(𝑥 − 𝛼)! + 𝛽, où 𝛼 et 𝛽 sont deux nombres réels.
+Cette dernière écriture s'appelle la forme canonique de 𝑓.
+Démonstration :
+Comme 𝑎 ≠ 0, on peut écrire :
+𝑓(𝑥) = 𝑎𝑥! + 𝑏𝑥 + 𝑐
+= 𝑎 <𝑥! + 𝑏
+𝑎 𝑥= + 𝑐
+= 𝑎 >𝑥! + 𝑏
+𝑎 𝑥 + ? 𝑏
+2𝑎@
+!
+− ? 𝑏
+2𝑎@
+!
+A + 𝑐
+= 𝑎 >?𝑥 + 𝑏
+2𝑎@
+!
+− ? 𝑏
+2𝑎@
+!
+A + 𝑐
+
+-- 1 of 5 --
+
+2
+Yvan Monka – Académie de Strasbourg – www.maths-et-tiques.fr
+= 𝑎 ?𝑥 + 𝑏
+2𝑎@
+!
+− 𝑎 𝑏!
+4𝑎! + 𝑐
+= 𝑎 ?𝑥 + 𝑏
+2𝑎@
+!
+− 𝑏!
+4𝑎 + 𝑐
+= 𝑎 ?𝑥 + 𝑏
+2𝑎@
+!
+− 𝑏! − 4𝑎𝑐
+4𝑎
+= 𝑎(𝑥 − 𝛼)! + 𝛽 avec 𝛼 = − !
+"# et 𝛽 = − !!$%#&
+%# .
+Méthode : Déterminer la forme canonique d'une fonction polynôme du second degré
+Vidéo https://youtu.be/JcT6kph74O0
+Vidéo https://youtu.be/OQHf-hX9JhM
+Soit la fonction polynôme 𝑓 du second degré définie sur ℝ par : 𝑓(𝑥) = 2𝑥! − 20𝑥 + 10.
+Écrire 𝑓 sous sa forme canonique.
+Correction
+On veut exprimer la fonction 𝑓 sous sa forme canonique :
+𝑓(𝑥) =J(𝑥 −J)2 + J
+où J, J et J sont des nombres réels.
+𝑓(𝑥) = 2𝑥! − 20𝑥 + 10
+= 2[𝑥! − 10𝑥] + 10
+= 2[𝑥! − 10𝑥 + 25 − 25] + 10
+= 2[(𝑥 − 5)! − 25] + 10
+= 2(𝑥 − 5)! − 50 + 10
+= 2(𝑥 − 5)! − 40
+𝑓(𝑥) = 2(𝑥 − 5)! − 40 est la forme canonique de 𝑓.
+Partie 3 : Variations, extremum et représentation graphique
+1) Variations
+Propriétés :
+Soit 𝑓 une fonction polynôme du second degré, telle que 𝑓(𝑥) = 𝑎𝑥! + 𝑏𝑥 + 𝑐.
+- Si 𝑎 est positif, 𝑓 est d’abord décroissante, puis croissante : « 😊 ».
+- Si 𝑎 est négatif, 𝑓 est d’abord croissante, puis décroissante : « ☹ ».
+← car 𝑥! − 10𝑥 est le début du développement
+de (𝑥 − 5)! et (𝑥 − 5)! = 𝑥! − 10𝑥 + 25
+
+-- 2 of 5 --
+
+3
+Yvan Monka – Académie de Strasbourg – www.maths-et-tiques.fr
+𝑎 > 0 	𝑎 < 0
+2) Extremum
+Exemple : Soit la fonction 𝑓 donnée sous sa forme canonique par : 𝑓(𝑥) = 2(𝑥 − 1)! + 3
+On a : 2(𝑥 − 1)! ≥ 0
+Donc : 2(𝑥 − 1)! + 3 ≥ 3
+Soit : 	𝑓(𝑥) ≥ 3
+Or : 𝑓(1) = 3 donc pour tout 𝑥, 𝑓(𝑥) ≥ 𝑓(1).
+𝑓 admet donc un minimum en 1. Ce minimum est égal à 3.
+Propriété :
+Soit 𝑓 une fonction polynôme du second degré définie par 𝑓(𝑥) = 𝑎(𝑥 − 𝛼)! +𝛽,
+avec 𝑎 ≠ 0.
+- Si 𝑎 > 0, 𝑓 admet un minimum pour 𝑥 = 𝛼. Ce minimum est égal à 𝛽.
+- Si 𝑎 < 0, 𝑓 admet un maximum pour 𝑥 = 𝛼. Ce maximum est égal à 𝛽.
+Propriété : Pour 𝑓(𝑥) = 𝑎𝑥! + 𝑏𝑥 + 𝑐, avec 𝑎 ≠ 0, on a : 𝛼 = − !
+"# et 𝛽 = 𝑓 H− 𝑏
+2𝑎I
+
+-- 3 of 5 --
+
+4
+Yvan Monka – Académie de Strasbourg – www.maths-et-tiques.fr
+Si 𝑎 > 0: 	Si 𝑎 < 0 :
+Définition :
+La représentation graphique d'une fonction polynôme 𝑓 du second degré s’appelle une
+parabole.
+Le point de coordonnées (𝛼 ; 𝛽) s’appelle le sommet de la parabole.
+Il correspond à l’extremum de la fonction 𝑓.
+Propriété :
+La parabole admet pour axe de symétrie la droite d’équation 𝑥 = 𝛼.
+Méthode : Déterminer les caractéristiques d’une parabole
+Vidéo https://youtu.be/7IOCVfUnoz0
+Soit la fonction polynôme du second degré défini par 𝑓(𝑥) = 2𝑥! − 12𝑥 + 1.
+Déterminer le sommet de la parabole de 𝑓 et son axe de symétrie.
+Correction
+- Les coordonnées du sommet de la parabole sont (𝛼 ; 𝛽), avec :
+𝛼 = − 𝑏
+2𝑎 = − −12
+2 × 2 = 3
+𝛽 = 𝑓 ?− 𝑏
+2𝑎@ = 𝑓(3) = 2 × 3! − 12 × 3 + 1 = −17
+Le point de coordonnées (3 ; −17) est donc le sommet
+de la parabole.
+Remarque : Comme 𝑎 = 2 > 0, ce sommet correspond
+à un minimum.
+- La parabole possède un axe de symétrie d'équation
+𝑥 = − !
+"#, soit 𝑥 = 3.
+La droite d’équation 𝑥 = 3 est donc axe de symétrie de
+la parabole.
+
+-- 4 of 5 --
+
+5
+Yvan Monka – Académie de Strasbourg – www.maths-et-tiques.fr
+3) Représentation graphique
+Méthode : Représenter graphiquement une fonction polynôme du second degré
+Vidéo https://youtu.be/KK76UohzUW4
+Représenter graphiquement la fonction polynôme 𝑓 du second degré définie sur ℝ par
+𝑓(𝑥) = −𝑥! + 4𝑥.
+Correction
+Commençons par écrire la fonction 𝑓 sous sa forme canonique :
+𝑓(𝑥) = −𝑥! + 4𝑥
+= −(𝑥! − 4𝑥)
+= −(𝑥! − 4𝑥 + 4 − 4)
+= −((𝑥 − 2)! − 4)
+= −(𝑥 − 2)! + 4
+𝑓 admet donc un maximum en 𝛼 = 2 égal à 𝛽 = 4.
+Remarque : On peut aussi appliquer les formules 𝛼 = − !
+"# et 𝛽 = 𝑓 H− 𝑏
+2𝑎I
+Les variations de 𝑓 sont donc données dans le tableau suivant :
+Pour représenter graphiquement la fonction 𝑓, on
+calcule les coordonnées de quelques points
+appartenant à la courbe :
+𝑓(0) = −0! + 4 × 0 = 0
+𝑓(1) = −1! + 4 × 1 = −1 + 4 = 3
+On obtient d’autres points par symétrie par rapport
+à la droite d’équation 𝑥 = 2.
+On trace la courbe représentative de 𝑓 ci-contre.
+Hors du cadre de la classe, aucune reproduction, même partielle, autres que celles prévues à l'article L 122-5 du
+code de la propriété intellectuelle, ne peut être faite de ce site sans l'autorisation expresse de l'auteur.
+www.maths-et-tiques.fr/index.php/mentions-legales
+
+-- 5 of 5 --

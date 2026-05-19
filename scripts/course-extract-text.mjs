@@ -4,7 +4,7 @@ import { promises as fs } from 'fs';
 import path from 'path';
 
 const require = createRequire(import.meta.url);
-const pdfParse = require('pdf-parse');
+const { PDFParse } = require('pdf-parse');
 
 const HELP = `Usage:
   node scripts/course-extract-text.mjs <input-dir> <output-dir>
@@ -80,7 +80,9 @@ async function main() {
   for (const [index, filename] of pdfs.entries()) {
     const sourcePath = path.join(absoluteInput, filename);
     const buffer = await fs.readFile(sourcePath);
-    const parsed = await pdfParse(buffer);
+    const parser = new PDFParse({ data: buffer });
+    const parsed = await parser.getText();
+    await parser.destroy();
     const text = normalizeText(parsed.text || '');
     const sourceId = `source-${String(index + 1).padStart(2, '0')}-${slugify(path.basename(filename, '.pdf'))}`;
     const textFilename = `${sourceId}.txt`;
@@ -91,7 +93,7 @@ async function main() {
       id: sourceId,
       filename,
       textFile: textFilename,
-      pages: parsed.numpages ?? null,
+      pages: parsed.total ?? null,
       characters: text.length,
     });
 

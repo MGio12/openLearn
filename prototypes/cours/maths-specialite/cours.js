@@ -29,6 +29,8 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  initCourseSidebar();
+
   for (const element of document.querySelectorAll('[data-derivative-board]')) {
     initDerivativeBoard(element);
   }
@@ -41,6 +43,80 @@ window.addEventListener('DOMContentLoaded', () => {
     initSignBoard(element);
   }
 });
+
+function initCourseSidebar() {
+  const layout = document.querySelector('[data-course-layout]');
+  const sidebar = document.querySelector('[data-course-sidebar]');
+  const toggle = document.querySelector('[data-sidebar-toggle]');
+  const links = Array.from(document.querySelectorAll('[data-section-link]'));
+  const compactQuery = window.matchMedia('(max-width: 900px)');
+
+  if (!layout || !toggle) return;
+
+  document.body.classList.add('has-course-sidebar');
+
+  const setCollapsed = (isCollapsed, options = {}) => {
+    layout.classList.toggle('is-sidebar-collapsed', isCollapsed);
+    layout.classList.toggle('is-sidebar-expanded', !isCollapsed);
+    document.body.classList.toggle('is-course-sidebar-collapsed', isCollapsed);
+    document.body.classList.toggle('is-course-sidebar-expanded', !isCollapsed);
+    document.body.classList.toggle('is-sidebar-hover-locked', Boolean(options.lockHover && isCollapsed));
+    toggle.setAttribute('aria-expanded', String(!isCollapsed));
+    toggle.setAttribute('aria-label', isCollapsed ? 'Déplier le plan' : 'Replier le plan');
+  };
+
+  setCollapsed(false);
+
+  toggle.addEventListener('click', () => {
+    const shouldCollapse = !layout.classList.contains('is-sidebar-collapsed');
+    setCollapsed(shouldCollapse, { lockHover: shouldCollapse });
+  });
+
+  sidebar?.addEventListener('mouseleave', () => {
+    document.body.classList.remove('is-sidebar-hover-locked');
+  });
+
+  for (const link of links) {
+    link.addEventListener('click', () => {
+      if (compactQuery.matches) {
+        setCollapsed(true, { lockHover: true });
+      }
+    });
+  }
+
+  const sections = links
+    .map((link) => document.querySelector(link.getAttribute('href')))
+    .filter(Boolean);
+
+  if (!('IntersectionObserver' in window) || sections.length === 0) return;
+
+  const setActiveLink = (id) => {
+    for (const link of links) {
+      link.classList.toggle('is-active', link.getAttribute('href') === `#${id}`);
+    }
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    const visible = entries
+      .filter((entry) => entry.isIntersecting)
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+    if (visible) {
+      setActiveLink(visible.target.id);
+    }
+  }, {
+    rootMargin: '-20% 0px -58% 0px',
+    threshold: [0.08, 0.18, 0.32],
+  });
+
+  for (const section of sections) {
+    observer.observe(section);
+  }
+
+  if (sections[0]) {
+    setActiveLink(sections[0].id);
+  }
+}
 
 const GRAPH_COLORS = {
   coral: '#d96c5f',
