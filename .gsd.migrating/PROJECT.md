@@ -2,13 +2,13 @@
 
 ## What This Is
 
-Outil Prepa is a static HTML/CSS/JavaScript prototype for a preparation tool aimed first at ATS/prepa students. The current product shows a study cockpit, ATS priority analysis, a Stripe Payment Link checkout page, and a post-payment confirmation page.
+Objectif Lycee is a static HTML/CSS/JavaScript prototype for a preparation tool aimed first at lycee students. The current product shows a study cockpit, objective analysis, a Stripe Payment Link checkout page, and a post-payment confirmation page.
 
 The immediate project is not a backend product yet. It is a premium static experience that makes the user feel they found the right working environment: focused, intimate, useful, and worth paying for.
 
 ## Core Value
 
-The one thing that must survive if scope shrinks: Outil Prepa tells the student what to work on today, with enough confidence and craft that the user feels less lost and more ready to act.
+The one thing that must survive if scope shrinks: Objectif Lycee tells the student what to work on today, with enough confidence and craft that the user feels less lost and more ready to act.
 
 ## Project Shape
 
@@ -20,7 +20,7 @@ The one thing that must survive if scope shrinks: Outil Prepa tells the student 
 Existing files include:
 
 - `index.html` — current dashboard/cockpit experience.
-- `ats.html` — ATS priority/heatmap proof surface.
+- `objectif.html` — objective proof surface.
 - `checkout.html` — improved subscription page with Stripe Payment Link configured.
 - `merci.html` — post-payment confirmation page.
 - `mission.html`, `focus.html`, `onboarding.html` — supporting static product surfaces.
@@ -44,5 +44,5 @@ See `.gsd/REQUIREMENTS.md` for the explicit capability contract, requirement sta
 ## Milestone Sequence
 
 - [ ] M001: Prototype statique premium orienté mission du jour — make the static tunnel feel focused, trustworthy, valuable, and sellable.
-- [ ] M002: Acquisition SEO ATS — create useful ATS search-entry pages that lead into the product and subscription flow.
+- [ ] M002: Acquisition SEO lycee — create useful lycee search-entry pages that lead into the product and subscription flow.
 - [ ] M003: Accès abonné et personnalisation réelle — add real continuity after payment, accounts/access, and dynamic mission logic when the static UX is validated.

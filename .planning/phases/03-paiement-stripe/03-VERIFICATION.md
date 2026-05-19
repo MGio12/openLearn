@@ -9,7 +9,7 @@
 | Checkout does not expose Stripe secret | PASS | Only a Payment Link URL is accepted client-side |
 | CTA handles missing config | PASS | `scripts/checkout.js` opens setup panel instead of navigating |
 | CTA accepts Stripe hosted URLs | PASS | Regex accepts `https://buy.stripe.com/...` and `https://checkout.stripe.com/...` |
-| Dashboard navigation includes subscription page | PASS | `index.html` and `ats.html` link to `checkout.html` |
+| Dashboard navigation includes subscription page | PASS | `index.html` and `objectif.html` link to `checkout.html` |
 
 ## Requirement status
 
@@ -22,7 +22,7 @@
 
 ## Manual Stripe setup
 
-1. Create a Stripe product for Outil Prepa.
+1. Create a Stripe product for Objectif Lycee.
 2. Add recurring price: 10 EUR / month.
 3. Create a Payment Link for that recurring price.
 4. Set success redirect to the deployed `merci.html` URL.

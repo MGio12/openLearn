@@ -3,7 +3,7 @@ name: voice-review
 description: Audit et réécriture de texte français pour éliminer les "AI tells". Use when the user asks to review copy, sound more human, fix AI slop in French content, or polish the voice on pages like mission.html, index.html, onboarding.html.
 ---
 
-Skill spécifique à prepaSiteV2 — site français de prépa concours. Détecte et corrige les marqueurs de texte généré par IA dans le copy français user-facing.
+Skill spécifique à ObjectifLycee — site français pour lycéens. Détecte et corrige les marqueurs de texte généré par IA dans le copy français user-facing.
 
 ## Mode opératoire
 
@@ -31,9 +31,9 @@ Skill spécifique à prepaSiteV2 — site français de prépa concours. Détecte
 - **Subordonnées "permettant de"** : "une méthode permettant d'atteindre" → "une méthode pour atteindre" (ou rien)
 - **Em-dashes (—) en rafale** : un par paragraphe max, sinon ça sent l'IA
 
-### Spécifique prépa / éducation (cliché du domaine)
+### Spécifique lycée / éducation (cliché du domaine)
 
-- "Réussir vos/tes concours" (générique)
+- "Réussir ton trimestre" (générique)
 - "Préparation rigoureuse" (creux)
 - "Accompagnement personnalisé" (tout le monde le dit)
 - "Atteindre vos objectifs" (vide)
@@ -59,10 +59,10 @@ Pour chaque AI tell détecté, appliquer dans cet ordre :
 ## Exemple avant/après
 
 **Avant (AI slop)** :
-> "Notre méthodologie éprouvée, fruit d'une approche personnalisée et rigoureuse, vous permettra d'atteindre l'excellence dans la préparation de vos concours grâce à un accompagnement sur-mesure."
+> "Notre méthodologie éprouvée, fruit d'une approche personnalisée et rigoureuse, vous permettra d'atteindre l'excellence dans ton organisation de travail grâce à un accompagnement sur-mesure."
 
 **Après (voix humaine)** :
-> "Notre méthode marche. On l'a testée sur 200 élèves de prépa l'an dernier — 78% ont eu le concours. Tu travailles avec un prof, pas une plateforme."
+> "Notre méthode marche. On l'a testée sur 200 lycéens l'an dernier — 78% ont gagne au moins un point de moyenne. Tu travailles avec un prof, pas une plateforme."
 
 Trois changements : preuve chiffrée, phrases courtes, adresse directe au lecteur.
 
@@ -80,7 +80,7 @@ Quand l'utilisateur demande "review la voix de X" ou "rends ce texte plus humain
 
 - **Ne pas** réécrire du copy déjà bon juste pour "faire passer le check"
 - **Ne pas** ajouter d'oralité forcée si le ton du site est sobre
-- **Toujours** respecter la tonalité existante de prepaSiteV2 (vérifier mission.html / index.html comme référence)
+- **Toujours** respecter la tonalité existante de ObjectifLycee (vérifier mission.html / index.html comme référence)
 - **Ne jamais** modifier les CTA, prix, ou éléments légaux sans demander
 
 ## Liens vers la suite

@@ -1,42 +1,34 @@
-# Outil Prepa — Project Context
+# Objectif Lycee — Project Context
 
 ## Mission
-"Toujours un chapitre d'avance." — La plateforme d'apprentissage qui donne aux étudiants ATS et lycéens un coup d'avance permanent sur leur programme.
+"Toujours un chapitre d'avance." — La plateforme qui donne aux lyceens une mission claire, une preuve qu'elle compte, puis une progression visible.
 
 ## What We're Building
-A web-based study platform that generates personalized daily study missions from real concours data. Phase 1 targets ATS students (800-1000/year) as proof-of-concept + content creation. Phase 2+ expands to lycéens with objective-driven personalized paths.
+A static HTML/CSS/JavaScript prototype for lycee students. The product centers the daily mission, explains its impact on the student's objective, and supports a simple subscription funnel.
 
 ## Stack
 - **Frontend:** HTML/CSS/JS vanilla — no framework, flat file structure
-- **Data:** JSON files in `data/ats/` — scored topics from real ATS concours PDFs (2018→2024)
+- **Data:** local state and explicit demo fixtures
 - **Scripts:** Node.js ESM (`"type": "module"` in package.json)
-- **Scoring:** `score = frequency × recencyWeight(0.9^age) + juryBonus(0.2)`
-- **Visual testing:** Playwright screenshots + Claude review loop
-- **Shell:** PowerShell 5.1 on Windows 11 — all JSON writes use `[System.IO.File]::WriteAllText` with no-BOM UTF-8
+- **Visual testing:** Playwright verification scripts
 
-## Codebase State (Phase 2 Delivered)
-- `index.html` — Landing page
-- `ats.html` — ATS deep-dive: fully dynamic heatmap from weighted-topics.json (Phase 2 complete)
-- `focus.html` — Focus/planning page
-- `data/ats/sujets/{2018-2024}/mathematiques.json` — Tagged topic data
-- `data/ats/poids/weighted-topics.json` — Generated weighted scores (4 math topics)
-- `scripts/compute-weights.js` — Recomputes weighted-topics.json from all sujets
-- `scripts/screenshot.js` — Playwright visual review
-- `scripts/_server.cjs` — Static HTTP server for Playwright
+## Codebase State
+- `index.html` — cockpit and daily mission
+- `mission.html` — mission execution
+- `focus.html` — focus session
+- `objectif.html` — objective proof, impact and priorities
+- `progression.html` — visible progress
+- `checkout.html` / `merci.html` — subscription flow
+- `scripts/model.js` — central demo model
+- `scripts/state.js` — local state and mission progress
 
-## Critical Constraints
-- **No BOM on JSON files**: PowerShell 5.1 adds BOM with `-Encoding utf8`; use `[System.IO.File]::WriteAllText` with `[System.Text.UTF8Encoding]::new($false)`
-- **No template literals in scripts written via PowerShell**: backticks get eaten; use string concatenation
-- **gsd-workflow-guard.js hook**: blocks Write/Edit tools → all file creation via PowerShell WriteAllText
-- **PostToolUse hooks fail on Windows**: non-blocking noise, ignore
-
-## Product Rules (permanent)
-1. One primary information per block — never 20 metrics visible at once
-2. "Coup d'avance" always visible — user sees their position vs. program immediately
-3. Zero aggressive gamification — discrete streaks, real progression, never "LEVEL UP"
-4. AI is silent — suggests, doesn't shout. Calm strategic assistant.
-5. Human-first branding — photos, videos, blog — all organic, sourced
-6. MVP discipline — utility + shipping speed before visual perfection
+## Product Rules
+1. One primary information per block.
+2. Mission first: the user always sees what to do now.
+3. Objective proof stays concrete: dossier, Parcoursup, controls, chapter weaknesses.
+4. No aggressive gamification.
+5. AI is quiet and useful.
+6. MVP discipline: utility and shipping speed before broad scope.
 
 ---
-*Last updated: 2026-05-14 — Phase 2 complete: ats.html dynamic heatmap delivered*
+*Last updated: 2026-05-18 — scope narrowed to lycee only*

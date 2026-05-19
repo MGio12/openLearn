@@ -9,7 +9,7 @@
       "depends_on": [],
       "created_at": "2026-05-14T19:44:01.783Z",
       "completed_at": null,
-      "vision": "Transformer Outil Prepa en prototype statique premium et vendable, centré sur la mission du jour, la valeur perçue, la confiance Stripe, et une expérience intime de carnet de prépa vivant.",
+      "vision": "Transformer Objectif Lycee en prototype statique premium et vendable, centré sur la mission du jour, la valeur perçue, la confiance Stripe, et une expérience intime de carnet de lycee vivant.",
       "success_criteria": [
         "User can open index.html and immediately see what to work on today.",
         "User can navigate the static routine/conversion tunnel without dead primary CTAs.",
@@ -44,7 +44,7 @@
         {
           "riskOrUnknown": "Craft visuel IA-slop ou gadget",
           "retireIn": "S04",
-          "whatWillBeProven": "les pages clés utilisent des détails cohérents avec le carnet de prépa vivant et des interactions qui renforcent le sens."
+          "whatWillBeProven": "les pages clés utilisent des détails cohérents avec le carnet de lycee vivant et des interactions qui renforcent le sens."
         },
         {
           "riskOrUnknown": "Checkout sur-promet la personnalisation",
@@ -58,7 +58,7 @@
         }
       ],
       "verification_contract": "Run static file/link inspection and node --check scripts/checkout.js.",
-      "verification_integration": "Use a local static server and browser tools to navigate index.html, mission.html, ats.html, checkout.html, and merci.html; verify primary CTAs and Stripe Payment Link DOM state.",
+      "verification_integration": "Use a local static server and browser tools to navigate index.html, mission.html, objectif.html, checkout.html, and merci.html; verify primary CTAs and Stripe Payment Link DOM state.",
       "verification_operational": "No daemon lifecycle beyond local static server; verify no blocking console/network errors in the static flow.",
       "verification_uat": "Human/design judgment required for craft feel, IA-slop avoidance, value perception, and whether mission du jour feels central.",
       "definition_of_done": [
@@ -66,7 +66,7 @@
         "La mission du jour contient 2-3 actions concrètes, une durée, et une justification simple.",
         "Les stats globales ne dominent plus l’écran principal.",
         "mission.html donne une vraie sensation d’exécution focus, même statique.",
-        "ats.html sert de preuve de priorité, pas de tableau analytique principal.",
+        "objectif.html sert de preuve de priorité, pas de tableau analytique principal.",
         "checkout.html vend l’abonnement comme un investissement sur soi et une bonne affaire.",
         "La confiance est explicite : Stripe, aucune donnée bancaire stockée, abonnement clair.",
         "Le tunnel complet est navigable sans impasse.",
@@ -96,7 +96,7 @@
       "goal": "Recentrer le dashboard sur la mission du jour comme surface de décision immédiate.",
       "success_criteria": "- The first meaningful dashboard area is the daily mission, not global analytics.\n- Mission includes 2-3 concrete actions, duration, and reason.\n- Statistics are visually secondary and explain the mission.\n- Primary mission CTA points to mission.html.\n- Copy emphasizes simplification and action today.",
       "proof_level": "Behavioral browser verification plus static link inspection.",
-      "integration_closure": "index.html links forward to mission.html and optionally ats.html/checkout.html through visible, meaningful CTAs.",
+      "integration_closure": "index.html links forward to mission.html and optionally objectif.html/checkout.html through visible, meaningful CTAs.",
       "observability_impact": "Browser-visible state is enough: mission card, CTA targets, and explanatory priority signals are inspectable without backend logs.",
       "sequence": 1,
       "replan_triggered_at": null,
@@ -118,9 +118,9 @@
       "full_summary_md": "",
       "full_uat_md": "",
       "goal": "Make the static routine flow feel coherent from dashboard to execution and post-payment continuity.",
-      "success_criteria": "- mission.html feels like focused execution of the daily mission.\n- merci.html feels like the start of a routine, not just a receipt.\n- ats.html is reachable as proof/context without becoming the main dashboard.\n- Primary CTAs have real destinations.\n- Page copy is consistent across the tunnel.",
+      "success_criteria": "- mission.html feels like focused execution of the daily mission.\n- merci.html feels like the start of a routine, not just a receipt.\n- objectif.html is reachable as proof/context without becoming the main dashboard.\n- Primary CTAs have real destinations.\n- Page copy is consistent across the tunnel.",
       "proof_level": "Behavioral browser navigation across the static tunnel.",
-      "integration_closure": "index.html, mission.html, ats.html, checkout.html, and merci.html expose a coherent navigation path with no orphan primary action.",
+      "integration_closure": "index.html, mission.html, objectif.html, checkout.html, and merci.html expose a coherent navigation path with no orphan primary action.",
       "observability_impact": "Static page flow can be verified through browser navigation and link assertions.",
       "sequence": 2,
       "replan_triggered_at": null,

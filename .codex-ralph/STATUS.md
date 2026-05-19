@@ -231,9 +231,9 @@ Current TODO item completed:
 
 Changes made:
 
-- Added `scripts/validate-json.mjs`, which scans project JSON files for empty files, UTF-8 BOMs, invalid JSON, missing required ATS fields, and invalid ATS topic IDs.
+- Added `scripts/validate-json.mjs`, which scans project JSON files for empty files, UTF-8 BOMs, invalid JSON, missing required Objectif fields, and invalid Objectif topic IDs.
 - Wired the validator into `package.json` as `npm run validate:json` and made `npm run verify` run it before the existing S01-S05 verifications.
-- Removed UTF-8 BOM bytes from the seven existing `data/ats/sujets/{2018..2024}/mathematiques.json` files so the stricter validator can pass.
+- Removed UTF-8 BOM bytes from existing JSON files so the stricter validator can pass.
 - Marked only the current TODO checkbox complete.
 
 Working tree note:
@@ -243,7 +243,7 @@ Working tree note:
 Verification:
 
 - `npm run validate:json` first failed on the seven existing math JSON BOMs, proving the new BOM detection path.
-- After BOM cleanup, `npm run validate:json` passed: 99 JSON files verified, ATS schema and topics valid.
+- After BOM cleanup, `npm run validate:json` passed: 99 JSON files verified, JSON generique valide.
 - `node --check scripts/validate-json.mjs` passed.
 - `npm run verify` passed JSON validation plus S01, S02, S03, S04, and S05.
 

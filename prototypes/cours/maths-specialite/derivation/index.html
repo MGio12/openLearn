@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dérivation — cours prototype</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css">
+  <link rel="stylesheet" href="../cours.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js"></script>
+  <script defer src="../cours.js"></script>
+</head>
+<body>
+  <header class="course-hero">
+    <nav class="topline" aria-label="Fil d'Ariane">
+      <a href="../../../..">Outil Prépa</a>
+      <span>Maths spécialité</span>
+      <span>Prototype isolé</span>
+    </nav>
+
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">Chapitre test</p>
+        <h1>Dérivation</h1>
+        <p class="hero-lead">
+          Comprendre ce que mesure une dérivée, savoir la calculer, puis l'utiliser pour lire les variations d'une fonction.
+        </p>
+      </div>
+
+      <aside class="hero-card" aria-label="Résumé du chapitre">
+        <p class="card-label">Difficulté</p>
+        <p class="brain-scale" aria-label="Difficulté deux cerveaux sur quatre">🧠🧠</p>
+        <p>Objectif : passer du geste de calcul à une vraie lecture graphique.</p>
+      </aside>
+    </div>
+  </header>
+
+  <main class="lesson-layout">
+    <aside class="toc" aria-label="Plan du cours">
+      <p class="toc-title">Plan</p>
+      <a href="#intuition">1. L'idée</a>
+      <a href="#nombre-derive">2. Nombre dérivé</a>
+      <a href="#fonction-derivee">3. Fonction dérivée</a>
+      <a href="#variations">4. Variations</a>
+      <a href="#fiche">Fiche</a>
+      <a href="#td">TD</a>
+    </aside>
+
+    <article class="lesson">
+      <section id="intuition" class="chapter-section">
+        <p class="section-kicker">Intuition</p>
+        <h2>La dérivée mesure une vitesse locale</h2>
+        <p>
+          Quand on regarde une fonction de loin, on voit une courbe. Quand on zoome très fort autour d'un point,
+          la courbe ressemble de plus en plus à une droite. La dérivée mesure la pente de cette droite idéale :
+          la <strong>tangente</strong>.
+        </p>
+
+        <figure class="visual-block context-visual">
+          <img src="images/skatepark-tangente.webp" alt="Skateur sur une rampe courbe qui monte, pour imaginer une trajectoire avant de passer au graphe">
+          <figcaption>
+            Garde cette image comme contexte mental : sur une trajectoire courbe, l'inclinaison ressentie dépend de l'endroit où l'on se place.
+          </figcaption>
+        </figure>
+
+        <figure class="visual-block interactive-graph">
+          <div class="graph-stage">
+            <div id="derivative-board" class="jxgbox curve-board" data-derivative-board></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Point mobile sur la courbe</span>
+              <strong data-derivative-value>a = 1,00 · f'(a) = 1,11</strong>
+            </p>
+          </div>
+          <figcaption>
+            Déplace le point \(A\) : la tangente suit la courbe et sa pente donne la valeur de \(f'(a)\).
+          </figcaption>
+        </figure>
+
+        <div class="important">
+          <p class="box-title">Majeur à retenir</p>
+          <p>
+            Une dérivée n'est pas seulement une formule : c'est une pente locale. Le calcul sert à retrouver cette pente avec précision.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="box-title">Question rapide</p>
+          <p>Si la tangente à une courbe est horizontale en un point, que vaut la dérivée en ce point ?</p>
+          <button class="reveal-button" type="button" data-reveal="q1">Voir la réponse</button>
+          <p id="q1" class="answer" hidden>Elle vaut \(0\), car une droite horizontale a une pente nulle.</p>
+        </div>
+      </section>
+
+      <section id="nombre-derive" class="chapter-section">
+        <p class="section-kicker">Définition</p>
+        <h2>Le nombre dérivé</h2>
+        <p>
+          Pour mesurer la pente au point d'abscisse \(a\), on commence avec deux points proches :
+          \(A(a; f(a))\) et \(M(a+h; f(a+h))\). La pente de la sécante vaut :
+        </p>
+
+        <div class="formula-card">
+          \[
+            \frac{f(a+h)-f(a)}{h}
+          \]
+        </div>
+
+        <p>
+          Puis on rapproche \(M\) de \(A\), donc on fait tendre \(h\) vers \(0\). Si la limite existe, elle s'appelle
+          le nombre dérivé de \(f\) en \(a\).
+        </p>
+
+        <div class="formula-card is-major">
+          \[
+            f'(a)=\lim_{h\to0}\frac{f(a+h)-f(a)}{h}
+          \]
+        </div>
+
+        <figure class="visual-block interactive-graph">
+          <div class="graph-stage">
+            <div id="rate-board" class="jxgbox curve-board" data-rate-board></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Sécante entre \(A\) fixe et \(M\) mobile</span>
+              <strong data-rate-value>h = 1,60 · taux moyen = 1,56</strong>
+            </p>
+          </div>
+          <figcaption>
+            Déplace le point \(M\) : le taux de variation est une pente moyenne. Le nombre dérivé est la limite de ces pentes moyennes.
+          </figcaption>
+        </figure>
+
+        <div class="teacher-note">
+          <p class="box-title">Le piège classique</p>
+          <p>
+            On ne remplace pas \(h\) par \(0\) directement dans le quotient : il y a un \(h\) au dénominateur.
+            On simplifie d'abord, puis seulement après on regarde la limite.
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p class="box-title">Exemple guidé</p>
+          <p>Soit \(f(x)=x^2\). Calculons \(f'(3)\).</p>
+          <div class="formula-card">
+            \[
+              \frac{f(3+h)-f(3)}{h}
+              =\frac{(3+h)^2-9}{h}
+              =\frac{6h+h^2}{h}
+              =6+h
+            \]
+          </div>
+          <p>Quand \(h\) tend vers \(0\), \(6+h\) tend vers \(6\). Donc \(f'(3)=6\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="box-title">Question rapide</p>
+          <p>Pourquoi ne peut-on pas commencer par poser \(h=0\) dans \(\frac{f(a+h)-f(a)}{h}\) ?</p>
+          <button class="reveal-button" type="button" data-reveal="q2">Voir la réponse</button>
+          <p id="q2" class="answer" hidden>Parce que le dénominateur serait nul. On doit transformer l'expression avant de passer à la limite.</p>
+        </div>
+      </section>
+
+      <section id="fonction-derivee" class="chapter-section">
+        <p class="section-kicker">Méthode</p>
+        <h2>La fonction dérivée</h2>
+        <p>
+          Si on calcule le nombre dérivé pour chaque abscisse \(x\), on obtient une nouvelle fonction :
+          la fonction dérivée, notée \(f'\).
+        </p>
+
+        <div class="method-grid">
+          <div class="method-step">
+            <span class="step-number">1</span>
+            <p>Identifier la forme de \(f(x)\).</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">2</span>
+            <p>Appliquer les formules de dérivation.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">3</span>
+            <p>Simplifier, puis utiliser \(f'\) pour étudier la fonction.</p>
+          </div>
+        </div>
+
+        <div class="formula-list" aria-label="Formules de dérivation utiles">
+          <p>\((x^n)' = nx^{n-1}\)</p>
+          <p>\((u+v)' = u' + v'\)</p>
+          <p>\((ku)' = ku'\)</p>
+          <p>\((uv)' = u'v + uv'\)</p>
+        </div>
+
+        <div class="check-card">
+          <p class="box-title">Question rapide</p>
+          <p>Si \(f(x)=3x^2-5x+1\), que vaut \(f'(x)\) ?</p>
+          <button class="reveal-button" type="button" data-reveal="q3">Voir la réponse</button>
+          <p id="q3" class="answer" hidden>\(f'(x)=6x-5\).</p>
+        </div>
+      </section>
+
+      <section id="variations" class="chapter-section">
+        <p class="section-kicker">Application</p>
+        <h2>Utiliser le signe de la dérivée</h2>
+        <p>
+          Le signe de \(f'\) permet de connaître les variations de \(f\). C'est l'un des grands intérêts de la dérivation.
+        </p>
+
+        <figure class="visual-block interactive-graph">
+          <div class="graph-stage">
+            <div id="sign-board" class="jxgbox curve-board" data-sign-board></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Point mobile sur une parabole</span>
+              <strong data-sign-value>a = -1,20 · f'(a) &lt; 0</strong>
+            </p>
+          </div>
+          <figcaption>
+            Déplace le point \(A\) : dérivée positive, la fonction monte ; dérivée négative, elle descend.
+          </figcaption>
+        </figure>
+
+        <div class="important">
+          <p class="box-title">Majeur à retenir</p>
+          <p>
+            \(f'(x)>0\) signifie que \(f\) est croissante sur l'intervalle étudié.
+            \(f'(x)<0\) signifie que \(f\) est décroissante.
+          </p>
+        </div>
+
+        <div class="teacher-note">
+          <p class="box-title">Erreur fréquente</p>
+          <p>
+            On ne confond pas le signe de \(f(x)\) et le signe de \(f'(x)\).
+            Une fonction peut être positive tout en étant décroissante.
+          </p>
+        </div>
+      </section>
+
+      <section id="fiche" class="chapter-section recap-section">
+        <p class="section-kicker">Fiche synthèse</p>
+        <h2>Ce qu'il faut savoir refaire</h2>
+        <ul class="recap-list">
+          <li>Interpréter \(f'(a)\) comme la pente de la tangente au point d'abscisse \(a\).</li>
+          <li>Calculer un nombre dérivé avec la limite du taux de variation.</li>
+          <li>Dériver une fonction simple avec les formules usuelles.</li>
+          <li>Utiliser le signe de \(f'\) pour construire un tableau de variations.</li>
+          <li>Repérer les pièges : division par zéro, confusion entre \(f\) et \(f'\), lecture graphique trop rapide.</li>
+        </ul>
+      </section>
+
+      <section id="td" class="chapter-section">
+        <p class="section-kicker">TD progressif</p>
+        <h2>S'entraîner</h2>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Exercice 1 — Calcul direct</h3>
+            <span class="difficulty" aria-label="Difficulté un cerveau">🧠</span>
+          </div>
+          <p>Soit \(f(x)=x^2+2x\). Calculer \(f'(x)\), puis \(f'(1)\).</p>
+          <button class="reveal-button" type="button" data-reveal="td1">Voir le corrigé</button>
+          <div id="td1" class="answer" hidden>
+            <p>\(f'(x)=2x+2\). Donc \(f'(1)=2\times1+2=4\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Exercice 2 — Taux de variation</h3>
+            <span class="difficulty" aria-label="Difficulté deux cerveaux">🧠🧠</span>
+          </div>
+          <p>Avec \(f(x)=x^2\), retrouver \(f'(a)\) à partir de la définition du nombre dérivé.</p>
+          <button class="reveal-button" type="button" data-reveal="td2">Voir le corrigé</button>
+          <div id="td2" class="answer" hidden>
+            <div class="formula-card">
+              \[
+                \frac{f(a+h)-f(a)}{h}
+                =\frac{(a+h)^2-a^2}{h}
+                =\frac{2ah+h^2}{h}
+                =2a+h
+              \]
+            </div>
+            <p>Quand \(h\to0\), \(2a+h\to2a\). Donc \(f'(a)=2a\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Exercice 3 — Variations</h3>
+            <span class="difficulty" aria-label="Difficulté trois cerveaux">🧠🧠🧠</span>
+          </div>
+          <p>Soit \(f(x)=x^2-4x+1\). Étudier les variations de \(f\).</p>
+          <button class="reveal-button" type="button" data-reveal="td3">Voir le corrigé</button>
+          <div id="td3" class="answer" hidden>
+            <p>\(f'(x)=2x-4\). On a \(f'(x)<0\) si \(x<2\), \(f'(2)=0\), et \(f'(x)>0\) si \(x>2\).</p>
+            <p>Donc \(f\) décroît sur \((-\infty,2]\), puis croît sur \([2,+\infty)\). Elle admet un minimum en \(x=2\).</p>
+          </div>
+        </div>
+      </section>
+    </article>
+  </main>
+</body>
+</html>

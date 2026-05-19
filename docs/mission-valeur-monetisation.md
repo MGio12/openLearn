@@ -1,4 +1,4 @@
-# Outil Prepa — Mission du site, valeur et monetisation
+# Objectif Lycee — Mission du site, valeur et monetisation
 
 **Date :** 2026-05-16  
 **Statut :** document strategique operationnel
@@ -16,11 +16,11 @@ Apres lecture, il doit pouvoir decider quoi ameliorer en priorite pour augmenter
 
 ## Diagnostic rapide
 
-Outil Prepa a deja une direction forte : ce n'est pas une bibliotheque de contenu, c'est un cockpit qui dit quoi travailler maintenant. Les pages actuelles montrent deja les briques principales : onboarding, mission du jour, focus, ATS, progression, checkout et retour Stripe.
+Objectif Lycee a deja une direction forte : ce n'est pas une bibliotheque de contenu, c'est un cockpit qui dit quoi travailler maintenant. Les pages actuelles montrent deja les briques principales : onboarding, mission du jour, focus, Objectif, progression, checkout et retour Stripe.
 
-La valeur la plus differenciante est claire : transformer les annales, l'objectif et le temps disponible en une mission courte et rationnelle. L'etudiant n'achete pas des fiches. Il achete moins d'incertitude, moins de hasard, et une sensation de controle.
+La valeur la plus differenciante est claire : transformer les sujets de bac, l'objectif et le temps disponible en une mission courte et rationnelle. L'etudiant n'achete pas des fiches. Il achete moins d'incertitude, moins de hasard, et une sensation de controle.
 
-Le risque principal est de laisser les metriques devenir le produit. La couverture ATS, la maitrise par matiere et les heatmaps sont des preuves. Elles ne doivent pas remplacer la promesse emotionnelle : ouvrir l'app, comprendre le bon prochain geste, le faire, puis sentir que l'avance grandit.
+Le risque principal est de laisser les metriques devenir le produit. La couverture dossier, la maitrise par matiere et les heatmaps sont des preuves. Elles ne doivent pas remplacer la promesse emotionnelle : ouvrir l'app, comprendre le bon prochain geste, le faire, puis sentir que l'avance grandit.
 
 Il y a aussi une incoherence commerciale a resoudre : le checkout vend un abonnement direct a 10 euros par mois, tandis que l'onboarding mentionne un essai de 14 jours sans carte bancaire. Pour maximiser la conversion, le site doit choisir une seule logique de funnel et l'appliquer partout.
 
@@ -46,9 +46,9 @@ Le produit doit vendre une transformation :
 La boucle centrale doit devenir evidente sur toutes les pages :
 
 1. **Diagnostic** : l'utilisateur donne son objectif, sa filiere, son rythme et ses priorites.
-2. **Decision** : Outil Prepa choisit la mission du jour.
+2. **Decision** : Objectif Lycee choisit la mission du jour.
 3. **Execution** : l'utilisateur lance une session focus et termine une action concrete.
-4. **Preuve** : l'app explique le lien entre la mission, les annales, le programme ou l'objectif.
+4. **Preuve** : l'app explique le lien entre la mission, les sujets de bac, le programme ou l'objectif.
 5. **Progression visible** : l'utilisateur voit son avance grandir.
 6. **Retour le lendemain** : l'app propose la prochaine mission et entretient l'elan.
 
@@ -104,9 +104,9 @@ Le moment de fin de session est commercialement important. C'est la que l'utilis
 - la prochaine action douce ;
 - l'effet sur la progression visible.
 
-### ATS
+### Objectif
 
-La page ATS est la preuve rationnelle. Elle doit repondre a la question : "Pourquoi cette mission est intelligente ?"
+La page Objectif est la preuve rationnelle. Elle doit repondre a la question : "Pourquoi cette mission est intelligente ?"
 
 Elle ne doit pas devenir le tableau de bord principal de motivation. Elle est la source de confiance, pas la boucle quotidienne.
 
@@ -160,7 +160,7 @@ Contenu du panneau :
 - progression par matiere ;
 - chapitres a revoir ;
 - recommandation IA ;
-- lien vers ATS pour comprendre les priorites.
+- lien vers Objectif pour comprendre les priorites.
 
 Ce panneau garde la puissance analytique sans voler la place de la progression emotionnelle.
 
@@ -191,7 +191,7 @@ Le paywall ne doit pas vendre "plus de pages". Il doit vendre **la continuite pe
 
 Ce qui peut rester gratuit :
 
-- heatmap ATS publique ;
+- heatmap objectif publique ;
 - quelques missions de demonstration ;
 - articles methode ;
 - onboarding de diagnostic ;
@@ -208,7 +208,7 @@ Ce qui doit etre payant :
 - focus lie aux missions ;
 - sauvegarde multi-appareils ;
 - rappels et ajustements de planning ;
-- mode concours blanc ou sprint 8 semaines.
+- mode bac blanc ou sprint Parcoursup 8 semaines.
 
 La phrase de vente doit rester simple :
 
@@ -269,7 +269,7 @@ Plan futur possible, apres traction :
 
 - mensuel : 10 euros ;
 - annuel : 89 euros ;
-- sprint concours 8 semaines : prix fixe separe, seulement si la demande apparait ;
+- sprint Parcoursup 8 semaines : prix fixe separe, seulement si la demande apparait ;
 - marketplace tuteurs : plus tard, uniquement apres retention produit.
 
 ## Points de conversion a ameliorer
@@ -290,7 +290,7 @@ Angle a renforcer :
 Eviter les temoignages inventes ou trop precis tant qu'ils ne sont pas reels. A la place :
 
 - montrer le parcours du fondateur ;
-- montrer les donnees ATS ;
+- montrer les donnees lycee ;
 - montrer des captures de mission ;
 - montrer des avant/apres de planning ;
 - publier le journal de build et d'utilisation.
@@ -326,14 +326,14 @@ Meme en local, il faut que cocher une mission ait un effet durable :
 
 Sans persistance, la boucle emotionnelle est faible.
 
-### Priorite 4 — Relier ATS aux missions
+### Priorite 4 — Relier Objectif aux missions
 
 Chaque mission doit pouvoir dire pourquoi elle existe :
 
 - chapitre frequent ;
 - faiblesse de maitrise ;
-- delai avant concours blanc ;
-- recurrence annales ;
+- delai avant bac blanc ou controle ;
+- recurrence dans les sujets de bac ;
 - retard de revision.
 
 Cette preuve justifie l'abonnement.
@@ -381,7 +381,7 @@ Le blog methode doit servir l'acquisition, mais rester leger :
 ### Valeur educative
 
 - chapitres prioritaires travailles ;
-- couverture ATS utile ;
+- couverture dossier utile ;
 - temps passe sur missions prioritaires ;
 - ecart entre plan propose et missions faites.
 
@@ -435,6 +435,6 @@ Conclusion pratique :
 
 La prochaine version doit faire sentir ceci :
 
-> J'ouvre Outil Prepa. Je vois ma mission. Je comprends pourquoi elle compte. Je la fais. Ma progression grandit. Je reviens demain.
+> J'ouvre Objectif Lycee. Je vois ma mission. Je comprends pourquoi elle compte. Je la fais. Ma progression grandit. Je reviens demain.
 
 Si cette boucle est forte, la monetisation devient beaucoup plus naturelle. L'abonnement ne sert plus a acheter une app. Il sert a garder un rythme, une avance et une clarte quotidienne.

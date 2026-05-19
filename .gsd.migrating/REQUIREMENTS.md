@@ -20,13 +20,13 @@ Use it to track what is actively in scope, what has been validated by completed 
 ### R002 — Tunnel statique cohérent
 - Class: launchability
 - Status: active
-- Description: The static pages must form a coherent flow from dashboard to mission/ATS proof, checkout, Stripe, and post-payment confirmation.
+- Description: The static pages must form a coherent flow from dashboard to mission/objective proof, checkout, Stripe, and post-payment confirmation.
 - Why it matters: Conversion depends on the user never feeling lost or dropped between disconnected prototype pages.
 - Source: user
 - Primary owning slice: M001/S02
 - Supporting slices: M001/S03, M001/S05
 - Validation: mapped
-- Notes: Core flow: `index.html` → `mission.html` / `ats.html` → `checkout.html` → Stripe Payment Link → `merci.html`.
+- Notes: Core flow: `index.html` → `mission.html` / `objectif.html` → `checkout.html` → Stripe Payment Link → `merci.html`.
 
 ### R003 — Page abonnement persuasive et fiable
 - Class: core-capability
@@ -37,12 +37,12 @@ Use it to track what is actively in scope, what has been validated by completed 
 - Primary owning slice: M001/S03
 - Supporting slices: M001/S04, M001/S05
 - Validation: mapped
-- Notes: Avoid generic SaaS copy and keep the intimate “carnet de prépa vivant” feeling.
+- Notes: Avoid generic SaaS copy and keep the intimate “carnet de lycee vivant” feeling.
 
 ### R004 — Confiance paiement visible
 - Class: compliance/security
 - Status: active
-- Description: Payment trust must be explicit: Stripe handles the payment, Outil Prepa stores no banking details, and the subscription terms are clear.
+- Description: Payment trust must be explicit: Stripe handles the payment, Objectif Lycee stores no banking details, and the subscription terms are clear.
 - Why it matters: A student must not feel that the payment page is opaque, risky, or improvised.
 - Source: user
 - Primary owning slice: M001/S03
@@ -105,16 +105,16 @@ Use it to track what is actively in scope, what has been validated by completed 
 - Validation: mapped
 - Notes: It may point back to cockpit/mission surfaces while staying honest about static scope.
 
-### R010 — Preuve analytique ATS en support, pas en surcharge
+### R010 — Preuve objectif en support, pas en surcharge
 - Class: differentiator
 - Status: active
-- Description: ATS analysis should support why a mission is chosen, without becoming the central experience of the dashboard.
+- Description: objective analysis should support why a mission is chosen, without becoming the central experience of the dashboard.
 - Why it matters: The user wants focus and simplification; data is useful only when it explains the next action.
 - Source: user
 - Primary owning slice: M001/S01
 - Supporting slices: M001/S02
 - Validation: mapped
-- Notes: `ats.html` remains a proof surface and transparency layer.
+- Notes: `objectif.html` remains a proof surface and transparency layer.
 
 ## Validated
 
@@ -180,7 +180,7 @@ None yet for the new M001 contract. Existing code demonstrates partial foundatio
 ### R016 — SEO content hub complet
 - Class: launchability
 - Status: deferred
-- Description: Build a broader ATS SEO content hub around priorities, planning, and annales.
+- Description: Build a broader lycee SEO content hub around priorities, planning, and bac prep.
 - Why it matters: Acquisition matters, but the confirmed immediate milestone is static UX/conversion craft.
 - Source: inferred
 - Primary owning slice: none

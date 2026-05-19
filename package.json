@@ -1,9 +1,8 @@
 {
-  "name": "outil-prepa",
+  "name": "objectif-lycee",
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "weights": "node scripts/compute-weights.js",
     "screenshot": "node scripts/screenshot.js",
     "validate:json": "node scripts/validate-json.mjs",
     "verify": "npm run validate:json && npm run verify:s01 && npm run verify:s02 && npm run verify:s03 && npm run verify:s04 && npm run verify:s05",

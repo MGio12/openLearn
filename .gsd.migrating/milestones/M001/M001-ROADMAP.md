@@ -1,6 +1,6 @@
 # M001: Prototype statique premium orienté mission du jour
 
-**Vision:** Transformer Outil Prepa en prototype statique premium et vendable, centré sur la mission du jour, la valeur perçue, la confiance Stripe, et une expérience intime de carnet de prépa vivant.
+**Vision:** Transformer Objectif Lycee en prototype statique premium et vendable, centré sur la mission du jour, la valeur perçue, la confiance Stripe, et une expérience intime de carnet de lycee vivant.
 
 ## Success Criteria
 

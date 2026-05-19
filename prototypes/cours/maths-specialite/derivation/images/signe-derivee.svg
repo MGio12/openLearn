@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460" role="img" aria-labelledby="title desc">
+  <title id="title">Signe de la dérivée et variations</title>
+  <desc id="desc">Une fonction descend puis monte, avec dérivée négative puis positive.</desc>
+  <rect width="900" height="460" fill="#fffdf8"/>
+  <g stroke="#121212" stroke-width="3">
+    <path d="M80 350H820" fill="none"/>
+    <path d="M450 390V70" fill="none" stroke-dasharray="10 10"/>
+  </g>
+  <path d="M120 100 C230 210, 330 300, 450 302 C570 300, 675 206, 790 94" fill="none" stroke="#3f7f8f" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="450" cy="302" r="12" fill="#f4d35e" stroke="#121212" stroke-width="4"/>
+  <rect x="105" y="370" width="305" height="52" rx="14" fill="#ffe2dc" stroke="#121212" stroke-width="3"/>
+  <rect x="490" y="370" width="305" height="52" rx="14" fill="#d8e6c3" stroke="#121212" stroke-width="3"/>
+  <text x="145" y="404" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="24" font-weight="900" fill="#121212">f'(x) &lt; 0 : f descend</text>
+  <text x="526" y="404" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="24" font-weight="900" fill="#121212">f'(x) &gt; 0 : f monte</text>
+  <text x="392" y="270" font-family="Plus Jakarta Sans, Arial, sans-serif" font-size="24" font-weight="900" fill="#121212">minimum</text>
+  <path d="M245 150 L330 225" stroke="#d96c5f" stroke-width="6" stroke-linecap="round"/>
+  <path d="M570 226 L655 150" stroke="#6f9c68" stroke-width="6" stroke-linecap="round"/>
+</svg>

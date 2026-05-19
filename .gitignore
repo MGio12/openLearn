@@ -1,5 +1,6 @@
 ﻿screenshots/
 node_modules/
+.superpowers/
 
 # ── GSD baseline (auto-generated) ──
 .gsd

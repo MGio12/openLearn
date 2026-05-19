@@ -1,4 +1,4 @@
-# TODO — Outil Prepa
+# TODO — Objectif Lycee
 
 Date: 2026-05-17
 
@@ -26,7 +26,7 @@ Tout ce qui est ajoute doit renforcer au moins une partie de cette boucle:
 - Utilite avant decoration: chaque bloc doit aider l'utilisateur a decider, agir ou comprendre sa progression.
 - Pas de AI slop: pas de textes vagues, pas de metriques inventees sans fonction, pas de promesses generiques.
 - Une information principale par bloc: la mission du jour reste plus importante que les stats.
-- La preuve doit etre sourcee: annales, objectifs, controle, planning ou historique utilisateur.
+- La preuve doit etre sourcee: sujets de bac, objectifs, controle, planning ou historique utilisateur.
 - Le calme est un avantage produit: pas de gamification agressive, pas de pression inutile.
 - Architecture lisible: un nouveau dev doit comprendre ou vivent les donnees, la logique metier, l'etat et l'UI.
 - Evolution progressive: le site peut rester statique au debut, mais les frontieres doivent preparer un vrai produit.
@@ -67,7 +67,7 @@ assets/
       missions.js
       objectives.js
       progress.js
-      ats.js
+      objectives.js
     state/
       store.js
       storage.js
@@ -84,7 +84,6 @@ assets/
       objectif.js
       progression.js
 data/
-  ats/
   fixtures/
 docs/
 scripts/
@@ -112,17 +111,14 @@ tests/
 - [ ] Mesurer les evenements de retention: retour lendemain, jours actifs sur 7, missions terminees par semaine, sessions focus lancees, progression du jardin.
 - [ ] Mesurer les evenements de conversion: clic checkout, conversion apres premiere mission, conversion apres 3 missions, abandon checkout.
 
-## P1 — Donnees ATS et Preuve
+## P1 — Donnees Lycee et Preuve
 
-Etat observe: les maths sont partiellement taggees, mais physique-chimie, francais, anglais et SI sont encore vides dans `weighted-topics.json`.
+Etat observe: les priorites visibles sont encore des fixtures demo. Il faut maintenant les relier a un objectif lycee explicite: dossier Parcoursup, controles, specialites et progression hebdomadaire.
 
-- [ ] Finir le tagging ATS par ordre de valeur: mathematiques, physique-chimie, sciences de l'ingenieur, puis francais/anglais.
-- [ ] Ajouter les observations de rapports de jury quand elles expliquent vraiment une priorite.
-- [ ] Regenerer `data/ats/poids/weighted-topics.json` uniquement via le script.
-- [ ] Decider le role exact de `ats.html`: page ATS concours, ou redirection assumee vers Objectif Lycee.
-- [ ] Relier les missions aux donnees de preuve: chapitre frequent, mention jury, impact objectif, urgence scolaire ou faiblesse utilisateur.
+- [ ] Definir les sources de preuve lycee: programme, controle a venir, objectif Parcoursup, notes declarees et historique utilisateur.
+- [ ] Distinguer clairement fixtures demo et donnees utilisateur dans le code et dans les dossiers.
+- [ ] Relier les missions aux donnees de preuve: impact objectif, urgence scolaire, faiblesse utilisateur ou echeance Parcoursup.
 - [ ] Afficher la preuve avec sobriete: une phrase courte vaut mieux qu'un tableau dense.
-- [ ] Distinguer les donnees reelles des fixtures demo dans le code et dans les dossiers.
 
 ## P2 — Qualite UX Page Par Page
 
@@ -161,11 +157,11 @@ Etat observe: les maths sont partiellement taggees, mais physique-chimie, franca
 - [ ] Le panneau doit rester accessible clavier et mobile.
 - [ ] La progression doit expliquer calmement pourquoi revenir demain.
 
-### Objectif / ATS
+### Objectif
 
 - [ ] La heatmap doit repondre a "pourquoi cette mission est intelligente ?".
 - [ ] Les priorites doivent pouvoir ouvrir une mission coherente avec le levier clique.
-- [ ] Les libelles doivent etre concrets: objectif, controle, annales, jury, dossier.
+- [ ] Les libelles doivent etre concrets: objectif, controle, Parcoursup, dossier, chapitre fragile.
 
 ### Checkout
 
@@ -180,7 +176,7 @@ Etat observe: les maths sont partiellement taggees, mais physique-chimie, franca
 - [ ] Ne jamais mettre de cle secrete Stripe dans le frontend.
 - [ ] Ajouter une CI minimale: install, validation data, verification Playwright.
 - [ ] Garder les tests Playwright par contrat utilisateur, pas seulement par selecteurs fragiles.
-- [ ] Ajouter des tests unitaires pour les fonctions metier: generation mission, progression, limites gratuites, scoring ATS.
+- [ ] Ajouter des tests unitaires pour les fonctions metier: generation mission, progression, limites gratuites, scoring des priorites.
 - [ ] Ajouter une commande de format/lint quand l'architecture JS/CSS sera extraite.
 - [ ] Eviter les dependances tant qu'elles ne retirent pas une vraie complexite.
 - [ ] Garder les fichiers generes clairement identifies et ne pas les editer a la main.
@@ -193,7 +189,7 @@ Etat observe: les maths sont partiellement taggees, mais physique-chimie, franca
 - [ ] Ajouter une source serieuse par methode.
 - [ ] Relier chaque contenu a une mission ou un diagnostic.
 - [ ] Garder le ton humain, concret, non encyclopedique.
-- [ ] Preparer les contenus quotidiens ATS: "l'outil me dit de faire ca aujourd'hui, voila pourquoi".
+- [ ] Preparer les contenus quotidiens lycee: "l'outil me dit de faire ca aujourd'hui, voila pourquoi".
 
 ## Anti AI Slop — Critere De Refus
 

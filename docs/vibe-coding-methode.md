@@ -69,7 +69,7 @@ Remplir la coquille avec la vraie logique.
 
 ---
 
-## Application a Outil Prepa
+## Application a Objectif Lycee
 
 On est deja dans l'ordre :
 - Phase 1 : UI statique livree (heatmap, dashboard) — **UI faite**

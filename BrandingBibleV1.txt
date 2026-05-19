@@ -1,7 +1,7 @@
-OUTIL PREPA — BRANDING BIBLE V1
+OBJECTIF LYCEE — BRANDING BIBLE V1
 Vision du produit
 
-Outil Prepa n’est pas simplement une application éducative.
+Objectif Lycee n’est pas simplement une application éducative.
 
 C’est un environnement de progression pour étudiants ambitieux.
 
@@ -26,16 +26,16 @@ La sensation cible :
 “Un cockpit de travail premium pour étudiant sérieux.”
 
 1. BRAND POSITIONING
-Ce qu’Outil Prepa vend réellement
+Ce qu’Objectif Lycee vend réellement
 
-Outil Prepa ne vend pas :
+Objectif Lycee ne vend pas :
 
 des quiz,
 des fiches,
 des statistiques,
 des PDF.
 
-Outil Prepa vend :
+Objectif Lycee vend :
 
 de la clarté mentale,
 de la maîtrise,
@@ -383,7 +383,7 @@ L’utilisateur choisit une vue :
 progression,
 planning,
 missions,
-ATS,
+Objectif,
 statistiques,
 focus.
 
@@ -435,7 +435,7 @@ motiver sans infantiliser.
 Ce qu’on veut
 streaks subtils,
 progression visible,
-couverture ATS,
+couverture dossier,
 missions validées,
 heatmaps,
 radar de maîtrise.
@@ -507,7 +507,7 @@ majorer.
 STEP 2 — Contexte
 filière,
 année,
-concours,
+bac, Parcoursup,
 niveau ressenti,
 matières fortes/faibles.
 
@@ -669,7 +669,7 @@ Sur la landing.
 
 19. LONG TERM ECOSYSTEM VISION
 
-Outil Prepa peut devenir :
+Objectif Lycee peut devenir :
 
 un OS de travail étudiant,
 un environnement de focus,
