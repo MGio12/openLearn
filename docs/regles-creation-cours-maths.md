@@ -132,21 +132,75 @@ Les formules KaTeX doivent donc :
 - utiliser toute la largeur disponible du bloc ;
 - passer en hauteur quand elles sont longues ;
 - rester à une taille lisible, y compris sur mobile ;
-- éviter tout scroll horizontal.
+- éviter tout scroll horizontal ;
+- être écrites dans le langage mathématique adapté, avec des symboles définis avant usage ;
+- garder les mêmes notations dans la méthode, l'exemple et la correction.
 
 À faire :
 
 - couper un calcul long avec `aligned` ;
 - séparer deux racines ou deux étapes dans deux blocs `\[...\]` ;
 - remplacer un long enchaînement par une ligne de formule, puis une phrase courte, puis la ligne suivante ;
-- donner plus de largeur au bloc si la formule est centrale.
+- donner plus de largeur au bloc si la formule est centrale ;
+- numéroter ou labelliser clairement les réponses quand une correction contient plusieurs questions, plusieurs cas ou plusieurs résultats ;
+- écrire une correction en parties visibles : "1.", "2.", "Conclusion", "Cas 1", "Cas 2", ou équivalent ;
+- séparer trois réponses consécutives en blocs ou lignes commentées, au lieu de les empiler dans une seule équation.
 
 À éviter :
 
 - `overflow-x: auto` sur une formule ;
 - réduire fortement la taille de police pour faire rentrer une formule ;
 - mettre une formule importante dans une carte ou une colonne trop étroite ;
-- aligner deux calculs longs avec `\qquad` si cela crée un débordement.
+- aligner deux calculs longs avec `\qquad` si cela crée un débordement ;
+- laisser le navigateur couper une équation au hasard ;
+- donner plusieurs réponses finales d'affilée sans phrase, sans numéro, ni repère visuel.
+
+Dans une correction, la structure doit suivre celle de l'exercice. Si l'énoncé demande 1, 2 et 3, la correction affiche 1, 2 et 3. Si une étape donne plusieurs solutions, chacune doit être identifiable.
+
+### 8. Construire un cours plus consistant que le prototype minimal
+
+Un chapitre doit avoir plus de substance mathématique qu'une page de motivation.
+
+La version attendue doit inclure :
+
+- les définitions exactes et les hypothèses ;
+- les propriétés ou théorèmes utiles, avec leurs cas ;
+- des exemples résolus qui utilisent les mêmes notations que la méthode ;
+- des exercices proches des exemples, puis des exercices moins guidés ;
+- des corrections qui expliquent pourquoi la méthode est choisie ;
+- des pièges réels issus du chapitre, pas des avertissements génériques ;
+- une rédaction notée qui montre les lignes attendues sur une copie.
+
+La consistance se vérifie à la fin :
+
+- les mêmes objets gardent le même nom dans la section, l'exemple et la correction ;
+- une formule n'apparaît pas avant que ses lettres aient été définies ;
+- une méthode annoncée est utilisée dans au moins un exemple résolu ;
+- un exercice de contrôle renvoie à une compétence réellement préparée avant ;
+- le bloc `20/20` combine des compétences déjà travaillées, sans saut magique.
+
+### 9. Utiliser les sources PDF comme colonne vertébrale
+
+Pour la Première spécialité, les PDFs validés sont listés dans `lien/premiere/math.md`.
+
+Le rôle des sources est obligatoire :
+
+- Maths91 sert de base principale pour la couverture du programme, les définitions, les propriétés et les exercices ;
+- Maths-et-tiques complète quand son approche rend une idée plus intuitive, donne un exemple utile, ou clarifie une méthode ;
+- les exercices du cours web doivent venir des PDFs, ou être des variantes proches construites pour la progression interactive ;
+- si une notion importante du PDF n'est pas reprise, la raison doit être notée dans les notes de génération du chapitre.
+
+Avant d'écrire la page, l'agent doit produire une carte de couverture courte :
+
+1. notions à traiter ;
+2. définitions/propriétés à conserver ;
+3. méthodes et exemples résolus ;
+4. exercices à adapter ;
+5. erreurs fréquentes ;
+6. graphes exacts nécessaires ;
+7. éléments volontairement exclus de cette version.
+
+Le but n'est pas de copier les PDFs. Le but est de garder leur densité mathématique et leur couverture, puis d'ajouter ce que le PDF ne peut pas faire : questions immédiates, choix de méthode, corrections masquées, graphes exacts et progression active.
 
 ## Mécanique par notion
 

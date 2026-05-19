@@ -48,7 +48,8 @@ La règle `overflow: auto` ajoutait un deuxième problème : au lieu d'avoir une
 - Le repli ne se fait plus par translation hors écran : la sidebar garde `left: 0` et change seulement de largeur.
 - Au chargement, la sidebar est ouverte par défaut. Le bouton permet ensuite de la pousser en rail réduit.
 - Fermée, la sidebar garde toute la hauteur de l'écran et une largeur suffisante pour afficher le cercle complet du bouton.
-- Le rail peut se rouvrir au hover après fermeture, mais le clic de fermeture verrouille temporairement le hover jusqu'à la sortie de souris pour éviter une réouverture immédiate.
+- Fermée, la flèche du rail est décorative, centrée dans la barre et non cliquable : le clic sur cette zone ne doit pas rouvrir la sidebar.
+- Le rail peut révéler temporairement le plan au hover ou au focus après fermeture, mais le clic de fermeture verrouille temporairement le hover jusqu'à la sortie de souris pour éviter une réouverture immédiate.
 - Le scroll interne est supprimé : le contenu du plan est compacté et les éléments secondaires peuvent disparaître sur petite hauteur.
 - Le bloc réflexes passe en grille 2x2 avec une largeur minimale par carte.
 - Les textes des cartes ont `min-width: 0` et `overflow-wrap: anywhere` pour éviter les débordements internes.
@@ -68,5 +69,8 @@ Pour les prochains plans de cours :
 - si elle est repliable, garder un rail constant et ne pas réserver une colonne vide dans la grille du cours ;
 - éviter de replier une sidebar par translation hors écran quand un bouton doit rester visible ;
 - préférer un repli par largeur : état ouvert large, état fermé étroit, toujours `left: 0` ;
+- en état fermé, la flèche visible dans le rail est un indicateur décoratif centré, pas un bouton ;
+- le vrai bouton de sidebar sert à fermer l'état ouvert, pas à rouvrir l'état fermé ;
+- la réouverture temporaire se fait par hover/focus du rail, sans clic sur la flèche ;
 - ne pas utiliser `overflow: auto` pour un plan de chapitre court ; compacter la liste ou masquer les éléments secondaires ;
 - vérifier l'état ouvert, replié, hover/focus et mobile.

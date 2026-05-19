@@ -4,6 +4,12 @@ Choix principal : Maths91, parce que le corpus couvre toute la progression avec 
 
 Compléments retenus : Maths-et-tiques uniquement sur les chapitres clés où le rapport Gemini signale des PDF utiles.
 
+## Utilisation par les agents
+
+Pour créer ou renforcer un cours, commencer par les PDFs listés ici. Le cours web doit s'inspirer davantage de ces sources que d'un souvenir générique du chapitre : définitions, propriétés, exemples, exercices et pièges doivent être cartographiés avant l'écriture.
+
+Maths91 donne la structure de référence et la densité mathématique minimale. Maths-et-tiques sert à améliorer l'intuition, la formulation ou certains exemples. Si une notion importante présente dans les PDFs n'est pas reprise, l'agent doit l'indiquer dans les notes de génération du chapitre.
+
 | Chapitre | Cours PDF | TD / exercices PDF |
 |---|---|---|
 | 1. Polynômes du second degré | [Cours Maths91](http://www.maths91.fr/cours1spemaths/1S-01-SECOND_DEGRE-cours.pdf) + [Maths-et-tiques partie 1](https://www.maths-et-tiques.fr/telech/19SecdegP1M.pdf) + [Maths-et-tiques partie 2](https://www.maths-et-tiques.fr/telech/19SecdegP2M.pdf) | [Fiche d'exercices Maths91](http://www.maths91.fr/cours1spemaths/1S-01-SECOND_DEGRE_fiches_d_exercices.pdf) |

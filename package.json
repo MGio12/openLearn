@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "screenshot": "node scripts/screenshot.js",
+    "verify:course-sidebar": "node scripts/verify-course-sidebar.mjs",
     "validate:json": "node scripts/validate-json.mjs",
     "verify": "npm run validate:json && npm run verify:s01 && npm run verify:s02 && npm run verify:s03 && npm run verify:s04 && npm run verify:s05",
     "ralph:start": "bash scripts/codex-ralph.sh start",

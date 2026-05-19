@@ -207,10 +207,36 @@ h3 {
   box-shadow: none;
 }
 
-.has-course-sidebar.is-course-sidebar-collapsed:not(.is-sidebar-hover-locked) .course-sidebar:hover {
+.has-course-sidebar.is-course-sidebar-collapsed:not(.is-sidebar-hover-locked) .course-sidebar:hover,
+.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar:focus-within {
   width: var(--course-sidebar-width);
   padding: 18px;
   box-shadow: var(--shadow);
+}
+
+.course-sidebar::before {
+  box-sizing: border-box;
+  content: "›";
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  z-index: 1;
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: var(--line);
+  border-radius: 50%;
+  background: var(--yellow);
+  box-shadow: 2px 2px 0 var(--ink);
+  color: var(--ink);
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%);
+  transition: opacity 120ms ease;
 }
 
 .course-sidebar::after {
@@ -230,8 +256,15 @@ h3 {
   transition: opacity 120ms ease;
 }
 
-.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar:not(:hover)::after,
-.has-course-sidebar.is-course-sidebar-collapsed.is-sidebar-hover-locked .course-sidebar::after {
+.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar::before,
+.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar::after {
+  left: calc(var(--course-sidebar-collapsed-width) / 2);
+}
+
+.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar:not(:hover):not(:focus-within)::before,
+.has-course-sidebar.is-course-sidebar-collapsed.is-sidebar-hover-locked .course-sidebar:not(:focus-within)::before,
+.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar:not(:hover):not(:focus-within)::after,
+.has-course-sidebar.is-course-sidebar-collapsed.is-sidebar-hover-locked .course-sidebar:not(:focus-within)::after {
   opacity: 1;
 }
 
@@ -273,6 +306,11 @@ h3 {
   display: block;
   transform-origin: center;
   transition: transform 180ms ease;
+}
+
+.sidebar-toggle:disabled {
+  cursor: default;
+  pointer-events: none;
 }
 
 .sidebar-toggle:hover,
@@ -377,14 +415,20 @@ h3 {
   justify-content: center;
 }
 
-.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar:not(:hover) .toc-title,
-.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar:not(:hover) .sidebar-subtitle,
-.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar:not(:hover) .toc-links,
-.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar:not(:hover) .sidebar-checkpoint,
-.has-course-sidebar.is-course-sidebar-collapsed.is-sidebar-hover-locked .course-sidebar .toc-title,
-.has-course-sidebar.is-course-sidebar-collapsed.is-sidebar-hover-locked .course-sidebar .sidebar-subtitle,
-.has-course-sidebar.is-course-sidebar-collapsed.is-sidebar-hover-locked .course-sidebar .toc-links,
-.has-course-sidebar.is-course-sidebar-collapsed.is-sidebar-hover-locked .course-sidebar .sidebar-checkpoint {
+.has-course-sidebar.is-course-sidebar-collapsed .sidebar-toggle {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar:not(:hover):not(:focus-within) .toc-title,
+.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar:not(:hover):not(:focus-within) .sidebar-subtitle,
+.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar:not(:hover):not(:focus-within) .toc-links,
+.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar:not(:hover):not(:focus-within) .sidebar-checkpoint,
+.has-course-sidebar.is-course-sidebar-collapsed.is-sidebar-hover-locked .course-sidebar:not(:focus-within) .toc-title,
+.has-course-sidebar.is-course-sidebar-collapsed.is-sidebar-hover-locked .course-sidebar:not(:focus-within) .sidebar-subtitle,
+.has-course-sidebar.is-course-sidebar-collapsed.is-sidebar-hover-locked .course-sidebar:not(:focus-within) .toc-links,
+.has-course-sidebar.is-course-sidebar-collapsed.is-sidebar-hover-locked .course-sidebar:not(:focus-within) .sidebar-checkpoint {
   display: none;
   pointer-events: none;
 }
@@ -531,6 +575,14 @@ h3 {
 
 .interactive-graph {
   background: #fff;
+}
+
+.quadratic-graph {
+  background: #fffdf8;
+}
+
+.exercise .visual-block {
+  margin: 18px 0;
 }
 
 .graph-stage {
@@ -1011,6 +1063,17 @@ h3 {
     width: calc(100% + 24px);
     margin-right: -12px;
     margin-left: -12px;
+  }
+
+  .chapter-section > .interactive-graph,
+  .exercise .interactive-graph {
+    width: calc(100% + 24px);
+    margin-right: -12px;
+    margin-left: -12px;
+  }
+
+  .graph-stage {
+    padding: 10px;
   }
 
   .formula-card .katex-display {

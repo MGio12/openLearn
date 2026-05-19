@@ -42,6 +42,10 @@ window.addEventListener('DOMContentLoaded', () => {
   for (const element of document.querySelectorAll('[data-sign-board]')) {
     initSignBoard(element);
   }
+
+  for (const element of document.querySelectorAll('[data-course-curve]')) {
+    initCourseCurveBoard(element);
+  }
 });
 
 function initCourseSidebar() {
@@ -56,11 +60,22 @@ function initCourseSidebar() {
   document.body.classList.add('has-course-sidebar');
 
   const setCollapsed = (isCollapsed, options = {}) => {
+    if (isCollapsed && document.activeElement === toggle) {
+      toggle.blur();
+    }
+
     layout.classList.toggle('is-sidebar-collapsed', isCollapsed);
     layout.classList.toggle('is-sidebar-expanded', !isCollapsed);
     document.body.classList.toggle('is-course-sidebar-collapsed', isCollapsed);
     document.body.classList.toggle('is-course-sidebar-expanded', !isCollapsed);
     document.body.classList.toggle('is-sidebar-hover-locked', Boolean(options.lockHover && isCollapsed));
+    if (isCollapsed) {
+      sidebar?.setAttribute('tabindex', '0');
+    } else {
+      sidebar?.removeAttribute('tabindex');
+    }
+    toggle.disabled = isCollapsed;
+    toggle.setAttribute('aria-hidden', String(isCollapsed));
     toggle.setAttribute('aria-expanded', String(!isCollapsed));
     toggle.setAttribute('aria-label', isCollapsed ? 'Déplier le plan' : 'Replier le plan');
   };
@@ -68,8 +83,20 @@ function initCourseSidebar() {
   setCollapsed(false);
 
   toggle.addEventListener('click', () => {
-    const shouldCollapse = !layout.classList.contains('is-sidebar-collapsed');
-    setCollapsed(shouldCollapse, { lockHover: shouldCollapse });
+    if (layout.classList.contains('is-sidebar-collapsed')) return;
+    setCollapsed(true, { lockHover: true });
+  });
+
+  sidebar?.addEventListener('pointerdown', (event) => {
+    if (layout.classList.contains('is-sidebar-collapsed') && !event.target.closest('[data-section-link]')) {
+      event.preventDefault();
+    }
+  });
+
+  sidebar?.addEventListener('mousedown', (event) => {
+    if (layout.classList.contains('is-sidebar-collapsed') && !event.target.closest('[data-section-link]')) {
+      event.preventDefault();
+    }
   });
 
   sidebar?.addEventListener('mouseleave', () => {
@@ -331,6 +358,136 @@ function initSignBoard(element) {
   updateReadout();
 }
 
+function initCourseCurveBoard(element) {
+  if (!window.JXG) {
+    setGraphFallback(element);
+    return;
+  }
+
+  const curveType = element.dataset.courseCurve;
+
+  if (curveType === 'orientation') {
+    initQuadraticOrientationBoard(element);
+    return;
+  }
+
+  if (curveType === 'canonical') {
+    initQuadraticCanonicalBoard(element);
+    return;
+  }
+
+  if (curveType === 'discriminant') {
+    initQuadraticDiscriminantBoard(element);
+    return;
+  }
+
+  if (curveType === 'sign') {
+    initQuadraticSignBoard(element);
+    return;
+  }
+
+  if (curveType === 'profit') {
+    initQuadraticProfitBoard(element);
+    return;
+  }
+
+  if (curveType === 'position') {
+    initQuadraticPositionBoard(element);
+  }
+}
+
+function initQuadraticOrientationBoard(element) {
+  const board = createCurveBoard(element, [-4.5, 4, 4.5, -3.5]);
+  const minimum = (x) => 0.42 * (x + 1.4) * (x + 1.4) - 2.2;
+  const maximum = (x) => -0.42 * (x - 1.5) * (x - 1.5) + 2.4;
+
+  addFunctionCurve(board, minimum, -4.2, 1.8, GRAPH_COLORS.teal);
+  addFunctionCurve(board, maximum, -1.4, 4.2, GRAPH_COLORS.coral);
+  addPoint(board, [-1.4, -2.2], 'min', GRAPH_COLORS.yellow, [-30, -24]);
+  addPoint(board, [1.5, 2.4], 'max', GRAPH_COLORS.yellow, [12, 14]);
+  addGraphText(board, -4.05, 3.35, 'a > 0 : minimum', GRAPH_COLORS.teal);
+  addGraphText(board, 1.05, -2.65, 'a < 0 : maximum', GRAPH_COLORS.coral);
+}
+
+function initQuadraticCanonicalBoard(element) {
+  const board = createCurveBoard(element, [-2, 2, 6, -6.2]);
+  const f = (x) => 2 * (x - 2) * (x - 2) - 5;
+
+  addFunctionCurve(board, f, -0.2, 4.2, GRAPH_COLORS.teal);
+  board.create('line', [[2, -6], [2, 2]], {
+    dash: 2,
+    straightFirst: false,
+    straightLast: false,
+    strokeColor: GRAPH_COLORS.ink,
+    strokeWidth: 2,
+    highlight: false,
+  });
+  addPoint(board, [2, -5], 'S(2 ; -5)', GRAPH_COLORS.yellow, [12, -24]);
+  addGraphText(board, 2.12, 1.35, 'axe x = 2', GRAPH_COLORS.ink);
+}
+
+function initQuadraticDiscriminantBoard(element) {
+  const board = createCurveBoard(element, [-4.6, 3.4, 4.6, -2.4]);
+  const noRoot = (x) => 0.55 * (x + 2.8) * (x + 2.8) + 0.6;
+  const doubleRoot = (x) => 0.55 * x * x;
+  const twoRoots = (x) => 0.55 * (x - 2.4) * (x - 2.4) - 1.05;
+
+  addFunctionCurve(board, noRoot, -4.4, -1.15, GRAPH_COLORS.coral);
+  addFunctionCurve(board, doubleRoot, -1.65, 1.65, GRAPH_COLORS.yellow);
+  addFunctionCurve(board, twoRoots, 0.65, 4.25, GRAPH_COLORS.teal);
+  addPoint(board, [0, 0], 'racine double', GRAPH_COLORS.yellow, [-42, -25]);
+  addPoint(board, [2.4 - Math.sqrt(1.05 / 0.55), 0], '', GRAPH_COLORS.teal, [0, 0]);
+  addPoint(board, [2.4 + Math.sqrt(1.05 / 0.55), 0], '', GRAPH_COLORS.teal, [0, 0]);
+  addGraphText(board, -4.35, 2.7, 'Delta < 0', GRAPH_COLORS.coral);
+  addGraphText(board, -0.9, 2.7, 'Delta = 0', GRAPH_COLORS.ink);
+  addGraphText(board, 1.75, 2.7, 'Delta > 0', GRAPH_COLORS.teal);
+}
+
+function initQuadraticSignBoard(element) {
+  const board = createCurveBoard(element, [-5.2, 12, 6.2, -18]);
+  const f = (x) => x * x - 2 * x - 15;
+
+  addFunctionCurve(board, f, -4.6, 5.8, GRAPH_COLORS.teal);
+  addPoint(board, [-3, 0], '-3', GRAPH_COLORS.yellow, [-18, 16]);
+  addPoint(board, [5, 0], '5', GRAPH_COLORS.yellow, [12, 16]);
+  addPoint(board, [1, -16], 'sous l\'axe', GRAPH_COLORS.coral, [12, -12]);
+  board.create('segment', [[-3, -0.7], [5, -0.7]], {
+    strokeColor: GRAPH_COLORS.coral,
+    strokeWidth: 5,
+    highlight: false,
+  });
+  addGraphText(board, -1.2, -3.4, 'zone negative', GRAPH_COLORS.coral);
+}
+
+function initQuadraticProfitBoard(element) {
+  const board = createCurveBoard(element, [0, 15000, 800, -2500]);
+  const b = (x) => -0.1 * x * x + 77 * x - 1500;
+
+  addFunctionCurve(board, b, 0, 770, GRAPH_COLORS.teal);
+  addPoint(board, [20, 0], '20', GRAPH_COLORS.yellow, [12, 18]);
+  addPoint(board, [750, 0], '750', GRAPH_COLORS.yellow, [-34, 18]);
+  addPoint(board, [385, 13322.5], 'maximum', GRAPH_COLORS.yellow, [12, -18]);
+  addGraphText(board, 300, 14300, 'sommet : x = 385', GRAPH_COLORS.ink);
+}
+
+function initQuadraticPositionBoard(element) {
+  const board = createCurveBoard(element, [0, 7, 7, -5]);
+  const f = (x) => -x * x + 8 * x - 11;
+  const g = (x) => x - 1;
+
+  addFunctionCurve(board, f, 0.35, 6.7, GRAPH_COLORS.teal);
+  addFunctionCurve(board, g, 0, 7, GRAPH_COLORS.coral);
+  addPoint(board, [2, 1], '2', GRAPH_COLORS.yellow, [-24, 16]);
+  addPoint(board, [5, 4], '5', GRAPH_COLORS.yellow, [12, 16]);
+  board.create('segment', [[2, 0.35], [5, 0.35]], {
+    strokeColor: GRAPH_COLORS.green,
+    strokeWidth: 5,
+    highlight: false,
+  });
+  addGraphText(board, 2.55, 5.9, 'Cf au-dessus', GRAPH_COLORS.green);
+  addGraphText(board, 5.45, 5.1, 'Cg', GRAPH_COLORS.coral);
+}
+
 function createCurveBoard(element, boundingbox) {
   return JXG.JSXGraph.initBoard(element.id, {
     boundingbox,
@@ -340,6 +497,42 @@ function createCurveBoard(element, boundingbox) {
     showNavigation: false,
     pan: { enabled: false },
     zoom: { enabled: false },
+  });
+}
+
+function addFunctionCurve(board, fn, start, end, color) {
+  return board.create('functiongraph', [fn, start, end], {
+    strokeColor: color,
+    strokeWidth: 4,
+    highlight: false,
+  });
+}
+
+function addPoint(board, coordinates, name, color, offset) {
+  return board.create('point', coordinates, {
+    name,
+    fixed: true,
+    size: 5,
+    face: 'o',
+    fillColor: color,
+    strokeColor: GRAPH_COLORS.ink,
+    strokeWidth: 3,
+    highlight: false,
+    label: {
+      fontSize: 16,
+      fontWeight: 900,
+      offset,
+    },
+  });
+}
+
+function addGraphText(board, x, y, label, color) {
+  return board.create('text', [x, y, label], {
+    fixed: true,
+    highlight: false,
+    fontSize: 15,
+    strokeColor: color,
+    cssStyle: `font-weight: 900; color: ${color};`,
   });
 }
 

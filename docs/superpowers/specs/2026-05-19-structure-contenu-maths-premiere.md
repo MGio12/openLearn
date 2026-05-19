@@ -126,11 +126,28 @@ Elle ne doit pas porter sur :
 - la réduction des exercices à des automatismes trop simples ;
 - la disparition de la rédaction mathématique.
 
+## Consistance mathématique attendue
+
+La page finale ne doit pas donner l'impression d'un extrait simplifié ou d'une suite de cartes indépendantes.
+
+Un chapitre consistant garde :
+
+- une notation stable du début à la fin ;
+- les définitions et propriétés nécessaires avant les exemples ;
+- des exemples résolus qui appliquent explicitement la méthode annoncée ;
+- des exercices de contrôle qui réutilisent les mêmes compétences, mais avec moins d'aide ;
+- des corrections qui justifient le choix de méthode ;
+- des graphes exacts quand une lecture de courbe est centrale.
+
+Chaque bloc doit se raccorder au précédent. Si une section introduit une méthode, elle doit mener vers un exemple, une question, un exercice ou une rédaction. Si un exercice demande une compétence qui n'a pas été préparée, il doit être déplacé ou un bloc préparatoire doit être ajouté.
+
 ## Rôle des sources PDF
 
 Les PDF Maths91 servent de base principale pour couvrir tout le programme et garantir cours + exercices.
 
 Les PDF Maths-et-tiques servent de compléments lorsque leur approche rend une notion plus intuitive ou plus digeste.
+
+La liste de référence des PDFs de Première spécialité est `lien/premiere/math.md`. Avant de créer ou refaire un chapitre, l'agent doit y repérer les sources du chapitre puis produire une carte de couverture : notions, définitions, propriétés, exemples, exercices, pièges, graphes nécessaires et éléments exclus.
 
 Pour chaque chapitre, l'objectif n'est pas de copier un cours, mais de mixer les sources pour produire :
 
@@ -139,6 +156,8 @@ Pour chaque chapitre, l'objectif n'est pas de copier un cours, mais de mixer les
 - des questions placées au bon moment ;
 - des pièges explicités ;
 - des exercices classés par niveau de maîtrise.
+
+Le cours web doit garder la densité mathématique des PDFs. Il peut réduire la charge d'entrée en découpant mieux, mais il ne doit pas retirer les mathématiques qui donnent de la valeur au chapitre.
 
 ## Décision de personnalisation
 

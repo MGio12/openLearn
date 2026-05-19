@@ -15,6 +15,12 @@ Le format final n'est pas un PDF ni un Markdown : c'est une page **HTML + KaTeX*
 
 ## Workflow agent orchestrateur
 
+0. Choisir les sources depuis la liste validée.
+
+   Pour la Première spécialité, commencer par `lien/premiere/math.md`.
+   Maths91 est la colonne vertébrale par défaut : cours, définitions, propriétés, exercices.
+   Maths-et-tiques sert de complément quand il apporte une intuition, une méthode plus lisible ou un exemple utile.
+
 1. Placer les PDFs autorisés dans un dossier d'entrée, par exemple :
 
    ```bash
@@ -29,16 +35,20 @@ Le format final n'est pas un PDF ni un Markdown : c'est une page **HTML + KaTeX*
      prototypes/cours/_extracted/maths-specialite/derivation
    ```
 
-3. L'agent lit les textes extraits et produit :
+3. L'agent lit les textes extraits et produit une carte de couverture avant d'écrire la page :
 
    - une carte des notions ;
-   - les définitions indispensables ;
+   - les définitions, hypothèses et propriétés à conserver ;
    - les intuitions à construire ;
    - les erreurs fréquentes ;
    - les exemples gradués ;
    - les questions de compréhension ;
    - un TD progressif ;
-   - un corrigé détaillé.
+   - un corrigé détaillé ;
+   - les graphes exacts nécessaires ;
+   - les éléments du PDF exclus de cette version et la raison.
+
+   Cette carte sert à éviter un cours trop générique. Le chapitre web doit rester dense en mathématiques : notations stables, hypothèses explicites, propriétés, exemples résolus, exercices de contrôle et corrections rédigées.
 
 4. L'agent assemble le chapitre en HTML, avec formules au format :
 
@@ -46,6 +56,8 @@ Le format final n'est pas un PDF ni un Markdown : c'est une page **HTML + KaTeX*
    - bloc : `\[ f'(a)=\lim_{h\to0}\frac{f(a+h)-f(a)}{h} \]`
 
 5. Les visualisations sont ajoutées uniquement quand elles clarifient une idée. Les règles détaillées sont dans [`docs/generation-image-cours.md`](generation-image-cours.md) : intention pédagogique avant esthétique, imagegen pour l'intuition, et représentation mathématique exacte via KaTeX, JSXGraph, Desmos, GeoGebra ou tracé calculé. Les courbes dessinées à la main en SVG/Canvas/CSS/Bezier sont interdites.
+
+   Pour les graphes de fonctions, utiliser un outil déterministe. Dans les prototypes actuels, JSXGraph est le choix par défaut pour les courbes exactes : racines, signe, extremum, tangente, position relative de deux courbes. Un graphe doit correspondre à une vraie fonction du cours, avec des points remarquables cohérents avec la correction.
 
 6. Le dossier de sortie contient :
 
@@ -66,11 +78,13 @@ Les règles de création, de rétention et de monétisation des cours sont dans 
 
 - Le ton doit être celui d'un professeur exigeant, clair, agréable et rassurant.
 - Le cours doit aider l'élève à reprendre confiance sans baisser le niveau.
+- Le cours doit être plus consistant qu'un résumé : garder la densité mathématique des PDFs et l'organiser en séquence active.
 - Les images ne décorent pas : elles doivent expliquer une idée.
 - Les points majeurs à retenir sont visuellement marqués.
 - Les zones à visualiser sont séparées des théorèmes et méthodes.
 - Les questions arrivent au fil du cours, pas seulement à la fin.
 - Le TD doit aller du calcul direct vers le raisonnement.
+- Les corrections doivent expliquer le choix de méthode, pas seulement donner le résultat.
 - Toute information incertaine issue des sources doit être signalée dans `generation-notes.md`.
 
 ## Extension v1.1

@@ -5,9 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Second degré — cours prototype</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css">
   <link rel="stylesheet" href="../cours.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js"></script>
   <script defer src="../cours.js"></script>
 </head>
 <body class="has-course-sidebar">
@@ -55,12 +57,15 @@
 
       <nav class="toc-links" aria-label="Sections du chapitre">
         <a href="#diagnostic" data-section-link><span class="toc-index">0</span><span class="toc-label">Diagnostic</span></a>
-        <a href="#intuition" data-section-link><span class="toc-index">1</span><span class="toc-label">Parabole</span></a>
+        <a href="#formes" data-section-link><span class="toc-index">1</span><span class="toc-label">Formes</span></a>
         <a href="#canonique" data-section-link><span class="toc-index">2</span><span class="toc-label">Forme canonique</span></a>
-        <a href="#discriminant" data-section-link><span class="toc-index">3</span><span class="toc-label">Discriminant</span></a>
-        <a href="#signe" data-section-link><span class="toc-index">4</span><span class="toc-label">Signe</span></a>
-        <a href="#choix" data-section-link><span class="toc-index">5</span><span class="toc-label">Choisir</span></a>
-        <a href="#redaction" data-section-link><span class="toc-index">6</span><span class="toc-label">Rédiger</span></a>
+        <a href="#equations-simples" data-section-link><span class="toc-index">3</span><span class="toc-label">Éq. simples</span></a>
+        <a href="#discriminant" data-section-link><span class="toc-index">4</span><span class="toc-label">Discriminant</span></a>
+        <a href="#factorisation" data-section-link><span class="toc-index">5</span><span class="toc-label">Factoriser</span></a>
+        <a href="#somme-produit" data-section-link><span class="toc-index">6</span><span class="toc-label">Somme produit</span></a>
+        <a href="#signe" data-section-link><span class="toc-index">7</span><span class="toc-label">Signe</span></a>
+        <a href="#choix" data-section-link><span class="toc-index">8</span><span class="toc-label">Choisir</span></a>
+        <a href="#redaction" data-section-link><span class="toc-index">9</span><span class="toc-label">Rédiger</span></a>
         <a href="#exercices-guides" data-section-link><span class="toc-index">G</span><span class="toc-label">Guidé</span></a>
         <a href="#controle" data-section-link><span class="toc-index">C</span><span class="toc-label">Contrôle</span></a>
         <a href="#vingt" data-section-link><span class="toc-index">20</span><span class="toc-label">20/20</span></a>
@@ -134,13 +139,45 @@
         </div>
       </section>
 
-      <section id="intuition" class="chapter-section">
-        <p class="section-kicker">Intuition mathématique</p>
-        <h2>Le sommet se lit dans une forme, pas dans un dessin</h2>
+      <section id="formes" class="chapter-section">
+        <p class="section-kicker">Définition et formes</p>
+        <h2>Un trinôme se reconnaît, puis se choisit sous la bonne forme</h2>
         <p>
-          Une fonction du second degré s'écrit \(f(x)=ax^2+bx+c\) avec \(a\ne0\). Sa courbe est une parabole,
-          mais pour raisonner proprement, on s'appuie d'abord sur la forme canonique.
+          Une fonction polynôme du second degré est une fonction définie sur \(\mathbb{R}\) qui peut s'écrire
+          sous la forme \(f(x)=ax^2+bx+c\), avec \(a\ne0\). On l'appelle aussi un trinôme.
+          La même fonction peut être utile sous trois formes différentes.
         </p>
+
+        <div class="formula-card is-major">
+          \[
+            f(x)=ax^2+bx+c
+          \]
+          \[
+            f(x)=a(x-\alpha)^2+\beta
+          \]
+          \[
+            f(x)=a(x-x_1)(x-x_2)
+          \]
+        </div>
+
+        <div class="choice-grid">
+          <div class="choice-card">
+            <p class="box-title">Forme développée</p>
+            <p>Elle donne directement \(a\), \(b\), \(c\), donc elle prépare le discriminant.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Forme canonique</p>
+            <p>Elle donne le sommet \(S(\alpha;\beta)\), l'axe de symétrie \(x=\alpha\), et l'extremum.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Forme factorisée</p>
+            <p>Elle donne les racines \(x_1\) et \(x_2\), donc elle accélère les équations et les signes.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Même objet</p>
+            <p>Changer de forme ne change pas la fonction : on choisit l'écriture qui rend la question simple.</p>
+          </div>
+        </div>
 
         <figure class="visual-block math-language-visual">
           <div class="math-language-grid" role="list" aria-label="Lecture mathématique de la forme canonique">
@@ -175,16 +212,36 @@
           </figcaption>
         </figure>
 
+        <figure class="visual-block interactive-graph quadratic-graph">
+          <div class="graph-stage">
+            <div id="quadratic-orientation-board" class="jxgbox curve-board" data-course-curve="orientation"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Deux paraboles exactes</span>
+              <strong>\(a>0\) : minimum · \(a<0\) : maximum</strong>
+            </p>
+          </div>
+          <figcaption>
+            Les deux courbes sont calculées par JSXGraph : le signe de \(a\) décide si la parabole s'ouvre vers le haut ou vers le bas.
+          </figcaption>
+        </figure>
+
         <div class="important">
           <p class="box-title">Majeur à retenir</p>
           <p>
             Le second degré n'est pas une liste de formules séparées. C'est la même parabole vue sous plusieurs formes :
-            développée, canonique, factorisée.
+            développée pour calculer, canonique pour lire le sommet, factorisée pour lire les racines.
           </p>
         </div>
 
         <div class="check-card">
-          <p class="box-title">Question immédiate</p>
+          <p class="box-title">Question immédiate 1</p>
+          <p>Dans \(p(x)=-3x^2+12x-5\), quelle est la forme visible et que vaut \(a\) ?</p>
+          <button class="reveal-button" type="button" data-reveal="formes1">Voir la réponse</button>
+          <p id="formes1" class="answer" hidden>La forme visible est la forme développée \(ax^2+bx+c\). Ici \(a=-3\), donc la parabole est tournée vers le bas.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="box-title">Question immédiate 2</p>
           <p>Pour \(f(x)=-2(x-3)^2+5\), la parabole possède-t-elle un minimum ou un maximum ?</p>
           <button class="reveal-button" type="button" data-reveal="intuition1">Voir la réponse</button>
           <p id="intuition1" class="answer" hidden>Un maximum, car \(a=-2<0\). Il est atteint pour \(x=3\), et sa valeur est \(5\).</p>
@@ -242,6 +299,19 @@
           <p>Donc \(f(x)=2(x-2)^2-5\). Le sommet est \(S(2;-5)\), et c'est un minimum.</p>
         </div>
 
+        <figure class="visual-block interactive-graph quadratic-graph">
+          <div class="graph-stage">
+            <div id="quadratic-canonical-board" class="jxgbox curve-board" data-course-curve="canonical"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Exemple exact : \(f(x)=2(x-2)^2-5\)</span>
+              <strong>Sommet \(S(2;-5)\)</strong>
+            </p>
+          </div>
+          <figcaption>
+            La droite verticale marque l'axe \(x=2\) : elle passe par le sommet et coupe la parabole en deux parties symétriques.
+          </figcaption>
+        </figure>
+
         <div class="check-card">
           <p class="box-title">Étape manquante</p>
           <p>Pour \(g(x)=x^2-6x+5\), complète : \(\alpha=-\frac{b}{2a}=\,?\)</p>
@@ -255,6 +325,74 @@
             Dans \(a(x-\alpha)^2+\beta\), le signe de \(\alpha\) est inversé dans la parenthèse.
             \(3(x+2)^2-7\) a pour sommet \((-2;-7)\), pas \((2;-7)\).
           </p>
+        </div>
+      </section>
+
+      <section id="equations-simples" class="chapter-section">
+        <p class="section-kicker">Avant le discriminant</p>
+        <h2>Résoudre les équations simples sans sortir la grosse formule</h2>
+        <p>
+          Le discriminant est une méthode générale, mais il ne doit pas remplacer les réflexes plus courts.
+          Les PDFs insistent sur ce point : si l'équation a deux termes, un facteur commun, une forme factorisée
+          ou un carré évident, on commence par cette structure.
+        </p>
+
+        <div class="method-grid">
+          <div class="method-step">
+            <span class="step-number">1</span>
+            <p>\(x^2=k\) : on utilise les racines carrées si \(k\ge0\).</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">2</span>
+            <p>\(ax^2+bx=0\) : on factorise par \(x\), puis produit nul.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">3</span>
+            <p>\((ux+v)(wx+t)=0\) : chaque facteur peut s'annuler.</p>
+          </div>
+        </div>
+
+        <div class="worked-example">
+          <p class="box-title">Exemples résolus</p>
+          <p>Résoudre dans \(\mathbb{R}\) les équations suivantes.</p>
+          <div class="formula-card">
+            \[
+              \begin{aligned}
+                x^2&=25\\
+                x&=-5\ \text{ou}\ x=5
+              \end{aligned}
+            \]
+            \[
+              4x^2-2x=0
+            \]
+            \[
+              2x(2x-1)=0
+            \]
+            \[
+              x=0\ \text{ou}\ x=\frac12
+            \]
+            \[
+              (x-3)(x+1)=0
+            \]
+            \[
+              x=3\ \text{ou}\ x=-1
+            \]
+          </div>
+          <p>Ces trois équations sont du second degré, mais aucune n'oblige à calculer \(\Delta\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="box-title">Choisis la méthode</p>
+          <p>Pour résoudre \((3x+2)^2=0\), faut-il développer puis calculer \(\Delta\) ?</p>
+          <button class="reveal-button" type="button" data-reveal="simple1">Voir la réponse</button>
+          <p id="simple1" class="answer" hidden>Non. Un carré vaut \(0\) seulement si son contenu vaut \(0\). Donc \(3x+2=0\), soit \(x=-\frac23\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="box-title">Piège</p>
+          <p>Que se passe-t-il pour \(x^2+5=0\) dans \(\mathbb{R}\) ?</p>
+          <button class="reveal-button" type="button" data-reveal="simple2">Voir la réponse</button>
+          <p id="simple2" class="answer" hidden>Il n'y a aucune solution réelle, car \(x^2\ge0\), donc \(x^2+5>0\) pour tout réel \(x\).</p>
         </div>
       </section>
 
@@ -285,6 +423,19 @@
             <p>Deux racines : \(x_1=\frac{-b-\sqrt{\Delta}}{2a}\), \(x_2=\frac{-b+\sqrt{\Delta}}{2a}\).</p>
           </div>
         </div>
+
+        <figure class="visual-block interactive-graph quadratic-graph">
+          <div class="graph-stage">
+            <div id="quadratic-discriminant-board" class="jxgbox curve-board" data-course-curve="discriminant"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Trois cas exacts du discriminant</span>
+              <strong>0, 1 ou 2 intersections avec l'axe</strong>
+            </p>
+          </div>
+          <figcaption>
+            Le discriminant compte les contacts avec l'axe des abscisses : aucun, un contact double, ou deux intersections.
+          </figcaption>
+        </figure>
 
         <div class="worked-example">
           <p class="box-title">Exemple résolu</p>
@@ -322,8 +473,128 @@
         </div>
       </section>
 
-      <section id="signe" class="chapter-section">
+      <section id="factorisation" class="chapter-section">
         <p class="section-kicker">Méthode 3</p>
+        <h2>Factoriser transforme les racines en produit nul</h2>
+        <p>
+          Factoriser un trinôme, c'est l'écrire sous la forme \(a(x-x_1)(x-x_2)\) quand les racines réelles existent.
+          Cette forme est précieuse : elle donne les zéros et prépare directement le tableau de signes.
+        </p>
+
+        <div class="formula-card is-major">
+          \[
+            \begin{aligned}
+              \Delta&=0\\
+              f(x)&=a(x-x_0)^2
+            \end{aligned}
+          \]
+          \[
+            \begin{aligned}
+              \Delta&>0\\
+              f(x)&=a(x-x_1)(x-x_2)
+            \end{aligned}
+          \]
+          <p>Si \(\Delta<0\), il n'y a pas de factorisation réelle en facteurs du premier degré.</p>
+        </div>
+
+        <div class="worked-example">
+          <p class="box-title">Exemple résolu</p>
+          <p>Factoriser \(4x^2+19x-5\).</p>
+          <div class="formula-card">
+            \[
+              \begin{aligned}
+                \Delta&=19^2\\
+                &-4\times4\times(-5)\\
+                &=441=21^2
+              \end{aligned}
+            \]
+            \[
+              x_1=\frac{-19-21}{8}=-5
+            \]
+            \[
+              x_2=\frac{-19+21}{8}=\frac14
+            \]
+            \[
+              4x^2+19x-5
+            \]
+            \[
+              =(x+5)(4x-1)
+            \]
+          </div>
+          <p>Pour éviter les fractions dans la copie, on peut aussi écrire \((x+5)(4x-1)\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="box-title">Étape manquante</p>
+          <p>On a \(9x^2-6x+1\) et \(\Delta=0\). Quelle racine double obtient-on ?</p>
+          <button class="reveal-button" type="button" data-reveal="factorisation1">Voir la réponse</button>
+          <p id="factorisation1" class="answer" hidden>\(x_0=-\frac{b}{2a}=-\frac{-6}{18}=\frac13\). Donc \(9x^2-6x+1=9\left(x-\frac13\right)^2=(3x-1)^2\).</p>
+        </div>
+
+        <div class="teacher-note">
+          <p class="box-title">Piège de rédaction</p>
+          <p>
+            Si \(\Delta<0\), ne cherche pas une forme factorisée réelle. Il faut écrire que le trinôme n'a pas de racine réelle,
+            donc pas de factorisation dans \(\mathbb{R}\) sous la forme \(a(x-x_1)(x-x_2)\).
+          </p>
+        </div>
+      </section>
+
+      <section id="somme-produit" class="chapter-section">
+        <p class="section-kicker">Racines</p>
+        <h2>Somme et produit des racines donnent une deuxième lecture</h2>
+        <p>
+          Quand un trinôme \(ax^2+bx+c\) possède deux racines \(x_1\) et \(x_2\), leur somme et leur produit
+          ne sont pas au hasard. Ces formules permettent de vérifier un calcul ou de trouver une racine si l'autre est connue.
+        </p>
+
+        <div class="formula-card is-major">
+          \[
+            \begin{aligned}
+              x_1+x_2&=-\frac{b}{a}\\
+              x_1x_2&=\frac{c}{a}
+            \end{aligned}
+          \]
+        </div>
+
+        <div class="worked-example">
+          <p class="box-title">Exemple résolu</p>
+          <p>Soit \(f(x)=-2x^2+x+1\). On sait que \(1\) est une racine. Trouver l'autre racine.</p>
+          <div class="formula-card">
+            \[
+              \begin{aligned}
+                x_1x_2&=\frac{c}{a}\\
+                &=\frac{1}{-2}\\
+                &=-\frac12
+              \end{aligned}
+            \]
+            \[
+              \begin{aligned}
+                1\times x_2&=-\frac12\\
+                x_2&=-\frac12
+              \end{aligned}
+            \]
+          </div>
+          <p>On peut vérifier avec la somme : \(1-\frac12=\frac12=-\frac{b}{a}=-\frac{1}{-2}\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="box-title">Vérification rapide</p>
+          <p>Pour \(2x^2-x-6\), les racines trouvées sont \(-\frac32\) et \(2\). Vérifie leur somme.</p>
+          <button class="reveal-button" type="button" data-reveal="somme1">Voir la réponse</button>
+          <p id="somme1" class="answer" hidden>La somme vaut \(-\frac32+2=\frac12\). Or \(-\frac{b}{a}=-\frac{-1}{2}=\frac12\). C'est cohérent.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="box-title">Quand l'utiliser ?</p>
+          <p>Cette méthode remplace-t-elle toujours le discriminant ?</p>
+          <button class="reveal-button" type="button" data-reveal="somme2">Voir la réponse</button>
+          <p id="somme2" class="answer" hidden>Non. Elle est surtout utile pour vérifier, ou quand une racine est déjà connue. Pour trouver deux racines inconnues, le discriminant reste la méthode générale.</p>
+        </div>
+      </section>
+
+      <section id="signe" class="chapter-section">
+        <p class="section-kicker">Méthode 4</p>
         <h2>Le signe du trinôme vient des racines</h2>
         <p>
           Pour résoudre une inéquation du second degré, il ne suffit pas de trouver les racines.
@@ -360,6 +631,19 @@
             <p role="cell">-</p>
           </div>
         </div>
+
+        <figure class="visual-block interactive-graph quadratic-graph">
+          <div class="graph-stage">
+            <div id="quadratic-sign-board" class="jxgbox curve-board" data-course-curve="sign"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Exemple exact : \(x^2-2x-15\)</span>
+              <strong>Négatif entre \(-3\) et \(5\)</strong>
+            </p>
+          </div>
+          <figcaption>
+            La courbe est sous l'axe entre les deux racines : c'est cette zone que le tableau de signes traduit.
+          </figcaption>
+        </figure>
 
         <div class="worked-example">
           <p class="box-title">Exemple résolu</p>
@@ -412,7 +696,28 @@
             <p class="box-title">On te donne des racines et un point</p>
             <p>Pars de \(a(x-x_1)(x-x_2)\), puis utilise le point pour trouver \(a\).</p>
           </div>
+          <div class="choice-card">
+            <p class="box-title">L'équation est déjà simple</p>
+            <p>Teste d'abord racine carrée, facteur commun, identité remarquable ou produit nul.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Une racine est déjà connue</p>
+            <p>Utilise la somme et produit des racines pour trouver l'autre ou vérifier ton calcul.</p>
+          </div>
         </div>
+
+        <figure class="visual-block interactive-graph quadratic-graph">
+          <div class="graph-stage">
+            <div id="quadratic-profit-board" class="jxgbox curve-board" data-course-curve="profit"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Question de maximum</span>
+              <strong>La forme canonique est le bon départ</strong>
+            </p>
+          </div>
+          <figcaption>
+            Quand l'énoncé demande un maximum, le sommet de la parabole devient l'information centrale.
+          </figcaption>
+        </figure>
 
         <div class="check-card">
           <p class="box-title">Choisis sans calculer</p>
@@ -426,6 +731,13 @@
           <p>Quelle méthode démarre le mieux : « résoudre \((3x-1)(2x+3)=0\) » ?</p>
           <button class="reveal-button" type="button" data-reveal="choix2">Voir la réponse</button>
           <p id="choix2" class="answer" hidden>Produit nul directement. Utiliser le discriminant marcherait, mais ce serait plus long.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="box-title">Choisis sans calculer</p>
+          <p>Quelle méthode démarre le mieux : « \(P\) admet \(2\) comme racine et \(P(x)=3x^2-7x+2\). Trouver l'autre racine » ?</p>
+          <button class="reveal-button" type="button" data-reveal="choix3">Voir la réponse</button>
+          <p id="choix3" class="answer" hidden>Somme ou produit des racines. Ici le produit vaut \(\frac{2}{3}\), donc l'autre racine vaut \(\frac13\).</p>
         </div>
       </section>
 
@@ -540,12 +852,12 @@
           </div>
         </div>
 
-        <div class="paywall-card">
-          <p class="box-title">Frontière produit à tester</p>
+        <div class="important">
+          <p class="box-title">Bilan d'étape</p>
           <p>
-            À ce stade, l'élève a déjà obtenu une victoire : diagnostic, image mentale, trois méthodes, trois corrections.
-            Dans une version payante, le déblocage pourrait arriver ici pour ouvrir les séries longues, le suivi d'erreurs
-            et les révisions mélangées. Le prototype garde tout visible pour tester la qualité pédagogique.
+            Avant de passer au niveau contrôle, tu dois savoir choisir entre forme canonique, équation simple,
+            discriminant, factorisation, somme-produit et tableau de signes. Si tu hésites encore, reviens au bloc
+            « Choisir la méthode » avant d'ouvrir les exercices longs.
           </p>
         </div>
       </section>
@@ -662,6 +974,18 @@
             Soient \(f(x)=-x^2+8x-11\) et \(g(x)=x-1\). Déterminer où la courbe de \(f\)
             est au-dessus de celle de \(g\).
           </p>
+          <figure class="visual-block interactive-graph quadratic-graph">
+            <div class="graph-stage">
+              <div id="quadratic-position-board" class="jxgbox curve-board" data-course-curve="position"></div>
+              <p class="graph-readout" aria-live="polite">
+                <span>Comparer deux courbes</span>
+                <strong>\(C_f\) au-dessus de \(C_g\) entre \(2\) et \(5\)</strong>
+              </p>
+            </div>
+            <figcaption>
+              Les intersections donnent les bornes. Entre elles, la parabole est au-dessus de la droite.
+            </figcaption>
+          </figure>
           <button class="reveal-button" type="button" data-reveal="vingt3">Voir le corrigé</button>
           <div id="vingt3" class="answer" hidden>
             <p>On étudie le signe de \(f(x)-g(x)=-x^2+7x-10\).</p>
