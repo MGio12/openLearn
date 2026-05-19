@@ -64,6 +64,7 @@ Objectif : ne pas tout relire. Charge seulement les fichiers utiles au travail e
 
 ## Règles spécifiques aux cours de maths
 - Toujours appliquer la règle mère : baisser la difficulté d'entrée, pas l'exigence finale.
+- Zéro ambiguïté : l'élève ne doit jamais deviner ce que signifie un symbole, pourquoi une méthode est choisie, quelle étape suit, ni quelle est la réponse finale. S'il faut parler davantage pour lever l'ambiguïté, parler davantage.
 - Ne pas promettre 20/20 comme garantie visible ; le niveau 20/20 est une cible d'entraînement.
 - Le vrai différenciateur n'est pas un meilleur PDF : c'est un entraînement qui combat l'illusion de compréhension.
 - Chaque notion doit pousser l'élève à produire : question immédiate, étape manquante, exercice seul, choix de méthode, rédaction propre.
@@ -73,6 +74,8 @@ Objectif : ne pas tout relire. Charge seulement les fichiers utiles au travail e
 - Les corrections doivent rester lisibles : une question = une partie identifiable ; plusieurs résultats = résultats séparés ou numérotés ; pas de suite compacte de réponses en équation sans explication.
 - Mettre plus de maths que de narration : définitions, théorèmes/propriétés, cas, formules, exemples résolus, justifications, contre-exemples ou pièges, exercices progressifs et rédaction attendue.
 - S'appuyer réellement sur les PDFs validés. Pour la Première spécialité, partir de `lien/premiere/math.md`, utiliser Maths91 comme colonne vertébrale cours + exercices, puis Maths-et-tiques comme complément d'intuition ou d'exemples. Ne pas produire un chapitre générique de mémoire quand un PDF source existe.
+- Logique attendue : prendre les cours PDF, en faire le plan, reprendre quasiment toute leur substance mathématique, puis améliorer ce que le web peut améliorer. On améliore le travail d'expert : on ne réinvente pas la roue.
+- Si une métaphore, une explication plus longue ou une image imagegen retire une vraie ambiguïté, l'utiliser. L'image imagegen sert seulement l'intuition non exacte ; les courbes, axes, labels critiques, formules et constructions mathématiques restent dans KaTeX, JSXGraph, Desmos, GeoGebra ou des objets calculés.
 - Avant d'assembler une page, dresser une mini-carte de couverture : notions présentes dans les PDFs, méthodes, exemples, exercices adaptés, erreurs fréquentes, graphes exacts nécessaires, et points non repris volontairement.
 - Chaque section importante doit avoir une fonction pédagogique claire : apprendre une notion, faire choisir une méthode, faire produire une étape, faire rédiger, ou préparer un exercice de contrôle. Supprimer les blocs décoratifs qui n'ajoutent pas de math ou d'action élève.
 

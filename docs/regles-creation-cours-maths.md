@@ -183,6 +183,8 @@ La consistance se vérifie à la fin :
 
 Pour la Première spécialité, les PDFs validés sont listés dans `lien/premiere/math.md`.
 
+La logique de travail est volontairement conservatrice : on part d'un cours d'expert, on en extrait le plan, puis on reprend quasiment toute sa substance mathématique. Le rôle du cours web n'est pas de remplacer l'expertise du PDF par une leçon générique. Il est d'améliorer ce que le PDF ne peut pas faire aussi bien : lever les ambiguïtés, séquencer l'effort, faire produire l'élève, masquer les corrections, faire choisir une méthode et ajouter des visuels exacts.
+
 Le rôle des sources est obligatoire :
 
 - Maths91 sert de base principale pour la couverture du programme, les définitions, les propriétés et les exercices ;
@@ -201,6 +203,30 @@ Avant d'écrire la page, l'agent doit produire une carte de couverture courte :
 7. éléments volontairement exclus de cette version.
 
 Le but n'est pas de copier les PDFs. Le but est de garder leur densité mathématique et leur couverture, puis d'ajouter ce que le PDF ne peut pas faire : questions immédiates, choix de méthode, corrections masquées, graphes exacts et progression active.
+
+### 10. Viser zéro ambiguïté
+
+Un cours peut être long s'il est clair. Il ne doit pas être court au prix d'une ambiguïté.
+
+L'élève ne doit jamais avoir à deviner :
+
+- ce que représente une lettre ou un symbole ;
+- pourquoi une méthode est choisie plutôt qu'une autre ;
+- quelle ligne justifie la ligne suivante ;
+- où commence et où finit un cas ;
+- quelle est la réponse finale attendue ;
+- ce qu'il faut écrire sur une copie.
+
+Si un passage reste ambigu, l'auteur doit ajouter ce qui manque :
+
+- une phrase d'explication ;
+- une étape intermédiaire de calcul ;
+- une mini-définition avant la formule ;
+- une métaphore courte si elle rend l'idée plus intuitive ;
+- un exemple numérique simple avant le cas général ;
+- une image imagegen pour une intuition non exacte, sans axes, formule, courbe ou label mathématique critique.
+
+La règle est : trop expliquer vaut mieux que laisser un trou logique. Ensuite seulement, on coupe les répétitions qui n'ajoutent rien.
 
 ## Mécanique par notion
 

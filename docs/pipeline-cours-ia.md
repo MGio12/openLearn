@@ -20,6 +20,7 @@ Le format final n'est pas un PDF ni un Markdown : c'est une page **HTML + KaTeX*
    Pour la Première spécialité, commencer par `lien/premiere/math.md`.
    Maths91 est la colonne vertébrale par défaut : cours, définitions, propriétés, exercices.
    Maths-et-tiques sert de complément quand il apporte une intuition, une méthode plus lisible ou un exemple utile.
+   La logique de génération est : partir du travail d'expert, en extraire le plan, reprendre presque toute la substance mathématique, puis améliorer la clarté, l'interactivité et la progression. Ne pas reconstruire un chapitre générique depuis la mémoire de l'agent.
 
 1. Placer les PDFs autorisés dans un dossier d'entrée, par exemple :
 
@@ -38,7 +39,9 @@ Le format final n'est pas un PDF ni un Markdown : c'est une page **HTML + KaTeX*
 3. L'agent lit les textes extraits et produit une carte de couverture avant d'écrire la page :
 
    - une carte des notions ;
+   - le plan du cours PDF principal ;
    - les définitions, hypothèses et propriétés à conserver ;
+   - les passages à reprendre quasi tels quels dans leur substance mathématique ;
    - les intuitions à construire ;
    - les erreurs fréquentes ;
    - les exemples gradués ;
@@ -48,7 +51,7 @@ Le format final n'est pas un PDF ni un Markdown : c'est une page **HTML + KaTeX*
    - les graphes exacts nécessaires ;
    - les éléments du PDF exclus de cette version et la raison.
 
-   Cette carte sert à éviter un cours trop générique. Le chapitre web doit rester dense en mathématiques : notations stables, hypothèses explicites, propriétés, exemples résolus, exercices de contrôle et corrections rédigées.
+   Cette carte sert à éviter un cours trop générique. Le chapitre web doit rester dense en mathématiques : notations stables, hypothèses explicites, propriétés, exemples résolus, exercices de contrôle et corrections rédigées. L'agent améliore le travail d'expert, il ne réinvente pas la roue.
 
 4. L'agent assemble le chapitre en HTML, avec formules au format :
 
@@ -79,7 +82,9 @@ Les règles de création, de rétention et de monétisation des cours sont dans 
 - Le ton doit être celui d'un professeur exigeant, clair, agréable et rassurant.
 - Le cours doit aider l'élève à reprendre confiance sans baisser le niveau.
 - Le cours doit être plus consistant qu'un résumé : garder la densité mathématique des PDFs et l'organiser en séquence active.
+- Le cours doit viser zéro ambiguïté. Si une notion peut être mal comprise, ajouter une phrase, une étape intermédiaire, une métaphore ou un exemple plutôt que laisser l'élève deviner.
 - Les images ne décorent pas : elles doivent expliquer une idée.
+- Une image imagegen est acceptable pour une intuition non exacte ou une métaphore visuelle, mais pas pour porter une formule, une courbe, des axes, un label mathématique critique ou une construction exacte.
 - Les points majeurs à retenir sont visuellement marqués.
 - Les zones à visualiser sont séparées des théorèmes et méthodes.
 - Les questions arrivent au fil du cours, pas seulement à la fin.

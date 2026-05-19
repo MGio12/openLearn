@@ -20,6 +20,16 @@ Before editing, read:
 
 The goal is not to make a prettier PDF. The goal is to make a web course that forces the student to understand, answer, retry, choose a method, and write a proper solution.
 
+## Zero-Ambiguity Rule
+
+The course must never leave a student guessing what a symbol means, why a method is chosen, what step comes next, or what the final answer is.
+
+When clarity requires more words, write more words. When a metaphor helps remove confusion, use one. When a non-exact mental image would help, generate an image with imagegen, but keep mathematical curves, axes, labels, and formulas out of that image. Exact maths still belongs in KaTeX, JSXGraph, Desmos, GeoGebra, or calculated objects.
+
+The agent's job is to improve expert material, not reinvent the chapter. Start from the validated PDFs, extract the plan, map the expert course, and reuse almost all of its mathematical substance: definitions, hypotheses, properties, methods, examples, exercises, edge cases, and expected writing. Then improve what the web can improve: sequencing, active questions, hidden corrections, method-choice blocks, cleaner explanations, exact graphs, and less ambiguous notation.
+
+Do not replace an expert PDF with a generic AI lesson. If a PDF already teaches a notion well, preserve it and make it clearer, more interactive, and easier to practice.
+
 ## Subagent Contract For Course Pages
 
 If you are a subagent working on a course page, do not treat the page as a layout task only. Your job is to preserve the math, the source coverage, and the learning sequence.
