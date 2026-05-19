@@ -1,0 +1,1197 @@
+/* ============================================================
+   COURS V2 — Second degré
+   Refonte visuelle du prototype : système de cartes resserré,
+   typographie calibrée, rythme de section, sidebar nettoyée,
+   barre de progression de lecture, ambiance papier + ink premium.
+
+   Conserve TOUS les hooks JS d'origine :
+   - data-course-layout / data-course-sidebar / data-sidebar-toggle
+   - data-section-link / data-reveal / id="..."
+   - data-course-curve + ids jxg (#quadratic-* etc.)
+   Le JS d'origine (cours.js) marche sans modification.
+   ============================================================ */
+
+:root {
+  /* Paper layer */
+  --paper:        #F6F2EB;
+  --paper-2:      #EFE7DC;
+  --panel:        #FFFDF8;
+  --panel-tint:   #FBF6EC;     /* hairline tint for alternating sections */
+
+  /* Ink */
+  --ink:          #121212;
+  --ink-2:        #2A2724;
+  --ink-soft:     #5F5B57;
+  --ink-mute:     #8B857D;
+
+  /* Accent palette — limited */
+  --stabilo:      #F4D35E;
+  --stabilo-wash: #FBEAB0;
+  --blue:         #C7D9D7;
+  --blue-2:       #A8C2C0;
+  --green:        #D8E6C3;
+  --green-2:      #8BBF5F;
+  --red:          #D96C5F;
+  --beige:        #E8C7A9;
+  --violet-soft:  #E5DCF3;
+
+  /* Borders + shadows — lighter than v1 */
+  --b:            2.5px solid var(--ink);
+  --b-thin:       1.5px solid var(--ink);
+  --b-hair:       1px solid rgba(18, 18, 18, 0.14);
+  --sh-soft:      0 1px 0 rgba(18,18,18,0.04), 4px 4px 0 var(--ink);
+  --sh-major:     6px 6px 0 var(--ink);
+  --sh-accent:    5px 5px 0 var(--stabilo);
+
+  /* Fonts */
+  --font-display: "Archivo Black", "Arial Black", "Plus Jakarta Sans", sans-serif;
+  --font-body:    "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, "Menlo", monospace;
+
+  /* Layout */
+  --sidebar-w:        260px;
+  --sidebar-w-min:    56px;
+  --content-max:      900px;
+  --gutter:           clamp(20px, 4vw, 56px);
+
+  /* Motion */
+  --ease:         cubic-bezier(.22, .61, .36, 1);
+  --d-fast:       120ms;
+  --d-base:       220ms;
+}
+
+/* ============================================================
+   RESET + BASE
+   ============================================================ */
+* { box-sizing: border-box; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+body {
+  margin: 0;
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(rgba(18, 18, 18, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(18, 18, 18, 0.035) 1px, transparent 1px);
+  background-size: 24px 24px;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+a { color: inherit; }
+
+/* Page-wide reading-progress bar (sticky top hairline) */
+.progress-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: rgba(18, 18, 18, 0.06);
+  z-index: 50;
+}
+.progress-bar__fill {
+  height: 100%; width: 0%;
+  background: var(--stabilo);
+  border-bottom: 1px solid var(--ink);
+  transition: width 80ms linear;
+}
+
+/* ============================================================
+   SIDEBAR — clean, no checkpoint clutter
+   ============================================================ */
+.has-course-sidebar {
+  --course-sidebar-width: var(--sidebar-w);
+  --course-sidebar-collapsed-width: var(--sidebar-w-min);
+  --course-sidebar-space: var(--course-sidebar-width);
+}
+.has-course-sidebar.is-course-sidebar-collapsed {
+  --course-sidebar-space: var(--course-sidebar-collapsed-width);
+}
+
+.course-sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 40;
+  width: var(--course-sidebar-width);
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px 18px 16px;
+  background: var(--panel);
+  border-right: var(--b);
+  box-shadow: var(--sh-major);
+  overflow: hidden;
+  transition: width var(--d-base) var(--ease), padding var(--d-base) var(--ease), box-shadow var(--d-base) var(--ease);
+}
+.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar {
+  width: var(--course-sidebar-collapsed-width);
+  padding: 16px 6px;
+  box-shadow: 3px 0 0 var(--ink);
+}
+.has-course-sidebar.is-course-sidebar-collapsed:not(.is-sidebar-hover-locked) .course-sidebar:hover,
+.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar:focus-within {
+  width: var(--course-sidebar-width);
+  padding: 22px 18px 16px;
+  box-shadow: var(--sh-major);
+}
+
+.sidebar-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1.5px dashed rgba(18,18,18,0.14);
+}
+.sidebar-head > div { min-width: 0; }
+.toc-title {
+  margin: 0;
+  font-family: var(--font-display); font-size: 18px;
+  text-transform: uppercase; letter-spacing: -.005em;
+}
+.sidebar-subtitle {
+  margin: 2px 0 0;
+  font-family: var(--font-mono);
+  font-size: 10px; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.sidebar-toggle {
+  flex: 0 0 auto;
+  width: 32px; height: 32px;
+  display: grid; place-items: center;
+  background: var(--paper-2);
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  box-shadow: 2px 2px 0 var(--ink);
+  cursor: pointer;
+  color: var(--ink);
+  font: inherit; font-size: 18px; font-weight: 900;
+  line-height: 1;
+  transition: transform var(--d-fast) var(--ease), box-shadow var(--d-fast) var(--ease);
+}
+.sidebar-toggle:hover { transform: translate(1.5px, 1.5px); box-shadow: 0.5px 0.5px 0 var(--ink); }
+.sidebar-toggle:disabled { cursor: default; pointer-events: none; opacity: 0; }
+.sidebar-toggle span { display: inline-block; transition: transform var(--d-base) var(--ease); }
+.has-course-sidebar.is-course-sidebar-collapsed .sidebar-toggle span { transform: rotate(180deg); }
+.has-course-sidebar.is-course-sidebar-collapsed .sidebar-toggle {
+  visibility: hidden; opacity: 0;
+}
+
+.toc-links {
+  display: flex; flex-direction: column; gap: 2px;
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(18,18,18,0.18) transparent;
+  margin: 0 -6px;
+  padding: 0 6px;
+}
+.toc-links::-webkit-scrollbar { width: 4px; }
+.toc-links::-webkit-scrollbar-thumb { background: rgba(18,18,18,0.18); border-radius: 999px; }
+
+.toc-links a {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 10px; align-items: center;
+  min-height: 36px;
+  padding: 4px 10px 4px 4px;
+  border: 1.5px solid transparent;
+  border-radius: 9px;
+  color: var(--ink-soft);
+  font-size: 13.5px; font-weight: 700;
+  letter-spacing: .005em;
+  text-decoration: none;
+  transition: background var(--d-fast) var(--ease), color var(--d-fast) var(--ease);
+}
+.toc-links a:hover {
+  background: var(--paper-2);
+  color: var(--ink);
+}
+.toc-links a.is-active {
+  background: var(--ink);
+  color: var(--panel);
+  border-color: var(--ink);
+}
+.toc-links a.is-active .toc-index {
+  background: var(--stabilo);
+  border-color: var(--stabilo);
+  color: var(--ink);
+}
+
+.toc-index {
+  width: 26px; height: 26px;
+  display: grid; place-items: center;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
+}
+.toc-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* hide head bits when collapsed and not hovered */
+.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar:not(:hover):not(:focus-within) .sidebar-head,
+.has-course-sidebar.is-course-sidebar-collapsed:not(.is-sidebar-hover-locked) .course-sidebar:hover .sidebar-head,
+.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar:focus-within .sidebar-head {
+  /* show always — the head holds the toggle */
+}
+.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar:not(:hover):not(:focus-within) .sidebar-head > div {
+  display: none;
+}
+.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar:not(:hover):not(:focus-within) .toc-links a {
+  grid-template-columns: 1fr;
+  justify-items: center;
+  padding: 4px;
+}
+.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar:not(:hover):not(:focus-within) .toc-label {
+  display: none;
+}
+.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar:not(:hover):not(:focus-within) .toc-index {
+  width: 32px; height: 32px;
+  font-size: 12px;
+}
+
+/* Sidebar footer: small mention, not a checkpoint */
+.sidebar-foot {
+  padding: 10px 4px 0;
+  border-top: 1.5px dashed rgba(18,18,18,0.14);
+  font-family: var(--font-mono);
+  font-size: 10px; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-mute);
+  text-align: center;
+}
+.has-course-sidebar.is-course-sidebar-collapsed .course-sidebar:not(:hover):not(:focus-within) .sidebar-foot {
+  display: none;
+}
+
+/* ============================================================
+   HERO — calmer, more editorial
+   ============================================================ */
+.course-hero {
+  position: relative;
+  padding: 56px var(--gutter) 64px;
+  padding-left: calc(var(--course-sidebar-space) + var(--gutter));
+  border-bottom: var(--b);
+  background:
+    radial-gradient(ellipse 70% 40% at 0% 0%, rgba(244, 211, 94, 0.18), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 100% 100%, rgba(199, 217, 215, 0.32), transparent 60%),
+    var(--panel);
+  transition: padding-left var(--d-base) var(--ease);
+}
+
+.topline {
+  display: flex; align-items: center; flex-wrap: wrap;
+  gap: 0;
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 36px;
+}
+.topline > * + * { margin-left: 10px; }
+.topline > * + *::before {
+  content: "/";
+  margin-right: 10px;
+  color: var(--ink-mute);
+}
+.topline a {
+  text-decoration: none;
+  border-bottom: 1.5px solid transparent;
+  transition: border-color var(--d-fast) var(--ease), color var(--d-fast) var(--ease);
+}
+.topline a:hover { color: var(--ink); border-color: var(--ink); }
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: end;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 14px;
+}
+.hero-eyebrow .num {
+  display: inline-grid; place-items: center;
+  width: 22px; height: 22px;
+  background: var(--ink); color: var(--stabilo);
+  font-family: var(--font-display);
+  font-size: 11px;
+  border-radius: 6px;
+}
+
+.course-hero h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(48px, 7vw, 88px);
+  line-height: 0.96;
+  letter-spacing: -.015em;
+  text-transform: uppercase;
+  max-width: 760px;
+}
+
+.hero-lead {
+  max-width: 600px;
+  margin: 22px 0 0;
+  font-size: clamp(18px, 1.5vw, 22px);
+  line-height: 1.45;
+  color: var(--ink-2);
+  font-weight: 500;
+}
+
+/* Hero side panel — 4 reflexes preview (instead of "promesse réaliste") */
+.hero-side {
+  padding: 24px 26px;
+  background: var(--ink);
+  color: var(--panel);
+  border: var(--b);
+  border-radius: 18px;
+  box-shadow: var(--sh-accent);
+}
+.hero-side__label {
+  font-family: var(--font-mono);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--stabilo);
+  margin: 0 0 12px;
+}
+.hero-side h2 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  line-height: 1.05;
+  text-transform: uppercase;
+  margin: 0 0 18px;
+  color: var(--panel);
+}
+.hero-side__steps {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.hero-side__step {
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 12px;
+  background: rgba(246, 242, 235, 0.06);
+  border: 1px solid rgba(246, 242, 235, 0.18);
+  border-radius: 10px;
+}
+.hero-side__step .verb {
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--stabilo);
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+.hero-side__step .obj {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: rgba(246, 242, 235, 0.78);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.course-layout {
+  padding: 56px var(--gutter) 96px;
+  padding-left: calc(var(--course-sidebar-space) + var(--gutter));
+  transition: padding-left var(--d-base) var(--ease);
+}
+.course-lesson {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+/* ============================================================
+   CHAPTER SECTION — flat, rhythmic, no card-box around each
+   ============================================================ */
+.chapter-section {
+  position: relative;
+  scroll-margin-top: 32px;
+  padding-top: 8px;
+}
+
+.section-marker {
+  display: flex; align-items: baseline; gap: 18px;
+  margin-bottom: 22px;
+  padding-bottom: 18px;
+  border-bottom: 1.5px dashed rgba(18, 18, 18, 0.18);
+}
+.section-marker__num {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 6vw, 80px);
+  line-height: 0.85;
+  letter-spacing: -.04em;
+  color: var(--paper-2);
+  -webkit-text-stroke: 1.5px var(--ink);
+  flex-shrink: 0;
+}
+.section-marker__meta {
+  flex: 1;
+  display: flex; flex-direction: column; gap: 6px;
+  padding-bottom: 4px;
+}
+.section-marker__kicker {
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.chapter-section h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3vw, 36px);
+  line-height: 1.06;
+  letter-spacing: -.005em;
+  text-transform: uppercase;
+}
+
+.chapter-section > p {
+  margin: 18px 0 0;
+  max-width: 720px;
+  color: var(--ink-2);
+}
+
+.chapter-section > * + * {
+  margin-top: 22px;
+}
+
+/* Lead paragraph just after h2 */
+.chapter-section h2 + p {
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+/* ============================================================
+   COURSE-OVERVIEW — single editorial band
+   ============================================================ */
+.course-overview {
+  margin-top: 0;
+  padding: 32px 36px;
+  background: var(--panel-tint);
+  border: var(--b);
+  border-radius: 18px;
+  box-shadow: var(--sh-soft);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 32px;
+  align-items: center;
+}
+.course-overview__title {
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 8px;
+}
+.course-overview h3 {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.4vw, 30px);
+  line-height: 1.05;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+  letter-spacing: -.005em;
+}
+.course-overview__lead {
+  margin: 0;
+  font-size: 15px;
+  color: var(--ink-soft);
+  max-width: 480px;
+}
+.overview-flow {
+  display: flex; flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+.overview-flow span {
+  padding: 6px 12px;
+  background: var(--panel);
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+.overview-flow em {
+  font-style: normal;
+  font-family: var(--font-display);
+  color: var(--ink-mute);
+  padding: 0 2px;
+}
+
+/* ============================================================
+   FORMULA CARD — black, signature, more deliberate
+   ============================================================ */
+.formula-card {
+  width: 100%;
+  padding: 22px 26px;
+  background: var(--ink);
+  color: var(--panel);
+  border: var(--b);
+  border-radius: 14px;
+  font-size: clamp(16px, 1.2vw, 19px);
+  line-height: 1.5;
+}
+.formula-card.is-major {
+  box-shadow: var(--sh-accent);
+}
+.formula-card .katex-display {
+  overflow-x: auto;
+  overflow-y: visible;
+  padding: 4px 0;
+  margin: 0;
+}
+.formula-card .katex-display + .katex-display {
+  margin-top: 0.6em;
+  padding-top: 0.6em;
+  border-top: 1px dashed rgba(246, 242, 235, 0.18);
+}
+.formula-card .katex-display::-webkit-scrollbar { height: 4px; }
+.formula-card .katex-display::-webkit-scrollbar-thumb { background: rgba(246,242,235,0.2); border-radius: 999px; }
+.katex .katex-mathml { display: none; }
+
+/* ============================================================
+   CALLOUT SYSTEM — unified card vocabulary
+   Replaces .important, .teacher-note, .session-target, .gate-card
+   variants: --key (yellow), --warn (red), --tip (blue), --note (beige)
+   ============================================================ */
+.c-callout {
+  position: relative;
+  padding: 18px 22px 18px 22px;
+  background: var(--panel);
+  border: var(--b-thin);
+  border-left: 5px solid var(--ink);
+  border-radius: 10px;
+}
+.c-callout__label {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-bottom: 8px;
+  font-family: var(--font-mono);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.c-callout__label .dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--ink);
+}
+.c-callout p { margin: 0; }
+.c-callout p + p { margin-top: 8px; }
+
+.c-callout--key {
+  background: var(--stabilo-wash);
+  border-left-color: var(--ink);
+  border-color: var(--ink);
+}
+.c-callout--key .c-callout__label .dot { background: var(--ink); }
+.c-callout--warn {
+  background: #FEEAE5;
+  border-left-color: var(--red);
+}
+.c-callout--warn .c-callout__label { color: #8A2118; }
+.c-callout--warn .c-callout__label .dot { background: var(--red); }
+.c-callout--tip {
+  background: #EAF1DF;
+  border-left-color: var(--green-2);
+}
+.c-callout--tip .c-callout__label { color: #3F5418; }
+.c-callout--tip .c-callout__label .dot { background: var(--green-2); }
+.c-callout--note {
+  background: #F1EBE0;
+  border-left-color: var(--beige);
+}
+
+/* "Porte d'entrée" cap-style gate */
+.c-gate {
+  padding: 22px 26px;
+  background: var(--ink);
+  color: var(--panel);
+  border-radius: 14px;
+  box-shadow: var(--sh-accent);
+  border: var(--b);
+}
+.c-gate__label {
+  font-family: var(--font-mono);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--stabilo);
+  margin-bottom: 8px;
+}
+.c-gate__title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  text-transform: uppercase;
+  margin: 0 0 10px;
+}
+.c-gate p { margin: 0; font-size: 15px; line-height: 1.55; color: rgba(246, 242, 235, 0.85); }
+
+/* ============================================================
+   CHECK CARD — auto-evaluation, more subtle
+   ============================================================ */
+.check-card {
+  padding: 20px 22px;
+  background: var(--panel);
+  border: 2px dashed var(--ink);
+  border-radius: 12px;
+  position: relative;
+}
+.check-card__label {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin: 0 0 10px;
+  font-family: var(--font-mono);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--green-2);
+}
+.check-card__label .marker {
+  display: inline-grid; place-items: center;
+  width: 22px; height: 22px;
+  border: 1.5px solid var(--green-2);
+  border-radius: 50%;
+  font-family: var(--font-display); font-size: 12px;
+  color: var(--green-2);
+  background: var(--panel);
+}
+.check-card p { margin: 0; font-size: 16px; line-height: 1.55; color: var(--ink); }
+.check-card p + p { margin-top: 10px; }
+
+/* Reveal button — link-style, discreet (not chunky yellow buttons) */
+.reveal-button {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 14px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 13px; font-weight: 800;
+  color: var(--ink);
+  cursor: pointer;
+  letter-spacing: 0;
+  text-decoration: none;
+  border-bottom: 2px solid var(--stabilo);
+  padding-bottom: 2px;
+  transition: color var(--d-fast) var(--ease), border-color var(--d-fast) var(--ease);
+}
+.reveal-button::after {
+  content: "↓";
+  font-family: var(--font-display);
+  font-size: 12px;
+  transition: transform var(--d-base) var(--ease);
+}
+.reveal-button:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+.reveal-button:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+.check-card .reveal-button[aria-expanded="true"]::after,
+.check-card:has(.answer:not([hidden])) .reveal-button::after,
+.exercise:has(.answer:not([hidden])) .reveal-button::after {
+  transform: rotate(180deg);
+}
+
+.answer {
+  margin-top: 14px;
+  padding: 16px 18px;
+  background: var(--panel-tint);
+  border-left: 3px solid var(--ink);
+  border-radius: 0 10px 10px 0;
+  font-size: 15px;
+  line-height: 1.55;
+}
+.answer p { margin: 0; }
+.answer p + p { margin-top: 8px; }
+
+/* ============================================================
+   WORKED EXAMPLE — slightly tinted paper with tape label
+   ============================================================ */
+.worked-example {
+  padding: 22px 26px 24px;
+  background: #F1EBE0;
+  border: var(--b-thin);
+  border-radius: 14px;
+  position: relative;
+}
+.worked-example::before {
+  content: "EXEMPLE";
+  position: absolute;
+  top: -10px; left: 22px;
+  padding: 3px 10px;
+  background: var(--ink);
+  color: var(--panel);
+  font-family: var(--font-mono);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .16em;
+  border-radius: 6px;
+  transform: rotate(-1.5deg);
+}
+.worked-example .box-title { /* unused now but kept for compat */
+  display: none;
+}
+.worked-example p { margin: 0 0 12px; }
+.worked-example .formula-card { margin: 12px 0; }
+.worked-example p:last-child { margin-bottom: 0; }
+
+/* ============================================================
+   METHOD GRID — step cards
+   ============================================================ */
+.method-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+.method-step {
+  position: relative;
+  padding: 20px 18px 18px;
+  background: var(--panel);
+  border: var(--b-thin);
+  border-top: 4px solid var(--blue-2);
+  border-radius: 10px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.method-step .step-number {
+  position: absolute;
+  top: -14px; left: 16px;
+  width: 28px; height: 28px;
+  display: grid; place-items: center;
+  background: var(--ink);
+  color: var(--stabilo);
+  font-family: var(--font-display);
+  font-size: 13px;
+  border-radius: 50%;
+}
+.method-step p { margin: 0; font-size: 15px; line-height: 1.5; color: var(--ink); }
+
+/* ============================================================
+   CHOICE / CASE / DIAGNOSTIC / REVISION GRIDS — unified
+   ============================================================ */
+.choice-grid,
+.case-grid,
+.diagnostic-grid,
+.revision-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+.choice-card,
+.case-card,
+.revision-card {
+  padding: 18px 20px;
+  background: var(--panel);
+  border: var(--b-thin);
+  border-radius: 10px;
+  display: flex; flex-direction: column; gap: 8px;
+  transition: transform var(--d-fast) var(--ease), box-shadow var(--d-fast) var(--ease);
+}
+.choice-card:hover,
+.case-card:hover,
+.revision-card:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.case-card .case-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  margin: 0 0 4px;
+}
+.case-card { border-left: 3px solid var(--blue-2); }
+.choice-card { border-left: 3px solid var(--stabilo); }
+.revision-card { border-left: 3px solid var(--green-2); }
+
+.choice-card p:first-of-type,
+.case-card p:first-of-type,
+.revision-card p:first-of-type {
+  margin: 0;
+}
+.choice-card .box-title,
+.case-card .box-title,
+.revision-card .box-title {
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink);
+  margin: 0;
+}
+.choice-card p,
+.case-card p,
+.revision-card p {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* Math language visual — keep the two-card layout but lighter */
+.math-language-visual {
+  padding: 0;
+  border: var(--b-thin);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--panel);
+}
+.math-language-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+}
+.math-language-card {
+  padding: 22px 24px;
+  background: var(--panel);
+  border-right: 1.5px dashed rgba(18,18,18,0.14);
+  display: flex; flex-direction: column; gap: 12px;
+}
+.math-language-card:last-child {
+  border-right: 0;
+  background: var(--panel-tint);
+}
+.math-language-card .box-title {
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.math-language-visual figcaption {
+  padding: 14px 22px;
+  border-top: 1.5px solid var(--ink);
+  background: var(--paper-2);
+  font-size: 13px; font-weight: 700;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+/* ============================================================
+   INTERACTIVE GRAPH — quieter readout strip
+   ============================================================ */
+.interactive-graph,
+.visual-block {
+  margin: 22px 0;
+  border: var(--b-thin);
+  border-radius: 14px;
+  background: var(--panel);
+  overflow: hidden;
+}
+.interactive-graph figcaption,
+.visual-block figcaption {
+  padding: 12px 18px;
+  border-top: 1.5px solid var(--ink);
+  background: var(--paper-2);
+  font-size: 13px; font-weight: 700;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+.graph-stage {
+  display: flex; flex-direction: column;
+  gap: 0;
+  padding: 0;
+}
+.curve-board.jxgbox {
+  width: 100%;
+  height: min(54vw, 380px);
+  min-height: 280px;
+  background: var(--panel);
+  border: 0;
+}
+.graph-readout {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  padding: 12px 18px;
+  background: var(--paper-2);
+  border-top: 1.5px dashed rgba(18, 18, 18, 0.18);
+  font-family: var(--font-body);
+  font-size: 13px; font-weight: 700;
+  color: var(--ink-soft);
+  line-height: 1.3;
+}
+.graph-readout span:first-child { color: var(--ink-soft); }
+.graph-readout strong {
+  padding: 4px 10px;
+  background: var(--ink);
+  color: var(--stabilo);
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0;
+  font-weight: 700;
+  border: none;
+}
+
+/* ============================================================
+   SIGN TABLE — cleaner grid
+   ============================================================ */
+.sign-table {
+  overflow-x: auto;
+  border: var(--b-thin);
+  border-radius: 12px;
+  background: var(--panel);
+}
+.sign-row {
+  display: grid;
+  grid-template-columns: 1.1fr repeat(4, minmax(70px, 1fr));
+  min-width: 480px;
+}
+.sign-row + .sign-row {
+  border-top: 1.5px solid var(--ink);
+}
+.sign-row p {
+  display: grid; place-items: center;
+  min-height: 50px;
+  margin: 0;
+  padding: 10px;
+  border-right: 1px dashed rgba(18, 18, 18, 0.18);
+  font-family: var(--font-body); font-weight: 800;
+  text-align: center;
+}
+.sign-row p:last-child { border-right: 0; }
+.sign-head { background: var(--paper-2); }
+.sign-head p { color: var(--ink-soft); }
+
+/* ============================================================
+   EXERCISES — flatter
+   ============================================================ */
+.exercise {
+  padding: 24px 26px 22px;
+  background: var(--panel);
+  border: var(--b-thin);
+  border-left: 4px solid var(--ink);
+  border-radius: 10px;
+}
+.exercise + .exercise { margin-top: 18px; }
+.exercise-header {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 6px;
+}
+.exercise-header h3 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  text-transform: uppercase;
+  margin: 0;
+}
+.difficulty {
+  flex: 0 0 auto;
+  padding: 4px 12px;
+  background: var(--paper-2);
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink);
+}
+.exercise:has(.difficulty[aria-label="Niveau 20 sur 20"]) {
+  border-left-color: var(--stabilo);
+}
+.exercise:has(.difficulty[aria-label="Niveau 20 sur 20"]) .difficulty {
+  background: var(--stabilo);
+}
+.exercise:has(.difficulty[aria-label="Niveau contrôle"]) {
+  border-left-color: var(--red);
+}
+.exercise:has(.difficulty[aria-label="Niveau contrôle"]) .difficulty {
+  background: #FEEAE5;
+}
+.exercise p { margin: 12px 0; line-height: 1.6; }
+.exercise .hint-line {
+  margin: 0 0 4px;
+  font-family: var(--font-mono);
+  font-size: 12px; font-weight: 700;
+  letter-spacing: .04em;
+  color: var(--blue-2);
+}
+.exercise .hint-line::before {
+  content: "Indice · ";
+  color: var(--ink-soft);
+}
+.exercise-list {
+  margin: 12px 0 8px;
+  padding-left: 22px;
+  font-size: 15.5px;
+}
+.exercise-list li + li { margin-top: 6px; }
+
+/* Worked example & exercise corrections */
+.exercise .answer {
+  margin-top: 16px;
+}
+.exercise .answer .formula-card {
+  margin: 12px 0;
+}
+
+/* ============================================================
+   COPY GRID (rédaction propre vs brouillon)
+   ============================================================ */
+.copy-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+  gap: 18px;
+  align-items: stretch;
+}
+.copy-grid > * { margin: 0; }
+.copy-grid .penalty {
+  margin: 8px 0 0;
+  font-family: var(--font-mono);
+  font-size: 12px; font-weight: 700;
+  color: #8A2118;
+  letter-spacing: 0;
+}
+.copy-grid .penalty::before {
+  content: "Risque · ";
+  color: var(--ink-soft);
+}
+
+.score-list {
+  margin: 0;
+  padding-left: 22px;
+  font-size: 15.5px;
+}
+.score-list li + li { margin-top: 6px; }
+.score-list li::marker { color: var(--ink-mute); }
+
+/* Recap section variant */
+.recap-section .section-marker__num {
+  color: var(--green);
+  -webkit-text-stroke: 1.5px var(--green-2);
+}
+
+/* ============================================================
+   STICKY SECTION BAR — premium reading cue
+   ============================================================ */
+.section-bar {
+  position: fixed;
+  top: 0; left: var(--course-sidebar-space);
+  right: 0;
+  z-index: 30;
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 22px;
+  background: var(--panel);
+  border-bottom: 1.5px solid var(--ink);
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-soft);
+  transform: translateY(-100%);
+  transition: transform var(--d-base) var(--ease), left var(--d-base) var(--ease);
+  pointer-events: none;
+  margin-top: 3px; /* below progress bar */
+}
+.section-bar.is-visible {
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.section-bar__chip {
+  display: inline-grid; place-items: center;
+  width: 22px; height: 22px;
+  background: var(--ink);
+  color: var(--stabilo);
+  border-radius: 6px;
+  font-family: var(--font-display); font-size: 11px;
+}
+.section-bar__title { color: var(--ink); letter-spacing: 0; text-transform: none; font-family: var(--font-body); font-size: 13px; font-weight: 800; }
+.section-bar__total { margin-left: auto; color: var(--ink-mute); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1100px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+  .course-overview { grid-template-columns: 1fr; }
+}
+@media (max-width: 900px) {
+  .has-course-sidebar {
+    --course-sidebar-width: min(260px, calc(100vw - 56px));
+    --course-sidebar-collapsed-width: 48px;
+  }
+  .course-hero, .course-layout {
+    padding-left: calc(var(--course-sidebar-space) + 16px);
+    padding-right: 16px;
+  }
+  .course-lesson { gap: 56px; }
+  .section-marker__num { font-size: 48px; }
+  .method-grid, .choice-grid, .case-grid, .diagnostic-grid, .revision-grid {
+    grid-template-columns: 1fr;
+  }
+  .math-language-grid { grid-template-columns: 1fr; }
+  .math-language-card { border-right: 0; border-bottom: 1.5px dashed rgba(18,18,18,0.14); }
+  .math-language-card:last-child { border-bottom: 0; }
+  .copy-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .course-hero { padding: 36px 16px 48px; }
+  .course-hero h1 { font-size: clamp(36px, 9vw, 52px); }
+  .hero-side { padding: 18px 20px; }
+  .hero-side__steps { grid-template-columns: 1fr; }
+  .course-overview { padding: 22px 20px; }
+  .chapter-section { padding-top: 0; }
+  .section-marker { gap: 12px; }
+  .section-marker__num { font-size: 40px; }
+  .chapter-section h2 { font-size: 26px; }
+  .formula-card { padding: 16px 18px; }
+}
+
+/* ============================================================
+   Hide things from the original markup that v2 supersedes
+   ============================================================ */
+.hero-card,
+.sidebar-checkpoint,
+.box-title.legacy-only,
+.recap-list { /* not used */ }
+
+/* The .important / .teacher-note / .session-target classes still match
+   in some HTML if not migrated. We map them to callout variants by adding
+   the new classes in HTML. The legacy bare classes below are a safety net
+   so the page never visually breaks if a future edit re-introduces them. */
+.important, .teacher-note, .session-target, .gate-card {
+  padding: 18px 22px;
+  background: var(--panel);
+  border: var(--b-thin);
+  border-left: 5px solid var(--ink);
+  border-radius: 10px;
+}
+.important { border-left-color: var(--ink); background: var(--stabilo-wash); }
+.teacher-note { border-left-color: var(--red); background: #FEEAE5; }
+.session-target { border-left-color: var(--green-2); background: #EAF1DF; }
+.gate-card { background: var(--ink); color: var(--panel); border-left-color: var(--stabilo); }
+.important .box-title,
+.teacher-note .box-title,
+.session-target .box-title,
+.gate-card .box-title {
+  font-family: var(--font-mono);
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 6px;
+}

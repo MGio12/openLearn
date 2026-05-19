@@ -112,7 +112,10 @@
   }, 1000);
 
   document.addEventListener('keydown', function (event) {
-    if (event.key === 'Escape') window.location.href = 'index.html';
+    if (event.key === 'Escape') {
+      var exitLink = document.querySelector('.fx-exit, .fx2-exit');
+      window.location.href = exitLink ? exitLink.href : 'index.html';
+    }
     if (event.code === 'Space' && playPauseBtn) {
       event.preventDefault();
       playPauseBtn.click();
