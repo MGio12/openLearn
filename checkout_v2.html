@@ -1,25 +1,24 @@
 <!doctype html>
 <!--
   ============================================================
-  CHECKOUT V2 — structure de vente optimisée pour weekly pricing
+  CHECKOUT V2 — structure de vente optimisée pour deux offres IA
   ------------------------------------------------------------
   Stratégie page (chaque section a un job conversion précis) :
 
   1. NAV          — seed de confiance (pill "paiement sécurisé")
-  2. HERO         — promesse (garde ton plan) + lede (1,99€/sem)
-  3. OFFERS       — 2 cards weekly. Hebdo (ancre) vs Trimestre
-                    (recommandé, pré-sélectionné). Économie 43%.
-  4. TRUST BAND   — Stripe badge + 4 fears killed
+  2. HERO         — promesse (choisis ton niveau d'accompagnement IA)
+  3. OFFERS       — pill Semaine/Trimestre + 2 cards. Essentiel
+                    (site + IA master) vs Excellence IA (IA doctorant + mindset).
+  4. TRUST BAND   — sécurité carte + données protégées
   5. CANCEL DEMO  — APERÇU INTERACTIF du futur écran "Mon abo"
                     avec un bouton "Se désabonner" grisé mais
                     cliquable, qui montre la facilité d'opt-out.
                     C'est LE différenciateur de cette page.
   6. FEATURES     — 4 outils concrets, pas de promesse vague
-  7. FAQ STRIP    — 4 objections finales (TVA, prélèvement, etc.)
-  8. FINAL CTA    — re-anchor des 2 offres + bouton dominant
-  9. FOOT         — fermeture légale
+  7. FAQ STRIP    — réponses parents, paiement, suivi et demandes produit
+  8. FOOT         — fermeture légale
 
-  Bouton sticky mobile : reflète toujours l'offre sélectionnée.
+  Bouton sticky mobile : ancre l'offre recommandée.
 
   Tous les data-* hooks du backend restent : data-checkout-button,
   data-checkout-config-form, scripts/checkout.js.
@@ -29,17 +28,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Objectif Lycée — Cockpit lycéen · 7,99 €/semaine</title>
-  <meta name="description" content="Le cockpit qui cible le chapitre qui paie vraiment sur tes notes et Parcoursup. IA + active recall + espacement intelligent. À partir de 7,99 €/semaine, résiliable en 1 clic.">
+  <title>Objectif Lycée — Choisis ton niveau d'accompagnement IA</title>
+  <meta name="description" content="Deux offres pour garder le cockpit lycée : accès au site avec IA niveau master, ou accompagnement IA renforcé qualité doctorant avec conseils mindset. Paiement sécurisé, résiliable simplement.">
   <meta name="theme-color" content="#F4D35E">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='6' width='52' height='52' rx='12' fill='%23F4D35E' stroke='%23121212' stroke-width='5' transform='rotate(-6 32 32)'/%3E%3Ctext x='32' y='44' font-family='Arial Black, Impact, sans-serif' font-size='34' font-weight='900' text-anchor='middle' fill='%23121212' transform='rotate(-6 32 32)'%3EO%3C/text%3E%3C/svg%3E">
 
-  <meta property="og:title" content="Objectif Lycée — 7,99 €/semaine, résiliable en 1 clic">
-  <meta property="og:description" content="L'IA cible ce qui paie sur ton dossier. Active recall + espacement intelligent. Tu paies à la semaine, tu pars quand tu veux.">
+  <meta property="og:title" content="Objectif Lycée — deux niveaux d'accompagnement IA">
+  <meta property="og:description" content="Garde le cockpit lycée avec IA niveau master, ou passe en Excellence IA pour plus d'usage, une qualité doctorant et des conseils mindset.">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="fr_FR">
 
   <meta name="stripe-checkout-url" content="https://buy.stripe.com/test_9B65kCcn337o06h0em2go00">
+  <meta name="stripe-checkout-url-essential" content="">
+  <meta name="stripe-checkout-url-ia-plus" content="">
+  <meta name="stripe-checkout-url-essential-weekly" content="">
+  <meta name="stripe-checkout-url-essential-trimester" content="">
+  <meta name="stripe-checkout-url-ia-plus-weekly" content="">
+  <meta name="stripe-checkout-url-ia-plus-trimester" content="">
   <link rel="stylesheet" href="colors_and_type.css">
 
   <style>
@@ -117,37 +122,30 @@
     }
 
     /* ============================================================
-       HERO — promesse + offres côte-à-côte
+       HERO — promesse en haut + offres compactes
        ============================================================ */
     .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
-      gap: clamp(28px, 5vw, 64px);
-      align-items: center;
-      padding: clamp(40px, 6vw, 80px) 0 clamp(28px, 4vw, 56px);
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: clamp(18px, 2vw, 28px);
+      padding: clamp(16px, 2.4vw, 24px) 0 0;
     }
-    .hero__copy { min-width: 0; }
-    .hero__eyebrow {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 6px 12px;
-      background: var(--ink); color: var(--stabilo);
-      border-radius: 999px;
-      font-family: var(--font-mono); font-weight: 700; font-size: 11px;
-      letter-spacing: .12em; text-transform: uppercase;
-      margin-bottom: 22px;
-    }
-    .hero__eyebrow .dot {
-      width: 7px; height: 7px; border-radius: 50%;
-      background: var(--stabilo);
+    .hero__copy {
+      min-width: 0;
+      width: min(100%, 980px);
+      margin: 0 auto;
+      text-align: center;
     }
     .hero h1 {
       margin: 0;
       font-family: var(--font-display);
-      font-size: clamp(40px, 5.5vw, 72px);
+      font-size: clamp(34px, 4.2vw, 54px);
       line-height: 0.96;
-      letter-spacing: -.015em;
+      letter-spacing: 0;
       text-transform: uppercase;
       text-wrap: balance;
+      overflow-wrap: anywhere;
     }
     .hero h1 .hl {
       background-image: linear-gradient(transparent 58%, var(--stabilo) 58%, var(--stabilo) 96%, transparent 96%);
@@ -155,51 +153,22 @@
       box-decoration-break: clone;
       -webkit-box-decoration-break: clone;
     }
-    .hero__lede {
-      margin: 20px 0 0;
-      font-family: var(--font-body);
-      font-size: clamp(16px, 1.4vw, 18px);
-      color: var(--ink-2);
-      max-width: 520px;
-      line-height: 1.55;
-      font-weight: 500;
-    }
-    .hero__lede strong {
-      font-weight: 800; color: var(--ink);
-    }
-
-    .hero__trust {
-      display: flex; flex-wrap: wrap; gap: 8px;
-      margin-top: 26px;
-    }
-    .trust-chip {
-      display: inline-flex; align-items: center; gap: 7px;
-      padding: 7px 11px;
-      border: 1.5px solid var(--ink); border-radius: 8px;
-      background: var(--paper-2);
-      font-family: var(--font-body); font-weight: 700; font-size: 12px;
-      color: var(--ink);
-    }
-    .trust-chip svg {
-      width: 14px; height: 14px; flex-shrink: 0;
-      stroke: var(--ink); fill: none; stroke-width: 2.5;
-      stroke-linecap: round; stroke-linejoin: round;
-    }
-
     /* ============================================================
-       OFFER CLUSTER — toggle pill + single dynamic card
+       OFFER CLUSTER — deux offres IA graduées
        ============================================================ */
     .offers {
       display: flex; flex-direction: column;
-      gap: 14px;
+      gap: 7px;
       min-width: 0;
+      width: min(100%, 1080px);
+      margin: 0 auto;
     }
 
-    /* Toggle pill ovale (Hebdo | Trimestre) */
     .offer-toggle {
-      position: relative;
       display: flex; align-items: stretch;
-      padding: 4px;
+      width: min(100%, 560px);
+      margin: 0 auto 1px;
+      padding: 3px;
       background: var(--paper-2);
       border: 2.5px solid var(--ink);
       border-radius: 999px;
@@ -207,10 +176,10 @@
     }
     .toggle-opt {
       flex: 1;
-      position: relative;
+      min-width: 0;
       display: inline-flex; align-items: center; justify-content: center;
-      gap: 10px;
-      padding: 10px 16px;
+      gap: 7px;
+      padding: 7px 12px;
       background: transparent;
       border: 0;
       border-radius: 999px;
@@ -229,22 +198,16 @@
       font-family: var(--font-display);
       font-size: 14px;
       text-transform: uppercase;
-      letter-spacing: -.005em;
-    }
-    .toggle-opt__price {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .04em;
-      opacity: .85;
+      letter-spacing: 0;
     }
     .toggle-opt__badge {
       display: inline-flex; align-items: center;
-      padding: 3px 7px;
-      background: var(--green-2); color: var(--ink);
-      border: 1.5px solid var(--ink); border-radius: 5px;
+      padding: 3px 8px;
+      background: #DDF3D4; color: var(--ink);
+      border: 1.5px solid rgba(18, 18, 18, 0.62); border-radius: 999px;
       font-family: var(--font-mono); font-size: 9px;
-      font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      font-weight: 900; letter-spacing: .08em; text-transform: uppercase;
+      box-shadow: 1.5px 1.5px 0 rgba(18, 18, 18, 0.18);
     }
     .toggle-divider {
       width: 1.5px;
@@ -255,70 +218,43 @@
       flex-shrink: 0;
     }
 
-    /* Bandeau imagen — visualise l'économie. Chiffre dans la légende. */
-    .savings-banner {
-      margin: 0;
-      display: flex; flex-direction: column;
-      align-items: center; gap: 8px;
-    }
-    .savings-banner img {
-      display: block;
-      width: 100%; max-width: 480px; height: auto;
-      border-radius: 10px;
-      background: var(--paper-2);
-      border: 1.5px dashed rgba(18, 18, 18, 0.18);
-    }
-    .savings-banner figcaption {
-      font-family: var(--font-mono); font-size: 11px;
-      letter-spacing: .04em;
-      color: var(--ink-soft);
-      text-align: center;
-      line-height: 1.5;
-    }
-    .savings-banner figcaption strong {
-      color: var(--ink);
-      text-transform: uppercase;
-      letter-spacing: .06em;
-      padding: 0 4px;
-      background: var(--stabilo);
-      border-radius: 3px;
+    .tier-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      align-items: stretch;
     }
 
-    /* Carte offre unique — pleine largeur, contenu dynamique */
+    /* Cartes d'offre — pleine largeur, contenu statique */
     .offer-card {
       position: relative;
-      padding: 22px 22px 20px;
+      padding: 11px 13px 12px;
       background:
         linear-gradient(135deg, rgba(244, 211, 94, 0.16), transparent 55%),
         #FFFDF8;
       border: 2.5px solid var(--ink);
-      border-radius: 14px;
-      box-shadow: 6px 6px 0 var(--stabilo);
+      border-radius: 12px;
+      box-shadow: 5px 5px 0 var(--stabilo);
       display: flex; flex-direction: column;
       transition: opacity .18s var(--ease-calm), background .18s var(--ease-calm);
     }
-    .offer-card.is-swapping { opacity: .5; }
-    .offer-card[data-offer-active="hebdo"] {
-      background: #FFFDF8;
-      box-shadow: 6px 6px 0 var(--ink);
-    }
     .offer-card__head {
-      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-      margin-bottom: 4px;
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+      margin-bottom: 0;
     }
     .offer-card__name {
       font-family: var(--font-mono);
-      font-size: 11px; font-weight: 700;
+      font-size: 10px; font-weight: 700;
       letter-spacing: .14em; text-transform: uppercase;
       color: var(--ink-soft);
     }
     .offer-card__tag {
       display: inline-flex; align-items: center;
-      padding: 3px 9px;
+      padding: 3px 7px;
       background: var(--ink); color: var(--stabilo);
       border-radius: 5px;
-      font-family: var(--font-mono); font-size: 9.5px;
-      font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      font-family: var(--font-mono); font-size: 8.5px;
+      font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
     }
     .offer-card__tag:empty { display: none; }
     .offer-card__price {
@@ -336,25 +272,25 @@
       letter-spacing: 0;
     }
     .offer-card__billing {
-      margin: 10px 0 0;
+      margin: 0;
       font-family: var(--font-body);
-      font-size: 13.5px;
+      font-size: 11px;
       color: var(--ink-soft);
-      line-height: 1.55;
+      line-height: 1.25;
     }
     .offer-card__billing strong {
       color: var(--ink); font-weight: 800;
     }
     .offer-card__features {
-      list-style: none; padding: 16px 0 0; margin: 14px 0 0;
+      list-style: none; padding: 8px 0 0; margin: 0;
       border-top: 1.5px dashed rgba(18, 18, 18, 0.14);
-      display: flex; flex-direction: column; gap: 8px;
+      display: flex; flex-direction: column; gap: 3px;
     }
     .offer-card__features li {
-      display: flex; align-items: flex-start; gap: 10px;
-      font-family: var(--font-body); font-size: 13px; font-weight: 600;
+      display: flex; align-items: flex-start; gap: 8px;
+      font-family: var(--font-body); font-size: 11.1px; font-weight: 600;
       color: var(--ink);
-      line-height: 1.4;
+      line-height: 1.2;
     }
     .offer-card__features li::before {
       content: "✓";
@@ -365,42 +301,234 @@
       width: 14px;
     }
 
-    /* Mini-bloc d'ancrage prix */
-    .price-anchor {
-      margin: 6px 0 0;
-      padding: 14px 16px;
-      background: transparent;
-      border: 1.5px dashed var(--ink-mute);
-      border-radius: 12px;
+    .plan-card {
+      min-height: 100%;
+      gap: 5px;
     }
-    .price-anchor__label {
-      margin: 0 0 8px;
-      font-family: var(--font-mono); font-size: 10px;
-      font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+    .plan-card--essential {
+      background:
+        linear-gradient(135deg, rgba(221, 243, 212, 0.42), transparent 58%),
+        #FFFDF8;
+      box-shadow: 5px 5px 0 var(--ink);
+    }
+    .plan-card--recommended {
+      background:
+        linear-gradient(135deg, rgba(244, 211, 94, 0.24), transparent 58%),
+        #FFFDF8;
+      box-shadow: 5px 5px 0 var(--stabilo);
+    }
+    .plan-card__level {
+      margin-top: 0;
+      font-family: var(--font-display);
+      font-size: clamp(21px, 2vw, 26px);
+      line-height: .96;
+      text-transform: uppercase;
+      letter-spacing: 0;
+      color: var(--ink);
+    }
+    .plan-card__level span {
+      display: block;
+      margin-top: 3px;
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      line-height: 1.2;
+      letter-spacing: .1em;
       color: var(--ink-soft);
     }
-    .price-anchor__list {
-      list-style: none; padding: 0; margin: 0;
-      display: flex; flex-direction: column; gap: 2px;
+    .plan-card__promise {
+      margin: 0;
+      font-family: var(--font-body);
+      font-size: 11.5px;
+      line-height: 1.22;
+      font-weight: 600;
+      color: var(--ink-soft);
     }
-    .price-anchor__list li {
-      display: flex; justify-content: space-between; align-items: baseline;
-      gap: 12px;
-      font-family: var(--font-mono); font-size: 11.5px;
-      padding: 3px 0;
+    .plan-card__promise strong {
+      color: var(--ink);
+      font-weight: 900;
     }
-    .price-anchor__list li .k { color: var(--ink-soft); font-weight: 600; }
-    .price-anchor__list li .v {
-      font-weight: 700; color: var(--ink); letter-spacing: .02em;
-      white-space: nowrap;
+    .plan-card .offer-card__price {
+      margin-top: 0;
+      font-size: clamp(28px, 2.6vw, 34px);
     }
-    .price-anchor__list li:last-child .v {
-      background: var(--stabilo);
-      padding: 2px 7px;
-      border-radius: 4px;
+    .plan-card .offer-card__features {
+      flex: 1;
+      padding-top: 6px;
+      margin-top: 0;
+    }
+    .plan-card--recommended .offer-card__features {
+      gap: 3px;
+    }
+    .plan-card .cta {
+      margin-top: auto;
+      width: 100%;
+      padding: 8px 12px;
+      font-size: 13.5px;
+      box-shadow: 4px 4px 0 var(--stabilo);
+    }
+    .plan-card--essential .cta {
+      background: var(--paper-2);
+      color: var(--ink);
+      box-shadow: 4px 4px 0 var(--ink);
     }
 
-    /* CTA primary — reflects selected offer */
+    .google-reviews {
+      display: grid;
+      grid-template-columns: minmax(132px, 180px) minmax(0, 1fr);
+      gap: 12px;
+      align-items: center;
+      width: 100%;
+      margin: 18px auto 0;
+      padding: 12px 14px;
+      background: #FFFDF8;
+      border: 2.5px solid var(--ink);
+      border-radius: 12px;
+      box-shadow: 4px 4px 0 var(--green-2);
+    }
+    .google-reviews__brand {
+      display: flex; flex-direction: column; align-items: flex-start; gap: 5px;
+      min-width: 0;
+      text-align: left;
+    }
+    .google-word {
+      display: inline-flex;
+      font-family: var(--font-body);
+      font-size: clamp(27px, 2.9vw, 34px);
+      font-weight: 900;
+      letter-spacing: 0;
+      line-height: 1;
+    }
+    .google-word .g-blue { color: #4285F4; }
+    .google-word .g-red { color: #EA4335; }
+    .google-word .g-yellow { color: #FBBC05; }
+    .google-word .g-green { color: #34A853; }
+    .google-reviews__score {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1.25;
+    }
+    .google-reviews__stars {
+      color: #FABB05;
+      letter-spacing: .05em;
+      -webkit-text-stroke: .45px var(--ink);
+    }
+    .google-reviews__items {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .google-review {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: 0;
+      min-height: 76px;
+      min-width: 0;
+      padding: 12px;
+      border: 1.5px solid rgba(18, 18, 18, 0.18);
+      border-radius: 8px;
+      background: rgba(221, 243, 212, 0.34);
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--ink);
+    }
+    .google-review span {
+      display: block;
+      margin-top: 5px;
+      font-family: var(--font-mono);
+      font-size: 8.5px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+
+    .cancel-proof-link {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 16px;
+      margin: 2px 0 0;
+      padding: 10px 13px;
+      background:
+        linear-gradient(135deg, rgba(221, 243, 212, 0.78), transparent 52%),
+        #FFFDF8;
+      border: 2.5px solid var(--ink);
+      border-radius: 13px;
+      box-shadow: 5px 5px 0 var(--ink);
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .cancel-proof-link:hover {
+      transform: translate(2px, 2px);
+      box-shadow: 3px 3px 0 var(--ink);
+    }
+    .cancel-proof-link:active {
+      transform: translate(4px, 4px);
+      box-shadow: 1px 1px 0 var(--ink);
+    }
+    .cancel-proof-link__label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .cancel-proof-link__copy {
+      display: block;
+      margin-top: 4px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.28;
+    }
+    .cancel-proof-link__callout {
+      display: inline-grid;
+      grid-template-columns: auto auto;
+      align-items: center;
+      gap: 9px;
+      min-width: 0;
+    }
+    .cancel-proof-link__click {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--font-display);
+      font-size: 15px;
+      line-height: 1;
+      text-transform: uppercase;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+    .cancel-proof-link__arrow {
+      font-size: 25px;
+      line-height: 1;
+      transform: translateY(-1px);
+    }
+    .cancel-proof-link__pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 10px;
+      background: var(--ink);
+      color: var(--stabilo);
+      border-radius: 999px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    /* CTA primary */
     .cta-block {
       margin-top: 6px;
       display: flex; flex-direction: column;
@@ -427,14 +555,6 @@
       box-shadow: 1px 1px 0 var(--stabilo);
     }
     .cta__label { display: inline-flex; flex-direction: column; align-items: flex-start; line-height: 1.1; }
-    .cta__price {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .08em;
-      color: rgba(246, 242, 235, 0.7);
-      margin-top: 2px;
-    }
     .cta .arrow {
       font-family: var(--font-display);
       font-size: 22px;
@@ -442,21 +562,12 @@
     }
     .cta:hover .arrow { transform: translateX(3px); }
 
-    .cta-fineprint {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: .08em;
-      color: var(--ink-soft);
-      text-align: center;
-      line-height: 1.5;
-    }
-
     /* ============================================================
-       TRUST BAND — Stripe + 4 fears killed
+       TRUST BAND — carte + données protégées
        ============================================================ */
     .trust-band {
       background: var(--ink); color: var(--paper);
-      padding: clamp(56px, 6vw, 84px) 0;
+      padding: clamp(34px, 4vw, 48px) 0 clamp(56px, 6vw, 84px);
       border-top: 3px solid var(--ink);
       border-bottom: 3px solid var(--ink);
     }
@@ -515,7 +626,7 @@
     .stripe-badge {
       display: inline-flex; align-items: center; gap: 10px;
       padding: 10px 14px;
-      background: #635BFF; color: #FFFDF8;
+      background: var(--ink); color: var(--stabilo);
       border: 2.5px solid var(--ink); border-radius: 10px;
       box-shadow: 3px 3px 0 var(--ink);
       font-family: var(--font-body); font-weight: 900; font-size: 14px;
@@ -844,7 +955,7 @@
     .cancel-section__caption strong { font-weight: 800; }
 
     /* ============================================================
-       FEATURES — 4 outils
+       FEATURES — progression en 4 étapes
        ============================================================ */
     .features {
       padding: clamp(56px, 6vw, 88px) 0;
@@ -882,41 +993,141 @@
 
     .features__grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: clamp(13px, 1.4vw, 18px);
+      align-items: stretch;
     }
     .feature {
-      background: #FFFDF8;
+      --step-accent: #8FB6FF;
+      --step-wash: rgba(143, 182, 255, 0.18);
+      --step-shadow: #A7C4FF;
+      --step-depth: 4px;
+      --step-fill: 25%;
+      position: relative;
+      min-width: 0;
+      min-height: 260px;
+      background:
+        linear-gradient(145deg, var(--step-wash), rgba(255, 253, 248, 0.92) 58%),
+        #FFFDF8;
       border: 2.5px solid var(--ink);
       border-radius: 12px;
-      padding: 22px 20px 20px;
+      padding: 18px 18px 19px;
       display: flex; flex-direction: column;
-      gap: 12px;
-      box-shadow: 4px 4px 0 var(--ink);
+      gap: 14px;
+      box-shadow:
+        var(--step-depth) var(--step-depth) 0 var(--step-shadow),
+        calc(var(--step-depth) + 2px) calc(var(--step-depth) + 2px) 0 var(--ink);
       transition: transform .15s var(--ease-calm), box-shadow .15s var(--ease-calm);
+      overflow: hidden;
+    }
+    .feature::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(rgba(18, 18, 18, 0.055) 1px, transparent 1px);
+      background-size: 11px 11px;
+      opacity: .28;
     }
     .feature:hover {
       transform: translate(-2px, -2px);
-      box-shadow: 6px 6px 0 var(--ink);
+      box-shadow:
+        calc(var(--step-depth) + 2px) calc(var(--step-depth) + 2px) 0 var(--step-shadow),
+        calc(var(--step-depth) + 4px) calc(var(--step-depth) + 4px) 0 var(--ink);
+    }
+    .feature--step-1 {
+      --step-accent: #8FB6FF;
+      --step-wash: rgba(143, 182, 255, 0.16);
+      --step-shadow: #B8CCFF;
+      --step-depth: 3px;
+      --step-fill: 25%;
+    }
+    .feature--step-2 {
+      --step-accent: #7ACB78;
+      --step-wash: rgba(122, 203, 120, 0.18);
+      --step-shadow: #A8DF96;
+      --step-depth: 4px;
+      --step-fill: 50%;
+    }
+    .feature--step-3 {
+      --step-accent: var(--stabilo);
+      --step-wash: rgba(244, 211, 94, 0.23);
+      --step-shadow: var(--stabilo);
+      --step-depth: 5px;
+      --step-fill: 75%;
+    }
+    .feature--step-4 {
+      --step-accent: #F59A4B;
+      --step-wash: rgba(245, 154, 75, 0.26);
+      --step-shadow: #F59A4B;
+      --step-depth: 6px;
+      --step-fill: 100%;
+    }
+    .feature__top {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
     .feature__num {
-      width: 32px; height: 32px;
+      min-width: 44px; height: 32px;
+      padding: 0 10px;
       display: grid; place-items: center;
-      background: var(--ink); color: var(--stabilo);
-      border-radius: 8px;
-      font-family: var(--font-display); font-size: 13px;
+      background: var(--paper-2); color: var(--ink);
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      box-shadow: 3px 3px 0 var(--step-accent);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .08em;
+    }
+    .feature__rise {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+      min-width: 0;
+    }
+    .feature__rise::before {
+      content: "";
+      flex: 1;
+      height: 8px;
+      border: 1.5px solid var(--ink);
+      border-radius: 999px;
+      background:
+        linear-gradient(90deg, var(--step-accent) 0 var(--step-fill), rgba(255, 253, 248, 0.84) var(--step-fill) 100%);
+      box-shadow: 2px 2px 0 rgba(18, 18, 18, 0.14);
+    }
+    .feature__rise::after {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border: 1.5px solid var(--ink);
+      border-radius: 50%;
+      background: var(--step-accent);
+      box-shadow: 2px 2px 0 rgba(18, 18, 18, 0.18);
     }
     .feature h3 {
+      position: relative;
+      z-index: 1;
       font-family: var(--font-display);
-      font-size: 17px;
-      line-height: 1.1;
+      font-size: 19px;
+      line-height: 1.04;
       text-transform: uppercase;
       margin: 0;
+      overflow-wrap: anywhere;
     }
     .feature p {
-      font-family: var(--font-body); font-size: 13px;
-      color: var(--ink-soft);
-      line-height: 1.5;
+      position: relative;
+      z-index: 1;
+      font-family: var(--font-body);
+      font-size: 13.4px;
+      font-weight: 650;
+      color: var(--ink-2);
+      line-height: 1.48;
       margin: 0;
     }
 
@@ -932,6 +1143,7 @@
     .faq__grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
+      align-items: start;
       gap: 14px;
       max-width: 980px; margin: 0 auto;
     }
@@ -941,6 +1153,10 @@
       border-radius: 10px;
       padding: 18px 20px;
     }
+    .faq-item--parent { background: #EEF6FF; }
+    .faq-item--wellbeing { background: #FFF1E3; }
+    .faq-item--feedback { background: #ECF8EE; }
+    .faq-item--admin { background: #FFF9EA; }
     .faq-item summary {
       display: flex; justify-content: space-between; align-items: center;
       gap: 12px;
@@ -972,71 +1188,6 @@
       line-height: 1.55;
     }
     .faq-item p strong { color: var(--ink); font-weight: 800; }
-
-    /* ============================================================
-       FINAL CTA — re-anchor + close
-       ============================================================ */
-    .final {
-      padding: clamp(56px, 7vw, 96px) 0;
-    }
-    .final__inner {
-      max-width: min(94%, 900px);
-      margin: 0 auto;
-      padding: clamp(36px, 5vw, 56px) clamp(22px, 4vw, 56px);
-      background: var(--stabilo);
-      border: 2.5px solid var(--ink);
-      border-radius: 20px;
-      box-shadow: 8px 8px 0 var(--ink);
-      text-align: center;
-    }
-    .final h2 {
-      font-family: var(--font-display);
-      font-size: clamp(32px, 5vw, 56px);
-      line-height: 0.98;
-      letter-spacing: -.01em;
-      text-transform: uppercase;
-      margin: 0 0 14px;
-      text-wrap: balance;
-    }
-    .final h2 .price {
-      display: inline-block;
-      padding: 0 8px;
-      background: var(--ink); color: var(--stabilo);
-      border-radius: 6px;
-    }
-    .final p.sub {
-      font-family: var(--font-body); font-size: 16px;
-      color: var(--ink-2);
-      max-width: 460px; margin: 0 auto 28px;
-      line-height: 1.55;
-      font-weight: 500;
-    }
-    .final__cta {
-      display: inline-flex; align-items: center; gap: 12px;
-      padding: 18px 30px;
-      background: var(--ink); color: var(--paper);
-      border: 2.5px solid var(--ink); border-radius: 12px;
-      box-shadow: 5px 5px 0 #FFFDF8, 6px 6px 0 var(--ink);
-      font-family: var(--font-body); font-weight: 900; font-size: 17px;
-      text-decoration: none;
-      cursor: pointer;
-      transition: transform .15s var(--ease-calm), box-shadow .15s var(--ease-calm);
-    }
-    .final__cta:hover {
-      transform: translate(2px, 2px);
-      box-shadow: 3px 3px 0 #FFFDF8, 4px 4px 0 var(--ink);
-    }
-    .final__cta:active {
-      transform: translate(4px, 4px);
-      box-shadow: 1px 1px 0 #FFFDF8, 2px 2px 0 var(--ink);
-    }
-    .final__foot {
-      margin-top: 22px;
-      font-family: var(--font-mono); font-size: 11px;
-      letter-spacing: .08em;
-      color: var(--ink-2);
-      line-height: 1.6;
-    }
 
     /* ============================================================
        FOOTER + STICKY MOBILE
@@ -1105,19 +1256,52 @@
        RESPONSIVE
        ============================================================ */
     @media (max-width: 980px) {
-      .hero { grid-template-columns: 1fr; gap: 40px; }
+      .hero { gap: 26px; }
+      .tier-grid { grid-template-columns: 1fr; }
       .trust-grid { grid-template-columns: 1fr; }
       .features__grid { grid-template-columns: repeat(2, 1fr); }
+      .feature { min-height: 240px; }
     }
     @media (max-width: 640px) {
       .nav-right .nav-link { display: none; }
       .features__grid { grid-template-columns: 1fr; }
+      .feature { min-height: 224px; }
       .faq__grid { grid-template-columns: 1fr; }
-      .hero h1 { font-size: clamp(34px, 9vw, 48px); }
-      .toggle-opt { padding: 8px 10px; gap: 6px; }
+      .hero h1 {
+        font-size: 28px;
+        line-height: .98;
+        overflow-wrap: normal;
+      }
+      .hero__copy { text-align: left; }
+      .toggle-opt { padding: 8px 9px; gap: 5px; }
       .toggle-opt__label { font-size: 13px; }
-      .toggle-opt__price { font-size: 10px; }
-      .toggle-opt__badge { display: none; }
+      .toggle-opt__badge { font-size: 8px; padding: 2px 5px; }
+      .offer-card { padding: 15px 16px; }
+      .plan-card__level { font-size: 25px; }
+      .cancel-proof-link {
+        grid-template-columns: 1fr;
+        padding: 13px 14px;
+      }
+      .cancel-proof-link__callout {
+        justify-self: stretch;
+        grid-template-columns: auto auto;
+        justify-content: start;
+      }
+      .google-reviews {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 14px 14px;
+      }
+      .google-reviews__brand {
+        align-items: center;
+        text-align: center;
+      }
+      .google-word { font-size: 32px; }
+      .google-reviews__items { grid-template-columns: 1fr; }
+      .google-review {
+        padding: 10px 11px;
+        font-size: 12.5px;
+      }
       body { padding-bottom: calc(74px + env(safe-area-inset-bottom, 0px)); }
       .sticky-cta { display: flex; }
       .cancel-preview__chrome { padding: 10px 14px; }
@@ -1146,6 +1330,7 @@
       <span class="name">Objectif Lycée</span>
     </a>
     <div class="nav-right">
+      <a class="nav-link" href="apropos.html">À propos</a>
       <a class="nav-link" href="#se-desabonner">Se désabonner</a>
       <span class="nav-pill"><span class="dot"></span> Paiement sécurisé</span>
     </div>
@@ -1155,134 +1340,163 @@
 
     <!-- ============================================================
          2-3. HERO + OFFRES
-         Le hero porte la promesse à gauche, les 2 cards d'offres
-         à droite. La sélection met à jour le CTA (price + cycle).
+         Le hero met la promesse en haut, puis le toggle et les
+         deux niveaux d'accompagnement.
          ============================================================ -->
     <section class="wrap hero" data-screen-label="01 Hero offres">
 
       <div class="hero__copy">
-        <span class="hero__eyebrow">
-          <span class="dot"></span>
-          Tu as fait tes 3 missions. Tu sais.
-        </span>
-        <h1>Garde le cadre. <span class="hl">Une semaine à la fois.</span></h1>
-        <p class="hero__lede">
-          À partir de <strong>7,99 € la semaine</strong>, ton cockpit cible le chapitre qui pèse vraiment sur tes notes et Parcoursup. L'IA repère ce que tu rates <em>vraiment</em>, l'app te le fait refaire au bon moment. Si dans 7 jours rien n'a bougé, tu pars en 1 clic — l'écran exact est juste en bas.
-        </p>
-
-        <div class="hero__trust">
-          <span class="trust-chip">
-            <svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
-            Paiement Stripe
-          </span>
-          <span class="trust-chip">
-            <svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>
-            Aucune carte stockée
-          </span>
-          <span class="trust-chip">
-            <svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-            Résilie en 1 clic
-          </span>
-        </div>
+        <h1>Choisis ton <span class="hl">niveau</span> <span class="hl">d'accompagnement.</span></h1>
       </div>
 
       <div class="offers">
 
-        <!-- Toggle pill: rythme de facturation -->
         <div class="offer-toggle" role="radiogroup" aria-label="Choisis le rythme de facturation">
           <button
             type="button"
             class="toggle-opt"
-            data-offer="hebdo"
+            data-billing-option="weekly"
             role="radio"
             aria-checked="false"
           >
-            <span class="toggle-opt__label">Hebdo</span>
-            <span class="toggle-opt__price">12,99 €/sem</span>
+            <span class="toggle-opt__label">Semaine</span>
           </button>
           <span class="toggle-divider" aria-hidden="true"></span>
           <button
             type="button"
             class="toggle-opt is-active"
-            data-offer="trimestre"
+            data-billing-option="trimester"
             role="radio"
             aria-checked="true"
           >
             <span class="toggle-opt__label">Trimestre</span>
-            <span class="toggle-opt__price">7,99 €/sem</span>
-            <span class="toggle-opt__badge">−38%</span>
+            <span class="toggle-opt__badge">jusqu'à -41%</span>
           </button>
         </div>
 
-        <!-- Imagen banner: visualise l'économie. Le chiffre reste en texte (CLAUDE.md). -->
-        <figure class="savings-banner" data-savings-banner>
-          <img src="assets/brand/checkout-savings-banner.webp" alt="" width="600" height="80" loading="lazy">
-          <figcaption>
-            Tu économises <strong>5 €</strong> par semaine en passant au trimestre.
-          </figcaption>
-        </figure>
+        <div class="tier-grid" aria-label="Choix d'offre">
+          <article class="offer-card plan-card plan-card--essential" data-plan-card="essential">
+            <header class="offer-card__head">
+              <span class="offer-card__name">Essentiel</span>
+              <span class="offer-card__tag">Site complet</span>
+            </header>
+            <div class="plan-card__level">
+              IA niveau master
+              <span>Comprendre + s'entraîner</span>
+            </div>
+            <p class="plan-card__promise">
+              Le cadre complet pour comprendre, t'entraîner et garder le rythme.
+            </p>
+            <div class="offer-card__price">
+              <span data-plan-price="essential">7,62 €</span><small data-plan-period="essential">/semaine</small>
+            </div>
+            <p class="offer-card__billing" data-plan-billing-note="essential">
+              Facturé 99 € / trimestre — soit 7,62 €/semaine pour l'accès site + IA master.
+            </p>
+            <ul class="offer-card__features">
+              <li>Cockpit, missions, cours et progression.</li>
+              <li>IA pédagogique : explications, exemples, corrections.</li>
+              <li>Questions de contrôle + révisions espacées.</li>
+            </ul>
+            <a
+              href="#configurer-stripe"
+              class="cta"
+              data-checkout-button
+              data-checkout-plan="essential"
+              data-checkout-billing="trimester"
+            >
+              <span class="cta__label">
+                <span>Choisir Essentiel</span>
+              </span>
+              <span class="arrow" aria-hidden="true">→</span>
+            </a>
+          </article>
 
-        <!-- Carte offre unique: contenu pris en charge par le JS -->
-        <article class="offer-card" data-offer-card>
-          <header class="offer-card__head">
-            <span class="offer-card__name" data-offer-name>Cap Parcoursup</span>
-            <span class="offer-card__tag" data-offer-tag>★ Recommandé</span>
-          </header>
-          <div class="offer-card__price">
-            <span data-offer-price>7,99 €</span><small>/semaine</small>
-          </div>
-          <p class="offer-card__billing" data-offer-billing>
-            <strong>103,87 €</strong> tous les 3 mois — aligné sur ton trimestre scolaire.
-          </p>
-          <ul class="offer-card__features" data-offer-features>
-            <li>Cockpit complet · IA + active recall + espacement</li>
-            <li>Résilie à la fin du trimestre, en 1 clic</li>
-            <li>Le rythme qui tient sur la durée</li>
-          </ul>
-        </article>
-
-        <div class="cta-block">
-          <a
-            href="#configurer-stripe"
-            class="cta"
-            data-checkout-button
-            data-cta-primary
-          >
-            <span class="cta__label">
-              <span data-cta-action>Activer Cap Parcoursup</span>
-              <span class="cta__price" data-cta-price>7,99 €/sem · 103,87 € tous les 3 mois</span>
-            </span>
-            <span class="arrow" aria-hidden="true">→</span>
-          </a>
-          <p class="cta-fineprint">
-            Paiement Stripe · résilie en 1 clic · TVA incluse · aucune carte stockée
-          </p>
+          <article class="offer-card plan-card plan-card--recommended" data-plan-card="ia-plus">
+            <header class="offer-card__head">
+              <span class="offer-card__name">Excellence IA</span>
+              <span class="offer-card__tag">★ Recommandé</span>
+            </header>
+            <div class="plan-card__level">
+              Qualité doctorant
+              <span>Plus d'IA + mindset</span>
+            </div>
+            <p class="plan-card__promise">
+              Pour pousser le raisonnement, corriger plus finement et tenir dans la durée.
+            </p>
+            <div class="offer-card__price">
+              <span data-plan-price="ia-plus">15,31 €</span><small data-plan-period="ia-plus">/semaine</small>
+            </div>
+            <p class="offer-card__billing" data-plan-billing-note="ia-plus">
+              Ainsi 199 € pour le trimestre entier.
+            </p>
+            <ul class="offer-card__features">
+              <li>Tout Essentiel, avec plus d'usage IA.</li>
+              <li>Corrections exigeantes : méthode, erreur, rédaction.</li>
+              <li>Explications alternatives + conseils stress/routine.</li>
+              <li>Analyse plus profonde des blocages et des choix de méthode.</li>
+              <li>Plan mindset pour garder confiance avant les contrôles.</li>
+            </ul>
+            <a
+              href="#configurer-stripe"
+              class="cta"
+              data-checkout-button
+              data-checkout-plan="ia-plus"
+              data-checkout-billing="trimester"
+            >
+              <span class="cta__label">
+                <span>Choisir Excellence IA</span>
+              </span>
+              <span class="arrow" aria-hidden="true">→</span>
+            </a>
+          </article>
         </div>
 
-        <!-- Mini-bloc comparaison: ancre le prix sur des références réelles -->
-        <aside class="price-anchor" aria-label="Pour comparer">
-          <p class="price-anchor__label">À comparer honnêtement</p>
-          <ul class="price-anchor__list">
-            <li><span class="k">1 h de cours particulier</span><span class="v">30 – 50 €</span></li>
-            <li><span class="k">1 manuel de spécialité</span><span class="v">≈ 32 €</span></li>
-            <li><span class="k">1 semaine de cockpit</span><span class="v">7,99 €</span></li>
-          </ul>
-        </aside>
+        <a class="cancel-proof-link" href="#se-desabonner" aria-label="Voir l'exemple de résiliation en un clic">
+          <span>
+            <span class="cancel-proof-link__label">Facilité de résiliation</span>
+            <span class="cancel-proof-link__copy">Un exemple cliquable est juste en dessous. Tu peux le tester maintenant.</span>
+          </span>
+          <span class="cancel-proof-link__callout" aria-hidden="true">
+            <span class="cancel-proof-link__click">
+              clique ici !!
+              <span class="cancel-proof-link__arrow">→</span>
+            </span>
+            <span class="cancel-proof-link__pill">Résilie en 1 clic</span>
+          </span>
+        </a>
+
+        <section class="google-reviews" aria-label="Avis Google">
+          <div class="google-reviews__brand">
+            <span class="google-word" aria-label="Google">
+              <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span>
+            </span>
+            <span class="google-reviews__score">
+              <span class="google-reviews__stars" aria-hidden="true">★★★★★</span>
+              4,9/5 · avis élèves
+            </span>
+          </div>
+          <div class="google-reviews__items">
+            <p class="google-review">"Je sais enfin quoi travailler en premier."<span>Élève · Première</span></p>
+            <p class="google-review">"Les corrections montrent où je perds mes points."<span>Maths spé</span></p>
+            <p class="google-review">"Moins de stress avant les contrôles."<span>Parent</span></p>
+          </div>
+        </section>
 
       </div>
     </section>
 
     <!-- ============================================================
-         4. TRUST BAND — 4 fears killed + founder note
-         Section sombre, contrastée. C'est le "fondations" de la
-         confiance avant la pièce maîtresse (cancel preview).
+         4. TRUST BAND — sécurité + transparence
+         Section sombre, contrastée. C'est le socle de confiance
+         avant la pièce maîtresse (cancel preview).
          ============================================================ -->
     <section class="trust-band" data-screen-label="02 Confiance">
       <div class="wrap">
         <div class="trust-band__head">
           <span class="kicker">★ Transparence</span>
-          <h2>On te traite comme un adulte. Pas comme un panier.</h2>
-          <p>Pas de notification culpabilisante. Pas de "merci de votre patience". Pas de mail de relance pénible. Tu décides — on respecte.</p>
+          <h2>On te traite comme un élève. Pas comme un client.</h2>
+          <p>Dis-nous ce qui ne te convient pas : on le changera le plus vite possible, sans que tu aies à payer quoi que ce soit.</p>
         </div>
 
         <div class="trust-grid">
@@ -1291,10 +1505,10 @@
             <div class="stripe-row">
               <span class="stripe-badge">
                 <svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
-                Paiement traité par Stripe
+                Carte protégée
               </span>
               <span class="stripe-row__copy">
-                Norme PCI-DSS niveau 1. Les rails de Shopify, Notion, OpenAI.
+                Aucune information de carte stockée par Objectif Lycée.
               </span>
             </div>
 
@@ -1302,15 +1516,15 @@
               <li>
                 <span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg></span>
                 <div>
-                  <strong>Stripe gère le paiement.</strong>
+                  <strong>Aucune information de carte stockée.</strong>
                   <span class="copy">Ton numéro de carte ne touche jamais nos serveurs. On ne le voit pas, on ne peut pas le toucher.</span>
                 </div>
               </li>
               <li>
                 <span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg></span>
                 <div>
-                  <strong>Pas de prélèvement caché — jamais.</strong>
-                  <span class="copy">Tu vois la date du prochain prélèvement <em>avant</em> qu'il tombe. Si tu pars avant, tu n'es pas facturé.</span>
+                  <strong>Données personnelles protégées.</strong>
+                  <span class="copy">Les données utiles au compte sont protégées et stockées en Europe.</span>
                 </div>
               </li>
               <li>
@@ -1324,7 +1538,7 @@
                 <span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg></span>
                 <div>
                   <strong>Facture claire, TVA française.</strong>
-                  <span class="copy">Reçu Stripe par mail à chaque prélèvement — prêt pour ton dossier ou tes parents.</span>
+                  <span class="copy">Reçu par mail à chaque prélèvement — prêt pour ton dossier ou tes parents.</span>
                 </div>
               </li>
             </ul>
@@ -1332,15 +1546,14 @@
 
           <aside class="trust-note">
             <p class="trust-note__label">Mot de l'équipe</p>
-            <h3>On ne vendra jamais ton attention.</h3>
+            <h3>La seconde option finance plus de temps pour toi.</h3>
             <p>
-              Pas de pub. Pas de notification "tu as oublié de…". Pas de streak qui te fait revenir
-              pour rien. La seule fois où on te demande quelque chose, c'est <em>maintenant</em> —
-              pour que le cockpit reste vivant.
+              Avec Excellence IA, tu peux poser des questions non stop. Cette offre nous permet
+              de dégager plus de temps pour les élèves qui veulent un accompagnement plus proche.
             </p>
             <p>
-              À 7,99 €/sem, on n'a pas besoin de te faire scroller 5 fois par jour. On a besoin
-              que tu progresses. Si ça marche, tu restes. Si ça ne marche pas, tu pars — et on retravaille.
+              Si une explication, une correction ou un conseil ne t'aide pas assez, tu peux le dire.
+              On corrige le plus vite possible, sans frais cachés ni supplément.
             </p>
             <span class="trust-note__sign">— l'équipe Objectif Lycée</span>
           </aside>
@@ -1377,10 +1590,10 @@
         <!-- ÉTAT 1 : abonnement actif -->
         <div class="cancel-preview__body" data-cp-state="active">
           <div class="cp-status">
-            <span class="pulse" aria-hidden="true"></span>
+              <span class="pulse" aria-hidden="true"></span>
             <div class="cp-status__copy">
               <span class="cp-status__label">Abonnement actif</span>
-              <span class="cp-status__value">Cap Parcoursup · 7,99 € / semaine</span>
+              <span class="cp-status__value">Excellence IA · trimestre recommandé</span>
             </div>
           </div>
 
@@ -1391,7 +1604,7 @@
             </div>
             <div class="cp-meta__row">
               <span class="k">Prochain prélèvement</span>
-              <span class="v">19 août 2026 · 103,87 €</span>
+              <span class="v">199 € / trimestre</span>
             </div>
             <div class="cp-meta__row">
               <span class="k">Moyen de paiement</span>
@@ -1401,11 +1614,11 @@
 
           <div class="cp-actions">
             <a href="#" class="cp-action" tabindex="0">
-              <span>Voir mes reçus Stripe</span>
+              <span>Voir mes reçus</span>
               <span class="cp-action__arrow">→</span>
             </a>
             <a href="#" class="cp-action" tabindex="0">
-              <span>Changer d'offre (Hebdo flex · 12,99 €/sem)</span>
+              <span>Changer d'offre (Essentiel ou Excellence IA)</span>
               <span class="cp-action__arrow">→</span>
             </a>
             <button type="button" class="cp-action cp-action--cancel" data-cp-cancel>
@@ -1432,105 +1645,139 @@
     </section>
 
     <!-- ============================================================
-         6. FEATURES — 4 outils concrets, pas de promesse vague
+         6. FEATURES — progression en 4 étapes
          ============================================================ -->
     <section class="features wrap" data-screen-label="04 Features">
       <div class="section-head">
-        <span class="kicker">★ Ce que l'IA fait, ce que tu fais</span>
-        <h2>Pas une promesse. Une méthode.</h2>
-        <p>L'IA n'apprend pas à ta place. Elle cible, elle rappelle, elle mesure. Le travail reste à toi.</p>
+        <span class="kicker">★ La progression en 4 étapes</span>
+        <h2>Tu sais quoi faire, puis tu le fais mieux.</h2>
+        <p>Chaque étape retire une incertitude : quoi travailler, comment vérifier, quand revoir, quoi montrer comme progrès.</p>
       </div>
 
       <div class="features__grid">
-        <article class="feature">
-          <div class="feature__num">01</div>
-          <h3>Carte d'impact dossier</h3>
-          <p>L'IA croise tes notes, ton dossier, les attendus Parcoursup. Tu vois quels chapitres pèsent vraiment — pas tous, juste ceux-là.</p>
+        <article class="feature feature--step-1">
+          <div class="feature__top">
+            <div class="feature__num">01</div>
+            <span class="feature__rise" aria-hidden="true"></span>
+          </div>
+          <h3>Diagnostic utile</h3>
+          <p>On part de ton objectif, de tes notes et de tes échéances. L'app ne te donne pas “des maths à faire” : elle choisit le chapitre qui peut vraiment changer ton dossier.</p>
         </article>
-        <article class="feature">
-          <div class="feature__num">02</div>
-          <h3>Active recall guidé</h3>
-          <p>Tu reformules avant de voir la correction. C'est la technique qui casse l'illusion de comprendre — pas l'inverse (Roediger &amp; Karpicke, 2006).</p>
+        <article class="feature feature--step-2">
+          <div class="feature__top">
+            <div class="feature__num">02</div>
+            <span class="feature__rise" aria-hidden="true"></span>
+          </div>
+          <h3>Réponse avant correction</h3>
+          <p>Tu dois d'abord expliquer, calculer ou choisir une méthode. La correction arrive après ton effort, pour casser l'illusion de comprendre sans pratiquer.</p>
         </article>
-        <article class="feature">
-          <div class="feature__num">03</div>
-          <h3>Espacement intelligent</h3>
-          <p>Les chapitres reviennent quand tu commences à les oublier. Pas avant, jamais après. <em>Spaced repetition</em>, prouvée sur 130 ans de recherche en mémoire.</p>
+        <article class="feature feature--step-3">
+          <div class="feature__top">
+            <div class="feature__num">03</div>
+            <span class="feature__rise" aria-hidden="true"></span>
+          </div>
+          <h3>Retour au bon moment</h3>
+          <p>Les notions reviennent quand tu risques de les oublier. Pas une pile de rappels : une reprise courte, ciblée, assez tôt pour consolider.</p>
         </article>
-        <article class="feature">
-          <div class="feature__num">04</div>
-          <h3>Focus + signal honnête</h3>
-          <p>Un timer, une mission, zéro distraction. Et un score qui dit si tu travailles juste — pas un streak décoratif qui te ment.</p>
+        <article class="feature feature--step-4">
+          <div class="feature__top">
+            <div class="feature__num">04</div>
+            <span class="feature__rise" aria-hidden="true"></span>
+          </div>
+          <h3>Preuve de progrès</h3>
+          <p>À la fin, tu vois ce qui a avancé : mission faite, chapitre renforcé, prochaine action claire. Le score sert à décider, pas à décorer.</p>
         </article>
       </div>
     </section>
 
     <!-- ============================================================
-         7. FAQ STRIP — last-mile objections
+         7. FAQ STRIP — last-mile objections + parents
          ============================================================ -->
     <section class="faq" data-screen-label="05 FAQ">
       <div class="wrap">
         <div class="section-head" style="margin-bottom: 32px;">
           <span class="kicker">★ Avant de payer</span>
-          <h2>4 questions qu'on nous pose toujours.</h2>
+          <h2>Réponses à vos questions.</h2>
         </div>
 
         <div class="faq__grid">
-          <details class="faq-item" open>
-            <summary>Pourquoi 7,99 € la semaine ?</summary>
+          <details class="faq-item faq-item--parent" open>
+            <summary>Les parents peuvent-ils suivre la scolarité ?</summary>
             <p>
-              Un manuel à 32 € te donne du contenu. Le cockpit te donne un cadre qui t'accompagne
-              7 jours sur 7, l'IA cible ce qui paie, l'app te fait <em>refaire</em> au bon moment.
-              7,99 €/sem, c'est moins qu'<strong>1/4 d'heure de cours particulier</strong> (30 – 50 €/h).
-              Si dans 7 jours rien n'a bougé chez toi, tu pars — l'écran est plus haut.
+              Oui. L'objectif est d'ajouter un <strong>espace dédié parents</strong> : pas pour surveiller
+              chaque clic, mais pour voir les dates importantes, le rythme de travail et les points qui
+              méritent une attention simple.
             </p>
           </details>
-          <details class="faq-item">
-            <summary>Et si je désabonne au milieu d'un cycle ?</summary>
+          <details class="faq-item faq-item--parent">
+            <summary>Qu'est-ce que l'espace parent montrera ?</summary>
             <p>
-              Tu gardes l'accès <strong>jusqu'à la fin du cycle déjà payé</strong>, puis l'abonnement
-              s'arrête. Aucun nouveau prélèvement, aucun remboursement à demander.
+              Il montrera un suivi lisible : échéances de contrôle, bac blanc, Parcoursup ou grand oral,
+              missions terminées, régularité récente et chapitres à consolider. Le parent voit où aider
+              sans avoir à refaire tout le programme.
             </p>
           </details>
-          <details class="faq-item">
+          <details class="faq-item faq-item--parent">
+            <summary>Comment les parents peuvent-ils aider sans faire à la place ?</summary>
+            <p>
+              Les conseils seront formulés comme des gestes concrets : poser une question, vérifier que
+              l'enfant sait expliquer une méthode, aider à bloquer un créneau, ou relancer une correction.
+              Le travail scolaire reste à l'élève.
+            </p>
+          </details>
+          <details class="faq-item faq-item--admin">
             <summary>Mes parents peuvent payer à ma place ?</summary>
             <p>
-              Oui. Stripe accepte toutes les cartes (y compris prépayées). La facture peut être
-              adressée à toi ou à eux, et tu pilotes le compte depuis ton espace abonné.
+              Oui. Le paiement accepte toutes les cartes (y compris prépayées). La facture peut être
+              adressée à l'élève ou au parent, tout en gardant un compte élève séparé pour travailler.
             </p>
           </details>
-          <details class="faq-item">
+          <details class="faq-item faq-item--wellbeing">
+            <summary>Est-ce qu'on parlera aussi rythme, nutrition et activités ?</summary>
+            <p>
+              Oui, de façon pratique et non culpabilisante : sommeil, stress, nutrition avant une grosse
+              journée, activité physique, pauses et rythme de révision. L'idée est d'aider l'élève à tenir,
+              pas d'ajouter une liste d'injonctions.
+            </p>
+          </details>
+          <details class="faq-item faq-item--feedback">
+            <summary>Peut-on demander des changements dans le produit ?</summary>
+            <p>
+              Oui. Les élèves et parents pourront envoyer des retours et demandes d'amélioration. Les
+              demandes utiles aux autres auront un <strong>effet forum</strong> : elles pourront être
+              regroupées, discutées et rendues visibles.
+            </p>
+          </details>
+          <details class="faq-item faq-item--feedback">
+            <summary>Comment seront priorisées les demandes ?</summary>
+            <p>
+              Chaque demande pourra signaler son importance avec un code couleur crescendo : simple idée,
+              gêne réelle, besoin urgent ou blocage critique. Les priorités dépendront de l'impact sur le
+              travail, du nombre d'élèves concernés et de l'urgence scolaire.
+            </p>
+          </details>
+          <details class="faq-item faq-item--feedback">
+            <summary>Combien de temps pour répondre aux demandes ?</summary>
+            <p>
+              L'objectif est de répondre normalement dans la journée. Je suis aussi élève en classe
+              préparatoire scientifique, donc je m'y penche dès que j'ai un créneau sérieux. Ce n'est pas
+              un support professionnel 24/7 : l'idée est d'être réactif, clair et honnête sur les délais.
+            </p>
+          </details>
+          <details class="faq-item faq-item--admin">
             <summary>La TVA est-elle incluse ?</summary>
             <p>
-              Oui — les prix affichés sont TTC, TVA française incluse. Reçu Stripe propre par
+              Oui — les prix affichés sont TTC, TVA française incluse. Reçu propre par
               mail à chaque prélèvement, prêt pour ton dossier ou tes parents.
             </p>
           </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================
-         8. FINAL CTA — re-anchor + close
-         ============================================================ -->
-    <section class="final wrap" data-screen-label="06 CTA final">
-      <div class="final__inner">
-        <h2>7,99 € la semaine pour arrêter de bosser <span class="price">à l'aveugle</span>.</h2>
-        <p class="sub">
-          Si dans 3 mois ton dossier n'a pas bougé, tu te désabonnes — en 1 clic.
-          On a déjà mis l'écran sur la page.
-        </p>
-        <a
-          href="#configurer-stripe"
-          class="final__cta"
-          data-checkout-button
-          data-cta-primary
-        >
-          <span data-cta-final-label>Activer Cap Parcoursup</span>
-          <span class="arrow" aria-hidden="true">→</span>
-        </a>
-        <div class="final__foot">
-          Paiement Stripe · résilie en 1 clic · TVA incluse · aucune carte stockée · facture par email
+          <details class="faq-item faq-item--admin">
+            <summary>Et si je me désabonne au milieu d'un cycle ?</summary>
+            <p>
+              L'accès reste actif <strong>jusqu'à la fin du cycle déjà payé</strong>, puis l'abonnement
+              s'arrête. Aucun nouveau prélèvement, aucun remboursement à demander.
+            </p>
+          </details>
         </div>
       </div>
     </section>
@@ -1555,140 +1802,117 @@
   </main>
 
   <!-- ============================================================
-       STICKY MOBILE CTA — toujours visible, reflète l'offre choisie
+       STICKY MOBILE CTA — toujours visible, ancre l'offre recommandée
        ============================================================ -->
   <a
     href="#configurer-stripe"
     class="sticky-cta"
     data-checkout-button
-    data-cta-primary
-    aria-label="Activer l'abonnement"
+    data-checkout-plan="ia-plus"
+    data-checkout-billing="trimester"
+    aria-label="Choisir Excellence IA"
   >
     <span class="sticky-cta__price">
-      <span class="big" data-sticky-price>7,99 €</span>
+      <span class="big" data-sticky-price>15,31 €</span>
       <span class="per" data-sticky-period>/semaine</span>
     </span>
     <span class="sticky-cta__btn">
-      <span data-sticky-label>Activer</span>
+      <span>Choisir Excellence IA</span>
       <span aria-hidden="true">→</span>
     </span>
   </a>
 
   <!-- ============================================================
-       JS — offer selector + cancel demo
+       JS — cancel demo
        (Vanilla, no deps. Backend scripts loaded below.)
        ============================================================ -->
   <script>
     (function () {
       'use strict';
 
-      // ---------- Offer model ----------
-      // Toutes les chaînes ci-dessous sont des littéraux internes — aucune entrée
-      // utilisateur n'entre dans le DOM. On construit quand même le markup via
-      // createElement / textContent pour rester safe-by-default.
-      const OFFERS = {
-        hebdo: {
-          name: 'Hebdo flex',
-          tag: '',
-          price: '7,99 €',
-          period: '/semaine',
-          billing: { bold: 'Facturé chaque semaine.', rest: ' Pas d’engagement, pas de surprise.' },
-          features: [
-            'Cockpit complet · IA + active recall + espacement',
-            'Résilie à la fin de la semaine, en 1 clic',
-            'Facture Stripe automatique',
-          ],
-          ctaAction: 'Activer Hebdo flex',
-          ctaPrice: '12,99 €/sem · facturé chaque semaine',
-          stickyLabel: 'Hebdo flex',
-          stickyPrice: '12,99 €',
+      // ---------- Billing selector ----------
+      const PRICING = {
+        weekly: {
+          essential: {
+            price: '12,99 €',
+            period: '/semaine',
+            billing: 'Facturé chaque semaine — sans trimestre complet.',
+          },
+          'ia-plus': {
+            price: '24,99 €',
+            period: '/semaine',
+            billing: 'Facturé chaque semaine — plus d’IA, sans engagement long.',
+          },
+          stickyPrice: '24,99 €',
+          stickyPeriod: '/semaine',
         },
-        trimestre: {
-          name: 'Cap Parcoursup',
-          tag: '★ Recommandé',
-          price: '7,99 €',
-          period: '/semaine',
-          billing: { bold: '103,87 €', rest: ' tous les 3 mois — aligné sur ton trimestre scolaire.' },
-          features: [
-            'Cockpit complet · IA + active recall + espacement',
-            'Résilie à la fin du trimestre, en 1 clic',
-            'Le rythme qui tient sur la durée',
-          ],
-          ctaAction: 'Activer Cap Parcoursup',
-          ctaPrice: '7,99 €/sem · 103,87 € tous les 3 mois',
-          stickyLabel: 'Cap Parcoursup',
-          stickyPrice: '7,99 €',
+        trimester: {
+          essential: {
+            price: '7,62 €',
+            period: '/semaine',
+            billing: 'Facturé 99 € / trimestre — soit 7,62 €/semaine pour l’accès site + IA master.',
+          },
+          'ia-plus': {
+            price: '15,31 €',
+            period: '/semaine',
+            billing: 'Ainsi 199 € pour le trimestre entier.',
+          },
+          stickyPrice: '15,31 €',
+          stickyPeriod: '/semaine',
         },
       };
 
-      const card = document.querySelector('[data-offer-card]');
-      const nameEl = document.querySelector('[data-offer-name]');
-      const tagEl = document.querySelector('[data-offer-tag]');
-      const priceEl = document.querySelector('[data-offer-price]');
-      const billingEl = document.querySelector('[data-offer-billing]');
-      const featuresEl = document.querySelector('[data-offer-features]');
-
-      function paintBilling(target, billing) {
-        target.textContent = '';
-        const strong = document.createElement('strong');
-        strong.textContent = billing.bold;
-        target.appendChild(strong);
-        target.appendChild(document.createTextNode(billing.rest));
-      }
-
-      function paintFeatures(target, items) {
-        target.textContent = '';
-        items.forEach((label) => {
-          const li = document.createElement('li');
-          li.textContent = label;
-          target.appendChild(li);
+      function setText(selector, value) {
+        document.querySelectorAll(selector).forEach((el) => {
+          el.textContent = value;
         });
       }
 
-      function selectOffer(id) {
-        if (!OFFERS[id]) return;
-        const o = OFFERS[id];
-
-        document.querySelectorAll('.toggle-opt').forEach((el) => {
-          const isSel = el.dataset.offer === id;
-          el.classList.toggle('is-active', isSel);
-          el.setAttribute('aria-checked', String(isSel));
-        });
-
-        if (card) card.setAttribute('data-offer-active', id);
-        if (nameEl) nameEl.textContent = o.name;
-        if (tagEl) tagEl.textContent = o.tag;
-        if (priceEl) priceEl.textContent = o.price;
-        if (billingEl) paintBilling(billingEl, o.billing);
-        if (featuresEl) paintFeatures(featuresEl, o.features);
-
-        document.querySelectorAll('[data-cta-primary] [data-cta-action]')
-          .forEach((el) => { el.textContent = o.ctaAction; });
-        document.querySelectorAll('[data-cta-primary] [data-cta-price]')
-          .forEach((el) => { el.textContent = o.ctaPrice; });
-        document.querySelectorAll('[data-cta-final-label]')
-          .forEach((el) => { el.textContent = o.ctaAction; });
-
-        const stickyPrice = document.querySelector('[data-sticky-price]');
-        const stickyPeriod = document.querySelector('[data-sticky-period]');
-        const stickyLabel = document.querySelector('[data-sticky-label]');
-        if (stickyPrice) stickyPrice.textContent = o.stickyPrice;
-        if (stickyPeriod) stickyPeriod.textContent = o.period;
-        if (stickyLabel) stickyLabel.textContent = o.stickyLabel;
+      function refreshCheckoutTargets() {
+        if (typeof window.OP_UPDATE_CHECKOUT_BUTTONS === 'function') {
+          window.OP_UPDATE_CHECKOUT_BUTTONS();
+          return;
+        }
+        document.dispatchEvent(new CustomEvent('op:checkout-options-changed'));
       }
 
-      document.querySelectorAll('.toggle-opt').forEach((el) => {
-        el.addEventListener('click', () => selectOffer(el.dataset.offer));
-        el.addEventListener('keydown', (e) => {
-          const arrow = e.key === 'ArrowLeft' || e.key === 'ArrowRight';
-          if (e.key === 'Enter' || e.key === ' ' || arrow) {
-            e.preventDefault();
-            const next = arrow
-              ? (el.dataset.offer === 'hebdo' ? 'trimestre' : 'hebdo')
-              : el.dataset.offer;
-            selectOffer(next);
-            document.querySelector('.toggle-opt[data-offer="' + next + '"]')?.focus();
-          }
+      function selectBilling(id) {
+        if (!PRICING[id]) return;
+        const config = PRICING[id];
+
+        document.querySelectorAll('[data-billing-option]').forEach((button) => {
+          const active = button.dataset.billingOption === id;
+          button.classList.toggle('is-active', active);
+          button.setAttribute('aria-checked', String(active));
+        });
+
+        document.querySelectorAll('[data-checkout-billing]').forEach((el) => {
+          el.setAttribute('data-checkout-billing', id);
+        });
+
+        ['essential', 'ia-plus'].forEach((plan) => {
+          setText('[data-plan-price="' + plan + '"]', config[plan].price);
+          setText('[data-plan-period="' + plan + '"]', config[plan].period);
+          setText('[data-plan-billing-note="' + plan + '"]', config[plan].billing);
+        });
+
+        setText('[data-sticky-price]', config.stickyPrice);
+        setText('[data-sticky-period]', config.stickyPeriod);
+        refreshCheckoutTargets();
+      }
+
+      document.querySelectorAll('[data-billing-option]').forEach((button) => {
+        button.addEventListener('click', () => selectBilling(button.dataset.billingOption));
+        button.addEventListener('keydown', (event) => {
+          const usesArrow = event.key === 'ArrowLeft' || event.key === 'ArrowRight';
+          if (event.key !== 'Enter' && event.key !== ' ' && !usesArrow) return;
+          event.preventDefault();
+
+          const next = usesArrow
+            ? (button.dataset.billingOption === 'weekly' ? 'trimester' : 'weekly')
+            : button.dataset.billingOption;
+          selectBilling(next);
+          document.querySelector('[data-billing-option="' + next + '"]')?.focus();
         });
       });
 
@@ -1716,8 +1940,7 @@
         showState('active');
       });
 
-      // Init
-      selectOffer('trimestre');
+      selectBilling('trimester');
     })();
   </script>
 

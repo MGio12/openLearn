@@ -10,11 +10,55 @@
     return typeof value === "string" ? value.trim() : "";
   }
 
-  function configuredUrl() {
+  function metaUrl(name) {
+    var meta = document.querySelector('meta[name="' + name + '"]');
+    return meta ? clean(meta.getAttribute("content")) : "";
+  }
+
+  function bodyUrl(name) {
+    return clean(document.body ? document.body.getAttribute(name) : "");
+  }
+
+  function planMapUrl(plan, billing) {
+    var urls;
+
+    try {
+      urls = window.OP_STRIPE_CHECKOUT_URLS;
+    } catch (error) {
+      urls = null;
+    }
+
+    if (!urls || typeof urls !== "object") return "";
+
+    if (plan && billing) {
+      return clean(urls[plan + "-" + billing]) ||
+        clean(urls[plan + ":" + billing]) ||
+        clean(urls[plan] && urls[plan][billing]);
+    }
+
+    return plan ? clean(urls[plan]) : "";
+  }
+
+  function planBillingUrl(plan, billing) {
+    if (!plan || !billing) return "";
+
+    return planMapUrl(plan, billing) ||
+      metaUrl("stripe-checkout-url-" + plan + "-" + billing) ||
+      bodyUrl("data-stripe-checkout-url-" + plan + "-" + billing);
+  }
+
+  function planUrl(plan) {
+    if (!plan) return "";
+
+    return planMapUrl(plan) ||
+      metaUrl("stripe-checkout-url-" + plan) ||
+      bodyUrl("data-stripe-checkout-url-" + plan);
+  }
+
+  function configuredUrl(plan, billing) {
     var globalUrl = clean(window.OP_STRIPE_CHECKOUT_URL);
-    var meta = document.querySelector('meta[name="stripe-checkout-url"]');
-    var metaUrl = meta ? clean(meta.getAttribute("content")) : "";
-    var dataUrl = clean(document.body ? document.body.getAttribute("data-stripe-checkout-url") : "");
+    var globalMetaUrl = metaUrl("stripe-checkout-url");
+    var dataUrl = bodyUrl("data-stripe-checkout-url");
     var storedUrl = "";
 
     try {
@@ -23,7 +67,7 @@
       storedUrl = "";
     }
 
-    return globalUrl || metaUrl || dataUrl || storedUrl;
+    return planBillingUrl(plan, billing) || planUrl(plan) || globalUrl || globalMetaUrl || dataUrl || storedUrl;
   }
 
   function isStripeCheckoutUrl(url) {
@@ -51,26 +95,32 @@
   }
 
   function updateButtonTargets() {
-    var url = configuredUrl();
-    var valid = isStripeCheckoutUrl(url);
-
     buttons.forEach(function (button) {
+      var url = configuredUrl(
+        button.getAttribute("data-checkout-plan"),
+        button.getAttribute("data-checkout-billing")
+      );
+      var valid = isStripeCheckoutUrl(url);
       button.setAttribute("href", valid ? url : "#configurer-stripe");
       button.setAttribute("data-checkout-state", valid ? "ready" : "needs-config");
     });
 
-    if (valid && input && !input.value) {
-      input.value = url;
+    var fallbackUrl = configuredUrl();
+    if (isStripeCheckoutUrl(fallbackUrl) && input && !input.value) {
+      input.value = fallbackUrl;
     }
   }
 
   buttons.forEach(function (button) {
     button.addEventListener("click", function (event) {
-      var url = configuredUrl();
+      var url = configuredUrl(
+        button.getAttribute("data-checkout-plan"),
+        button.getAttribute("data-checkout-billing")
+      );
 
       if (!isStripeCheckoutUrl(url)) {
         event.preventDefault();
-        showSetup("Ajoute une URL Payment Link Stripe pour activer le checkout.");
+        showSetup("Ajoute une URL Payment Link Stripe pour activer cette offre.");
         return;
       }
 
@@ -103,5 +153,7 @@
     });
   }
 
+  window.OP_UPDATE_CHECKOUT_BUTTONS = updateButtonTargets;
+  document.addEventListener("op:checkout-options-changed", updateButtonTargets);
   updateButtonTargets();
 }());

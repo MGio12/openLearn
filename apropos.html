@@ -1,0 +1,562 @@
+<!doctype html>
+<!--
+  ============================================================
+  À PROPOS — page brand / fondateur
+  ------------------------------------------------------------
+  Job conversion : combler le trou de confiance pour les parents
+  qui découvrent le site sans connaître Max. Une seule page,
+  scannable en 30s, descendable pour l'histoire complète.
+
+  Sections :
+   1. NAV       — brand + lien histoire + CTA essai
+   2. HERO      — phrase qui tranche, deux CTA
+   3. ON EST    — 3 cartes courtes (sans jugement / parents / méthode)
+   4. IA-CHANCES — lead + 2 cartes citation + 2 chiffres clés
+   5. MÉTHODE   — apprendre à apprendre, autonomie
+   6. HISTOIRE  — ancre #histoire : photo Max + récit ZEP→prépa
+   7. CTA       — paywall transparent
+   8. SITO      — sources numérotées (chiffres + citations)
+   9. FOOTER    — légal
+
+  Style inline self-contained, hérite de colors_and_type.css.
+  ============================================================
+-->
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Objectif Lycée — À propos</title>
+  <meta name="description" content="Max, étudiant en prépa scientifique passé par un collège ZEP, raconte pourquoi il construit Objectif Lycée avec des profs de lycée. Une IA honnête pour les familles qui n'ont pas 30 € de l'heure à mettre dans un cours particulier.">
+  <meta name="theme-color" content="#F4D35E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='6' width='52' height='52' rx='12' fill='%23F4D35E' stroke='%23121212' stroke-width='5' transform='rotate(-6 32 32)'/%3E%3Ctext x='32' y='44' font-family='Arial Black, Impact, sans-serif' font-size='34' font-weight='900' text-anchor='middle' fill='%23121212' transform='rotate(-6 32 32)'%3EO%3C/text%3E%3C/svg%3E">
+
+  <meta property="og:title" content="Objectif Lycée — À propos">
+  <meta property="og:description" content="Pourquoi un élève de prépa construit un outil pour les lycéens qui n'ont pas accès à un cours particulier. Histoire, citations, sources.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+
+  <link rel="stylesheet" href="colors_and_type.css">
+
+  <style>
+    /* ============================================================
+       APROPOS — style inline self-contained
+       ============================================================ */
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      background-color: var(--paper);
+      background-image:
+        linear-gradient(rgba(18,18,18,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(18,18,18,0.035) 1px, transparent 1px);
+      background-size: 24px 24px;
+      color: var(--ink);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    sup a { text-decoration: none; font-weight: 800; padding: 0 1px; }
+    sup a:hover { text-decoration: underline; }
+
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 clamp(18px, 4vw, 40px); }
+
+    /* ----- NAV ----- */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 18px;
+      padding: 14px clamp(18px, 4vw, 40px);
+      background: rgba(246, 242, 235, 0.92);
+      backdrop-filter: blur(6px);
+      border-bottom: 1.5px solid rgba(42, 39, 36, 0.13);
+    }
+    .brand { display: inline-flex; align-items: center; gap: 12px; color: var(--ink); text-decoration: none; }
+    .brand .mark { width: 44px; height: 44px; flex: 0 0 44px; overflow: hidden; border-radius: 12px; }
+    .brand .mark img { display: block; width: 100%; height: 100%; object-fit: cover; transform: scale(1.38); transform-origin: center; }
+    .brand .name { font-family: var(--font-display); font-size: 17px; text-transform: uppercase; letter-spacing: -.01em; }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .nav-link {
+      display: inline-flex; align-items: center;
+      padding: 7px 2px;
+      font-family: var(--font-body); font-weight: 700; font-size: 14px;
+      color: var(--ink); text-decoration: none;
+    }
+    .nav-link:hover { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+    .nav-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 7px 12px;
+      border: 2px solid var(--ink); border-radius: 999px;
+      background: var(--paper-2);
+      font-family: var(--font-body); font-weight: 800; font-size: 11px;
+      letter-spacing: .08em; text-transform: uppercase;
+    }
+    .nav-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green-2); border: 1.5px solid var(--ink); }
+    @media (max-width: 640px) {
+      .nav-link[data-hide-sm] { display: none; }
+    }
+
+    /* ----- HERO ----- */
+    .hero { padding: clamp(40px, 7vw, 88px) 0 clamp(28px, 4vw, 48px); }
+    .hero h1 {
+      margin: 0 0 18px;
+      font-family: var(--font-display);
+      font-size: clamp(36px, 5.4vw, 64px);
+      line-height: 0.98;
+      letter-spacing: -.01em;
+      text-wrap: balance;
+    }
+    .hero h1 .hl {
+      background-image: linear-gradient(transparent 58%, var(--stabilo) 58%, var(--stabilo) 96%, transparent 96%);
+      padding: 0 4px;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+    .hero p.lead {
+      max-width: 760px;
+      margin: 0 0 28px;
+      font-size: clamp(17px, 1.6vw, 20px);
+      line-height: 1.55;
+      color: var(--ink-2);
+    }
+    .hero-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 22px;
+      border: 3px solid var(--ink); border-radius: 12px;
+      background: var(--stabilo);
+      box-shadow: 6px 6px 0 var(--ink);
+      font-family: var(--font-body); font-weight: 800; font-size: 15px;
+      letter-spacing: .01em;
+      color: var(--ink); text-decoration: none;
+      transition: transform .14s ease, box-shadow .14s ease;
+    }
+    .btn:hover { transform: translate(2px, 2px); box-shadow: 4px 4px 0 var(--ink); }
+    .btn:active { transform: translate(4px, 4px); box-shadow: 2px 2px 0 var(--ink); }
+    .btn--ghost { background: transparent; box-shadow: none; border-width: 0; padding: 14px 6px; font-size: 14px; }
+    .btn--ghost:hover { transform: none; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+
+    /* ----- SECTION ----- */
+    section { padding: clamp(32px, 5vw, 64px) 0; }
+    .section-kicker {
+      display: inline-block;
+      font-family: var(--font-body); font-weight: 800; font-size: 11px;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--ink); margin-bottom: 8px;
+    }
+    .section-kicker::before { content: "★ "; color: var(--stabilo-2); }
+    h2.section-title {
+      margin: 0 0 24px;
+      font-family: var(--font-display);
+      font-size: clamp(28px, 3.6vw, 44px);
+      line-height: 1.05;
+      letter-spacing: -.005em;
+      text-wrap: balance;
+    }
+    p.section-lead {
+      max-width: 720px;
+      font-size: clamp(15px, 1.3vw, 17px);
+      line-height: 1.6;
+      color: var(--ink-2);
+    }
+
+    /* ----- 3 CARTES "CE QU'ON EST" ----- */
+    .cards-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .card {
+      background: var(--bg-panel, #FFFDF8);
+      border: 3px solid var(--ink);
+      border-radius: 14px;
+      box-shadow: 6px 6px 0 var(--ink);
+      padding: 22px 22px 24px;
+    }
+    .card h3 {
+      margin: 0 0 8px;
+      font-family: var(--font-display);
+      font-size: 18px;
+      letter-spacing: -.005em;
+    }
+    .card p { margin: 0; font-size: 15px; line-height: 1.55; color: var(--ink-2); }
+    @media (max-width: 860px) { .cards-3 { grid-template-columns: 1fr; } }
+
+    /* ----- CARTES CITATION ----- */
+    .quote-card {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 22px;
+      align-items: center;
+      background: var(--stabilo-wash);
+      border: 3px solid var(--ink);
+      border-radius: 14px;
+      box-shadow: 6px 6px 0 var(--ink);
+      padding: 24px;
+      margin-bottom: 18px;
+    }
+    .quote-card + .quote-card { margin-top: 0; }
+    .quote-avatar {
+      width: 116px; height: 116px;
+      border: 3px solid var(--ink); border-radius: 999px;
+      background: var(--stabilo);
+      display: grid; place-items: center;
+      font-family: var(--font-display);
+      font-size: 38px;
+      letter-spacing: .01em;
+      color: var(--ink);
+      box-shadow: 3px 3px 0 var(--ink);
+    }
+    .quote-body blockquote {
+      margin: 0 0 8px;
+      font-family: var(--font-display);
+      font-size: clamp(17px, 1.8vw, 21px);
+      line-height: 1.3;
+      letter-spacing: -.005em;
+    }
+    .quote-attrib {
+      font-size: 13px;
+      color: var(--ink-soft);
+      letter-spacing: .02em;
+    }
+    .quote-attrib strong { color: var(--ink); font-weight: 800; }
+    @media (max-width: 640px) {
+      .quote-card { grid-template-columns: 1fr; text-align: left; padding: 20px; }
+      .quote-avatar { width: 80px; height: 80px; font-size: 26px; }
+    }
+
+    /* ----- LIGNE DE CHIFFRES ----- */
+    .stat-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 22px;
+    }
+    .stat {
+      border: 3px solid var(--ink);
+      border-radius: 14px;
+      padding: 20px 22px;
+      background: var(--paper-2);
+    }
+    .stat .num {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 3vw, 38px);
+      line-height: 1; margin-bottom: 6px;
+    }
+    .stat p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink-2); }
+    @media (max-width: 640px) { .stat-row { grid-template-columns: 1fr; } }
+
+    /* ----- MÉTHODE ----- */
+    .method-block {
+      border-left: 6px solid var(--stabilo);
+      padding: 4px 0 4px 20px;
+      max-width: 760px;
+    }
+    .method-block p { font-size: clamp(15px, 1.35vw, 17px); line-height: 1.6; color: var(--ink-2); margin: 0 0 10px; }
+    .method-block .real-talk {
+      font-family: var(--font-hand);
+      font-size: 22px;
+      color: var(--ink);
+      margin-top: 12px;
+    }
+
+    /* ----- HISTOIRE ----- */
+    #histoire { scroll-margin-top: 90px; }
+    .story-grid {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 36px;
+      align-items: start;
+    }
+    .story-photo {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      border: 3px solid var(--ink);
+      border-radius: 14px;
+      box-shadow: 8px 8px 0 var(--ink);
+      background: linear-gradient(135deg, var(--paper-2), var(--paper-3));
+      display: grid; place-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .story-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .story-photo .photo-placeholder {
+      display: grid; place-items: center; gap: 8px;
+      text-align: center; padding: 24px;
+    }
+    .story-photo .photo-placeholder .sig {
+      font-family: var(--font-hand);
+      font-size: 26px;
+      color: var(--ink);
+    }
+    .story-photo .photo-placeholder .note {
+      font-size: 11px;
+      color: var(--ink-soft);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .story-text p { margin: 0 0 14px; font-size: clamp(15px, 1.35vw, 17px); line-height: 1.62; color: var(--ink-2); }
+    .story-signature {
+      margin-top: 18px;
+      font-family: var(--font-hand);
+      font-size: 30px;
+      color: var(--ink);
+    }
+    .story-signature small {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      margin-top: -4px;
+    }
+    @media (max-width: 760px) {
+      .story-grid { grid-template-columns: 1fr; gap: 22px; }
+      .story-photo { max-width: 280px; }
+    }
+
+    /* ----- CTA PAYWALL ----- */
+    .paywall {
+      border: 3px solid var(--ink);
+      border-radius: 18px;
+      background: var(--bg-panel, #FFFDF8);
+      box-shadow: 10px 10px 0 var(--ink);
+      padding: clamp(28px, 4vw, 44px);
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .paywall h2 { margin: 0 0 18px; font-family: var(--font-display); font-size: clamp(24px, 3vw, 36px); line-height: 1.05; }
+    .paywall ul { margin: 0 0 22px; padding: 0; list-style: none; }
+    .paywall li {
+      position: relative;
+      padding: 10px 0 10px 28px;
+      font-size: 15px; line-height: 1.55;
+      border-bottom: 1px dashed rgba(18, 18, 18, .18);
+    }
+    .paywall li:last-child { border-bottom: none; }
+    .paywall li::before {
+      content: "✓";
+      position: absolute; left: 0; top: 9px;
+      font-weight: 800; color: var(--ink);
+      background: var(--stabilo);
+      border: 2px solid var(--ink);
+      width: 20px; height: 20px;
+      border-radius: 999px;
+      display: grid; place-items: center;
+      font-size: 12px;
+    }
+    .paywall .fine { font-size: 13px; color: var(--ink-soft); margin: 14px 0 0; line-height: 1.5; }
+    .paywall .btn { margin-top: 8px; }
+
+    /* ----- SITOGRAPHIE ----- */
+    .sito {
+      padding: 32px 0 16px;
+      border-top: 1.5px solid rgba(18, 18, 18, .15);
+    }
+    .sito h3 {
+      margin: 0 0 14px;
+      font-family: var(--font-body);
+      font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .sito ol { margin: 0; padding: 0 0 0 22px; }
+    .sito li {
+      margin: 6px 0;
+      font-size: 13px;
+      color: var(--ink-2);
+      line-height: 1.5;
+    }
+    .sito li a { color: var(--ink); }
+    .sito li a:hover { text-decoration: underline; }
+
+    /* ----- FOOTER ----- */
+    .foot {
+      padding: 22px 0 36px;
+      display: flex; justify-content: space-between; gap: 16px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: var(--ink-soft);
+    }
+    .foot a { color: var(--ink); text-decoration: none; }
+    .foot a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================ NAV -->
+<header class="nav">
+  <a class="brand" href="index.html">
+    <span class="mark"><img src="assets/brand/trophy-logo-home.webp" alt=""></span>
+    <span class="name">Objectif Lycée</span>
+  </a>
+  <nav class="nav-right" aria-label="Navigation principale">
+    <a class="nav-link" href="#histoire" data-hide-sm>Histoire</a>
+    <a class="nav-link" href="checkout_v2.html" data-hide-sm>Offres</a>
+    <span class="nav-pill"><span class="dot"></span> Essai 3 j · sans débit</span>
+  </nav>
+</header>
+
+<main class="wrap">
+
+  <!-- ============================================================ HERO -->
+  <section class="hero">
+    <h1>Un outil fait par un élève. Avec des profs.<br>Pour les familles qui n'ont pas <span class="hl">30 € de l'heure</span> à mettre dans un cours particulier.</h1>
+    <p class="lead">
+      Je m'appelle Max, je suis en prépa scientifique. J'ai créé Objectif Lycée parce que c'est ce que j'aurais voulu trouver au lycée — un truc honnête, qui répond aux questions bêtes sans te faire sentir bête.
+    </p>
+    <div class="hero-cta">
+      <a class="btn" href="onboarding.html">Tester 3 jours, sans débit</a>
+      <a class="btn btn--ghost" href="#histoire">Lire mon histoire ↓</a>
+    </div>
+  </section>
+
+  <!-- ============================================================ CE QU'ON EST -->
+  <section>
+    <span class="section-kicker">Ce qu'on est</span>
+    <h2 class="section-title">Trois choix qu'un cours particulier ne te donne pas.</h2>
+    <div class="cards-3">
+      <article class="card">
+        <h3>Sans jugement.</h3>
+        <p>Tu peux poser la question que tu n'oses pas demander en classe. L'IA répond comme un grand frère qui a compris, pas comme un prof qui s'impatiente. Tu choisis son ton — doux, direct, exigeant.</p>
+      </article>
+      <article class="card">
+        <h3>Le parent voit ce qui compte.</h3>
+        <p>Pas un mouchard. Un espace clair : dates de contrôle, missions faites, chapitres à consolider. Le parent sait quand intervenir et quand laisser tranquille. Pas plus.</p>
+      </article>
+      <article class="card">
+        <h3>Une méthode, pas une bibliothèque.</h3>
+        <p>Tu n'as pas besoin de plus de fiches. Tu as besoin de savoir quoi faire ce soir, pendant 25 minutes, sur ce qui pèse vraiment pour ta moyenne ou ton dossier. C'est ça qu'on te donne.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================================================ IA & CHANCES -->
+  <section>
+    <span class="section-kicker">Pourquoi maintenant</span>
+    <h2 class="section-title">Cette fois, l'inégalité peut baisser.</h2>
+    <p class="section-lead">
+      Un cours particulier au lycée coûte 25 à 40 € de l'heure<sup><a href="#sito-1">1</a></sup>. Les familles qui peuvent payer prennent un point de moyenne d'avance ; les autres, non. C'est l'écart le plus injuste du système. Et c'est celui que l'IA peut casser. Pas par magie. Parce qu'un modèle bien réglé répond mieux qu'un cours en ligne générique, à toute heure, sans condescendance. Encore faut-il s'en servir comme un outil, pas comme une excuse pour moins travailler.
+    </p>
+
+    <div style="margin-top: 28px;">
+      <div class="quote-card">
+        <div class="quote-avatar" aria-hidden="true">AM</div>
+        <div class="quote-body">
+          <blockquote>« L'IA n'est pas une technologie de plus. C'est l'infrastructure productive de l'économie de demain. »<sup><a href="#sito-2">2</a></sup></blockquote>
+          <p class="quote-attrib"><strong>Arthur Mensch</strong> — cofondateur et CEO de Mistral AI, audition à l'Assemblée nationale, mai 2025.</p>
+        </div>
+      </div>
+
+      <div class="quote-card">
+        <div class="quote-avatar" aria-hidden="true">LA</div>
+        <div class="quote-body">
+          <blockquote>« Nous envoyons les jeunes des ZEP au casse-pipe face à l'intelligence artificielle. »<sup><a href="#sito-3">3</a></sup></blockquote>
+          <p class="quote-attrib"><strong>Laurent Alexandre</strong> — essayiste, auteur de <em>La Guerre des intelligences</em>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat">
+        <div class="num">+2 écarts-types<sup><a href="#sito-4">4</a></sup></div>
+        <p>Effet d'un tuteur 1-pour-1 vs cours classique (Bloom, 1984). C'est l'ordre de grandeur que l'IA bien utilisée commence à approcher.</p>
+      </div>
+      <div class="stat">
+        <div class="num">25 – 40 € / h<sup><a href="#sito-1">1</a></sup></div>
+        <p>Tarif moyen d'un cours particulier au lycée en France. Notre abonnement annuel pèse moins qu'une heure de prof par semaine.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ MÉTHODE -->
+  <section>
+    <span class="section-kicker">Méthode</span>
+    <h2 class="section-title">À terme, tu travailles tout seul.</h2>
+    <div class="method-block">
+      <p>
+        Le but, ce n'est pas que tu reviennes chez nous tous les ans. Le but, c'est qu'à la fin du lycée tu saches gérer un programme, prioriser un chapitre, t'attaquer à un exo difficile sans paniquer. Si dans deux ans tu nous quittes et que tu cartonnes ta prépa, ton DUT ou ta licence sans nous, on a gagné. C'est notre vraie métrique.
+      </p>
+      <p>
+        Et oui, c'est aussi une question de mentalité. On peut donner la meilleure méthode du monde — si tu ne mets pas les heures, rien ne sort. Autant le dire honnêtement.
+      </p>
+      <div class="real-talk">Pas de magie. Juste un truc qui transforme tes efforts en résultats.</div>
+    </div>
+  </section>
+
+  <!-- ============================================================ HISTOIRE -->
+  <section id="histoire">
+    <span class="section-kicker">Histoire</span>
+    <h2 class="section-title">Pourquoi je fais ça.</h2>
+    <div class="story-grid">
+      <div class="story-photo">
+        <!-- TODO: remplacer par <img src="assets/brand/max-portrait.webp" alt="Max, fondateur d'Objectif Lycée"> quand la photo sera fournie -->
+        <div class="photo-placeholder" aria-hidden="true">
+          <span class="sig">Max</span>
+          <span class="note">photo à venir</span>
+        </div>
+      </div>
+      <div class="story-text">
+        <p>Collège en ZEP. Je n'étais pas bon. Honnêtement, je pensais que je n'étais pas fait pour l'école — tu vois le truc, le mec qui se résigne en 4ᵉ.</p>
+        <p>Au lycée j'ai compris quelque chose de simple : je ne travaillais pas mal, je travaillais sur les mauvaises choses. J'ai essayé des techniques basées sur la science cognitive (récupération active, espacement, feedback rapide) et j'ai utilisé l'IA comme un prof particulier disponible 24/7 pour mes questions bêtes.</p>
+        <p>Résultat : major en sciences dans ma classe, mention très bien au bac (maths + NSI), tous mes vœux Parcoursup acceptés, prépa scientifique aujourd'hui. Et surtout : pour la première fois de ma vie, j'aime étudier.</p>
+        <p>Objectif Lycée, c'est ce que j'aurais voulu trouver à 15 ans. Je le construis avec des profs de lycée pour les questions de fond, et je peux suivre les élèves jusqu'au niveau prépa parce que je viens d'y arriver. Je suis passionné par l'enseignement et l'informatique — autant que ça serve à quelqu'un.</p>
+        <div class="story-signature">
+          Max
+          <small>fondateur — étudiant en prépa scientifique</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ CTA PAYWALL -->
+  <section>
+    <div class="paywall">
+      <h2>Essaie. Si ça ne te sert à rien, tu pars.</h2>
+      <ul>
+        <li><strong>3 jours d'essai</strong> — aucun débit pendant ces 3 jours.</li>
+        <li><strong>Mail de rappel la veille</strong> du premier prélèvement. Tu décides après, en connaissance de cause.</li>
+        <li><strong>Résiliation en 1 clic</strong>, à n'importe quel moment, depuis ton compte.</li>
+        <li>Le compte parent peut payer ; l'élève garde son espace de travail séparé.</li>
+      </ul>
+      <a class="btn" href="onboarding.html">Démarrer l'essai 3 jours</a>
+      <p class="fine">Pas de jeu sur les CGU. Pas de cases pré-cochées. Si on a déconné quelque part, écris à <a href="mailto:hello@objectiflycee.fr">hello@objectiflycee.fr</a>.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ SITOGRAPHIE -->
+  <div class="sito" id="sources">
+    <h3>Sources</h3>
+    <ol>
+      <li id="sito-1">
+        Tarifs moyens des cours particuliers au lycée en France (2024) — synthèse Superprof, Cours Legendre, Apprentus.
+        <a href="https://www.superprof.fr/blog/prix-cours-particuliers/" target="_blank" rel="noopener noreferrer">superprof.fr</a> ·
+        <a href="https://cours-legendre.fr/tarif-cours-particuliers/" target="_blank" rel="noopener noreferrer">cours-legendre.fr</a> ·
+        <a href="https://www.apprentus.fr/blog/soutien-scolaire-quels-tarifs-pour-des-cours-particuliers/" target="_blank" rel="noopener noreferrer">apprentus.fr</a>
+      </li>
+      <li id="sito-2">
+        Arthur Mensch (cofondateur Mistral AI), audition par la Commission d'enquête de l'Assemblée nationale sur les dépendances numériques, mai 2025 — couverture L'Usine Digitale.
+        <a href="https://www.usine-digitale.fr/intelligence-artificielle/dans-lia-la-france-doit-agir-maintenant-pour-ne-pas-devenir-un-vassal-arthur-mensch-ceo-de-mistral-alerte-les-deputes-sur-lurgence-face-aux-geants-americains.X4GLZBM2DZGZZGVM6SPWQYQOZU.html" target="_blank" rel="noopener noreferrer">usine-digitale.fr</a>
+      </li>
+      <li id="sito-3">
+        Laurent Alexandre, « Nous envoyons les jeunes des ZEP au casse-pipe face à l'intelligence artificielle », tribune L'Usine Nouvelle.
+        <a href="https://www.usinenouvelle.com/editorial/nous-envoyons-les-jeunes-des-zep-au-casse-pipe-face-a-l-intelligence-artificielle-le-coup-de-gueule-de-laurent-alexandre.N592923" target="_blank" rel="noopener noreferrer">usinenouvelle.com</a>
+      </li>
+      <li id="sito-4">
+        Benjamin S. Bloom, « The 2 Sigma Problem: The Search for Methods of Group Instruction as Effective as One-to-One Tutoring », <em>Educational Researcher</em>, vol. 13, n° 6, 1984.
+        Résumé public :
+        <a href="https://en.wikipedia.org/wiki/Bloom%27s_2_sigma_problem" target="_blank" rel="noopener noreferrer">Wikipedia — Bloom's 2 sigma problem</a>
+      </li>
+    </ol>
+  </div>
+
+  <!-- ============================================================ FOOTER -->
+  <footer class="foot">
+    <span>© Objectif Lycée — pour les lycéens qui veulent travailler juste.</span>
+    <span><a href="index.html">Accueil</a> · <a href="apropos.html">À propos</a> · <a href="checkout_v2.html">Offres</a> · <a href="mailto:hello@objectiflycee.fr">Contact</a></span>
+  </footer>
+
+</main>
+
+</body>
+</html>
