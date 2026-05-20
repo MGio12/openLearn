@@ -19,21 +19,21 @@ const PAGES = [
   {
     file: 'index.html',
     label: 'cockpit',
-    requiredVisibleSelectors: ['.study-note', '.tape-label', '.paper-folder'],
-    ctaSelectors: ['a.btn', 'button.btn', '.daily-brief__actions a'],
+    requiredVisibleSelectors: ['.ap-mission', '.ap-signal', '.ap-steps'],
+    ctaSelectors: ['.ap-mission__cta'],
   },
   {
     file: 'mission.html',
     label: 'mission',
-    requiredVisibleSelectors: ['.routine-continuation', '.study-note', '.paper-folder'],
-    ctaSelectors: ['.start-btn', '.routine-continuation .route'],
+    requiredVisibleSelectors: ['.mp-hero', '.mp-steps', '.routine-continuation'],
+    ctaSelectors: ['.mp-cta', '.routine-continuation .route'],
   },
   {
     file: 'checkout.html',
     label: 'checkout',
-    requiredVisibleSelectors: ['.dossier', '.tape-label'],
-    ctaSelectors: ['[data-checkout-button]', '.cta', '.nav-link'],
-    mobileMustShowSelectors: ['.dossier', '[data-checkout-button]'],
+    requiredVisibleSelectors: ['.offers', '.offer-toggle', '.trust-band'],
+    ctaSelectors: ['[data-checkout-button]', '.cta', '.cancel-proof-link'],
+    mobileMustShowSelectors: ['.offers', '[data-checkout-button]'],
   },
   {
     file: 'merci.html',

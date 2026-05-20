@@ -11,7 +11,15 @@
     item.setAttribute('aria-checked', String(isDone));
 
     var box = item.querySelector('.box');
-    if (box) box.textContent = isDone ? '\u2713' : '';
+    if (box) {
+      box.textContent = '';
+      if (isDone) {
+        var icon = document.createElement('i');
+        icon.className = 'ph-bold ph-check';
+        icon.setAttribute('aria-hidden', 'true');
+        box.appendChild(icon);
+      }
+    }
   }
 
   document.querySelectorAll('.checklist .item').forEach(function (item) {

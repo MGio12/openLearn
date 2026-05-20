@@ -1,592 +1,392 @@
 <!doctype html>
+<!--
+  ============================================================
+  Objectif Lycée — Ton avance
+  Drop-in replacement: paths use root-level CSS/JS.
+  Navigation links point to final .html pages.
+  ============================================================
+-->
+
 <html lang="fr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Objectif Lycée — Ton jardin d'avance</title>
-  <meta name="description" content="Objectif Lycée : ton avance pousse jour après jour. Une plante qui grandit avec chaque mission terminée — pas avec du scroll.">
-  <meta name="theme-color" content="#F4D35E">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='6' width='52' height='52' rx='12' fill='%23F4D35E' stroke='%23121212' stroke-width='5' transform='rotate(-6 32 32)'/%3E%3Ctext x='32' y='44' font-family='Arial Black, Impact, sans-serif' font-size='34' font-weight='900' text-anchor='middle' fill='%23121212' transform='rotate(-6 32 32)'%3EO%3C/text%3E%3C/svg%3E">
+  <title>Objectif Lycée — Ton avance</title>
   <link rel="stylesheet" href="colors_and_type.css">
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="assets/css/pages/progression.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap">
+  <style>
+    html, body { height: auto; overflow: visible; }
+    .app { height: auto; min-height: 100vh; }
+    .main { overflow: visible; }
+    .view { display: block !important; flex: none !important; overflow: visible !important; height: auto !important; padding: 28px 36px 32px !important; background-image: none !important; }
+
+    /* Progression APRES */
+    .pp-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 22px; gap: 18px; }
+    .pp-head h1 { font-family: var(--font-display); font-size: 40px; line-height: 1; text-transform: uppercase; letter-spacing: -.01em; margin: 0; }
+    .pp-head .sub { font-family: var(--font-body); font-size: 14px; color: var(--ink-soft); margin-top: 6px; }
+    .pp-head .details {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 9px 16px;
+      background: var(--paper-2); border: 2.5px solid var(--ink); border-radius: 10px;
+      box-shadow: 3px 3px 0 var(--ink);
+      font-family: var(--font-body); font-weight: 800; font-size: 13px;
+      text-decoration: none; color: var(--ink); cursor: pointer;
+    }
+    .pp-head .details .ph-bold { font-size: 15px; line-height: 1; }
+
+    /* The hero — split horizontally to keep things in one viewport */
+    .pp-hero {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 22px;
+      margin-bottom: 22px;
+    }
+
+    .pp-garden {
+      position: relative;
+      padding: 26px 26px 22px;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 92%, rgba(244, 211, 94, .28), transparent 70%),
+        #FFFDF8;
+      border: 3px solid var(--ink); border-radius: 20px;
+      box-shadow: 8px 8px 0 var(--ink);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      overflow: hidden;
+    }
+    .pp-garden::before {
+      content: "";
+      position: absolute; inset: 16px;
+      border: 1.5px dashed rgba(18,18,18,0.12);
+      border-radius: 14px;
+      pointer-events: none;
+    }
+    .pp-stamp {
+      align-self: flex-start;
+      display: inline-flex; align-items: center;
+      padding: 5px 11px;
+      background: var(--green);
+      border: 2px solid var(--ink); border-radius: 6px;
+      box-shadow: 2px 2px 0 var(--ink);
+      font-family: var(--font-mono); font-size: 11px; font-weight: 800;
+      letter-spacing: .08em; text-transform: uppercase;
+      transform: rotate(-1.5deg);
+      z-index: 1;
+    }
+    .pp-plant {
+      width: min(260px, 60%); height: auto;
+      filter: drop-shadow(4px 4px 0 rgba(18,18,18,0.14));
+      z-index: 1;
+    }
+    .pp-caption {
+      text-align: center; z-index: 1;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+    }
+    .pp-stage-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 5px 12px;
+      background: var(--green); border: 2.5px solid var(--ink); border-radius: 999px;
+      box-shadow: 2px 2px 0 var(--ink);
+      font-family: var(--font-body); font-weight: 800; font-size: 11px;
+      letter-spacing: .08em; text-transform: uppercase;
+    }
+    .pp-stage-pill .dot { width: 7px; height: 7px; background: var(--ink); border-radius: 50%; }
+    .pp-caption .copy {
+      font-family: var(--font-hand);
+      font-size: 26px; font-weight: 600; color: var(--ink);
+      line-height: 1.15; margin: 4px 0 2px;
+    }
+    .pp-caption .meta {
+      font-family: var(--font-body); font-size: 13px; color: var(--ink-soft);
+    }
+
+    /* Right side of hero: rhythm summary */
+    .pp-rhythm {
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .pp-stat {
+      background: #FFFDF8;
+      border: 2.5px solid var(--ink);
+      border-radius: 14px;
+      padding: 18px 22px;
+      display: flex; align-items: baseline; justify-content: space-between; gap: 14px;
+      box-shadow: 5px 5px 0 var(--ink);
+    }
+    .pp-stat .label {
+      font-family: var(--font-body); font-size: 11px; font-weight: 800;
+      letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft);
+    }
+    .pp-stat .value {
+      font-family: var(--font-display); font-size: 56px; line-height: 1;
+      letter-spacing: -.02em;
+    }
+    .pp-stat .value small {
+      font-family: var(--font-body); font-size: 14px; font-weight: 800;
+      color: var(--ink-soft); margin-left: 6px; letter-spacing: 0; text-transform: none;
+    }
+    .pp-stat--stabilo { background: var(--stabilo); }
+    .pp-stat__copy {
+      font-family: var(--font-body); font-size: 12px; color: var(--ink-soft);
+      max-width: 180px; line-height: 1.45;
+      text-align: right;
+    }
+    .pp-stat--stabilo .pp-stat__copy { color: #5C4A0A; }
+
+    /* Reminder — only when undone, integrated like a study-note */
+    .pp-reminder {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 18px;
+      background: var(--stabilo-wash);
+      border: 2px dashed var(--ink); border-radius: 12px;
+      margin-top: 4px;
+    }
+    .pp-reminder .ic {
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--stabilo); border: 2px solid var(--ink); border-radius: 50%;
+    }
+    .pp-reminder .ic .ph-bold { font-size: 18px; line-height: 1; }
+    .pp-reminder__copy { flex: 1; }
+    .pp-reminder__copy .lbl {
+      font-family: var(--font-body); font-size: 10px; font-weight: 800;
+      letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft);
+      display: block;
+    }
+    .pp-reminder__copy .title { font-family: var(--font-body); font-weight: 700; font-size: 14px; }
+    .pp-reminder .go {
+      padding: 8px 14px;
+      background: var(--ink); color: var(--paper);
+      border: 2px solid var(--ink); border-radius: 8px;
+      font-family: var(--font-body); font-weight: 800; font-size: 12px;
+      text-decoration: none;
+    }
+
+    /* History — clean horizontal strip */
+    .pp-history {
+      background: #FFFDF8;
+      border: 2.5px solid var(--ink); border-radius: 16px;
+      padding: 20px 24px;
+      box-shadow: 5px 5px 0 var(--ink);
+    }
+    .pp-history__head {
+      display: flex; align-items: baseline; justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .pp-history__head h2 {
+      font-family: var(--font-display); font-size: 20px;
+      text-transform: uppercase; margin: 0;
+    }
+    .pp-history__chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 4px 12px;
+      background: var(--stabilo);
+      border: 2px solid var(--ink); border-radius: 999px;
+      font-family: var(--font-body); font-size: 11px; font-weight: 800;
+      letter-spacing: .06em;
+    }
+    .pp-history__chip .dot { width: 7px; height: 7px; background: var(--ink); border-radius: 50%; }
+    .pp-history__grid {
+      display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px;
+    }
+    .pp-day {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      padding: 14px 6px 12px;
+      border: 2px solid var(--ink); border-radius: 10px;
+      background: var(--paper-2);
+    }
+    .pp-day .dow {
+      font-family: var(--font-body); font-size: 10px; font-weight: 800;
+      letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft);
+    }
+    .pp-day .dom {
+      font-family: var(--font-display); font-size: 20px; line-height: 1;
+    }
+    .pp-day .mark {
+      width: 14px; height: 14px; margin-top: 2px;
+      border: 1.5px dashed rgba(18,18,18,0.22); border-radius: 50%;
+    }
+    .pp-day.active { background: var(--green); }
+    .pp-day.active .mark {
+      background: var(--ink); border: 2px solid var(--ink);
+      position: relative;
+    }
+    .pp-day.active .mark::after {
+      content: ""; position: absolute; left: 3px; top: 0;
+      width: 4px; height: 7px;
+      border-right: 2px solid var(--paper);
+      border-bottom: 2px solid var(--paper);
+      transform: rotate(40deg);
+    }
+    .pp-day.today {
+      box-shadow: 3px 3px 0 var(--ink);
+      transform: translate(-1.5px, -1.5px);
+    }
+    .pp-history__note {
+      margin: 14px 0 0;
+      font-family: var(--font-body); font-size: 13px; color: var(--ink-soft);
+      font-style: italic;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .pp-hero { grid-template-columns: 1fr; }
+      .pp-head { align-items: flex-start; flex-direction: column; }
+    }
+    @media (max-width: 640px) {
+      .view { padding: 18px 14px 90px !important; }
+      .pp-head h1 { font-size: 32px; }
+      .pp-garden,
+      .pp-history { padding: 20px 16px; box-shadow: 5px 5px 0 var(--ink); }
+      .pp-plant { width: min(230px, 82%); }
+      .pp-stat { align-items: flex-start; flex-direction: column; }
+      .pp-reminder { align-items: flex-start; flex-wrap: wrap; }
+      .pp-reminder .go { margin-left: 0; }
+      .pp-history__grid { grid-template-columns: repeat(7, minmax(38px, 1fr)); gap: 6px; }
+      .pp-day { min-height: 58px; }
+    }
+  </style>
 </head>
 <body>
 
 <div class="app">
-  <!-- ============================================================ SIDEBAR -->
   <aside class="sidebar">
-    <a class="sb-brand progression-brand-link" href="index.html">
-      <span class="mark mark--image" aria-hidden="true">
-        <img src="assets/brand/trophy-logo-home.webp" alt="" width="52" height="52">
-      </span>
-      <span class="name">Objectif Lycée</span>
-    </a>
-
+    <div class="sb-brand"><span class="mark mark--image"><img src="assets/brand/trophy-logo-home.webp" width="52" height="52" alt=""></span><span class="name">Objectif Lycée</span></div>
     <div class="sb-group">
       <div class="head">Cockpit</div>
-      <a href="index.html#today" class="sb-item progression-sidebar-link">
-        <span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg></span>
-        Aujourd'hui
-      </a>
-      <a href="index.html#planning" class="sb-item progression-sidebar-link">
-        <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
-        Planning
-      </a>
-      <div class="sb-item active">
-        <span class="ic"><svg viewBox="0 0 24 24"><path d="M3 17l4-4 4 4 5-7 5 7"/><path d="M3 21h18"/></svg></span>
-        Progression
-      </div>
-      <a href="focus.html" class="sb-item progression-sidebar-link">
-        <span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
-        Focus
-      </a>
-      <a href="checkout.html" class="sb-item progression-sidebar-link">
-        <span class="ic"><svg viewBox="0 0 24 24"><path d="M4 7h16v10H4z"/><path d="M4 10h16"/><path d="M8 14h4"/></svg></span>
-        Abonnement
-      </a>
+      <a href="index.html" class="sb-item"><span class="ic"><i class="ph-bold ph-target" aria-hidden="true"></i></span>Aujourd'hui</a>
+      <a href="index.html" class="sb-item"><span class="ic"><i class="ph-bold ph-calendar-blank" aria-hidden="true"></i></span>Planning</a>
+      <div class="sb-item active"><span class="ic"><i class="ph-bold ph-chart-line-up" aria-hidden="true"></i></span>Progression</div>
+      <a href="focus.html" class="sb-item"><span class="ic"><i class="ph-bold ph-timer" aria-hidden="true"></i></span>Focus</a>
     </div>
-
     <div class="sb-group">
       <div class="head">Travail</div>
-      <a href="objectif.html" class="sb-item progression-sidebar-link">
-        <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>
-        Objectif
-      </a>
-      <div class="sb-item is-soon" aria-disabled="true">
-        <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5a2 2 0 012-2h11l3 3v13a2 2 0 01-2 2H6a2 2 0 01-2-2z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span>
-        Fiches
-        <span class="soon-tag">bientôt</span>
-      </div>
-      <div class="sb-item is-soon" aria-disabled="true">
-        <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3 7h7l-5.5 4.5L18.5 21 12 17l-6.5 4 2-7.5L2 9h7z"/></svg></span>
-        Contrôles
-        <span class="soon-tag">bientôt</span>
-      </div>
+      <a href="objectif.html" class="sb-item"><span class="ic"><i class="ph-bold ph-squares-four" aria-hidden="true"></i></span>Objectif</a>
     </div>
-
     <div class="sb-group">
-      <div class="head">Réglages</div>
-      <div class="sb-item is-soon" aria-disabled="true">
-        <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6 1.65 1.65 0 0010 3.09V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06A1.65 1.65 0 0019.4 9c.14.32.4.59.73.73h.09a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></span>
-        Préférences
-        <span class="soon-tag">bientôt</span>
-      </div>
+      <div class="head" style="opacity:.5;font-size:10px">Bientôt</div>
+      <div style="font-family:var(--font-body);font-size:11px;color:var(--ink-mute);padding:0 12px;line-height:1.6">Fiches · Contrôles · Abonnement</div>
     </div>
-
-    <div class="sb-profile">
-      <div class="av" data-user-initials>OP</div>
-      <div class="who">
-        <span class="nm" data-user-full-name>Profil démo</span>
-        <span class="role" data-user-role>Lycée</span>
-      </div>
+    <div class="sb-bottom">
+      <a class="sb-about" href="apropos.html" aria-label="À propos d'Objectif Lycée">
+        <span class="sb-about__icon" aria-hidden="true"><i class="ph-bold ph-info"></i></span>
+        <span class="sb-about__label">À propos</span>
+      </a>
+      <div class="sb-profile"><div class="av">OP</div><div class="who"><span class="nm">Profil démo</span><span class="role">Lycée</span></div></div>
     </div>
   </aside>
 
-  <!-- ============================================================ MAIN -->
   <div class="main">
-    <header class="topbar">
-      <div class="search">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        <input type="text" placeholder="Chercher un chapitre, une fiche, une notion…" />
-      </div>
-      <span class="spacer"></span>
-      <button class="icon-btn" type="button" aria-label="Demander à l'IA">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5z"/><path d="M5 16l1 2 2 1-2 1-1 2-1-2-2-1 2-1z"/></svg>
-      </button>
-      <button class="icon-btn" type="button" aria-label="Notifications">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0112 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 003.4 0"/></svg>
-      </button>
-      <div class="me">
-        <div class="av" data-user-initials>OP</div>
-        <span class="nm" data-user-first-name>Profil</span>
-      </div>
-    </header>
-
-    <section class="view active" id="view-garden" data-screen-label="01 Garden">
-      <div class="page-head">
+    <section class="view active">
+      <div class="pp-head">
         <div>
           <h1>Ton avance</h1>
-          <div class="sub" data-garden-status>Plante ta première mission pour voir ton jardin pousser.</div>
+          <div class="sub">Jour 7 actif · ton rythme tient.</div>
         </div>
-        <button type="button" class="op-btn" data-open-slideover aria-haspopup="dialog" aria-controls="slideover-mastery">
-          Détails par matière <span aria-hidden="true">→</span>
-        </button>
+        <a href="objectif.html" class="details">Détails par matière <i class="ph-bold ph-arrow-right" aria-hidden="true"></i></a>
       </div>
 
-      <!-- ===== GARDEN HERO ===== -->
-      <section class="garden-card garden-empty" data-garden-card aria-labelledby="garden-heading">
-        <span class="tape-label garden-card__stamp" data-garden-stamp>Jour 0 — Démarre</span>
-        <h2 id="garden-heading" class="visually-hidden">Plante d'avance</h2>
-
-        <div class="garden-card__hero">
-          <svg class="garden-plant" data-garden-plant data-stage="seed" viewBox="0 0 320 400" aria-hidden="true">
-            <!-- ground shadow -->
-            <ellipse cx="170" cy="368" rx="92" ry="7" fill="#121212" opacity=".14"/>
-
-            <!-- pot -->
-            <g class="pot">
-              <path d="M80 295 L240 295 L230 318 L90 318 Z"
-                    fill="#E8C7A9" stroke="#121212" stroke-width="3.5" stroke-linejoin="round"/>
-              <path d="M88 318 L232 318 L220 360 L100 360 Z"
-                    fill="#D6AE89" stroke="#121212" stroke-width="3.5" stroke-linejoin="round"/>
-              <line x1="106" y1="332" x2="112" y2="350" stroke="#121212" stroke-width="1.5" opacity=".45"/>
-              <line x1="216" y1="330" x2="210" y2="352" stroke="#121212" stroke-width="1.5" opacity=".45"/>
-            </g>
-
-            <!-- soil top -->
-            <g class="soil" stroke="#121212" stroke-width="2.5" stroke-linecap="round" fill="none">
-              <path d="M106 304 Q110 300 116 304"/>
-              <path d="M150 303 Q154 300 160 304"/>
-              <path d="M195 304 Q200 300 206 304"/>
-            </g>
-
-            <!-- grow-1: seed visible only at stage seed -->
-            <g class="grow-1">
-              <ellipse class="seed-only" cx="160" cy="298" rx="9" ry="5" fill="#5F5B57" stroke="#121212" stroke-width="2.5"/>
-            </g>
-
-            <!-- grow-2: small sprout (sprout stage and above) -->
-            <g class="grow-2">
-              <path d="M160 298 Q161 280 163 262"
-                    stroke="#121212" stroke-width="3" fill="none" stroke-linecap="round"/>
-              <path d="M163 272 Q150 268 142 272 Q150 278 163 276 Z"
-                    fill="#B9D097" stroke="#121212" stroke-width="2.5" stroke-linejoin="round"/>
-              <path d="M163 262 Q176 258 184 262 Q176 268 163 266 Z"
-                    fill="#B9D097" stroke="#121212" stroke-width="2.5" stroke-linejoin="round"/>
-            </g>
-
-            <!-- grow-3: taller stem with two more leaves (stem and above) -->
-            <g class="grow-3">
-              <path d="M163 262 Q161 240 162 220"
-                    stroke="#121212" stroke-width="3" fill="none" stroke-linecap="round"/>
-              <path d="M162 240 Q145 232 134 238 Q146 246 162 244 Z"
-                    fill="#D8E6C3" stroke="#121212" stroke-width="2.5" stroke-linejoin="round"/>
-              <path d="M162 222 Q179 215 192 220 Q179 228 162 226 Z"
-                    fill="#D8E6C3" stroke="#121212" stroke-width="2.5" stroke-linejoin="round"/>
-            </g>
-
-            <!-- grow-4: full plant — side branches, top leaf (plant and above) -->
-            <g class="grow-4">
-              <path d="M162 220 Q162 198 164 178"
-                    stroke="#121212" stroke-width="3" fill="none" stroke-linecap="round"/>
-              <!-- left branch -->
-              <path d="M163 200 Q148 192 132 188"
-                    stroke="#121212" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-              <path d="M132 188 Q120 184 116 174 Q128 178 138 184 Z"
-                    fill="#B9D097" stroke="#121212" stroke-width="2.5" stroke-linejoin="round"/>
-              <!-- right branch -->
-              <path d="M163 190 Q178 184 192 178"
-                    stroke="#121212" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-              <path d="M192 178 Q204 174 208 164 Q198 167 188 173 Z"
-                    fill="#B9D097" stroke="#121212" stroke-width="2.5" stroke-linejoin="round"/>
-              <!-- crown leaf -->
-              <path d="M164 178 Q174 168 169 156 Q160 162 159 175 Z"
-                    fill="#D8E6C3" stroke="#121212" stroke-width="2.5" stroke-linejoin="round"/>
-            </g>
-
-            <!-- grow-5: bloom — flower at top -->
-            <g class="grow-5">
-              <path d="M164 178 Q162 162 160 148"
-                    stroke="#121212" stroke-width="3" fill="none" stroke-linecap="round"/>
-              <g transform="translate(160 138)">
-                <circle cx="0" cy="-12" r="10" fill="#F4D35E" stroke="#121212" stroke-width="2.5"/>
-                <circle cx="11" cy="-3" r="10" fill="#F4D35E" stroke="#121212" stroke-width="2.5"/>
-                <circle cx="7" cy="11" r="10" fill="#F4D35E" stroke="#121212" stroke-width="2.5"/>
-                <circle cx="-7" cy="11" r="10" fill="#F4D35E" stroke="#121212" stroke-width="2.5"/>
-                <circle cx="-11" cy="-3" r="10" fill="#F4D35E" stroke="#121212" stroke-width="2.5"/>
-                <circle cx="0" cy="0" r="7" fill="#FFFDF8" stroke="#121212" stroke-width="2.5"/>
-              </g>
-            </g>
+      <div class="pp-hero">
+        <!-- Garden — kept prominent -->
+        <div class="pp-garden">
+          <span class="pp-stamp">Jour 7 · ton avance tient</span>
+          <svg class="pp-plant" viewBox="0 0 320 380" aria-hidden="true">
+            <ellipse cx="170" cy="350" rx="92" ry="7" fill="#121212" opacity=".14"/>
+            <path d="M80 277 L240 277 L230 300 L90 300 Z" fill="#E8C7A9" stroke="#121212" stroke-width="3.5"/>
+            <path d="M88 300 L232 300 L220 342 L100 342 Z" fill="#D6AE89" stroke="#121212" stroke-width="3.5"/>
+            <path d="M160 280 Q161 260 163 244" stroke="#121212" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M163 254 Q150 250 142 254 Q150 260 163 258 Z" fill="#B9D097" stroke="#121212" stroke-width="2.5"/>
+            <path d="M163 244 Q176 240 184 244 Q176 250 163 248 Z" fill="#B9D097" stroke="#121212" stroke-width="2.5"/>
+            <path d="M163 244 Q161 222 162 202" stroke="#121212" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M162 222 Q145 214 134 220 Q146 228 162 226 Z" fill="#D8E6C3" stroke="#121212" stroke-width="2.5"/>
+            <path d="M162 204 Q179 197 192 202 Q179 210 162 208 Z" fill="#D8E6C3" stroke="#121212" stroke-width="2.5"/>
+            <path d="M162 202 Q162 180 164 160" stroke="#121212" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M163 182 Q148 174 132 170" stroke="#121212" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <path d="M132 170 Q120 166 116 156 Q128 160 138 166 Z" fill="#B9D097" stroke="#121212" stroke-width="2.5"/>
+            <path d="M163 172 Q178 166 192 160" stroke="#121212" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <path d="M192 160 Q204 156 208 146 Q198 149 188 155 Z" fill="#B9D097" stroke="#121212" stroke-width="2.5"/>
+            <path d="M164 160 Q174 150 169 138 Q160 144 159 157 Z" fill="#D8E6C3" stroke="#121212" stroke-width="2.5"/>
           </svg>
+          <div class="pp-caption">
+            <span class="pp-stage-pill"><span class="dot"></span>Plante</span>
+            <p class="copy">Belle plante. Ton avance est claire.</p>
+            <span class="meta">5 missions terminées cette semaine</span>
+          </div>
         </div>
 
-        <div class="garden-card__caption">
-          <span class="stage-pill" data-stage-pill>
-            <span class="stage-pill__dot"></span>
-            <span data-stage-label>Graine</span>
-          </span>
-          <p class="handwritten garden-caption-copy" data-garden-caption>Tu n'as pas encore commencé — coche ta première étape.</p>
-          <span class="meta" data-garden-sub>0 mission terminée cette semaine</span>
-        </div>
-      </section>
-
-      <!-- ===== STATS ===== -->
-      <div class="stats stats--garden">
-        <div class="stat stat--stabilo">
-          <div class="label">Cette semaine</div>
-          <div class="value" data-week-missions>0</div>
-          <div class="delta delta-week">mission terminée</div>
-        </div>
-        <div class="stat stat--blue">
-          <div class="label">Jours actifs</div>
-          <div class="value" data-active-days>0</div>
-          <div class="delta delta-active" data-active-days-delta>au total</div>
-        </div>
-        <div class="stat stat--green">
-          <div class="label">Mission du jour</div>
-          <div class="value today-status" data-today-status>—</div>
-          <div class="delta delta-today" data-today-hint>commence quand tu veux</div>
+        <!-- Right: 2 stats + reminder -->
+        <div class="pp-rhythm">
+          <div class="pp-stat pp-stat--stabilo">
+            <div>
+              <div class="label">Cette semaine</div>
+              <div class="value">5<small>missions</small></div>
+            </div>
+            <div class="pp-stat__copy">2 de plus que la semaine dernière. Tu accélères.</div>
+          </div>
+          <div class="pp-stat">
+            <div>
+              <div class="label">Régularité</div>
+              <div class="value">3<small>jours d'affilée</small></div>
+            </div>
+            <div class="pp-stat__copy">À 4 jours de ton record (11 j).</div>
+          </div>
+          <div class="pp-reminder">
+            <div class="ic"><i class="ph-bold ph-arrow-right" aria-hidden="true"></i></div>
+            <div class="pp-reminder__copy">
+              <span class="lbl">Mission du jour · pas encore faite</span>
+              <span class="title">Maths spé — corriger le DM sur les suites</span>
+            </div>
+            <a class="go" href="mission.html">Ouvrir</a>
+          </div>
         </div>
       </div>
 
-      <!-- ===== REMINDER (mission du jour pas finie) ===== -->
-      <section class="reminder-card" data-mission-reminder hidden aria-labelledby="reminder-title">
-        <div class="reminder-card__icon" aria-hidden="true">→</div>
-        <div class="reminder-card__copy">
-          <span class="lbl">Mission du jour</span>
-          <span id="reminder-title" class="title" data-daily-mission-reminder-title>Mission du jour</span>
+      <!-- History strip -->
+      <section class="pp-history">
+        <div class="pp-history__head">
+          <h2>7 derniers jours</h2>
+          <span class="pp-history__chip"><span class="dot"></span>3 jours de suite</span>
         </div>
-        <a class="btn btn--dark" href="mission.html">Ouvrir la mission</a>
-      </section>
-
-      <!-- ===== HISTORIQUE 7 JOURS ===== -->
-      <section class="history-card">
-        <div class="card-head">
-          <h3>7 derniers jours</h3>
-          <span class="chip" data-streak-chip>Aucune série en cours</span>
+        <div class="pp-history__grid">
+          <div class="pp-day active"><span class="dow">Mar</span><span class="dom">13</span><span class="mark"></span></div>
+          <div class="pp-day"><span class="dow">Mer</span><span class="dom">14</span><span class="mark"></span></div>
+          <div class="pp-day active"><span class="dow">Jeu</span><span class="dom">15</span><span class="mark"></span></div>
+          <div class="pp-day active"><span class="dow">Ven</span><span class="dom">16</span><span class="mark"></span></div>
+          <div class="pp-day"><span class="dow">Sam</span><span class="dom">17</span><span class="mark"></span></div>
+          <div class="pp-day active"><span class="dow">Dim</span><span class="dom">18</span><span class="mark"></span></div>
+          <div class="pp-day today"><span class="dow">Lun</span><span class="dom">19</span><span class="mark"></span></div>
         </div>
-        <div class="history-grid" data-history-grid role="list" aria-label="Historique des 7 derniers jours"></div>
-        <p class="history-note">Une mission terminée = un jour actif. La plante pousse parce que tu reviens, pas parce que tu scrolles.</p>
+        <p class="pp-history__note">La plante pousse parce que tu reviens, pas parce que tu scrolles.</p>
       </section>
-
     </section>
   </div>
 </div>
 
-<!-- ============================================================ SLIDE-OVER : MAÎTRISE -->
-<div class="slideover" data-slideover id="slideover-mastery" hidden>
-  <button class="slideover__backdrop" type="button" data-slideover-close aria-label="Fermer le panneau"></button>
-  <aside class="slideover__panel" role="dialog" aria-modal="true" aria-labelledby="slideover-title" tabindex="-1">
-    <header class="slideover__head">
-      <h2 id="slideover-title">Détails par matière</h2>
-      <button type="button" class="slideover__close" data-slideover-close aria-label="Fermer">✕</button>
-    </header>
-    <div class="slideover__body">
-
-      <!-- Couverture globale -->
-      <div class="mini-card">
-        <h3>Dossier cible</h3>
-        <div class="slideover-objective-score">
-          <svg width="80" height="80" viewBox="0 0 100 100" aria-hidden="true">
-            <circle cx="50" cy="50" r="40" fill="none" stroke="#E7DECF" stroke-width="12"/>
-            <circle cx="50" cy="50" r="40" fill="none" stroke="#121212" stroke-width="12" stroke-dasharray="184 252" transform="rotate(-90 50 50)"/>
-            <text x="50" y="48" text-anchor="middle" font-family="Archivo Black, sans-serif" font-size="18" fill="#121212">73%</text>
-            <text x="50" y="64" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="8" font-weight="700" letter-spacing="0.1em" fill="#5F5B57">CIBLE 85%</text>
-          </svg>
-          <div class="slideover-objective-copy">
-            73% des chapitres prioritaires pour ton dossier sont déjà travaillés cette année. Cible 85% avant les choix Parcoursup.
-          </div>
-        </div>
-      </div>
-
-      <!-- Maîtrise par matière -->
-      <div>
-        <h3 class="slideover-section-title">Maîtrise par matière</h3>
-        <div class="slideover-progress-list">
-          <div class="progress-row">
-            <div class="top"><span class="name">Mathématiques spécialité</span><span class="pct">86% · 14 / 16 chap.</span></div>
-            <div class="bar"><div class="fill fill--86"></div></div>
-          </div>
-          <div class="progress-row blue">
-            <div class="top"><span class="name">Physique-chimie</span><span class="pct">71% · 10 / 14 chap.</span></div>
-            <div class="bar"><div class="fill fill--71"></div></div>
-          </div>
-          <div class="progress-row green">
-            <div class="top"><span class="name">Dossier continu</span><span class="pct">62% · 8 / 13 attendus</span></div>
-            <div class="bar"><div class="fill fill--62"></div></div>
-          </div>
-          <div class="progress-row beige">
-            <div class="top"><span class="name">Philo · expression</span><span class="pct">74% · 6 / 8 axes</span></div>
-            <div class="bar"><div class="fill fill--74"></div></div>
-          </div>
-          <div class="progress-row orange">
-            <div class="top"><span class="name">Projet motivé</span><span class="pct">58% · 7 / 12 preuves</span></div>
-            <div class="bar"><div class="fill fill--58"></div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- À revoir -->
-      <div>
-        <h3 class="slideover-section-title">À revoir en priorité</h3>
-        <ul class="revoir-list">
-          <li>
-            <span class="lbl">Maths spé · pas vu depuis 9 jours</span>
-            <span class="title" data-daily-mission-review-title>Chapitre à revoir</span>
-          </li>
-          <li>
-            <span class="lbl">Physique-chimie · 38% maîtrise</span>
-            <span class="title">Énergie mécanique</span>
-          </li>
-          <li>
-            <span class="lbl">Objectif · 42% prêt</span>
-            <span class="title">Argumenter le choix d'école</span>
-          </li>
-        </ul>
-      </div>
-
-      <!-- IA reco -->
-      <div class="ia-mini">
-        <div class="head">
-          <div class="av">IA</div>
-          <span class="ia-mini__label">Recommandation</span>
-        </div>
-        <p class="ia-mini__recommendation" data-daily-mission-recommendation>Recommandation du jour.</p>
-        <a class="op-btn op-btn--dark progression-impact-link" href="objectif.html">Voir l'impact sur l'objectif <span aria-hidden="true">→</span></a>
-      </div>
-
-    </div>
-  </aside>
-</div>
-
-<script src="scripts/model.js" defer></script>
-<script src="scripts/state.js" defer></script>
-<script src="scripts/dom.js" defer></script>
-<script src="scripts/user-context-ui.js" defer></script>
-<script src="scripts/mission-ui.js" defer></script>
-<script defer>
-  (function () {
-    'use strict';
-
-    var STAGE_LABELS = {
-      seed:   { label: 'Graine',     caption: 'Tu n\'as pas encore commencé — coche ta première étape.' },
-      sprout: { label: 'Pousse',     caption: 'La pousse a démarré. Reviens demain.' },
-      stem:   { label: 'Tige',       caption: 'La tige tient. Tu installes un vrai rythme.' },
-      plant:  { label: 'Plante',     caption: 'Belle plante. Ton avance est claire.' },
-      bloom:  { label: 'Floraison',  caption: 'Elle fleurit. Ta régularité parle pour toi.' }
-    };
-
-    var DOW = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
-    var DOW_LONG = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
-    var MONTHS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
-
-    function render() {
-      if (!window.OutilPrepa) return;
-      var op = window.OutilPrepa;
-      var stage = op.plantStage();
-      var weekN = op.weekMissionCount();
-      var activeN = op.activeDaysCount();
-      var streak = op.streakDays();
-      var doneToday = op.missionCompletedToday();
-
-      // Plant
-      var plant = document.querySelector('[data-garden-plant]');
-      if (plant) plant.setAttribute('data-stage', stage);
-
-      // Stage pill + caption
-      var pill = document.querySelector('[data-stage-label]');
-      if (pill) pill.textContent = STAGE_LABELS[stage].label;
-      var caption = document.querySelector('[data-garden-caption]');
-      if (caption) caption.textContent = STAGE_LABELS[stage].caption;
-
-      var sub = document.querySelector('[data-garden-sub]');
-      if (sub) sub.textContent = weekN + ' mission' + (weekN > 1 ? 's' : '') + ' terminée' + (weekN > 1 ? 's' : '') + ' cette semaine';
-
-      var stamp = document.querySelector('[data-garden-stamp]');
-      if (stamp) {
-        stamp.textContent = activeN === 0
-          ? 'Jour 0 — Démarre'
-          : 'Jour ' + activeN + ' — ton avance ' + (streak >= 2 ? 'tient' : 'commence');
-      }
-
-      // Status sub in page-head
-      var status = document.querySelector('[data-garden-status]');
-      if (status) {
-        if (activeN === 0) {
-          status.textContent = 'Plante ta première mission pour voir ton jardin pousser.';
-        } else {
-          status.textContent = 'Jour ' + activeN + ' actif · ' + (streak >= 2 ? streak + ' jours de suite' : 'reprends le rythme aujourd\'hui') + '.';
-        }
-      }
-
-      // Stats
-      var weekEl = document.querySelector('[data-week-missions]');
-      if (weekEl) weekEl.textContent = String(weekN);
-      var activeEl = document.querySelector('[data-active-days]');
-      if (activeEl) activeEl.textContent = String(activeN);
-      var todayEl = document.querySelector('[data-today-status]');
-      if (todayEl) todayEl.textContent = doneToday ? 'Faite' : 'À faire';
-      var todayHint = document.querySelector('[data-today-hint]');
-      if (todayHint) todayHint.textContent = doneToday ? 'reviens demain pour la suite' : 'commence quand tu veux';
-
-      // Streak chip
-      var streakChip = document.querySelector('[data-streak-chip]');
-      if (streakChip) {
-        streakChip.classList.remove('streak-chip--empty', 'streak-chip--active', 'streak-chip--strong');
-        if (streak === 0) {
-          streakChip.textContent = 'Aucune série en cours';
-          streakChip.classList.add('streak-chip--empty');
-        } else if (streak === 1) {
-          streakChip.textContent = '1 jour actif';
-          streakChip.classList.add('streak-chip--active');
-        } else {
-          streakChip.textContent = streak + ' jours de suite';
-          streakChip.classList.add('streak-chip--strong');
-        }
-      }
-
-      // History grid
-      var grid = document.querySelector('[data-history-grid]');
-      if (grid) {
-        grid.innerHTML = '';
-        var hist = op.history(7);
-        var todayIso = op.today();
-        hist.forEach(function (h) {
-          var d = new Date(h.date + 'T00:00:00');
-          var isToday = h.date === todayIso;
-          var cell = document.createElement('div');
-          cell.className = 'history-day';
-          if (h.missionCompleted) cell.classList.add('is-active');
-          if (isToday) cell.classList.add('is-today');
-          cell.setAttribute('role', 'listitem');
-          var dateLabel = DOW_LONG[d.getDay()] + ' ' + d.getDate() + ' ' + MONTHS[d.getMonth()];
-          var stateLabel = h.missionCompleted ? 'mission terminée' : 'pas de mission';
-          cell.setAttribute('aria-label', dateLabel + (isToday ? ' — aujourd\'hui — ' : ' — ') + stateLabel);
-          if (isToday) cell.setAttribute('aria-current', 'date');
-          var dowSpan = document.createElement('span');
-          dowSpan.className = 'dow';
-          dowSpan.setAttribute('aria-hidden', 'true');
-          dowSpan.textContent = DOW[d.getDay()];
-          var domSpan = document.createElement('span');
-          domSpan.className = 'dom';
-          domSpan.setAttribute('aria-hidden', 'true');
-          domSpan.textContent = d.getDate();
-          var glyphSpan = document.createElement('span');
-          glyphSpan.className = 'glyph';
-          glyphSpan.setAttribute('aria-hidden', 'true');
-          cell.appendChild(dowSpan);
-          cell.appendChild(domSpan);
-          cell.appendChild(glyphSpan);
-          grid.appendChild(cell);
-        });
-      }
-
-      // Reminder
-      var reminder = document.querySelector('[data-mission-reminder]');
-      if (reminder) {
-        if (doneToday) {
-          reminder.setAttribute('hidden', '');
-        } else {
-          reminder.removeAttribute('hidden');
-        }
-      }
-
-      // empty state class
-      var card = document.querySelector('[data-garden-card]');
-      if (card) card.classList.toggle('garden-empty', stage === 'seed' && weekN === 0);
-    }
-
-    /* ---------- Slide-over ---------- */
-    var slideover = document.querySelector('[data-slideover]');
-    var opener = document.querySelector('[data-open-slideover]');
-    var lastFocused = null;
-
-    function getFocusable() {
-      if (!slideover) return [];
-      return Array.from(slideover.querySelectorAll(
-        'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'
-      )).filter(function (el) { return el.offsetParent !== null; });
-    }
-
-    function openSlideover() {
-      if (!slideover) return;
-      lastFocused = document.activeElement;
-      slideover.removeAttribute('hidden');
-      // double rAF to let display:flex paint before the transform transition
-      requestAnimationFrame(function () {
-        requestAnimationFrame(function () {
-          slideover.classList.add('is-open');
-        });
-      });
-      document.body.classList.add('has-slideover-open');
-      // initial focus
-      var panel = slideover.querySelector('.slideover__panel');
-      if (panel) panel.focus();
-    }
-
-    function closeSlideover() {
-      if (!slideover) return;
-      slideover.classList.remove('is-open');
-      document.body.classList.remove('has-slideover-open');
-      // wait for transition to finish before hiding
-      setTimeout(function () {
-        if (!slideover.classList.contains('is-open')) {
-          slideover.setAttribute('hidden', '');
-        }
-      }, 320);
-      if (lastFocused && typeof lastFocused.focus === 'function') {
-        lastFocused.focus();
-      }
-    }
-
-    if (opener) opener.addEventListener('click', openSlideover);
-
-    if (slideover) {
-      slideover.addEventListener('click', function (e) {
-        var t = e.target;
-        if (t && t.closest && t.closest('[data-slideover-close]')) {
-          closeSlideover();
-        }
-      });
-      document.addEventListener('keydown', function (e) {
-        if (!slideover.classList.contains('is-open')) return;
-        if (e.key === 'Escape') {
-          e.preventDefault();
-          closeSlideover();
-          return;
-        }
-        if (e.key === 'Tab') {
-          var nodes = getFocusable();
-          if (!nodes.length) return;
-          var first = nodes[0];
-          var last = nodes[nodes.length - 1];
-          if (e.shiftKey && document.activeElement === first) {
-            e.preventDefault();
-            last.focus();
-          } else if (!e.shiftKey && document.activeElement === last) {
-            e.preventDefault();
-            first.focus();
-          }
-        }
-      });
-    }
-
-    /* ---------- Init + subscribe ---------- */
-    function init() {
-      render();
-      if (window.OutilPrepa) {
-        window.OutilPrepa.subscribe(render);
-      }
-    }
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', init);
-    } else {
-      init();
-    }
-  })();
-</script>
 
 <nav class="mobile-tabs" aria-label="Navigation principale">
   <a href="index.html" class="mobile-tab">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg>
+    <i class="ph-bold ph-target" aria-hidden="true"></i>
     <span>Aujourd'hui</span>
   </a>
   <a href="progression.html" class="mobile-tab is-active" aria-current="page">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l4-4 4 4 5-7 5 7"/><path d="M3 21h18"/></svg>
+    <i class="ph-bold ph-chart-line-up" aria-hidden="true"></i>
     <span>Progression</span>
   </a>
   <a href="objectif.html" class="mobile-tab">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    <i class="ph-bold ph-squares-four" aria-hidden="true"></i>
     <span>Objectif</span>
   </a>
   <a href="focus.html" class="mobile-tab">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+    <i class="ph-bold ph-timer" aria-hidden="true"></i>
     <span>Focus</span>
   </a>
 </nav>
+<script src="scripts/model.js"></script>
+<script src="scripts/state.js"></script>
+<script src="scripts/dom.js"></script>
+<script src="scripts/user-context-ui.js"></script>
+<script src="scripts/mission-ui.js"></script>
 </body>
 </html>

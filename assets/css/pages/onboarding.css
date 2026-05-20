@@ -55,6 +55,7 @@ body {
 }
 .ob-back:hover { background: var(--paper-2); color: var(--ink); }
 .ob-back[hidden] { visibility: hidden; }
+.ob-back .ph-bold { font-size: 14px; line-height: 1; }
 
 /* ---------- stage ---------- */
 .ob-stage {
@@ -126,8 +127,8 @@ body {
   border: 2.5px solid var(--ink); border-radius: 8px;
   background: var(--paper-2);
   display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-display); font-size: 16px;
 }
+.opt .ic .ph-bold { font-size: 19px; line-height: 1; color: currentColor; }
 .opt.selected .ic { background: #FFFDF8; }
 .opt .copy { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .opt .copy .title { font-family: var(--font-body); font-weight: 800; font-size: 15px; }
@@ -152,8 +153,10 @@ body {
 }
 .chip-opt:hover { background: var(--paper-2); transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
 .chip-opt.selected { background: var(--stabilo); transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
-.chip-opt .check { width: 18px; height: 18px; border: 2px solid var(--ink); border-radius: 4px; background: #FFFDF8; display: flex; align-items: center; justify-content: center; font-size: 12px; font-family: var(--font-display); }
+.chip-opt .check { width: 18px; height: 18px; border: 2px solid var(--ink); border-radius: 4px; background: #FFFDF8; display: flex; align-items: center; justify-content: center; }
 .chip-opt.selected .check { background: var(--ink); color: var(--stabilo); }
+.chip-opt .check .ph-bold { font-size: 11px; line-height: 1; opacity: 0; color: currentColor; }
+.chip-opt.selected .check .ph-bold { opacity: 1; }
 
 /* continue button (only on multi-select / freeform steps) */
 .ob-continue {
@@ -167,6 +170,7 @@ body {
   align-self: flex-start;
   transition: transform .2s var(--ease-calm), box-shadow .2s;
 }
+.ob-continue .ph-bold { font-size: 16px; line-height: 1; }
 .ob-continue:hover { transform: translate(2px, 2px); box-shadow: 3px 3px 0 var(--ink); }
 .ob-continue:disabled { opacity: .35; cursor: not-allowed; transform: none; box-shadow: 5px 5px 0 var(--ink); }
 
@@ -225,9 +229,9 @@ body {
   width: 32px; height: 32px; border-radius: 8px; border: 2.5px solid var(--ink);
   background: #FFFDF8;
   display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-display); font-size: 14px;
   flex-shrink: 0;
 }
+.preview-row .ic .ph-bold { font-size: 17px; line-height: 1; color: currentColor; }
 .preview-row .copy { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .preview-row .copy .top { font-family: var(--font-body); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); }
 .preview-row .copy .title { font-family: var(--font-body); font-weight: 700; font-size: 15px; }

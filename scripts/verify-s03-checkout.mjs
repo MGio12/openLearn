@@ -114,17 +114,21 @@ async function assertNoHorizontalOverflow(page, viewportLabel) {
   );
 }
 
-async function assertPrimaryPaidOffer(page, viewportLabel) {
-  const paidOffers = page.locator('.price-card').filter({ hasText: /10\s*€/i });
-  const count = await paidOffers.count();
-  assert(count === 1, `${viewportLabel} checkout.html: expected exactly one visible primary paid offer price card at 10 €/mois, found ${count}`);
-  await expectVisible(paidOffers.first(), `${viewportLabel} checkout.html: primary paid offer must be visible`);
+async function assertPlanOffers(page, viewportLabel) {
+  const planCards = page.locator('.plan-card');
+  const count = await planCards.count();
+  assert(count === 2, `${viewportLabel} checkout.html: expected two visible V2 plan cards, found ${count}`);
 
-  const offerText = normalizeText(await paidOffers.first().textContent());
-  assert(
-    /10\s*€\s*(\/|par)?\s*mois/i.test(offerText) || /10\s*€.*mois/i.test(offerText),
-    `${viewportLabel} checkout.html: primary paid offer must state 10 €/mois or 10 € / mois, got “${offerText}”`,
-  );
+  const essential = page.locator('[data-plan-card="essential"]').first();
+  const iaPlus = page.locator('[data-plan-card="ia-plus"]').first();
+  await expectVisible(essential, `${viewportLabel} checkout.html: essential plan card must be visible`);
+  await expectVisible(iaPlus, `${viewportLabel} checkout.html: IA plus plan card must be visible`);
+
+  const pageText = normalizeText(await page.locator('body').textContent());
+  assert(/7,62\s*€\s*\/\s*semaine/i.test(pageText), `${viewportLabel} checkout.html: essential trimester price must be visible`);
+  assert(/15,31\s*€\s*\/\s*semaine/i.test(pageText), `${viewportLabel} checkout.html: IA plus trimester price must be visible`);
+  assert(/99\s*€\s*\/\s*trimestre/i.test(pageText), `${viewportLabel} checkout.html: essential trimester billing must be visible`);
+  assert(/199\s*€.*trimestre/i.test(pageText), `${viewportLabel} checkout.html: IA plus trimester billing must be visible`);
 }
 
 async function stripeMetaUrl(page, viewportLabel) {
@@ -161,7 +165,7 @@ async function assertTrustCopy(page, viewportLabel) {
     { label: 'card number not stored/touched by app servers', pattern: /(num[eé]ro\s+de\s+carte|donn[eé]e\s+bancaire).*?(ne\s+.*?(stock|touche)|jamais).*?(serveurs?|Stripe)/i },
     { label: 'monthly subscription', pattern: /(abonnement|mensuel|chaque\s+mois|\/\s*mois)/i },
     { label: 'cancellable subscription', pattern: /(annulable|r[eé]siliable|annuler|r[eé]silier)/i },
-    { label: 'transparent price', pattern: /(10\s*€\s*(\/|par)?\s*mois|10\s*€.*chaque\s+mois|TVA\s+incluse|prix\s+transparent)/i },
+    { label: 'transparent price', pattern: /(7,62\s*€\s*\/\s*semaine|15,31\s*€\s*\/\s*semaine|99\s*€\s*\/\s*trimestre|199\s*€.*trimestre|prix\s+transparent)/i },
   ];
 
   for (const check of trustChecks) {
@@ -176,7 +180,7 @@ async function assertValidCheckoutViewport(browser, viewport) {
     await page.setViewportSize({ width: viewport.width, height: viewport.height });
     await gotoCheckout(page);
     const expectedUrl = await stripeMetaUrl(page, viewport.label);
-    await assertPrimaryPaidOffer(page, viewport.label);
+    await assertPlanOffers(page, viewport.label);
     await assertTrustCopy(page, viewport.label);
     await assertCheckoutButtonsReady(page, expectedUrl, viewport.label);
     await assertNoHorizontalOverflow(page, viewport.label);

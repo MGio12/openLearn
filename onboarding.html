@@ -9,6 +9,7 @@
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='6' width='52' height='52' rx='12' fill='%23F4D35E' stroke='%23121212' stroke-width='5' transform='rotate(-6 32 32)'/%3E%3Ctext x='32' y='44' font-family='Arial Black, Impact, sans-serif' font-size='34' font-weight='900' text-anchor='middle' fill='%23121212' transform='rotate(-6 32 32)'%3EO%3C/text%3E%3C/svg%3E" />
     <link rel="stylesheet" href="colors_and_type.css" />
     <link rel="stylesheet" href="assets/css/pages/onboarding.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" />
@@ -24,18 +25,7 @@
           <span class="name">Objectif Lycée</span>
         </a>
         <button class="ob-back" id="back" hidden>
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
+          <i class="ph-bold ph-caret-left" aria-hidden="true"></i>
           Retour
         </button>
       </header>
@@ -56,35 +46,35 @@
           </p>
           <div class="options" data-options="goal">
             <button class="opt" data-value="ingenieur">
-              <span class="ic">✦</span>
+              <span class="ic"><i class="ph-bold ph-wrench" aria-hidden="true"></i></span>
               <span class="copy">
                 <span class="title">École d'ingénieur</span>
                 <span class="sub">INSA, UTC, Polytech, écoles post-bac…</span>
               </span>
             </button>
             <button class="opt" data-value="commerce">
-              <span class="ic">◐</span>
+              <span class="ic"><i class="ph-bold ph-briefcase" aria-hidden="true"></i></span>
               <span class="copy">
                 <span class="title">École de commerce</span>
                 <span class="sub">Post-bac, IEP, double diplôme, commerce.</span>
               </span>
             </button>
             <button class="opt" data-value="sante">
-              <span class="ic">○</span>
+              <span class="ic"><i class="ph-bold ph-atom" aria-hidden="true"></i></span>
               <span class="copy">
                 <span class="title">Santé ou sciences</span>
                 <span class="sub">PASS, LAS, licence sélective, CPES.</span>
               </span>
             </button>
             <button class="opt" data-value="droit-sciencespo">
-              <span class="ic">▲</span>
+              <span class="ic"><i class="ph-bold ph-scales" aria-hidden="true"></i></span>
               <span class="copy">
                 <span class="title">Droit, IEP, sciences po</span>
                 <span class="sub">Dossier régulier, expression claire, méthode.</span>
               </span>
             </button>
             <button class="opt" data-value="indecis">
-              <span class="ic">▭</span>
+              <span class="ic"><i class="ph-bold ph-compass" aria-hidden="true"></i></span>
               <span class="copy">
                 <span class="title">Je ne sais pas encore</span>
                 <span class="sub">On construit d'abord un dossier solide.</span>
@@ -102,14 +92,14 @@
           </p>
           <div class="options options--two" data-options="classe">
             <button class="opt" data-value="premiere">
-              <span class="ic">1</span
+              <span class="ic"><i class="ph-bold ph-graduation-cap" aria-hidden="true"></i></span
               ><span class="copy"
                 ><span class="title">Première</span
                 ><span class="sub">Construire les bases et les notes du dossier</span></span
               >
             </button>
             <button class="opt" data-value="terminale">
-              <span class="ic">T</span
+              <span class="ic"><i class="ph-bold ph-graduation-cap" aria-hidden="true"></i></span
               ><span class="copy"
                 ><span class="title">Terminale</span
                 ><span class="sub">Sécuriser les contrôles, le bac et Parcoursup</span></span
@@ -127,28 +117,28 @@
           </p>
           <div class="options options--two" data-options="specialite">
             <button class="opt" data-value="maths-pc">
-              <span class="ic">M</span
+              <span class="ic"><i class="ph-bold ph-calculator" aria-hidden="true"></i></span
               ><span class="copy"
                 ><span class="title">Maths · Physique-chimie</span
                 ><span class="sub">Ingénieur, sciences, santé</span></span
               >
             </button>
             <button class="opt" data-value="maths-svt">
-              <span class="ic">S</span
+              <span class="ic"><i class="ph-bold ph-leaf" aria-hidden="true"></i></span
               ><span class="copy"
                 ><span class="title">Maths · SVT</span
                 ><span class="sub">Santé, bio, écoles scientifiques</span></span
               >
             </button>
             <button class="opt" data-value="ses-hggsp">
-              <span class="ic">E</span
+              <span class="ic"><i class="ph-bold ph-globe-hemisphere-west" aria-hidden="true"></i></span
               ><span class="copy"
                 ><span class="title">SES · HGGSP</span
                 ><span class="sub">Commerce, droit, IEP</span></span
               >
             </button>
             <button class="opt" data-value="autre">
-              <span class="ic">+</span
+              <span class="ic"><i class="ph-bold ph-squares-four" aria-hidden="true"></i></span
               ><span class="copy"
                 ><span class="title">Autre combinaison</span
                 ><span class="sub">On partira de tes priorités</span></span
@@ -166,7 +156,7 @@
           </p>
           <div class="options options--two" data-options="rythme">
             <button class="opt" data-value="leger">
-              <span class="ic">◔</span>
+              <span class="ic"><i class="ph-bold ph-clock" aria-hidden="true"></i></span>
               <span class="copy"
                 ><span class="title">Léger</span
                 ><span class="sub"
@@ -175,7 +165,7 @@
               >
             </button>
             <button class="opt" data-value="moyen">
-              <span class="ic">◑</span>
+              <span class="ic"><i class="ph-bold ph-gauge" aria-hidden="true"></i></span>
               <span class="copy"
                 ><span class="title">Régulier</span
                 ><span class="sub"
@@ -184,7 +174,7 @@
               >
             </button>
             <button class="opt" data-value="intense">
-              <span class="ic">◕</span>
+              <span class="ic"><i class="ph-bold ph-lightning" aria-hidden="true"></i></span>
               <span class="copy"
                 ><span class="title">Intense</span
                 ><span class="sub"
@@ -193,7 +183,7 @@
               >
             </button>
             <button class="opt" data-value="indecis">
-              <span class="ic">?</span>
+              <span class="ic"><i class="ph-bold ph-compass" aria-hidden="true"></i></span>
               <span class="copy"
                 ><span class="title">Je ne sais pas encore</span
                 ><span class="sub">On le découvrira ensemble.</span></span
@@ -212,35 +202,35 @@
           </p>
           <div class="chips" data-chips="priorites">
             <button class="chip-opt" data-value="maths">
-              <span class="check"></span>Mathématiques
+              <span class="check"><i class="ph-bold ph-check" aria-hidden="true"></i></span>Mathématiques
             </button>
             <button class="chip-opt" data-value="physique">
-              <span class="check"></span>Physique-chimie
+              <span class="check"><i class="ph-bold ph-check" aria-hidden="true"></i></span>Physique-chimie
             </button>
             <button class="chip-opt" data-value="svt">
-              <span class="check"></span>SVT
+              <span class="check"><i class="ph-bold ph-check" aria-hidden="true"></i></span>SVT
             </button>
             <button class="chip-opt" data-value="ses">
-              <span class="check"></span>SES
+              <span class="check"><i class="ph-bold ph-check" aria-hidden="true"></i></span>SES
             </button>
             <button class="chip-opt" data-value="hggsp">
-              <span class="check"></span>HGGSP
+              <span class="check"><i class="ph-bold ph-check" aria-hidden="true"></i></span>HGGSP
             </button>
             <button class="chip-opt" data-value="francais">
-              <span class="check"></span>Français · Philo
+              <span class="check"><i class="ph-bold ph-check" aria-hidden="true"></i></span>Français · Philo
             </button>
             <button class="chip-opt" data-value="anglais">
-              <span class="check"></span>Anglais
+              <span class="check"><i class="ph-bold ph-check" aria-hidden="true"></i></span>Anglais
             </button>
             <button class="chip-opt" data-value="lv2">
-              <span class="check"></span>LV2
+              <span class="check"><i class="ph-bold ph-check" aria-hidden="true"></i></span>LV2
             </button>
             <button class="chip-opt" data-value="grand-oral">
-              <span class="check"></span>Grand oral
+              <span class="check"><i class="ph-bold ph-check" aria-hidden="true"></i></span>Grand oral
             </button>
           </div>
           <button class="ob-continue" id="continue-priorites" disabled>
-            Continuer →
+            Continuer <i class="ph-bold ph-arrow-right" aria-hidden="true"></i>
           </button>
         </section>
 
@@ -261,7 +251,7 @@
               <span class="preview-card-meta">3 missions · 2 h 15</span>
             </div>
             <div class="preview-row suggest">
-              <div class="ic">★</div>
+              <div class="ic"><i class="ph-bold ph-sparkle" aria-hidden="true"></i></div>
               <div class="copy">
                 <div class="top">Suggéré pour commencer · 25 min</div>
                 <div class="title">
@@ -271,7 +261,7 @@
               <div class="duration">25 min</div>
             </div>
             <div class="preview-row">
-              <div class="ic">P</div>
+              <div class="ic"><i class="ph-bold ph-flask" aria-hidden="true"></i></div>
               <div class="copy">
                 <div class="top">Physique-chimie · matinée</div>
                 <div class="title">
@@ -281,7 +271,7 @@
               <div class="duration">45 min</div>
             </div>
             <div class="preview-row">
-              <div class="ic">F</div>
+              <div class="ic"><i class="ph-bold ph-flag" aria-hidden="true"></i></div>
               <div class="copy">
                 <div class="top">Objectif · début d'après-midi</div>
                 <div class="title">
@@ -294,7 +284,7 @@
 
           <div class="preview-actions">
             <button class="ob-continue" id="continue-preview">
-              Ouvrir cette mission →
+              Ouvrir cette mission <i class="ph-bold ph-arrow-right" aria-hidden="true"></i>
             </button>
             <span class="preview-action-note">25 min · tu peux t'arrêter quand tu veux</span>
           </div>
@@ -329,7 +319,7 @@
           </div>
 
           <p class="email-offer-note">Tes 3 premières missions sont offertes · sans carte bancaire</p>
-          <button class="ob-continue" id="finish">Tout est prêt →</button>
+          <button class="ob-continue" id="finish">Tout est prêt <i class="ph-bold ph-arrow-right" aria-hidden="true"></i></button>
         </section>
 
         <!-- STEP 8 — Done -->
@@ -346,7 +336,7 @@
           <div class="preview-card done-mission-card" id="done-mission-card">
             <div class="done-mission-eyebrow">Ta première mission</div>
             <div class="preview-row suggest">
-              <div class="ic" id="done-ic">M</div>
+              <div class="ic" id="done-ic"><i class="ph-bold ph-calculator" aria-hidden="true"></i></div>
               <div class="copy">
                 <div class="top" id="done-top">Maths spé — suggéré pour commencer</div>
                 <div class="title" id="done-title">Exponentielle &amp; dérivation — exercice type contrôle</div>
@@ -358,7 +348,7 @@
             href="mission.html"
             class="ob-continue ob-continue--primary-link"
           >
-            Ouvrir ma première mission →
+            Ouvrir ma première mission <i class="ph-bold ph-arrow-right" aria-hidden="true"></i>
           </a>
         </section>
       </main>
@@ -396,27 +386,27 @@
       const backBtn = document.getElementById("back");
 
       const MISSIONS = {
-        maths:       { ic: 'M', label: 'Maths spé',        title: 'Exponentielle et dérivation — exercice type contrôle', duration: '25 min' },
-        physique:    { ic: 'P', label: 'Physique-chimie',  title: 'Énergie mécanique — refaire l\'exercice clé',          duration: '35 min' },
-        svt:         { ic: 'S', label: 'SVT',              title: 'Génétique — schéma bilan et questions flash',          duration: '30 min' },
-        ses:         { ic: 'E', label: 'SES',              title: 'Croissance — relier deux notions au cours',            duration: '30 min' },
-        hggsp:       { ic: 'H', label: 'HGGSP',            title: 'Composer une intro sur la puissance',                  duration: '30 min' },
-        francais:    { ic: 'F', label: 'Français · Philo', title: 'Plan détaillé sur la technique',                       duration: '30 min' },
-        anglais:     { ic: 'A', label: 'Anglais',          title: 'Expression écrite — reformuler 5 arguments',           duration: '25 min' },
-        lv2:         { ic: 'L', label: 'LV2',              title: 'Vocabulaire thématique — fiche mémo 20 mots',          duration: '20 min' },
-        'grand-oral':{ ic: 'O', label: 'Grand oral',       title: 'Projet motivé — noter 3 preuves concrètes',            duration: '25 min' }
+        maths:       { ic: 'ph-calculator', label: 'Maths spé',        title: 'Exponentielle et dérivation — exercice type contrôle', duration: '25 min' },
+        physique:    { ic: 'ph-flask', label: 'Physique-chimie',       title: 'Énergie mécanique — refaire l\'exercice clé',          duration: '35 min' },
+        svt:         { ic: 'ph-leaf', label: 'SVT',                   title: 'Génétique — schéma bilan et questions flash',          duration: '30 min' },
+        ses:         { ic: 'ph-chart-bar', label: 'SES',              title: 'Croissance — relier deux notions au cours',            duration: '30 min' },
+        hggsp:       { ic: 'ph-globe-hemisphere-west', label: 'HGGSP', title: 'Composer une intro sur la puissance',                  duration: '30 min' },
+        francais:    { ic: 'ph-notebook', label: 'Français · Philo',  title: 'Plan détaillé sur la technique',                       duration: '30 min' },
+        anglais:     { ic: 'ph-chat-text', label: 'Anglais',          title: 'Expression écrite — reformuler 5 arguments',           duration: '25 min' },
+        lv2:         { ic: 'ph-translate', label: 'LV2',              title: 'Vocabulaire thématique — fiche mémo 20 mots',          duration: '20 min' },
+        'grand-oral':{ ic: 'ph-microphone-stage', label: 'Grand oral', title: 'Projet motivé — noter 3 preuves concrètes',            duration: '25 min' }
       };
       const SPECIALITE_DEF = { 'maths-pc': 'maths', 'maths-svt': 'svt', 'ses-hggsp': 'ses', autre: 'maths' };
       const SUBJECT_ICONS = {
-        maths: 'M',
-        'physique-chimie': 'P',
-        svt: 'S',
-        ses: 'E',
-        hggsp: 'H',
-        'francais-philo': 'F',
-        anglais: 'A',
-        lv2: 'L',
-        'grand-oral': 'O',
+        maths: 'ph-calculator',
+        'physique-chimie': 'ph-flask',
+        svt: 'ph-leaf',
+        ses: 'ph-chart-bar',
+        hggsp: 'ph-globe-hemisphere-west',
+        'francais-philo': 'ph-notebook',
+        anglais: 'ph-chat-text',
+        lv2: 'ph-translate',
+        'grand-oral': 'ph-microphone-stage',
       };
 
       function onboardingPayload(extra) {
@@ -442,7 +432,7 @@
         if (!mission) return null;
         const minutes = mission.focusDurationMinutes || mission.durationMinutes || 25;
         return {
-          ic: SUBJECT_ICONS[mission.subjectId] || 'M',
+          ic: SUBJECT_ICONS[mission.subjectId] || 'ph-calculator',
           label: mission.subjectLabel || 'Mission',
           title: mission.taskTitle || mission.title,
           duration: minutes + ' min',
@@ -475,11 +465,20 @@
         const rows = card.querySelectorAll('.preview-row');
         for (let i = 0; i < 3; i++) {
           const m = getPreviewMission(i);
-          rows[i].querySelector('.ic').textContent = m.ic;
+          setPhosphorIcon(rows[i].querySelector('.ic'), m.ic);
           rows[i].querySelector('.top').textContent = m.label + suffixes[i];
           rows[i].querySelector('.title').textContent = m.title;
           rows[i].querySelector('.duration').textContent = m.duration;
         }
+      }
+
+      function setPhosphorIcon(holder, iconName) {
+        if (!holder) return;
+        holder.textContent = '';
+        const icon = document.createElement('i');
+        icon.className = 'ph-bold ' + iconName;
+        icon.setAttribute('aria-hidden', 'true');
+        holder.appendChild(icon);
       }
 
       const CLASSE_LABELS = { premiere:'Première', terminale:'Terminale' };
@@ -489,7 +488,7 @@
 
       function updateDoneCard() {
         const m = getPreviewMission(0);
-        document.getElementById('done-ic').textContent = m.ic;
+        setPhosphorIcon(document.getElementById('done-ic'), m.ic);
         document.getElementById('done-top').textContent = m.label + ' — suggéré pour commencer';
         document.getElementById('done-title').textContent = m.title;
         document.getElementById('done-dur').textContent = m.duration;

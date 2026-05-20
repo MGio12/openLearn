@@ -1,483 +1,448 @@
 <!doctype html>
+<!--
+  ============================================================
+  Objectif Lycée — Objectif dossier
+  Drop-in replacement: paths use root-level CSS/JS.
+  Navigation links point to final .html pages.
+  ============================================================
+-->
+
 <html lang="fr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Objectif Lycée — Objectif · Dossier</title>
-  <meta name="description" content="Carte d'impact de ton dossier : leviers prioritaires, chapitres qui pèsent, échéance Parcoursup. Pas d'intuition, des données.">
-  <meta name="theme-color" content="#F4D35E">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='6' width='52' height='52' rx='12' fill='%23F4D35E' stroke='%23121212' stroke-width='5' transform='rotate(-6 32 32)'/%3E%3Ctext x='32' y='44' font-family='Arial Black, Impact, sans-serif' font-size='34' font-weight='900' text-anchor='middle' fill='%23121212' transform='rotate(-6 32 32)'%3EO%3C/text%3E%3C/svg%3E">
+  <title>Objectif Lycée — Objectif dossier</title>
   <link rel="stylesheet" href="colors_and_type.css">
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="assets/css/pages/objectif.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css">
+  <style>
+    html, body { height: auto; overflow: visible; }
+    .app { height: auto; min-height: 100vh; }
+    .main { overflow: visible; }
+    .view { display: block !important; flex: none !important; overflow: visible !important; height: auto !important; padding: 28px 36px 32px !important; background-image: none !important; }
+
+    .op-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 22px; flex-wrap: wrap; }
+    .op-head h1 { font-family: var(--font-display); font-size: 40px; line-height: 1; text-transform: uppercase; letter-spacing: -.01em; margin: 0; }
+    .op-head .sub { font-family: var(--font-body); font-size: 14px; color: var(--ink-soft); margin-top: 6px; }
+    .op-filter { display: flex; gap: 4px; padding: 4px; background: var(--paper-2); border: 2.5px solid var(--ink); border-radius: 12px; }
+    .op-filter button {
+      padding: 8px 14px;
+      background: transparent; border: none;
+      font-family: var(--font-body); font-weight: 800; font-size: 12px;
+      letter-spacing: .04em; color: var(--ink); cursor: pointer;
+      border-radius: 8px;
+    }
+    .op-filter button.active { background: var(--ink); color: var(--paper); }
+
+    /* Top row: 2 stats (not 3) — "Leviers" stat removed (redundant with right column) */
+    .op-hero {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+    .op-stat {
+      background: #FFFDF8;
+      border: 2.5px solid var(--ink);
+      border-radius: 14px;
+      padding: 22px 24px;
+      box-shadow: 5px 5px 0 var(--ink);
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .op-stat--stabilo { background: var(--stabilo); }
+    .op-stat--beige { background: var(--beige); }
+    .op-stat .label {
+      font-family: var(--font-body); font-size: 11px; font-weight: 800;
+      letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft);
+    }
+    .op-stat--stabilo .label { color: #5C4A0A; }
+    .op-stat--beige .label { color: #6C4A28; }
+    .op-stat .value {
+      font-family: var(--font-display); font-size: 48px; line-height: 1; letter-spacing: -.01em;
+    }
+    .op-stat .value small {
+      font-family: var(--font-body); font-size: 14px; font-weight: 800;
+      color: var(--ink-soft); margin-left: 6px;
+    }
+    .op-stat--stabilo .value small { color: #5C4A0A; }
+    .op-stat--beige .value small { color: #6C4A28; }
+    .op-stat .note { font-family: var(--font-body); font-size: 13px; color: var(--ink-soft); line-height: 1.45; margin-top: 6px; }
+    .op-stat--stabilo .note { color: #5C4A0A; }
+    .op-stat--beige .note { color: #6C4A28; }
+
+    /* Split */
+    .op-split {
+      display: grid;
+      grid-template-columns: 1.55fr 1fr;
+      gap: 22px;
+    }
+    .op-card {
+      background: #FFFDF8;
+      border: 2.5px solid var(--ink);
+      border-radius: 14px;
+      padding: 22px 24px;
+      box-shadow: 5px 5px 0 var(--ink);
+    }
+    .op-card__head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .op-card__head h2 {
+      font-family: var(--font-display); font-size: 18px;
+      text-transform: uppercase; margin: 0;
+    }
+    .op-legend {
+      display: flex; align-items: center; gap: 6px;
+      font-family: var(--font-body); font-size: 11px; color: var(--ink-soft);
+    }
+    .op-legend .swatches { display: flex; gap: 2px; }
+    .op-legend .sw {
+      width: 14px; height: 14px;
+      border: 1.5px solid var(--ink);
+      border-radius: 3px;
+      display: inline-block;
+    }
+    .op-legend .sw1 { background: var(--paper-2); }
+    .op-legend .sw2 { background: var(--stabilo-wash); }
+    .op-legend .sw3 { background: #F2D87C; }
+    .op-legend .sw4 { background: var(--stabilo); }
+    .op-legend .sw5 { background: #E7A847; }
+    .op-legend .lbl { letter-spacing: .04em; }
+
+    /* Heatmap — clean solid cells, no glyphs */
+    .op-heatmap {
+      display: grid;
+      grid-template-columns: 200px repeat(6, 1fr) 70px;
+      gap: 5px;
+      align-items: center;
+    }
+    .op-heatmap .col-head {
+      font-family: var(--font-body); font-size: 10px; font-weight: 800;
+      letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft);
+      text-align: center; padding: 4px 0;
+    }
+    .op-heatmap .row-head {
+      font-family: var(--font-body); font-size: 14px; font-weight: 700;
+      padding-right: 12px;
+      line-height: 1.3;
+    }
+    .op-heatmap .cell {
+      height: 36px;
+      border-radius: 6px;
+      border: 1.5px solid rgba(18,18,18,0.18);
+    }
+    .op-heatmap .cell-0 { background: var(--paper-2); }
+    .op-heatmap .cell-1 { background: var(--stabilo-wash); border-color: rgba(18,18,18,0.22); }
+    .op-heatmap .cell-2 { background: #F2D87C; border-color: rgba(18,18,18,0.32); }
+    .op-heatmap .cell-3 { background: var(--stabilo); border-color: var(--ink); border-width: 2px; }
+    .op-heatmap .cell-4 { background: #E7A847; border-color: var(--ink); border-width: 2px; }
+    .op-heatmap .impact {
+      font-family: var(--font-display); font-size: 18px;
+      text-align: right; padding-left: 8px;
+    }
+    .op-heatmap .impact small {
+      font-family: var(--font-body); font-size: 11px; font-weight: 700;
+      color: var(--ink-soft);
+    }
+
+    /* Priorities — clean ranked list with IA insight integrated as eyebrow */
+    .op-strategy {
+      background: var(--ink); color: var(--paper);
+      border-radius: 14px;
+      padding: 22px 24px;
+      box-shadow: 5px 5px 0 var(--stabilo);
+      border: 2.5px solid var(--ink);
+      display: flex; flex-direction: column; gap: 18px;
+    }
+    .op-strategy__head { display: flex; align-items: center; gap: 12px; }
+    .op-strategy__av {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: var(--stabilo); color: var(--ink);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-size: 11px;
+      border: 2px solid var(--stabilo);
+    }
+    .op-strategy__tag {
+      font-family: var(--font-body); font-size: 10px; font-weight: 800;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: rgba(246, 242, 235, 0.55);
+    }
+    .op-strategy__body {
+      font-family: var(--font-body); font-size: 14px;
+      line-height: 1.5;
+      color: rgba(246, 242, 235, 0.92);
+    }
+    .op-strategy__body b { color: var(--stabilo); font-weight: 800; }
+
+    .op-prio-list { display: flex; flex-direction: column; gap: 10px; }
+    .op-prio {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+      border-top: 1px dashed rgba(246, 242, 235, 0.12);
+    }
+    .op-prio:first-of-type { border-top: 0; padding-top: 4px; }
+    .op-prio__rank {
+      font-family: var(--font-display); font-size: 22px;
+      color: rgba(246, 242, 235, 0.5);
+      width: 28px;
+    }
+    .op-prio__copy {
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .op-prio__name {
+      font-family: var(--font-body); font-weight: 800; font-size: 14px;
+      color: var(--paper);
+    }
+    .op-prio__meta {
+      font-family: var(--font-mono); font-size: 11px;
+      color: rgba(246, 242, 235, 0.55);
+      letter-spacing: .04em;
+    }
+    .op-prio__bar {
+      width: 64px; height: 6px;
+      background: rgba(246, 242, 235, 0.12);
+      border-radius: 999px; overflow: hidden;
+    }
+    .op-prio__bar .fill {
+      height: 100%; background: var(--stabilo);
+      border-radius: 999px;
+    }
+    .op-prio__bar.low .fill { background: var(--red); }
+    .op-prio__bar.mid .fill { background: var(--orange); }
+
+    .op-strategy__cta {
+      display: inline-flex; align-self: flex-start;
+      align-items: center; gap: 8px;
+      margin-right: 8px;
+      margin-top: 10px;
+      padding: 10px 16px;
+      background: var(--stabilo); color: var(--ink);
+      border: 2px solid var(--stabilo);
+      border-radius: 8px;
+      font-family: var(--font-body); font-weight: 800; font-size: 13px;
+      text-decoration: none;
+    }
+    .op-strategy__cta .ph-bold { font-size: 15px; line-height: 1; }
+    .op-strategy__cta--secondary {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--paper);
+    }
+
+    @media (max-width: 900px) {
+      .op-hero,
+      .op-split { grid-template-columns: 1fr; }
+      .op-card { overflow-x: auto; }
+      .op-heatmap { min-width: 720px; }
+    }
+    @media (max-width: 640px) {
+      .view { padding: 18px 14px 90px !important; }
+      .op-head { align-items: flex-start; }
+      .op-head h1 { font-size: 31px; }
+      .op-filter { overflow-x: auto; max-width: 100%; }
+      .op-stat,
+      .op-card,
+      .op-strategy { padding: 18px 16px; box-shadow: 4px 4px 0 var(--ink); }
+      .op-stat .value { font-size: 40px; }
+      .op-card__head { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
 </head>
 <body>
 
 <div class="app">
-  <!-- Sidebar (same shell) -->
   <aside class="sidebar">
-    <div class="sb-brand">
-      <span class="mark mark--image" aria-hidden="true">
-        <img src="assets/brand/trophy-logo-home.webp" alt="" width="52" height="52">
-      </span>
-      <span class="name">Objectif Lycée</span>
-    </div>
+    <div class="sb-brand"><span class="mark mark--image"><img src="assets/brand/trophy-logo-home.webp" width="52" height="52" alt=""></span><span class="name">Objectif Lycée</span></div>
     <div class="sb-group">
       <div class="head">Cockpit</div>
-      <a href="index.html#today" class="sb-item objectif-sidebar-link">
-        <span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg></span>
-        Aujourd'hui
-      </a>
-      <a href="index.html#planning" class="sb-item objectif-sidebar-link">
-        <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
-        Planning
-      </a>
-      <a href="progression.html" class="sb-item objectif-sidebar-link">
-        <span class="ic"><svg viewBox="0 0 24 24"><path d="M3 17l4-4 4 4 5-7 5 7"/><path d="M3 21h18"/></svg></span>
-        Progression
-      </a>
-      <a href="focus.html" class="sb-item objectif-sidebar-link">
-        <span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
-        Focus
-      </a>
-      <a href="checkout.html" class="sb-item objectif-sidebar-link">
-        <span class="ic"><svg viewBox="0 0 24 24"><path d="M4 7h16v10H4z"/><path d="M4 10h16"/><path d="M8 14h4"/></svg></span>
-        Abonnement
-      </a>
+      <a href="index.html" class="sb-item"><span class="ic"><i class="ph-bold ph-target" aria-hidden="true"></i></span>Aujourd'hui</a>
+      <a href="index.html" class="sb-item"><span class="ic"><i class="ph-bold ph-calendar-blank" aria-hidden="true"></i></span>Planning</a>
+      <a href="progression.html" class="sb-item"><span class="ic"><i class="ph-bold ph-chart-line-up" aria-hidden="true"></i></span>Progression</a>
+      <a href="focus.html" class="sb-item"><span class="ic"><i class="ph-bold ph-timer" aria-hidden="true"></i></span>Focus</a>
     </div>
     <div class="sb-group">
       <div class="head">Travail</div>
-      <div class="sb-item active">
-        <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>
-        Objectif
-      </div>
-      <div class="sb-item is-soon" aria-disabled="true">
-        <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5a2 2 0 012-2h11l3 3v13a2 2 0 01-2 2H6a2 2 0 01-2-2z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span>
-        Fiches
-        <span class="soon-tag">bientôt</span>
-      </div>
-      <div class="sb-item is-soon" aria-disabled="true">
-        <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3 7h7l-5.5 4.5L18.5 21 12 17l-6.5 4 2-7.5L2 9h7z"/></svg></span>
-        Contrôles
-        <span class="soon-tag">bientôt</span>
-      </div>
+      <div class="sb-item active"><span class="ic"><i class="ph-bold ph-squares-four" aria-hidden="true"></i></span>Objectif</div>
     </div>
-    <div class="sb-profile">
-      <div class="av" data-user-initials>OP</div>
-      <div class="who">
-        <span class="nm" data-user-full-name>Profil démo</span>
-        <span class="role" data-user-role>Lycée</span>
-      </div>
+    <div class="sb-group">
+      <div class="head" style="opacity:.5;font-size:10px">Bientôt</div>
+      <div style="font-family:var(--font-body);font-size:11px;color:var(--ink-mute);padding:0 12px;line-height:1.6">Fiches · Contrôles · Abonnement</div>
+    </div>
+    <div class="sb-bottom">
+      <a class="sb-about" href="apropos.html" aria-label="À propos d'Objectif Lycée">
+        <span class="sb-about__icon" aria-hidden="true"><i class="ph-bold ph-info"></i></span>
+        <span class="sb-about__label">À propos</span>
+      </a>
+      <div class="sb-profile"><div class="av">OP</div><div class="who"><span class="nm">Profil démo</span><span class="role">Lycée</span></div></div>
     </div>
   </aside>
 
-  <!-- Main -->
   <div class="main">
-    <header class="topbar">
-      <div class="search">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        <input type="text" placeholder="Chercher un chapitre, une notion…" />
-      </div>
-      <span class="spacer"></span>
-      <button class="icon-btn" type="button" aria-label="Demander à l'IA"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5z"/></svg></button>
-      <button class="icon-btn" type="button" aria-label="Notifications, 2 nouvelles"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0112 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 003.4 0"/></svg><span class="badge" aria-hidden="true">2</span></button>
-      <div class="me"><div class="av" data-user-initials>OP</div><span class="nm" data-user-first-name>Profil</span></div>
-    </header>
-
-    <section class="view active" id="signal" data-screen-label="Objectif Dossier">
-      <div class="page-head">
+    <section class="view active">
+      <div class="op-head">
         <div>
-          <h1 data-objective-heading>Objectif</h1>
-          <div class="sub" data-objective-sub>Impact dossier · ta progression · mise à jour aujourd'hui</div>
+          <h1>Objectif · Maths spé</h1>
+          <div class="sub">Pourquoi cette mission est intelligente.</div>
         </div>
-        <div id="filter-bar" class="filter-bar"></div>
+        <div class="op-filter">
+          <button type="button" class="active">Maths spé</button>
+          <button type="button">Physique-chimie</button>
+          <button type="button">Dossier</button>
+          <button type="button">Expression</button>
+        </div>
       </div>
 
-      <!-- Hero stats -->
-      <div class="objective-hero">
-        <div class="stat stat--stabilo">
+      <!-- 2 stats only — "Leviers prioritaires" stat dropped (already in priorities list) -->
+      <div class="op-hero">
+        <div class="op-stat op-stat--stabilo">
           <div class="label">Dossier construit</div>
-          <div class="value">73%<span class="objective-target">/ 85% attendu</span></div>
-          <div class="note">12 points sous le rythme conseillé pour les écoles post-bac que tu vises.</div>
+          <div class="value">73%<small>/ 85% attendu</small></div>
+          <div class="note">12 points sous le rythme conseillé pour les écoles que tu vises.</div>
         </div>
-        <div class="stat">
-          <div class="label">Leviers prioritaires</div>
-          <div class="value">3</div>
-          <div class="note">Trois sujets font bouger les notes et la crédibilité du projet.</div>
-        </div>
-        <div class="stat stat--beige">
+        <div class="op-stat op-stat--beige">
           <div class="label">Avant Parcoursup</div>
-          <div class="value">8<span class="objective-week-unit">sem.</span></div>
+          <div class="value">8<small>semaines</small></div>
           <div class="note">Assez pour que la régularité se voie sur ton dossier.</div>
         </div>
       </div>
 
-      <div class="split objective-split">
-        <!-- Heatmap card -->
-        <div class="card">
-          <div class="card-head">
-            <h3>Impact sur ton objectif · 6 prochaines semaines</h3>
-            <div class="legend">
-              <span><span class="sw hm-0"></span> faible</span>
-              <span><span class="sw hm-1"></span> utile</span>
-              <span><span class="sw hm-2"></span> important</span>
-              <span><span class="sw hm-3"></span> fort</span>
-              <span><span class="sw hm-4"></span> décisif</span>
+      <!-- Split: heatmap + strategy -->
+      <div class="op-split">
+        <div class="op-card">
+          <div class="op-card__head">
+            <h2>Impact · 6 prochaines semaines</h2>
+            <div class="op-legend">
+              <span class="lbl">faible</span>
+              <span class="swatches">
+                <span class="sw sw1"></span>
+                <span class="sw sw2"></span>
+                <span class="sw sw3"></span>
+                <span class="sw sw4"></span>
+                <span class="sw sw5"></span>
+              </span>
+              <span class="lbl">décisif</span>
             </div>
           </div>
 
-          <div class="heatmap"></div>
+          <div class="op-heatmap">
+            <div></div>
+            <div class="col-head">S1</div>
+            <div class="col-head">S2</div>
+            <div class="col-head">S3</div>
+            <div class="col-head">S4</div>
+            <div class="col-head">S5</div>
+            <div class="col-head">S6</div>
+            <div></div>
+
+            <div class="row-head">Suites &amp; limites</div>
+            <div class="cell cell-3"></div>
+            <div class="cell cell-3"></div>
+            <div class="cell cell-0"></div>
+            <div class="cell cell-4"></div>
+            <div class="cell cell-0"></div>
+            <div class="cell cell-3"></div>
+            <div class="impact">4<small>/6</small></div>
+
+            <div class="row-head">Probabilités</div>
+            <div class="cell cell-0"></div>
+            <div class="cell cell-2"></div>
+            <div class="cell cell-0"></div>
+            <div class="cell cell-2"></div>
+            <div class="cell cell-3"></div>
+            <div class="cell cell-0"></div>
+            <div class="impact">3<small>/6</small></div>
+
+            <div class="row-head">Rédaction propre</div>
+            <div class="cell cell-2"></div>
+            <div class="cell cell-0"></div>
+            <div class="cell cell-2"></div>
+            <div class="cell cell-0"></div>
+            <div class="cell cell-0"></div>
+            <div class="cell cell-2"></div>
+            <div class="impact">3<small>/6</small></div>
+
+            <div class="row-head">Récurrence</div>
+            <div class="cell cell-1"></div>
+            <div class="cell cell-1"></div>
+            <div class="cell cell-0"></div>
+            <div class="cell cell-0"></div>
+            <div class="cell cell-1"></div>
+            <div class="cell cell-0"></div>
+            <div class="impact">3<small>/6</small></div>
+          </div>
         </div>
 
-        <!-- IA Strategic + Topic priority -->
-        <div class="objective-priority-column">
-          <div class="ia">
-            <div class="head">
-              <div class="av">IA</div>
-              <span class="tag">Analyse stratégique</span>
+        <!-- Strategy — IA insight + ranked priorities in ONE block -->
+        <div class="op-strategy">
+          <div class="op-strategy__head">
+            <div class="op-strategy__av">IA</div>
+            <span class="op-strategy__tag">Analyse stratégique</span>
+          </div>
+          <div class="op-strategy__body">
+            Trois leviers font passer ton dossier de <b>73 % à 88 %</b> en 6 semaines.
+            Travaille-les chaque semaine — c'est tout.
+          </div>
+          <div class="op-prio-list">
+            <div class="op-prio">
+              <span class="op-prio__rank">1</span>
+              <div class="op-prio__copy">
+                <span class="op-prio__name">Suites &amp; limites</span>
+                <span class="op-prio__meta">4 jalons · maîtrise 74 %</span>
+              </div>
+              <div class="op-prio__bar mid"><div class="fill" style="width:74%"></div></div>
             </div>
-            <div class="body">Trois leviers font bouger ton dossier : maths spé, régularité en physique-chimie et projet motivé. Si tu les travailles chaque semaine, ton score objectif passe de 73% à 88%.</div>
-            <div class="actions">
-              <a href="index.html" class="btn objective-link">Planifier ces leviers</a>
-              <a href="checkout.html" class="btn btn--ghost objective-link">S'abonner · garder le plan</a>
+            <div class="op-prio">
+              <span class="op-prio__rank">2</span>
+              <div class="op-prio__copy">
+                <span class="op-prio__name">Probabilités</span>
+                <span class="op-prio__meta">3 jalons · maîtrise 49 %</span>
+              </div>
+              <div class="op-prio__bar low"><div class="fill" style="width:49%"></div></div>
+            </div>
+            <div class="op-prio">
+              <span class="op-prio__rank">3</span>
+              <div class="op-prio__copy">
+                <span class="op-prio__name">Rédaction propre</span>
+                <span class="op-prio__meta">3 jalons · maîtrise 68 %</span>
+              </div>
+              <div class="op-prio__bar mid"><div class="fill" style="width:68%"></div></div>
             </div>
           </div>
-
-          <div class="card">
-            <div class="card-head">
-              <h3>Priorités stratégiques</h3>
-            </div>
-            <div id="topic-list" class="topic-list"></div>
-          </div>
+          <a href="index.html" class="op-strategy__cta">Planifier ces leviers <i class="ph-bold ph-arrow-right" aria-hidden="true"></i></a>
+          <a href="checkout.html" class="op-strategy__cta op-strategy__cta--secondary">Voir l'abonnement <i class="ph-bold ph-arrow-right" aria-hidden="true"></i></a>
         </div>
       </div>
     </section>
   </div>
 </div>
 
-<script src="scripts/model.js" defer></script>
-<script src="scripts/state.js" defer></script>
-<script src="scripts/dom.js" defer></script>
-<script src="scripts/user-context-ui.js" defer></script>
-<script src="scripts/mission-ui.js" defer></script>
-<script type="module">
-var allYears;
-var heatmapEl;
-var maxScore;
-var DAILY_MISSION = window.OutilPrepaMissionUI
-  ? window.OutilPrepaMissionUI.getMission()
-  : null;
-
-function dailyMissionTopic() {
-  if (window.OutilPrepaMissionUI && DAILY_MISSION) {
-    return window.OutilPrepaMissionUI.toObjectiveTopic(DAILY_MISSION);
-  }
-  return { id: "daily-mission", nom: "Mission du jour", totalOccurrences: 1, score: 1, years: [] };
-}
-
-var _activeTooltip = null;
-function showCellTooltip(topic, cellEl) {
-  if (_activeTooltip) { _activeTooltip.remove(); _activeTooltip = null; }
-  var tip = document.createElement("div");
-  tip.className = "cell-tooltip";
-  tip.innerHTML = '<div class="ct-title">' + topic.nom + '</div>'
-    + '<div class="ct-meta">Impact fort sur <strong>' + topic.totalOccurrences + '</strong> jalons · dossier, contrôle, Parcoursup</div>'
-    + '<a href="mission.html" class="ct-cta">Travailler ce levier <span aria-hidden="true">→</span></a>';
-  document.body.appendChild(tip);
-  _activeTooltip = tip;
-  var rect = cellEl.getBoundingClientRect();
-  var tipW = 260, tipH = 100;
-  var left = rect.left + window.scrollX;
-  var top = rect.bottom + window.scrollY + 8;
-  if (left + tipW > window.innerWidth - 16) { left = window.innerWidth - tipW - 16; }
-  if (top + tipH > window.scrollY + window.innerHeight - 16) { top = rect.top + window.scrollY - tipH - 8; }
-  tip.style.left = left + "px";
-  tip.style.top = top + "px";
-  var close = function(e) { if (!tip.contains(e.target)) { tip.remove(); _activeTooltip = null; document.removeEventListener("click", close); } };
-  setTimeout(function() { document.addEventListener("click", close); }, 0);
-}
-
-function buildYearHeader(el, years) {
-  el.style.gridTemplateColumns = "220px repeat(" + years.length + ", 1fr) 96px";
-  el.innerHTML = "";
-  var spacer = document.createElement("div");
-  el.appendChild(spacer);
-  for (var i = 0; i < years.length; i++) {
-    var th = document.createElement("div");
-    th.className = "col-head";
-    th.textContent = years[i];
-    el.appendChild(th);
-  }
-  var totalHead = document.createElement("div");
-  totalHead.className = "col-head";
-  totalHead.textContent = "Impact";
-  el.appendChild(totalHead);
-}
-
-function renderHeatmapRows(el, topics, years, maxSc, matiereSlug) {
-  for (var t = 0; t < topics.length; t++) {
-    var topic = topics[t];
-    var occ = topic.totalOccurrences;
-    var hmClass = occ === 0 ? "hm-0" : occ === 1 ? "hm-1" : occ === 2 ? "hm-2" : occ === 3 ? "hm-3" : "hm-4";
-    var wrapper = document.createElement("div");
-    wrapper.className = "hm-row";
-    wrapper.style.display = "contents";
-    wrapper.setAttribute("data-matiere", matiereSlug);
-    var rowHead = document.createElement("div");
-    rowHead.className = "row-head";
-    rowHead.textContent = topic.nom;
-    wrapper.appendChild(rowHead);
-    for (var y = 0; y < years.length; y++) {
-      var present = topic.years.indexOf(years[y]) !== -1;
-      var cell = document.createElement("div");
-      cell.className = "hm-cell " + (present ? hmClass : "hm-0");
-      cell.textContent = present ? "●" : "--";
-      if (present) {
-        cell.style.cursor = "pointer";
-        cell.title = topic.nom + " — impact objectif";
-        cell.addEventListener("click", (function(tp) { return function(ev) {
-          showCellTooltip(tp, ev.currentTarget);
-        }; })(topic));
-      }
-      wrapper.appendChild(cell);
-    }
-    var rowEnd = document.createElement("div");
-    rowEnd.className = "row-end";
-    var freqTotal = document.createElement("span");
-    freqTotal.className = "freq-total";
-    freqTotal.textContent = topic.totalOccurrences + "/6";
-    rowEnd.appendChild(freqTotal);
-    var freqBar = document.createElement("div");
-    freqBar.className = "freq-bar";
-    var barFill = document.createElement("div");
-    barFill.className = "fill";
-    barFill.style.width = Math.round((topic.score / maxSc) * 100) + "%";
-    freqBar.appendChild(barFill);
-    rowEnd.appendChild(freqBar);
-    wrapper.appendChild(rowEnd);
-    el.appendChild(wrapper);
-  }
-}
-
-function renderPriorityList(topics) {
-  var MASTERY = {
-    "suites":74,"probabilites":49,"redaction-maths":68,
-    "energie":58,"ondes":67,"dosage":54,"projet-motive":42,
-    "expression":70,"anglais-argument":65,"grand-oral":60
-  };
-  if (DAILY_MISSION && DAILY_MISSION.topicId) {
-    MASTERY[DAILY_MISSION.topicId] = DAILY_MISSION.masteryPercent || 0;
-  }
-  var listEl = document.getElementById("topic-list");
-  listEl.innerHTML = "";
-  topics = topics.slice().sort(function(a, b) { return b.score - a.score; });
-  if (topics.length === 0) {
-    var empty = document.createElement("div");
-    empty.className = "topic-row";
-    empty.textContent = "Aucune donnée pour ce pilier.";
-    listEl.appendChild(empty);
-    return;
-  }
-  for (var i = 0; i < topics.length; i++) {
-    var topic = topics[i];
-    var row = document.createElement("div");
-    row.className = "topic-row";
-    var nameDiv = document.createElement("div");
-    nameDiv.className = "name";
-    nameDiv.textContent = topic.nom;
-    if (i === 0) {
-      var b0 = document.createElement("span");
-      b0.className = "row-badge badge--critical";
-      b0.textContent = "Critique";
-      nameDiv.appendChild(b0);
-    } else if (i === 1) {
-      var b1 = document.createElement("span");
-      b1.className = "row-badge badge--high";
-      b1.textContent = "Haute";
-      nameDiv.appendChild(b1);
-    } else if (i === 2) {
-      var b2 = document.createElement("span");
-      b2.className = "row-badge badge--medium";
-      b2.textContent = "Moyen";
-      nameDiv.appendChild(b2);
-    }
-    var freqDiv = document.createElement("div");
-    freqDiv.className = "freq";
-    freqDiv.textContent = topic.totalOccurrences + " jalons / 6 semaines";
-    var masteryDiv = document.createElement("div");
-    masteryDiv.className = "mastery";
-    var mastFill = document.createElement("div");
-    mastFill.className = "fill";
-    var mastery = MASTERY[topic.id] || 50;
-    mastFill.style.width = mastery + "%";
-    if (mastery < 50) { masteryDiv.classList.add("mastery-low"); } else if (mastery < 70) { masteryDiv.classList.add("mastery-mid"); }
-    masteryDiv.appendChild(mastFill);
-    var pctDiv = document.createElement("div");
-    pctDiv.className = "pct";
-    pctDiv.textContent = mastery + "%";
-    row.appendChild(nameDiv);
-    row.appendChild(freqDiv);
-    row.appendChild(masteryDiv);
-    row.appendChild(pctDiv);
-    listEl.appendChild(row);
-  }
-}
-
-function buildFilterTabs(data) {
-  var filterBarEl = document.getElementById("filter-bar");
-  filterBarEl.setAttribute("role", "group");
-  filterBarEl.setAttribute("aria-label", "Filtre par matière");
-  var MATIERE_LABELS = {};
-  MATIERE_LABELS["maths-spe"] = "Maths spé";
-  MATIERE_LABELS["physique-chimie"] = "Physique-chimie";
-  MATIERE_LABELS["dossier"] = "Dossier";
-  MATIERE_LABELS["expression"] = "Expression";
-  var keys = Object.keys(data).filter(function(k) { return k !== "_meta"; });
-  for (var i = 0; i < keys.length; i++) {
-    var slug = keys[i];
-    var chip = document.createElement("button");
-    chip.type = "button";
-    var isActive = slug === "maths-spe";
-    chip.className = isActive ? "chip active" : "chip";
-    chip.setAttribute("aria-pressed", isActive ? "true" : "false");
-    chip.dataset.matiere = slug;
-    chip.textContent = MATIERE_LABELS[slug] || slug;
-    if ((data[slug] || []).length === 0) {
-      chip.disabled = true;
-      chip.title = "Données en cours d'intégration";
-      chip.style.opacity = "0.35";
-    }
-    filterBarEl.appendChild(chip);
-  }
-  var MATIERE_DISPLAY = {
-    "maths-spe": "Maths spé",
-    "physique-chimie": "Physique-chimie",
-    "dossier": "Dossier",
-    "expression": "Expression"
-  };
-  filterBarEl.addEventListener("click", function(e) {
-    var chip = e.target.closest(".chip");
-    if (!chip || chip.disabled) return;
-    document.querySelectorAll("#filter-bar .chip").forEach(function(c) {
-      c.classList.remove("active");
-      c.setAttribute("aria-pressed", "false");
-    });
-    chip.classList.add("active");
-    chip.setAttribute("aria-pressed", "true");
-    var slug = chip.dataset.matiere;
-    var label = MATIERE_DISPLAY[slug] || slug;
-    var h1El = document.querySelector("#signal h1");
-    if (h1El) { h1El.textContent = "Objectif · " + label; }
-    var topics = data[slug] || [];
-    heatmapEl.innerHTML = "";
-    buildYearHeader(heatmapEl, allYears);
-    if (topics.length === 0) {
-      var msg = document.createElement("div");
-      msg.className = "row-head";
-      msg.style.cssText = "grid-column: 1 / -1; padding: 20px 8px; color: var(--ink-soft); font-style: italic;";
-      msg.textContent = "Données en cours d'intégration pour " + label + ".";
-      heatmapEl.appendChild(msg);
-    } else {
-      renderHeatmapRows(heatmapEl, topics, allYears, maxScore, slug);
-    }
-    renderPriorityList(topics);
-  });
-}
-
-var OBJECTIF_TOPICS = {
-  "_meta": {
-    "source": "objectif lycee static prototype",
-    "formula": "score = impact dossier + urgence scolaire + objectif ecole"
-  },
-  "maths-spe": [
-    dailyMissionTopic(),
-    { "id": "suites", "nom": "Suites et limites", "totalOccurrences": 4, "score": 7.2, "years": ["S1", "S2", "S4", "S6"] },
-    { "id": "probabilites", "nom": "Probabilités", "totalOccurrences": 3, "score": 5.7, "years": ["S2", "S4", "S5"] },
-    { "id": "redaction-maths", "nom": "Rédaction de correction", "totalOccurrences": 3, "score": 5.1, "years": ["S1", "S3", "S6"] }
-  ],
-  "physique-chimie": [
-    { "id": "energie", "nom": "Énergie mécanique", "totalOccurrences": 4, "score": 7.1, "years": ["S1", "S3", "S4", "S6"] },
-    { "id": "ondes", "nom": "Ondes et signaux", "totalOccurrences": 3, "score": 5.8, "years": ["S2", "S3", "S5"] },
-    { "id": "dosage", "nom": "Dosages et incertitudes", "totalOccurrences": 3, "score": 5.2, "years": ["S1", "S4", "S5"] }
-  ],
-  "dossier": [
-    { "id": "projet-motive", "nom": "Projet motivé", "totalOccurrences": 5, "score": 8.8, "years": ["S1", "S2", "S4", "S5", "S6"] },
-    { "id": "bulletins", "nom": "Régularité des bulletins", "totalOccurrences": 4, "score": 7.7, "years": ["S1", "S2", "S3", "S6"] },
-    { "id": "preuves", "nom": "Preuves d'engagement", "totalOccurrences": 3, "score": 5.4, "years": ["S2", "S4", "S6"] }
-  ],
-  "expression": [
-    { "id": "expression", "nom": "Expression écrite", "totalOccurrences": 4, "score": 6.9, "years": ["S1", "S3", "S4", "S6"] },
-    { "id": "anglais-argument", "nom": "Anglais argumenté", "totalOccurrences": 3, "score": 5.9, "years": ["S2", "S4", "S5"] },
-    { "id": "grand-oral", "nom": "Grand oral", "totalOccurrences": 3, "score": 5.5, "years": ["S3", "S5", "S6"] }
-  ]
-};
-
-async function loadWeightedTopics() {
-  return OBJECTIF_TOPICS;
-}
-
-async function loadData() {
-  try {
-    var data = await loadWeightedTopics();
-    var yearsFlat = [];
-    var keys = Object.keys(data);
-    for (var k = 0; k < keys.length; k++) {
-      if (keys[k] === "_meta") continue;
-      var matTopics = data[keys[k]];
-      for (var t = 0; t < matTopics.length; t++) {
-        for (var y = 0; y < matTopics[t].years.length; y++) {
-          yearsFlat.push(matTopics[t].years[y]);
-        }
-      }
-    }
-    allYears = ["S1", "S2", "S3", "S4", "S5", "S6"];
-    var allScores = [];
-    for (var k2 = 0; k2 < keys.length; k2++) {
-      if (keys[k2] === "_meta") continue;
-      var sTopics = data[keys[k2]];
-      for (var t2 = 0; t2 < sTopics.length; t2++) {
-        allScores.push(sTopics[t2].score);
-      }
-    }
-    maxScore = allScores.length > 0 ? Math.max.apply(null, allScores) : 1;
-    heatmapEl = document.querySelector(".heatmap");
-    buildYearHeader(heatmapEl, allYears);
-    var mathTopics = data["maths-spe"] || [];
-    renderHeatmapRows(heatmapEl, mathTopics, allYears, maxScore, "maths-spe");
-    renderPriorityList(mathTopics);
-    buildFilterTabs(data);
-  } catch (e) {
-    var hm = document.querySelector(".heatmap");
-    if (hm) {
-      var errDiv = document.createElement("div");
-      errDiv.className = "row-head";
-      errDiv.textContent = "Données non disponibles.";
-      hm.appendChild(errDiv);
-    }
-  }
-}
-
-loadData();
-</script>
 
 <nav class="mobile-tabs" aria-label="Navigation principale">
   <a href="index.html" class="mobile-tab">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg>
+    <i class="ph-bold ph-target" aria-hidden="true"></i>
     <span>Aujourd'hui</span>
   </a>
   <a href="progression.html" class="mobile-tab">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l4-4 4 4 5-7 5 7"/><path d="M3 21h18"/></svg>
+    <i class="ph-bold ph-chart-line-up" aria-hidden="true"></i>
     <span>Progression</span>
   </a>
   <a href="objectif.html" class="mobile-tab is-active" aria-current="page">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    <i class="ph-bold ph-squares-four" aria-hidden="true"></i>
     <span>Objectif</span>
   </a>
   <a href="focus.html" class="mobile-tab">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+    <i class="ph-bold ph-timer" aria-hidden="true"></i>
     <span>Focus</span>
   </a>
 </nav>
-
+<script src="scripts/model.js"></script>
+<script src="scripts/state.js"></script>
+<script src="scripts/dom.js"></script>
+<script src="scripts/user-context-ui.js"></script>
+<script src="scripts/mission-ui.js"></script>
 </body>
 </html>

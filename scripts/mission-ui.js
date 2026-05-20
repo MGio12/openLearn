@@ -31,10 +31,23 @@
 
   function difficultyLabel(level) {
     var max = 3;
-    var out = [];
     var safeLevel = Math.max(0, Math.min(max, Number(level) || 0));
-    for (var i = 0; i < max; i++) out.push(i < safeLevel ? '●' : '○');
-    return out.join(' ');
+    return safeLevel + '/' + max;
+  }
+
+  function setPhosphorIcon(element, iconName) {
+    if (!element) return;
+    element.textContent = '';
+    var icon = document.createElement('i');
+    icon.className = 'ph-bold ' + iconName;
+    icon.setAttribute('aria-hidden', 'true');
+    element.appendChild(icon);
+  }
+
+  function setCheckIcon(element, isDone) {
+    if (!element) return;
+    element.textContent = '';
+    if (isDone) setPhosphorIcon(element, 'ph-check');
   }
 
   function doneStepCount() {
@@ -123,7 +136,7 @@
       var box = document.createElement('div');
       box.className = 'box';
       box.setAttribute('aria-hidden', 'true');
-      box.textContent = done ? '✓' : '';
+      setCheckIcon(box, done);
 
       var label = document.createElement('div');
       label.className = 'label';
@@ -155,7 +168,7 @@
 
       var box = document.createElement('span');
       box.className = 'box';
-      box.textContent = done ? '✓' : '';
+      setCheckIcon(box, done);
 
       var label = document.createElement('span');
       label.className = 'label';
@@ -168,10 +181,12 @@
     container.setAttribute('data-daily-mission-rendered', 'true');
   }
 
-  function resourceInitial(resource) {
-    if (resource.type === 'objective-proof') return 'D';
-    if (resource.type === 'fiche') return 'F';
-    return (resource.label || 'R').charAt(0).toUpperCase();
+  function resourceIcon(resource) {
+    if (resource.type === 'objective-proof') return 'ph-target';
+    if (resource.type === 'fiche') return 'ph-notebook';
+    if (resource.type === 'cours') return 'ph-book-open-text';
+    if (resource.type === 'document') return 'ph-file-text';
+    return 'ph-file-text';
   }
 
   function resourceColor(resource) {
@@ -194,7 +209,7 @@
       var icon = document.createElement('div');
       icon.className = 'ic';
       icon.style.background = resourceColor(resource);
-      icon.textContent = resourceInitial(resource);
+      setPhosphorIcon(icon, resourceIcon(resource));
 
       var copy = document.createElement('div');
       copy.className = 'copy';
@@ -209,7 +224,7 @@
 
       var arrow = document.createElement('span');
       arrow.className = 'arrow';
-      arrow.textContent = '·';
+      setPhosphorIcon(arrow, 'ph-arrow-right');
 
       copy.appendChild(name);
       copy.appendChild(meta);

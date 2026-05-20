@@ -94,7 +94,7 @@ async function assertMissionContract(page, viewportLabel) {
   const heading = page.locator('h1, h2, h3').filter({ hasText: /(Exponentielle|mission)/i }).first();
   await assertInViewport(page, heading, `${viewportLabel} mission.html: page must expose a visible heading mentioning the mission`);
 
-  assert(/45\s*(min|mn|minutes?)/i.test(bodyText), `${viewportLabel} mission.html: mission contract must show an estimated duration around 45 min`);
+  assert(/25\s*(min|mn|minutes?)/i.test(bodyText), `${viewportLabel} mission.html: mission contract must show the visible estimated duration around 25 min`);
   assert(
     /(prioritaire|priorit[ée]|pourquoi|why|bon pari|signal|dossier|objectif|Parcoursup)/i.test(bodyText),
     `${viewportLabel} mission.html: mission contract must explain why this work is priority/rationalized`,

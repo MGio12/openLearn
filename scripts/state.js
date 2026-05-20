@@ -448,7 +448,15 @@
     item.setAttribute('aria-checked', String(isDone));
 
     var box = item.querySelector('.box');
-    if (box) box.textContent = isDone ? '✓' : '';
+    if (box) {
+      box.textContent = '';
+      if (isDone) {
+        var icon = document.createElement('i');
+        icon.className = 'ph-bold ph-check';
+        icon.setAttribute('aria-hidden', 'true');
+        box.appendChild(icon);
+      }
+    }
   }
 
   /* ----- Wiring des mission-action — restore + écoute ----- */

@@ -1,20 +1,253 @@
 <!doctype html>
+<!--
+  ============================================================
+  Objectif Lycée — Cockpit
+  Drop-in replacement: paths use root-level CSS/JS.
+  Navigation links point to final .html pages.
+  ============================================================
+-->
+
 <html lang="fr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Objectif Lycée — Cockpit</title>
-  <meta name="description" content="Ton cockpit du jour : une mission claire, calibrée sur ton dossier et tes échéances. Pas de scroll infini, pas de file à rallonge.">
-  <meta name="theme-color" content="#F4D35E">
-  <link rel="icon" type="image/png" href="assets/brand/trophy-logo-home.png">
   <link rel="stylesheet" href="colors_and_type.css">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="assets/css/pages/dashboard.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css">
+  <style>
+    html, body { height: auto; overflow: visible; }
+    .app { height: auto; min-height: 100vh; }
+    .main { overflow: visible; }
+    .view { display: block !important; flex: none !important; overflow: visible !important; height: auto !important; padding: 28px 36px 32px; background-image: none !important; }
+
+    /* AFTER — tighter rhythm */
+    .ap-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 22px; }
+    .ap-head h1 { font-family: var(--font-display); font-size: 40px; line-height: 1; text-transform: uppercase; letter-spacing: -.01em; margin: 0; }
+    .ap-head .sub { font-family: var(--font-body); font-size: 14px; color: var(--ink-soft); margin-top: 8px; }
+    .ap-date {
+      font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft);
+    }
+
+    /* The hero mission — dominant */
+    .ap-mission {
+      position: relative;
+      background:
+        linear-gradient(135deg, rgba(244, 211, 94, 0.28), transparent 38%),
+        #FFFDF8;
+      border: 3px solid var(--ink);
+      border-radius: 18px;
+      box-shadow: 10px 10px 0 var(--ink);
+      padding: 30px 36px 28px;
+      margin-bottom: 22px;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 36px;
+    }
+    .ap-mission__left { display: flex; flex-direction: column; gap: 14px; }
+    .ap-mission__eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft);
+    }
+    .ap-mission__eyebrow .pill {
+      padding: 4px 10px;
+      background: var(--stabilo); color: var(--ink);
+      border: 2px solid var(--ink); border-radius: 999px;
+      letter-spacing: .04em;
+    }
+    .ap-mission h2 {
+      font-family: var(--font-display);
+      font-size: 36px;
+      line-height: 1;
+      letter-spacing: -.01em;
+      text-transform: uppercase;
+      margin: 0;
+      max-width: 640px;
+    }
+    .ap-mission__why {
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--ink);
+      max-width: 580px;
+      margin: 0;
+    }
+    .ap-mission__cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      align-self: flex-start;
+      padding: 14px 22px;
+      background: var(--ink); color: var(--paper);
+      border: 3px solid var(--ink); border-radius: 12px;
+      box-shadow: 5px 5px 0 var(--stabilo);
+      font-family: var(--font-body); font-weight: 800; font-size: 15px;
+      text-decoration: none;
+      margin-top: 4px;
+      transition: transform .15s, box-shadow .15s;
+    }
+    .ap-mission__cta:hover { transform: translate(2px,2px); box-shadow: 3px 3px 0 var(--stabilo); }
+    .ap-mission__cta .arrow { display: inline-flex; align-items: center; font-size: 18px; line-height: 1; }
+    .ap-mission__support {
+      align-self: flex-start;
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 800;
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 4px;
+    }
+    .ap-mission__meta {
+      display: flex; gap: 18px; flex-wrap: wrap;
+      padding-top: 4px;
+      font-family: var(--font-body); font-size: 12px;
+      color: var(--ink-soft);
+    }
+    .ap-mission__meta b { color: var(--ink); font-weight: 800; }
+
+    /* Steps on the right of the hero */
+    .ap-steps {
+      display: flex; flex-direction: column; gap: 10px;
+      padding-left: 24px;
+      border-left: 2.5px dashed var(--ink);
+    }
+    .ap-steps__head {
+      font-family: var(--font-body); font-size: 11px; font-weight: 800;
+      letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft);
+      margin-bottom: 2px;
+    }
+    .ap-step {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 8px 10px;
+      background: var(--paper);
+      border: 2px solid var(--ink); border-radius: 10px;
+      font-family: var(--font-body); font-size: 13px;
+    }
+    .ap-step .box {
+      width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px;
+      border: 2px solid var(--ink); border-radius: 5px;
+      background: #FFFDF8;
+    }
+    .ap-step .dur {
+      font-family: var(--font-mono); font-size: 11px;
+      color: var(--ink-soft);
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+
+    /* Bottom split: next + AI */
+    .ap-split {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 22px;
+    }
+    .ap-card {
+      background: #FFFDF8;
+      border: 2.5px solid var(--ink);
+      border-radius: 14px;
+      box-shadow: none;
+      padding: 18px 20px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .ap-card__head {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .ap-card h3 {
+      font-family: var(--font-display); font-size: 16px;
+      text-transform: uppercase; letter-spacing: -.005em;
+      margin: 0;
+    }
+    .ap-card__hint {
+      font-family: var(--font-body); font-size: 11px; font-weight: 700;
+      color: var(--ink-soft);
+      letter-spacing: .06em; text-transform: uppercase;
+    }
+    .ap-next-list { display: flex; flex-direction: column; gap: 8px; }
+    .ap-next-item {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 14px;
+      border: 1.5px solid rgba(18,18,18,0.18);
+      border-radius: 10px;
+      font-family: var(--font-body);
+    }
+    .ap-next-item .when {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+      color: var(--ink-soft); letter-spacing: .04em; text-transform: uppercase;
+    }
+    .ap-next-item .when .ph-bold { font-size: 12px; line-height: 1; }
+    .ap-next-item .title { font-size: 14px; font-weight: 700; color: var(--ink); }
+    .ap-next-item .dur { font-family: var(--font-mono); font-size: 12px; color: var(--ink-soft); }
+    .ap-next-item.done { opacity: 0.55; background: var(--paper-2); border-style: dashed; }
+    .ap-next-item.done .title { text-decoration: line-through; text-decoration-thickness: 1.5px; }
+
+    /* IA — calm, sober, smaller */
+    .ap-ia {
+      background: var(--paper-2);
+      border: 2.5px solid var(--ink);
+      border-radius: 14px;
+      padding: 18px 20px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .ap-ia__head { display: flex; align-items: center; gap: 10px; }
+    .ap-ia__av {
+      width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--ink);
+      background: var(--stabilo-wash);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-size: 10px;
+    }
+    .ap-ia__tag {
+      font-family: var(--font-body); font-size: 10px; font-weight: 800;
+      letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft);
+    }
+    .ap-ia__body { font-family: var(--font-body); font-size: 14px; line-height: 1.5; }
+    .ap-ia__actions { display: flex; gap: 8px; }
+    .ap-ia__btn {
+      font-family: var(--font-body); font-weight: 800; font-size: 12px;
+      padding: 6px 10px; border: 2px solid var(--ink); border-radius: 8px;
+      background: transparent; color: var(--ink); cursor: pointer;
+    }
+    .ap-ia__btn.accept { background: var(--ink); color: var(--paper); }
+
+    /* One supporting signal — tucked into mission card top-right */
+    .ap-signal {
+      position: absolute; top: 22px; right: 30px;
+      display: flex; align-items: center; gap: 10px;
+      padding: 6px 12px;
+      background: var(--paper);
+      border: 2px solid var(--ink); border-radius: 999px;
+      font-family: var(--font-body); font-size: 12px; font-weight: 700;
+    }
+    .ap-signal .dot {
+      width: 8px; height: 8px; border-radius: 999px; background: var(--green-2);
+    }
+
+    @media (max-width: 900px) {
+      .ap-head { align-items: flex-start; }
+      .ap-mission { grid-template-columns: 1fr; gap: 20px; }
+      .ap-signal { position: static; width: fit-content; margin-bottom: 6px; }
+      .ap-steps { padding-left: 0; border-left: 0; }
+      .ap-split { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .view { padding: 18px 14px 90px !important; }
+      .ap-head h1 { font-size: 32px; }
+      .ap-mission { padding: 22px 18px; box-shadow: 6px 6px 0 var(--ink); }
+      .ap-mission h2 { font-size: 30px; }
+      .ap-next-item { grid-template-columns: 1fr; gap: 4px; }
+      .ap-next-item .dur { justify-self: start; }
+      .ap-ia__actions { flex-wrap: wrap; }
+    }
+  </style>
 </head>
 <body>
 
 <div class="app">
-  <!-- ============================================================ SIDEBAR -->
   <aside class="sidebar">
     <div class="sb-brand">
       <span class="mark mark--image" aria-hidden="true">
@@ -25,466 +258,172 @@
 
     <div class="sb-group">
       <div class="head">Cockpit</div>
-      <a href="#today" class="sb-item active dashboard-sidebar-link" data-view="today">
-        <span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg></span>
+      <a href="index.html" class="sb-item active">
+        <span class="ic"><i class="ph-bold ph-target" aria-hidden="true"></i></span>
         Aujourd'hui
       </a>
-      <a href="#planning" class="sb-item dashboard-sidebar-link" data-view="planning">
-        <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
+      <a href="index.html" class="sb-item">
+        <span class="ic"><i class="ph-bold ph-calendar-blank" aria-hidden="true"></i></span>
         Planning
       </a>
-      <a href="progression.html" class="sb-item dashboard-sidebar-link">
-        <span class="ic"><svg viewBox="0 0 24 24"><path d="M3 17l4-4 4 4 5-7 5 7"/><path d="M3 21h18"/></svg></span>
+      <a href="progression.html" class="sb-item">
+        <span class="ic"><i class="ph-bold ph-chart-line-up" aria-hidden="true"></i></span>
         Progression
       </a>
-      <a href="focus.html" class="sb-item dashboard-sidebar-link">
-        <span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+      <a href="focus.html" class="sb-item">
+        <span class="ic"><i class="ph-bold ph-timer" aria-hidden="true"></i></span>
         Focus
-      </a>
-      <a href="checkout.html" class="sb-item dashboard-sidebar-link">
-        <span class="ic"><svg viewBox="0 0 24 24"><path d="M4 7h16v10H4z"/><path d="M4 10h16"/><path d="M8 14h4"/></svg></span>
-        Abonnement
       </a>
     </div>
 
     <div class="sb-group">
       <div class="head">Travail</div>
-      <a href="objectif.html" class="sb-item dashboard-sidebar-link">
-        <span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>
+      <a href="objectif.html" class="sb-item">
+        <span class="ic"><i class="ph-bold ph-squares-four" aria-hidden="true"></i></span>
         Objectif
         <span class="count">3</span>
       </a>
-      <div class="sb-item is-soon" aria-disabled="true">
-        <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5a2 2 0 012-2h11l3 3v13a2 2 0 01-2 2H6a2 2 0 01-2-2z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span>
-        Fiches
-        <span class="soon-tag">bientôt</span>
-      </div>
-      <div class="sb-item is-soon" aria-disabled="true">
-        <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3 7h7l-5.5 4.5L18.5 21 12 17l-6.5 4 2-7.5L2 9h7z"/></svg></span>
-        Contrôles
-        <span class="soon-tag">bientôt</span>
-      </div>
     </div>
 
     <div class="sb-group">
-      <div class="head">Réglages</div>
-      <div class="sb-item is-soon" aria-disabled="true">
-        <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09a1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6 1.65 1.65 0 0010 3.09V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06A1.65 1.65 0 0019.4 9c.14.32.4.59.73.73h.09a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></span>
-        Préférences
-        <span class="soon-tag">bientôt</span>
+      <div class="head" style="opacity: .5; font-size: 10px;">Bientôt</div>
+      <div style="font-family: var(--font-body); font-size: 11px; color: var(--ink-mute); padding: 0 12px; line-height: 1.6;">
+        Fiches · Contrôles · Abonnement · Préférences
       </div>
     </div>
 
-    <div class="sb-profile">
-      <div class="av" data-user-initials>OP</div>
-      <div class="who">
-        <span class="nm" data-user-full-name>Profil démo</span>
-        <span class="role" data-user-role>Lycée</span>
-      </div>
+    <div class="sb-bottom">
+      <a class="sb-about" href="apropos.html" aria-label="À propos d'Objectif Lycée">
+        <span class="sb-about__icon" aria-hidden="true"><i class="ph-bold ph-info"></i></span>
+        <span class="sb-about__label">À propos</span>
+      </a>
+      <div class="sb-profile"><div class="av">OP</div><div class="who"><span class="nm">Profil démo</span><span class="role">Lycée</span></div></div>
     </div>
   </aside>
 
-  <!-- ============================================================ MAIN -->
   <div class="main">
-    <!-- top bar -->
-    <header class="topbar">
-      <div class="search">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        <input type="text" placeholder="Chercher un chapitre, une fiche, une notion…" />
-      </div>
-      <span class="spacer"></span>
-      <button class="icon-btn" type="button" aria-label="Demander à l'IA">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5z"/><path d="M5 16l1 2 2 1-2 1-1 2-1-2-2-1 2-1z"/></svg>
-      </button>
-      <button class="icon-btn" type="button" aria-label="Notifications, 2 nouvelles">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0112 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 003.4 0"/></svg>
-        <span class="badge" aria-hidden="true">2</span>
-      </button>
-      <div class="me">
-        <div class="av" data-user-initials>OP</div>
-        <span class="nm" data-user-first-name>Profil</span>
-      </div>
-    </header>
+    <!-- NO TOPBAR. Search/IA/notifs removed: didn't work, added noise. -->
 
-    <!-- ============================================================ TODAY VIEW -->
-    <section class="view active" id="view-today" name="today" data-screen-label="01 Today">
-      <div class="page-head">
+    <section class="view active" id="view-today">
+      <div class="ap-head">
         <div>
-          <h1 data-user-greeting>Bonjour.</h1>
-          <div class="sub" data-today-subtitle>Aujourd'hui · commence par une mission courte, puis on ajuste le reste.</div>
-          <div class="free-trial-banner" data-free-trial-banner>
-            <span class="free-trial-banner__chip">
-              <span data-free-trial-count>3</span> <span data-free-trial-noun>missions offertes</span>
-            </span>
-            <span class="free-trial-banner__hint" data-free-trial-hint>Pas de carte bancaire — tu commences en cochant tes premières étapes.</span>
-            <a href="checkout.html" class="free-trial-banner__cta" data-free-trial-cta hidden>Garder le plan personnalisé →</a>
-          </div>
-        </div>
-        <button class="btn btn--dark">+ Nouvelle mission</button>
-      </div>
-
-      <section class="daily-brief daily-mission card paper-folder pressable" data-testid="daily-mission" data-contract="daily-mission" aria-labelledby="daily-brief-title">
-        <div class="tape-label" aria-hidden="true">Dossier du jour</div>
-        <div class="card-head">
-          <div>
-            <div class="daily-brief__label" data-daily-mission-label>Mission du jour</div>
-            <h3 id="daily-brief-title" data-daily-mission-title>Mission du jour</h3>
-          </div>
-          <div class="actions support-signals" aria-label="Signaux de soutien"><span class="chip chip--paper-3 step-counter" id="step-counter">0/3 étapes</span>
-            <span class="chip chip--stabilo" data-daily-mission-duration>Durée</span>
-            <span class="chip" data-daily-mission-mastery-chip>Maîtrise</span>
-            <span class="chip" data-daily-mission-proof-label>Preuve</span>
-          </div>
-        </div>
-        <p class="daily-reason" data-daily-mission-reason>Mission utile maintenant.</p>
-        <div class="study-note" data-daily-mission-proof-summary>Preuve: cette mission cible le prochain point utile.</div>
-        <div class="daily-brief__actions">
-          <a class="btn btn--dark pressable" href="mission.html" data-daily-mission-duration-cta>Commencer la mission</a>
-          <a class="btn btn--ghost pressable" href="objectif.html">Voir l'impact sur ton objectif</a>
-        </div>
-        <div class="daily-brief__actions daily-brief__actions--steps">
-          <div class="daily-action mission-action" data-mission-action>
-            <span class="ma-check" aria-hidden="true"></span>
-            <div class="ma-content">
-              <span class="chip chip--paper" data-daily-mission-step-duration="0">Durée</span>
-              <span class="ma-text" data-daily-mission-step-title="0">Étape 1</span>
-            </div>
-          </div>
-          <div class="daily-action mission-action" data-mission-action>
-            <span class="ma-check" aria-hidden="true"></span>
-            <div class="ma-content">
-              <span class="chip chip--paper" data-daily-mission-step-duration="1">Durée</span>
-              <span class="ma-text" data-daily-mission-step-title="1">Étape 2</span>
-            </div>
-          </div>
-          <div class="daily-action mission-action" data-mission-action>
-            <span class="ma-check" aria-hidden="true"></span>
-            <div class="ma-content">
-              <span class="chip chip--paper" data-daily-mission-step-duration="2">Durée</span>
-              <span class="ma-text" data-daily-mission-step-title="2">Étape 3</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Supporting signals row -->
-      <div class="stats">
-        <div class="stat stat--stabilo">
-          <div class="label">Signal régularité</div>
-          <div class="value">7 j</div>
-          <div class="delta stat-delta--stabilo">De l'élan pour une séance courte</div>
-        </div>
-        <div class="stat stat--blue">
-          <div class="label">Signal dossier</div>
-          <div class="value">73%</div>
-          <div class="delta stat-delta--blue">Les maths restent le levier n°1</div>
-        </div>
-        <div class="stat stat--green">
-          <div class="label">Temps déjà posé</div>
-          <div class="value">12<span class="stat-value-suffix">h45</span></div>
-          <div class="delta stat-delta--green"><span data-daily-mission-duration>Durée</span> utiles maintenant</div>
-        </div>
-        <div class="stat stat--beige">
-          <div class="label">Missions de la semaine</div>
-          <div class="value">18<span class="stat-value-suffix stat-value-suffix--muted">/24</span></div>
-          <div class="delta stat-delta--beige">Le reste est en soutien, pas en urgence</div>
+          <div class="ap-date">Lundi 19 mai · semaine 21</div>
+          <h1>Bonjour, Lina.</h1>
+          <div class="sub">Une mission, courte, qui pèse pour vendredi.</div>
         </div>
       </div>
 
-      <!-- Split: missions + side column -->
-      <div class="split">
-        <div class="dashboard-stack">
-          <!-- Missions card -->
-          <div class="card">
-            <div class="card-head">
-              <h3>Après cette mission</h3>
-              <div class="actions">
-                <span class="chip">3 prochaines</span>
-                <span class="chip chip--green">1 déjà faite</span>
-              </div>
-            </div>
-            <div class="dashboard-list">
-              <div class="mission done">
-                <div class="check">✓</div>
-                <div class="meta">
-                  <div class="top"><span>Physique · 8h00</span></div>
-                  <div class="title">Physique-chimie — énergie cinétique, exercices 4 et 5</div>
-                </div>
-                <div class="duration">45 min</div>
-              </div>
-              <div class="mission">
-                <div class="check"></div>
-                <div class="meta">
-                  <div class="top"><span class="mission-topic-current" data-daily-mission-subject>Mission du jour</span></div>
-                  <div class="title"><a href="mission.html" class="dashboard-link-plain" data-daily-mission-task-title>Mission du jour</a></div>
-                </div>
-                <div class="duration" data-daily-mission-duration>Durée</div>
-              </div>
-              <div class="mission">
-                <div class="check"></div>
-                <div class="meta">
-                  <div class="top"><span>Français · 14h00</span></div>
-                  <div class="title">Philo — plan détaillé sur la technique</div>
-                </div>
-                <div class="duration">30 min</div>
-              </div>
-              <div class="mission">
-                <div class="check"></div>
-                <div class="meta">
-                  <div class="top"><span>Chimie · 16h30</span></div>
-                  <div class="title">Grand oral — reformuler la problématique</div>
-                </div>
-                <div class="duration">30 min</div>
-              </div>
-            </div>
-          </div>
+      <!-- DOMINANT HERO -->
+      <div class="ap-mission" data-contract="daily-mission" data-testid="daily-mission">
+        <span class="ap-signal"><span class="dot"></span>Régularité · 7 jours</span>
 
-          <!-- Weekly bar chart -->
-          <div class="card">
-            <div class="card-head">
-              <h3>Heures de travail</h3>
-              <div class="actions">
-                <span class="chip">Cette semaine</span>
-                <span class="chip chip--stabilo chip--mono">15h34 total</span>
-              </div>
-            </div>
-            <div class="bars">
-              <div class="bar"><div class="val">2h15</div><div class="col"><div class="seg work-bar-seg--55"></div></div><div class="label">L</div></div>
-              <div class="bar"><div class="val">3h10</div><div class="col"><div class="seg work-bar-seg--78"></div></div><div class="label">M</div></div>
-              <div class="bar"><div class="val">1h25</div><div class="col"><div class="seg work-bar-seg--35 work-bar-seg--beige"></div></div><div class="label">M</div></div>
-              <div class="bar"><div class="val">3h35</div><div class="col"><div class="seg work-bar-seg--88"></div></div><div class="label">J</div></div>
-              <div class="bar"><div class="val">2h32</div><div class="col"><div class="seg work-bar-seg--62"></div></div><div class="label">V</div></div>
-              <div class="bar"><div class="val">1h57</div><div class="col"><div class="seg work-bar-seg--48 work-bar-seg--beige"></div></div><div class="label">S</div></div>
-              <div class="bar"><div class="val">0h40</div><div class="col"><div class="seg work-bar-seg--16 work-bar-seg--paper"></div></div><div class="label">D</div></div>
-            </div>
+        <div class="ap-mission__left">
+          <div class="ap-mission__eyebrow">
+            <span class="pill">Mission du jour</span>
+            <span>Maths spé · 25 min</span>
+          </div>
+          <h2>Corriger le DM sur les suites</h2>
+          <p class="ap-mission__why">
+            Contrôle vendredi sur ce chapitre. Cette correction lève les 2 erreurs récurrentes
+            du DM précédent — sur des questions qui apparaissent dans 4 des 6 derniers sujets.
+          </p>
+          <a href="mission.html" class="ap-mission__cta">
+            Commencer la mission <span class="arrow"><i class="ph-bold ph-arrow-right" aria-hidden="true"></i></span>
+          </a>
+          <a href="objectif.html" class="ap-mission__support">Voir pourquoi cette priorité compte</a>
+          <div class="ap-mission__meta">
+            <span>Échéance <b>vendredi 23 mai</b></span>
+            <span>Levier <b>n°1 dossier</b></span>
           </div>
         </div>
 
-        <!-- right column -->
-        <div class="dashboard-stack">
-          <!-- IA suggestion -->
-          <div class="ia">
-            <div class="head">
-              <div class="av">IA</div>
-              <span class="tag">Suggestion · ce matin</span>
-            </div>
-            <div class="body">J'ai déplacé ta séance de physique à demain matin — tu seras plus frais. Veux-tu que je rééquilibre la fin de semaine&nbsp;?</div>
-            <div class="actions">
-              <button class="btn">Appliquer</button>
-              <button class="btn btn--ghost">Ignorer</button>
-            </div>
+        <aside class="ap-steps">
+          <div class="ap-steps__head">3 étapes</div>
+          <div class="ap-step" data-mission-action>
+            <span class="box"></span>
+            <span>Relire l'énoncé · entourer ce que tu n'as pas compris</span>
+            <span class="dur">5 min</span>
           </div>
-
-          <!-- Objective coverage -->
-          <div class="card">
-            <div class="card-head">
-              <h3>Dossier cible</h3>
-            </div>
-            <div class="objective-snapshot">
-              <svg width="100" height="100" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="40" fill="none" stroke="#EFE7DC" stroke-width="12"/>
-                <circle cx="50" cy="50" r="40" fill="none" stroke="#121212" stroke-width="12" stroke-dasharray="184 252" transform="rotate(-90 50 50)"/>
-                <text x="50" y="48" text-anchor="middle" font-family="Archivo Black, sans-serif" font-size="20" fill="#121212">73%</text>
-                <text x="50" y="64" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="9" font-weight="700" letter-spacing="0.1em" fill="#5F5B57">CIBLE 85%</text>
-              </svg>
-              <div class="objective-list">
-                <div class="objective-row"><span>Maths spé</span><span class="objective-pct">86%</span></div>
-                <div class="objective-row"><span>Physique-chimie</span><span class="objective-pct">71%</span></div>
-                <div class="objective-row"><span>Dossier continu</span><span class="objective-pct">62%</span></div>
-                <div class="objective-row"><span>Projet motivé</span><span class="objective-pct">74%</span></div>
-              </div>
-            </div>
+          <div class="ap-step" data-mission-action>
+            <span class="box"></span>
+            <span>Refaire la question 3 en rédigeant proprement</span>
+            <span class="dur">12 min</span>
           </div>
-
-          <!-- Streak card -->
-          <div class="card streak-card">
-            <div class="card-head"><h3>Régularité</h3></div>
-            <div class="streak-content">
-              <div class="streak-number">7</div>
-              <div>
-                <div class="streak-label">Jours d'affilée</div>
-                <div class="streak-copy">Tu es à 4 jours de ton record (11 jours).</div>
-              </div>
-            </div>
+          <div class="ap-step" data-mission-action>
+            <span class="box"></span>
+            <span>Comparer avec la correction officielle</span>
+            <span class="dur">8 min</span>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================ PLANNING VIEW -->
-    <section class="view" id="view-planning" name="planning" data-screen-label="02 Planning">
-      <div class="page-head">
-        <div>
-          <h1>Planning</h1>
-          <div class="sub" data-planning-subtitle>Semaine en cours · ajustée à ta progression</div>
-        </div>
-        <div class="planning-actions">
-          <button class="btn btn--ghost">‹ Sem. précédente</button>
-          <button class="btn">Demander à l'IA</button>
-        </div>
+        </aside>
       </div>
 
-      <div class="cal">
-        <div></div>
-        <div class="col-head" data-weekday-offset="0">Lun</div>
-        <div class="col-head" data-weekday-offset="1">Mar</div>
-        <div class="col-head" data-weekday-offset="2">Mer</div>
-        <div class="col-head" data-weekday-offset="3">Jeu</div>
-        <div class="col-head" data-weekday-offset="4">Ven</div>
-        <div class="col-head weekend-day" data-weekday-offset="5">Sam</div>
-        <div class="col-head weekend-day" data-weekday-offset="6">Dim</div>
+      <!-- BOTTOM: next + AI -->
+      <div class="ap-split stats">
+        <div class="ap-card">
+          <div class="ap-card__head">
+            <h3>Après cette mission</h3>
+            <span class="ap-card__hint">3 prévues aujourd'hui</span>
+          </div>
+          <div class="ap-next-list">
+            <div class="ap-next-item done">
+              <span class="when"><i class="ph-bold ph-check" aria-hidden="true"></i> 8h00</span>
+              <span class="title">Physique-chimie — énergie cinétique, ex. 4 & 5</span>
+              <span class="dur">45 min</span>
+            </div>
+            <div class="ap-next-item">
+              <span class="when">14h00</span>
+              <span class="title">Philo — plan détaillé sur la technique</span>
+              <span class="dur">30 min</span>
+            </div>
+            <div class="ap-next-item">
+              <span class="when">16h30</span>
+              <span class="title">Grand oral — reformuler la problématique</span>
+              <span class="dur">30 min</span>
+            </div>
+          </div>
+        </div>
 
-        <div class="row-head">08:00</div>
-        <div class="cell"></div>
-        <div class="evt evt--maths"><span class="who">Maths spé · DM</span><span data-daily-mission-title>Mission</span></div>
-        <div class="cell"></div>
-        <div class="evt evt--phys"><span class="who">Physique-chimie · TD</span><span>Énergie</span></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-
-        <div class="row-head">10:00</div>
-        <div class="evt evt--phys"><span class="who">Physique-chimie · cours</span><span>Ondes</span></div>
-        <div class="evt evt--chim"><span class="who">SVT · TP</span><span>Génétique</span></div>
-        <div class="evt evt--maths"><span class="who">Maths spé · cours</span><span>Suites</span></div>
-        <div class="cell"></div>
-        <div class="evt evt--maths"><span class="who">Maths spé · DS</span><span>Fonctions</span></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-
-        <div class="row-head">14:00</div>
-        <div class="evt evt--maths"><span class="who">Maths spé · TD</span><span>Limites</span></div>
-        <div class="evt evt--fr"><span class="who">Philo</span><span>La technique</span></div>
-        <div class="evt evt--si"><span class="who">Grand oral</span><span>Plan</span></div>
-        <div class="evt evt--fr"><span class="who">Français · oral</span><span>Entraînement</span></div>
-        <div class="evt evt--phys"><span class="who">Physique-chimie · TP</span><span>Dosage</span></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-
-        <div class="row-head">16:00</div>
-        <div class="evt evt--fr"><span class="who">Français</span><span>Lecture ch.4</span></div>
-        <div class="cell"></div>
-        <div class="evt evt--chim"><span class="who">Spé · cours</span><span>Réactions ac.</span></div>
-        <div class="evt evt--maths"><span class="who">Maths spé · révision</span><span>Suites</span></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-
-        <div class="row-head">18:00</div>
-        <div class="evt evt--chim"><span class="who">Physique-chimie</span><span>Fiche énergie</span></div>
-        <div class="evt evt--maths"><span class="who">Maths spé · DM</span><span>Exos chap.7</span></div>
-        <div class="cell"></div>
-        <div class="evt evt--phys"><span class="who">Physique-chimie · révision</span><span>Ondes</span></div>
-        <div class="evt evt--fr"><span class="who">Français</span><span>Dissertation</span></div>
-        <div class="cell"></div>
-        <div class="cell"></div>
-      </div>
-    </section>
-
-    <!-- ============================================================ FOCUS LANDING (» focus.html) -->
-    <section class="view" id="view-focus" data-screen-label="04 Focus-entry">
-      <div class="focus-entry">
-        <div class="focus-entry__label">Mode focus immersif</div>
-        <div class="focus-entry__title">Prête à te poser&nbsp;?</div>
-        <p class="focus-entry__copy">Tu vas basculer en mode focus. Notifications coupées, distractions écartées. Tu peux sortir quand tu veux.</p>
-        <a href="focus.html" class="btn focus-entry__cta">Entrer en focus →</a>
+        <div class="ap-ia">
+          <div class="ap-ia__head">
+            <div class="ap-ia__av">IA</div>
+            <span class="ap-ia__tag">Suggestion · ce matin</span>
+          </div>
+          <div class="ap-ia__body">
+            J'ai déplacé ta physique à demain matin — tu seras plus fraîche pour les exercices d'application.
+          </div>
+          <div class="ap-ia__actions">
+            <button type="button" class="ap-ia__btn accept">Appliquer</button>
+            <button type="button" class="ap-ia__btn">Ignorer</button>
+          </div>
+        </div>
       </div>
     </section>
   </div>
 </div>
 
+
 <nav class="mobile-tabs" aria-label="Navigation principale">
   <a href="index.html" class="mobile-tab is-active" aria-current="page">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></svg>
+    <i class="ph-bold ph-target" aria-hidden="true"></i>
     <span>Aujourd'hui</span>
   </a>
   <a href="progression.html" class="mobile-tab">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l4-4 4 4 5-7 5 7"/><path d="M3 21h18"/></svg>
+    <i class="ph-bold ph-chart-line-up" aria-hidden="true"></i>
     <span>Progression</span>
   </a>
   <a href="objectif.html" class="mobile-tab">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    <i class="ph-bold ph-squares-four" aria-hidden="true"></i>
     <span>Objectif</span>
   </a>
   <a href="focus.html" class="mobile-tab">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+    <i class="ph-bold ph-timer" aria-hidden="true"></i>
     <span>Focus</span>
   </a>
 </nav>
-
 <script src="scripts/model.js"></script>
 <script src="scripts/state.js"></script>
 <script src="scripts/dom.js"></script>
 <script src="scripts/user-context-ui.js"></script>
 <script src="scripts/mission-ui.js"></script>
-<script>
-  // View switching
-  var sbItems = document.querySelectorAll('.sb-item[data-view]');
-  var views = document.querySelectorAll('.view');
-  function normalizeView(target) {
-    return document.getElementById('view-' + target) ? target : 'today';
-  }
-  function viewFromHash() {
-    return normalizeView((window.location.hash || '#today').slice(1));
-  }
-  function setView(target, updateHash) {
-    target = normalizeView(target || 'today');
-    sbItems.forEach(function(i) {
-      i.classList.toggle('active', i.dataset.view === target);
-    });
-    views.forEach(function(v) {
-      v.classList.toggle('active', v.id === 'view-' + target);
-    });
-    if (updateHash && window.location.hash !== '#' + target) {
-      history.pushState(null, '', '#' + target);
-    }
-  }
-  sbItems.forEach(function(item) {
-    item.addEventListener('click', function(e) {
-      e.preventDefault();
-      var target = item.dataset.view;
-      setView(target, true);
-    });
-  });
-  window.addEventListener('popstate', function() {
-    setView(viewFromHash(), false);
-  });
-  setView(viewFromHash(), false);
-
-  // Mission list toggle (sidebar missions)
-  document.querySelectorAll('.mission').forEach(function(m) {
-    m.addEventListener('click', function() {
-      m.classList.toggle('done');
-      var check = m.querySelector('.check');
-      if (check && !check.querySelector('span')) check.textContent = m.classList.contains('done') ? '✓' : '';
-    });
-  });
-
-  // Mission-action steps — clickable with counter
-  var stepActions = document.querySelectorAll('.mission-action[data-mission-action]');
-  var stepCounter = document.getElementById('step-counter');
-  window.updateStepCounter = function updateStepCounter() {
-    var total = stepActions.length;
-    var done = document.querySelectorAll('.mission-action.done').length;
-    if (!stepCounter) return;
-    stepCounter.textContent = done + '/' + total + ' étapes';
-    stepCounter.classList.toggle('step-counter--active', done > 0 && done !== total);
-    stepCounter.classList.toggle('step-counter--done', done === total);
-  };
-  stepActions.forEach(function(action) {
-    action.setAttribute('role', 'checkbox');
-    action.setAttribute('tabindex', '0');
-    action.setAttribute('aria-checked', 'false');
-    action.addEventListener('click', function() {
-      var isDone = !action.classList.contains('done');
-      action.classList.toggle('done', isDone);
-      action.setAttribute('aria-checked', String(isDone));
-      window.updateStepCounter();
-    });
-    action.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); action.click(); }
-    });
-  });
-</script>
 </body>
 </html>

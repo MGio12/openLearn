@@ -25,7 +25,15 @@
     subtask.addEventListener('click', function () {
       subtask.classList.toggle('done');
       var box = subtask.querySelector('.box');
-      if (box) box.textContent = subtask.classList.contains('done') ? '\u2713' : '';
+      if (box) {
+        box.textContent = '';
+        if (subtask.classList.contains('done')) {
+          var icon = document.createElement('i');
+          icon.className = 'ph-bold ph-check';
+          icon.setAttribute('aria-hidden', 'true');
+          box.appendChild(icon);
+        }
+      }
     });
   });
 

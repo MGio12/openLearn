@@ -725,7 +725,7 @@ Si tu donnes ce doc à un agent pour qu'il refonde une page de cours, voici le p
 > 5. Limite les `formula-card.is-major` à 1 par section.
 > 6. Garde **tous** les hooks JS : `data-reveal`, `data-section-link`, IDs JSXGraph, attributs `hidden`, etc.
 > 7. Ne touche pas à `cours.js`. La page v2 doit fonctionner avec.
-> 8. Charge `cours-v2.css` (pas `cours.css`).
+> 8. Charge `cours.css`.
 > 9. Inclus le bloc `<script>` final pour progress bar + section bar (§ 5.6).
 > 10. Avant de livrer, valide la checklist § 11.
 >
@@ -738,17 +738,17 @@ Si tu donnes ce doc à un agent pour qu'il refonde une page de cours, voici le p
 ```
 prototypes/cours/
 ├── maths-specialite/
-│   ├── cours-v2.css        ← le système (à inclure dans chaque page)
+│   ├── cours.css        ← le système (à inclure dans chaque page)
 │   ├── cours.js            ← logique existante (ne pas modifier)
 │   ├── second-degre/
-│   │   └── index.html      ← page V2 (charge ../cours-v2.css + ../cours.js)
+│   │   └── index.html      ← page V2 (charge ../cours.css + ../cours.js)
 │   ├── derivation/
 │   │   └── index.html      ← idem
 │   └── …/index.html
 ├── DESIGN-SYSTEM.md        ← ce document
 ```
 
-**Une seule CSS pour toutes les pages de cours.** Si tu as besoin de styles spécifiques (ex : un graphe particulier), garde-les dans un `<style>` scoped en haut du fichier de cette page, jamais dans `cours-v2.css`.
+**Une seule CSS pour toutes les pages de cours.** Si tu as besoin de styles spécifiques (ex : un graphe particulier), garde-les dans un `<style>` scoped en haut du fichier de cette page, jamais dans `cours.css`.
 
 ---
 

@@ -1,140 +1,306 @@
 <!doctype html>
+<!--
+  ============================================================
+  Objectif Lycée — Focus
+  Drop-in replacement: paths use root-level CSS/JS.
+  Navigation links point to final .html pages.
+  ============================================================
+-->
+
 <html lang="fr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Objectif Lycée — Focus</title>
-  <meta name="description" content="25 min de focus, une mission, zéro distraction. Notifications coupées, sites distrayants bloqués.">
-  <meta name="theme-color" content="#121212">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='6' width='52' height='52' rx='12' fill='%23F4D35E' stroke='%23121212' stroke-width='5' transform='rotate(-6 32 32)'/%3E%3Ctext x='32' y='44' font-family='Arial Black, Impact, sans-serif' font-size='34' font-weight='900' text-anchor='middle' fill='%23121212' transform='rotate(-6 32 32)'%3EO%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="colors_and_type.css">
-  <link rel="stylesheet" href="assets/css/pages/focus.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap">
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; height: 820px; min-height: 820px; }
+    body {
+      background-color: #2A2622;
+      background-image:
+        radial-gradient(ellipse 90% 70% at 50% 38%, #3F3833 0%, #2A2622 55%, #1E1B18 100%),
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.012) 0 1px, transparent 1px 4px),
+        repeating-linear-gradient(90deg, rgba(255,255,255,0.012) 0 1px, transparent 1px 4px);
+      color: var(--paper);
+      font-family: var(--font-body);
+      overflow: hidden;
+      min-height: 820px;
+    }
+
+    .fx2 {
+      position: relative;
+      min-height: 820px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: 24px 36px;
+    }
+
+    /* Top: very thin */
+    .fx2-top { display: flex; justify-content: space-between; align-items: center; }
+    .fx2-exit {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-body); font-weight: 700; font-size: 12px;
+      color: rgba(246, 242, 235, 0.55);
+      text-decoration: none;
+      padding: 6px 10px; border-radius: 8px;
+    }
+    .fx2-exit:hover { color: var(--paper); background: rgba(246,242,235,0.06); }
+    .fx2-session {
+      font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+      color: rgba(246, 242, 235, 0.45); letter-spacing: .14em; text-transform: uppercase;
+    }
+
+    /* Stage: centered, single column */
+    .fx2-stage {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center;
+      gap: 28px;
+      padding: 12px 0;
+    }
+    .fx2-task {
+      font-family: var(--font-body); font-size: 14px; font-weight: 600;
+      color: rgba(246, 242, 235, 0.75);
+      letter-spacing: .02em;
+    }
+    .fx2-task .pill {
+      display: inline-block;
+      font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      padding: 3px 9px;
+      background: var(--stabilo); color: var(--ink);
+      border-radius: 999px;
+      margin-right: 10px;
+      vertical-align: 2px;
+    }
+    .fx2-timer {
+      font-family: var(--font-display);
+      font-size: 240px;
+      line-height: 0.92;
+      letter-spacing: -.04em;
+      color: var(--paper);
+      text-shadow: 0 0 80px rgba(244, 211, 94, 0.08);
+      font-variant-numeric: tabular-nums;
+      margin: -10px 0;
+    }
+    .fx2-bar {
+      width: 360px; height: 5px;
+      background: rgba(246, 242, 235, 0.10);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .fx2-bar .fill {
+      width: 38%; height: 100%;
+      background: var(--stabilo);
+      border-radius: 999px;
+    }
+
+    .fx2-controls { display: flex; align-items: center; gap: 22px; margin-top: 4px; }
+    .fx2-ctl {
+      width: 52px; height: 52px; border-radius: 999px;
+      background: transparent;
+      border: 1.5px solid rgba(246, 242, 235, 0.18);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: var(--paper);
+    }
+    .fx2-ctl:disabled { opacity: 0.25; }
+    .fx2-exit .ph-bold { font-size: 13px; line-height: 1; }
+    .fx2-ctl .ph-bold { font-size: 22px; line-height: 1; color: currentColor; }
+    .fx2-ctl.primary {
+      width: 76px; height: 76px; background: var(--stabilo); color: var(--ink);
+      border: none; box-shadow: 0 10px 32px rgba(244, 211, 94, 0.22);
+    }
+    .fx2-ctl.primary .ph-bold { font-size: 30px; }
+    .fx-icon-hidden { display: none; }
+
+    /* Steps — discreet, below the timer */
+    .fx2-steps {
+      width: min(560px, 90%);
+      display: flex; flex-direction: column; gap: 4px;
+      margin-top: 16px;
+    }
+    .fx2-steps__head {
+      font-family: var(--font-body); font-size: 10px; font-weight: 800;
+      letter-spacing: .18em; text-transform: uppercase;
+      color: rgba(246, 242, 235, 0.4);
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    .fx2-step {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 6px;
+      font-family: var(--font-body); font-size: 14px;
+      color: var(--paper);
+      border-bottom: 1px dashed rgba(246, 242, 235, 0.08);
+    }
+    .fx2-step:last-child { border-bottom: none; }
+    .fx2-step .box {
+      width: 16px; height: 16px; flex-shrink: 0;
+      border: 1.5px solid rgba(246, 242, 235, 0.35);
+      border-radius: 4px;
+    }
+    .fx2-step.done .box {
+      background: var(--stabilo); border-color: var(--stabilo);
+    }
+    .fx2-step.done .label { opacity: 0.45; text-decoration: line-through; }
+    .fx2-step .dur {
+      margin-left: auto;
+      font-family: var(--font-mono); font-size: 11px;
+      color: rgba(246, 242, 235, 0.45);
+    }
+
+    /* Floating ambient — tiny, discreet, bottom-left */
+    .fx2-ambient {
+      position: absolute;
+      left: 36px; bottom: 24px;
+      display: flex; gap: 6px;
+    }
+    .fx2-amb {
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 999px;
+      background: rgba(246, 242, 235, 0.05);
+      border: 1.5px solid rgba(246, 242, 235, 0.12);
+      cursor: pointer; color: var(--paper);
+    }
+    .fx2-amb .ph-bold { font-size: 17px; line-height: 1; }
+    .fx2-amb:hover { background: rgba(246, 242, 235, 0.10); }
+    .fx2-amb.active {
+      background: rgba(244, 211, 94, 0.18);
+      border-color: rgba(244, 211, 94, 0.5);
+      color: var(--stabilo);
+    }
+
+    /* Bottom strip */
+    .fx2-bottom {
+      display: flex; justify-content: center; gap: 28px;
+      padding-top: 16px;
+      font-family: var(--font-mono); font-size: 10px;
+      color: rgba(246, 242, 235, 0.35);
+      letter-spacing: .14em; text-transform: uppercase;
+    }
+    .fx2-bottom .sep { color: rgba(246, 242, 235, 0.2); }
+
+    /* Complete button — floating, only visible at session-end ideally; here we show it discretely */
+    .fx2-complete-link {
+      position: absolute; right: 36px; bottom: 26px;
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--font-body); font-size: 12px; font-weight: 700;
+      color: rgba(246, 242, 235, 0.55);
+      text-decoration: none;
+      padding: 8px 12px;
+      border: 1.5px solid rgba(246, 242, 235, 0.18);
+      border-radius: 999px;
+      background: rgba(246, 242, 235, 0.04);
+    }
+    .fx2-complete-link .ph-bold { font-size: 13px; line-height: 1; }
+    .fx2-complete-link:hover { color: var(--stabilo); border-color: rgba(244, 211, 94, 0.4); }
+
+    @media (max-width: 700px) {
+      html, body { height: auto; min-height: 100svh; }
+      body { min-height: 100svh; overflow: auto; }
+      .fx2 { min-height: 100svh; padding: 18px 16px 92px; }
+      .fx2-top { align-items: flex-start; gap: 12px; flex-direction: column; }
+      .fx2-stage { gap: 20px; justify-content: flex-start; padding-top: 36px; }
+      .fx2-task { text-align: center; line-height: 1.45; }
+      .fx2-timer { font-size: clamp(86px, 26vw, 148px); margin: 0; }
+      .fx2-bar { width: min(320px, 86vw); }
+      .fx2-controls { gap: 14px; }
+      .fx2-ctl { width: 48px; height: 48px; }
+      .fx2-ctl.primary { width: 66px; height: 66px; }
+      .fx2-steps { width: 100%; }
+      .fx2-step { align-items: flex-start; flex-wrap: wrap; }
+      .fx2-step .label { flex-basis: calc(100% - 28px); }
+      .fx2-step .dur { margin-left: 28px; }
+      .fx2-ambient { bottom: 44px; left: 16px; }
+      .fx2-complete-link { bottom: 44px; right: 16px; }
+      .fx2-bottom { display: none; }
+    }
+  </style>
 </head>
 <body>
 
-<div class="fx" data-screen-label="Focus Mode">
-  <!-- Rain layer (toggles on when "Pluie" is active) -->
-  <div class="rain" id="rain"></div>
-
-  <!-- ============================================================ TOP -->
-  <header class="fx-top">
-    <a href="index.html" class="fx-exit">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-      Quitter le focus
+<div class="fx2">
+  <header class="fx2-top">
+    <a href="index.html" class="fx2-exit">
+      <i class="ph-bold ph-caret-left" aria-hidden="true"></i>
+      Quitter
     </a>
-    <div class="fx-session">
-      <span class="dot"></span>
-      Session 3 sur 4 · aujourd'hui
-    </div>
+    <div class="fx2-session">Session 3/4 · 24 min restantes</div>
   </header>
 
-  <!-- ============================================================ STAGE -->
-  <main class="fx-stage">
-    <!-- Main column -->
-    <div class="fx-main">
-      <div class="fx-task">
-        <span class="pill" data-daily-mission-subject>Matière</span>
-        <span class="title" data-daily-mission-task-title>Mission du jour</span>
-      </div>
-
-      <div class="fx-timer" id="timer">24:38</div>
-
-      <div class="fx-progress-ring">
-        <svg viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="44" fill="none" stroke="rgba(246,242,235,0.12)" stroke-width="6"/>
-          <circle id="ring" cx="50" cy="50" r="44" fill="none" stroke="#F4D35E" stroke-width="6" stroke-dasharray="276" stroke-dashoffset="14" stroke-linecap="round" transform="rotate(-90 50 50)"/>
-        </svg>
-        <div class="pct">98%</div>
-      </div>
-
-      <div class="fx-controls">
-        <button type="button" class="fx-ctl" id="prevSession" disabled aria-label="Pomodoro précédent — bientôt disponible">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="11 17 6 12 11 7"/><polyline points="18 17 13 12 18 7"/></svg>
-        </button>
-        <button type="button" class="fx-ctl primary" id="playPause" aria-label="Pause ou reprise (Espace)">
-          <svg viewBox="0 0 24 24" id="play-icon" class="fx-icon-hidden" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4"/></svg>
-          <svg viewBox="0 0 24 24" id="pause-icon" aria-hidden="true"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
-        </button>
-        <button type="button" class="fx-ctl" id="nextSession" disabled aria-label="Pomodoro suivant — bientôt disponible">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>
-        </button>
-      </div>
-
-      <div class="fx-kicker" id="fx-kicker">Focus · <span data-daily-mission-focus-duration>Durée</span></div>
+  <main class="fx2-stage">
+    <div class="fx2-task">
+      <span class="pill">Maths spé</span>
+      Corriger le DM sur les suites
     </div>
 
-    <!-- Right panel -->
-    <aside class="fx-side">
-      <div>
-        <h3>Cette session</h3>
-        <div class="fx-session-steps" data-daily-mission-focus-steps></div>
-        <button class="fx-complete" id="finishMission" type="button">Marquer la mission terminée</button>
-      </div>
+    <div class="fx2-timer" id="timer">24:38</div>
 
-      <div>
-        <h3>Ambiance</h3>
-        <div class="ambient fx-ambient" role="radiogroup" aria-label="Ambiance sonore">
-          <button type="button" class="amb active" data-amb="lofi" role="radio" aria-checked="true"><span class="ic" aria-hidden="true">♪</span><span class="nm">Lofi</span></button>
-          <button type="button" class="amb" data-amb="rain" role="radio" aria-checked="false"><span class="ic" aria-hidden="true">☂</span><span class="nm">Pluie</span></button>
-          <button type="button" class="amb" data-amb="cafe" role="radio" aria-checked="false"><span class="ic" aria-hidden="true">☕</span><span class="nm">Café</span></button>
-          <button type="button" class="amb" data-amb="silence" role="radio" aria-checked="false"><span class="ic" aria-hidden="true">○</span><span class="nm">Silence</span></button>
-        </div>
-      </div>
+    <div class="fx2-bar"><div class="fill"></div></div>
 
-      <div>
-        <h3>Aujourd'hui</h3>
-        <div class="fx-today-metrics">
-          <div class="fx-today-row"><span class="fx-muted-label">Sessions</span><span class="fx-paper-stat">3 / 4</span></div>
-          <div class="fx-today-row"><span class="fx-muted-label">Temps de focus</span><span class="fx-paper-stat">1 h 37</span></div>
-          <div class="fx-today-row"><span class="fx-muted-label">Régularité</span><span class="fx-paper-stat fx-paper-stat--accent">7 j</span></div>
-        </div>
-      </div>
+    <div class="fx2-controls">
+      <button type="button" class="fx2-ctl" disabled aria-label="Précédent">
+        <i class="ph-bold ph-skip-back" aria-hidden="true"></i>
+      </button>
+      <button type="button" class="fx2-ctl primary" id="playPause" aria-label="Pause ou reprise (Espace)">
+        <i class="ph-bold ph-play fx-icon-hidden" id="play-icon" aria-hidden="true"></i>
+        <i class="ph-bold ph-pause" id="pause-icon" aria-hidden="true"></i>
+      </button>
+      <button type="button" class="fx2-ctl" disabled aria-label="Suivant">
+        <i class="ph-bold ph-skip-forward" aria-hidden="true"></i>
+      </button>
+    </div>
 
-      <div>
-        <h3>Après ça</h3>
-        <div class="fx-next-card">
-          <div class="fx-next-eyebrow">Mission suivante</div>
-          <div class="fx-next-title">Projet motivé — 3 preuves concrètes</div>
-          <div class="fx-next-meta">25 min · 14h00</div>
-        </div>
+    <div class="fx2-steps">
+      <div class="fx2-steps__head">3 étapes</div>
+      <div class="fx2-step done">
+        <span class="box"></span>
+        <span class="label">Relire l'énoncé · entourer ce que tu n'as pas compris</span>
+        <span class="dur">5 min</span>
       </div>
-    </aside>
+      <div class="fx2-step">
+        <span class="box"></span>
+        <span class="label">Refaire la question 3 en rédigeant proprement</span>
+        <span class="dur">12 min</span>
+      </div>
+      <div class="fx2-step">
+        <span class="box"></span>
+        <span class="label">Comparer avec la correction officielle</span>
+        <span class="dur">8 min</span>
+      </div>
+    </div>
   </main>
 
-  <!-- ============================================================ BOTTOM -->
-  <footer class="fx-bottom">
-    <div class="fx-bottom-group">
-      <span>● Notifications coupées</span>
-      <span>● Sites distrayants bloqués</span>
-    </div>
-    <div class="fx-bottom-group">
-      <span><strong>Espace</strong> Pause / reprise</span>
-      <span><strong>Échap</strong> Quitter</span>
-    </div>
-  </footer>
-  <!-- Session-done overlay -->
-  <div class="fx-done" id="fx-done" hidden>
-    <div class="fx-done-inner">
-      <div class="fx-done-icon"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
-      <div class="fx-done-title">Session terminée !</div>
-      <div class="fx-done-sub" data-daily-mission-done-summary>Ta mission avance.</div>
-      <div class="fx-done-actions">
-        <button class="fx-done-btn fx-done-btn--break" id="startBreak">Pause 5 min</button>
-        <a class="fx-done-btn fx-done-btn--next" href="progression.html">Voir ma progression</a>
-      </div>
-    </div>
+  <!-- Ambient: tiny dot-toggles, bottom-left -->
+  <div class="fx2-ambient" role="radiogroup" aria-label="Ambiance">
+    <button type="button" class="fx2-amb amb active" data-amb="lofi" role="radio" aria-checked="true" title="Lofi"><i class="ph-bold ph-music-notes" aria-hidden="true"></i></button>
+    <button type="button" class="fx2-amb amb" data-amb="rain" role="radio" aria-checked="false" title="Pluie"><i class="ph-bold ph-cloud-rain" aria-hidden="true"></i></button>
+    <button type="button" class="fx2-amb amb" data-amb="cafe" role="radio" aria-checked="false" title="Café"><i class="ph-bold ph-coffee" aria-hidden="true"></i></button>
+    <button type="button" class="fx2-amb amb" data-amb="silence" role="radio" aria-checked="false" title="Silence"><i class="ph-bold ph-speaker-slash" aria-hidden="true"></i></button>
   </div>
 
-</div>
+  <!-- Marquer terminée: discreet, bottom-right -->
+  <a href="progression.html" class="fx2-complete-link" id="finishMission">Mission terminée <i class="ph-bold ph-arrow-up-right" aria-hidden="true"></i></a>
 
+  <footer class="fx2-bottom">
+    <span>Notifications coupées</span>
+    <span class="sep">·</span>
+    <span>Sites bloqués</span>
+    <span class="sep">·</span>
+    <span>Espace · Pause</span>
+    <span class="sep">·</span>
+    <span>Échap · Quitter</span>
+  </footer>
+</div>
 <script src="scripts/model.js"></script>
 <script src="scripts/state.js"></script>
 <script src="scripts/dom.js"></script>
 <script src="scripts/mission-ui.js"></script>
 <script src="assets/js/pages/focus.js"></script>
-
 </body>
 </html>

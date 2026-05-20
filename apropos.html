@@ -36,6 +36,7 @@
   <meta property="og:locale" content="fr_FR">
 
   <link rel="stylesheet" href="colors_and_type.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css">
 
   <style>
     /* ============================================================
@@ -131,6 +132,7 @@
       color: var(--ink); text-decoration: none;
       transition: transform .14s ease, box-shadow .14s ease;
     }
+    .btn .ph-bold { font-size: 16px; line-height: 1; }
     .btn:hover { transform: translate(2px, 2px); box-shadow: 4px 4px 0 var(--ink); }
     .btn:active { transform: translate(4px, 4px); box-shadow: 2px 2px 0 var(--ink); }
     .btn--ghost { background: transparent; box-shadow: none; border-width: 0; padding: 14px 6px; font-size: 14px; }
@@ -139,12 +141,14 @@
     /* ----- SECTION ----- */
     section { padding: clamp(32px, 5vw, 64px) 0; }
     .section-kicker {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       font-family: var(--font-body); font-weight: 800; font-size: 11px;
       letter-spacing: .14em; text-transform: uppercase;
       color: var(--ink); margin-bottom: 8px;
     }
-    .section-kicker::before { content: "★ "; color: var(--stabilo-2); }
+    .section-kicker .ph-bold { font-size: 13px; line-height: 1; color: var(--stabilo-2); }
     h2.section-title {
       margin: 0 0 24px;
       font-family: var(--font-display);
@@ -335,16 +339,16 @@
       border-bottom: 1px dashed rgba(18, 18, 18, .18);
     }
     .paywall li:last-child { border-bottom: none; }
-    .paywall li::before {
-      content: "✓";
+    .paywall li .ph-bold {
       position: absolute; left: 0; top: 9px;
-      font-weight: 800; color: var(--ink);
+      color: var(--ink);
       background: var(--stabilo);
       border: 2px solid var(--ink);
       width: 20px; height: 20px;
       border-radius: 999px;
       display: grid; place-items: center;
       font-size: 12px;
+      line-height: 1;
     }
     .paywall .fine { font-size: 13px; color: var(--ink-soft); margin: 14px 0 0; line-height: 1.5; }
     .paywall .btn { margin-top: 8px; }
@@ -392,7 +396,7 @@
   </a>
   <nav class="nav-right" aria-label="Navigation principale">
     <a class="nav-link" href="#histoire" data-hide-sm>Histoire</a>
-    <a class="nav-link" href="checkout_v2.html" data-hide-sm>Offres</a>
+    <a class="nav-link" href="checkout.html" data-hide-sm>Offres</a>
     <span class="nav-pill"><span class="dot"></span> Essai 3 j · sans débit</span>
   </nav>
 </header>
@@ -407,13 +411,13 @@
     </p>
     <div class="hero-cta">
       <a class="btn" href="onboarding.html">Tester 3 jours, sans débit</a>
-      <a class="btn btn--ghost" href="#histoire">Lire mon histoire ↓</a>
+      <a class="btn btn--ghost" href="#histoire">Lire mon histoire <i class="ph-bold ph-arrow-down" aria-hidden="true"></i></a>
     </div>
   </section>
 
   <!-- ============================================================ CE QU'ON EST -->
   <section>
-    <span class="section-kicker">Ce qu'on est</span>
+    <span class="section-kicker"><i class="ph-bold ph-sparkle" aria-hidden="true"></i> Ce qu'on est</span>
     <h2 class="section-title">Trois choix qu'un cours particulier ne te donne pas.</h2>
     <div class="cards-3">
       <article class="card">
@@ -433,7 +437,7 @@
 
   <!-- ============================================================ IA & CHANCES -->
   <section>
-    <span class="section-kicker">Pourquoi maintenant</span>
+    <span class="section-kicker"><i class="ph-bold ph-sparkle" aria-hidden="true"></i> Pourquoi maintenant</span>
     <h2 class="section-title">Cette fois, l'inégalité peut baisser.</h2>
     <p class="section-lead">
       Un cours particulier au lycée coûte 25 à 40 € de l'heure<sup><a href="#sito-1">1</a></sup>. Les familles qui peuvent payer prennent un point de moyenne d'avance ; les autres, non. C'est l'écart le plus injuste du système. Et c'est celui que l'IA peut casser. Pas par magie. Parce qu'un modèle bien réglé répond mieux qu'un cours en ligne générique, à toute heure, sans condescendance. Encore faut-il s'en servir comme un outil, pas comme une excuse pour moins travailler.
@@ -471,7 +475,7 @@
 
   <!-- ============================================================ MÉTHODE -->
   <section>
-    <span class="section-kicker">Méthode</span>
+    <span class="section-kicker"><i class="ph-bold ph-sparkle" aria-hidden="true"></i> Méthode</span>
     <h2 class="section-title">À terme, tu travailles tout seul.</h2>
     <div class="method-block">
       <p>
@@ -486,7 +490,7 @@
 
   <!-- ============================================================ HISTOIRE -->
   <section id="histoire">
-    <span class="section-kicker">Histoire</span>
+    <span class="section-kicker"><i class="ph-bold ph-sparkle" aria-hidden="true"></i> Histoire</span>
     <h2 class="section-title">Pourquoi je fais ça.</h2>
     <div class="story-grid">
       <div class="story-photo">
@@ -514,10 +518,10 @@
     <div class="paywall">
       <h2>Essaie. Si ça ne te sert à rien, tu pars.</h2>
       <ul>
-        <li><strong>3 jours d'essai</strong> — aucun débit pendant ces 3 jours.</li>
-        <li><strong>Mail de rappel la veille</strong> du premier prélèvement. Tu décides après, en connaissance de cause.</li>
-        <li><strong>Résiliation en 1 clic</strong>, à n'importe quel moment, depuis ton compte.</li>
-        <li>Le compte parent peut payer ; l'élève garde son espace de travail séparé.</li>
+        <li><i class="ph-bold ph-check" aria-hidden="true"></i><strong>3 jours d'essai</strong> — aucun débit pendant ces 3 jours.</li>
+        <li><i class="ph-bold ph-check" aria-hidden="true"></i><strong>Mail de rappel la veille</strong> du premier prélèvement. Tu décides après, en connaissance de cause.</li>
+        <li><i class="ph-bold ph-check" aria-hidden="true"></i><strong>Résiliation en 1 clic</strong>, à n'importe quel moment, depuis ton compte.</li>
+        <li><i class="ph-bold ph-check" aria-hidden="true"></i>Le compte parent peut payer ; l'élève garde son espace de travail séparé.</li>
       </ul>
       <a class="btn" href="onboarding.html">Démarrer l'essai 3 jours</a>
       <p class="fine">Pas de jeu sur les CGU. Pas de cases pré-cochées. Si on a déconné quelque part, écris à <a href="mailto:hello@objectiflycee.fr">hello@objectiflycee.fr</a>.</p>
@@ -553,7 +557,7 @@
   <!-- ============================================================ FOOTER -->
   <footer class="foot">
     <span>© Objectif Lycée — pour les lycéens qui veulent travailler juste.</span>
-    <span><a href="index.html">Accueil</a> · <a href="apropos.html">À propos</a> · <a href="checkout_v2.html">Offres</a> · <a href="mailto:hello@objectiflycee.fr">Contact</a></span>
+    <span><a href="index.html">Accueil</a> · <a href="apropos.html">À propos</a> · <a href="checkout.html">Offres</a> · <a href="mailto:hello@objectiflycee.fr">Contact</a></span>
   </footer>
 
 </main>
