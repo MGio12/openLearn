@@ -149,8 +149,11 @@
   --d-slow:       380ms;
 
   /* ===== PAPER GRID (subtle background texture) ===== */
-  --grid-color:   rgba(18, 18, 18, 0.045);
-  --grid-step:    24px;
+  --grid-color:        rgba(18, 18, 18, 0.045);
+  --grid-step:         24px;
+  --grid-major-color:  rgba(18, 18, 18, 0.075);
+  --grid-major-step:   96px;
+  --margin-rule-color: rgba(244, 162, 97, 0.22);
 }
 
 /* ============================================================

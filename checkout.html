@@ -851,6 +851,14 @@
       color: var(--ink);
       border-color: var(--ink);
     }
+    .cp-action[aria-disabled="true"] {
+      cursor: default;
+    }
+    .cp-action[aria-disabled="true"]:hover {
+      background: var(--paper-2);
+      color: var(--ink-soft);
+      border-color: rgba(18, 18, 18, 0.22);
+    }
 	    .cp-action__arrow {
 	      display: inline-flex;
 	      font-size: 14px;
@@ -1467,23 +1475,18 @@
           </span>
           <span class="cancel-proof-link__callout" aria-hidden="true">
             <span class="cancel-proof-link__click">
-              clique ici !!
+              voir l'exemple
               <i class="ph-bold ph-arrow-right cancel-proof-link__arrow" aria-hidden="true"></i>
             </span>
             <span class="cancel-proof-link__pill">Résilie en 1 clic</span>
           </span>
         </a>
 
-        <section class="google-reviews" aria-label="Avis Google">
+        <section class="google-reviews" aria-label="Retours de test">
           <div class="google-reviews__brand">
-            <span class="google-word" aria-label="Google">
-              <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span>
-            </span>
+            <span class="google-word">Retours</span>
             <span class="google-reviews__score">
-              <span class="google-reviews__stars" aria-hidden="true">
-                <i class="ph-bold ph-star"></i><i class="ph-bold ph-star"></i><i class="ph-bold ph-star"></i><i class="ph-bold ph-star"></i><i class="ph-bold ph-star"></i>
-              </span>
-              4,9/5 · avis élèves
+              Extraits de test produit
             </span>
           </div>
           <div class="google-reviews__items">
@@ -1504,9 +1507,8 @@
     <section class="trust-band" data-screen-label="02 Confiance">
       <div class="wrap">
         <div class="trust-band__head">
-          <span class="kicker"><i class="ph-bold ph-sparkle" aria-hidden="true"></i> Transparence</span>
-          <h2>On te traite comme un élève. Pas comme un client.</h2>
-          <p>Dis-nous ce qui ne te convient pas : on le changera le plus vite possible, sans que tu aies à payer quoi que ce soit.</p>
+          <h2>Tu es un élève, pas un client.</h2>
+          <p>Dis-nous ce qui bloque : on corrige les explications, les exercices ou l'interface dès qu'on peut.</p>
         </div>
 
         <div class="trust-grid">
@@ -1623,14 +1625,14 @@
           </div>
 
           <div class="cp-actions">
-            <a href="#" class="cp-action" tabindex="0">
+            <span class="cp-action" aria-disabled="true">
               <span>Voir mes reçus</span>
               <span class="cp-action__arrow"><i class="ph-bold ph-arrow-right" aria-hidden="true"></i></span>
-            </a>
-            <a href="#" class="cp-action" tabindex="0">
+            </span>
+            <span class="cp-action" aria-disabled="true">
               <span>Changer d'offre (Essentiel ou Excellence IA)</span>
               <span class="cp-action__arrow"><i class="ph-bold ph-arrow-right" aria-hidden="true"></i></span>
-            </a>
+            </span>
             <button type="button" class="cp-action cp-action--cancel" data-cp-cancel>
               <span>Se désabonner</span>
               <span class="cp-action__arrow"><i class="ph-bold ph-arrow-right" aria-hidden="true"></i></span>
@@ -1806,7 +1808,7 @@
     <div class="wrap">
       <footer class="foot">
         <span>© Objectif Lycée — pour les lycéens qui veulent travailler juste.</span>
-        <span><a href="index.html">Accueil</a> · <a href="mailto:hello@objectiflycee.fr">Contact</a> · <a href="#">Mentions légales</a></span>
+        <span><a href="index.html">Accueil</a> · <a href="mailto:hello@objectiflycee.fr">Contact</a> · Mentions légales à venir</span>
       </footer>
     </div>
   </main>

@@ -845,9 +845,11 @@
 
     state.byDate[date] = {
       missionId: mission.id,
+      missionTitle: null,
       actionsChecked: missionProgress.stepStates.map(function (step) { return step.done; }),
       missionCompleted: false,
       completedAt: null,
+      mood: null,
     };
 
     return options.overrides ? deepMerge(state, options.overrides) : state;
@@ -875,9 +877,11 @@
     if (!isPlainObject(state.byDate[date])) {
       state.byDate[date] = {
         missionId: state.mission.id,
+        missionTitle: null,
         actionsChecked: state.missionProgress.stepStates.map(function (step) { return step.done; }),
         missionCompleted: false,
         completedAt: null,
+        mood: null,
       };
     }
 

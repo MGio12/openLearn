@@ -6,9 +6,15 @@ html, body { margin: 0; padding: 0; height: 100%; }
 body {
   background-color: var(--paper);
   background-image:
+    linear-gradient(var(--grid-major-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-major-color) 1px, transparent 1px),
     linear-gradient(var(--grid-color) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-  background-size: var(--grid-step) var(--grid-step);
+  background-size:
+    var(--grid-major-step) var(--grid-major-step),
+    var(--grid-major-step) var(--grid-major-step),
+    var(--grid-step) var(--grid-step),
+    var(--grid-step) var(--grid-step);
   color: var(--ink);
   font-family: var(--font-body);
   overflow: hidden;

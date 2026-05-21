@@ -1,0 +1,909 @@
+/* ============================================================
+   Objectif Lycée — Home (index.html) page styles
+   ------------------------------------------------------------
+   - Layout overrides for the cockpit view
+   - Cahier margin rule + periphery annotations (fond)
+   - Mission card + reveal IA x-ray panel (état 1 ↔ état 2)
+   ============================================================ */
+
+/* ===== Page-level layout overrides ===== */
+html, body { height: auto; overflow: visible; }
+.app { height: auto; min-height: 100vh; }
+.main { overflow: visible; }
+.view {
+  display: block !important;
+  flex: none !important;
+  overflow: visible !important;
+  height: auto !important;
+  padding: 60px 30px 14px;
+  background-image: none !important;
+  position: relative;
+}
+#view-today {
+  --ap-mission-pad-x: 24px;
+  --ap-mission-border-w: 3px;
+}
+
+.ap-head,
+.ap-ritual,
+.ap-mission,
+.ap-section {
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+
+/* ===== Cahier — marge verticale gauche ===== */
+/* Une ligne fine, orange très pâle, alignée avec le bord gauche
+   du bloc centré (~960px max-width) puis 36px à l'extérieur.
+   Sur viewports étroits (max() clamp), la ligne se cale à 24px
+   du bord de la zone .view pour ne jamais sortir. */
+#view-today::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: max(24px, calc(50% - 480px - 36px));
+  width: 1.5px;
+  background: var(--margin-rule-color);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ===== Annotations périphériques (suggère le système plus grand) ===== */
+.ap-periphery {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  font-family: var(--font-hand);
+}
+.ap-periphery__mark {
+  --note-bg: #fff0a8;
+  --note-edge: rgba(112, 84, 36, 0.18);
+  --note-ink: #4a3524;
+  --note-shadow: rgba(51, 37, 18, 0.16);
+  --note-tape: rgba(255, 249, 226, 0.78);
+  --note-tilt: -2deg;
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 8px 14px 7px;
+  border: 1px solid var(--note-edge);
+  border-radius: 3px 2px 4px 2px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.24), rgba(255,255,255,0) 38%),
+    var(--note-bg);
+  box-shadow: 0 7px 13px -8px var(--note-shadow), 0 1px 2px rgba(37, 26, 12, 0.12);
+  color: var(--note-ink);
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: nowrap;
+  transform: rotate(var(--note-tilt));
+}
+.ap-periphery__mark::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  width: 54px;
+  height: 14px;
+  border: 1px solid rgba(130, 112, 77, 0.12);
+  border-radius: 2px;
+  background: var(--note-tape);
+  box-shadow: 0 1px 2px rgba(40, 31, 18, 0.08);
+  transform: translateX(-50%) rotate(-3deg);
+}
+.ap-periphery__mark:nth-child(2) {
+  --note-bg: #dff0c6;
+  --note-edge: rgba(77, 108, 52, 0.18);
+  --note-ink: #334123;
+  --note-tilt: 2deg;
+}
+.ap-periphery__mark:nth-child(3) {
+  --note-bg: #ffd4c7;
+  --note-edge: rgba(141, 78, 57, 0.18);
+  --note-ink: #5a2d20;
+  --note-tilt: -1.5deg;
+}
+.ap-periphery__mark:nth-child(4) {
+  --note-bg: #cfe7f1;
+  --note-edge: rgba(54, 105, 125, 0.18);
+  --note-ink: #294351;
+  --note-tilt: -3deg;
+}
+.ap-periphery__mark:nth-child(5) {
+  --note-bg: #f4dfbd;
+  --note-edge: rgba(117, 82, 37, 0.18);
+  --note-ink: #4b361c;
+  --note-tilt: 2.5deg;
+}
+.ap-periphery__mark--tr { top: 22px; right: 28px; }
+.ap-periphery__mark--bl { bottom: 56px; left: 32px; }
+.ap-periphery__mark--br { bottom: 22px; right: 36px; }
+.ap-periphery__mark--tl {
+  top: 24%;
+  left: 4px;
+  width: 112px;
+  justify-content: center;
+  text-align: center;
+  white-space: normal;
+}
+.ap-periphery__mark--mid { top: 64%; right: 22px; }
+
+/* Masquer sous 1100px : pas assez de gouttière pour les héberger sans gêner */
+@media (max-width: 1100px) {
+  .ap-periphery { display: none; }
+}
+
+/* ===== Head ===== */
+.ap-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+.ap-head h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 1.875rem);
+  line-height: 1.15;
+  letter-spacing: 0;
+  margin: 0.25rem 0 0;
+}
+.ap-head .sub {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
+.ap-date {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* ===== Rituel d'entrée ===== */
+.ap-ritual {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-inline: calc(var(--ap-mission-pad-x) + var(--ap-mission-border-w));
+  margin-bottom: 12px;
+}
+.ap-yesterday {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.ap-yesterday i {
+  font-size: 14px;
+  line-height: 1;
+  color: var(--green-2);
+}
+.ap-yesterday[data-completed="false"] i { color: var(--ink-mute); }
+.ap-mood,
+.ap-mood--inline {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.ap-mood__label {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+.ap-mood__chips {
+  display: inline-flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.ap-mood__chip {
+  appearance: none;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background .12s, color .12s, transform .12s;
+}
+.ap-mood__chip:hover { background: var(--paper-2); }
+.ap-mood__chip[aria-checked="true"] {
+  background: var(--ink);
+  color: var(--paper);
+}
+.ap-mood__chip:focus-visible {
+  outline: 2px solid var(--stabilo);
+  outline-offset: 2px;
+}
+.ap-mood__ack {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--ink-soft);
+  opacity: 0;
+  transition: opacity .2s;
+}
+.ap-mood__ack.is-visible { opacity: 1; }
+
+/* ===== Mission du jour ===== */
+.ap-mission {
+  position: relative;
+  background:
+    linear-gradient(135deg, rgba(244, 211, 94, 0.30), transparent 42%),
+    #FFFDF8;
+  border: var(--ap-mission-border-w) solid var(--ink);
+  border-radius: 16px;
+  box-shadow: 7px 7px 0 var(--ink);
+  padding: 18px var(--ap-mission-pad-x) 20px;
+  margin-bottom: 14px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 310px;
+  gap: 24px;
+  z-index: 1;
+}
+.ap-mission__left {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+.ap-mission__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.ap-mission__eyebrow .pill {
+  padding: 3px 10px;
+  background: var(--stabilo);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  letter-spacing: .04em;
+}
+.ap-signal {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink);
+  text-transform: none;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+.ap-signal .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--green-2);
+}
+.ap-mission h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.05;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  margin: 0;
+  max-width: 680px;
+}
+.ap-mission__why {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink);
+  max-width: 620px;
+  margin: 0;
+}
+.ap-mission__cta-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.ap-mission__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  align-self: flex-start;
+  padding: 11px 20px;
+  background: var(--ink);
+  color: var(--paper);
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  box-shadow: 4px 4px 0 var(--stabilo);
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 14px;
+  text-decoration: none;
+  margin-top: 2px;
+  transition: transform .15s, box-shadow .15s;
+}
+.ap-mission__cta:hover {
+  transform: translate(2px,2px);
+  box-shadow: 2px 2px 0 var(--stabilo);
+}
+.ap-mission__cta .arrow {
+  display: inline-flex;
+  align-items: center;
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* ===== Bouton "Pourquoi cette mission ?" (remplace l'ancien __support) ===== */
+.ap-mission__why-toggle {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: var(--paper);
+  color: var(--ink);
+  border: 2px dashed var(--ink);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background .15s, transform .15s;
+}
+.ap-mission__why-toggle:hover { background: var(--paper-2); }
+.ap-mission__why-toggle:focus-visible {
+  outline: 2px solid var(--stabilo);
+  outline-offset: 2px;
+}
+.ap-mission__why-toggle .ph-bold {
+  font-size: 13px;
+  line-height: 1;
+}
+.ap-mission__why-toggle[aria-expanded="true"] {
+  background: var(--ink);
+  color: var(--paper);
+  border-style: solid;
+}
+.ap-mission__support {
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+/* ===== Mission steps (côté droit) ===== */
+.ap-steps {
+  display: grid;
+  gap: 8px;
+  align-self: stretch;
+  padding-left: 20px;
+  border-left: 2.5px dashed var(--ink);
+}
+.ap-steps__head {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0;
+}
+.ap-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  min-width: 0;
+  padding: 7px 10px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1.3;
+}
+.ap-step .box {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  border: 2px solid var(--ink);
+  border-radius: 5px;
+  background: #FFFDF8;
+}
+.ap-step .dur {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--ink-soft);
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   REVEAL IA — X-ray panel
+   ------------------------------------------------------------
+   État fermé (data-why-open="false") : panneau invisible,
+   non-interactif.
+   État ouvert (data-why-open="true") : 4 mini-cartes apparaissent
+   aux 4 coins de la mission, reliées par des traits pointillés.
+   Le reste de la page (.is-faded) baisse en opacité.
+   ============================================================ */
+
+.ap-why-panel {
+  position: absolute;
+  inset: -110px -8px -110px -8px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 220ms var(--ease-calm, ease);
+  z-index: 2;
+}
+.ap-mission[data-why-open="true"] .ap-why-panel {
+  opacity: 1;
+  pointer-events: auto;
+}
+.ap-mission[data-why-open="true"] {
+  z-index: 5;
+}
+.ap-why-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+.ap-why-card {
+  position: absolute;
+  width: 190px;
+  padding: 10px 12px 11px;
+  background: var(--paper);
+  border: 2px dashed var(--ink);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transform: scale(0.92);
+  opacity: 0;
+  transition: transform 280ms var(--ease-calm, ease), opacity 220ms var(--ease-calm, ease);
+}
+.ap-mission[data-why-open="true"] .ap-why-card {
+  transform: scale(1);
+  opacity: 1;
+}
+.ap-why-card__head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.ap-why-card__head .ph-bold { font-size: 13px; line-height: 1; color: var(--ink); }
+.ap-why-card__body {
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.32;
+}
+
+/* Position des 4 cartes — aux 4 coins de la mission */
+.ap-why-card--tl { top: 0;      left: 16px; }
+.ap-why-card--tr { top: 0;      right: 16px; }
+.ap-why-card--bl { bottom: 0;   left: 16px; }
+.ap-why-card--br { bottom: 0;   right: 16px; }
+
+/* Délai en cascade sur l'apparition */
+.ap-mission[data-why-open="true"] .ap-why-card--tl { transition-delay: 60ms;  }
+.ap-mission[data-why-open="true"] .ap-why-card--tr { transition-delay: 120ms; }
+.ap-mission[data-why-open="true"] .ap-why-card--br { transition-delay: 180ms; }
+.ap-mission[data-why-open="true"] .ap-why-card--bl { transition-delay: 240ms; }
+
+/* Overlay invisible qui capture les clics "hors mission" pour fermer */
+.ap-why-overlay {
+  position: fixed;
+  inset: 0;
+  background: transparent;
+  z-index: 4;
+  display: none;
+  cursor: default;
+}
+.ap-why-overlay[data-active="true"] { display: block; }
+
+/* Ambient fade — appliqué aux voisins quand le panel est ouvert */
+.is-faded {
+  opacity: 0.32;
+  transition: opacity 220ms var(--ease-calm, ease);
+  pointer-events: none;
+}
+
+/* ===== Sections suivantes ===== */
+.ap-section {
+  margin-bottom: 14px;
+}
+.ap-section.stats {
+  display: block;
+  grid-template-columns: none;
+  gap: 0;
+}
+.ap-card {
+  background: #FFFDF8;
+  border: 2.5px solid var(--ink);
+  border-radius: 12px;
+  box-shadow: none;
+  padding: 13px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ap-card__head,
+.ap-section__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.ap-card h3 {
+  font-family: var(--font-display);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  margin: 0;
+}
+.ap-card__hint,
+.ap-section__eyebrow {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--ink-soft);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.ap-next-list {
+  display: flex;
+  flex-direction: column;
+}
+.ap-next-item {
+  display: grid;
+  grid-template-columns: 80px minmax(0, 1fr) 72px;
+  align-items: baseline;
+  column-gap: 1rem;
+  padding: 0.625rem 0;
+  border-bottom: 1px solid rgba(18,18,18,0.18);
+  font-family: var(--font-body);
+}
+.ap-next-item:last-child { border-bottom: 0; }
+.ap-next-item .when {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink-soft);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.ap-next-item .when .ph-bold {
+  font-size: 12px;
+  line-height: 1;
+}
+.ap-next-item .title {
+  min-width: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+.ap-next-item .dur {
+  justify-self: end;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+.ap-next-item.done {
+  opacity: 0.62;
+  color: var(--ink-soft);
+}
+.ap-next-item.done .title {
+  text-decoration: line-through;
+  text-decoration-thickness: 1.5px;
+}
+
+.ap-timeline-section {
+  background: #FFFDF8;
+  border: 2.5px solid var(--ink);
+  border-radius: 12px;
+  padding: 13px 16px 16px;
+}
+.ap-timeline {
+  list-style: none;
+  padding: 16px 0 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  position: relative;
+}
+.ap-timeline::before {
+  content: '';
+  position: absolute;
+  top: 22px;
+  left: 6px;
+  right: 6px;
+  height: 2px;
+  background: rgba(18,18,18,0.18);
+  z-index: 0;
+}
+.ap-timeline__node {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 22px;
+}
+.ap-timeline__node::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--ink);
+  background: var(--ink-soft);
+  z-index: 1;
+}
+.ap-timeline__date {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--ink-soft);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  line-height: 1.35;
+}
+.ap-timeline__label {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.ap-timeline__node--past .ap-timeline__label {
+  color: var(--ink-soft);
+  font-weight: 700;
+}
+.ap-timeline__node--now::before {
+  background: var(--stabilo);
+}
+.ap-timeline__node--now .ap-timeline__date,
+.ap-timeline__node--now .ap-timeline__label {
+  color: var(--ink);
+  font-weight: 900;
+}
+.ap-timeline__node--urgent::before {
+  background: var(--warn);
+}
+.ap-timeline__node--urgent .ap-timeline__date {
+  color: var(--danger);
+}
+.ap-timeline__node--horizon::before {
+  background: #FFFDF8;
+}
+.ap-timeline__node--horizon .ap-timeline__date,
+.ap-timeline__node--horizon .ap-timeline__label {
+  color: var(--ink-soft);
+}
+.ap-timeline__link {
+  align-self: flex-start;
+  margin-top: 2px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+/* ============================================================
+   Responsive layers
+   ============================================================ */
+
+/* Large screens — more breathing room */
+@media (min-width: 1500px) {
+  #view-today { --ap-mission-pad-x: 28px; }
+  .view { padding: 60px 38px 22px; }
+  .ap-head { margin-bottom: 10px; }
+  .ap-head h1 { font-size: 1.875rem; }
+  .ap-head .sub { font-size: 14px; }
+  .ap-ritual { margin: 0 auto 16px; gap: 8px; }
+  .ap-mission { padding: 20px var(--ap-mission-pad-x) 22px; gap: 28px; box-shadow: 9px 9px 0 var(--ink); margin-bottom: 16px; }
+  .ap-mission__left { gap: 10px; }
+  .ap-mission h2 { font-size: 32px; }
+  .ap-mission__why { font-size: 14px; line-height: 1.5; }
+  .ap-mission__cta { padding: 12px 22px; font-size: 15px; box-shadow: 5px 5px 0 var(--stabilo); }
+  .ap-step { padding: 8px 12px; font-size: 13px; }
+  .ap-step .box { width: 18px; height: 18px; }
+  .ap-step .dur { font-size: 11px; }
+  .ap-steps { gap: 8px; padding-left: 20px; }
+  .ap-steps__head { font-size: 11px; }
+  .ap-card, .ap-timeline-section { padding: 15px 20px; }
+  .ap-card h3 { font-size: 15px; }
+  .ap-next-item { padding: 0.7rem 0; }
+  .ap-next-item .title { font-size: 13px; }
+  .ap-timeline__label { font-size: 14px; }
+}
+
+/* Narrow desktop / portrait laptop — tighten without breaking layout */
+@media (max-width: 1200px) and (min-width: 901px) {
+  #view-today { --ap-mission-pad-x: 18px; }
+  .view { padding: 60px 22px 14px; }
+  .ap-mission { grid-template-columns: 1fr 260px; gap: 18px; padding: 14px var(--ap-mission-pad-x) 16px; }
+  .ap-mission h2 { font-size: 24px; }
+  .ap-mission__why { font-size: 12.5px; }
+  .ap-steps { padding-left: 14px; }
+}
+
+/* Very short viewports — extra-tight to keep no-scroll */
+@media (max-height: 720px) {
+  #view-today { --ap-mission-pad-x: 18px; }
+  .view { padding: 60px 28px 10px; }
+  .ap-head { margin-bottom: 6px; }
+  .ap-head h1 { font-size: 26px; }
+  .ap-head .sub { font-size: 12px; margin-top: 2px; }
+  .ap-ritual { margin: 0 auto 6px; gap: 4px; }
+  .ap-mission { padding: 10px var(--ap-mission-pad-x) 12px; margin-bottom: 8px; gap: 18px; box-shadow: 6px 6px 0 var(--ink); }
+  .ap-mission h2 { font-size: 22px; }
+  .ap-mission__why { font-size: 12px; line-height: 1.4; }
+  .ap-mission__cta { padding: 8px 16px; font-size: 13px; margin-top: 0; }
+  .ap-mission__left { gap: 6px; }
+  .ap-steps { gap: 5px; padding-left: 14px; }
+  .ap-step { padding: 5px 9px; font-size: 11px; }
+  .ap-card, .ap-timeline-section { padding: 10px 14px; }
+  .ap-section { margin-bottom: 10px; }
+}
+
+/* Tablet / narrow window — stack mission and keep one content column */
+@media (max-width: 900px) {
+  .ap-head { align-items: flex-start; }
+  .ap-mission { grid-template-columns: 1fr; gap: 20px; }
+  .ap-mission__eyebrow { flex-wrap: wrap; row-gap: 6px; }
+  .ap-signal { margin-left: 0; }
+  .ap-steps { padding-left: 0; border-left: 0; }
+}
+
+@media (max-width: 720px) {
+  .ap-timeline {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 4px 0 0 26px;
+  }
+  .ap-timeline::before {
+    top: 4px;
+    bottom: 4px;
+    left: 6px;
+    right: auto;
+    width: 2px;
+    height: auto;
+  }
+  .ap-timeline__node {
+    padding-top: 0;
+  }
+  .ap-timeline__node::before {
+    top: 3px;
+    left: -26px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  #view-today { --ap-mission-pad-x: 16px; }
+  .view { padding: 40px 14px 90px !important; }
+  .ap-head h1 { font-size: 1.5rem; }
+  .ap-mission { padding: 18px var(--ap-mission-pad-x); box-shadow: 6px 6px 0 var(--ink); }
+  .ap-mission h2 { font-size: 1.625rem; }
+  .ap-mission__cta { width: 100%; }
+  .ap-mission__cta-row { width: 100%; flex-direction: column; align-items: stretch; gap: 10px; }
+  .ap-mission__why-toggle { justify-content: center; }
+  .ap-next-item {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "when dur"
+      "title title";
+    row-gap: 4px;
+  }
+  .ap-next-item .when { grid-area: when; }
+  .ap-next-item .title { grid-area: title; }
+  .ap-next-item .dur { grid-area: dur; justify-self: end; }
+  .ap-mood { gap: 8px; align-items: flex-start; flex-direction: column; }
+  .ap-mood__chips { flex-wrap: wrap; }
+}
+
+/* ===== Reveal — fallback "drawer" sous 900px ===== */
+/* En dessous de 900px, les 4 cartes ne tiennent plus aux 4 coins.
+   On bascule en liste empilée sous la mission, sans connecteurs SVG. */
+@media (max-width: 900px) {
+  .ap-why-panel {
+    position: relative;
+    inset: auto;
+    margin-top: 12px;
+    opacity: 1;
+    pointer-events: none;
+    display: none;
+    transition: none;
+  }
+  .ap-mission[data-why-open="true"] .ap-why-panel {
+    display: block;
+    pointer-events: auto;
+  }
+  .ap-why-lines { display: none; }
+  .ap-why-card {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    transform: none;
+    opacity: 1;
+    transition: none;
+    margin-top: 8px;
+  }
+  .ap-why-card:first-of-type { margin-top: 0; }
+  .ap-mission[data-why-open="true"] .ap-why-card {
+    transform: none;
+    transition-delay: 0s !important;
+  }
+  /* Pas de fade ambient en mobile : l'écran est trop petit, ça gêne */
+  .is-faded { opacity: 1; pointer-events: auto; }
+  .ap-why-overlay { display: none !important; }
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .ap-why-panel,
+  .ap-why-card,
+  .is-faded,
+  .ap-mission__cta,
+  .ap-mood__chip {
+    transition: none !important;
+  }
+  .ap-why-card { transform: none !important; }
+}

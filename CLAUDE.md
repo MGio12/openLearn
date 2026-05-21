@@ -12,6 +12,14 @@
 - **Pas de dépendance npm** sans demander d'abord.
 - CSS par page dans `assets/css/pages/` si > 50 lignes, sinon `styles.css`. Tokens dans `:root`.
 
+## Universal CLAUDE.md - drona23/claude-token-efficient
+- Lire les fichiers existants avant d'ecrire. Ne pas relire sauf si le fichier a change.
+- Raisonnement rigoureux, sortie concise.
+- Ignorer les fichiers > 100KB sauf necessite.
+- Pas d'ouverture flatteuse ni de formule de cloture inutile.
+- Pas d'emoji ni d'em-dash.
+- Ne pas deviner API, version, flag, SHA de commit ou nom de paquet : verifier dans le code ou la documentation avant d'affirmer.
+
 ## GSD via Codex (CRITIQUE)
 Les commandes `/gsd-*` passent par `codex exec`, **jamais** via Skill :
 ```

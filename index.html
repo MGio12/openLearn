@@ -15,235 +15,8 @@
   <link rel="stylesheet" href="colors_and_type.css">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="assets/css/pages/dashboard.css">
+  <link rel="stylesheet" href="assets/css/pages/home.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css">
-  <style>
-    html, body { height: auto; overflow: visible; }
-    .app { height: auto; min-height: 100vh; }
-    .main { overflow: visible; }
-    .view { display: block !important; flex: none !important; overflow: visible !important; height: auto !important; padding: 28px 36px 32px; background-image: none !important; }
-
-    /* AFTER — tighter rhythm */
-    .ap-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 22px; }
-    .ap-head h1 { font-family: var(--font-display); font-size: 40px; line-height: 1; text-transform: uppercase; letter-spacing: -.01em; margin: 0; }
-    .ap-head .sub { font-family: var(--font-body); font-size: 14px; color: var(--ink-soft); margin-top: 8px; }
-    .ap-date {
-      font-family: var(--font-mono); font-size: 11px; font-weight: 700;
-      letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft);
-    }
-
-    /* The hero mission — dominant */
-    .ap-mission {
-      position: relative;
-      background:
-        linear-gradient(135deg, rgba(244, 211, 94, 0.28), transparent 38%),
-        #FFFDF8;
-      border: 3px solid var(--ink);
-      border-radius: 18px;
-      box-shadow: 10px 10px 0 var(--ink);
-      padding: 30px 36px 28px;
-      margin-bottom: 22px;
-      display: grid;
-      grid-template-columns: 1fr 320px;
-      gap: 36px;
-    }
-    .ap-mission__left { display: flex; flex-direction: column; gap: 14px; }
-    .ap-mission__eyebrow {
-      display: inline-flex; align-items: center; gap: 10px;
-      font-family: var(--font-mono); font-size: 11px; font-weight: 700;
-      letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft);
-    }
-    .ap-mission__eyebrow .pill {
-      padding: 4px 10px;
-      background: var(--stabilo); color: var(--ink);
-      border: 2px solid var(--ink); border-radius: 999px;
-      letter-spacing: .04em;
-    }
-    .ap-mission h2 {
-      font-family: var(--font-display);
-      font-size: 36px;
-      line-height: 1;
-      letter-spacing: -.01em;
-      text-transform: uppercase;
-      margin: 0;
-      max-width: 640px;
-    }
-    .ap-mission__why {
-      font-family: var(--font-body);
-      font-size: 15px;
-      line-height: 1.55;
-      color: var(--ink);
-      max-width: 580px;
-      margin: 0;
-    }
-    .ap-mission__cta {
-      display: inline-flex; align-items: center; gap: 10px;
-      align-self: flex-start;
-      padding: 14px 22px;
-      background: var(--ink); color: var(--paper);
-      border: 3px solid var(--ink); border-radius: 12px;
-      box-shadow: 5px 5px 0 var(--stabilo);
-      font-family: var(--font-body); font-weight: 800; font-size: 15px;
-      text-decoration: none;
-      margin-top: 4px;
-      transition: transform .15s, box-shadow .15s;
-    }
-    .ap-mission__cta:hover { transform: translate(2px,2px); box-shadow: 3px 3px 0 var(--stabilo); }
-    .ap-mission__cta .arrow { display: inline-flex; align-items: center; font-size: 18px; line-height: 1; }
-    .ap-mission__support {
-      align-self: flex-start;
-      color: var(--ink);
-      font-family: var(--font-body);
-      font-size: 13px;
-      font-weight: 800;
-      text-decoration: underline;
-      text-decoration-thickness: 2px;
-      text-underline-offset: 4px;
-    }
-    .ap-mission__meta {
-      display: flex; gap: 18px; flex-wrap: wrap;
-      padding-top: 4px;
-      font-family: var(--font-body); font-size: 12px;
-      color: var(--ink-soft);
-    }
-    .ap-mission__meta b { color: var(--ink); font-weight: 800; }
-
-    /* Steps on the right of the hero */
-    .ap-steps {
-      display: flex; flex-direction: column; gap: 10px;
-      padding-left: 24px;
-      border-left: 2.5px dashed var(--ink);
-    }
-    .ap-steps__head {
-      font-family: var(--font-body); font-size: 11px; font-weight: 800;
-      letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft);
-      margin-bottom: 2px;
-    }
-    .ap-step {
-      display: flex; align-items: flex-start; gap: 10px;
-      padding: 8px 10px;
-      background: var(--paper);
-      border: 2px solid var(--ink); border-radius: 10px;
-      font-family: var(--font-body); font-size: 13px;
-    }
-    .ap-step .box {
-      width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px;
-      border: 2px solid var(--ink); border-radius: 5px;
-      background: #FFFDF8;
-    }
-    .ap-step .dur {
-      font-family: var(--font-mono); font-size: 11px;
-      color: var(--ink-soft);
-      margin-left: auto;
-      flex-shrink: 0;
-    }
-
-    /* Bottom split: next + AI */
-    .ap-split {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 22px;
-    }
-    .ap-card {
-      background: #FFFDF8;
-      border: 2.5px solid var(--ink);
-      border-radius: 14px;
-      box-shadow: none;
-      padding: 18px 20px;
-      display: flex; flex-direction: column; gap: 12px;
-    }
-    .ap-card__head {
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .ap-card h3 {
-      font-family: var(--font-display); font-size: 16px;
-      text-transform: uppercase; letter-spacing: -.005em;
-      margin: 0;
-    }
-    .ap-card__hint {
-      font-family: var(--font-body); font-size: 11px; font-weight: 700;
-      color: var(--ink-soft);
-      letter-spacing: .06em; text-transform: uppercase;
-    }
-    .ap-next-list { display: flex; flex-direction: column; gap: 8px; }
-    .ap-next-item {
-      display: grid;
-      grid-template-columns: 80px 1fr auto;
-      align-items: center;
-      gap: 14px;
-      padding: 12px 14px;
-      border: 1.5px solid rgba(18,18,18,0.18);
-      border-radius: 10px;
-      font-family: var(--font-body);
-    }
-    .ap-next-item .when {
-      display: inline-flex; align-items: center; gap: 5px;
-      font-family: var(--font-mono); font-size: 11px; font-weight: 700;
-      color: var(--ink-soft); letter-spacing: .04em; text-transform: uppercase;
-    }
-    .ap-next-item .when .ph-bold { font-size: 12px; line-height: 1; }
-    .ap-next-item .title { font-size: 14px; font-weight: 700; color: var(--ink); }
-    .ap-next-item .dur { font-family: var(--font-mono); font-size: 12px; color: var(--ink-soft); }
-    .ap-next-item.done { opacity: 0.55; background: var(--paper-2); border-style: dashed; }
-    .ap-next-item.done .title { text-decoration: line-through; text-decoration-thickness: 1.5px; }
-
-    /* IA — calm, sober, smaller */
-    .ap-ia {
-      background: var(--paper-2);
-      border: 2.5px solid var(--ink);
-      border-radius: 14px;
-      padding: 18px 20px;
-      display: flex; flex-direction: column; gap: 12px;
-    }
-    .ap-ia__head { display: flex; align-items: center; gap: 10px; }
-    .ap-ia__av {
-      width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--ink);
-      background: var(--stabilo-wash);
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--font-display); font-size: 10px;
-    }
-    .ap-ia__tag {
-      font-family: var(--font-body); font-size: 10px; font-weight: 800;
-      letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft);
-    }
-    .ap-ia__body { font-family: var(--font-body); font-size: 14px; line-height: 1.5; }
-    .ap-ia__actions { display: flex; gap: 8px; }
-    .ap-ia__btn {
-      font-family: var(--font-body); font-weight: 800; font-size: 12px;
-      padding: 6px 10px; border: 2px solid var(--ink); border-radius: 8px;
-      background: transparent; color: var(--ink); cursor: pointer;
-    }
-    .ap-ia__btn.accept { background: var(--ink); color: var(--paper); }
-
-    /* One supporting signal — tucked into mission card top-right */
-    .ap-signal {
-      position: absolute; top: 22px; right: 30px;
-      display: flex; align-items: center; gap: 10px;
-      padding: 6px 12px;
-      background: var(--paper);
-      border: 2px solid var(--ink); border-radius: 999px;
-      font-family: var(--font-body); font-size: 12px; font-weight: 700;
-    }
-    .ap-signal .dot {
-      width: 8px; height: 8px; border-radius: 999px; background: var(--green-2);
-    }
-
-    @media (max-width: 900px) {
-      .ap-head { align-items: flex-start; }
-      .ap-mission { grid-template-columns: 1fr; gap: 20px; }
-      .ap-signal { position: static; width: fit-content; margin-bottom: 6px; }
-      .ap-steps { padding-left: 0; border-left: 0; }
-      .ap-split { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 640px) {
-      .view { padding: 18px 14px 90px !important; }
-      .ap-head h1 { font-size: 32px; }
-      .ap-mission { padding: 22px 18px; box-shadow: 6px 6px 0 var(--ink); }
-      .ap-mission h2 { font-size: 30px; }
-      .ap-next-item { grid-template-columns: 1fr; gap: 4px; }
-      .ap-next-item .dur { justify-self: start; }
-      .ap-ia__actions { flex-wrap: wrap; }
-    }
-  </style>
 </head>
 <body>
 
@@ -283,13 +56,26 @@
         Objectif
         <span class="count">3</span>
       </a>
+      <a href="fiches.html" class="sb-item">
+        <span class="ic"><i class="ph-bold ph-cards" aria-hidden="true"></i></span>
+        Fiches
+      </a>
+      <a href="controles.html" class="sb-item">
+        <span class="ic"><i class="ph-bold ph-exam" aria-hidden="true"></i></span>
+        Contrôles
+      </a>
     </div>
 
     <div class="sb-group">
-      <div class="head" style="opacity: .5; font-size: 10px;">Bientôt</div>
-      <div style="font-family: var(--font-body); font-size: 11px; color: var(--ink-mute); padding: 0 12px; line-height: 1.6;">
-        Fiches · Contrôles · Abonnement · Préférences
-      </div>
+      <div class="head">Compte</div>
+      <a href="abonnement.html" class="sb-item">
+        <span class="ic"><i class="ph-bold ph-credit-card" aria-hidden="true"></i></span>
+        Abonnement
+      </a>
+      <a href="parametres.html" class="sb-item">
+        <span class="ic"><i class="ph-bold ph-gear" aria-hidden="true"></i></span>
+        Paramètres
+      </a>
     </div>
 
     <div class="sb-bottom">
@@ -305,35 +91,73 @@
     <!-- NO TOPBAR. Search/IA/notifs removed: didn't work, added noise. -->
 
     <section class="view active" id="view-today">
+      <!-- Annotations périphériques : suggèrent le système plus grand, sans crier -->
+      <div class="ap-periphery" aria-hidden="true">
+        <span class="ap-periphery__mark ap-periphery__mark--tr">semaine 21 · lundi</span>
+        <span class="ap-periphery__mark ap-periphery__mark--bl">~18 mois jusqu'à l'objectif</span>
+        <span class="ap-periphery__mark ap-periphery__mark--br">vendredi · J-3 contrôle</span>
+        <span class="ap-periphery__mark ap-periphery__mark--tl">avant 8h ▸ matinée</span>
+        <span class="ap-periphery__mark ap-periphery__mark--mid">jour 7 · régularité</span>
+      </div>
+
       <div class="ap-head">
         <div>
-          <div class="ap-date">Lundi 19 mai · semaine 21</div>
-          <h1>Bonjour, Lina.</h1>
-          <div class="sub">Une mission, courte, qui pèse pour vendredi.</div>
+          <div class="ap-date">
+            <span data-current-day-label>Lundi 19 mai</span> ·
+            <span data-user-role>Première spé maths</span> ·
+            <span data-week-label>semaine 21</span>
+          </div>
+          <h1 data-user-greeting>Bonjour, Lina.</h1>
+          <div class="sub" data-today-subtitle>Une mission, courte, qui pèse pour vendredi.</div>
+        </div>
+      </div>
+
+      <!-- Rituel d'entrée : continuité + énergie -->
+      <div class="ap-ritual">
+        <div class="ap-yesterday" data-yesterday-banner data-completed="true" hidden>
+          <i class="ph-bold ph-check" data-yesterday-icon aria-hidden="true"></i>
+          <span data-yesterday-text></span>
+        </div>
+        <div class="ap-mood ap-mood--inline" data-mood-check>
+          <span class="ap-mood__label">Comment tu te sens là ?</span>
+          <div class="ap-mood__chips" role="radiogroup" aria-label="Comment tu te sens là ?">
+            <button type="button" class="ap-mood__chip" role="radio" aria-checked="false" data-mood-value="calm">Calme</button>
+            <button type="button" class="ap-mood__chip" role="radio" aria-checked="false" data-mood-value="tense">Tendu</button>
+            <button type="button" class="ap-mood__chip" role="radio" aria-checked="false" data-mood-value="tired">Fatigué</button>
+          </div>
+          <span class="ap-mood__ack" data-mood-feedback aria-live="polite" hidden>Noté pour aujourd'hui.</span>
         </div>
       </div>
 
       <!-- DOMINANT HERO -->
       <div class="ap-mission" data-contract="daily-mission" data-testid="daily-mission">
-        <span class="ap-signal"><span class="dot"></span>Régularité · 7 jours</span>
-
         <div class="ap-mission__left">
           <div class="ap-mission__eyebrow">
             <span class="pill">Mission du jour</span>
-            <span>Maths spé · 25 min</span>
+            <span><span data-daily-mission-subject>Maths spé</span> · <span data-daily-mission-duration>25 min</span></span>
+            <span class="ap-signal"><span class="dot"></span>Régularité · 7 jours</span>
           </div>
-          <h2>Corriger le DM sur les suites</h2>
-          <p class="ap-mission__why">
+          <h2 data-daily-mission-title>Corriger le DM sur les suites</h2>
+          <p class="ap-mission__why" data-daily-mission-reason>
             Contrôle vendredi sur ce chapitre. Cette correction lève les 2 erreurs récurrentes
             du DM précédent — sur des questions qui apparaissent dans 4 des 6 derniers sujets.
           </p>
-          <a href="mission.html" class="ap-mission__cta">
-            Commencer la mission <span class="arrow"><i class="ph-bold ph-arrow-right" aria-hidden="true"></i></span>
-          </a>
-          <a href="objectif.html" class="ap-mission__support">Voir pourquoi cette priorité compte</a>
-          <div class="ap-mission__meta">
-            <span>Échéance <b>vendredi 23 mai</b></span>
-            <span>Levier <b>n°1 dossier</b></span>
+          <div class="ap-mission__cta-row">
+            <a href="mission.html" class="ap-mission__cta">
+              <span data-daily-mission-duration-cta>Commencer la mission</span>
+              <span class="arrow"><i class="ph-bold ph-arrow-right" aria-hidden="true"></i></span>
+            </a>
+            <button
+              type="button"
+              class="ap-mission__why-toggle"
+              data-why-toggle
+              aria-expanded="false"
+              aria-controls="ap-why-panel"
+            >
+              <i class="ph-bold ph-circles-three" aria-hidden="true"></i>
+              Pourquoi cette mission ?
+            </button>
+            <a href="objectif.html" class="ap-mission__support">Impact objectif</a>
           </div>
         </div>
 
@@ -341,27 +165,69 @@
           <div class="ap-steps__head">3 étapes</div>
           <div class="ap-step" data-mission-action>
             <span class="box"></span>
-            <span>Relire l'énoncé · entourer ce que tu n'as pas compris</span>
-            <span class="dur">5 min</span>
+            <span data-daily-mission-step-title="0">Relire l'énoncé · entourer ce que tu n'as pas compris</span>
+            <span class="dur" data-daily-mission-step-duration="0">5 min</span>
           </div>
           <div class="ap-step" data-mission-action>
             <span class="box"></span>
-            <span>Refaire la question 3 en rédigeant proprement</span>
-            <span class="dur">12 min</span>
+            <span data-daily-mission-step-title="1">Refaire la question 3 en rédigeant proprement</span>
+            <span class="dur" data-daily-mission-step-duration="1">12 min</span>
           </div>
           <div class="ap-step" data-mission-action>
             <span class="box"></span>
-            <span>Comparer avec la correction officielle</span>
-            <span class="dur">8 min</span>
+            <span data-daily-mission-step-title="2">Comparer avec la correction officielle</span>
+            <span class="dur" data-daily-mission-step-duration="2">8 min</span>
           </div>
         </aside>
+
+        <!-- Reveal IA : x-ray sur la mission. Affiché quand data-why-open="true". -->
+        <div
+          class="ap-why-panel"
+          id="ap-why-panel"
+          role="region"
+          aria-label="Pourquoi cette mission a été choisie"
+          tabindex="-1"
+        >
+          <svg class="ap-why-lines" data-why-lines aria-hidden="true"></svg>
+          <article class="ap-why-card ap-why-card--tl" data-why-card="tl">
+            <div class="ap-why-card__head">
+              <i class="ph-bold ph-calendar-blank" aria-hidden="true"></i>
+              <span>Échéance proche</span>
+            </div>
+            <div class="ap-why-card__body">
+              <span data-daily-mission-deadline>Contrôle vendredi</span> ·
+              <span data-daily-mission-subject-topic>chapitre prioritaire</span>
+            </div>
+          </article>
+          <article class="ap-why-card ap-why-card--tr" data-why-card="tr">
+            <div class="ap-why-card__head">
+              <i class="ph-bold ph-target" aria-hidden="true"></i>
+              <span>Objectif long terme</span>
+            </div>
+            <div class="ap-why-card__body">École d'ingé post-bac · ~18 mois</div>
+          </article>
+          <article class="ap-why-card ap-why-card--bl" data-why-card="bl">
+            <div class="ap-why-card__head">
+              <i class="ph-bold ph-arrows-clockwise" aria-hidden="true"></i>
+              <span>Erreurs récurrentes</span>
+            </div>
+            <div class="ap-why-card__body">Une erreur à isoler maintenant pour ne pas la refaire au contrôle.</div>
+          </article>
+          <article class="ap-why-card ap-why-card--br" data-why-card="br">
+            <div class="ap-why-card__head">
+              <i class="ph-bold ph-wave-sawtooth" aria-hidden="true"></i>
+              <span>Adapté à ton énergie</span>
+            </div>
+            <div class="ap-why-card__body">Mission courte · <span data-daily-mission-focus-duration>25 min</span> · faisable maintenant</div>
+          </article>
+        </div>
       </div>
 
-      <!-- BOTTOM: next + AI -->
-      <div class="ap-split stats">
+      <!-- Suite de la journée -->
+      <section class="ap-section ap-section--next stats" aria-labelledby="ap-next-title">
         <div class="ap-card">
           <div class="ap-card__head">
-            <h3>Après cette mission</h3>
+            <h3 id="ap-next-title">Après cette mission</h3>
             <span class="ap-card__hint">3 prévues aujourd'hui</span>
           </div>
           <div class="ap-next-list">
@@ -382,25 +248,39 @@
             </div>
           </div>
         </div>
+      </section>
 
-        <div class="ap-ia">
-          <div class="ap-ia__head">
-            <div class="ap-ia__av">IA</div>
-            <span class="ap-ia__tag">Suggestion · ce matin</span>
-          </div>
-          <div class="ap-ia__body">
-            J'ai déplacé ta physique à demain matin — tu seras plus fraîche pour les exercices d'application.
-          </div>
-          <div class="ap-ia__actions">
-            <button type="button" class="ap-ia__btn accept">Appliquer</button>
-            <button type="button" class="ap-ia__btn">Ignorer</button>
-          </div>
-        </div>
-      </div>
+      <!-- Repères : passé proche, mission, échéance, objectif -->
+      <section class="ap-section ap-timeline-section" aria-labelledby="ap-timeline-title">
+        <header class="ap-section__head">
+          <span class="ap-section__eyebrow" id="ap-timeline-title">Repères</span>
+        </header>
+        <ol class="ap-timeline" aria-label="Frise temporelle">
+          <li class="ap-timeline__node ap-timeline__node--past" data-when="yesterday">
+            <span class="ap-timeline__date">Hier</span>
+            <span class="ap-timeline__label">DM polynômes</span>
+          </li>
+          <li class="ap-timeline__node ap-timeline__node--now" data-when="today" aria-current="step">
+            <span class="ap-timeline__date">Aujourd'hui</span>
+            <span class="ap-timeline__label" data-daily-mission-title>Mission du jour</span>
+          </li>
+          <li class="ap-timeline__node ap-timeline__node--urgent" data-when="exam">
+            <span class="ap-timeline__date" data-daily-mission-deadline>Contrôle vendredi</span>
+            <span class="ap-timeline__label">Contrôle · <span data-daily-mission-subject-topic>maths — suites</span></span>
+          </li>
+          <li class="ap-timeline__node ap-timeline__node--horizon" data-when="long-term">
+            <span class="ap-timeline__date">Mars 2027 · ~18 mois</span>
+            <span class="ap-timeline__label">École d'ingénieur post-bac</span>
+            <a href="objectif.html" class="ap-timeline__link">Voir mon objectif →</a>
+          </li>
+        </ol>
+      </section>
     </section>
   </div>
 </div>
 
+<!-- Overlay invisible cliquable : ferme le reveal IA quand on clique en dehors -->
+<div class="ap-why-overlay" data-why-overlay aria-hidden="true"></div>
 
 <nav class="mobile-tabs" aria-label="Navigation principale">
   <a href="index.html" class="mobile-tab is-active" aria-current="page">
@@ -425,5 +305,6 @@
 <script src="scripts/dom.js"></script>
 <script src="scripts/user-context-ui.js"></script>
 <script src="scripts/mission-ui.js"></script>
+<script src="scripts/dashboard-extras.js"></script>
 </body>
 </html>

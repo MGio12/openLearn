@@ -15,7 +15,14 @@
      totalMissionsCompleted: 0,
      activeDays: ["2026-05-13", ...],
      byDate: {
-       "2026-05-13": { missionId, actionsChecked: [b, b, b], missionCompleted: bool }
+       "2026-05-13": {
+         missionId,
+         missionTitle,
+         actionsChecked: [b, b, b],
+         missionCompleted: bool,
+         completedAt,
+         mood
+       }
      }
    }
    ============================================================ */
@@ -69,9 +76,11 @@
     if (!state.byDate[date]) {
       state.byDate[date] = {
         missionId: state.mission ? state.mission.id : null,
+        missionTitle: null,
         actionsChecked: new Array(actionCount).fill(false),
         missionCompleted: false,
         completedAt: null,
+        mood: null,
       };
     }
     if (!Array.isArray(state.byDate[date].actionsChecked)) {
@@ -85,6 +94,12 @@
     }
     if (!state.byDate[date].missionId && state.mission) {
       state.byDate[date].missionId = state.mission.id;
+    }
+    if (typeof state.byDate[date].missionTitle === 'undefined') {
+      state.byDate[date].missionTitle = null;
+    }
+    if (typeof state.byDate[date].mood === 'undefined') {
+      state.byDate[date].mood = null;
     }
     return state.byDate[date];
   }
@@ -147,9 +162,11 @@
     var actionCount = missionActionCount(state);
     state.byDate[date] = {
       missionId: state.mission ? state.mission.id : null,
+      missionTitle: null,
       actionsChecked: new Array(actionCount).fill(false),
       missionCompleted: false,
       completedAt: null,
+      mood: null,
     };
     syncMissionProgressFromDay(state.byDate[date], date);
   }
@@ -274,6 +291,9 @@
       if (allDone && !day.missionCompleted) {
         day.completedAt = new Date().toISOString();
         day.missionCompleted = true;
+        if (state.mission && state.mission.title) {
+          day.missionTitle = state.mission.title;
+        }
         state.totalMissionsCompleted++;
       } else if (!allDone && day.missionCompleted) {
         day.missionCompleted = false;
@@ -346,6 +366,7 @@
 
       day.actionsChecked = new Array(actionCount).fill(true);
       day.missionId = state.mission ? state.mission.id : day.missionId;
+      day.missionTitle = state.mission && state.mission.title ? state.mission.title : day.missionTitle;
       day.missionCompleted = true;
       day.completedAt = day.completedAt || stamp;
 
@@ -374,6 +395,32 @@
     missionCompletedToday: function () {
       var day = state.byDate[todayISO()];
       return day ? !!day.missionCompleted : false;
+    },
+    setMood: function (mood) {
+      var validMoods = ['calm', 'tense', 'tired'];
+      if (mood !== null && validMoods.indexOf(mood) === -1) return;
+      var day = ensureDay(state, todayISO());
+      if (day.mood === mood) return;
+      day.mood = mood;
+      persist();
+      emit();
+    },
+    getMood: function (date) {
+      var iso = date || todayISO();
+      var day = state.byDate[iso];
+      return day && day.mood ? day.mood : null;
+    },
+    yesterdayEntry: function () {
+      var d = new Date();
+      d.setDate(d.getDate() - 1);
+      var iso = d.toISOString().slice(0, 10);
+      var day = state.byDate[iso];
+      if (!day) return null;
+      return {
+        date: iso,
+        missionTitle: day.missionTitle || null,
+        missionCompleted: !!day.missionCompleted,
+      };
     },
     history: function (days) {
       days = days || 7;
