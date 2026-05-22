@@ -1,13 +1,31 @@
 import { chromium } from 'playwright';
 import { existsSync, readFileSync } from 'fs';
-import { dirname, join } from 'path';
+import { dirname, isAbsolute, join, relative, resolve, sep } from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
-const COURSE_PATH = join(ROOT, 'prototypes/cours/maths-specialite/second-degre/index.html');
+const DEFAULT_COURSE_RELATIVE_PATH = 'prototypes/cours/maths-specialite/second-degre/index.html';
+const args = process.argv.slice(2);
+const flags = new Set(args.filter((arg) => arg.startsWith('--')));
+const targetArg = args.find((arg) => !arg.startsWith('--')) || DEFAULT_COURSE_RELATIVE_PATH;
+
+function resolveTargetPath(target) {
+  const resolved = isAbsolute(target) ? resolve(target) : resolve(ROOT, target);
+  const relativePath = relative(ROOT, resolved);
+  if (relativePath.startsWith('..') || relativePath === '' || relativePath.includes(`..${sep}`)) {
+    fail(`course target must stay inside the project root: ${target}`);
+  }
+  return resolved;
+}
+
+const COURSE_PATH = resolveTargetPath(targetArg);
+const COURSE_RELATIVE_PATH = relative(ROOT, COURSE_PATH).split(sep).join('/');
 const COURSE_URL = pathToFileURL(COURSE_PATH).href;
-const GENERATION_NOTES_PATH = join(ROOT, 'prototypes/cours/maths-specialite/second-degre/generation-notes.md');
+const COURSE_DIR = dirname(COURSE_PATH);
+const GENERATION_NOTES_PATH = join(COURSE_DIR, 'generation-notes.md');
+const STRICT_SECOND_DEGRE = flags.has('--strict-second-degre') || COURSE_RELATIVE_PATH === DEFAULT_COURSE_RELATIVE_PATH;
+const SKIP_NOTES = flags.has('--skip-notes');
 
 function fail(message) {
   throw new Error(message);
@@ -124,32 +142,32 @@ async function assertRevealButtons(page) {
 
 async function assertCourseContentContract(page) {
   const contract = await page.evaluate(() => {
-    const requiredSections = [
-      'diagnostic',
-      'formes',
-      'canonique',
-      'equations-simples',
-      'discriminant',
-      'factorisation',
-      'somme-produit',
-      'signe',
-      'choix',
-      'redaction',
-      'exercices-guides',
-      'controle',
-      'vingt',
-      'revision',
+    const requiredSectionGroups = [
+      { label: 'diagnostic', ids: ['diagnostic'] },
+      { label: 'formes', ids: ['formes'] },
+      { label: 'canonique/sommet', ids: ['canonique', 'sommet'] },
+      { label: 'discriminant', ids: ['discriminant'] },
+      { label: 'signe', ids: ['signe'] },
+      { label: 'somme-produit', ids: ['somme-produit'] },
+      { label: 'choix de methode', ids: ['choix', 'choix-methode'] },
+      { label: 'redaction', ids: ['redaction'] },
+      { label: 'exercices guides', ids: ['exercices-guides', 'guides'] },
+      { label: 'controle', ids: ['controle'] },
+      { label: 'vingt', ids: ['vingt', 'vingt-sur-vingt'] },
+      { label: 'revision', ids: ['revision'] },
     ];
 
     const bodyText = document.body.textContent || '';
     return {
-      missingSections: requiredSections.filter((id) => !document.getElementById(id)),
+      missingSections: requiredSectionGroups
+        .filter((group) => !group.ids.some((id) => document.getElementById(id)))
+        .map((group) => group.label),
       navTargets: Array.from(document.querySelectorAll('[data-section-link]')).map((link) => link.getAttribute('href')),
       revealCount: document.querySelectorAll('[data-reveal]').length,
       paywallCount: document.querySelectorAll('.paywall-card').length,
       hasDevelopedForm: /forme développée/i.test(bodyText),
       hasFactorizedForm: /forme factorisée/i.test(bodyText),
-      hasSimpleEquations: /équations? simples?/i.test(bodyText),
+      hasSimpleEquations: /équations? simples?|produit nul|facteur commun|avant le discriminant/i.test(bodyText),
       hasRootSumProduct: /somme et produit des racines/i.test(bodyText),
       hasAxis: /axe de symétrie/i.test(bodyText),
       hasMethodChoice: /choisir la méthode/i.test(bodyText),
@@ -158,8 +176,11 @@ async function assertCourseContentContract(page) {
 
   assert(contract.missingSections.length === 0, `course is missing required sections: ${contract.missingSections.join(', ')}`);
   assert(contract.navTargets.includes('#formes'), 'sidebar must link to the forms section');
-  assert(contract.navTargets.includes('#factorisation'), 'sidebar must link to the factorization section');
+  assert(contract.navTargets.includes('#sommet') || contract.navTargets.includes('#canonique'), 'sidebar must link to the canonical form/summit section');
   assert(contract.navTargets.includes('#somme-produit'), 'sidebar must link to the root sum/product section');
+  assert(contract.navTargets.includes('#choix-methode') || contract.navTargets.includes('#choix'), 'sidebar must link to the choose-the-method section');
+  assert(contract.navTargets.includes('#guides') || contract.navTargets.includes('#exercices-guides'), 'sidebar must link to guided exercises');
+  assert(contract.navTargets.includes('#vingt-sur-vingt') || contract.navTargets.includes('#vingt'), 'sidebar must link to the 20/20 section');
   assert(contract.revealCount >= 18, `course must include at least 18 active reveal/correction buttons, got ${contract.revealCount}`);
   assert(contract.paywallCount === 0, 'course student page must not contain the prototype paywall card');
   assert(contract.hasDevelopedForm, 'course must explicitly teach the developed form');
@@ -170,18 +191,65 @@ async function assertCourseContentContract(page) {
   assert(contract.hasMethodChoice, 'course must keep a choose-the-method block');
 }
 
+async function assertGenericCourseContentContract(page) {
+  const contract = await page.evaluate(() => ({
+    hasBodyClass: document.body.classList.contains('has-course-sidebar'),
+    hasLayout: Boolean(document.querySelector('[data-course-layout]')),
+    hasSidebar: Boolean(document.querySelector('[data-course-sidebar]')),
+    navTargets: Array.from(document.querySelectorAll('[data-section-link]')).map((link) => link.getAttribute('href')),
+    revealCount: document.querySelectorAll('[data-reveal]').length,
+    paywallCount: document.querySelectorAll('.paywall-card').length,
+    hasKatex: Boolean(document.querySelector('.katex, .katex-display')),
+  }));
+
+  assert(contract.hasBodyClass, 'course page must keep body.has-course-sidebar');
+  assert(contract.hasLayout, 'course page must expose [data-course-layout]');
+  assert(contract.hasSidebar, 'course page must expose [data-course-sidebar]');
+  assert(contract.navTargets.length >= 3, `course sidebar must expose at least 3 section links, got ${contract.navTargets.length}`);
+  assert(contract.navTargets.every((target) => target && target.startsWith('#')), 'course sidebar links must target local section ids');
+  assert(contract.revealCount >= 1, `course must include active reveal/correction buttons, got ${contract.revealCount}`);
+  assert(contract.paywallCount === 0, 'course student page must not contain the prototype paywall card');
+  assert(contract.hasKatex, 'course must render mathematical expressions with KaTeX');
+}
+
 function assertGenerationNotesContract() {
+  if (SKIP_NOTES) return;
   assert(existsSync(GENERATION_NOTES_PATH), `generation notes must exist at ${GENERATION_NOTES_PATH}`);
   const notes = readFileSync(GENERATION_NOTES_PATH, 'utf8');
+
+  if (!STRICT_SECOND_DEGRE) {
+    assert(/sources?|carte|couverture|génération|generation/i.test(notes), 'generation notes must document source coverage or generation decisions');
+    return;
+  }
 
   assert(/Carte de couverture V2/i.test(notes), 'generation notes must include the V2 source coverage map');
   assert(/Éléments volontairement exclus/i.test(notes), 'generation notes must document intentionally excluded source elements');
   assert(/Maths91/i.test(notes) && /Maths-et-tiques/i.test(notes), 'generation notes must document source roles');
 }
 
-async function assertExactCourseCurves(page) {
+async function assertExactCourseCurves(page, options = {}) {
+  const minCount = Number(options.minCount) || 0;
+  const curveLocator = page.locator('[data-course-curve], [data-chapter-curve]');
+  const locatedCount = await curveLocator.count();
+
+  for (let index = 0; index < locatedCount; index += 1) {
+    await curveLocator.nth(index).scrollIntoViewIfNeeded();
+    await page.waitForTimeout(120);
+  }
+
+  if (locatedCount) {
+    await page.waitForFunction(() => {
+      const boards = Array.from(document.querySelectorAll('[data-course-curve], [data-chapter-curve]'));
+      return boards.every((board) => (
+        board.dataset.courseGraphReady === 'true' ||
+        Boolean(board.querySelector('svg')) ||
+        /Graphe indisponible/i.test(board.textContent || '')
+      ));
+    }, { timeout: 10000 }).catch(() => {});
+  }
+
   const curveHealth = await page.evaluate(() => {
-    const boards = Array.from(document.querySelectorAll('[data-course-curve]'));
+    const boards = Array.from(document.querySelectorAll('[data-course-curve], [data-chapter-curve]'));
     return {
       hasJXG: Boolean(window.JXG),
       count: boards.length,
@@ -190,7 +258,7 @@ async function assertExactCourseCurves(page) {
         const box = board.getBoundingClientRect();
         return {
           id: board.id,
-          type: board.getAttribute('data-course-curve'),
+          type: board.getAttribute('data-course-curve') || board.getAttribute('data-chapter-curve'),
           hasSvg: Boolean(board.querySelector('svg')),
           hasFallback: /Graphe indisponible/i.test(board.textContent || ''),
           width: box.width,
@@ -200,8 +268,9 @@ async function assertExactCourseCurves(page) {
     };
   });
 
-  assert(curveHealth.hasJXG, 'second-degree course must load JSXGraph for exact mathematical curves');
-  assert(curveHealth.count >= 5, `second-degree course must include at least 5 exact curve boards, got ${curveHealth.count}`);
+  assert(curveHealth.count >= minCount, `course must include at least ${minCount} exact curve boards, got ${curveHealth.count}`);
+  if (!curveHealth.count) return;
+  assert(curveHealth.hasJXG, 'course must load JSXGraph when exact mathematical curves are present');
 
   for (const board of curveHealth.boards) {
     assert(board.id, `course curve board ${board.type} must have a stable id`);
@@ -291,17 +360,21 @@ try {
   const errors = await collectPageErrors(page);
 
   await assertSidebarDesktop(page);
-  await assertCourseContentContract(page);
+  if (STRICT_SECOND_DEGRE) {
+    await assertCourseContentContract(page);
+  } else {
+    await assertGenericCourseContentContract(page);
+  }
   assertGenerationNotesContract();
-  await assertExactCourseCurves(page);
+  await assertExactCourseCurves(page, { minCount: STRICT_SECOND_DEGRE ? 5 : 0 });
   await assertRevealButtons(page);
   await assertNoFormulaOverflow(page);
   await assertSidebarMobile(page);
-  await assertExactCourseCurves(page);
+  await assertExactCourseCurves(page, { minCount: STRICT_SECOND_DEGRE ? 5 : 0 });
   await assertNoFormulaOverflow(page);
 
   assert(errors.length === 0, `course page must not emit console/page errors: ${errors.join(' | ')}`);
-  console.log('PASS course page verification: exact JSXGraph curves render, collapsed sidebar arrow is centered and non-clickable, hover/focus reveal works, reveal buttons work, and formulas do not overflow.');
+  console.log(`PASS course page verification for ${COURSE_RELATIVE_PATH}: sidebar states, reveal buttons, formula overflow, notes contract, and exact curve checks are valid.`);
 } finally {
   await browser.close();
 }

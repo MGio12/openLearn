@@ -26,6 +26,8 @@ Puis ouvrir `http://localhost:4173`.
 - `lien/` : sources de reference, notamment les PDFs de Premiere specialite maths.
 - `scripts/` : verifications, captures et outils de support.
 
+Note externe : `docs/monetisation-app-posture-mouvement-ergonomie.md` contient un plan autonome pour une app posture, mouvement et ergonomie. Il n'appartient pas au produit ObjectifLycee, mais reste versionne ici comme document strategique separe.
+
 ## Regles pour les agents
 
 Les consignes agents sont versionnees dans le depot pour rester disponibles depuis n'importe quel clone.

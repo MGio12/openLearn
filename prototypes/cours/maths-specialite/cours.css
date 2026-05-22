@@ -84,6 +84,10 @@ body {
 }
 a { color: inherit; }
 
+body.has-course-sidebar:not(.is-course-ready) {
+  visibility: hidden;
+}
+
 /* Page-wide reading-progress bar (sticky top hairline) */
 .progress-bar {
   position: fixed;
@@ -93,10 +97,13 @@ a { color: inherit; }
   z-index: 50;
 }
 .progress-bar__fill {
-  height: 100%; width: 0%;
+  height: 100%; width: 100%;
   background: var(--stabilo);
   border-bottom: 1px solid var(--ink);
-  transition: width 80ms linear;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 80ms linear;
+  will-change: transform;
 }
 
 /* ============================================================
@@ -337,11 +344,14 @@ a { color: inherit; }
 
 .hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-  gap: 48px;
-  align-items: end;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px;
+  align-items: start;
   max-width: 1180px;
   margin: 0 auto;
+}
+.hero-grid > * {
+  min-width: 0;
 }
 
 .hero-eyebrow {
@@ -369,6 +379,7 @@ a { color: inherit; }
   letter-spacing: -.015em;
   text-transform: uppercase;
   max-width: 760px;
+  overflow-wrap: anywhere;
 }
 
 .hero-lead {
@@ -382,6 +393,7 @@ a { color: inherit; }
 
 /* Hero side panel — 4 reflexes preview (instead of "promesse réaliste") */
 .hero-side {
+  width: min(100%, 580px);
   padding: 24px 26px;
   background: var(--ink);
   color: var(--panel);
@@ -1145,14 +1157,60 @@ a { color: inherit; }
 /* ============================================================
    RESPONSIVE
    ============================================================ */
+@media (min-width: 1580px) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 680px) minmax(320px, 420px);
+    gap: 48px;
+    align-items: end;
+    justify-content: space-between;
+  }
+  .course-hero h1 {
+    max-width: 680px;
+  }
+  .hero-side {
+    width: 100%;
+    max-width: 420px;
+    justify-self: end;
+  }
+}
 @media (max-width: 1100px) {
-  .hero-grid { grid-template-columns: 1fr; gap: 32px; }
   .course-overview { grid-template-columns: 1fr; }
 }
 @media (max-width: 900px) {
   .has-course-sidebar {
     --course-sidebar-width: min(260px, calc(100vw - 56px));
     --course-sidebar-collapsed-width: 48px;
+  }
+  .has-course-sidebar:not(.is-course-sidebar-expanded) {
+    --course-sidebar-space: var(--course-sidebar-collapsed-width);
+  }
+  .has-course-sidebar:not(.is-course-sidebar-expanded) .course-sidebar {
+    width: var(--course-sidebar-collapsed-width);
+    padding: 16px 6px;
+    box-shadow: 3px 0 0 var(--ink);
+  }
+  .has-course-sidebar:not(.is-course-sidebar-expanded) .course-sidebar:not(:hover):not(:focus-within)::before {
+    opacity: 1;
+  }
+  .has-course-sidebar:not(.is-course-sidebar-expanded) .course-sidebar:not(:hover):not(:focus-within) .sidebar-head > div {
+    display: none;
+  }
+  .has-course-sidebar:not(.is-course-sidebar-expanded) .course-sidebar:not(:hover):not(:focus-within) .toc-links a {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    padding: 4px;
+  }
+  .has-course-sidebar:not(.is-course-sidebar-expanded) .course-sidebar:not(:hover):not(:focus-within) .toc-label,
+  .has-course-sidebar:not(.is-course-sidebar-expanded) .course-sidebar:not(:hover):not(:focus-within) .sidebar-foot {
+    display: none;
+  }
+  .has-course-sidebar:not(.is-course-sidebar-expanded) .course-sidebar:not(:hover):not(:focus-within) .toc-index {
+    width: 32px; height: 32px;
+    font-size: 12px;
+  }
+  .has-course-sidebar:not(.is-course-sidebar-expanded) .sidebar-toggle {
+    visibility: hidden;
+    opacity: 0;
   }
   .course-hero, .course-layout {
     padding-left: calc(var(--course-sidebar-space) + 16px);
@@ -1170,7 +1228,12 @@ a { color: inherit; }
 }
 @media (max-width: 560px) {
   body { font-size: 16px; }
-  .course-hero { padding: 36px 16px 48px; }
+  .course-hero {
+    padding-top: 36px;
+    padding-right: 16px;
+    padding-bottom: 48px;
+    padding-left: calc(var(--course-sidebar-space) + 16px);
+  }
   .course-hero h1 { font-size: clamp(36px, 9vw, 52px); }
   .hero-side { padding: 18px 20px; }
   .hero-side__steps { grid-template-columns: 1fr; }

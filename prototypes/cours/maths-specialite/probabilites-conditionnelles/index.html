@@ -1,0 +1,2258 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Probabilités conditionnelles — cours V2</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="../cours.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="../cours.js"></script>
+
+  <style>
+    /* Tweaks locaux : arbre HTML pondéré + tableau de contingence.
+       Aucun dessin SVG ad hoc ; on s'appuie sur des grilles propres. */
+    .proba-tree {
+      display: grid;
+      grid-template-columns: minmax(80px, 1fr) minmax(80px, 1fr) minmax(110px, 1.4fr);
+      gap: 0;
+      background: var(--panel);
+      border: 1.5px solid var(--ink);
+      border-radius: 14px;
+      overflow: hidden;
+      margin: 18px 0 12px;
+    }
+    .proba-tree__col {
+      padding: 14px 16px;
+      border-right: 1.5px dashed rgba(18,18,18,0.18);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      gap: 10px;
+      background: var(--panel-tint);
+    }
+    .proba-tree__col:last-child { border-right: 0; background: var(--panel); }
+    .proba-tree__head {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: minmax(80px, 1fr) minmax(80px, 1fr) minmax(110px, 1.4fr);
+      background: var(--paper-2);
+      border-bottom: 1.5px solid var(--ink);
+    }
+    .proba-tree__head p {
+      margin: 0;
+      padding: 10px 16px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      border-right: 1.5px dashed rgba(18,18,18,0.18);
+    }
+    .proba-tree__head p:last-child { border-right: 0; }
+    .branch {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 6px 10px;
+      border-left: 3px solid var(--blue-2);
+      background: var(--panel);
+      border-radius: 0 8px 8px 0;
+    }
+    .branch--alt { border-left-color: var(--beige); }
+    .branch--child { border-left-color: var(--green-2); }
+    .branch__node {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      font-size: 14px;
+      letter-spacing: -.005em;
+      color: var(--ink);
+    }
+    .branch__weight {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .12em;
+      color: var(--ink-soft);
+      text-transform: none;
+    }
+    .branch__leaf {
+      font-size: 13px;
+      color: var(--ink-2);
+    }
+    .contingency-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--panel);
+      border: 1.5px solid var(--ink);
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 14px 0;
+      font-size: 15px;
+    }
+    .contingency-table th,
+    .contingency-table td {
+      padding: 10px 14px;
+      border: 1px solid rgba(18,18,18,0.12);
+      text-align: center;
+    }
+    .contingency-table th {
+      background: var(--paper-2);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .contingency-table tr:last-child td,
+    .contingency-table td:last-child {
+      background: var(--panel-tint);
+      font-weight: 600;
+    }
+    .copy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-top: 10px;
+    }
+    .penalty {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+    .score-list { margin: 6px 0 0; padding-left: 20px; }
+    .score-list li { margin-bottom: 6px; }
+    .exercise-list { margin: 6px 0 12px; padding-left: 20px; }
+    .exercise-list li { margin-bottom: 4px; }
+    /* Mobile : on passe la grille de l'arbre en empilé */
+    @media (max-width: 720px) {
+      .proba-tree,
+      .proba-tree__head {
+        grid-template-columns: 1fr;
+      }
+      .proba-tree__col { border-right: 0; border-bottom: 1.5px dashed rgba(18,18,18,0.18); }
+      .proba-tree__col:last-child { border-bottom: 0; }
+      .proba-tree__head p { border-right: 0; border-bottom: 1.5px dashed rgba(18,18,18,0.18); }
+      .proba-tree__head p:last-child { border-bottom: 0; }
+    }
+    @media (max-width: 900px) {
+      .has-course-sidebar.is-course-sidebar-expanded,
+      .has-course-sidebar.is-course-sidebar-collapsed {
+        --course-sidebar-space: var(--course-sidebar-collapsed-width);
+      }
+      .section-bar__title {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+    @media (max-width: 560px) {
+      .exercise {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+      .answer {
+        padding-left: 6px;
+        padding-right: 6px;
+      }
+      .answer .formula-card {
+        padding-left: 4px;
+        padding-right: 4px;
+      }
+    }
+  </style>
+</head>
+<body class="has-course-sidebar">
+
+  <!-- Reading progress bar -->
+  <div class="progress-bar" aria-hidden="true">
+    <div class="progress-bar__fill" data-progress-fill></div>
+  </div>
+
+  <!-- Sticky section indicator (populated by inline script) -->
+  <div class="section-bar" data-section-bar aria-hidden="true">
+    <span class="section-bar__chip" data-section-bar-chip>00</span>
+    <span class="section-bar__title" data-section-bar-title>Probabilités conditionnelles</span>
+    <span class="section-bar__total" data-section-bar-total>1/14</span>
+  </div>
+
+  <!-- ============================================================
+       SIDEBAR
+       ============================================================ -->
+  <aside class="toc course-sidebar" aria-label="Plan du cours" data-course-sidebar>
+    <div class="sidebar-head">
+      <div>
+        <p class="toc-title">Plan</p>
+        <p class="sidebar-subtitle">Probabilités conditionnelles</p>
+      </div>
+      <button
+        class="sidebar-toggle"
+        type="button"
+        aria-label="Replier le plan"
+        aria-expanded="true"
+        data-sidebar-toggle
+      ><span aria-hidden="true">‹</span></button>
+    </div>
+
+    <nav class="toc-links" aria-label="Sections du chapitre">
+      <a href="#diagnostic" data-section-link><span class="toc-index">00</span><span class="toc-label">Diagnostic</span></a>
+      <a href="#intuition" data-section-link><span class="toc-index">01</span><span class="toc-label">Intuition</span></a>
+      <a href="#definition" data-section-link><span class="toc-index">02</span><span class="toc-label">Définition</span></a>
+      <a href="#arbre" data-section-link><span class="toc-index">03</span><span class="toc-label">Arbre pondéré</span></a>
+      <a href="#probabilites-totales" data-section-link><span class="toc-index">04</span><span class="toc-label">Probas totales</span></a>
+      <a href="#independance" data-section-link><span class="toc-index">05</span><span class="toc-label">Indépendance</span></a>
+      <a href="#bayes" data-section-link><span class="toc-index">06</span><span class="toc-label">Inversion</span></a>
+      <a href="#choix-methode" data-section-link><span class="toc-index">07</span><span class="toc-label">Choisir</span></a>
+      <a href="#redaction" data-section-link><span class="toc-index">08</span><span class="toc-label">Rédiger</span></a>
+      <a href="#pieges" data-section-link><span class="toc-index">P</span><span class="toc-label">Pièges</span></a>
+      <a href="#guides" data-section-link><span class="toc-index">G</span><span class="toc-label">Guidé</span></a>
+      <a href="#controle" data-section-link><span class="toc-index">C</span><span class="toc-label">Contrôle</span></a>
+      <a href="#vingt-sur-vingt" data-section-link><span class="toc-index">20</span><span class="toc-label">20/20</span></a>
+      <a href="#revision" data-section-link><span class="toc-index">R</span><span class="toc-label">Révision</span></a>
+    </nav>
+
+    <p class="sidebar-foot">Maths spé · Lycée</p>
+  </aside>
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <header class="course-hero">
+    <nav class="topline" aria-label="Fil d'Ariane">
+      <a href="../../../..">Objectif Lycée</a>
+      <span>Maths spécialité</span>
+      <span>Cours</span>
+    </nav>
+
+    <div class="hero-grid">
+      <div>
+        <p class="hero-eyebrow"><span class="num">05</span> Chapitre</p>
+        <h1>Probabilités conditionnelles</h1>
+        <p class="hero-lead">
+          Lire « sachant que », poser l'arbre juste, sommer les bonnes branches, puis
+          décider si deux événements sont vraiment indépendants.
+        </p>
+      </div>
+
+      <aside class="hero-side" aria-label="Les 4 réflexes du chapitre">
+        <p class="hero-side__label">Ce que tu gagnes</p>
+        <h2>4 réflexes, 1 contrôle solide</h2>
+        <div class="hero-side__steps">
+          <div class="hero-side__step">
+            <span class="verb">Lire</span>
+            <span class="obj">« sachant que » = probabilité conditionnelle</span>
+          </div>
+          <div class="hero-side__step">
+            <span class="verb">Poser</span>
+            <span class="obj">l'arbre pondéré sans erreur de niveau</span>
+          </div>
+          <div class="hero-side__step">
+            <span class="verb">Sommer</span>
+            <span class="obj">les chemins via la formule des probabilités totales</span>
+          </div>
+          <div class="hero-side__step">
+            <span class="verb">Décider</span>
+            <span class="obj">indépendance et inversion sans confusion</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MAIN
+       ============================================================ -->
+  <main class="course-layout" data-course-layout>
+    <article class="lesson course-lesson">
+
+      <!-- Overview band — single editorial section -->
+      <section class="course-overview" aria-label="Repères du chapitre">
+        <div>
+          <p class="course-overview__title">Fil conducteur</p>
+          <h3>Ce chapitre se gagne en 4 réflexes</h3>
+          <p class="course-overview__lead">
+            Tout part d'une question simple&nbsp;: « parmi quels cas&nbsp;? ».
+            Une fois l'univers restreint, l'arbre fait le reste.
+          </p>
+        </div>
+        <div class="overview-flow">
+          <span>Restreindre</span>
+          <em>→</em>
+          <span>Arbre</span>
+          <em>→</em>
+          <span>Sommer</span>
+          <em>→</em>
+          <span>Décider</span>
+        </div>
+      </section>
+
+      <!-- ========== 00 · DIAGNOSTIC ========== -->
+      <section id="diagnostic" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">00</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Diagnostic éclair</p>
+            <h2>Avant de commencer&nbsp;: tu sais faire quoi&nbsp;?</h2>
+          </div>
+        </div>
+        <p>
+          Réponds mentalement avant d'ouvrir la correction. Le but n'est pas d'avoir une note&nbsp;:
+          c'est de savoir où ton attention doit aller pendant le chapitre.
+        </p>
+
+        <div class="diagnostic-grid">
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 1</p>
+            <p>Que signifie la notation \(P_A(B)\)&nbsp;? Quelle hypothèse cachée doit-on vérifier&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag1">Voir la réponse</button>
+            <p id="diag1" class="answer" hidden>C'est la probabilité que \(B\) se réalise <em>sachant que</em> \(A\) est réalisé. La définition impose \(P(A)\ne 0\).</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 2</p>
+            <p>Une société emploie 40&nbsp;% de cadres ; 55&nbsp;% des cadres sont des femmes. Comment écrire ces deux informations&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag2">Voir la réponse</button>
+            <p id="diag2" class="answer" hidden>\(P(C)=0{,}4\) et \(P_C(F)=0{,}55\). « 55&nbsp;% <em>des cadres</em> » signale clairement une conditionnelle.</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 3</p>
+            <p>Sur un arbre pondéré à deux étages, que vaut toujours la somme des branches issues d'un même nœud&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag3">Voir la réponse</button>
+            <p id="diag3" class="answer" hidden>Elle vaut toujours \(1\). C'est le contrôle de base de tout arbre pondéré.</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 4</p>
+            <p>« Indépendants » et « incompatibles »&nbsp;: même chose, ou pas&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag4">Voir la réponse</button>
+            <p id="diag4" class="answer" hidden>Pas du tout. Incompatibles&nbsp;: \(A\cap B=\varnothing\), donc \(P(A\cap B)=0\). Indépendants&nbsp;: \(P(A\cap B)=P(A)P(B)\). Deux événements de probabilités strictement positives ne peuvent pas être à la fois indépendants et incompatibles.</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Objectif de cette session</p>
+          <p>
+            Si tu réussis seulement une chose aujourd'hui&nbsp;: comprendre que « sachant que » <strong>restreint l'univers</strong>.
+            Tu calcules une probabilité non plus sur \(\Omega\), mais à l'intérieur de l'événement déjà connu.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 01 · INTUITION ========== -->
+      <section id="intuition" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">01</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Idée de départ</p>
+            <h2>« Sachant que » restreint l'univers</h2>
+          </div>
+        </div>
+        <p>
+          Une probabilité conditionnelle ne change pas les règles du calcul des probabilités. Elle change
+          seulement <strong>le monde dans lequel on compte</strong>. Au lieu de compter parmi toutes les issues
+          de \(\Omega\), on compte parmi celles où un événement \(A\) est déjà réalisé.
+        </p>
+
+        <div class="worked-example">
+          <p>
+            Dans un jeu de 32 cartes, on tire une carte au hasard. Soit \(R\) « la carte est un roi » et \(N\)
+            « la carte est noire ». Sans information, \(P(R)=\tfrac{4}{32}=\tfrac{1}{8}\).
+          </p>
+          <p>
+            Si on te dit « cette carte est noire », tu ne tires plus dans \(\Omega\)&nbsp;; tu tires
+            <em>dans les cartes noires</em>. Il y a 16 cartes noires, et seulement 2 rois noirs (roi de pique, roi de trèfle).
+            La probabilité d'avoir un roi <em>sachant</em> que la carte est noire est donc&nbsp;:
+          </p>
+          <div class="formula-card">
+            \[ P_N(R)=\frac{2}{16}=\frac{1}{8}. \]
+          </div>
+          <p>
+            Surprise utile&nbsp;: cette valeur est exactement la même que \(P(R)\). Ce n'est pas un hasard&nbsp;:
+            « être noir » et « être un roi » sont des événements <em>indépendants</em>. On y reviendra section&nbsp;05.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Majeur à retenir</p>
+          <p>
+            \(P_A(B)\) se lit&nbsp;: « probabilité de \(B\) <em>sachant</em> \(A\) ». C'est une vraie probabilité,
+            calculée à l'intérieur de \(A\). Elle vérifie toutes les règles habituelles (\(0\le P_A(B)\le 1\),
+            \(P_A(A)=1\), \(P_A(B)+P_A(\overline{B})=1\)).
+          </p>
+        </div>
+
+        <figure class="interactive-graph" aria-labelledby="sets-intersection-caption">
+          <div class="graph-stage">
+            <div
+              id="sets-intersection-board"
+              class="jxgbox curve-board"
+              data-chapter-curve="sets-intersection"
+              role="img"
+              aria-label="Diagramme d'ensembles montrant l'univers, A, B et leur intersection"
+            ></div>
+          </div>
+          <figcaption id="sets-intersection-caption">
+            \(A\cap B\), c'est « dans \(A\) et dans \(B\) ». \(P_A(B)\), c'est la part de \(A\)
+            qui tombe aussi dans \(B\).
+          </figcaption>
+        </figure>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Attention au dessin</p>
+          <p>
+            La surface dessinée aide à voir les ensembles, mais elle ne représente pas automatiquement
+            la probabilité.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Visualiser \(A\cap B\)</p>
+          <p>
+            Sur le schéma, repère \(A\), \(B\), puis \(A\cap B\). Explique ensuite pourquoi
+            \(P_A(B)=\dfrac{P(A\cap B)}{P(A)}\).
+          </p>
+          <button class="reveal-button" type="button" data-reveal="sets-intersection-check">Voir la réponse</button>
+          <div id="sets-intersection-check" class="answer" hidden>
+            <p><strong>Univers restreint.</strong> Dans \(P_A(B)\), on ne compte plus dans tout \(\Omega\), mais seulement dans \(A\).</p>
+            <p><strong>Intersection.</strong> Parmi les issues de \(A\), les cas favorables sont celles qui sont aussi dans \(B\), donc \(A\cap B\).</p>
+            <p><strong>Quotient.</strong> On prend la part de \(A\) qui est aussi dans \(B\)&nbsp;: \(P_A(B)=\dfrac{P(A\cap B)}{P(A)}\), avec \(P(A)\ne 0\).</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Image mentale — indice = monde connu</p>
+          <p>
+            <strong>Phrase à retenir&nbsp;:</strong> l'indice après « sachant que » est le monde connu&nbsp;;
+            tout le calcul se fait à l'intérieur de ce monde.
+          </p>
+          <p>
+            <strong>Limite&nbsp;:</strong> connaître \(A\) ne rend pas \(B\) certain. Cela change seulement le
+            groupe de référence&nbsp;: on passe de tous les cas à « seulement les cas où \(A\) est vrai ».
+          </p>
+          <p>
+            <strong>Question active&nbsp;:</strong> dans les deux cartes suivantes, repère d'abord le monde connu,
+            puis seulement ensuite la probabilité demandée.
+          </p>
+        </div>
+
+        <p>
+          Un autre exemple qui suit la même logique&nbsp;: dans une classe, 60&nbsp;% sont demi-pensionnaires
+          (\(D\)), et parmi les demi-pensionnaires, 25&nbsp;% prennent dessert (\(d\)). La phrase
+          « parmi les demi-pensionnaires » signale que l'univers est restreint à \(D\). On note donc
+          \(P_D(d)=0{,}25\), sans connaître pour l'instant \(P(d)\).
+        </p>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate 1</p>
+          <p>
+            Dans le jeu de 32 cartes, on définit \(P_R(N)\), c'est-à-dire la probabilité que la carte tirée
+            soit noire <em>sachant</em> qu'elle est un roi. Sans formule, à quelle valeur peux-tu t'attendre&nbsp;?
+          </p>
+          <button class="reveal-button" type="button" data-reveal="intuition1">Voir la réponse</button>
+          <p id="intuition1" class="answer" hidden>
+            Il y a 4 rois, dont 2 noirs. Donc \(P_R(N)=\tfrac{2}{4}=\tfrac12\). On obtient bien la même
+            valeur que \(P(N)=\tfrac{16}{32}=\tfrac12\)&nbsp;: \(R\) et \(N\) sont indépendants.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate 2</p>
+          <p>
+            « 40&nbsp;% des jours dans l'année ont été pluvieux. 66&nbsp;% des jours pluvieux ont été ventés. »
+            Quelles probabilités lisons-nous&nbsp;?
+          </p>
+          <button class="reveal-button" type="button" data-reveal="intuition2">Voir la réponse</button>
+          <p id="intuition2" class="answer" hidden>
+            \(P(P)=0{,}4\) et \(P_P(V)=0{,}66\). Le mot-clé qui déclenche la conditionnelle est « des jours pluvieux ».
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--note">
+          <p class="c-callout__label"><span class="dot"></span>Mots-déclencheurs</p>
+          <p>
+            « parmi… », « des… qui… », « sachant que… », « si… alors… » sont presque toujours des
+            indices d'une conditionnelle. À l'inverse, « au total », « globalement », « en tout » indiquent
+            une probabilité non conditionnelle.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 02 · DEFINITION ========== -->
+      <section id="definition" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">02</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Définition</p>
+            <h2>La probabilité conditionnelle \(P_A(B)\)</h2>
+          </div>
+        </div>
+        <p>
+          Soient \(A\) et \(B\) deux événements d'un univers \(\Omega\), avec \(P(A)\ne 0\). On définit la
+          probabilité de \(B\) sachant \(A\) par&nbsp;:
+        </p>
+
+        <div class="formula-card is-major">
+          \[ P_A(B) \;=\; \frac{P(A\cap B)}{P(A)} \]
+        </div>
+
+        <p>
+          La notation \(P_A(B)\) se lit donc « probabilité de \(B\) sachant \(A\) ». On écrit parfois aussi
+          \(P(B\mid A)\) dans certains manuels&nbsp;; au lycée, on garde \(P_A(B)\).
+        </p>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Hypothèse non négociable</p>
+          <p>
+            La définition n'a de sens que si \(P(A)\ne 0\). On ne peut pas conditionner par un événement
+            impossible&nbsp;: il faudrait diviser par zéro. Toujours <strong>annoncer</strong> \(P(A)\ne 0\) avant d'écrire \(P_A(B)\).
+          </p>
+        </div>
+
+        <h3 style="font-family: var(--font-display); text-transform: uppercase; font-size: 18px; margin: 26px 0 8px;">Propriété&nbsp;: la formule du produit</h3>
+        <p>
+          De la définition, on déduit immédiatement deux formules équivalentes très utiles. Si \(P(A)\ne 0\) et \(P(B)\ne 0\)&nbsp;:
+        </p>
+
+        <div class="formula-card is-major">
+          \[ \begin{aligned}
+              P(A\cap B) &= P(A)\,\times\,P_A(B) \\
+              P(A\cap B) &= P(B)\,\times\,P_B(A)
+            \end{aligned} \]
+        </div>
+
+        <p>
+          Cette formule est la clé d'à peu près tous les exercices du chapitre&nbsp;: on remplace une intersection,
+          qui semble compliquée, par un produit d'une probabilité simple et d'une probabilité conditionnelle.
+        </p>
+
+        <div class="worked-example">
+          <p>
+            Une société emploie 40&nbsp;% de cadres. 55&nbsp;% des cadres sont des femmes. Quelle est la probabilité,
+            pour un employé tiré au hasard, d'être à la fois cadre <em>et</em> femme&nbsp;?
+          </p>
+          <p>On note \(C\) « l'employé est cadre » et \(F\) « l'employé est une femme ». Les données s'écrivent&nbsp;:</p>
+          <div class="formula-card">
+            \[ \begin{aligned}
+                P(C)&=0{,}40 \\
+                P_C(F)&=0{,}55.
+              \end{aligned} \]
+          </div>
+          <p>On applique la formule du produit&nbsp;:</p>
+          <div class="formula-card">
+            \[ 0{,}40\times 0{,}55=0{,}22. \]
+          </div>
+          <p>
+            Conclusion&nbsp;: 22&nbsp;% des employés sont des femmes cadres. Bien noter que l'on n'avait pas la
+            valeur de \(P(C\cap F)\) directement&nbsp;; on l'a fabriquée à partir de \(P(C)\) et \(P_C(F)\).
+          </p>
+        </div>
+
+        <h3 style="font-family: var(--font-display); text-transform: uppercase; font-size: 18px; margin: 26px 0 8px;">Propriété&nbsp;: les règles habituelles restent vraies</h3>
+        <p>
+          La probabilité conditionnelle \(P_A\) se comporte comme une probabilité normale. Pour tout événement \(B\)&nbsp;:
+        </p>
+
+        <div class="case-grid">
+          <div class="case-card">
+            <p class="case-title">\(0 \le P_A(B) \le 1\)</p>
+            <p>Une probabilité conditionnelle reste un nombre compris entre 0 et 1.</p>
+          </div>
+          <div class="case-card">
+            <p class="case-title">\(P_A(A)=1\)</p>
+            <p>Sachant que \(A\) est déjà réalisé, la probabilité que \(A\) soit réalisé vaut 1.</p>
+          </div>
+          <div class="case-card">
+            <p class="case-title">\(P_A(\varnothing)=0\)</p>
+            <p>L'événement impossible reste impossible, même après restriction.</p>
+          </div>
+          <div class="case-card">
+            <p class="case-title">\(P_A(B)+P_A(\overline{B})=1\)</p>
+            <p>L'événement contraire complète l'univers restreint à \(A\).</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--note">
+          <p class="c-callout__label"><span class="dot"></span>Esquisse de preuve (lire pour comprendre, pas par coeur)</p>
+          <p>
+            Par définition, \(P_A(B)=\tfrac{P(A\cap B)}{P(A)}\). Or \(A\cap B\subset A\), donc \(P(A\cap B)\le P(A)\),
+            ce qui donne \(P_A(B)\le 1\). De plus \(P_A(A)=\tfrac{P(A\cap A)}{P(A)}=\tfrac{P(A)}{P(A)}=1\). Enfin,
+            \(P_A(B)+P_A(\overline{B})=\tfrac{P(A\cap B)+P(A\cap\overline{B})}{P(A)}=\tfrac{P(A)}{P(A)}=1\),
+            car \(B\) et \(\overline{B}\) partitionnent \(A\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Étape manquante</p>
+          <p>On donne \(P(A)=0{,}7\) et \(P_A(B)=0{,}4\). Quelle est la valeur de \(P(A\cap B)\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="def1">Voir la réponse</button>
+          <p id="def1" class="answer" hidden>
+            \(P(A\cap B)=P(A)\times P_A(B)=0{,}7\times 0{,}4 = 0{,}28\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Le bon sens du conditionnement</p>
+          <p>
+            On a \(P(A)=\tfrac13\), \(P(B)=\tfrac14\) et \(P(A\cap B)=\tfrac{1}{12}\). Calculer \(P_A(B)\) et \(P_B(A)\).
+          </p>
+          <button class="reveal-button" type="button" data-reveal="def2">Voir la réponse</button>
+          <p id="def2" class="answer" hidden>
+            \(P_A(B)=\tfrac{1/12}{1/3}=\tfrac14\) et \(P_B(A)=\tfrac{1/12}{1/4}=\tfrac13\).
+            Les deux conditionnelles n'ont aucune raison d'être égales&nbsp;: ici, \(P_A(B)=P(B)\) et \(P_B(A)=P(A)\),
+            signe que \(A\) et \(B\) sont indépendants.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 03 · ARBRE ========== -->
+      <section id="arbre" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">03</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Outil principal</p>
+            <h2>L'arbre pondéré&nbsp;: comment le poser, comment le lire</h2>
+          </div>
+        </div>
+        <p>
+          L'arbre pondéré n'est pas une décoration du cours. C'est <em>l'outil de calcul</em> du chapitre.
+          Bien posé, il rend toutes les questions mécaniques. Mal posé, il fait perdre des points
+          partout.
+        </p>
+
+        <h3 style="font-family: var(--font-display); text-transform: uppercase; font-size: 18px; margin: 22px 0 8px;">Les deux règles d'or</h3>
+
+        <div class="formula-card is-major">
+          <p>Règle 1&nbsp;: à chaque nœud, la somme des branches vaut \(1\).</p>
+          \[ P_A(B)+P_A(\overline{B})=1 \]
+          <p>Règle 2&nbsp;: la probabilité d'un chemin est le produit des probabilités inscrites sur ce chemin.</p>
+          \[ P(A\cap B)=P(A)\,P_A(B) \]
+        </div>
+
+        <p>
+          La règle 1 est juste une conséquence de \(P_A(B)+P_A(\overline{B})=1\) à chaque nœud. La règle 2 est la
+          formule du produit appliquée au chemin entier.
+        </p>
+
+        <h3 style="font-family: var(--font-display); text-transform: uppercase; font-size: 18px; margin: 26px 0 8px;">Quelles probabilités sur quelles branches&nbsp;?</h3>
+
+        <div class="method-grid">
+          <div class="method-step">
+            <span class="step-number">1</span>
+            <p>Au <strong>1er étage</strong>, on met les probabilités <em>directes</em>&nbsp;: \(P(A)\) et \(P(\overline{A})\).</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">2</span>
+            <p>Au <strong>2ᵉ étage</strong>, on met les probabilités <em>conditionnelles</em>&nbsp;: \(P_A(B)\), \(P_A(\overline{B})\), \(P_{\overline{A}}(B)\), \(P_{\overline{A}}(\overline{B})\).</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">3</span>
+            <p>Au bout d'un chemin, on lit la probabilité de l'<strong>intersection</strong>, par exemple \(P(A\cap B)=P(A)\,P_A(B)\).</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Réflexe — branche = conditionnelle, chemin = intersection</p>
+          <p>
+            <strong>Phrase à retenir&nbsp;:</strong> une branche du 2ᵉ étage répond à « sachant le nœud où je suis »&nbsp;;
+            le chemin entier répond à « les deux événements se réalisent ».
+          </p>
+          <p>
+            <strong>Limite&nbsp;:</strong> une probabilité écrite sur une seule branche n'est pas une intersection.
+            L'intersection apparaît seulement après multiplication de toutes les branches du chemin.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Contrôle branche ou chemin</p>
+          <p>
+            Sur un arbre, on lit \(P(A)=0{,}40\) au 1er étage et \(P_A(B)=0{,}55\) sur la branche suivante.
+            Quelle valeur correspond à la branche&nbsp;? Quelle valeur correspond au chemin \(A\to B\)&nbsp;?
+          </p>
+          <button class="reveal-button" type="button" data-reveal="memo-arbre-branche">Voir la réponse</button>
+          <p id="memo-arbre-branche" class="answer" hidden>
+            La branche vaut \(P_A(B)=0{,}55\). Le chemin vaut
+            \(P(A\cap B)=P(A)P_A(B)=0{,}40\times0{,}55=0{,}22\). Écrire \(P(A\cap B)=0{,}55\)
+            confond la conditionnelle et l'intersection.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Erreur la plus chère</p>
+          <p>
+            Mettre une probabilité d'intersection \(P(A\cap B)\) sur une branche du 2ᵉ étage&nbsp;: c'est faux.
+            Sur le 2ᵉ étage, ce sont des <strong>conditionnelles</strong>. Si tu as confondu, ton produit final
+            sera correct par hasard, mais la lecture devient incohérente.
+          </p>
+        </div>
+
+        <h3 style="font-family: var(--font-display); text-transform: uppercase; font-size: 18px; margin: 26px 0 8px;">Exemple résolu&nbsp;: la société d'employés</h3>
+
+        <p>
+          Reprenons. Une société emploie 40&nbsp;% de cadres&nbsp;; 55&nbsp;% des cadres sont des femmes et
+          30&nbsp;% des non-cadres sont des femmes. On choisit un employé au hasard. On note \(C\) « être cadre »
+          et \(F\) « être une femme ». Voici l'arbre pondéré que l'énoncé permet de poser.
+        </p>
+
+        <div class="proba-tree" aria-label="Arbre pondéré employés cadre femme">
+          <div class="proba-tree__head">
+            <p>1er étage : statut</p>
+            <p>2ᵉ étage : sexe sachant statut</p>
+            <p>Chemin et probabilité</p>
+          </div>
+          <div class="proba-tree__col">
+            <div class="branch">
+              <span class="branch__node">\(C\)</span>
+              <span class="branch__weight">\(P(C)=0{,}40\)</span>
+            </div>
+            <div class="branch branch--alt">
+              <span class="branch__node">\(\overline{C}\)</span>
+              <span class="branch__weight">\(P(\overline{C})=0{,}60\)</span>
+            </div>
+          </div>
+          <div class="proba-tree__col">
+            <div class="branch branch--child">
+              <span class="branch__node">\(F\mid C\)</span>
+              <span class="branch__weight">\(P_C(F)=0{,}55\)</span>
+            </div>
+            <div class="branch branch--child">
+              <span class="branch__node">\(\overline{F}\mid C\)</span>
+              <span class="branch__weight">\(P_C(\overline{F})=0{,}45\)</span>
+            </div>
+            <div class="branch branch--child">
+              <span class="branch__node">\(F\mid \overline{C}\)</span>
+              <span class="branch__weight">\(P_{\overline{C}}(F)=0{,}30\)</span>
+            </div>
+            <div class="branch branch--child">
+              <span class="branch__node">\(\overline{F}\mid \overline{C}\)</span>
+              <span class="branch__weight">\(P_{\overline{C}}(\overline{F})=0{,}70\)</span>
+            </div>
+          </div>
+          <div class="proba-tree__col">
+            <div class="branch">
+              <span class="branch__node">\(C\cap F\)</span>
+              <span class="branch__weight">\(0{,}40\times 0{,}55=0{,}22\)</span>
+              <span class="branch__leaf">22 % de femmes cadres</span>
+            </div>
+            <div class="branch">
+              <span class="branch__node">\(C\cap \overline{F}\)</span>
+              <span class="branch__weight">\(0{,}40\times 0{,}45=0{,}18\)</span>
+              <span class="branch__leaf">18 % d'hommes cadres</span>
+            </div>
+            <div class="branch">
+              <span class="branch__node">\(\overline{C}\cap F\)</span>
+              <span class="branch__weight">\(0{,}60\times 0{,}30=0{,}18\)</span>
+              <span class="branch__leaf">18 % de femmes non cadres</span>
+            </div>
+            <div class="branch">
+              <span class="branch__node">\(\overline{C}\cap \overline{F}\)</span>
+              <span class="branch__weight">\(0{,}60\times 0{,}70=0{,}42\)</span>
+              <span class="branch__leaf">42 % d'hommes non cadres</span>
+            </div>
+          </div>
+        </div>
+
+        <p>
+          Quatre chemins, quatre intersections. La somme des quatre vaut \(0{,}22+0{,}18+0{,}18+0{,}42=1{,}00\)&nbsp;:
+          tout l'univers \(\Omega\) est bien recouvert sans recouvrement.
+        </p>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Lecture instantanée</p>
+          <p>
+            Un arbre pondéré bien rempli permet de répondre à <strong>toutes</strong> les questions du chapitre&nbsp;:
+            une intersection est un chemin, une probabilité totale est une somme de chemins,
+            une conditionnelle inverse est un quotient de chemins.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Lire un arbre</p>
+          <p>
+            Sur l'arbre ci-dessus, à quoi correspond la valeur \(0{,}18\) obtenue par le chemin
+            \(C \to \overline{F}\)&nbsp;?
+          </p>
+          <button class="reveal-button" type="button" data-reveal="arbre1">Voir la réponse</button>
+          <p id="arbre1" class="answer" hidden>
+            C'est \(P(C\cap\overline{F})\)&nbsp;: la probabilité d'être un homme cadre. La phrase
+            naturelle est «&nbsp;18&nbsp;% des employés sont des hommes cadres&nbsp;».
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Étape manquante</p>
+          <p>
+            Sur un arbre, un nœud du 1er étage donne deux branches portant \(0{,}3\) et une branche manquante.
+            Que vaut cette branche&nbsp;?
+          </p>
+          <button class="reveal-button" type="button" data-reveal="arbre2">Voir la réponse</button>
+          <p id="arbre2" class="answer" hidden>
+            La somme doit valoir 1, donc \(?=1-0{,}3=0{,}7\). La somme des branches issues d'un même nœud
+            est toujours égale à 1.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--note">
+          <p class="c-callout__label"><span class="dot"></span>Tableau de contingence&nbsp;: autre forme du même problème</p>
+          <p>
+            Quand toutes les informations sont en effectifs (ou en pourcentages globaux), un tableau croise
+            les deux critères. Il est équivalent à l'arbre, et parfois plus rapide.
+          </p>
+        </div>
+
+        <table class="contingency-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>\(F\)</th>
+              <th>\(\overline{F}\)</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>\(C\)</th>
+              <td>0,22</td>
+              <td>0,18</td>
+              <td>0,40</td>
+            </tr>
+            <tr>
+              <th>\(\overline{C}\)</th>
+              <td>0,18</td>
+              <td>0,42</td>
+              <td>0,60</td>
+            </tr>
+            <tr>
+              <th>Total</th>
+              <td>0,40</td>
+              <td>0,60</td>
+              <td>1,00</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>
+          Sur ce tableau, \(P(F)\) se lit en bas dans la marge&nbsp;: \(0{,}22+0{,}18=0{,}40\). C'est exactement
+          la même valeur que celle obtenue par la formule des probabilités totales, ci-après.
+        </p>
+      </section>
+
+      <!-- ========== 04 · PROBABILITES TOTALES ========== -->
+      <section id="probabilites-totales" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">04</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Formule clé</p>
+            <h2>La formule des probabilités totales</h2>
+          </div>
+        </div>
+        <p>
+          Souvent, on connaît la probabilité d'un événement \(B\) <em>uniquement par cas</em>&nbsp;: dans la
+          situation \(A_1\), dans la situation \(A_2\), etc. La formule des probabilités totales rassemble
+          ces morceaux en une seule probabilité globale.
+        </p>
+
+        <h3 style="font-family: var(--font-display); text-transform: uppercase; font-size: 18px; margin: 22px 0 8px;">Définition&nbsp;: partition de l'univers</h3>
+        <p>
+          Soit \(n\in\mathbb{N}^*\). Des événements \(A_1, A_2, \dots, A_n\) forment une partition de \(\Omega\)
+          (on dit aussi un <em>système complet d'événements fini</em>) si&nbsp;:
+        </p>
+
+        <div class="case-grid">
+          <div class="case-card">
+            <p class="case-title">Probabilités non nulles</p>
+            <p>Pour tout \(i\), \(P(A_i)\ne 0\). Aucun cas n'est impossible.</p>
+          </div>
+          <div class="case-card">
+            <p class="case-title">Deux à deux incompatibles</p>
+            <p>Pour \(i\ne j\), \(A_i\cap A_j=\varnothing\). Les cas ne se recouvrent pas.</p>
+          </div>
+          <div class="case-card">
+            <p class="case-title">Union égale à \(\Omega\)</p>
+            <p>\(A_1\cup A_2\cup\dots\cup A_n=\Omega\). Aucun cas n'est oublié.</p>
+          </div>
+        </div>
+
+        <p>
+          Le cas le plus fréquent au lycée est \(n=2\)&nbsp;: \(A\) et \(\overline{A}\) forment automatiquement
+          une partition de \(\Omega\) dès que \(0<P(A)<1\).
+        </p>
+
+        <h3 style="font-family: var(--font-display); text-transform: uppercase; font-size: 18px; margin: 26px 0 8px;">Formule des probabilités totales</h3>
+        <p>
+          Soit \(A_1, A_2, \dots, A_n\) une partition de \(\Omega\) et \(B\) un événement.
+        </p>
+
+        <div class="formula-card is-major">
+          \[ P(B)=\sum_{i=1}^{n}P(A_i\cap B) \]
+          \[ P(B)=\sum_{i=1}^{n}P(A_i)\,P_{A_i}(B) \]
+        </div>
+
+        <p>
+          La première égalité dit que \(B\) se décompose comme la réunion disjointe des \(A_i\cap B\).
+          La seconde est juste la formule du produit appliquée à chaque chemin de l'arbre.
+        </p>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Lecture en arbre</p>
+          <p>
+            \(P(B)\) est la <strong>somme des chemins</strong> qui mènent à \(B\). Sur l'arbre des employés,
+            \(P(F)=P(C\cap F)+P(\overline{C}\cap F)\)&nbsp;: on additionne les deux chemins qui aboutissent à \(F\).
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Mémo technique — globalement = recoller tous les cas</p>
+          <p>
+            <strong>Phrase à retenir&nbsp;:</strong> quand l'énoncé demande une probabilité « globalement »,
+            on recolle tous les cas possibles, chacun avec son poids.
+          </p>
+          <p>
+            <strong>Limite&nbsp;:</strong> on ne peut recoller que des cas qui forment une partition&nbsp;:
+            ils ne se chevauchent pas et ils couvrent tout l'univers. Sinon, la somme compte mal.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Poids des cas</p>
+          <p>
+            On connaît \(P(A)=0{,}20\), \(P_A(B)=0{,}10\) et \(P_{\overline{A}}(B)=0{,}90\).
+            Pourquoi \(P(B)\) n'est-il pas \(0{,}10+0{,}90\)&nbsp;?
+          </p>
+          <button class="reveal-button" type="button" data-reveal="memo-totales-recoller">Voir la réponse</button>
+          <p id="memo-totales-recoller" class="answer" hidden>
+            Parce que les deux cas n'ont pas le même poids dans l'univers. Il faut recoller les chemins&nbsp;:
+            \(P(B)=0{,}20\times0{,}10+0{,}80\times0{,}90=0{,}74\).
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p>
+            Reprenons la société. \(P(C)=0{,}4\), \(P_C(F)=0{,}55\), \(P_{\overline{C}}(F)=0{,}30\). \(C\) et
+            \(\overline{C}\) partitionnent \(\Omega\). Quelle est la probabilité que l'employé tiré au hasard
+            soit une femme&nbsp;?
+          </p>
+          <div class="formula-card">
+            \[ 0{,}40\times 0{,}55=0{,}22 \]
+            \[ 0{,}60\times 0{,}30=0{,}18 \]
+            \[ 0{,}22+0{,}18=0{,}40. \]
+          </div>
+          <p>Conclusion&nbsp;: 40&nbsp;% des employés sont des femmes.</p>
+        </div>
+
+        <h3 style="font-family: var(--font-display); text-transform: uppercase; font-size: 18px; margin: 26px 0 8px;">Cas à trois branches&nbsp;: le carrefour</h3>
+
+        <p>
+          À un carrefour à feu tricolore, le feu est vert avec probabilité \(0{,}6\), orange avec \(0{,}1\), rouge
+          avec \(0{,}3\). Un véhicule s'arrête au feu vert dans 2&nbsp;% des cas, au feu orange dans 65&nbsp;%,
+          au feu rouge dans 97&nbsp;%. On note \(V,O,R\) la couleur et \(A\) « le véhicule s'arrête ».
+        </p>
+
+        <div class="proba-tree" aria-label="Arbre pondéré carrefour">
+          <div class="proba-tree__head">
+            <p>1er étage : couleur du feu</p>
+            <p>2ᵉ étage : s'arrête ?</p>
+            <p>Chemin : couleur ∩ arrêt</p>
+          </div>
+          <div class="proba-tree__col">
+            <div class="branch">
+              <span class="branch__node">V</span>
+              <span class="branch__weight">P(V) = 0,60</span>
+            </div>
+            <div class="branch branch--alt">
+              <span class="branch__node">O</span>
+              <span class="branch__weight">P(O) = 0,10</span>
+            </div>
+            <div class="branch branch--alt">
+              <span class="branch__node">R</span>
+              <span class="branch__weight">P(R) = 0,30</span>
+            </div>
+          </div>
+          <div class="proba-tree__col">
+            <div class="branch branch--child">
+              <span class="branch__node">A | V</span>
+              <span class="branch__weight">P_V(A) = 0,02</span>
+            </div>
+            <div class="branch branch--child">
+              <span class="branch__node">A | O</span>
+              <span class="branch__weight">P_O(A) = 0,65</span>
+            </div>
+            <div class="branch branch--child">
+              <span class="branch__node">A | R</span>
+              <span class="branch__weight">P_R(A) = 0,97</span>
+            </div>
+          </div>
+          <div class="proba-tree__col">
+            <div class="branch">
+              <span class="branch__node">V ∩ A</span>
+              <span class="branch__weight">0,60 × 0,02 = 0,012</span>
+            </div>
+            <div class="branch">
+              <span class="branch__node">O ∩ A</span>
+              <span class="branch__weight">0,10 × 0,65 = 0,065</span>
+            </div>
+            <div class="branch">
+              <span class="branch__node">R ∩ A</span>
+              <span class="branch__weight">0,30 × 0,97 = 0,291</span>
+            </div>
+          </div>
+        </div>
+
+        <p>
+          \(V, O, R\) forment une partition de \(\Omega\) (un feu prend exactement une couleur). D'après la
+          formule des probabilités totales&nbsp;:
+        </p>
+
+        <div class="formula-card">
+          \[ P(A)=0{,}012+0{,}065+0{,}291 \]
+          \[ P(A)=0{,}368. \]
+        </div>
+
+        <p>
+          Conclusion&nbsp;: environ 36{,}8&nbsp;% des véhicules s'arrêtent. Sans la décomposition par couleur du
+          feu, on ne pouvait rien dire.
+        </p>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>
+            Dans un musée, 70&nbsp;% des clients achètent leur billet sur internet (\(B\)).
+            35&nbsp;% des clients internet prennent un audioguide (\(A\)) à l'arrivée. 55&nbsp;% des clients
+            de la caisse prennent un audioguide. Que vaut \(P(A)\)&nbsp;?
+          </p>
+          <button class="reveal-button" type="button" data-reveal="totales1">Voir la réponse</button>
+          <p id="totales1" class="answer" hidden>
+            \(P(A)=P(B)P_B(A)+P(\overline{B})P_{\overline{B}}(A)=0{,}70\times 0{,}35+0{,}30\times 0{,}55
+            =0{,}245+0{,}165=0{,}41\).
+            Soit 41&nbsp;% des clients prennent un audioguide.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Récupération active</p>
+          <p>Écris à voix haute la formule des probabilités totales avec \(n=2\), sans regarder.</p>
+          <button class="reveal-button" type="button" data-reveal="totales2">Voir la version attendue</button>
+          <p id="totales2" class="answer" hidden>
+            \(P(B)=P(A\cap B)+P(\overline{A}\cap B)=P(A)\,P_A(B)+P(\overline{A})\,P_{\overline{A}}(B)\)
+            avec \(0<P(A)<1\).
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 05 · INDEPENDANCE ========== -->
+      <section id="independance" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">05</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Décider</p>
+            <h2>Indépendance de deux événements</h2>
+          </div>
+        </div>
+        <p>
+          Deux événements sont indépendants quand savoir que l'un est réalisé ne change rien à la
+          probabilité de l'autre. La définition formelle est compacte&nbsp;:
+        </p>
+
+        <div class="formula-card is-major">
+          <p>\(A\) et \(B\) sont indépendants si et seulement si&nbsp;:</p>
+          \[ P(A\cap B)=P(A)\,P(B). \]
+        </div>
+
+        <p>
+          La caractérisation utile en exercice, lorsque \(P(A)\ne 0\) et \(P(B)\ne 0\)&nbsp;:
+        </p>
+
+        <div class="formula-card is-major">
+          <p>Si \(P(A)\ne0\) et \(P(B)\ne0\), cela équivaut à&nbsp;:</p>
+          \[ P_A(B)=P(B) \]
+          \[ P_B(A)=P(A). \]
+        </div>
+
+        <p>
+          Autrement dit&nbsp;: « conditionner par \(A\) ne change pas la probabilité de \(B\) ». C'est la lecture
+          la plus parlante de l'indépendance.
+        </p>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Réflexe — l'info ne bouge pas le taux</p>
+          <p>
+            <strong>Phrase à retenir&nbsp;:</strong> si l'information \(A\) ne bouge pas le taux de \(B\),
+            alors \(A\) et \(B\) sont indépendants&nbsp;: \(P_A(B)=P(B)\).
+          </p>
+          <p>
+            <strong>Limite&nbsp;:</strong> « presque pareil » ne suffit pas en rédaction. On compare les valeurs
+            exactes quand elles sont disponibles, ou on annonce clairement l'arrondi utilisé.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>L'info bouge-t-elle le taux&nbsp;?</p>
+          <p>
+            Dans une ville, \(P(B)=0{,}31\) pour « consomme bio ». Parmi les ménages qui trient (\(T\)),
+            \(P_T(B)=0{,}40\). Sans autre calcul, \(T\) et \(B\) peuvent-ils être indépendants&nbsp;?
+          </p>
+          <button class="reveal-button" type="button" data-reveal="memo-independance-taux">Voir la réponse</button>
+          <p id="memo-independance-taux" class="answer" hidden>
+            Non. L'information « le ménage trie » change le taux de consommation bio&nbsp;:
+            \(P_T(B)=0{,}40\) alors que \(P(B)=0{,}31\). Donc \(T\) et \(B\) ne sont pas indépendants.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--note">
+          <p class="c-callout__label"><span class="dot"></span>Preuve courte</p>
+          <p>
+            On suppose \(P(A)\ne 0\). On part de la formule du produit&nbsp;: \(P(A\cap B)=P(A)\,P_A(B)\).
+            On compare avec \(P(A)\,P(B)\)&nbsp;: ces deux quantités sont égales si et seulement si
+            \(P_A(B)=P(B)\). On obtient la même équivalence par \(B\).
+          </p>
+        </div>
+
+        <h3 style="font-family: var(--font-display); text-transform: uppercase; font-size: 18px; margin: 26px 0 8px;">Indépendance n'est pas incompatibilité</h3>
+
+        <figure class="visual-block math-language-visual">
+          <div class="math-language-grid" role="list" aria-label="Indépendance versus incompatibilité">
+            <div class="math-language-card" role="listitem">
+              <p class="box-title">Indépendants</p>
+              <div class="formula-card">
+                \[ P(A\cap B)=P(A)\,P(B) \]
+              </div>
+              <p>« Les deux peuvent se réaliser ensemble&nbsp;; mais l'un ne renseigne pas sur l'autre ».</p>
+            </div>
+            <div class="math-language-card" role="listitem">
+              <p class="box-title">Incompatibles</p>
+              <div class="formula-card">
+                \[ P(A\cap B)=0 \]
+              </div>
+              <p>« Les deux ne peuvent <em>jamais</em> se réaliser ensemble. »</p>
+            </div>
+          </div>
+          <figcaption>
+            Si \(P(A)>0\) et \(P(B)>0\), être indépendants exclut d'être incompatibles, et inversement.
+            Les deux notions ne se mélangent jamais.
+          </figcaption>
+        </figure>
+
+        <div class="worked-example">
+          <p>
+            On tire au hasard une carte d'un jeu de 32&nbsp;cartes. Soit \(A\) « la carte est un as » et
+            \(C\) « la carte est un cœur ». Les événements sont-ils indépendants&nbsp;?
+          </p>
+          <div class="formula-card">
+            \[ P(A)=\frac{4}{32}=\frac18 \]
+            \[ P(C)=\frac{8}{32}=\frac14 \]
+            \[ P(A\cap C)=\frac{1}{32} \]
+            \[ P(A)\times P(C)=\frac{1}{32}. \]
+          </div>
+          <p>
+            Comme \(P(A)\times P(C)=P(A\cap C)\), les événements \(A\) et \(C\) sont indépendants.
+            Conclusion utile&nbsp;: connaître la couleur d'une carte ne change pas la probabilité que ce
+            soit un as.
+          </p>
+        </div>
+
+        <h3 style="font-family: var(--font-display); text-transform: uppercase; font-size: 18px; margin: 26px 0 8px;">Propriété&nbsp;: indépendance et événement contraire</h3>
+        <p>
+          Si \(A\) et \(B\) sont indépendants, alors \(A\) et \(\overline{B}\) le sont aussi. De même
+          \(\overline{A}\) et \(B\), ainsi que \(\overline{A}\) et \(\overline{B}\).
+        </p>
+
+        <div class="c-callout c-callout--note">
+          <p class="c-callout__label"><span class="dot"></span>Preuve à connaître</p>
+          <p>
+            Supposons \(A\) et \(B\) indépendants, avec \(0<P(B)<1\). D'après la formule des probabilités totales
+            appliquée à \(A\), avec la partition \(\{B,\overline{B}\}\)&nbsp;:
+          </p>
+          <p>
+            \(P(A)=P(A\cap B)+P(A\cap\overline{B})=P(A)P(B)+P(A\cap\overline{B})\).
+            Donc \(P(A\cap\overline{B})=P(A)-P(A)P(B)=P(A)(1-P(B))=P(A)\,P(\overline{B})\).
+            On a bien \(A\) et \(\overline{B}\) indépendants.
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p>
+            Une urne contient 3 boules rouges et 2 boules vertes. On tire deux boules <em>sans remise</em>.
+            Soient \(R_1\) « la première est rouge » et \(R_2\) « la seconde est rouge ». Indépendants&nbsp;?
+          </p>
+          <div class="formula-card">
+            \[ P(R_1)=\frac{3}{5} \]
+            \[ \frac{3}{5}\times\frac{2}{4}=\frac{3}{10}. \]
+            \[ P(R_2)=\frac{3}{10}+\frac{3}{10}=\frac{3}{5}. \]
+            \[ P(R_1)\,P(R_2)=\frac{9}{25} \]
+            \[ P(R_1\cap R_2)=\frac{3}{10}. \]
+          </div>
+          <p>
+            \(R_1\) et \(R_2\) ne sont donc pas indépendants. Avec une remise, on retrouverait l'indépendance,
+            car la composition de l'urne ne change pas entre les tirages.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Décider</p>
+          <p>
+            On donne \(P(A)=0{,}3\), \(P(B)=0{,}6\) et \(P(A\cap B)=0{,}2\). \(A\) et \(B\) sont-ils indépendants&nbsp;?
+          </p>
+          <button class="reveal-button" type="button" data-reveal="ind1">Voir la réponse</button>
+          <p id="ind1" class="answer" hidden>
+            \(P(A)\,P(B)=0{,}3\times 0{,}6=0{,}18\ne 0{,}2=P(A\cap B)\). Donc \(A\) et \(B\) ne sont pas indépendants.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Conditionnelle d'un indépendant</p>
+          <p>
+            Si \(A\) et \(B\) sont indépendants avec \(P(A)=0{,}4\) et \(P(B)=0{,}25\), que vaut \(P_A(B)\)&nbsp;?
+          </p>
+          <button class="reveal-button" type="button" data-reveal="ind2">Voir la réponse</button>
+          <p id="ind2" class="answer" hidden>
+            Par indépendance, \(P_A(B)=P(B)=0{,}25\). On peut le vérifier&nbsp;: \(P(A\cap B)=0{,}4\times 0{,}25=0{,}1\),
+            puis \(P_A(B)=0{,}1/0{,}4=0{,}25\).
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 06 · BAYES / INVERSION ========== -->
+      <section id="bayes" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">06</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Inverser</p>
+            <h2>Conditionnelle inverse&nbsp;: passer de \(P_A(B)\) à \(P_B(A)\)</h2>
+          </div>
+        </div>
+        <p>
+          Très souvent, l'énoncé donne \(P_A(B)\) et te demande \(P_B(A)\)&nbsp;: la « conditionnelle inverse ».
+          Au lycée, on ne nomme pas explicitement « Bayes »&nbsp;: on raisonne à partir de la définition.
+        </p>
+
+        <div class="formula-card is-major">
+          \[ P_B(A)=\frac{P(A\cap B)}{P(B)} \]
+          \[ P_B(A)=\frac{P(A)\,P_A(B)}{P(B)}. \]
+        </div>
+
+        <p>
+          La deuxième écriture est presque toujours plus pratique&nbsp;: au numérateur, l'intersection
+          se calcule via la formule du produit&nbsp;; au dénominateur, la probabilité totale se calcule via la
+          formule des probabilités totales si nécessaire.
+        </p>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Réflexe — inverse = chemin utile / tous les chemins observés</p>
+          <p>
+            <strong>Phrase à retenir&nbsp;:</strong> pour inverser une conditionnelle, le numérateur est le
+            chemin utile, le dénominateur est tous les chemins qui mènent à ce que l'on observe.
+          </p>
+          <p>
+            <strong>Limite&nbsp;:</strong> le dénominateur n'est pas le premier chemin trouvé. C'est \(P(B)\)&nbsp;:
+            il rassemble toutes les façons d'obtenir l'événement observé \(B\).
+          </p>
+        </div>
+
+        <div class="method-grid">
+          <div class="method-step">
+            <span class="step-number">1</span>
+            <p>Calculer \(P(A\cap B)\) avec la formule du produit&nbsp;: \(P(A)\,P_A(B)\).</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">2</span>
+            <p>Calculer \(P(B)\) avec la formule des probabilités totales si \(P(B)\) n'est pas donné directement.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">3</span>
+            <p>Diviser&nbsp;: \(P_B(A)=\dfrac{P(A\cap B)}{P(B)}\).</p>
+          </div>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Dénominateur observé</p>
+          <p>
+            Les chemins qui mènent à \(R\) valent \(P(A\cap R)=0{,}12\) et
+            \(P(\overline{A}\cap R)=0{,}08\). Que vaut \(P_R(A)\)&nbsp;?
+          </p>
+          <button class="reveal-button" type="button" data-reveal="memo-bayes-observes">Voir la réponse</button>
+          <p id="memo-bayes-observes" class="answer" hidden>
+            On observe \(R\), donc le dénominateur est tous les chemins observés&nbsp;:
+            \(P(R)=0{,}12+0{,}08=0{,}20\). Le chemin utile est \(A\cap R\), donc
+            \(P_R(A)=\dfrac{0{,}12}{0{,}20}=0{,}60\).
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p>
+            Une grande entreprise recrute. 30&nbsp;% des candidats ont un dossier de bonne qualité (\(B\)).
+            65&nbsp;% des bons dossiers sont recrutés (\(R\)). 20&nbsp;% des mauvais dossiers sont recrutés.
+            Quelle est la probabilité qu'un candidat ait un bon dossier <em>sachant qu'il a été recruté</em>&nbsp;?
+          </p>
+          <p>On commence par tout poser sur l'arbre. \(P(B)=0{,}3\)&nbsp;; \(P_B(R)=0{,}65\)&nbsp;; \(P_{\overline{B}}(R)=0{,}20\).</p>
+          <div class="formula-card">
+            \[ 0{,}30\times 0{,}65=0{,}195. \]
+            \[ 0{,}70\times 0{,}20=0{,}140. \]
+            \[ 0{,}195+0{,}140=0{,}335. \]
+          </div>
+          <p>On peut maintenant inverser&nbsp;:</p>
+          <div class="formula-card">
+            \[ \begin{aligned}
+                P_R(B) &= \frac{P(B\cap R)}{P(R)} \\
+                       &= \frac{0{,}195}{0{,}335} \\
+                       &\approx 0{,}582.
+              \end{aligned} \]
+          </div>
+          <p>
+            Conclusion&nbsp;: sachant qu'un candidat est recruté, il y a environ 58,2&nbsp;% de chances que son
+            dossier était bon. La probabilité « a priori » \(P(B)=0{,}30\) est devenue \(P_R(B)\approx 0{,}58\)
+            après observation du résultat&nbsp;: l'information « recruté » a augmenté la probabilité que le
+            dossier était bon.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Lecture intuitive</p>
+          <p>
+            \(P_R(B)\) répond à&nbsp;: « parmi les recrutés, quelle proportion avait un bon dossier&nbsp;? ».
+            Le « parmi… » trahit que l'univers a été restreint à \(R\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Test d'angine</p>
+          <p>
+            Une angine est bactérienne dans 20&nbsp;% des cas (\(B\)). Quand elle est bactérienne, le test
+            est négatif dans 30&nbsp;% des cas&nbsp;; quand elle est virale, le test est positif dans 10&nbsp;%.
+            Soit \(T\) « test positif ». Calcule \(P(T)\), puis \(P_T(B)\).
+          </p>
+          <button class="reveal-button" type="button" data-reveal="bayes1">Voir la réponse</button>
+          <p id="bayes1" class="answer" hidden>
+            \(P_B(T)=0{,}70\) (le test est positif si l'angine est bactérienne dans 70&nbsp;% des cas).
+            \(P_{\overline{B}}(T)=0{,}10\).
+            \(P(T)=P(B)P_B(T)+P(\overline{B})P_{\overline{B}}(T)=0{,}20\times 0{,}70+0{,}80\times 0{,}10
+            =0{,}14+0{,}08=0{,}22\).
+            \(P_T(B)=\tfrac{P(B\cap T)}{P(T)}=\tfrac{0{,}14}{0{,}22}\approx 0{,}636\). Donc sachant que le test est
+            positif, environ 63,6&nbsp;% des malades ont effectivement une angine bactérienne.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 07 · CHOIX DE METHODE ========== -->
+      <section id="choix-methode" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">07</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Différenciateur</p>
+            <h2>Choisir la méthode avant de calculer</h2>
+          </div>
+        </div>
+        <p>
+          Beaucoup d'erreurs commencent avant le premier calcul&nbsp;: l'élève applique une formule parce qu'il
+          la connaît, pas parce que l'énoncé la demande. Voici les déclencheurs à reconnaître.
+        </p>
+
+        <div class="choice-grid">
+          <div class="choice-card">
+            <p class="box-title">Énoncé en pourcentages, deux critères</p>
+            <p>Réflexe&nbsp;: poser un <em>arbre pondéré</em> ou un <em>tableau croisé</em>.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">« Probabilité de l'intersection… »</p>
+            <p>Réflexe&nbsp;: formule du produit \(P(A\cap B)=P(A)\,P_A(B)\).</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">« Quelle est la probabilité globale de \(B\) ? »</p>
+            <p>Réflexe&nbsp;: <em>probabilités totales</em>. Somme des chemins qui mènent à \(B\).</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">« Sachant que \(B\)… proba de \(A\) ? »</p>
+            <p>Réflexe&nbsp;: conditionnelle inverse \(P_B(A)=\dfrac{P(A\cap B)}{P(B)}\).</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">« Vérifier que \(A\) et \(B\) sont indépendants »</p>
+            <p>Réflexe&nbsp;: comparer \(P(A)\,P(B)\) à \(P(A\cap B)\), ou \(P_A(B)\) à \(P(B)\).</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Tirages successifs, urnes</p>
+            <p>Réflexe&nbsp;: arbre à plusieurs étages, avec/sans remise selon l'énoncé.</p>
+          </div>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis sans calculer</p>
+          <p>
+            « 70&nbsp;% des ménages pratiquent le tri sélectif (\(T\))&nbsp;; 40&nbsp;% d'entre eux consomment bio
+            (\(B\)). Quelle est la probabilité de \(T\cap B\)&nbsp;? »
+          </p>
+          <button class="reveal-button" type="button" data-reveal="choix1">Voir la méthode</button>
+          <p id="choix1" class="answer" hidden>
+            Formule du produit. \(P(T\cap B)=P(T)\,P_T(B)=0{,}70\times 0{,}40=0{,}28\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis sans calculer</p>
+          <p>
+            « Le test est positif. Quelle est la probabilité que l'angine soit bactérienne&nbsp;? »
+          </p>
+          <button class="reveal-button" type="button" data-reveal="choix2">Voir la méthode</button>
+          <p id="choix2" class="answer" hidden>
+            Conditionnelle inverse&nbsp;: \(P_T(B)=\dfrac{P(B\cap T)}{P(T)}\). Avec un arbre, on calcule \(P(B\cap T)\)
+            (chemin) puis \(P(T)\) (somme de chemins).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis sans calculer</p>
+          <p>
+            « On tire deux cartes successivement, avec remise. \(R_1\) et \(R_2\) sont-ils indépendants&nbsp;? »
+          </p>
+          <button class="reveal-button" type="button" data-reveal="choix3">Voir la méthode</button>
+          <p id="choix3" class="answer" hidden>
+            Indépendance&nbsp;: on compare \(P(R_1)\,P(R_2)\) à \(P(R_1\cap R_2)\). Avec remise, ces deux quantités
+            sont égales par construction&nbsp;; les événements sont indépendants.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 08 · REDACTION ========== -->
+      <section id="redaction" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">08</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Copie notée</p>
+            <h2>Rédiger comme en contrôle</h2>
+          </div>
+        </div>
+        <p>
+          Le bon résultat ne suffit pas. Il faut une trace claire&nbsp;: notations, justifications, formule
+          des probabilités totales explicite, conclusion phrasée.
+        </p>
+
+        <div class="copy-grid">
+          <div class="c-callout c-callout--warn">
+            <p class="c-callout__label"><span class="dot"></span>Brouillon insuffisant</p>
+            <p>« \(P(F)=0{,}4\times 0{,}55+0{,}6\times 0{,}3=0{,}40\) ».</p>
+            <p class="penalty">aucune notation des événements ; pas de justification de la partition ;
+            on ne sait pas que la formule utilisée est la formule des probabilités totales.</p>
+          </div>
+
+          <div class="worked-example">
+            <p>
+              <strong>Question.</strong> Calculer la probabilité qu'un employé soit une femme.
+            </p>
+            <p>
+              <strong>Réponse propre.</strong> On note \(C\) « être cadre » et \(F\) « être une femme ».
+              D'après l'énoncé, \(P(C)=0{,}4\), \(P_C(F)=0{,}55\) et \(P_{\overline{C}}(F)=0{,}30\).
+            </p>
+            <p>
+              Comme \(0<P(C)<1\), les événements \(C\) et \(\overline{C}\) forment une partition de \(\Omega\).
+              D'après la formule des probabilités totales&nbsp;:
+            </p>
+            <div class="formula-card">
+              \[ 0{,}4\times 0{,}55=0{,}22 \]
+              \[ 0{,}6\times 0{,}30=0{,}18 \]
+              \[ 0{,}22+0{,}18=0{,}40. \]
+            </div>
+            <p>
+              <strong>Conclusion.</strong> La probabilité que l'employé soit une femme est \(0{,}40\).
+            </p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Points qui rapportent</p>
+          <ul class="score-list">
+            <li>Noter explicitement les événements (\(C\), \(F\), \(\overline{C}\)…) avant tout calcul.</li>
+            <li>Citer la formule utilisée (« formule du produit », « formule des probabilités totales »).</li>
+            <li>Vérifier l'hypothèse « \(P(A)\ne 0\) » avant d'écrire \(P_A(B)\) ou la partition de \(\Omega\).</li>
+            <li>Conclure par une phrase en français contextualisée (« la probabilité que… »).</li>
+            <li>Pour une indépendance, comparer <em>deux</em> quantités calculées séparément&nbsp;: pas un seul calcul.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ========== P · PIEGES ========== -->
+      <section id="pieges" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">P</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Pièges connus</p>
+            <h2>Les confusions qui coûtent des points</h2>
+          </div>
+        </div>
+        <p>
+          Ces pièges reviennent dans presque toutes les copies. Les anticiper évite de perdre 1 à 2 points
+          par exercice.
+        </p>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 1 — Confondre \(P_A(B)\) et \(P_B(A)\)</p>
+          <p>
+            Ces deux probabilités sont en général <strong>différentes</strong>. \(P_A(B)\) part de \(A\) (univers
+            restreint = \(A\))&nbsp;; \(P_B(A)\) part de \(B\). On l'a vu plus haut&nbsp;: pour les recrutés,
+            \(P_B(R)=0{,}65\) et \(P_R(B)\approx 0{,}58\)&nbsp;; ce sont deux mondes différents.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 2 — Mettre une intersection sur le 2ᵉ étage</p>
+          <p>
+            Sur un arbre, le 2ᵉ étage porte <strong>des conditionnelles</strong>, jamais des intersections.
+            Si tu y mets \(P(A\cap B)\) au lieu de \(P_A(B)\), la lecture est fausse, même si le produit final
+            tombe juste par accident.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 3 — Oublier que la somme = 1</p>
+          <p>
+            La somme des branches issues d'un même nœud vaut toujours 1. C'est ton premier contrôle de
+            cohérence. Si la somme du 1er étage donne autre chose que 1, l'arbre est faux.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 4 — Indépendance vs incompatibilité</p>
+          <p>
+            Indépendants&nbsp;: \(P(A\cap B)=P(A)P(B)\). Incompatibles&nbsp;: \(P(A\cap B)=0\).
+            Deux événements de probabilités strictement positives ne peuvent pas être les deux à la fois.
+            Le mot « ou » ne signifie ni l'une ni l'autre&nbsp;: il s'agit d'une réunion, pas d'une intersection.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 5 — Oublier la partition</p>
+          <p>
+            Avant d'écrire « d'après la formule des probabilités totales », il faut <strong>vérifier</strong> que les
+            événements utilisés forment bien une partition. Au lycée, c'est presque toujours \(A\) et
+            \(\overline{A}\), ou 3 cas exclusifs (vert / orange / rouge).
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 6 — Lecture floue de l'énoncé</p>
+          <p>
+            « 40&nbsp;% des cadres sont des femmes » ne signifie pas \(P(F)=0{,}40\). Cela signifie \(P_C(F)=0{,}40\).
+            La phrase contient « <em>des cadres</em> », donc on conditionne par cadre. Toujours décortiquer
+            le sujet de la phrase&nbsp;: « parmi qui&nbsp;? ».
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== G · EXERCICES GUIDES ========== -->
+      <section id="guides" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">G</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Exercices guidés</p>
+            <h2>L'aide disparaît progressivement</h2>
+          </div>
+        </div>
+
+        <p>Trois exercices de niveau «&nbsp;Comprendre&nbsp;»&nbsp;: l'objectif est de fixer les réflexes de base.</p>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 1 — Calculatrice graphique</h3>
+            <span class="difficulty" aria-label="Niveau comprendre">Comprendre</span>
+          </div>
+          <p>
+            Dans un lycée, 60&nbsp;% des élèves ont une calculatrice graphique (\(G\))&nbsp;; parmi ceux qui ont
+            une graphique, 80&nbsp;% sont de marque \(A\). On emprunte la calculatrice d'un élève au hasard.
+            Quelle est la probabilité que ce soit une graphique de marque \(A\)&nbsp;?
+          </p>
+          <p class="hint-line">on cherche \(P(G\cap A)\)&nbsp;: formule du produit.</p>
+          <button class="reveal-button" type="button" data-reveal="guide1">Voir le corrigé</button>
+          <div id="guide1" class="answer" hidden>
+            <p>On note \(G\) « la calculatrice est graphique » et \(A\) « la calculatrice est de marque A ».</p>
+            <p>D'après l'énoncé, \(P(G)=0{,}60\) et \(P_G(A)=0{,}80\). On applique la formule du produit&nbsp;:</p>
+            <div class="formula-card">
+              \[ P(G\cap A) \]
+              \[ =P(G)\,P_G(A) \]
+              \[ =0{,}60\times 0{,}80 \]
+              \[ P(G\cap A)=0{,}48 \]
+            </div>
+            <p>Donc 48&nbsp;% des élèves ont une calculatrice graphique de marque A.</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 2 — Tableau de contingence</h3>
+            <span class="difficulty" aria-label="Niveau comprendre">Comprendre</span>
+          </div>
+          <p>
+            Dans une classe de 32 élèves, il y a 15 garçons et 28 demi-pensionnaires. 12 garçons sont
+            demi-pensionnaires. On choisit un élève au hasard.
+          </p>
+          <ol class="exercise-list">
+            <li>Compléter le tableau des effectifs en croisant les deux critères.</li>
+            <li>Calculer la probabilité que l'élève choisi soit une fille sachant que l'élève est demi-pensionnaire.</li>
+          </ol>
+          <p class="hint-line">le tableau te donne directement \(P_D(F)=\tfrac{\#(D\cap F)}{\#D}\).</p>
+          <button class="reveal-button" type="button" data-reveal="guide2">Voir le corrigé</button>
+          <div id="guide2" class="answer" hidden>
+            <p>On note \(F\) « fille », \(D\) « demi-pensionnaire ». Le tableau (effectifs) donne&nbsp;:</p>
+            <table class="contingency-table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>G</th>
+                  <th>F</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>D</th>
+                  <td>12</td>
+                  <td>16</td>
+                  <td>28</td>
+                </tr>
+                <tr>
+                  <th>D̄</th>
+                  <td>3</td>
+                  <td>1</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <th>Total</th>
+                  <td>15</td>
+                  <td>17</td>
+                  <td>32</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>On lit&nbsp;: \(\#(D\cap F)=16\) et \(\#D=28\). Donc&nbsp;:</p>
+            <div class="formula-card">
+              \[ P_D(F)=\frac{16}{28} \]
+              \[ P_D(F)=\frac{4}{7} \]
+              \[ P_D(F)\approx 0{,}571 \]
+            </div>
+            <p>Conclusion&nbsp;: parmi les demi-pensionnaires, environ 57,1&nbsp;% sont des filles.</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 3 — Probabilité totale, deux cas</h3>
+            <span class="difficulty" aria-label="Niveau savoir refaire">Savoir refaire</span>
+          </div>
+          <p>
+            On donne l'arbre suivant&nbsp;: \(P(A)=0{,}2\), \(P_A(B)=0{,}1\), \(P_{\overline{A}}(B)=0{,}9\).
+            Calculer \(P(B)\), puis \(P_B(A)\).
+          </p>
+          <p class="hint-line">arbre, probabilités totales, puis inversion.</p>
+          <button class="reveal-button" type="button" data-reveal="guide3">Voir le corrigé</button>
+          <div id="guide3" class="answer" hidden>
+            <p>On a \(P(\overline{A})=1-0{,}2=0{,}8\). Les deux chemins menant à \(B\) donnent&nbsp;:</p>
+            <div class="formula-card">
+              \[ P(A\cap B) \]
+              \[ =0{,}2\times 0{,}1 \]
+              \[ P(A\cap B)=0{,}02 \]
+              \[ P(\overline{A}\cap B) \]
+              \[ =0{,}8\times 0{,}9 \]
+              \[ =0{,}72 \]
+            </div>
+            <p>D'après la formule des probabilités totales (car \(A,\overline{A}\) partitionnent \(\Omega\))&nbsp;:</p>
+            <div class="formula-card">
+              \[ P(B)=0{,}02+0{,}72 \]
+              \[ P(B)=0{,}74 \]
+            </div>
+            <p>Pour l'inverse&nbsp;:</p>
+            <div class="formula-card">
+              \[ P_B(A)=\frac{P(A\cap B)}{P(B)} \]
+              \[ P_B(A)=\frac{0{,}02}{0{,}74} \]
+              \[ P_B(A)\approx 0{,}027 \]
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 4 — Indépendance à vérifier</h3>
+            <span class="difficulty" aria-label="Niveau savoir refaire">Savoir refaire</span>
+          </div>
+          <p>
+            Dans un magasin de meubles, 55&nbsp;% des meubles sont des canapés (14&nbsp;% en cuir),
+            30&nbsp;% des meubles sont des fauteuils (\(F\), avec 20&nbsp;% en cuir),
+            le reste sont des poufs (avec 42&nbsp;% en cuir). On choisit un meuble au hasard, \(C\) « est
+            en cuir ». Montrer que \(F\) et \(C\) sont indépendants.
+          </p>
+          <p class="hint-line">comparer \(P(F)\,P(C)\) et \(P(F\cap C)\).</p>
+          <button class="reveal-button" type="button" data-reveal="guide4">Voir le corrigé</button>
+          <div id="guide4" class="answer" hidden>
+            <p>On a \(P(F)=0{,}30\). On calcule \(P(C)\) par la formule des probabilités totales en partitionnant
+            par le type de meuble \((Canapé, Fauteuil, Pouf)\), de probabilités \(0{,}55,\,0{,}30,\,0{,}15\)&nbsp;:</p>
+            <div class="formula-card">
+              \[ P(C)=0{,}55\times 0{,}14 \]
+              \[ \quad +0{,}30\times 0{,}20 \]
+              \[ \quad +0{,}15\times 0{,}42 \]
+              \[ P(C)=0{,}077+0{,}060+0{,}063 \]
+              \[ P(C)=0{,}200 \]
+            </div>
+            <p>D'autre part&nbsp;: \(P(F\cap C)=P(F)\,P_F(C)=0{,}30\times 0{,}20=0{,}060\).</p>
+            <p>On compare&nbsp;: \(P(F)\,P(C)=0{,}30\times 0{,}20=0{,}060=P(F\cap C)\). Les événements
+            \(F\) et \(C\) sont donc indépendants.</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 5 — Deux cas, partition à 2 branches</h3>
+            <span class="difficulty" aria-label="Niveau savoir refaire">Savoir refaire</span>
+          </div>
+          <p>
+            Stephen Curry tire&nbsp;: 53&nbsp;% de ses tirs sont à 2 points (\(D\)), avec un taux de réussite
+            de 51,5&nbsp;%&nbsp;; 47&nbsp;% sont à 3 points, avec 43,5&nbsp;% de réussite. Soit \(M\)
+            « il marque ». Calculer \(P(M)\) à \(10^{-3}\) près.
+          </p>
+          <p class="hint-line">arbre à 2 étages, partition \(\{D,\overline{D}\}\), probabilités totales.</p>
+          <button class="reveal-button" type="button" data-reveal="guide5">Voir le corrigé</button>
+          <div id="guide5" class="answer" hidden>
+            <p>On a \(P(D)=0{,}53\), \(P(\overline{D})=0{,}47\), \(P_D(M)=0{,}515\), \(P_{\overline{D}}(M)=0{,}435\).</p>
+            <div class="formula-card">
+              \[ P(D\cap M)=0{,}53\times 0{,}515 \]
+              \[ P(D\cap M)\approx 0{,}273 \]
+              \[ P(\overline{D}\cap M) \]
+              \[ =0{,}47\times 0{,}435 \]
+              \[ P(\overline{D}\cap M)\approx 0{,}204 \]
+            </div>
+            <p>D'après la formule des probabilités totales&nbsp;:</p>
+            <div class="formula-card">
+              \[ P(M)=0{,}273+0{,}204 \]
+              \[ P(M)\approx 0{,}477 \]
+            </div>
+            <p>Curry marque environ 47,7&nbsp;% de ses tirs.</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Bilan d'étape</p>
+          <p>
+            Avant de passer au niveau contrôle, tu dois savoir poser un arbre, appliquer la formule du produit,
+            utiliser les probabilités totales avec 2 ou 3 cas, et vérifier une indépendance. Si tu hésites
+            encore, reviens à la section «&nbsp;Choisir la méthode&nbsp;».
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== C · CONTROLE ========== -->
+      <section id="controle" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">C</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Niveau contrôle</p>
+            <h2>Exercices à réussir sans aide</h2>
+          </div>
+        </div>
+        <p>Essaie d'abord sur feuille. Ouvre le corrigé seulement après avoir écrit une méthode complète.</p>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Contrôle 1 — Carrefour et conditionnelle inverse</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>
+            On reprend le carrefour à feu tricolore (vert 0,6&nbsp;; orange 0,1&nbsp;; rouge 0,3&nbsp;;
+            arrêts respectifs 2&nbsp;%, 65&nbsp;%, 97&nbsp;%).
+          </p>
+          <ol class="exercise-list">
+            <li>Construire l'arbre pondéré.</li>
+            <li>Calculer \(P(A)\), la probabilité que le véhicule s'arrête.</li>
+            <li>Le véhicule est passé, c'est-à-dire qu'il ne s'est pas arrêté. Quelle est la probabilité que le feu fût rouge&nbsp;? Donner le résultat arrondi à \(10^{-3}\) près.</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="controle1">Voir le corrigé</button>
+          <div id="controle1" class="answer" hidden>
+            <p>L'arbre a déjà été posé dans la section 04. Les chemins menant à \(A\) sont&nbsp;:</p>
+            <div class="formula-card">
+              \[ P(V\cap A)=0{,}6\times 0{,}02 \]
+              \[ P(V\cap A)=0{,}012 \]
+              \[ P(O\cap A)=0{,}1\times 0{,}65 \]
+              \[ P(O\cap A)=0{,}065 \]
+              \[ P(R\cap A)=0{,}3\times 0{,}97 \]
+              \[ P(R\cap A)=0{,}291 \]
+            </div>
+            <p>\(V,O,R\) forment une partition de \(\Omega\), donc d'après la formule des probabilités totales&nbsp;:</p>
+            <div class="formula-card">
+              \[ P(A)=0{,}012+0{,}065+0{,}291 \]
+              \[ P(A)=0{,}368 \]
+            </div>
+            <p>Le véhicule est passé, donc on conditionne par \(\overline{A}\), et non par \(A\). On calcule d'abord&nbsp;:</p>
+            <div class="formula-card">
+              \[ P(\overline{A})=1-P(A) \]
+              \[ P(\overline{A})=1-0{,}368=0{,}632 \]
+              \[ P(R\cap \overline{A}) \]
+              \[ =P(R)\,P_R(\overline{A}) \]
+              \[ P(R\cap \overline{A})=0{,}3\times 0{,}03 \]
+              \[ P(R\cap \overline{A})=0{,}009 \]
+            </div>
+            <div class="formula-card">
+              \[ P_{\overline{A}}(R) \]
+              \[ =\frac{P(R\cap \overline{A})}{P(\overline{A})} \]
+              \[ P_{\overline{A}}(R)=\frac{0{,}009}{0{,}632} \]
+              \[ P_{\overline{A}}(R)\approx 0{,}014 \]
+            </div>
+            <p>Conclusion&nbsp;: sachant que le véhicule est passé, la probabilité que le feu fût rouge est environ \(0{,}014\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Contrôle 2 — Permis de conduire (AAC)</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>
+            60,28&nbsp;% des candidats au permis de conduire sont reçus (\(R\)). 20&nbsp;% des candidats
+            ont suivi la filière AAC (\(A\))&nbsp;; parmi eux, 75&nbsp;% sont reçus.
+          </p>
+          <ol class="exercise-list">
+            <li>Donner \(P(A)\), \(P_A(R)\) et \(P(R)\).</li>
+            <li>Construire l'arbre.</li>
+            <li>Calculer la probabilité qu'un candidat ait suivi la formation AAC et soit reçu.</li>
+            <li>Calculer \(P_{\overline{A}}(R)\) et interpréter.</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="controle2">Voir le corrigé</button>
+          <div id="controle2" class="answer" hidden>
+            <p>Les données&nbsp;: \(P(A)=0{,}20\), \(P_A(R)=0{,}75\), \(P(R)=0{,}6028\).</p>
+            <p>L'arbre a un 1er étage \(A,\overline{A}\) avec probabilités \(0{,}20,\,0{,}80\). Sur la branche
+            « A », on met \(P_A(R)=0{,}75\). On ne connaît pas encore \(P_{\overline{A}}(R)\)&nbsp;: c'est ce qu'on cherche.</p>
+            <p>(3) \(P(A\cap R)=P(A)\,P_A(R)=0{,}20\times 0{,}75=0{,}150\).</p>
+            <p>(4) D'après la formule des probabilités totales (\(A,\overline{A}\) partitionnent \(\Omega\))&nbsp;:</p>
+            <div class="formula-card">
+              \[ P(R)=P(A)\,P_A(R) \]
+              \[ \quad +P(\overline{A})\,P_{\overline{A}}(R) \]
+              \[ 0{,}6028=0{,}150 \]
+              \[ \quad +0{,}80\times P_{\overline{A}}(R) \]
+            </div>
+            <div class="formula-card">
+              \[ P_{\overline{A}}(R) \]
+              \[ =\frac{0{,}6028-0{,}150}{0{,}80} \]
+              \[ P_{\overline{A}}(R)=\frac{0{,}4528}{0{,}80} \]
+              \[ P_{\overline{A}}(R)=0{,}566 \]
+            </div>
+            <p>Interprétation&nbsp;: parmi les candidats <em>n'ayant pas</em> suivi l'AAC, 56,6&nbsp;% sont reçus,
+            contre 75&nbsp;% pour ceux qui l'ont suivie. La formation AAC est associée à un taux de réussite supérieur.</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Contrôle 3 — Aiguilles défectueuses</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>
+            Une entreprise dispose de deux sites&nbsp;: \(A\) produit 75&nbsp;% des aiguilles, \(B\) produit 25&nbsp;%.
+            2&nbsp;% des aiguilles du site \(A\) sont défectueuses (\(D\)), 4&nbsp;% au site \(B\). On choisit
+            une aiguille au hasard.
+          </p>
+          <ol class="exercise-list">
+            <li>Donner \(P(A)\) et tracer l'arbre.</li>
+            <li>Calculer \(P(A\cap D)\).</li>
+            <li>Montrer que \(P(D)=0{,}025\).</li>
+            <li>L'aiguille tirée se révèle défectueuse. Quelle est la probabilité qu'elle vienne du site \(A\)&nbsp;?</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="controle3">Voir le corrigé</button>
+          <div id="controle3" class="answer" hidden>
+            <p>\(P(A)=0{,}75\), \(P(\overline{A})=0{,}25\), \(P_A(D)=0{,}02\), \(P_{\overline{A}}(D)=0{,}04\).</p>
+            <p>\(P(A\cap D)=0{,}75\times 0{,}02=0{,}015\).</p>
+            <p>\(A\) et \(\overline{A}\) forment une partition&nbsp;:</p>
+            <div class="formula-card">
+              \[ P(D)=0{,}75\times 0{,}02 \]
+              \[ \quad +0{,}25\times 0{,}04 \]
+              \[ P(D)=0{,}015+0{,}010 \]
+              \[ P(D)=0{,}025 \]
+            </div>
+            <p>Pour finir&nbsp;: \(P_D(A)=\dfrac{P(A\cap D)}{P(D)}=\dfrac{0{,}015}{0{,}025}=0{,}600\). Donc 60&nbsp;% des aiguilles défectueuses proviennent du site \(A\).</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 20 · CAP 20/20 ========== -->
+      <section id="vingt-sur-vingt" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">20</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Cap 20/20</p>
+            <h2>Pas de raccourci&nbsp;: passe la porte avant</h2>
+          </div>
+        </div>
+
+        <div class="c-gate">
+          <p class="c-gate__label">Porte d'entrée</p>
+          <p class="c-gate__title">Deux contrôles réussis sans corrigé d'abord</p>
+          <p>
+            Avant de tenter ces exercices, réussis au moins deux exercices de contrôle sans ouvrir le corrigé.
+            Sinon, reviens à l'arbre pondéré et à la formule des probabilités totales avant de continuer.
+          </p>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Inconnue dans l'arbre (jus d'orange)</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>
+            Dans un supermarché, 40&nbsp;% des bouteilles de jus de fruits sont des jus d'orange (\(R\))&nbsp;;
+            25&nbsp;% des jus d'orange sont des « pur jus » (\(J\)). Parmi les bouteilles qui ne sont
+            <em>pas</em> du jus d'orange, la proportion de « pur jus » est notée \(x\). On sait par ailleurs
+            que 20&nbsp;% du total des bouteilles sont des « pur jus ».
+          </p>
+          <ol class="exercise-list">
+            <li>Déterminer \(x\).</li>
+            <li>Une bouteille passée en caisse est un « pur jus ». Quelle est la probabilité que ce soit un jus d'orange&nbsp;?</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="vingt1">Voir le corrigé</button>
+          <div id="vingt1" class="answer" hidden>
+            <p>On note \(P(R)=0{,}4\), \(P_R(J)=0{,}25\), \(P_{\overline{R}}(J)=x\) et \(P(J)=0{,}20\).</p>
+            <p>D'après la formule des probabilités totales (\(R,\overline{R}\) partitionnent \(\Omega\))&nbsp;:</p>
+            <div class="formula-card">
+              \[ P(J)=P(R)\,P_R(J) \]
+              \[ \quad +P(\overline{R})\,P_{\overline{R}}(J) \]
+              \[ 0{,}20=0{,}4\times 0{,}25+0{,}6x \]
+              \[ 0{,}20=0{,}10+0{,}6x \]
+              \[ x=\frac{0{,}10}{0{,}6} \]
+              \[ x=\frac{1}{6}\approx 0{,}167 \]
+            </div>
+            <p>Pour (2)&nbsp;: \(P_J(R)=\dfrac{P(R\cap J)}{P(J)}=\dfrac{0{,}4\times 0{,}25}{0{,}20}=\dfrac{0{,}10}{0{,}20}=0{,}500\).
+            Donc 50&nbsp;% des « pur jus » sont des jus d'orange.</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Indépendance et choix</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>
+            Soient \(A\) et \(B\) deux événements avec \(P(A)=\tfrac{3}{7}\), \(P(B)=\tfrac{3}{20}\) et
+            \(P(A\cup B)=\tfrac{4}{7}\).
+          </p>
+          <ol class="exercise-list">
+            <li>Calculer \(P(A\cap B)\).</li>
+            <li>Les événements \(A\) et \(B\) sont-ils indépendants&nbsp;?</li>
+            <li>Calculer \(P_A(B)\) et \(P_B(A)\).</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="vingt2">Voir le corrigé</button>
+          <div id="vingt2" class="answer" hidden>
+            <p>(1) D'après la formule \(P(A\cup B)=P(A)+P(B)-P(A\cap B)\)&nbsp;:</p>
+            <div class="formula-card">
+              \[ P(A\cap B)=P(A)+P(B) \]
+              \[ \quad -P(A\cup B) \]
+              \[ P(A\cap B)=\tfrac{3}{7}+\tfrac{3}{20}-\tfrac{4}{7} \]
+              \[ P(A\cap B)=\tfrac{60}{140}+\tfrac{21}{140}-\tfrac{80}{140} \]
+              \[ P(A\cap B)=\tfrac{1}{140} \]
+            </div>
+            <p>(2) On compare&nbsp;:</p>
+            <div class="formula-card">
+              \[ P(A)\,P(B)=\tfrac{3}{7}\times\tfrac{3}{20} \]
+              \[ P(A)\,P(B)=\tfrac{9}{140} \]
+              \[ \tfrac{9}{140}\ne\tfrac{1}{140}=P(A\cap B) \]
+            </div>
+            <p>Donc \(A\) et \(B\) ne sont pas indépendants.</p>
+            <p>(3) \(P_A(B)=\dfrac{1/140}{3/7}=\dfrac{1}{140}\times\dfrac{7}{3}=\dfrac{1}{60}\)&nbsp;;
+            \(P_B(A)=\dfrac{1/140}{3/20}=\dfrac{1}{140}\times\dfrac{20}{3}=\dfrac{1}{21}\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Tri sélectif et bio</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>
+            Dans une ville, 70&nbsp;% des ménages pratiquent le tri sélectif (\(T\))&nbsp;; parmi eux,
+            40&nbsp;% consomment bio (\(B\)). Parmi ceux qui ne trient pas, 10&nbsp;% consomment bio.
+          </p>
+          <ol class="exercise-list">
+            <li>Calculer \(P(T\cap B)\).</li>
+            <li>Montrer que \(P(B)=0{,}31\).</li>
+            <li>Calculer la probabilité qu'un ménage trie sachant qu'il consomme bio (arrondi au centième).</li>
+            <li>Les événements \(T\) et \(B\) sont-ils indépendants&nbsp;? Justifier.</li>
+            <li>Calculer \(P(T\cup B)\) et interpréter.</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="vingt3">Voir le corrigé</button>
+          <div id="vingt3" class="answer" hidden>
+            <p>Données&nbsp;: \(P(T)=0{,}70\), \(P_T(B)=0{,}40\), \(P_{\overline{T}}(B)=0{,}10\).</p>
+            <p>(1) \(P(T\cap B)=0{,}70\times 0{,}40=0{,}28\).</p>
+            <p>(2) D'après la formule des probabilités totales (\(T,\overline{T}\) partitionnent \(\Omega\))&nbsp;:</p>
+            <div class="formula-card">
+              \[ P(B)=0{,}70\times 0{,}40 \]
+              \[ \quad +0{,}30\times 0{,}10 \]
+              \[ P(B)=0{,}28+0{,}03 \]
+              \[ P(B)=0{,}31 \]
+            </div>
+            <p>(3) \(P_B(T)=\dfrac{0{,}28}{0{,}31}\approx 0{,}90\).</p>
+            <p>(4) \(P(T)\,P(B)=0{,}70\times 0{,}31=0{,}217\ne 0{,}28=P(T\cap B)\). \(T\) et \(B\) ne sont
+            pas indépendants&nbsp;: pratiquer le tri augmente la probabilité de consommer bio.</p>
+            <p>(5) \(P(T\cup B)=P(T)+P(B)-P(T\cap B)=0{,}70+0{,}31-0{,}28=0{,}73\). Donc 73&nbsp;% des ménages
+            pratiquent au moins l'un des deux gestes (tri ou bio).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Triathlon de Fabien</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>
+            Chaque entraînement, Fabien commence par une séance de course à pied (\(C\)) ou de vélo (\(V\)).
+            La probabilité qu'il commence par du vélo est \(0{,}3\)&nbsp;; quand il commence par du vélo,
+            il enchaîne avec une séance de natation (\(N\)) avec proba \(0{,}8\)&nbsp;; quand il commence
+            par la course, avec proba \(0{,}4\).
+          </p>
+          <ol class="exercise-list">
+            <li>Construire l'arbre.</li>
+            <li>Calculer \(P(C\cap N)\).</li>
+            <li>Montrer que \(P(N)=0{,}52\).</li>
+            <li>Sachant que Fabien n'a pas fait de natation, quelle est la probabilité qu'il ait commencé par du vélo&nbsp;?</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="vingt4">Voir le corrigé</button>
+          <div id="vingt4" class="answer" hidden>
+            <p>Données&nbsp;: \(P(V)=0{,}3\), \(P(C)=0{,}7\), \(P_V(N)=0{,}8\), \(P_C(N)=0{,}4\).</p>
+            <p>(2) \(P(C\cap N)=0{,}7\times 0{,}4=0{,}28\).</p>
+            <p>(3) Par les probabilités totales (\(C,V\) partitionnent \(\Omega\))&nbsp;:</p>
+            <div class="formula-card">
+              \[ P(N)=0{,}7\times 0{,}4 \]
+              \[ \quad +0{,}3\times 0{,}8 \]
+              \[ P(N)=0{,}28+0{,}24 \]
+              \[ P(N)=0{,}52 \]
+            </div>
+            <p>(4) On cherche \(P_{\overline{N}}(V)\). D'abord, \(P(\overline{N})=1-0{,}52=0{,}48\),
+            puis \(P(V\cap\overline{N})=0{,}3\times 0{,}2=0{,}06\).</p>
+            <div class="formula-card">
+              \[ P_{\overline{N}}(V) \]
+              \[ =\frac{P(V\cap\overline{N})}{P(\overline{N})} \]
+              \[ P_{\overline{N}}(V)=\frac{0{,}06}{0{,}48} \]
+              \[ P_{\overline{N}}(V)=0{,}125 \]
+            </div>
+            <p>Donc 12,5&nbsp;% des jours sans natation, Fabien a commencé par le vélo.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== R · REVISION ========== -->
+      <section id="revision" class="chapter-section recap-section">
+        <div class="section-marker">
+          <div class="section-marker__num">R</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Mini-révision mélangée</p>
+            <h2>Ce que tu dois revoir ensuite</h2>
+          </div>
+        </div>
+        <p>
+          Le contrôle ne dira pas toujours «&nbsp;utilise les probabilités totales&nbsp;». Entraîne-toi à
+          reconnaître le déclencheur.
+        </p>
+
+        <div class="revision-grid">
+          <div class="revision-card">
+            <p class="box-title">Si tu confonds \(P_A(B)\) et \(P_B(A)\)</p>
+            <p>Refais l'exercice du recrutement et le test d'angine. Cherche toujours le mot « parmi » avant d'écrire.</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Si tu oublies la partition</p>
+            <p>Avant d'écrire « formule des probabilités totales », annonce \(A\) et \(\overline{A}\) (ou les trois cas).</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Si tu mélanges indépendance et incompatibilité</p>
+            <p>Reprends la section 05. Indépendance&nbsp;: produit des probas. Incompatibilité&nbsp;: intersection vide.</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Mélange avec les variables aléatoires</p>
+            <p>Plus tard, l'arbre pondéré sert à calculer la loi d'une v.a. \(X\). Le réflexe « partition » reste central.</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Mélange avec les suites</p>
+            <p>Une chaîne de tirages successifs avec remise se modélise par un arbre, mais aussi par une suite récursive \(P_{n+1}\) en fonction de \(P_n\).</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Mélange avec les statistiques</p>
+            <p>Un tableau de contingence donné en effectifs est le pont entre stats descriptives et probabilités. Sache passer de l'un à l'autre.</p>
+          </div>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Dernière récupération active</p>
+          <p>
+            Écris sans regarder&nbsp;: la définition de \(P_A(B)\), la formule du produit, la formule des
+            probabilités totales avec deux cas, et la caractérisation de l'indépendance.
+          </p>
+          <button class="reveal-button" type="button" data-reveal="revision1">Voir la fiche minimale</button>
+          <div id="revision1" class="answer" hidden>
+            <p>\(P_A(B)=\dfrac{P(A\cap B)}{P(A)}\) avec \(P(A)\ne 0\).</p>
+            <p>\(P(A\cap B)=P(A)\,P_A(B)=P(B)\,P_B(A)\).</p>
+            <p>\(P(B)=P(A)\,P_A(B)+P(\overline{A})\,P_{\overline{A}}(B)\) si \(0<P(A)<1\).</p>
+            <p>\(A\) et \(B\) indépendants \(\iff P(A\cap B)=P(A)P(B)\iff P_A(B)=P(B)\) (avec \(P(A)\ne 0\)).</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Suite naturelle</p>
+          <p>
+            Le chapitre suivant — <em>variables aléatoires</em> — repose entièrement sur les arbres pondérés.
+            Si l'arbre de probabilités te paraît mécanique aujourd'hui, la loi d'une variable aléatoire te
+            paraîtra évidente demain.
+          </p>
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+  <!-- ============================================================
+       CHAPTER SETS — exact JSXGraph diagram for conditional probability
+       ============================================================ -->
+  <script>
+    (function () {
+      const circleA = { x: -1.15, y: 0, r: 2.6 };
+      const circleB = { x: 1.15, y: 0, r: 2.6 };
+
+      window.__courseGraphInitializers = window.__courseGraphInitializers || [];
+      window.__courseGraphInitializers.push(function (element) {
+        if (!element || element.dataset.courseGraphReady === 'true') return;
+        if (element.dataset.chapterCurve !== 'sets-intersection') return;
+
+        try {
+          initSetsIntersectionBoard(element, colors());
+          element.dataset.courseGraphReady = 'true';
+        } catch (error) {
+          element.textContent = 'Schéma indisponible pour le moment.';
+        }
+      });
+
+      function initSetsIntersectionBoard(element, colors) {
+        const board = JXG.JSXGraph.initBoard(element.id, {
+          boundingbox: [-4.8, 3.3, 4.8, -3.3],
+          axis: false,
+          grid: false,
+          keepaspectratio: true,
+          showCopyright: false,
+          showNavigation: false,
+          showInfobox: false,
+          pan: { enabled: false },
+          zoom: { enabled: false },
+        });
+
+        addUniverse(board, colors);
+        addCircle(board, circleA, colors.teal);
+        addCircle(board, circleB, colors.green);
+        addIntersectionLens(board, colors.yellow);
+        addLabel(board, [-4.45, 2.8, 'Ω'], colors.ink, 20, [0, 0]);
+        addLabel(board, [-2.35, 2.15, 'A'], colors.teal, 20, [0, 0]);
+        addLabel(board, [2.15, 2.15, 'B'], colors.green, 20, [0, 0]);
+        addLabel(board, [-0.55, 0.15, 'A ∩ B'], colors.ink, 17, [0, 0]);
+        addLabel(board, [-3.95, -2.55, 'univers Ω'], colors.inkSoft, 14, [0, 0]);
+      }
+
+      function addUniverse(board, colors) {
+        const corners = [
+          point(board, [-4.35, -2.65]),
+          point(board, [4.35, -2.65]),
+          point(board, [4.35, 2.65]),
+          point(board, [-4.35, 2.65]),
+        ];
+        board.create('polygon', corners, {
+          fillColor: colors.panel,
+          fillOpacity: 0.65,
+          borders: {
+            strokeColor: colors.ink,
+            strokeWidth: 2.5,
+            highlight: false,
+          },
+          highlight: false,
+          fixed: true,
+        });
+      }
+
+      function addCircle(board, circle, color) {
+        const center = point(board, [circle.x, circle.y]);
+        const radiusPoint = point(board, [circle.x + circle.r, circle.y]);
+        board.create('circle', [center, radiusPoint], {
+          strokeColor: color,
+          strokeWidth: 3,
+          fillColor: color,
+          fillOpacity: 0.22,
+          highlight: false,
+          fixed: true,
+        });
+      }
+
+      function addIntersectionLens(board, color) {
+        const lens = lensBoundary(circleA, circleB, 72);
+        board.create('curve', [lens.xs, lens.ys], {
+          strokeColor: color,
+          strokeOpacity: 0.9,
+          strokeWidth: 2,
+          fillColor: color,
+          fillOpacity: 0.48,
+          highlight: false,
+          fixed: true,
+        });
+      }
+
+      function lensBoundary(left, right, steps) {
+        const d = right.x - left.x;
+        const halfDistance = d / 2;
+        const alpha = Math.acos(halfDistance / left.r);
+        const xs = [];
+        const ys = [];
+
+        pushArc(xs, ys, left, alpha, -alpha, steps);
+        pushArc(xs, ys, right, Math.PI + alpha, Math.PI - alpha, steps);
+        xs.push(xs[0]);
+        ys.push(ys[0]);
+
+        return { xs, ys };
+      }
+
+      function pushArc(xs, ys, circle, start, end, steps) {
+        for (let i = 0; i <= steps; i += 1) {
+          const t = i / steps;
+          const angle = start + (end - start) * t;
+          xs.push(circle.x + circle.r * Math.cos(angle));
+          ys.push(circle.y + circle.r * Math.sin(angle));
+        }
+      }
+
+      function point(board, coordinates) {
+        return board.create('point', coordinates, {
+          visible: false,
+          fixed: true,
+          highlight: false,
+          showInfobox: false,
+        });
+      }
+
+      function addLabel(board, coordinates, color, fontSize, offset) {
+        board.create('text', coordinates, {
+          anchorX: 'left',
+          anchorY: 'middle',
+          cssClass: 'jxg-course-label',
+          fixed: true,
+          highlight: false,
+          strokeColor: color,
+          fontSize,
+          offset,
+        });
+      }
+
+      function colors() {
+        return {
+          green: token('--green-2', '#8bbf5f'),
+          ink: token('--ink', '#121212'),
+          inkSoft: token('--ink-soft', '#57534c'),
+          panel: token('--panel', '#f6f2eb'),
+          teal: token('--blue-2', '#3f7f8f'),
+          yellow: token('--stabilo', '#f4d35e'),
+        };
+      }
+
+      function token(name, fallback) {
+        return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback;
+      }
+    })();
+  </script>
+</body>
+</html>

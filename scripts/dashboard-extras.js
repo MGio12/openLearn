@@ -135,6 +135,8 @@
     var FADE_SEL = '.ap-head, .ap-ritual, .ap-section, .sidebar';
     var mobileQuery = window.matchMedia('(max-width: 900px)');
     var open = false;
+    var resizeRaf = 0;
+    var drawTimer = 0;
 
     function rectIn(el, originRect) {
       var r = el.getBoundingClientRect();
@@ -193,8 +195,20 @@
       });
     }
 
+    function scheduleConnectorDraw(delay) {
+      if (drawTimer) clearTimeout(drawTimer);
+      drawTimer = setTimeout(function () {
+        drawTimer = 0;
+        requestAnimationFrame(drawConnectors);
+      }, delay || 0);
+    }
+
     function onResize() {
-      if (open) drawConnectors();
+      if (!open || resizeRaf) return;
+      resizeRaf = requestAnimationFrame(function () {
+        resizeRaf = 0;
+        drawConnectors();
+      });
     }
 
     function onKey(e) {
@@ -212,14 +226,19 @@
       if (overlay) overlay.setAttribute('data-active', String(isOpen));
       setFade(isOpen);
       if (isOpen) {
-        requestAnimationFrame(function () {
-          drawConnectors();
-          requestAnimationFrame(drawConnectors);
-        });
         try { panel.focus({ preventScroll: true }); } catch (e) { panel.focus(); }
         window.addEventListener('resize', onResize);
         document.addEventListener('keydown', onKey);
+        scheduleConnectorDraw(240);
       } else {
+        if (drawTimer) {
+          clearTimeout(drawTimer);
+          drawTimer = 0;
+        }
+        if (resizeRaf) {
+          cancelAnimationFrame(resizeRaf);
+          resizeRaf = 0;
+        }
         clearSvg();
         window.removeEventListener('resize', onResize);
         document.removeEventListener('keydown', onKey);
@@ -237,10 +256,10 @@
 
     if (typeof mobileQuery.addEventListener === 'function') {
       mobileQuery.addEventListener('change', function () {
-        if (open) drawConnectors();
+        if (open) scheduleConnectorDraw();
       });
     } else if (typeof mobileQuery.addListener === 'function') {
-      mobileQuery.addListener(function () { if (open) drawConnectors(); });
+      mobileQuery.addListener(function () { if (open) scheduleConnectorDraw(); });
     }
   }
 

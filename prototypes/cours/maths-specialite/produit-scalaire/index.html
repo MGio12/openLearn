@@ -1,0 +1,1899 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Produit scalaire — cours V2</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="../cours.css">
+  <style>
+    .application-subtitle {
+      font-family: var(--font-display);
+      font-size: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0;
+      margin: 40px 0 12px;
+    }
+
+    @media (max-width: 560px) {
+      .exercise {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+      .answer {
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+      .answer .formula-card {
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+    }
+  </style>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="../cours.js"></script>
+</head>
+<body class="has-course-sidebar">
+
+  <!-- Reading progress bar -->
+  <div class="progress-bar" aria-hidden="true">
+    <div class="progress-bar__fill" data-progress-fill></div>
+  </div>
+
+  <!-- Sticky section indicator -->
+  <div class="section-bar" data-section-bar aria-hidden="true">
+    <span class="section-bar__chip" data-section-bar-chip>00</span>
+    <span class="section-bar__title" data-section-bar-title>Produit scalaire</span>
+    <span class="section-bar__total" data-section-bar-total>1/14</span>
+  </div>
+
+  <!-- ============================================================
+       SIDEBAR
+       ============================================================ -->
+  <aside class="toc course-sidebar" aria-label="Plan du cours" data-course-sidebar>
+    <div class="sidebar-head">
+      <div>
+        <p class="toc-title">Plan</p>
+        <p class="sidebar-subtitle">Produit scalaire</p>
+      </div>
+      <button
+        class="sidebar-toggle"
+        type="button"
+        aria-label="Replier le plan"
+        aria-expanded="true"
+        data-sidebar-toggle
+      ><span aria-hidden="true">‹</span></button>
+    </div>
+
+    <nav class="toc-links" aria-label="Sections du chapitre">
+      <a href="#diagnostic" data-section-link><span class="toc-index">00</span><span class="toc-label">Diagnostic</span></a>
+      <a href="#intuition" data-section-link><span class="toc-index">01</span><span class="toc-label">Intuition</span></a>
+      <a href="#definitions" data-section-link><span class="toc-index">02</span><span class="toc-label">Définitions</span></a>
+      <a href="#proprietes" data-section-link><span class="toc-index">03</span><span class="toc-label">Propriétés</span></a>
+      <a href="#orthogonalite" data-section-link><span class="toc-index">04</span><span class="toc-label">Orthogonalité</span></a>
+      <a href="#analytique" data-section-link><span class="toc-index">05</span><span class="toc-label">Analytique</span></a>
+      <a href="#applications" data-section-link><span class="toc-index">06</span><span class="toc-label">Applications</span></a>
+      <a href="#choix-methode" data-section-link><span class="toc-index">07</span><span class="toc-label">Choisir</span></a>
+      <a href="#redaction" data-section-link><span class="toc-index">08</span><span class="toc-label">Rédiger</span></a>
+      <a href="#pieges" data-section-link><span class="toc-index">09</span><span class="toc-label">Pièges</span></a>
+      <a href="#guides" data-section-link><span class="toc-index">G</span><span class="toc-label">Guidé</span></a>
+      <a href="#controle" data-section-link><span class="toc-index">C</span><span class="toc-label">Contrôle</span></a>
+      <a href="#vingt-sur-vingt" data-section-link><span class="toc-index">20</span><span class="toc-label">20/20</span></a>
+      <a href="#revision" data-section-link><span class="toc-index">R</span><span class="toc-label">Révision</span></a>
+    </nav>
+
+    <p class="sidebar-foot">Maths spé · Lycée</p>
+  </aside>
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <header class="course-hero">
+    <nav class="topline" aria-label="Fil d'Ariane">
+      <a href="../../../..">Objectif Lycée</a>
+      <span>Maths spécialité</span>
+      <span>Cours</span>
+    </nav>
+
+    <div class="hero-grid">
+      <div>
+        <p class="hero-eyebrow"><span class="num">03</span> Chapitre</p>
+        <h1>Produit scalaire</h1>
+        <p class="hero-lead">
+          Un seul nombre relie projection, angle, coordonnées et normes pour calculer longueurs, angles, droites et cercles sans changer d'outil.
+        </p>
+      </div>
+
+      <aside class="hero-side" aria-label="Les 4 réflexes du chapitre">
+        <p class="hero-side__label">Ce que tu gagnes</p>
+        <h2>4 réflexes, 1 contrôle solide</h2>
+        <div class="hero-side__steps">
+          <div class="hero-side__step">
+            <span class="verb">Voir</span>
+            <span class="obj">projection, angle, longueur</span>
+          </div>
+          <div class="hero-side__step">
+            <span class="verb">Choisir</span>
+            <span class="obj">cos, coordonnées, polarisation</span>
+          </div>
+          <div class="hero-side__step">
+            <span class="verb">Calculer</span>
+            <span class="obj">norme, distance, orthogonalité</span>
+          </div>
+          <div class="hero-side__step">
+            <span class="verb">Appliquer</span>
+            <span class="obj">droite, cercle, Al-Kashi</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MAIN
+       ============================================================ -->
+  <main class="course-layout" data-course-layout>
+    <article class="lesson course-lesson">
+
+      <!-- Overview band -->
+      <section class="course-overview" aria-label="Repères du chapitre">
+        <div>
+          <p class="course-overview__title">Fil conducteur</p>
+          <h3>Ce chapitre se gagne en 4 réflexes</h3>
+          <p class="course-overview__lead">
+            Identifier laquelle des quatre expressions du produit scalaire est <em>la plus courte</em> selon les données de l'énoncé.
+          </p>
+        </div>
+        <div class="overview-flow">
+          <span>Définir</span>
+          <em>→</em>
+          <span>Calculer</span>
+          <em>→</em>
+          <span>Appliquer</span>
+          <em>→</em>
+          <span>Rédiger</span>
+        </div>
+      </section>
+
+      <!-- ========== 00 · DIAGNOSTIC ========== -->
+      <section id="diagnostic" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">00</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Diagnostic éclair</p>
+            <h2>Avant de commencer&nbsp;: tu sais faire quoi&nbsp;?</h2>
+          </div>
+        </div>
+        <p>
+          Réponds mentalement avant d'ouvrir les corrections. Le but n'est pas d'avoir une note&nbsp;:
+          c'est de savoir où ton attention doit se poser pendant le chapitre.
+        </p>
+
+        <div class="diagnostic-grid">
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 1</p>
+            <p>Si \(\vec{u}\,(3;-1)\) et \(\vec{v}\,(2;4)\) dans un repère orthonormé, que vaut \(\vec{u}\cdot\vec{v}\)&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag1">Voir la réponse</button>
+            <p id="diag1" class="answer" hidden>\(\vec{u}\cdot\vec{v}=3\times2+(-1)\times4=6-4=2\).</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 2</p>
+            <p>Si \(\vec{u}\cdot\vec{v}=0\) avec \(\vec{u}\ne\vec{0}\) et \(\vec{v}\ne\vec{0}\), que peux-tu dire des deux vecteurs&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag2">Voir la réponse</button>
+            <p id="diag2" class="answer" hidden>Ils sont orthogonaux&nbsp;: leurs directions sont perpendiculaires.</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 3</p>
+            <p>Si \(\|\vec{u}\|=3\), \(\|\vec{v}\|=4\) et \((\vec{u},\vec{v})=\frac{\pi}{3}\), que vaut \(\vec{u}\cdot\vec{v}\)&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag3">Voir la réponse</button>
+            <p id="diag3" class="answer" hidden>\(\vec{u}\cdot\vec{v}=3\times4\times\cos\tfrac{\pi}{3}=12\times\tfrac12=6\).</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 4</p>
+            <p>La droite \(d:\;3x+y-7=0\) admet quel vecteur normal&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag4">Voir la réponse</button>
+            <p id="diag4" class="answer" hidden>Le vecteur \(\vec{n}\,(3;1)\). Les coefficients de \(x\) et \(y\) donnent directement \(\vec{n}\,(a;b)\).</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 5</p>
+            <p>Que vaut \(\vec{u}\cdot\vec{u}\) en fonction de \(\|\vec{u}\|\)&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag5">Voir la réponse</button>
+            <p id="diag5" class="answer" hidden>\(\vec{u}\cdot\vec{u}=\|\vec{u}\|^2\). C'est la formule qui relie produit scalaire et norme.</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 6</p>
+            <p>Le cercle de centre \(A(2;-1)\) et de rayon \(3\) a quelle équation&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag6">Voir la réponse</button>
+            <p id="diag6" class="answer" hidden>\((x-2)^2+(y+1)^2=9\). On lit centre et rayon directement.</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Objectif de cette session</p>
+          <p>
+            Si tu réussis seulement une chose aujourd'hui&nbsp;: apprendre à reconnaître, parmi les quatre expressions
+            du produit scalaire, laquelle est la plus courte selon les données de l'énoncé. C'est ce choix qui transforme
+            un calcul long en deux lignes propres.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 01 · INTUITION ========== -->
+      <section id="intuition" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">01</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">D'où vient le mot</p>
+            <h2>Le produit scalaire mesure «&nbsp;ce qui va dans le même sens&nbsp;»</h2>
+          </div>
+        </div>
+        <p>
+          Pythagore ne traite que les triangles rectangles. Pourtant on a souvent besoin de calculer une longueur
+          ou un angle dans un triangle quelconque. Le produit scalaire est l'outil qui permet de le faire&nbsp;:
+          un seul nombre, calculable de plusieurs façons, qui résume comment deux vecteurs s'alignent.
+        </p>
+
+        <div class="c-callout c-callout--note">
+          <p class="c-callout__label"><span class="dot"></span>Problème de motivation</p>
+          <p>
+            Soit \(ABC\) un triangle tel que \(AB=4\), \(AC=3\) et \(\widehat{BAC}=70^\circ\).
+            On ne peut pas appliquer Pythagore pour calculer \(BC\)&nbsp;: le triangle n'est pas rectangle.
+            On verra que le produit scalaire généralise Pythagore et donne la réponse en deux lignes.
+          </p>
+        </div>
+
+        <p>
+          L'idée centrale&nbsp;: si \(\vec{u}\) et \(\vec{v}\) pointent presque dans la même direction, leur produit
+          scalaire est <strong>grand et positif</strong>. S'ils sont opposés, il est <strong>grand et négatif</strong>.
+          S'ils sont perpendiculaires, il vaut <strong>zéro</strong>. Le mot «&nbsp;scalaire&nbsp;» rappelle que le résultat
+          est un nombre (un scalaire), pas un vecteur.
+        </p>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Image mentale</p>
+          <p>
+            <strong>Même cap positif, angle droit zéro, contre-sens négatif.</strong> Imagine que \(\vec{v}\)
+            laisse une ombre sur la direction de \(\vec{u}\)&nbsp;: si l'ombre avance avec \(\vec{u}\), le produit
+            scalaire est positif&nbsp;; si l'ombre disparaît, il vaut \(0\)&nbsp;; si elle part derrière, il est négatif.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Limite de l'image</p>
+          <p>
+            Cette image sert d'abord à prévoir le signe. La valeur exacte dépend aussi des deux longueurs.
+            Un angle obtus donne un produit négatif, mais le «&nbsp;contre-sens&nbsp;» parfait correspond seulement
+            au cas colinéaire de sens contraire.
+          </p>
+        </div>
+
+        <figure class="visual-block interactive-graph quadratic-graph">
+          <div class="graph-stage">
+            <div id="ps-projection-board" class="jxgbox curve-board" data-chapter-curve="projection"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Projection orthogonale de \(\vec{v}\) sur \(\vec{u}\)</span>
+              <strong>u·v = OA × OH (signé)</strong>
+            </p>
+          </div>
+          <figcaption>
+            On «&nbsp;rabat&nbsp;» \(\vec{v}\) sur la direction de \(\vec{u}\)&nbsp;: la longueur signée du projeté \(OH\),
+            multipliée par \(OA\), donne le produit scalaire.
+          </figcaption>
+        </figure>
+
+        <div class="case-grid">
+          <div class="case-card">
+            <p class="case-title">Même sens</p>
+            <p>Si \(\vec{u}\) et \(\vec{v}\) sont colinéaires de même sens&nbsp;: \(\vec{u}\cdot\vec{v}=\|\vec{u}\|\times\|\vec{v}\|\).</p>
+          </div>
+          <div class="case-card">
+            <p class="case-title">Sens contraire</p>
+            <p>Si \(\vec{u}\) et \(\vec{v}\) sont colinéaires de sens contraire&nbsp;: \(\vec{u}\cdot\vec{v}=-\|\vec{u}\|\times\|\vec{v}\|\).</p>
+          </div>
+          <div class="case-card">
+            <p class="case-title">Perpendiculaires</p>
+            <p>Si \(\vec{u}\perp\vec{v}\)&nbsp;: \(\vec{u}\cdot\vec{v}=0\). C'est le test d'orthogonalité.</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Majeur à retenir</p>
+          <p>
+            Le produit scalaire transforme une question de géométrie (angles, longueurs, perpendicularité)
+            en un seul calcul algébrique. C'est pour ça qu'il sert ensuite à écrire des équations de droites,
+            de cercles, et à généraliser Pythagore.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate 1</p>
+          <p>Si \(\vec{u}\) et \(\vec{v}\) sont perpendiculaires, combien vaut \(\vec{u}\cdot\vec{v}\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="intuition1">Voir la réponse</button>
+          <p id="intuition1" class="answer" hidden>\(\vec{u}\cdot\vec{v}=0\). C'est l'équivalence centrale du chapitre&nbsp;: \(\vec{u}\perp\vec{v}\iff\vec{u}\cdot\vec{v}=0\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate 2</p>
+          <p>Si \(\|\vec{u}\|=2\), \(\|\vec{v}\|=5\) et que \(\vec{v}\) est colinéaire à \(\vec{u}\) et de sens opposé, que vaut \(\vec{u}\cdot\vec{v}\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="intuition2">Voir la réponse</button>
+          <p id="intuition2" class="answer" hidden>\(\vec{u}\cdot\vec{v}=-\|\vec{u}\|\times\|\vec{v}\|=-2\times5=-10\). Le signe vient du sens opposé.</p>
+        </div>
+      </section>
+
+      <!-- ========== 02 · DEFINITIONS ========== -->
+      <section id="definitions" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">02</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Quatre formules, un seul nombre</p>
+            <h2>Les quatre expressions équivalentes du produit scalaire</h2>
+          </div>
+        </div>
+        <p>
+          Le produit scalaire peut s'écrire de quatre façons. Elles donnent toujours <em>le même nombre</em>&nbsp;:
+          on choisit l'expression la plus courte selon ce qu'on connaît déjà (angle, coordonnées, longueurs…).
+          Avant les formules, on a besoin d'un objet&nbsp;: la <strong>norme</strong> d'un vecteur.
+        </p>
+
+        <div class="formula-card is-major">
+          \[ \|\vec{u}\| = \|\overrightarrow{AB}\| = AB \]
+          \[ \text{Si } \vec{u}\,(x;y),\ \|\vec{u}\| = \sqrt{x^2+y^2} \]
+        </div>
+
+        <p>
+          La norme \(\|\vec{u}\|\) est la longueur du vecteur. Dans un repère orthonormé, elle se lit avec Pythagore
+          à partir des coordonnées. On a aussi \(\|k\vec{u}\|=|k|\times\|\vec{u}\|\), \(\|-\vec{u}\|=\|\vec{u}\|\)
+          et l'inégalité triangulaire \(\|\vec{u}+\vec{v}\|\le\|\vec{u}\|+\|\vec{v}\|\).
+        </p>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Définition — Expression 1 (projection)</p>
+          <p>
+            Soient \(O\), \(A\), \(B\) trois points, avec \(O\ne A\), et \(H\) le projeté orthogonal de \(B\) sur la droite \((OA)\).
+            Le <strong>produit scalaire</strong> de \(\overrightarrow{OA}\) par \(\overrightarrow{OB}\) est le réel noté
+            \(\overrightarrow{OA}\cdot\overrightarrow{OB}\) tel que&nbsp;:
+          </p>
+        </div>
+
+        <div class="formula-card is-major">
+          \[ \overrightarrow{OA}\cdot\overrightarrow{OB} = \overrightarrow{OA}\cdot\overrightarrow{OH} \]
+          \[ = \pm\, OA \times OH \]
+        </div>
+
+        <p>
+          Le signe est <strong>+</strong> si \(\overrightarrow{OA}\) et \(\overrightarrow{OH}\) sont de même sens,
+          <strong>−</strong> s'ils sont de sens contraire. Si l'un des vecteurs est nul, le produit scalaire vaut \(0\).
+        </p>
+
+        <div class="worked-example">
+          <p>Soit \(ABCD\) un carré de côté \(4\), de centre \(O\). Calculer trois produits scalaires.</p>
+          <div class="formula-card">
+            \[ \overrightarrow{AB}\cdot\overrightarrow{AC} = \overrightarrow{AB}\cdot\overrightarrow{AB} \]
+            \[ = AB\times AB = 16 \]
+          </div>
+          <p>Le projeté de \(C\) sur \((AB)\) est \(B\), et \(\overrightarrow{AB}\) et \(\overrightarrow{AB}\) sont de même sens.</p>
+          <div class="formula-card">
+            \[ \overrightarrow{AB}\cdot\overrightarrow{BC} = \overrightarrow{AB}\cdot\vec{0} = 0 \]
+          </div>
+          <p>Le projeté de \(C\) sur \((AB)\) est \(B\), donc \(\overrightarrow{BH}=\overrightarrow{BB}=\vec{0}\).</p>
+          <div class="formula-card">
+            \[ \overrightarrow{BA}\cdot\overrightarrow{DO} = -BA\times\tfrac12 DC \]
+            \[ = -4\times 2 = -8 \]
+          </div>
+          <p>Le projeté de \(O\) sur \((BA)\) est le milieu de \([AB]\)&nbsp;: les vecteurs sont colinéaires de sens contraire.</p>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Définition — Expression 2 (géométrique, avec un angle)</p>
+          <p>
+            Soient \(A\), \(B\), \(C\) trois points distincts. Alors&nbsp;:
+          </p>
+        </div>
+
+        <div class="formula-card is-major">
+          \[ \overrightarrow{AB}\cdot\overrightarrow{AC} \]
+          \[ = AB\times AC\times \cos\widehat{BAC} \]
+        </div>
+
+        <p>
+          Avec des vecteurs non nuls \(\vec{u}\) et \(\vec{v}\), et l'angle orienté \((\vec{u},\vec{v})\)&nbsp;:
+        </p>
+
+        <div class="formula-card">
+          \[ \vec{u}\cdot\vec{v} = \|\vec{u}\|\times\|\vec{v}\|\times\cos(\vec{u},\vec{v}) \]
+        </div>
+
+        <div class="worked-example">
+          <p>Soit \(ABC\) tel que \(AB=5\), \(AC=3\) et \(\widehat{BAC}=\tfrac{3\pi}{4}\). Calculer \(\overrightarrow{AB}\cdot\overrightarrow{AC}\).</p>
+          <div class="formula-card">
+            \[ \cos\tfrac{3\pi}{4} = -\tfrac{\sqrt{2}}{2} \]
+            \[ \overrightarrow{AB}\cdot\overrightarrow{AC} \]
+            \[ = 15\times\left(-\tfrac{\sqrt{2}}{2}\right) \]
+            \[ = -\tfrac{15\sqrt{2}}{2} \]
+          </div>
+          <p>L'angle est obtus, donc le cosinus est négatif&nbsp;: le produit scalaire est négatif. C'est cohérent.</p>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Définition — Expression 3 (analytique)</p>
+          <p>
+            Dans un repère <strong>orthonormé</strong>, si \(\vec{u}\,(x;y)\) et \(\vec{v}\,(x';y')\)&nbsp;:
+          </p>
+        </div>
+
+        <div class="formula-card is-major">
+          \[ \vec{u}\cdot\vec{v} = x x' + y y' \]
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Attention au repère</p>
+          <p>
+            L'expression analytique \(xx'+yy'\) n'est valable que dans un repère <strong>orthonormé</strong>.
+            Dans un repère quelconque, elle est fausse&nbsp;: on doit revenir à l'angle ou aux normes.
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p>Avec \(\vec{u}\,(2;-1)\) et \(\vec{v}\,(1;4)\), calculer \(\vec{u}\cdot\vec{v}\) puis \(\vec{u}^2\) (c'est-à-dire \(\vec{u}\cdot\vec{u}\)).</p>
+          <div class="formula-card">
+            \[ \vec{u}\cdot\vec{v} = 2\times1 + (-1)\times4 \]
+            \[ = 2 - 4 = -2 \]
+          </div>
+          <div class="formula-card">
+            \[ \vec{u}\cdot\vec{u} = 2^2 + (-1)^2 = 5 \]
+            \[ \|\vec{u}\| = \sqrt{5} \]
+          </div>
+          <p>On retrouve bien \(\vec{u}\cdot\vec{u}=\|\vec{u}\|^2\)&nbsp;: la norme se calcule via le produit scalaire.</p>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Définition — Expression 4 (formules de polarisation)</p>
+          <p>
+            Quand on connaît seulement des longueurs (et non un angle), on utilise la polarisation&nbsp;:
+          </p>
+        </div>
+
+        <div class="formula-card is-major">
+          \[
+          \begin{aligned}
+          \vec{u}\cdot\vec{v}
+          &= \tfrac12\Bigl(\|\vec{u}+\vec{v}\|^2 \\
+          &\quad - \|\vec{u}\|^2 - \|\vec{v}\|^2\Bigr)
+          \end{aligned}
+          \]
+          \[
+          \begin{aligned}
+          \vec{u}\cdot\vec{v}
+          &= \tfrac12\Bigl(\|\vec{u}\|^2+\|\vec{v}\|^2 \\
+          &\quad - \|\vec{u}-\vec{v}\|^2\Bigr)
+          \end{aligned}
+          \]
+        </div>
+
+        <div class="worked-example">
+          <p>Soit \(ABC\) tel que \(AB=4\), \(AC=5\), \(BC=6\). Calculer \(\overrightarrow{AB}\cdot\overrightarrow{AC}\).</p>
+          <p>On utilise \(\overrightarrow{BC}=\overrightarrow{AC}-\overrightarrow{AB}\), donc \(\|\overrightarrow{AC}-\overrightarrow{AB}\|=BC\).</p>
+          <div class="formula-card">
+            \[ \overrightarrow{AB}\cdot\overrightarrow{AC} \]
+            \[ = \tfrac12
+              \left(
+                \begin{aligned}
+                  &AB^2+AC^2\\
+                  &-BC^2
+                \end{aligned}
+              \right)
+            \]
+            \[ = \tfrac12(16+25-36) \]
+            \[ = \tfrac12\times 5 \]
+            \[ = \tfrac52 \]
+          </div>
+          <p>On a obtenu le produit scalaire <em>sans connaître aucun angle</em>&nbsp;: c'est le pouvoir de la polarisation.</p>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Mémo technique</p>
+          <p>
+            <strong>Couples fidèles.</strong> Le produit \(\overrightarrow{AB}\cdot\overrightarrow{AC}\) reste attaché
+            aux deux vecteurs qui partent de \(A\). La polarisation fait entrer le troisième côté parce que
+            \(\overrightarrow{AC}-\overrightarrow{AB}=\overrightarrow{BC}\).
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Limite de la polarisation</p>
+          <p>
+            Ne colle pas automatiquement «&nbsp;le troisième côté&nbsp;» sans vérifier le couple de vecteurs.
+            Pour \(\overrightarrow{BA}\cdot\overrightarrow{BC}\), le troisième côté est \(AC\), car
+            \(\overrightarrow{BA}-\overrightarrow{BC}=\overrightarrow{CA}\). Si les vecteurs ne partent pas du
+            même point, réécris d'abord avec Chasles.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Couples fidèles</p>
+          <p>Dans un triangle \(ABC\), tu connais seulement \(AB\), \(BC\) et \(AC\). Quelle polarisation utiliser pour \(\overrightarrow{BA}\cdot\overrightarrow{BC}\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="defs-couples-polarisation">Voir la réponse</button>
+          <p id="defs-couples-polarisation" class="answer" hidden>\(\overrightarrow{BA}\) et \(\overrightarrow{BC}\) partent de \(B\), donc \(\overrightarrow{BA}-\overrightarrow{BC}=\overrightarrow{CA}\). Ainsi \(\overrightarrow{BA}\cdot\overrightarrow{BC}=\tfrac12(BA^2+BC^2-AC^2)\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Étape manquante</p>
+          <p>Pour \(\vec{u}\,(3;-2)\) et \(\vec{v}\,(4;1)\), complète&nbsp;: \(\vec{u}\cdot\vec{v}=3\times4+\,?\)</p>
+          <button class="reveal-button" type="button" data-reveal="defs1">Voir la réponse</button>
+          <p id="defs1" class="answer" hidden>\(\vec{u}\cdot\vec{v}=3\times4+(-2)\times1=12-2=10\). Penser à inclure le signe de chaque coordonnée.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Quelle expression choisir</p>
+          <p>Tu connais seulement les trois longueurs \(AB\), \(AC\), \(BC\). Quelle expression utiliser pour \(\overrightarrow{AB}\cdot\overrightarrow{AC}\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="defs2">Voir la réponse</button>
+          <p id="defs2" class="answer" hidden>La polarisation&nbsp;: \(\overrightarrow{AB}\cdot\overrightarrow{AC}=\tfrac12(AB^2+AC^2-BC^2)\). Aucune autre formule ne marche sans angle ni coordonnées.</p>
+        </div>
+      </section>
+
+      <!-- ========== 03 · PROPRIETES ========== -->
+      <section id="proprietes" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">03</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Règles de calcul</p>
+            <h2>Symétrie, bilinéarité, identités remarquables</h2>
+          </div>
+        </div>
+        <p>
+          Le produit scalaire se comporte presque comme le produit de deux nombres&nbsp;: on peut développer,
+          factoriser et utiliser les identités remarquables. La seule différence&nbsp;: les objets manipulés sont
+          des vecteurs, et le résultat est un nombre.
+        </p>
+
+        <div class="formula-card is-major">
+          \[ \vec{u}\cdot\vec{v} = \vec{v}\cdot\vec{u} \]
+          \[ \vec{u}\cdot(\vec{v}+\vec{w}) = \vec{u}\cdot\vec{v} + \vec{u}\cdot\vec{w} \]
+          \[ (k\vec{u})\cdot\vec{v} = k(\vec{u}\cdot\vec{v}) \]
+        </div>
+
+        <div class="method-grid">
+          <div class="method-step">
+            <span class="step-number">1</span>
+            <p>Symétrie&nbsp;: l'ordre des deux vecteurs ne change pas le résultat.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">2</span>
+            <p>Bilinéarité&nbsp;: on développe comme avec un produit de nombres, à gauche comme à droite.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">3</span>
+            <p>Constante&nbsp;: un coefficient \(k\) sort de chaque facteur.</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Carré scalaire</p>
+          <p>
+            Pour tout vecteur \(\vec{u}\)&nbsp;: \(\vec{u}\cdot\vec{u}=\|\vec{u}\|^2\). On note parfois \(\vec{u}^2\)&nbsp;:
+            cela signifie \(\vec{u}\cdot\vec{u}\), pas le vecteur «&nbsp;au carré&nbsp;» (un vecteur ne se met pas au carré tout seul).
+          </p>
+        </div>
+
+        <p>Les trois identités remarquables passent telles quelles aux vecteurs&nbsp;:</p>
+
+        <div class="formula-card is-major">
+          \[ (\vec{u}+\vec{v})^2 = \vec{u}^2 + 2\,\vec{u}\cdot\vec{v} + \vec{v}^2 \]
+          \[ (\vec{u}-\vec{v})^2 = \vec{u}^2 - 2\,\vec{u}\cdot\vec{v} + \vec{v}^2 \]
+          \[ (\vec{u}+\vec{v})\cdot(\vec{u}-\vec{v}) = \vec{u}^2 - \vec{v}^2 \]
+        </div>
+
+        <div class="worked-example">
+          <p>On donne \(\|\vec{u}\|=3\), \(\|\vec{v}\|=4\), \(\vec{u}\cdot\vec{v}=-6\). Calculer \(\|2\vec{u}-\vec{v}\|^2\).</p>
+          <div class="formula-card">
+            \[ \|2\vec{u}-\vec{v}\|^2 = (2\vec{u}-\vec{v})^2 \]
+            \[ = 4\vec{u}^2 \]
+            \[ \quad - 4\,\vec{u}\cdot\vec{v} \]
+            \[ \quad + \vec{v}^2 \]
+          </div>
+          <p>On remplace par les valeurs connues&nbsp;:</p>
+          <div class="formula-card">
+            \[ = 4\times 9 - 4\times(-6) + 16 \]
+            \[ = 36 + 24 + 16 = 76 \]
+          </div>
+          <p>Donc \(\|2\vec{u}-\vec{v}\|=\sqrt{76}=2\sqrt{19}\).</p>
+        </div>
+
+        <div class="worked-example">
+          <p>Mêmes données. Calculer \((3\vec{u}-2\vec{v})\cdot(-\vec{u}+\vec{v})\).</p>
+          <div class="formula-card">
+            \[ \text{On développe}\ : \]
+            \[ -3\vec{u}^2 + 3\,\vec{u}\cdot\vec{v} \]
+            \[ + 2\,\vec{u}\cdot\vec{v} - 2\vec{v}^2 \]
+            \[ = -3\vec{u}^2 + 5\,\vec{u}\cdot\vec{v} - 2\vec{v}^2 \]
+          </div>
+          <div class="formula-card">
+            \[ = -3\times9 \]
+            \[ \quad + 5\times(-6) \]
+            \[ \quad - 2\times16 \]
+            \[ = -27 - 30 - 32 \]
+            \[ = -89 \]
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Écritures qui n'ont aucun sens</p>
+          <p>
+            \((\vec{u}\cdot\vec{v})\cdot\vec{v}\) n'a pas de sens&nbsp;: \(\vec{u}\cdot\vec{v}\) est un nombre,
+            et un nombre ne fait pas de produit scalaire avec un vecteur. De même, \(\vec{u}+(\vec{u}\cdot\vec{v})\)
+            additionne un vecteur et un scalaire&nbsp;: interdit.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Étape manquante</p>
+          <p>Avec \(\|\vec{u}\|=3\), \(\|\vec{v}\|=4\), \(\vec{u}\cdot\vec{v}=-6\), que vaut \(\vec{u}\cdot(2\vec{u}-\vec{v})\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="prop1">Voir la réponse</button>
+          <p id="prop1" class="answer" hidden>\(\vec{u}\cdot(2\vec{u}-\vec{v})=2\vec{u}^2-\vec{u}\cdot\vec{v}=2\times9-(-6)=24\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Identité remarquable</p>
+          <p>Comment développer \((\vec{u}+2\vec{v})\cdot(\vec{u}-2\vec{v})\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="prop2">Voir la réponse</button>
+          <p id="prop2" class="answer" hidden>C'est une identité \((a+b)(a-b)=a^2-b^2\)&nbsp;: \(\vec{u}^2-4\vec{v}^2=\|\vec{u}\|^2-4\|\vec{v}\|^2\). Avec les valeurs ci-dessus&nbsp;: \(9-64=-55\).</p>
+        </div>
+      </section>
+
+      <!-- ========== 04 · ORTHOGONALITE ========== -->
+      <section id="orthogonalite" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">04</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Test fondamental</p>
+            <h2>Orthogonalité&nbsp;: le produit scalaire vaut \(0\)</h2>
+          </div>
+        </div>
+        <p>
+          C'est l'équivalence la plus utile du chapitre&nbsp;: elle remplace un raisonnement géométrique
+          («&nbsp;les deux droites sont perpendiculaires&nbsp;») par un calcul simple sur les coordonnées
+          ou sur les normes.
+        </p>
+
+        <div class="formula-card is-major">
+          \[ \vec{u}\perp\vec{v} \iff \vec{u}\cdot\vec{v} = 0 \]
+        </div>
+
+        <p>
+          On considère par convention que <strong>le vecteur nul est orthogonal à tout vecteur</strong>.
+          Dès qu'au moins un des deux vecteurs est nul, le produit scalaire vaut bien \(0\) et l'équivalence reste vraie.
+        </p>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Image mentale</p>
+          <p>
+            <strong>Zéro = pas d'ombre utile.</strong> Quand \(\vec{u}\cdot\vec{v}=0\), la projection de l'un
+            sur la direction de l'autre ne donne aucune longueur exploitable&nbsp;: il n'y a rien qui avance dans
+            cette direction.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège de contrôle</p>
+          <p>
+            Ce zéro ne signifie pas que les deux vecteurs sont égaux, ni que leurs longueurs sont nulles.
+            Pour prouver qu'un triangle est rectangle, écris bien deux vecteurs non nuls issus du sommet testé.
+          </p>
+        </div>
+
+        <figure class="visual-block interactive-graph quadratic-graph">
+          <div class="graph-stage">
+            <div id="ps-orthogonalite-board" class="jxgbox curve-board" data-chapter-curve="orthogonalite"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Deux vecteurs perpendiculaires</span>
+              <strong>u·v = 0</strong>
+            </p>
+          </div>
+          <figcaption>
+            Le marqueur d'angle droit signale \(\vec{u}\perp\vec{v}\). On a alors \(\vec{u}\cdot\vec{v}=0\),
+            quelles que soient les longueurs.
+          </figcaption>
+        </figure>
+
+        <div class="c-callout c-callout--note">
+          <p class="c-callout__label"><span class="dot"></span>D'où vient l'équivalence</p>
+          <p>
+            On part de \(\vec{u}\cdot\vec{v}=\|\vec{u}\|\|\vec{v}\|\cos(\vec{u},\vec{v})\).
+            Le produit est nul si et seulement si \(\|\vec{u}\|=0\), \(\|\vec{v}\|=0\), ou \(\cos(\vec{u},\vec{v})=0\),
+            c'est-à-dire \((\vec{u},\vec{v})=\tfrac{\pi}{2}\pmod\pi\). Dans tous les cas&nbsp;: \(\vec{u}\perp\vec{v}\).
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p>Soient \(A(-2;-3)\), \(B(1;1)\), \(C(-3;-1)\). Le triangle \(ABC\) est-il rectangle en \(C\)&nbsp;?</p>
+          <p>Le triangle est rectangle en \(C\) si et seulement si \(\overrightarrow{CA}\cdot\overrightarrow{CB}=0\).</p>
+          <div class="formula-card">
+            \[ \overrightarrow{CA}\,(1\,;-2) \]
+            \[ \overrightarrow{CB}\,(4\,;2) \]
+            \[ \overrightarrow{CA}\cdot\overrightarrow{CB} \]
+            \[ = 1\times4 + (-2)\times2 \]
+            \[ = 4 - 4 = 0 \]
+          </div>
+          <p>Donc \(ABC\) est rectangle en \(C\)&nbsp;: les côtés \([CA]\) et \([CB]\) sont perpendiculaires.</p>
+        </div>
+
+        <div class="worked-example">
+          <p>Mêmes notations avec \(E(-1;-3)\), \(D(-4;2)\), \(F(2;-1)\). Le triangle \(EDF\) est-il rectangle en \(E\)&nbsp;?</p>
+          <div class="formula-card">
+            \[ \overrightarrow{ED}\,(-3\,;5),\ \overrightarrow{EF}\,(3\,;2) \]
+            \[ \overrightarrow{ED}\cdot\overrightarrow{EF} = -9 + 10 = 1 \]
+            \[ \ne 0 \]
+          </div>
+          <p>Le produit scalaire vaut \(1\), pas \(0\)&nbsp;: \(EDF\) n'est pas rectangle en \(E\).</p>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Conséquence pratique</p>
+          <p>
+            Pour montrer qu'un triangle est rectangle&nbsp;: on choisit le sommet candidat, on calcule les coordonnées
+            des deux vecteurs partant de ce sommet, on fait \(xx'+yy'\). Si le résultat vaut \(0\), c'est gagné.
+            On évite les longueurs et Pythagore quand on a déjà les coordonnées.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>Les vecteurs \(\vec{u}\,(2;-3)\) et \(\vec{v}\,(6;4)\) sont-ils orthogonaux&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="ortho1">Voir la réponse</button>
+          <p id="ortho1" class="answer" hidden>\(\vec{u}\cdot\vec{v}=2\times6+(-3)\times4=12-12=0\). Oui, ils sont orthogonaux.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Copie attendue</p>
+          <p>Si \(A\), \(B\), \(C\) sont distincts et que \(\overrightarrow{AB}\cdot\overrightarrow{AC}=0\), quelle phrase de contrôle faut-il écrire&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="ortho-ombre-zero">Voir la réponse</button>
+          <p id="ortho-ombre-zero" class="answer" hidden>Comme \(A\), \(B\), \(C\) sont distincts, \(\overrightarrow{AB}\) et \(\overrightarrow{AC}\) sont non nuls. Leur produit scalaire vaut \(0\), donc ils sont orthogonaux. Ainsi le triangle \(ABC\) est rectangle en \(A\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Lever une ambiguïté</p>
+          <p>Pour montrer que \(ABC\) est rectangle en \(A\), faut-il faire \(\overrightarrow{AB}\cdot\overrightarrow{AC}\) ou \(\overrightarrow{BA}\cdot\overrightarrow{CA}\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="ortho2">Voir la réponse</button>
+          <p id="ortho2" class="answer" hidden>Les deux marchent. Ce qui compte, c'est que les deux vecteurs <em>partent</em> du sommet \(A\). Le sens choisi ne change pas la nullité du produit scalaire (changer le sens d'un vecteur change seulement le signe).</p>
+        </div>
+      </section>
+
+      <!-- ========== 05 · ANALYTIQUE ========== -->
+      <section id="analytique" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">05</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Coordonnées et longueurs</p>
+            <h2>Le produit scalaire avec un repère orthonormé</h2>
+          </div>
+        </div>
+        <p>
+          Quand l'énoncé donne des coordonnées, l'expression \(xx'+yy'\) est presque toujours la plus rapide.
+          On en déduit aussi norme, distance et mesure d'angles.
+        </p>
+
+        <div class="formula-card is-major">
+          \[ \vec{u}\,(x;y),\ \vec{v}\,(x';y') \]
+          \[ \vec{u}\cdot\vec{v} = xx' + yy' \]
+          \[ \|\vec{u}\| = \sqrt{x^2 + y^2} \]
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Réflexe</p>
+          <p>
+            <strong>Mot de passe&nbsp;: orthonormé.</strong> Avant d'écrire \(xx'+yy'\), cherche dans l'énoncé
+            le mot «&nbsp;orthonormé&nbsp;». C'est lui qui autorise à transformer les coordonnées en longueurs fiables.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Limite du réflexe</p>
+          <p>
+            Un repère seulement «&nbsp;orthogonal&nbsp;» ou simplement noté \((O;\vec{i},\vec{j})\) ne suffit pas.
+            Sans orthonormalité, les coordonnées ne donnent pas directement la norme, donc \(xx'+yy'\) n'est pas garanti.
+          </p>
+        </div>
+
+        <p>
+          La <strong>distance</strong> entre deux points \(A(x_A;y_A)\) et \(B(x_B;y_B)\) se lit avec la norme du vecteur \(\overrightarrow{AB}\)&nbsp;:
+        </p>
+
+        <div class="formula-card is-major">
+          \[ AB = \|\overrightarrow{AB}\| \]
+          \[ = \sqrt{(x_B-x_A)^2 + (y_B-y_A)^2} \]
+        </div>
+
+        <div class="method-grid">
+          <div class="method-step">
+            <span class="step-number">1</span>
+            <p>Calculer les coordonnées des deux vecteurs en partant du même point.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">2</span>
+            <p>Appliquer \(xx'+yy'\) pour le produit scalaire.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">3</span>
+            <p>Pour un angle, calculer aussi les normes et utiliser \(\vec{u}\cdot\vec{v}=\|\vec{u}\|\|\vec{v}\|\cos\theta\).</p>
+          </div>
+        </div>
+
+        <div class="worked-example">
+          <p>Dans un repère orthonormé, soient \(A(0;4)\), \(B(6;3)\), \(C(-5;-2)\). Calculer \(\overrightarrow{AB}\cdot\overrightarrow{AC}\), puis \(AB\), \(AC\). En déduire \(\widehat{BAC}\).</p>
+          <div class="formula-card">
+            \[ \overrightarrow{AB}\,(6\,;-1) \]
+            \[ \overrightarrow{AC}\,(-5\,;-6) \]
+            \[ \overrightarrow{AB}\cdot\overrightarrow{AC} \]
+            \[ = -30 + 6 = -24 \]
+          </div>
+          <div class="formula-card">
+            \[ AB = \sqrt{36+1} = \sqrt{37} \]
+            \[ AC = \sqrt{25+36} = \sqrt{61} \]
+          </div>
+          <p>Puis avec l'expression géométrique&nbsp;:</p>
+          <div class="formula-card">
+            \[ -24 = \sqrt{37}\sqrt{61}\cos\widehat{BAC} \]
+            \[ \cos\widehat{BAC} = \dfrac{-24}{\sqrt{37\times61}} \]
+            \[ \widehat{BAC} \approx 124{,}5^\circ \]
+          </div>
+          <p>Le cosinus est négatif&nbsp;: l'angle est obtus, ce qui est cohérent avec le signe négatif du produit scalaire.</p>
+        </div>
+
+        <div class="worked-example">
+          <p>Soient \(M(1;3)\), \(N(4;-2)\), \(P(2;-1)\). Calculer \(\overrightarrow{MN}\cdot\overrightarrow{MP}\) puis l'angle \(\widehat{NMP}\).</p>
+          <div class="formula-card">
+            \[ \overrightarrow{MN}\,(3\,;-5) \]
+            \[ \overrightarrow{MP}\,(1\,;-4) \]
+            \[ \overrightarrow{MN}\cdot\overrightarrow{MP} \]
+            \[ = 3+20 = 23 \]
+          </div>
+          <div class="formula-card">
+            \[ MN = \sqrt{34},\ MP = \sqrt{17} \]
+            \[ \cos\widehat{NMP} \]
+            \[ = \dfrac{23}{\sqrt{34}\sqrt{17}} \]
+            \[ = \dfrac{23}{17\sqrt{2}} \]
+            \[ \widehat{NMP} \approx 16{,}9^\circ \]
+          </div>
+          <p>Avec une calculatrice, l'arccosinus donne la mesure de l'angle non orienté.</p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège du repère</p>
+          <p>
+            Si le repère n'est <em>pas</em> orthonormé, la formule \(xx'+yy'\) ne donne pas le produit scalaire.
+            Lire l'énoncé&nbsp;: «&nbsp;repère orthonormé&nbsp;» est presque toujours précisé. Sinon, on ne le suppose pas&nbsp;:
+            on passe par l'angle ou la polarisation.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Norme depuis coordonnées</p>
+          <p>Que vaut la distance \(AB\) avec \(A(2;1)\) et \(B(-1;5)\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="ana1">Voir la réponse</button>
+          <p id="ana1" class="answer" hidden>\(\overrightarrow{AB}\,(-3;4)\), donc \(AB=\sqrt{9+16}=\sqrt{25}=5\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Mot de passe</p>
+          <p>Dans un énoncé, on lit seulement «&nbsp;repère \((O;\vec{i},\vec{j})\)&nbsp;». Peut-on calculer automatiquement \(\vec{u}\,(1;2)\cdot\vec{v}\,(3;4)\) avec \(1\times3+2\times4\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="ana-mot-passe-orthonorme">Voir la réponse</button>
+          <p id="ana-mot-passe-orthonorme" class="answer" hidden>Non. Il manque le mot «&nbsp;orthonormé&nbsp;». La formule \(xx'+yy'\) est sûre seulement dans un repère orthonormé. Sans cette information, il faut utiliser une autre donnée de l'énoncé.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Bon ou mauvais réflexe</p>
+          <p>On veut un angle. On a uniquement les coordonnées des trois sommets. Quel chemin choisir&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="ana2">Voir la réponse</button>
+          <p id="ana2" class="answer" hidden>Calculer le produit scalaire avec \(xx'+yy'\), calculer les deux normes, puis \(\cos\theta=\dfrac{\vec{u}\cdot\vec{v}}{\|\vec{u}\|\|\vec{v}\|}\). C'est la méthode standard pour un angle à partir de coordonnées.</p>
+        </div>
+      </section>
+
+      <!-- ========== 06 · APPLICATIONS ========== -->
+      <section id="applications" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">06</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Mise en pratique</p>
+            <h2>Droites, cercles, Al-Kashi, médiane</h2>
+          </div>
+        </div>
+        <p>
+          C'est ici que le produit scalaire devient vraiment puissant&nbsp;: il fournit des équations courtes pour
+          des objets géométriques (droite via vecteur normal, cercle via distance), et généralise Pythagore.
+        </p>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Réflexe</p>
+          <p>
+            <strong>Normal caché, cercle, diamètre.</strong> Une droite donnée par \(ax+by+c=0\) cache le normal
+            \((a;b)\)&nbsp;; une distance fixe cache un cercle&nbsp;; un produit \(\overrightarrow{MA}\cdot\overrightarrow{MB}=0\)
+            cache le cercle de diamètre \([AB]\).
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Limites à vérifier</p>
+          <p>
+            Le vecteur normal \((a;b)\) doit être non nul, les équations de cercle avec coordonnées utilisent un repère
+            orthonormé, et le cercle de diamètre inclut aussi \(M=A\) ou \(M=B\) parce qu'un vecteur nul donne un produit
+            scalaire nul.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Objets cachés</p>
+          <p>Associe sans calculer&nbsp;: \(ax+by+c=0\), \((x-a)^2+(y-b)^2=R^2\), et \(\overrightarrow{MA}\cdot\overrightarrow{MB}=0\). Quels objets ou réflexes reconnais-tu&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="appli-reflexe-cache">Voir la réponse</button>
+          <p id="appli-reflexe-cache" class="answer" hidden>\(ax+by+c=0\) donne une droite avec vecteur normal \((a;b)\). \((x-a)^2+(y-b)^2=R^2\) donne un cercle de centre \((a;b)\) et de rayon \(R\). \(\overrightarrow{MA}\cdot\overrightarrow{MB}=0\) décrit le cercle de diamètre \([AB]\), avec le cas particulier \(M=A\) ou \(M=B\).</p>
+        </div>
+
+        <h3 class="application-subtitle">A · Équation cartésienne d'une droite</h3>
+
+        <p>
+          Un <strong>vecteur normal</strong> à une droite \(d\) est un vecteur non nul, orthogonal à un vecteur directeur de \(d\).
+          On note qu'une droite a une infinité de vecteurs normaux, tous colinéaires entre eux.
+        </p>
+
+        <div class="formula-card is-major">
+          \[ M(x;y) \in d \iff \overrightarrow{AM}\cdot\vec{n} = 0 \]
+          \[ d : ax + by + c = 0 \]
+          \[ \vec{n}\,(a;b),\ \vec{u}\,(-b;a) \]
+        </div>
+
+        <p>
+          Lecture directe&nbsp;: une équation \(ax+by+c=0\) signifie que \(\vec{n}\,(a;b)\) est normal à la droite,
+          et que \(\vec{u}\,(-b;a)\) en est un vecteur directeur (on échange et on change un signe).
+        </p>
+
+        <figure class="visual-block interactive-graph quadratic-graph">
+          <div class="graph-stage">
+            <div id="ps-droite-normale-board" class="jxgbox curve-board" data-chapter-curve="droiteNormale"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Droite passant par A, normale n</span>
+              <strong>AM · n = 0</strong>
+            </p>
+          </div>
+          <figcaption>
+            La droite est l'ensemble des points \(M\) tels que \(\overrightarrow{AM}\) est orthogonal au vecteur normal \(\vec{n}\).
+            Sur le graphe, le vecteur normal est dessiné perpendiculaire à la droite.
+          </figcaption>
+        </figure>
+
+        <div class="worked-example">
+          <p>Déterminer une équation cartésienne de la droite \(d\) passant par \(S(5;8)\) et de vecteur normal \(\vec{n}\,(-1;2)\).</p>
+          <p>Le point \(M(x;y)\) appartient à \(d\) si et seulement si \(\overrightarrow{SM}\cdot\vec{n}=0\)&nbsp;:</p>
+          <div class="formula-card">
+            \[ \overrightarrow{SM}\,(x-5\,;y-8) \]
+            \[ -1(x-5) + 2(y-8) = 0 \]
+            \[ -x + 2y - 11 = 0 \]
+          </div>
+          <p>Une équation cartésienne de \(d\) est donc \(-x+2y-11=0\). On peut aussi l'écrire \(x-2y+11=0\)&nbsp;: les équations cartésiennes ne sont pas uniques.</p>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Conséquences sur deux droites</p>
+          <p>
+            Deux droites \(ax+by+c=0\) et \(a'x+b'y+c'=0\) sont&nbsp;:
+            <br>· <strong>parallèles</strong> si leurs vecteurs normaux \((a;b)\) et \((a';b')\) sont colinéaires,
+            <br>· <strong>perpendiculaires</strong> si leurs vecteurs normaux sont orthogonaux&nbsp;: \(aa'+bb'=0\).
+          </p>
+        </div>
+
+        <h3 class="application-subtitle">B · Équation cartésienne d'un cercle</h3>
+
+        <p>
+          Un cercle est l'ensemble des points situés à distance fixe d'un centre. On traduit «&nbsp;\(M\) est à
+          distance \(R\) de \(A\)&nbsp;» en élevant au carré, ce qui élimine la racine.
+        </p>
+
+        <div class="formula-card is-major">
+          \[ \mathcal{C}\ \text{centre } A(x_A;y_A),\ \text{rayon } R \]
+          \[ (x - x_A)^2 + (y - y_A)^2 = R^2 \]
+        </div>
+
+        <figure class="visual-block interactive-graph quadratic-graph">
+          <div class="graph-stage">
+            <div id="ps-cercle-board" class="jxgbox curve-board" data-chapter-curve="cercle"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Cercle de centre A et rayon R</span>
+              <strong>(x − x_A)² + (y − y_A)² = R²</strong>
+            </p>
+          </div>
+          <figcaption>
+            Le cercle est l'ensemble des points \(M\) tels que \(AM=R\). En élevant au carré, on obtient l'équation cartésienne.
+          </figcaption>
+        </figure>
+
+        <div class="worked-example">
+          <p>Déterminer une équation cartésienne du cercle \(\mathcal{C}\) de centre \(A(3;-5)\) et de rayon \(2\). Le point \(B(2;5)\) appartient-il à \(\mathcal{C}\)&nbsp;?</p>
+          <div class="formula-card">
+            \[ (x-3)^2 + (y+5)^2 = 4 \]
+          </div>
+          <p>Pour tester \(B(2;5)\)&nbsp;:</p>
+          <div class="formula-card">
+            \[ (2-3)^2 + (5+5)^2 \]
+            \[ = 1 + 100 = 101 \ne 4 \]
+          </div>
+          <p>Donc \(B\) n'appartient pas à \(\mathcal{C}\).</p>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Cercle de diamètre [AB]</p>
+          <p>
+            Le cercle de diamètre \([AB]\) est l'ensemble des points \(M\) tels que \(\overrightarrow{MA}\cdot\overrightarrow{MB}=0\).
+            Cela traduit que l'angle \(\widehat{AMB}\) est droit (sauf si \(M=A\) ou \(M=B\), où le produit scalaire est aussi nul).
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p>Soient \(A(4;-5)\) et \(B(2;0)\). Déterminer une équation cartésienne du cercle \(\mathcal{C}\) de diamètre \([AB]\), puis son centre \(\Omega\) et son rayon.</p>
+          <div class="formula-card">
+            \[ \overrightarrow{MA}\cdot\overrightarrow{MB} = 0 \]
+            \[ (4-x)(2-x) \]
+            \[ \quad + (-5-y)(-y) = 0 \]
+          </div>
+          <div class="formula-card">
+            \[ x^2 - 6x + 8 + y^2 + 5y = 0 \]
+            \[ \text{(forme développée)} \]
+          </div>
+          <p>Le centre \(\Omega\) est le milieu de \([AB]\)&nbsp;: \(\Omega(3;-\tfrac52)\). Le rayon est \(\tfrac{AB}{2}=\tfrac{\sqrt{4+25}}{2}=\tfrac{\sqrt{29}}{2}\).</p>
+        </div>
+
+        <h3 class="application-subtitle">C · Théorème d'Al-Kashi (Pythagore généralisé)</h3>
+
+        <div class="formula-card is-major">
+          \[ BC^2 = AB^2 + AC^2 \]
+          \[ \quad - 2\,AB\times AC\times\cos\widehat{BAC} \]
+        </div>
+
+        <p>
+          C'est la généralisation de Pythagore à tout triangle. Si \(\widehat{BAC}=\tfrac{\pi}{2}\), \(\cos=0\) et on retrouve
+          \(BC^2=AB^2+AC^2\). Démonstration en deux lignes via \(\overrightarrow{BC}=\overrightarrow{AC}-\overrightarrow{AB}\) et le carré scalaire.
+        </p>
+
+        <div class="worked-example">
+          <p>Retour au problème de motivation. \(AB=4\), \(AC=3\), \(\widehat{BAC}=70^\circ\). Calculer \(BC\).</p>
+          <div class="formula-card">
+            \[ BC^2 = 16 + 9 \]
+            \[ \quad - 2\times4\times3\times\cos 70^\circ \]
+            \[ = 25 - 24\cos 70^\circ \]
+          </div>
+          <p>Avec \(\cos 70^\circ\approx 0{,}342\)&nbsp;:</p>
+          <div class="formula-card">
+            \[ BC^2 \approx 25 - 8{,}21 \]
+            \[ \approx 16{,}79 \]
+            \[ BC \approx 4{,}10 \]
+          </div>
+          <p>On a bien obtenu une longueur sans Pythagore. La méthode marche pour tout triangle.</p>
+        </div>
+
+        <div class="worked-example">
+          <p>Soit \(ABC\) tel que \(AB=6\), \(BC=4\), \(AC=5\). Déterminer la mesure de \(\widehat{BAC}\).</p>
+          <p>Al-Kashi donne&nbsp;:</p>
+          <div class="formula-card">
+            \[ BC^2 = AB^2 + AC^2 \]
+            \[ \ - 2\,AB\times AC\times\cos\widehat{BAC} \]
+            \[ 16 = 36 + 25 \]
+            \[ \quad - 60\cos\widehat{BAC} \]
+          </div>
+          <div class="formula-card">
+            \[ -45 = -60\cos\widehat{BAC} \]
+            \[ \cos\widehat{BAC} = \tfrac{3}{4} \]
+            \[ \widehat{BAC} \approx 41{,}4^\circ \]
+          </div>
+        </div>
+
+        <h3 class="application-subtitle">D · Théorème de la médiane</h3>
+
+        <p>
+          Soient \(A\) et \(B\) deux points et \(I\) le milieu de \([AB]\). Pour tout point \(M\)&nbsp;:
+        </p>
+
+        <div class="formula-card is-major">
+          \[ MA^2 + MB^2 = 2\,MI^2 + \tfrac12\,AB^2 \]
+          \[ \overrightarrow{MA}\cdot\overrightarrow{MB} = MI^2 - \tfrac14\,AB^2 \]
+        </div>
+
+        <div class="worked-example">
+          <p>Soit \(ABC\) tel que \(AB=5\), \(BC=8\), \(AC=7\). \(I\) est le milieu de \([BC]\). Calculer \(AI\).</p>
+          <p>D'après le théorème de la médiane appliqué à \(I\) milieu de \([BC]\)&nbsp;:</p>
+          <div class="formula-card">
+            \[ AB^2 + AC^2 \]
+            \[ = 2\,AI^2 + \tfrac12\,BC^2 \]
+            \[ 25 + 49 = 2\,AI^2 + \tfrac12\times 64 \]
+            \[ 74 = 2\,AI^2 + 32 \]
+          </div>
+          <div class="formula-card">
+            \[ AI^2 = 21 \]
+            \[ AI = \sqrt{21} \]
+          </div>
+        </div>
+
+        <h3 class="application-subtitle">E · Pied de la hauteur</h3>
+
+        <p>
+          Le pied de la hauteur issue de \(A\) sur la droite \((BC)\) est le projeté orthogonal de \(A\) sur \((BC)\).
+          On le détermine en résolvant deux conditions&nbsp;: \(H\in(BC)\) et \(\overrightarrow{AH}\cdot\overrightarrow{BC}=0\).
+        </p>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choix d'équation</p>
+          <p>Quelle est l'équation du cercle de centre \(O(0;0)\) et de rayon \(R\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="appli1">Voir la réponse</button>
+          <p id="appli1" class="answer" hidden>\(x^2+y^2=R^2\). C'est le cas particulier où \(x_A=y_A=0\). Pour \(R=1\), on obtient le cercle trigonométrique.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Vecteur normal et directeur</p>
+          <p>Pour la droite \(d:3x-y+5=0\), donner un vecteur normal et un vecteur directeur.</p>
+          <button class="reveal-button" type="button" data-reveal="appli2">Voir la réponse</button>
+          <p id="appli2" class="answer" hidden>Vecteur normal&nbsp;: \(\vec{n}\,(3;-1)\) (les coefficients de \(x\) et \(y\)). Vecteur directeur&nbsp;: \(\vec{u}\,(1;3)\), obtenu en échangeant et en changeant le signe de l'un.</p>
+        </div>
+      </section>
+
+      <!-- ========== 07 · CHOIX METHODE ========== -->
+      <section id="choix-methode" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">07</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Différenciateur</p>
+            <h2>Choisir la bonne expression avant de calculer</h2>
+          </div>
+        </div>
+        <p>
+          Le vrai talent du chapitre, ce n'est pas de connaître les formules, c'est de savoir laquelle dégainer.
+          Cette section te donne les déclencheurs.
+        </p>
+
+        <div class="choice-grid">
+          <div class="choice-card">
+            <p class="box-title">On te donne des coordonnées</p>
+            <p>Expression analytique \(xx'+yy'\). C'est presque toujours la plus rapide quand un repère orthonormé est précisé.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">On te donne deux longueurs et un angle</p>
+            <p>Expression géométrique \(AB\times AC\times\cos\widehat{BAC}\). Calcul direct en une ligne.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">On te donne seulement les trois côtés</p>
+            <p>Formule de polarisation \(\tfrac12(AB^2+AC^2-BC^2)\). Pas besoin d'angle.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Figure simple, projeté évident</p>
+            <p>Définition par projection orthogonale, en remplaçant un vecteur par son projeté.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Question d'orthogonalité</p>
+            <p>Calcul du produit scalaire, conclusion par \(\vec{u}\perp\vec{v}\iff\vec{u}\cdot\vec{v}=0\).</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Question d'angle</p>
+            <p>Produit scalaire (par n'importe quelle expression), puis \(\cos\theta=\dfrac{\vec{u}\cdot\vec{v}}{\|\vec{u}\|\,\|\vec{v}\|}\).</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Question de longueur dans un triangle</p>
+            <p>Al-Kashi&nbsp;: \(BC^2=AB^2+AC^2-2\,AB\,AC\cos\widehat{BAC}\) si on a l'angle et deux côtés.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Question avec milieu</p>
+            <p>Théorème de la médiane&nbsp;: \(MA^2+MB^2=2MI^2+\tfrac12 AB^2\).</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Équation de droite et perpendicularité</p>
+            <p>Vecteur normal. La droite passant par \(A\) et normale à \(\vec{n}\) a pour équation \(\overrightarrow{AM}\cdot\vec{n}=0\).</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Règle de décision</p>
+          <p>
+            Lis l'énoncé avec une question en tête&nbsp;: «&nbsp;quelles sont les <em>vraies</em> données&nbsp;?&nbsp;».
+            Si ce sont des coordonnées, vise l'analytique. Si ce sont des longueurs avec un angle, vise la géométrique.
+            Si ce sont uniquement des longueurs, vise la polarisation. Si la figure est «&nbsp;propre&nbsp;» (carré, losange,
+            rectangle, triangle rectangle), vise la projection.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis sans calculer</p>
+          <p>«&nbsp;Soit \(ABC\) tel que \(AB=4\), \(AC=3\), \(\widehat{BAC}=70^\circ\). Calculer \(\overrightarrow{AB}\cdot\overrightarrow{AC}\)&nbsp;».</p>
+          <button class="reveal-button" type="button" data-reveal="choix1">Voir la réponse</button>
+          <p id="choix1" class="answer" hidden>Expression géométrique&nbsp;: \(\overrightarrow{AB}\cdot\overrightarrow{AC}=AB\times AC\times\cos\widehat{BAC}=4\times3\times\cos 70^\circ\approx 4{,}10\). Les autres méthodes seraient inutilement longues.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis sans calculer</p>
+          <p>«&nbsp;Triangle \(ABC\) tel que \(AB=4\), \(AC=5\), \(BC=6\). Calculer \(\overrightarrow{AB}\cdot\overrightarrow{AC}\)&nbsp;».</p>
+          <button class="reveal-button" type="button" data-reveal="choix2">Voir la réponse</button>
+          <p id="choix2" class="answer" hidden>Polarisation&nbsp;: \(\overrightarrow{AB}\cdot\overrightarrow{AC}=\tfrac12(AB^2+AC^2-BC^2)=\tfrac12(16+25-36)=\tfrac52\). On n'a pas besoin de l'angle pour conclure.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis sans calculer</p>
+          <p>«&nbsp;Soient \(A(0;4)\), \(B(6;3)\), \(C(-5;-2)\). Calculer \(\overrightarrow{AB}\cdot\overrightarrow{AC}\)&nbsp;».</p>
+          <button class="reveal-button" type="button" data-reveal="choix3">Voir la réponse</button>
+          <p id="choix3" class="answer" hidden>Analytique&nbsp;: les coordonnées donnent \(\overrightarrow{AB}\,(6;-1)\) et \(\overrightarrow{AC}\,(-5;-6)\), puis \(\overrightarrow{AB}\cdot\overrightarrow{AC}=-30+6=-24\).</p>
+        </div>
+      </section>
+
+      <!-- ========== 08 · REDACTION ========== -->
+      <section id="redaction" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">08</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Copie notée</p>
+            <h2>Rédiger comme en contrôle</h2>
+          </div>
+        </div>
+        <p>
+          Le bon résultat ne suffit pas. Il faut annoncer la méthode, citer la formule, justifier chaque étape et
+          conclure avec une phrase claire.
+        </p>
+
+        <div class="copy-grid">
+          <div class="c-callout c-callout--warn">
+            <p class="c-callout__label"><span class="dot"></span>Brouillon insuffisant</p>
+            <p>\(\overrightarrow{AB}\cdot\overrightarrow{AC}=-24\), \(AB=\sqrt{37}\), \(AC=\sqrt{61}\), donc \(\widehat{BAC}\approx 124{,}5^\circ\).</p>
+            <p class="penalty">on ne sait pas comment le produit scalaire a été calculé, ni d'où vient la formule du cosinus.</p>
+          </div>
+
+          <div class="worked-example">
+            <p>Soient \(A(0;4)\), \(B(6;3)\), \(C(-5;-2)\) dans un repère orthonormé. Calculer \(\widehat{BAC}\).</p>
+            <p>On utilise l'expression analytique du produit scalaire (repère orthonormé)&nbsp;:</p>
+            <div class="formula-card">
+              \[ \overrightarrow{AB}\,(6\,;-1),\ \overrightarrow{AC}\,(-5\,;-6) \]
+              \[ \overrightarrow{AB}\cdot\overrightarrow{AC} \]
+              \[ = 6\times(-5) + (-1)\times(-6) \]
+              \[ = -30 + 6 = -24 \]
+            </div>
+            <p>Les normes valent&nbsp;:</p>
+            <div class="formula-card">
+              \[ AB = \sqrt{37},\quad AC = \sqrt{61} \]
+            </div>
+            <p>Avec l'expression géométrique, \(\overrightarrow{AB}\cdot\overrightarrow{AC}=AB\,AC\cos\widehat{BAC}\)&nbsp;:</p>
+            <div class="formula-card">
+              \[ \cos\widehat{BAC} = \dfrac{-24}{\sqrt{37\times 61}} \]
+              \[ \widehat{BAC} \approx 124{,}5^\circ \]
+            </div>
+            <p>L'angle \(\widehat{BAC}\) est donc d'environ \(124{,}5^\circ\).</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Points qui rapportent</p>
+          <ul class="score-list">
+            <li>Citer la formule utilisée avant de calculer (analytique, géométrique, polarisation).</li>
+            <li>Préciser «&nbsp;dans un repère orthonormé&nbsp;» avant d'utiliser \(xx'+yy'\).</li>
+            <li>Donner les coordonnées des deux vecteurs avant le calcul.</li>
+            <li>Conclure par une phrase complète, avec l'unité quand il y en a une.</li>
+            <li>Pour une orthogonalité, écrire la conclusion logique «&nbsp;donc \(ABC\) est rectangle en…&nbsp;».</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ========== 09 · PIEGES ========== -->
+      <section id="pieges" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">09</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Erreurs fréquentes</p>
+            <h2>Les pièges qui coûtent des points</h2>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 1 — Confondre \(\vec{u}\cdot\vec{v}\) et \(\|\vec{u}\|\times\|\vec{v}\|\)</p>
+          <p>
+            \(\vec{u}\cdot\vec{v}\) <em>n'est pas</em> le produit des longueurs. Le bon lien est
+            \(\vec{u}\cdot\vec{v}=\|\vec{u}\|\,\|\vec{v}\|\cos(\vec{u},\vec{v})\). Le cosinus peut très bien être négatif
+            (angle obtus) ou nul (angle droit). Oublier le \(\cos\), c'est se tromper de signe.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 2 — Coordonnées dans un repère non orthonormé</p>
+          <p>
+            L'expression \(xx'+yy'\) ne fonctionne que dans un repère <strong>orthonormé</strong>. Si l'énoncé ne le précise pas,
+            on doit le supposer ou revenir à une autre expression. Toujours commencer la rédaction par «&nbsp;le repère est orthonormé&nbsp;».
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 3 — Confusion vecteur / scalaire</p>
+          <p>
+            \(\vec{u}\cdot\vec{v}\) est un <strong>nombre</strong>, pas un vecteur. Donc \((\vec{u}\cdot\vec{v})\cdot\vec{v}\)
+            n'a aucun sens (un nombre ne fait pas un produit scalaire). \(\vec{u}+(\vec{u}\cdot\vec{v})\) non plus
+            (on ne peut pas additionner un vecteur et un nombre).
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 4 — Choisir un mauvais sommet pour l'orthogonalité</p>
+          <p>
+            Pour tester \(\widehat{BAC}=\tfrac{\pi}{2}\), il faut un produit scalaire de vecteurs qui <em>partent de \(A\)</em>&nbsp;:
+            \(\overrightarrow{AB}\cdot\overrightarrow{AC}\). \(\overrightarrow{AB}\cdot\overrightarrow{BC}\) ne donne pas
+            l'angle en \(A\) (les vecteurs ne partent pas du même point).
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 5 — Signe du projeté</p>
+          <p>
+            Dans la définition par projection, le signe dépend du sens des vecteurs. Si \(\overrightarrow{OA}\) et
+            \(\overrightarrow{OH}\) sont de sens contraire, on met \(-OA\times OH\), pas \(+OA\times OH\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Repère le piège</p>
+          <p>«&nbsp;\(\|\vec{u}\|=3\), \(\|\vec{v}\|=4\), donc \(\vec{u}\cdot\vec{v}=12\)&nbsp;». Vrai ou faux&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="piege1">Voir la réponse</button>
+          <p id="piege1" class="answer" hidden>Faux. Il manque le cosinus de l'angle entre les deux vecteurs. La bonne formule est \(\vec{u}\cdot\vec{v}=\|\vec{u}\|\,\|\vec{v}\|\cos(\vec{u},\vec{v})\). Le résultat \(12\) ne vaut que si les deux vecteurs sont colinéaires de même sens.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Repère le piège</p>
+          <p>«&nbsp;Pour montrer que \(ABC\) est rectangle en \(A\), on calcule \(\overrightarrow{AB}\cdot\overrightarrow{BC}=0\)&nbsp;». Bon choix&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="piege2">Voir la réponse</button>
+          <p id="piege2" class="answer" hidden>Non. Pour l'angle en \(A\), il faut deux vecteurs qui partent de \(A\)&nbsp;: \(\overrightarrow{AB}\) et \(\overrightarrow{AC}\). On teste donc \(\overrightarrow{AB}\cdot\overrightarrow{AC}=0\).</p>
+        </div>
+      </section>
+
+      <!-- ========== G · EXERCICES GUIDES ========== -->
+      <section id="guides" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">G</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Exercices guidés</p>
+            <h2>L'aide disparaît progressivement</h2>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 1 — Carré et projection</h3>
+            <span class="difficulty" aria-label="Niveau comprendre">Comprendre</span>
+          </div>
+          <p>Soit \(ABCD\) un carré de côté \(5\). Calculer \(\overrightarrow{AB}\cdot\overrightarrow{AC}\), \(\overrightarrow{BA}\cdot\overrightarrow{BD}\) et \(\overrightarrow{BC}\cdot\overrightarrow{BD}\).</p>
+          <p class="hint-line">utilise la projection orthogonale et la formule \(\overrightarrow{OA}\cdot\overrightarrow{OB}=\overrightarrow{OA}\cdot\overrightarrow{OH}\).</p>
+          <button class="reveal-button" type="button" data-reveal="guide1">Voir le corrigé</button>
+          <div id="guide1" class="answer" hidden>
+            <p>Le projeté de \(C\) sur \((AB)\) est \(B\). Donc \(\overrightarrow{AB}\cdot\overrightarrow{AC}=\overrightarrow{AB}\cdot\overrightarrow{AB}=AB^2=25\).</p>
+            <p>Le projeté de \(D\) sur \((BA)\) est \(A\). Donc \(\overrightarrow{BA}\cdot\overrightarrow{BD}=\overrightarrow{BA}\cdot\overrightarrow{BA}=BA^2=25\).</p>
+            <p>Le projeté de \(D\) sur \((BC)\) est \(C\). Donc \(\overrightarrow{BC}\cdot\overrightarrow{BD}=\overrightarrow{BC}\cdot\overrightarrow{BC}=BC^2=25\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 2 — Coordonnées et orthogonalité</h3>
+            <span class="difficulty" aria-label="Niveau comprendre">Comprendre</span>
+          </div>
+          <p>Soient \(\vec{u}\,(2;-1)\) et \(\vec{v}\,(1;4)\) dans un repère orthonormé. Calculer \(\vec{u}\cdot\vec{v}\), \(\vec{u}^2\), puis tester si \(\vec{u}\) et \(\vec{v}\) sont orthogonaux.</p>
+          <p class="hint-line">l'analytique en deux lignes.</p>
+          <button class="reveal-button" type="button" data-reveal="guide2">Voir le corrigé</button>
+          <div id="guide2" class="answer" hidden>
+            <div class="formula-card">
+              \[ \vec{u}\cdot\vec{v} \]
+              \[ = 2\times1 + (-1)\times4 \]
+              \[ = -2 \]
+              \[ \vec{u}^2 = 4+1 = 5 \]
+            </div>
+            <p>\(\vec{u}\cdot\vec{v}=-2\ne 0\), donc \(\vec{u}\) et \(\vec{v}\) ne sont pas orthogonaux.</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 3 — Identité remarquable</h3>
+            <span class="difficulty" aria-label="Niveau savoir refaire">Savoir refaire</span>
+          </div>
+          <p>On donne \(\|\vec{u}\|=3\), \(\|\vec{v}\|=4\) et \(\vec{u}\cdot\vec{v}=-6\). Calculer \(\|2\vec{u}-\vec{v}\|^2\) puis \(\|2\vec{u}-\vec{v}\|\).</p>
+          <p class="hint-line">développer un carré scalaire.</p>
+          <button class="reveal-button" type="button" data-reveal="guide3">Voir le corrigé</button>
+          <div id="guide3" class="answer" hidden>
+            <div class="formula-card">
+              \[ \|2\vec{u}-\vec{v}\|^2 \]
+              \[ = 4\vec{u}^2 \]
+              \[ \quad - 4\vec{u}\cdot\vec{v} \]
+              \[ \quad + \vec{v}^2 \]
+              \[ = 36 + 24 + 16 = 76 \]
+            </div>
+            <p>Donc \(\|2\vec{u}-\vec{v}\|=\sqrt{76}=2\sqrt{19}\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 4 — Polarisation et angle</h3>
+            <span class="difficulty" aria-label="Niveau savoir refaire">Savoir refaire</span>
+          </div>
+          <p>Soit \(ABC\) tel que \(AB=4\), \(AC=5\), \(BC=6\). Calculer \(\overrightarrow{AB}\cdot\overrightarrow{AC}\), puis en déduire \(\cos\widehat{BAC}\) et la mesure de \(\widehat{BAC}\) au dixième de degré près.</p>
+          <p class="hint-line">polarisation pour démarrer, puis expression géométrique pour conclure.</p>
+          <button class="reveal-button" type="button" data-reveal="guide4">Voir le corrigé</button>
+          <div id="guide4" class="answer" hidden>
+            <div class="formula-card">
+              \[ \overrightarrow{AB}\cdot\overrightarrow{AC} \]
+              \[ = \tfrac12
+                \left(
+                  \begin{aligned}
+                    &AB^2+AC^2\\
+                    &-BC^2
+                  \end{aligned}
+                \right)
+              \]
+              \[ = \tfrac12(16+25-36) \]
+              \[ = \tfrac52 \]
+            </div>
+            <div class="formula-card">
+              \[ \cos\widehat{BAC} = \dfrac{5/2}{4\times 5} \]
+              \[ \cos\widehat{BAC} = \tfrac{1}{8} \]
+              \[ \widehat{BAC} \approx 82{,}8^\circ \]
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 5 — Vecteur normal et équation</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>Déterminer une équation cartésienne de la droite \(d\) passant par \(A(-2;3)\) et de vecteur directeur \(\vec{u}\,(1;4)\).</p>
+          <p class="hint-line">d'abord trouver un vecteur normal à \(\vec{u}\), puis utiliser \(\overrightarrow{AM}\cdot\vec{n}=0\).</p>
+          <button class="reveal-button" type="button" data-reveal="guide5">Voir le corrigé</button>
+          <div id="guide5" class="answer" hidden>
+            <p>Un vecteur normal à \(\vec{u}\,(1;4)\) est par exemple \(\vec{n}\,(4;-1)\) (orthogonal car \(1\times4+4\times(-1)=0\)).</p>
+            <div class="formula-card">
+              \[ \overrightarrow{AM}\cdot\vec{n} = 0 \]
+              \[ 4(x+2) -1(y-3) = 0 \]
+              \[ 4x - y + 11 = 0 \]
+            </div>
+            <p>Une équation cartésienne de \(d\) est \(4x-y+11=0\).</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Bilan d'étape</p>
+          <p>
+            Avant de passer au niveau contrôle, tu dois savoir basculer entre les quatre expressions du produit scalaire,
+            tester une orthogonalité par coordonnées, et écrire une équation de droite à partir d'un point et d'un vecteur normal.
+            Si tu hésites, repasse par les sections 02, 04 et 06.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== C · CONTROLE ========== -->
+      <section id="controle" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">C</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Niveau contrôle</p>
+            <h2>Exercices à réussir sans aide</h2>
+          </div>
+        </div>
+        <p>Essaie d'abord sur feuille. Ouvre le corrigé seulement après avoir écrit une méthode complète.</p>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Contrôle 1 — Losange</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>\(ABCD\) est un losange de centre \(O\) tel que \(OA=4\) et \(OD=3\).</p>
+          <ol class="exercise-list">
+            <li>Calculer \(\overrightarrow{AC}\cdot\overrightarrow{AD}\) en utilisant une projection.</li>
+            <li>Calculer \(\overrightarrow{AB}\cdot\overrightarrow{DC}\) en utilisant que \(\overrightarrow{AB}=\overrightarrow{DC}\).</li>
+            <li>Dans le repère \((O;\vec{i},\vec{j})\), donner les coordonnées de \(A\), \(B\), \(C\), \(D\) et retrouver \(\overrightarrow{AB}\cdot\overrightarrow{AD}\).</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="controle1">Voir le corrigé</button>
+          <div id="controle1" class="answer" hidden>
+            <p><strong>1.</strong> \(O\) est le projeté orthogonal de \(D\) sur \((AC)\) (les diagonales du losange sont perpendiculaires). Donc \(\overrightarrow{AC}\cdot\overrightarrow{AD}=\overrightarrow{AC}\cdot\overrightarrow{AO}=AC\times AO=8\times4=32\).</p>
+            <p><strong>2.</strong> \(\overrightarrow{AB}=\overrightarrow{DC}\), donc \(\overrightarrow{AB}\cdot\overrightarrow{DC}=\overrightarrow{AB}\cdot\overrightarrow{AB}=AB^2=4^2+3^2=25\) (Pythagore dans \(OAB\) rectangle en \(O\)).</p>
+            <p><strong>3.</strong> \(A(-4;0)\), \(B(0;-3)\), \(C(4;0)\), \(D(0;3)\). Alors \(\overrightarrow{AB}\,(4;-3)\) et \(\overrightarrow{AD}\,(4;3)\)&nbsp;: \(\overrightarrow{AB}\cdot\overrightarrow{AD}=16-9=7\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Contrôle 2 — Hauteur dans un triangle</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>Dans un repère orthonormé, soient \(A(-1;1)\), \(B(5;6)\), \(C(8;-3)\). Soit \(H\) le projeté orthogonal de \(A\) sur \((BC)\).</p>
+          <ol class="exercise-list">
+            <li>Déterminer une équation de la droite \((BC)\).</li>
+            <li>Déterminer une équation cartésienne de la droite \((AH)\).</li>
+            <li>En déduire les coordonnées de \(H\).</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="controle2">Voir le corrigé</button>
+          <div id="controle2" class="answer" hidden>
+            <p><strong>1.</strong> \(\overrightarrow{BC}\,(3;-9)\), donc un vecteur normal à \((BC)\) est \(\vec{n}\,(9;3)\), soit \((3;1)\) après simplification. \(M\in(BC)\iff\overrightarrow{BM}\cdot(3;1)=0\), soit \(3(x-5)+(y-6)=0\), donc \(3x+y-21=0\).</p>
+            <p><strong>2.</strong> \((AH)\) est perpendiculaire à \((BC)\)&nbsp;: son vecteur normal est \(\overrightarrow{BC}\,(3;-9)\), soit \((1;-3)\). \((AH)\) passe par \(A(-1;1)\)&nbsp;: \((x+1)-3(y-1)=0\), soit \(x-3y+4=0\).</p>
+            <p><strong>3.</strong> \(H\) est l'intersection. On résout le système et on trouve \(H(\tfrac{59}{10};\tfrac{33}{10})\) en isolant puis substituant.</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Contrôle 3 — Al-Kashi pour un angle</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>Soit \(ABC\) un triangle tel que \(AB=6\), \(BC=4\) et \(AC=5\).</p>
+          <ol class="exercise-list">
+            <li>Calculer une valeur approchée au dixième de degré près de \(\widehat{BAC}\).</li>
+            <li>En déduire une valeur approchée de \(\overrightarrow{AB}\cdot\overrightarrow{AC}\) par l'expression géométrique. Comparer avec le résultat de la polarisation.</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="controle3">Voir le corrigé</button>
+          <div id="controle3" class="answer" hidden>
+            <p><strong>1.</strong> Al-Kashi&nbsp;: \(BC^2=AB^2+AC^2-2\,AB\,AC\cos\widehat{BAC}\), soit \(16=36+25-60\cos\widehat{BAC}\). Donc \(\cos\widehat{BAC}=\tfrac{45}{60}=\tfrac34\), d'où \(\widehat{BAC}\approx 41{,}4^\circ\).</p>
+            <p><strong>2.</strong> Expression géométrique&nbsp;: \(\overrightarrow{AB}\cdot\overrightarrow{AC}=6\times5\times\tfrac34=\tfrac{45}{2}=22{,}5\). Polarisation&nbsp;: \(\tfrac12(36+25-16)=\tfrac{45}{2}=22{,}5\). Les deux méthodes donnent le même résultat.</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Contrôle 4 — Médiane</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>Soit \(ABC\) un triangle tel que \(AB=5\), \(BC=8\), \(AC=7\). Soit \(I\) le milieu de \([BC]\). Calculer \(AI\).</p>
+          <button class="reveal-button" type="button" data-reveal="controle4">Voir le corrigé</button>
+          <div id="controle4" class="answer" hidden>
+            <p>Par le théorème de la médiane appliqué à \(I\) milieu de \([BC]\)&nbsp;:</p>
+            <div class="formula-card">
+              \[ AB^2 + AC^2 \]
+              \[ = 2\,AI^2 + \tfrac12 BC^2 \]
+              \[ 25 + 49 \]
+              \[ = 2\,AI^2 + 32 \]
+              \[ AI^2 = 21 \]
+            </div>
+            <p>Donc \(AI=\sqrt{21}\).</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 20 · CAP 20/20 ========== -->
+      <section id="vingt-sur-vingt" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">20</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Cap 20/20</p>
+            <h2>Pas de raccourci&nbsp;: passe la porte avant</h2>
+          </div>
+        </div>
+
+        <div class="c-gate">
+          <p class="c-gate__label">Porte d'entrée</p>
+          <p class="c-gate__title">Deux contrôles réussis sans corrigé d'abord</p>
+          <p>
+            Avant de tenter ces exercices, réussis au moins deux exercices de contrôle sans ouvrir le corrigé.
+            Sinon, reviens aux sections «&nbsp;Définitions&nbsp;» et «&nbsp;Choisir la méthode&nbsp;».
+          </p>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Cercle et ensemble de points</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>L'ensemble \(E\) des points \(M(x;y)\) tels que \(x^2+y^2-4x+6y+1=0\) est-il un cercle&nbsp;? Si oui, donner son centre et son rayon.</p>
+          <button class="reveal-button" type="button" data-reveal="vingt1">Voir le corrigé</button>
+          <div id="vingt1" class="answer" hidden>
+            <p>On regroupe les termes en \(x\) et en \(y\) puis on complète les carrés&nbsp;:</p>
+            <div class="formula-card">
+              \[ x^2 - 4x = (x-2)^2 - 4 \]
+              \[ y^2 + 6y = (y+3)^2 - 9 \]
+            </div>
+            <p>Donc l'équation devient \((x-2)^2-4+(y+3)^2-9+1=0\), soit \((x-2)^2+(y+3)^2=12\).</p>
+            <p>C'est l'équation du cercle de centre \(\Omega(2;-3)\) et de rayon \(R=\sqrt{12}=2\sqrt{3}\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Hauteur et calcul mixte</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>Soit \(ABC\) un triangle, \(H\) le pied de la hauteur issue de \(A\). On a \(AB=6\), \(BH=4\), \(HC=5\). Calculer&nbsp;:</p>
+          <div class="formula-card">
+            \[ \overrightarrow{BA}\cdot\overrightarrow{BC},\quad \overrightarrow{AB}\cdot\overrightarrow{AH} \]
+            \[ \overrightarrow{AH}\cdot\overrightarrow{BC},\quad \overrightarrow{CA}\cdot\overrightarrow{CB} \]
+          </div>
+          <button class="reveal-button" type="button" data-reveal="vingt2">Voir le corrigé</button>
+          <div id="vingt2" class="answer" hidden>
+            <p><strong>\(\overrightarrow{BA}\cdot\overrightarrow{BC}\)</strong>&nbsp;: \(H\) est le projeté orthogonal de \(A\) sur \((BC)\). Donc \(\overrightarrow{BA}\cdot\overrightarrow{BC}=\overrightarrow{BH}\cdot\overrightarrow{BC}=BH\times BC=4\times 9=36\) (vecteurs de même sens).</p>
+            <p><strong>\(\overrightarrow{AB}\cdot\overrightarrow{AH}\)</strong>&nbsp;: par symétrie, le projeté de \(B\) sur \((AH)\) est \(H\) (car \((BH)\perp(AH)\)). Donc \(\overrightarrow{AB}\cdot\overrightarrow{AH}=\overrightarrow{AH}\cdot\overrightarrow{AH}=AH^2\). Or \(AB^2=AH^2+BH^2\), donc \(AH^2=36-16=20\). Donc \(\overrightarrow{AB}\cdot\overrightarrow{AH}=20\).</p>
+            <p><strong>\(\overrightarrow{AH}\cdot\overrightarrow{BC}\)</strong>&nbsp;: \((AH)\perp(BC)\) par définition de la hauteur, donc le produit scalaire vaut \(0\).</p>
+            <p><strong>\(\overrightarrow{CA}\cdot\overrightarrow{CB}\)</strong>&nbsp;: \(H\) est le projeté de \(A\) sur \((CB)\). Donc \(\overrightarrow{CA}\cdot\overrightarrow{CB}=\overrightarrow{CH}\cdot\overrightarrow{CB}=CH\times CB=5\times 9=45\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Étude de cercle de diamètre</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>Dans un repère orthonormé, soient \(A(4;-5)\) et \(B(2;0)\).</p>
+          <ol class="exercise-list">
+            <li>Déterminer une équation cartésienne du cercle \(\mathcal{C}\) de diamètre \([AB]\).</li>
+            <li>Déterminer le centre \(\Omega\) et le rayon de \(\mathcal{C}\).</li>
+            <li>Le point \(P(2;-5)\) appartient-il à \(\mathcal{C}\)&nbsp;?</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="vingt3">Voir le corrigé</button>
+          <div id="vingt3" class="answer" hidden>
+            <p><strong>1.</strong> \(M(x;y)\in\mathcal{C}\iff\overrightarrow{MA}\cdot\overrightarrow{MB}=0\). Avec \(\overrightarrow{MA}\,(4-x;-5-y)\) et \(\overrightarrow{MB}\,(2-x;-y)\)&nbsp;:</p>
+            <div class="formula-card">
+              \[ (4-x)(2-x) \]
+              \[ \quad +(-5-y)(-y)=0 \]
+              \[ x^2 - 6x + 8 \]
+              \[ \quad + y^2 + 5y = 0 \]
+            </div>
+            <p><strong>2.</strong> \(\Omega\) est le milieu de \([AB]\)&nbsp;: \(\Omega\bigl(3;-\tfrac52\bigr)\). Rayon \(R=\tfrac{AB}{2}=\tfrac{\sqrt{4+25}}{2}=\tfrac{\sqrt{29}}{2}\).</p>
+            <p><strong>3.</strong> On teste \(P(2;-5)\)&nbsp;: \((2-3)^2+(-5+\tfrac52)^2=1+\tfrac{25}{4}=\tfrac{29}{4}=R^2\). Donc \(P\) appartient au cercle.</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Angle, paramètre, polarisation</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>Soient \(\vec{u}\) et \(\vec{v}\) deux vecteurs tels que \(\|\vec{u}\|=2\), \(\vec{u}\cdot\vec{v}=-7\) et \((\vec{u},\vec{v})=\tfrac{5\pi}{6}\).</p>
+          <ol class="exercise-list">
+            <li>Calculer \(\|\vec{v}\|\).</li>
+            <li>Calculer \(\|\vec{u}+\vec{v}\|^2\) et \(\|\vec{u}-\vec{v}\|^2\).</li>
+            <li>Vérifier que les formules de polarisation redonnent bien \(\vec{u}\cdot\vec{v}=-7\).</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="vingt4">Voir le corrigé</button>
+          <div id="vingt4" class="answer" hidden>
+            <p><strong>1.</strong> On a \(\vec{u}\cdot\vec{v}=\|\vec{u}\|\,\|\vec{v}\|\cos(\vec{u},\vec{v})\). Avec \(\cos\tfrac{5\pi}{6}=-\tfrac{\sqrt3}{2}\)&nbsp;:</p>
+            <div class="formula-card">
+              \[ -7 = 2\,\|\vec{v}\|\times\left(-\tfrac{\sqrt3}{2}\right) \]
+              \[ \|\vec{v}\| = \tfrac{7}{\sqrt 3} = \tfrac{7\sqrt 3}{3} \]
+            </div>
+            <p><strong>2.</strong> \(\|\vec{u}+\vec{v}\|^2=\vec{u}^2+2\vec{u}\cdot\vec{v}+\vec{v}^2=4-14+\tfrac{49}{3}=-10+\tfrac{49}{3}=\tfrac{19}{3}\). \(\|\vec{u}-\vec{v}\|^2=4+14+\tfrac{49}{3}=18+\tfrac{49}{3}=\tfrac{103}{3}\).</p>
+            <p><strong>3.</strong> Polarisation&nbsp;: \(\vec{u}\cdot\vec{v}=\tfrac12(\|\vec{u}\|^2+\|\vec{v}\|^2-\|\vec{u}-\vec{v}\|^2)=\tfrac12\bigl(4+\tfrac{49}{3}-\tfrac{103}{3}\bigr)=\tfrac12\bigl(4-18\bigr)=-7\). Cohérent.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== R · REVISION ========== -->
+      <section id="revision" class="chapter-section recap-section">
+        <div class="section-marker">
+          <div class="section-marker__num">R</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Mini-révision mélangée</p>
+            <h2>Ce que tu dois revoir ensuite</h2>
+          </div>
+        </div>
+        <p>
+          Le contrôle ne dira pas «&nbsp;utilise la polarisation&nbsp;». Entraîne-toi à reconnaître le déclencheur dans
+          l'énoncé.
+        </p>
+
+        <div class="revision-grid">
+          <div class="revision-card">
+            <p class="box-title">Si tu as raté l'orthogonalité</p>
+            <p>Refais Guidé 2, puis Contrôle 2. Vérifie toujours \(\vec{u}\cdot\vec{v}=0\) avec deux vecteurs partant du même point.</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Si tu as raté un angle</p>
+            <p>Reprends Contrôle 3 et Guidé 4. Le réflexe est \(\cos\theta=\dfrac{\vec{u}\cdot\vec{v}}{\|\vec{u}\|\|\vec{v}\|}\).</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Si tu as raté une longueur de triangle</p>
+            <p>Al-Kashi&nbsp;: \(BC^2=AB^2+AC^2-2\,AB\,AC\cos\widehat{BAC}\). Cas particulier&nbsp;: angle droit \(\Rightarrow\) Pythagore.</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Si tu as raté une équation de droite</p>
+            <p>Refais Guidé 5. À partir d'un point \(A\) et d'un vecteur normal \(\vec{n}\)&nbsp;: \(\overrightarrow{AM}\cdot\vec{n}=0\).</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Si tu as raté un cercle</p>
+            <p>Forme canonique \((x-x_A)^2+(y-y_A)^2=R^2\). Pour une équation développée, complète les carrés pour la retrouver.</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Mélange avec géométrie repérée</p>
+            <p>Les équations cartésiennes de droite et de cercle se relient au chapitre Géométrie repérée. Le produit scalaire est l'outil qui permet d'y passer par l'orthogonalité.</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Mélange avec trigonométrie</p>
+            <p>Le \(\cos\) du produit scalaire vient du cercle trigonométrique. Une révision de trigo aide à mémoriser \(\cos\tfrac{\pi}{3}\), \(\cos\tfrac{\pi}{6}\), \(\cos\tfrac{3\pi}{4}\), etc.</p>
+          </div>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">✎</span>Dernière récupération active</p>
+          <p>Écris sans regarder&nbsp;: les quatre expressions du produit scalaire, la formule \(\vec{u}\perp\vec{v}\iff\ldots\), et la formule d'Al-Kashi.</p>
+          <button class="reveal-button" type="button" data-reveal="revision1">Voir la fiche minimale</button>
+          <div id="revision1" class="answer" hidden>
+            <p><strong>Quatre expressions.</strong></p>
+            <p>· Projection&nbsp;: \(\overrightarrow{OA}\cdot\overrightarrow{OB}=\pm OA\times OH\) (selon le sens du projeté).</p>
+            <p>· Géométrique&nbsp;: \(\vec{u}\cdot\vec{v}=\|\vec{u}\|\,\|\vec{v}\|\cos(\vec{u},\vec{v})\).</p>
+            <p>· Analytique&nbsp;: \(\vec{u}\cdot\vec{v}=xx'+yy'\) (en repère orthonormé).</p>
+            <p>· Polarisation&nbsp;: \(\vec{u}\cdot\vec{v}=\tfrac12(\|\vec{u}\|^2+\|\vec{v}\|^2-\|\vec{u}-\vec{v}\|^2)\).</p>
+            <p><strong>Orthogonalité.</strong> \(\vec{u}\perp\vec{v}\iff\vec{u}\cdot\vec{v}=0\).</p>
+            <p><strong>Al-Kashi.</strong> \(BC^2=AB^2+AC^2-2\,AB\,AC\cos\widehat{BAC}\).</p>
+          </div>
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+  <!-- ============================================================
+       JSXGRAPH BOARDS (chapter-local)
+       ============================================================ -->
+  <script>
+    (function () {
+      const rootStyles = getComputedStyle(document.documentElement);
+      function cssToken(name) {
+        return rootStyles.getPropertyValue(name).trim() || `var(${name})`;
+      }
+
+      const COLORS = {
+        coral: cssToken('--red'),
+        green: cssToken('--green-2'),
+        ink: cssToken('--ink'),
+        teal: cssToken('--blue-2'),
+        yellow: cssToken('--stabilo')
+      };
+
+      function createBoard(el, bbox) {
+        return JXG.JSXGraph.initBoard(el.id, {
+          boundingbox: bbox,
+          axis: true,
+          grid: true,
+          showCopyright: false,
+          showNavigation: false,
+          pan: { enabled: false },
+          zoom: { enabled: false }
+        });
+      }
+
+      function addPoint(b, xy, name, color, offset) {
+        return b.create('point', xy, {
+          name: name,
+          size: 4,
+          fillColor: color,
+          strokeColor: COLORS.ink,
+          label: { offset: offset || [10, 10], fontSize: 12, color: COLORS.ink },
+          fixed: true,
+          showInfobox: false
+        });
+      }
+
+      function addSegment(b, p1, p2, color, width) {
+        return b.create('segment', [p1, p2], {
+          strokeColor: color,
+          strokeWidth: width || 2.5
+        });
+      }
+
+      function addArrow(b, p1, p2, color, width) {
+        return b.create('arrow', [p1, p2], {
+          strokeColor: color,
+          strokeWidth: width || 2.5
+        });
+      }
+
+      function setBoardFallback(el) {
+        el.textContent = 'Le graphe exact ne peut pas se charger pour le moment.';
+      }
+
+      const boards = {
+        // 01 · Intuition : projection orthogonale de v sur u
+        projection: function (el) {
+          const b = createBoard(el, [-1.5, 4.5, 7, -1.5]);
+          const O = addPoint(b, [0, 0], 'O', COLORS.ink, [-12, -14]);
+          const A = addPoint(b, [5, 0], 'A', COLORS.teal, [6, -14]);
+          const B = addPoint(b, [3, 3], 'B', COLORS.coral, [8, 4]);
+          const H = addPoint(b, [3, 0], 'H', COLORS.yellow, [-2, -16]);
+          // u = OA (along the x-axis)
+          addArrow(b, O, A, COLORS.teal, 3);
+          // v = OB
+          addArrow(b, O, B, COLORS.coral, 3);
+          // projection segment BH (dashed)
+          b.create('segment', [B, H], {
+            strokeColor: COLORS.ink, strokeWidth: 1.5, dash: 2
+          });
+          // projected vector OH
+          addArrow(b, O, H, COLORS.yellow, 3);
+          // right angle marker at H
+          b.create('segment', [[2.7, 0], [2.7, 0.3]], { strokeColor: COLORS.ink, strokeWidth: 1.2 });
+          b.create('segment', [[2.7, 0.3], [3, 0.3]], { strokeColor: COLORS.ink, strokeWidth: 1.2 });
+          // labels
+          b.create('text', [2.4, -0.4, 'u'], {
+            fontSize: 14, color: COLORS.teal, anchorX: 'middle', cssClass: 'jxg-vec-label'
+          });
+          b.create('text', [1.3, 1.7, 'v'], {
+            fontSize: 14, color: COLORS.coral, anchorX: 'middle'
+          });
+        },
+
+        // 04 · Orthogonalité : deux vecteurs perpendiculaires
+        orthogonalite: function (el) {
+          const b = createBoard(el, [-4, 4, 4, -4]);
+          const O = addPoint(b, [0, 0], 'O', COLORS.ink, [-12, -14]);
+          const U = addPoint(b, [3, 1], '', COLORS.teal, [8, 4]);
+          const V = addPoint(b, [-1, 3], '', COLORS.coral, [-14, 6]);
+          addArrow(b, O, U, COLORS.teal, 3);
+          addArrow(b, O, V, COLORS.coral, 3);
+          // right angle marker
+          // u direction normalized roughly (3,1)/sqrt(10), v direction (-1,3)/sqrt(10)
+          b.create('segment', [[0.32, 0.86], [0.86, 0.54]], { strokeColor: COLORS.ink, strokeWidth: 1.2 });
+          b.create('segment', [[0.86, 0.54], [0.54, 0]], { strokeColor: COLORS.ink, strokeWidth: 1.2 });
+          b.create('text', [1.8, 0.3, 'u'], {
+            fontSize: 14, color: COLORS.teal
+          });
+          b.create('text', [-0.9, 1.7, 'v'], {
+            fontSize: 14, color: COLORS.coral
+          });
+          b.create('text', [0, -3.5, 'u · v = 0'], {
+            fontSize: 13, color: COLORS.ink, anchorX: 'middle'
+          });
+        },
+
+        // 06A · Droite et vecteur normal
+        droiteNormale: function (el) {
+          const b = createBoard(el, [-4, 5, 6, -3]);
+          // line d: 3x + y - 5 = 0  =>  y = -3x + 5 ; vector normal n=(3,1)
+          // pick A on the line, say A(1, 2)
+          const A = addPoint(b, [1, 2], 'A', COLORS.teal, [-14, 6]);
+          // line through A with direction u=(-1, 3) (normal-orthogonal)
+          // parametrize: A + t * u
+          const P1 = b.create('point', [-2, 11], { visible: false, fixed: true });
+          const P2 = b.create('point', [4, -7], { visible: false, fixed: true });
+          // segment for visual line
+          b.create('segment', [P1, P2], { strokeColor: COLORS.ink, strokeWidth: 2.5, straightFirst: true, straightLast: true });
+          // normal vector n=(3,1) starting at A
+          const Ntip = addPoint(b, [4, 3], '', COLORS.coral, [8, 6]);
+          addArrow(b, A, Ntip, COLORS.coral, 3);
+          // a point M on the line
+          const M = addPoint(b, [2, -1], 'M', COLORS.yellow, [8, -4]);
+          // vector AM
+          addArrow(b, A, M, COLORS.yellow, 2);
+          // right angle marker at A between n and AM (AM direction (1,-3)/sqrt(10), n direction (3,1)/sqrt(10))
+          b.create('segment', [[1.32, 1.05], [1.86, 1.38]], { strokeColor: COLORS.ink, strokeWidth: 1.2 });
+          b.create('segment', [[1.86, 1.38], [1.54, 1.92]], { strokeColor: COLORS.ink, strokeWidth: 1.2 });
+          b.create('text', [3.2, 2.7, 'n'], { fontSize: 14, color: COLORS.coral });
+          b.create('text', [1.8, 0.6, 'AM'], { fontSize: 13, color: COLORS.yellow });
+          b.create('text', [4.5, -2.2, 'd'], { fontSize: 14, color: COLORS.ink });
+        },
+
+        // 06B · Cercle
+        cercle: function (el) {
+          const b = createBoard(el, [-2, 5, 6, -3]);
+          const A = addPoint(b, [2, 1], 'A', COLORS.coral, [-12, 6]);
+          // circle of center A, radius 2
+          const Rpt = b.create('point', [4, 1], { visible: false, fixed: true });
+          b.create('circle', [A, Rpt], { strokeColor: COLORS.ink, strokeWidth: 2.5, fillColor: 'transparent' });
+          // a point M on the circle
+          const M = addPoint(b, [2 + 2 * Math.cos(1.0), 1 + 2 * Math.sin(1.0)], 'M', COLORS.teal, [8, 6]);
+          // radius segment
+          addSegment(b, A, M, COLORS.teal, 2);
+          // label radius
+          b.create('text', [2.4, 1.9, 'R'], { fontSize: 13, color: COLORS.teal });
+          b.create('text', [-1, 4.2, '(x − x_A)² + (y − y_A)² = R²'], { fontSize: 12, color: COLORS.ink });
+        }
+      };
+
+      window.__courseGraphInitializers = window.__courseGraphInitializers || [];
+      window.__courseGraphInitializers.push(function (el) {
+        if (!el || el.dataset.courseGraphReady === 'true') return;
+        const fn = boards[el.dataset.chapterCurve];
+        if (!fn) return;
+        try {
+          fn(el);
+          el.dataset.courseGraphReady = 'true';
+        } catch (error) {
+          setBoardFallback(el);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

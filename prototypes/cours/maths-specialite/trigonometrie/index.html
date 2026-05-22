@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trigonométrie — cours V2</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="../cours.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="../cours.js"></script>
+</head>
+<body class="has-course-sidebar">
+
+  <!-- Reading progress bar -->
+  <div class="progress-bar" aria-hidden="true">
+    <div class="progress-bar__fill" data-progress-fill></div>
+  </div>
+
+  <!-- Sticky section indicator (populated by inline script) -->
+  <div class="section-bar" data-section-bar aria-hidden="true">
+    <span class="section-bar__chip" data-section-bar-chip>00</span>
+    <span class="section-bar__title" data-section-bar-title>Trigonométrie</span>
+    <span class="section-bar__total" data-section-bar-total>1/11</span>
+  </div>
+
+  <!-- ============================================================
+       SIDEBAR
+       ============================================================ -->
+  <aside class="toc course-sidebar" aria-label="Plan du cours" data-course-sidebar>
+    <div class="sidebar-head">
+      <div>
+        <p class="toc-title">Plan</p>
+        <p class="sidebar-subtitle">Trigonométrie</p>
+      </div>
+      <button
+        class="sidebar-toggle"
+        type="button"
+        aria-label="Replier le plan"
+        aria-expanded="true"
+        data-sidebar-toggle
+      ><span aria-hidden="true">‹</span></button>
+    </div>
+
+    <nav class="toc-links" aria-label="Sections du chapitre">
+      <a href="#diagnostic" data-section-link><span class="toc-index">00</span><span class="toc-label">Diagnostic</span></a>
+      <a href="#cercle" data-section-link><span class="toc-index">01</span><span class="toc-label">Cercle</span></a>
+      <a href="#valeurs" data-section-link><span class="toc-index">02</span><span class="toc-label">Valeurs</span></a>
+      <a href="#formules" data-section-link><span class="toc-index">03</span><span class="toc-label">Formules</span></a>
+      <a href="#equations" data-section-link><span class="toc-index">04</span><span class="toc-label">Équations</span></a>
+      <a href="#redaction" data-section-link><span class="toc-index">05</span><span class="toc-label">Rédiger</span></a>
+      <a href="#pieges" data-section-link><span class="toc-index">P</span><span class="toc-label">Pièges</span></a>
+      <a href="#guides" data-section-link><span class="toc-index">G</span><span class="toc-label">Guidé</span></a>
+      <a href="#controle" data-section-link><span class="toc-index">C</span><span class="toc-label">Contrôle</span></a>
+      <a href="#vingt-sur-vingt" data-section-link><span class="toc-index">20</span><span class="toc-label">20/20</span></a>
+      <a href="#revision" data-section-link><span class="toc-index">R</span><span class="toc-label">Révision</span></a>
+    </nav>
+
+    <p class="sidebar-foot">Maths spé · Lycée</p>
+  </aside>
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <header class="course-hero">
+    <nav class="topline" aria-label="Fil d'Ariane">
+      <a href="../../../..">Objectif Lycée</a>
+      <span>Maths spécialité</span>
+      <span>Cours</span>
+    </nav>
+
+    <div class="hero-grid">
+      <div>
+        <p class="hero-eyebrow"><span class="num">02</span> Chapitre</p>
+        <h1>Trigonométrie</h1>
+        <p class="hero-lead">
+          Lire le cercle, traduire un angle en radians, retrouver les valeurs remarquables
+          et résoudre proprement \(\cos x = a\) ou \(\sin x = a\).
+        </p>
+      </div>
+
+      <aside class="hero-side" aria-label="Les 4 réflexes du chapitre">
+        <p class="hero-side__label">Ce que tu gagnes</p>
+        <h2>4 réflexes, 1 contrôle solide</h2>
+        <div class="hero-side__steps">
+          <div class="hero-side__step">
+            <span class="verb">Lire</span>
+            <span class="obj">cercle, radian, point \(M(x)\)</span>
+          </div>
+          <div class="hero-side__step">
+            <span class="verb">Retrouver</span>
+            <span class="obj">cos et sin des angles remarquables</span>
+          </div>
+          <div class="hero-side__step">
+            <span class="verb">Simplifier</span>
+            <span class="obj">parité, périodicité, symétries</span>
+          </div>
+          <div class="hero-side__step">
+            <span class="verb">Résoudre</span>
+            <span class="obj">\(\cos x = a\), \(\sin x = a\)</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MAIN
+       ============================================================ -->
+  <main class="course-layout" data-course-layout>
+    <article class="lesson course-lesson">
+
+      <!-- Overview band — single editorial section -->
+      <section class="course-overview" aria-label="Repères du chapitre">
+        <div>
+          <p class="course-overview__title">Fil conducteur</p>
+          <h3>La trigonométrie tient sur un seul cercle</h3>
+          <p class="course-overview__lead">
+            Un cercle de rayon 1, un point qui tourne, deux coordonnées \((\cos x ; \sin x)\) :
+            tout part de là, et tout y revient.
+          </p>
+        </div>
+        <div class="overview-flow">
+          <span>Cercle</span>
+          <em>→</em>
+          <span>Valeurs</span>
+          <em>→</em>
+          <span>Formules</span>
+          <em>→</em>
+          <span>Équations</span>
+        </div>
+      </section>
+
+      <!-- ========== 00 · DIAGNOSTIC ========== -->
+      <section id="diagnostic" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">00</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Diagnostic éclair</p>
+            <h2>Avant de commencer : tu sais faire quoi&nbsp;?</h2>
+          </div>
+        </div>
+        <p>
+          Réponds mentalement avant d'ouvrir les corrections. L'idée n'est pas d'avoir une note
+          mais de repérer où l'attention doit aller pendant le chapitre.
+        </p>
+
+        <div class="diagnostic-grid">
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 1</p>
+            <p>Combien vaut \(\dfrac{\pi}{2}\) radians en degrés&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag1">Voir la réponse</button>
+            <p id="diag1" class="answer" hidden>\(\dfrac{\pi}{2}\text{ rad} = 90°\). Pense au quart de cercle&nbsp;: un quart de tour, c'est un angle droit.</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 2</p>
+            <p>Sur le cercle trigonométrique, quel est le point associé au réel \(0\)&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag2">Voir la réponse</button>
+            <p id="diag2" class="answer" hidden>C'est le point \(I(1;0)\) sur l'axe des abscisses. Donc \(\cos 0 = 1\) et \(\sin 0 = 0\).</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 3</p>
+            <p>Que valent \(\cos\!\left(\dfrac{\pi}{3}\right)\) et \(\sin\!\left(\dfrac{\pi}{3}\right)\)&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag3">Voir la réponse</button>
+            <p id="diag3" class="answer" hidden>\(\cos\!\left(\dfrac{\pi}{3}\right) = \dfrac{1}{2}\) et \(\sin\!\left(\dfrac{\pi}{3}\right) = \dfrac{\sqrt{3}}{2}\). Astuce&nbsp;: en \(\dfrac{\pi}{3}\), le sinus est grand (proche du haut du cercle).</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 4</p>
+            <p>Si \(\cos x = -\cos y\), que peut-on dire de la relation entre \(x\) et \(y\) sur le cercle&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag4">Voir la réponse</button>
+            <p id="diag4" class="answer" hidden>Les points associés ont des abscisses opposées&nbsp;: c'est typique de \(y = \pi - x\) (symétrie par rapport à l'axe \(Oy\)).</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Objectif de cette session</p>
+          <p>
+            Si tu réussis seulement une chose aujourd'hui&nbsp;: savoir placer un angle sur le cercle
+            et lire \(\cos x\) et \(\sin x\) sans hésiter sur le signe. C'est le réflexe qui débloque tout le reste.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 01 · CERCLE ========== -->
+      <section id="cercle" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">01</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Définition</p>
+            <h2>Le cercle trigonométrique et la mesure en radians</h2>
+          </div>
+        </div>
+        <p>
+          Le plan est muni d'un repère orthonormé \((O;\vec{\imath},\vec{\jmath})\).
+          Tout part d'un cercle particulier&nbsp;: celui de centre \(O\) et de rayon \(1\), parcouru
+          dans le <em>sens direct</em> (sens inverse des aiguilles d'une montre).
+        </p>
+
+        <div class="formula-card is-major">
+          \[ \mathcal{C} = \{\, M \in \mathbb{R}^2 \mid OM = 1 \,\} \]
+          \[ \text{longueur totale} = 2\pi \]
+        </div>
+
+        <div class="choice-grid">
+          <div class="choice-card">
+            <p class="box-title">Pourquoi rayon 1&nbsp;?</p>
+            <p>Pour que la longueur d'un arc et la mesure de l'angle au centre coïncident&nbsp;: pas de facteur d'échelle.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Pourquoi un sens&nbsp;?</p>
+            <p>Pour distinguer un quart de tour <em>positif</em> d'un quart de tour <em>négatif</em>. Un angle a une direction.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Tour complet</p>
+            <p>Périmètre du cercle = \(2\pi\). Demi-tour = \(\pi\). Quart de tour = \(\dfrac{\pi}{2}\).</p>
+          </div>
+        </div>
+
+        <p>
+          La <strong>longueur de l'arc intercepté</strong> par un angle au centre est proportionnelle à la mesure de cet angle.
+          C'est cette proportionnalité qui définit le radian.
+        </p>
+
+        <div class="formula-card">
+          \[ \begin{aligned}
+            360° &\longleftrightarrow 2\pi \text{ rad} \\
+            180° &\longleftrightarrow \pi \text{ rad} \\
+            90°  &\longleftrightarrow \dfrac{\pi}{2} \text{ rad}
+          \end{aligned} \]
+        </div>
+
+        <p>
+          Le <strong>radian</strong> (rad) est la mesure d'un angle au centre qui intercepte sur \(\mathcal{C}\) un arc de longueur \(1\).
+          On passe d'un degré à un radian par règle de trois&nbsp;:
+        </p>
+
+        <div class="formula-card">
+          \[ \alpha_{\text{rad}} = \dfrac{\pi}{180} \times \alpha_{\text{deg}} \]
+          \[ \alpha_{\text{deg}} = \dfrac{180}{\pi} \times \alpha_{\text{rad}} \]
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Image mentale</p>
+          <p>
+            <strong>Radian = ficelle.</strong> Sur le cercle de rayon \(1\), une mesure \(x\) en radians se lit comme
+            une longueur de ficelle enroulée depuis \(I(1;0)\) jusqu'au point \(M(x)\).
+          </p>
+          <p>
+            <strong>Limite.</strong> Cette image donne directement la longueur seulement sur le cercle unité.
+            Sur un cercle de rayon \(R\), la longueur de l'arc serait \(R \times x\).
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p>Convertir \(30°\) en radians et \(\dfrac{3\pi}{4}\) en degrés.</p>
+          <div class="formula-card">
+            \[ \begin{aligned}
+              30° &= \dfrac{\pi}{180}\times 30 \\
+                  &= \dfrac{\pi}{6} \text{ rad}
+            \end{aligned} \]
+            \[ \begin{aligned}
+              \dfrac{3\pi}{4} &= \dfrac{180}{\pi} \times \dfrac{3\pi}{4} \\
+                              &= \dfrac{540}{4} = 135°
+            \end{aligned} \]
+          </div>
+          <p>Garde le réflexe&nbsp;: en classe, les angles seront presque toujours donnés en radians.</p>
+        </div>
+
+        <p>
+          Soit \(d\) la tangente à \(\mathcal{C}\) au point \(I(1;0)\). On gradue \(d\) comme une droite des réels.
+          En <strong>enroulant</strong> \(d\) autour de \(\mathcal{C}\), on associe à chaque réel \(x\) un unique point \(M(x)\) du cercle.
+          On dit alors que \(x\) est une mesure (en radians) de l'angle \(\widehat{IOM}\).
+        </p>
+
+        <figure class="visual-block interactive-graph quadratic-graph">
+          <div class="graph-stage">
+            <div id="tr-cercle-board" class="jxgbox curve-board" data-chapter-curve="cercle"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Point mobile M(x) sur le cercle unité</span>
+              <strong>cos x = abscisse · sin x = ordonnée</strong>
+            </p>
+          </div>
+          <figcaption>
+            Le point \(M(x)\) tourne dans le sens direct. Sa projection sur l'axe \(Ox\) donne \(\cos x\), sa projection sur \(Oy\) donne \(\sin x\).
+          </figcaption>
+        </figure>
+
+        <div class="formula-card is-major">
+          \[ M(x) = (\cos x \,;\, \sin x) \]
+          \[ \overrightarrow{OM} = \cos x\,\vec{\imath} + \sin x\,\vec{\jmath} \]
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Majeur à retenir</p>
+          <p>
+            Faire un tour complet ne change pas le point&nbsp;: pour tout entier \(k \in \mathbb{Z}\),
+            les points \(M(x)\) et \(M(x + 2k\pi)\) sont confondus.
+            C'est la <strong>périodicité</strong> de la trigonométrie.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Réflexe</p>
+          <p>
+            <strong>Un tour ne change pas le point.</strong> Ajouter ou retirer \(2\pi\), c'est revenir au même endroit
+            sur le cercle, même si le nombre écrit n'est plus le même.
+          </p>
+          <p>
+            <strong>Limite.</strong> Quand on résout sur \(\mathbb{R}\), on ne supprime pas les tours&nbsp;:
+            on écrit les familles avec \(+2k\pi\), \(k \in \mathbb{Z}\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question piège</p>
+          <p>Une ficelle de longueur \(\dfrac{7\pi}{3}\) est enroulée sur le cercle unité. Quelle mesure du premier tour donne le même point&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="memo-cercle-tour">Voir la réponse</button>
+          <p id="memo-cercle-tour" class="answer" hidden>
+            \(\dfrac{7\pi}{3} = \dfrac{\pi}{3} + 2\pi\). On a retiré un tour complet, donc le point est le même que pour \(\dfrac{\pi}{3}\).
+            La ficelle explique la longueur parcourue, et \(+2\pi\) explique pourquoi le point recommence.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate 1</p>
+          <p>Quel est le point associé au réel \(\dfrac{5\pi}{2}\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="cercle1">Voir la réponse</button>
+          <p id="cercle1" class="answer" hidden>
+            \(\dfrac{5\pi}{2} = \dfrac{\pi}{2} + 2\pi\). On retombe sur le point \(J(0;1)\). Donc \(\cos\!\left(\dfrac{5\pi}{2}\right) = 0\) et \(\sin\!\left(\dfrac{5\pi}{2}\right) = 1\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate 2</p>
+          <p>Convertir \(\dfrac{5\pi}{6}\) en degrés sans calculatrice.</p>
+          <button class="reveal-button" type="button" data-reveal="cercle2">Voir la réponse</button>
+          <p id="cercle2" class="answer" hidden>
+            \(\dfrac{5\pi}{6} = 5 \times \dfrac{\pi}{6} = 5 \times 30° = 150°\).
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 02 · VALEURS REMARQUABLES ========== -->
+      <section id="valeurs" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">02</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Mémoire active</p>
+            <h2>Les valeurs remarquables et leurs symétries</h2>
+          </div>
+        </div>
+        <p>
+          Sans calculatrice, un élève doit savoir lire \(\cos x\) et \(\sin x\) pour
+          \(x \in \left\{0,\, \dfrac{\pi}{6},\, \dfrac{\pi}{4},\, \dfrac{\pi}{3},\, \dfrac{\pi}{2},\, \pi,\, \dfrac{3\pi}{2},\, 2\pi\right\}\).
+          L'objectif n'est pas d'apprendre par cœur dans le vide&nbsp;: c'est de les retrouver à partir du cercle.
+        </p>
+
+        <div class="formula-card is-major">
+          \[ \begin{aligned}
+            \cos 0 &= 1 & \sin 0 &= 0 \\
+            \cos \dfrac{\pi}{6} &= \dfrac{\sqrt{3}}{2} & \sin \dfrac{\pi}{6} &= \dfrac{1}{2} \\
+            \cos \dfrac{\pi}{4} &= \dfrac{\sqrt{2}}{2} & \sin \dfrac{\pi}{4} &= \dfrac{\sqrt{2}}{2} \\
+            \cos \dfrac{\pi}{3} &= \dfrac{1}{2} & \sin \dfrac{\pi}{3} &= \dfrac{\sqrt{3}}{2} \\
+            \cos \dfrac{\pi}{2} &= 0 & \sin \dfrac{\pi}{2} &= 1
+          \end{aligned} \]
+        </div>
+
+        <figure class="visual-block interactive-graph quadratic-graph">
+          <div class="graph-stage">
+            <div id="tr-valeurs-board" class="jxgbox curve-board" data-chapter-curve="valeurs"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Quart de cercle exact, angles remarquables</span>
+              <strong>π/6 · π/4 · π/3 · π/2</strong>
+            </p>
+          </div>
+          <figcaption>
+            Les quatre points remarquables du premier quadrant. Leur abscisse est \(\cos x\), leur ordonnée \(\sin x\). Tous les autres se déduisent par symétrie.
+          </figcaption>
+        </figure>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Astuce de mémoire</p>
+          <p>
+            Pour le premier quadrant, écris la suite \(\sin x = \dfrac{\sqrt{0}}{2}, \dfrac{\sqrt{1}}{2}, \dfrac{\sqrt{2}}{2}, \dfrac{\sqrt{3}}{2}, \dfrac{\sqrt{4}}{2}\)
+            pour \(x = 0, \dfrac{\pi}{6}, \dfrac{\pi}{4}, \dfrac{\pi}{3}, \dfrac{\pi}{2}\). Le cosinus est la même suite à l'envers.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Mémo technique</p>
+          <p>
+            <strong>Cos avant sin.</strong> Dans \(M(x) = (\cos x\,;\,\sin x)\), le cosinus est l'abscisse&nbsp;:
+            on lit d'abord gauche-droite, puis seulement la hauteur.
+          </p>
+          <p>
+            <strong>Escalier des racines.</strong> Au premier quadrant, le sinus monte
+            \(\dfrac{\sqrt{0}}{2}, \dfrac{\sqrt{1}}{2}, \dfrac{\sqrt{2}}{2}, \dfrac{\sqrt{3}}{2}, \dfrac{\sqrt{4}}{2}\),
+            tandis que le cosinus descend la même marche.
+          </p>
+          <p>
+            <strong>Limite.</strong> Cet escalier donne les valeurs positives du premier quadrant. Ailleurs,
+            il faut garder la même valeur absolue puis choisir le signe avec le quadrant.
+          </p>
+        </div>
+
+        <p class="c-callout__label" role="heading" aria-level="3"><span class="dot"></span>Les quatre symétries à connaître</p>
+
+        <p>
+          Quand un angle dépasse \(\dfrac{\pi}{2}\), on ne réapprend rien&nbsp;: on lit la symétrie sur le cercle.
+          Les quatre relations ci-dessous se voient toutes sur la figure, sans formule à mémoriser à froid.
+        </p>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Réflexe</p>
+          <p>
+            <strong>Boussole des signes.</strong> Quadrant I&nbsp;: \((+,+)\). Quadrant II&nbsp;: \((-,+)\).
+            Quadrant III&nbsp;: \((-,-)\). Quadrant IV&nbsp;: \((+,-)\).
+          </p>
+          <p>
+            <strong>Limite.</strong> La boussole ne donne pas la valeur exacte&nbsp;: elle donne seulement le signe.
+            La fraction vient encore de l'angle de référence \(\dfrac{\pi}{6}\), \(\dfrac{\pi}{4}\) ou \(\dfrac{\pi}{3}\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Récupération active</p>
+          <p>Sans tableau complet, écris dans l'ordre \(M\!\left(\dfrac{5\pi}{6}\right) = \left(\cos\dfrac{5\pi}{6}\,;\,\sin\dfrac{5\pi}{6}\right)\).</p>
+          <button class="reveal-button" type="button" data-reveal="memo-valeurs-boussole">Voir la réponse</button>
+          <p id="memo-valeurs-boussole" class="answer" hidden>
+            \(\dfrac{5\pi}{6} = \pi - \dfrac{\pi}{6}\), donc on est dans le quadrant II. Cos avant sin&nbsp;:
+            le cosinus est négatif et le sinus est positif. Avec l'escalier des racines,
+            \(M\!\left(\dfrac{5\pi}{6}\right) = \left(-\dfrac{\sqrt{3}}{2}\,;\,\dfrac{1}{2}\right)\).
+          </p>
+        </div>
+
+        <figure class="visual-block math-language-visual">
+          <div class="math-language-grid" role="list" aria-label="Quatre symétries de référence">
+            <div class="math-language-card" role="listitem">
+              <p class="box-title">Opposé&nbsp;: \(-x\)</p>
+              <div class="formula-card">
+                \[ \cos(-x) = \cos x \]
+                \[ \sin(-x) = -\sin x \]
+              </div>
+              <p>Symétrie par rapport à l'axe \(Ox\). Le cosinus est <strong>pair</strong>, le sinus est <strong>impair</strong>.</p>
+            </div>
+            <div class="math-language-card" role="listitem">
+              <p class="box-title">Supplémentaire&nbsp;: \(\pi - x\)</p>
+              <div class="formula-card">
+                \[ \cos(\pi - x) = -\cos x \]
+                \[ \sin(\pi - x) = \sin x \]
+              </div>
+              <p>Symétrie par rapport à l'axe \(Oy\). Même hauteur, abscisses opposées.</p>
+            </div>
+            <div class="math-language-card" role="listitem">
+              <p class="box-title">Décalé de \(\pi\)&nbsp;: \(\pi + x\)</p>
+              <div class="formula-card">
+                \[ \cos(\pi + x) = -\cos x \]
+                \[ \sin(\pi + x) = -\sin x \]
+              </div>
+              <p>Symétrie par rapport au centre \(O\). On change les deux signes.</p>
+            </div>
+            <div class="math-language-card" role="listitem">
+              <p class="box-title">Complémentaire&nbsp;: \(\dfrac{\pi}{2} - x\)</p>
+              <div class="formula-card">
+                \[ \cos\!\left(\dfrac{\pi}{2} - x\right) = \sin x \]
+                \[ \sin\!\left(\dfrac{\pi}{2} - x\right) = \cos x \]
+              </div>
+              <p>Échange entre \(\cos\) et \(\sin\) (symétrie par rapport à la première bissectrice).</p>
+            </div>
+          </div>
+          <figcaption>
+            Les quatre cas couvrent tout le cercle&nbsp;: tout angle peut être ramené à un angle du premier quadrant.
+          </figcaption>
+        </figure>
+
+        <div class="formula-card">
+          \[ \cos\!\left(\dfrac{\pi}{2} + x\right) = -\sin x \]
+          \[ \sin\!\left(\dfrac{\pi}{2} + x\right) = \cos x \]
+        </div>
+
+        <div class="worked-example">
+          <p>Calculer \(\cos\!\left(\dfrac{2\pi}{3}\right)\) et \(\sin\!\left(\dfrac{2\pi}{3}\right)\).</p>
+          <div class="formula-card">
+            \[ \dfrac{2\pi}{3} = \pi - \dfrac{\pi}{3} \]
+            \[ \begin{aligned}
+              \cos\!\left(\dfrac{2\pi}{3}\right)
+              &= -\cos \dfrac{\pi}{3} \\
+              &= -\dfrac{1}{2}
+            \end{aligned} \]
+            \[ \begin{aligned}
+              \sin\!\left(\dfrac{2\pi}{3}\right)
+              &= \sin \dfrac{\pi}{3} \\
+              &= \dfrac{\sqrt{3}}{2}
+            \end{aligned} \]
+          </div>
+          <p>
+            Le point associé à \(\dfrac{2\pi}{3}\) est le symétrique du point \(\dfrac{\pi}{3}\) par rapport à l'axe \(Oy\)&nbsp;:
+            même ordonnée, abscisse opposée.
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p>Calculer \(\cos\!\left(-\dfrac{3\pi}{4}\right)\) et \(\sin\!\left(-\dfrac{3\pi}{4}\right)\).</p>
+          <div class="formula-card">
+            \[ -\dfrac{3\pi}{4} = -\pi + \dfrac{\pi}{4} \]
+            \[ \begin{aligned}
+              \cos\!\left(-\dfrac{3\pi}{4}\right)
+              &= -\cos\dfrac{\pi}{4} \\
+              &= -\dfrac{\sqrt{2}}{2}
+            \end{aligned} \]
+            \[ \begin{aligned}
+              \sin\!\left(-\dfrac{3\pi}{4}\right) &= -\sin\dfrac{3\pi}{4} \\
+              &= -\sin\dfrac{\pi}{4} \\
+              &= -\dfrac{\sqrt{2}}{2}
+            \end{aligned} \]
+          </div>
+          <p>
+            On peut aussi dire&nbsp;: \(-\dfrac{3\pi}{4}\) est symétrique de \(\dfrac{\pi}{4}\) par rapport à l'origine \(O\), donc les deux coordonnées sont opposées.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Étape manquante</p>
+          <p>Calcule \(\cos\!\left(\dfrac{5\pi}{6}\right)\) en utilisant la symétrie \(\pi - x\).</p>
+          <button class="reveal-button" type="button" data-reveal="val1">Voir la réponse</button>
+          <p id="val1" class="answer" hidden>
+            \(\dfrac{5\pi}{6} = \pi - \dfrac{\pi}{6}\), donc \(\cos\!\left(\dfrac{5\pi}{6}\right) = -\cos\!\left(\dfrac{\pi}{6}\right) = -\dfrac{\sqrt{3}}{2}\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis la symétrie</p>
+          <p>Pour calculer \(\sin\!\left(\dfrac{7\pi}{6}\right)\), quelle décomposition de l'angle est la plus rapide&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="val2">Voir la réponse</button>
+          <p id="val2" class="answer" hidden>
+            \(\dfrac{7\pi}{6} = \pi + \dfrac{\pi}{6}\). Symétrie par rapport à \(O\). Donc \(\sin\!\left(\dfrac{7\pi}{6}\right) = -\sin\!\left(\dfrac{\pi}{6}\right) = -\dfrac{1}{2}\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">✓</span>Vérification rapide</p>
+          <p>Place les points associés à \(\dfrac{\pi}{6}\), \(\dfrac{5\pi}{6}\), \(\dfrac{7\pi}{6}\) et \(\dfrac{11\pi}{6}\) sur le cercle. Que remarques-tu&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="val3">Voir la réponse</button>
+          <p id="val3" class="answer" hidden>
+            Les quatre points ont la même valeur absolue de coordonnées \(\left|\dfrac{\sqrt{3}}{2}\right|\) et \(\left|\dfrac{1}{2}\right|\), juste les signes changent. Une <strong>rotation de \(\pi\)</strong> envoie un point sur son opposé.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 03 · FORMULES ========== -->
+      <section id="formules" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">03</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Formules de base</p>
+            <h2>Trois relations qui débloquent tout</h2>
+          </div>
+        </div>
+        <p>
+          Toutes les manipulations trigonométriques tiennent sur trois formules. Elles permettent de
+          calculer un cosinus à partir d'un sinus, de réduire un angle quelconque modulo \(2\pi\), ou de
+          simplifier une expression contenant \(-x\).
+        </p>
+
+        <div class="formula-card is-major">
+          \[ \cos^2 x + \sin^2 x = 1 \]
+          \[ \begin{aligned}
+            \cos(x + 2k\pi) &= \cos x \\
+            \sin(x + 2k\pi) &= \sin x
+          \end{aligned} \]
+          \[ \begin{aligned}
+            \cos(-x) &= \cos x \\
+            \sin(-x) &= -\sin x
+          \end{aligned} \]
+        </div>
+
+        <p>
+          La première formule vient du théorème de Pythagore appliqué au triangle rectangle formé par
+          \(O\), le point \(M(\cos x;\sin x)\), et sa projection \(H(\cos x;0)\) sur l'axe \(Ox\)&nbsp;:
+        </p>
+
+        <div class="formula-card">
+          \[ \begin{aligned}
+            OM^2 &= OH^2 + HM^2 \\
+            1^2 &= (\cos x)^2 + (\sin x)^2 \\
+            1 &= \cos^2 x + \sin^2 x
+          \end{aligned} \]
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Conséquence immédiate</p>
+          <p>
+            Pour tout réel \(x\), \(-1 \leq \cos x \leq 1\) et \(-1 \leq \sin x \leq 1\). C'est ce qui rend
+            absurde une équation du type \(\cos x = 2\)&nbsp;: aucune solution réelle.
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p>
+            Soit \(x \in \left[\dfrac{\pi}{2}\,;\,\pi\right]\) tel que \(\sin x = \dfrac{1}{4}\). Déterminer \(\cos x\).
+          </p>
+          <div class="formula-card">
+            \[ \begin{aligned}
+              \cos^2 x &= 1 - \sin^2 x \\
+                       &= 1 - \dfrac{1}{16} = \dfrac{15}{16}
+            \end{aligned} \]
+            \[ \cos x = \pm\,\dfrac{\sqrt{15}}{4} \]
+          </div>
+          <p>
+            Comme \(x \in \left[\dfrac{\pi}{2}\,;\,\pi\right]\), le point \(M(x)\) est dans le deuxième quadrant&nbsp;:
+            son abscisse est négative. Donc \(\cos x = -\dfrac{\sqrt{15}}{4}\).
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Réflexe</p>
+          <p>
+            <strong>Pythagore calcule, quadrant choisit.</strong> La relation \(\cos^2 x + \sin^2 x = 1\)
+            donne une valeur au carré, donc deux signes possibles. L'intervalle de \(x\) décide le signe final.
+          </p>
+          <p>
+            <strong>Limite.</strong> Si l'énoncé ne donne pas d'intervalle, de quadrant ou de signe,
+            on ne peut pas choisir entre \(+\) et \(-\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question de contrôle</p>
+          <p>Soit \(x \in \left[\pi\,;\,\dfrac{3\pi}{2}\right]\) tel que \(\sin x = -\dfrac{3}{5}\). Déterminer \(\cos x\).</p>
+          <button class="reveal-button" type="button" data-reveal="memo-formules-quadrant">Voir la réponse</button>
+          <p id="memo-formules-quadrant" class="answer" hidden>
+            Pythagore calcule&nbsp;: \(\cos^2 x = 1 - \dfrac{9}{25} = \dfrac{16}{25}\), donc
+            \(\cos x = \pm\dfrac{4}{5}\). Le quadrant III choisit&nbsp;: le cosinus est négatif.
+            Donc \(\cos x = -\dfrac{4}{5}\).
+          </p>
+        </div>
+
+        <p>
+          La deuxième formule traduit la <strong>périodicité</strong>&nbsp;: un tour complet ne change rien.
+          Pour simplifier un angle hors de \(]-\pi;\pi]\), on lui retire ou ajoute \(2\pi\) autant de fois que nécessaire.
+        </p>
+
+        <div class="worked-example">
+          <p>Simplifier \(\cos(x + 100\pi)\) et \(\sin(x + 71\pi)\).</p>
+          <div class="formula-card">
+            \[ 100\pi = 50 \times 2\pi \]
+            \[ \cos(x + 100\pi) = \cos x \]
+            \[ \begin{aligned}
+              71\pi &= 70\pi + \pi \\
+                    &= 35\times 2\pi + \pi
+            \end{aligned} \]
+            \[ \begin{aligned}
+              \sin(x + 71\pi) &= \sin(x + \pi) \\
+                               &= -\sin x
+            \end{aligned} \]
+          </div>
+          <p>
+            Quand l'entier devant \(\pi\) est pair, on enlève des tours complets. Quand il est impair, il reste un \(\pi\),
+            qui correspond à une symétrie centrale.
+          </p>
+        </div>
+
+        <p>
+          La troisième formule dit que la fonction cosinus est <strong>paire</strong> et la fonction sinus <strong>impaire</strong>.
+          C'est utile pour simplifier toute expression contenant \(-x\), \(-2x\), etc.
+        </p>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis la formule</p>
+          <p>Pour calculer \(\sin x\) sachant que \(\cos x = -\dfrac{3}{5}\) et \(x \in \left[\dfrac{\pi}{2};\pi\right]\), quelle est la première étape&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="form1">Voir la réponse</button>
+          <p id="form1" class="answer" hidden>
+            Utiliser \(\cos^2 x + \sin^2 x = 1\)&nbsp;: \(\sin^2 x = 1 - \dfrac{9}{25} = \dfrac{16}{25}\), donc \(\sin x = \pm \dfrac{4}{5}\).
+            Sur \(\left[\dfrac{\pi}{2};\pi\right]\), le sinus est positif&nbsp;: \(\sin x = \dfrac{4}{5}\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>Simplifier \(\cos(x - 78\pi)\).</p>
+          <button class="reveal-button" type="button" data-reveal="form2">Voir la réponse</button>
+          <p id="form2" class="answer" hidden>
+            \(78\pi = 39 \times 2\pi\), donc \(\cos(x - 78\pi) = \cos x\).
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 04 · EQUATIONS ========== -->
+      <section id="equations" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">04</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Résoudre</p>
+            <h2>Équations \(\cos x = a\) et \(\sin x = a\)</h2>
+          </div>
+        </div>
+        <p>
+          Résoudre une équation trigonométrique simple, c'est trouver tous les angles dont
+          la projection (sur \(Ox\) pour \(\cos\), sur \(Oy\) pour \(\sin\)) vaut \(a\).
+          Visuellement&nbsp;: on coupe le cercle par une droite verticale ou horizontale.
+        </p>
+
+        <div class="formula-card is-major">
+          \[ |a| \leq 1 \ \text{est obligatoire} \]
+          \[ \begin{aligned}
+            \cos x = a
+            &\Rightarrow x = \alpha + 2k\pi \\
+            &\text{ou } x = -\alpha + 2k\pi
+          \end{aligned} \]
+          \[ \begin{aligned}
+            \sin x = a
+            &\Rightarrow x = \alpha + 2k\pi \\
+            &\text{ou } x = \pi - \alpha + 2k\pi
+          \end{aligned} \]
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Image mentale</p>
+          <p>
+            <strong>Coupe du cercle.</strong> \(\cos x = a\), c'est une coupe verticale \(X = a\).
+            \(\sin x = a\), c'est une coupe horizontale \(Y = a\).
+          </p>
+          <p>
+            <strong>Limite.</strong> Si \(|a| &gt; 1\), la droite ne touche pas le cercle. Si \(a = 1\) ou \(a = -1\),
+            la droite est tangente&nbsp;: il n'y a qu'un point par tour.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Mémo technique</p>
+          <p>
+            <strong>TRDF.</strong> <strong>T</strong>este \(|a| \leq 1\), <strong>R</strong>epère l'angle \(\alpha\),
+            écris les <strong>D</strong>eux familles, puis <strong>F</strong>iltre avec l'intervalle demandé.
+          </p>
+          <p>
+            <strong>Limite.</strong> TRDF aide à ne rien oublier, mais la copie doit quand même afficher l'intervalle,
+            les deux familles et l'ensemble final \(S\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Application TRDF</p>
+          <p>Résoudre dans \(]-\pi;\pi]\) l'équation \(\sin x = \dfrac{\sqrt{3}}{2}\). Quelle étape évite d'oublier une solution&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="memo-equations-trdf">Voir la réponse</button>
+          <p id="memo-equations-trdf" class="answer" hidden>
+            T&nbsp;: \(\left|\dfrac{\sqrt{3}}{2}\right| \leq 1\), donc il y a des solutions.
+            R&nbsp;: \(\alpha = \dfrac{\pi}{3}\).
+            D&nbsp;: pour le sinus, \(x = \dfrac{\pi}{3} + 2k\pi\) ou \(x = \pi - \dfrac{\pi}{3} + 2k\pi = \dfrac{2\pi}{3} + 2k\pi\).
+            F&nbsp;: dans \(]-\pi;\pi]\), on garde \(S = \left\{\dfrac{\pi}{3}\,;\,\dfrac{2\pi}{3}\right\}\).
+            L'étape D évite d'oublier la deuxième coupe du cercle.
+          </p>
+        </div>
+
+        <p>
+          Ici \(\alpha\) est une <strong>solution particulière</strong> que l'on lit dans le tableau des valeurs remarquables (ou que l'énoncé donne).
+        </p>
+
+        <figure class="visual-block interactive-graph quadratic-graph">
+          <div class="graph-stage">
+            <div id="tr-equation-board" class="jxgbox curve-board" data-chapter-curve="equation"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>cos x = 1/2 sur le cercle</span>
+              <strong>Deux points : π/3 et −π/3</strong>
+            </p>
+          </div>
+          <figcaption>
+            La droite verticale \(X = \dfrac{1}{2}\) coupe le cercle en deux points symétriques par rapport à l'axe \(Ox\)&nbsp;:
+            d'où les deux familles de solutions \(\pm\dfrac{\pi}{3} + 2k\pi\).
+          </figcaption>
+        </figure>
+
+        <div class="method-grid">
+          <div class="method-step">
+            <span class="step-number">1</span>
+            <p>Vérifie \(|a| \leq 1\). Sinon, l'équation n'a aucune solution réelle.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">2</span>
+            <p>Trouve une solution évidente \(\alpha\) parmi les valeurs remarquables.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">3</span>
+            <p>Écris les deux familles de solutions sur \(\mathbb{R}\), puis filtre selon l'intervalle demandé.</p>
+          </div>
+        </div>
+
+        <div class="worked-example">
+          <p>Résoudre dans \(]-\pi;\pi]\) l'équation \(\cos x = \dfrac{1}{2}\).</p>
+          <div class="formula-card">
+            \[ \cos x = \dfrac{1}{2} = \cos \dfrac{\pi}{3} \]
+            \[ \begin{aligned}
+              &x = \dfrac{\pi}{3} + 2k\pi \\
+              &\text{ou } x = -\dfrac{\pi}{3} + 2k\pi
+            \end{aligned} \]
+          </div>
+          <p>
+            Sur \(]-\pi;\pi]\), seules \(k = 0\) donne des solutions valides. Donc&nbsp;:
+          </p>
+          <div class="formula-card">
+            \[ S = \left\{ -\dfrac{\pi}{3}\,;\, \dfrac{\pi}{3} \right\} \]
+          </div>
+        </div>
+
+        <div class="worked-example">
+          <p>Résoudre dans \(]-\pi;\pi]\) l'équation \(\sin x = \dfrac{\sqrt{2}}{2}\).</p>
+          <div class="formula-card">
+            \[ \sin x = \dfrac{\sqrt{2}}{2} = \sin \dfrac{\pi}{4} \]
+            \[ \begin{aligned}
+              &x = \dfrac{\pi}{4} + 2k\pi \\
+              &\text{ou } x = \pi - \dfrac{\pi}{4} + 2k\pi
+            \end{aligned} \]
+            \[ \begin{aligned}
+              &x = \dfrac{\pi}{4} + 2k\pi \\
+              &\text{ou } x = \dfrac{3\pi}{4} + 2k\pi
+            \end{aligned} \]
+          </div>
+          <p>
+            Les deux solutions sont déjà dans \(]-\pi;\pi]\) pour \(k = 0\). Donc&nbsp;:
+          </p>
+          <div class="formula-card">
+            \[ S = \left\{ \dfrac{\pi}{4}\,;\, \dfrac{3\pi}{4} \right\} \]
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège classique</p>
+          <p>
+            Ne pas oublier la deuxième famille. Pour \(\cos x = a\), il y a <strong>deux</strong> angles dans \(]-\pi;\pi]\)
+            (sauf cas particuliers \(a = \pm 1\)). De même pour \(\sin x = a\). Un seul angle = la moitié des points.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Étape manquante</p>
+          <p>Résoudre dans \(]-\pi;\pi]\) l'équation \(\cos x = -\dfrac{\sqrt{3}}{2}\).</p>
+          <button class="reveal-button" type="button" data-reveal="eq1">Voir la réponse</button>
+          <p id="eq1" class="answer" hidden>
+            \(\cos x = \cos\!\left(\dfrac{5\pi}{6}\right)\), donc \(x = \dfrac{5\pi}{6} + 2k\pi\) ou \(x = -\dfrac{5\pi}{6} + 2k\pi\).
+            Dans \(]-\pi;\pi]\)&nbsp;: \(S = \left\{ -\dfrac{5\pi}{6}\,;\, \dfrac{5\pi}{6} \right\}\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis la méthode</p>
+          <p>Si on te demande de résoudre \(\sin x = 2\), que fais-tu en premier&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="eq2">Voir la réponse</button>
+          <p id="eq2" class="answer" hidden>
+            Tu remarques que \(|2| > 1\). Donc \(S = \varnothing\), sans calcul. C'est la première chose à vérifier avant de chercher un angle.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 05 · REDACTION ========== -->
+      <section id="redaction" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">05</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Copie notée</p>
+            <h2>Rédiger comme en contrôle</h2>
+          </div>
+        </div>
+        <p>
+          Trouver le bon résultat ne suffit pas. Le correcteur cherche des phrases mathématiques claires&nbsp;:
+          intervalle, angle de référence, deux familles, conclusion.
+        </p>
+
+        <div class="copy-grid">
+          <div class="c-callout c-callout--warn">
+            <p class="c-callout__label"><span class="dot"></span>Brouillon insuffisant</p>
+            <p>\(\cos x = \tfrac{1}{2}\), donc \(x = \tfrac{\pi}{3}\).</p>
+            <p class="penalty">on a oublié la deuxième famille \(-\tfrac{\pi}{3}\), et on n'a pas précisé l'intervalle.</p>
+          </div>
+
+          <div class="worked-example">
+            <p>Résoudre dans \(]-\pi;\pi]\) l'équation \(\cos x = \dfrac{1}{2}\).</p>
+            <div class="formula-card">
+              \[ \cos x = \dfrac{1}{2} = \cos\!\dfrac{\pi}{3} \]
+              \[ \begin{aligned}
+                &x = \dfrac{\pi}{3} + 2k\pi \\
+                &\text{ou } x = -\dfrac{\pi}{3} + 2k\pi
+              \end{aligned} \]
+            </div>
+            <p>
+              Pour \(k = 0\), les deux valeurs \(\dfrac{\pi}{3}\) et \(-\dfrac{\pi}{3}\) appartiennent à \(]-\pi;\pi]\). Pour tout autre \(k\),
+              les valeurs sortent de l'intervalle.
+            </p>
+            <p>
+              L'ensemble des solutions est donc&nbsp;:
+              \[ S = \left\{ -\dfrac{\pi}{3}\,;\, \dfrac{\pi}{3} \right\}. \]
+            </p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Points qui rapportent</p>
+          <ul class="score-list">
+            <li>Rappeler l'intervalle imposé par l'énoncé (\(\mathbb{R}\), \(]-\pi;\pi]\), \([0;2\pi[\)…).</li>
+            <li>Écrire l'angle de référence \(\alpha\) sous la forme \(\cos x = \cos \alpha\) ou \(\sin x = \sin \alpha\).</li>
+            <li>Donner <strong>les deux</strong> familles modulo \(2\pi\).</li>
+            <li>Filtrer en justifiant les valeurs de \(k\) retenues.</li>
+            <li>Conclure avec un ensemble \(S\) propre.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ========== P · PIEGES ========== -->
+      <section id="pieges" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">P</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Pièges à connaître</p>
+            <h2>Erreurs fréquentes en trigonométrie</h2>
+          </div>
+        </div>
+        <p>
+          Ce sont les fautes qui font perdre 1 à 2 points en contrôle. Aucune n'est difficile&nbsp;:
+          elles viennent toujours d'un réflexe non vérifié.
+        </p>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 1 — Signe oublié</p>
+          <p>
+            \(\cos\!\left(\dfrac{2\pi}{3}\right) \neq \dfrac{1}{2}\). C'est \(-\dfrac{1}{2}\), car le point est dans le deuxième quadrant.
+            Toujours <strong>placer mentalement le point sur le cercle</strong> avant d'écrire la valeur.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 2 — Une seule famille</p>
+          <p>
+            \(\cos x = a\) avec \(a \in ]-1;1[\) donne <strong>deux</strong> familles de solutions sur \(\mathbb{R}\),
+            pas une seule. Idem pour \(\sin x = a\).
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 3 — Confondre \(\pi - x\) et \(\pi + x\)</p>
+          <p>
+            \(\sin(\pi - x) = \sin x\) (symétrie axe \(Oy\)). \(\sin(\pi + x) = -\sin x\) (symétrie par rapport à \(O\)).
+            Le bon réflexe&nbsp;: dessiner le point à chaque fois.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 4 — Oublier \(|a| \leq 1\)</p>
+          <p>
+            Si l'énoncé donne \(\cos x = \dfrac{5}{4}\), c'est une équation sans solution réelle. Avant tout calcul,
+            vérifie que \(|a| \leq 1\).
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 5 — Mélanger radians et degrés</p>
+          <p>
+            \(\cos 30 \neq \dfrac{\sqrt{3}}{2}\) en radians. C'est \(\cos 30°\) qui vaut \(\dfrac{\sqrt{3}}{2}\).
+            En classe et au contrôle, la mesure est en <strong>radians</strong> par défaut.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== G · EXERCICES GUIDES ========== -->
+      <section id="guides" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">G</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Exercices guidés</p>
+            <h2>L'aide disparaît progressivement</h2>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 1 — Valeurs remarquables</h3>
+            <span class="difficulty" aria-label="Niveau comprendre">Comprendre</span>
+          </div>
+          <p>Calculer sans calculatrice \(\cos\!\left(\dfrac{5\pi}{6}\right)\) et \(\sin\!\left(\dfrac{5\pi}{6}\right)\).</p>
+          <p class="hint-line">décompose en \(\pi - \dfrac{\pi}{6}\).</p>
+          <button class="reveal-button" type="button" data-reveal="guide1">Voir le corrigé</button>
+          <div id="guide1" class="answer" hidden>
+            <p>\(\dfrac{5\pi}{6} = \pi - \dfrac{\pi}{6}\). On applique \(\cos(\pi - x) = -\cos x\) et \(\sin(\pi - x) = \sin x\).</p>
+            <p>\(\cos\!\left(\dfrac{5\pi}{6}\right) = -\cos\!\left(\dfrac{\pi}{6}\right) = -\dfrac{\sqrt{3}}{2}\).</p>
+            <p>\(\sin\!\left(\dfrac{5\pi}{6}\right) = \sin\!\left(\dfrac{\pi}{6}\right) = \dfrac{1}{2}\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 2 — Cosinus à partir du sinus</h3>
+            <span class="difficulty" aria-label="Niveau savoir refaire">Savoir refaire</span>
+          </div>
+          <p>Soit \(x \in \left[-\dfrac{\pi}{2}\,;\, 0\right]\) tel que \(\sin x = -\dfrac{2}{3}\). Déterminer \(\cos x\).</p>
+          <p class="hint-line">utilise \(\cos^2 x + \sin^2 x = 1\) et le signe imposé par l'intervalle.</p>
+          <button class="reveal-button" type="button" data-reveal="guide2">Voir le corrigé</button>
+          <div id="guide2" class="answer" hidden>
+            <div class="formula-card">
+              \[ \begin{aligned}
+                \cos^2 x &= 1 - \sin^2 x \\
+                         &= 1 - \dfrac{4}{9} = \dfrac{5}{9}
+              \end{aligned} \]
+              \[ \cos x = \pm \dfrac{\sqrt{5}}{3} \]
+            </div>
+            <p>Sur \(\left[-\dfrac{\pi}{2};0\right]\), le point est dans le quatrième quadrant&nbsp;: \(\cos x \geq 0\).</p>
+            <p>Donc \(\cos x = \dfrac{\sqrt{5}}{3}\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 3 — Simplification</h3>
+            <span class="difficulty" aria-label="Niveau savoir refaire">Savoir refaire</span>
+          </div>
+          <p>Simplifier l'expression \(A = \cos(\pi - x) + \sin\!\left(\dfrac{\pi}{2} + x\right) + \sin(-x)\).</p>
+          <p class="hint-line">applique une symétrie par terme&nbsp;: \(\pi - x\), \(\dfrac{\pi}{2} + x\), \(-x\).</p>
+          <button class="reveal-button" type="button" data-reveal="guide3">Voir le corrigé</button>
+          <div id="guide3" class="answer" hidden>
+            <p>\(\cos(\pi - x) = -\cos x\).</p>
+            <p>\(\sin\!\left(\dfrac{\pi}{2} + x\right) = \cos x\).</p>
+            <p>\(\sin(-x) = -\sin x\).</p>
+            <p>Donc \(A = -\cos x + \cos x - \sin x = -\sin x\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 4 — Équation \(\sin x = a\)</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>Résoudre dans \(]-\pi;\pi]\) l'équation \(\sin x = -\dfrac{1}{2}\).</p>
+          <p class="hint-line">une solution évidente est \(-\dfrac{\pi}{6}\). Utilise les deux familles.</p>
+          <button class="reveal-button" type="button" data-reveal="guide4">Voir le corrigé</button>
+          <div id="guide4" class="answer" hidden>
+            <p>\(\sin x = -\dfrac{1}{2} = \sin\!\left(-\dfrac{\pi}{6}\right)\).</p>
+            <div class="formula-card">
+              \[ x = -\dfrac{\pi}{6} + 2k\pi \]
+              \[ \text{ou } x = \dfrac{7\pi}{6} + 2k\pi \]
+            </div>
+            <p>Sur \(]-\pi;\pi]\)&nbsp;: \(-\dfrac{\pi}{6}\) y est ; \(\dfrac{7\pi}{6}\) ne l'est pas. On lui retire \(2\pi\)&nbsp;: \(-\dfrac{5\pi}{6}\), qui est dans l'intervalle.</p>
+            <p>Donc \(S = \left\{ -\dfrac{5\pi}{6}\,;\, -\dfrac{\pi}{6} \right\}\).</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Bilan d'étape</p>
+          <p>
+            Avant de passer au niveau contrôle, tu dois savoir&nbsp;: convertir degrés ↔ radians,
+            lire \(\cos x\) et \(\sin x\) sur le cercle, appliquer les quatre symétries, et résoudre
+            \(\cos x = a\) ou \(\sin x = a\) dans un intervalle donné.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== C · CONTROLE ========== -->
+      <section id="controle" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">C</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Niveau contrôle</p>
+            <h2>Exercices à réussir sans aide</h2>
+          </div>
+        </div>
+        <p>Essaie d'abord sur feuille. Ouvre le corrigé seulement après avoir écrit une méthode complète.</p>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Contrôle 1 — Cosinus connu, intervalle imposé</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>Soit \(x \in \left[\dfrac{\pi}{2}\,;\, \pi\right]\) tel que \(\sin x = \dfrac{1}{4}\).</p>
+          <ol class="exercise-list">
+            <li>Déterminer la valeur exacte de \(\cos x\).</li>
+            <li>Calculer \(\sin\!\left(\pi - x\right)\) et \(\cos\!\left(-x\right)\).</li>
+            <li>Calculer \(\sin\!\left(x + \pi\right) + \cos\!\left(\dfrac{\pi}{2} - x\right)\).</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="controle1">Voir le corrigé</button>
+          <div id="controle1" class="answer" hidden>
+            <p><strong>1.</strong> \(\cos^2 x = 1 - \dfrac{1}{16} = \dfrac{15}{16}\), donc \(\cos x = \pm\dfrac{\sqrt{15}}{4}\). Sur \(\left[\dfrac{\pi}{2};\pi\right]\), \(\cos x \leq 0\). Donc \(\cos x = -\dfrac{\sqrt{15}}{4}\).</p>
+            <p><strong>2.</strong> \(\sin(\pi - x) = \sin x = \dfrac{1}{4}\), \(\cos(-x) = \cos x = -\dfrac{\sqrt{15}}{4}\).</p>
+            <p><strong>3.</strong> \(\sin(x + \pi) = -\sin x = -\dfrac{1}{4}\) et \(\cos\!\left(\dfrac{\pi}{2} - x\right) = \sin x = \dfrac{1}{4}\). La somme vaut \(0\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Contrôle 2 — Simplifier modulo \(2\pi\)</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>Exprimer chacune des expressions suivantes en fonction de \(\cos x\) ou de \(\sin x\).</p>
+          <ol class="exercise-list">
+            <li>\(D = \cos\!\left(\dfrac{5\pi}{2} - x\right)\)</li>
+            <li>\(E = \sin\!\left(x + 100\pi\right)\)</li>
+            <li>\(F = \cos\!\left(x - 78\pi\right)\)</li>
+            <li>\(G = \sin\!\left(x + \dfrac{\pi}{2}\right) - 2\cos(-x - \pi) + 5\sin(-x)\)</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="controle2">Voir le corrigé</button>
+          <div id="controle2" class="answer" hidden>
+            <p><strong>1.</strong> \(\dfrac{5\pi}{2} = 2\pi + \dfrac{\pi}{2}\), donc \(D = \cos\!\left(\dfrac{\pi}{2} - x\right) = \sin x\).</p>
+            <p><strong>2.</strong> \(100\pi = 50 \times 2\pi\), donc \(E = \sin x\).</p>
+            <p><strong>3.</strong> \(78\pi = 39 \times 2\pi\), donc \(F = \cos x\).</p>
+            <p><strong>4.</strong> \(\sin\!\left(x + \dfrac{\pi}{2}\right) = \cos x\). \(\cos(-x - \pi) = \cos(-(x+\pi)) = \cos(x+\pi) = -\cos x\). \(\sin(-x) = -\sin x\).</p>
+            <p>Donc \(G = \cos x - 2(-\cos x) + 5(-\sin x) = 3\cos x - 5\sin x\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Contrôle 3 — Deux équations à résoudre</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>Résoudre dans \(]-\pi;\pi]\)&nbsp;:</p>
+          <ol class="exercise-list">
+            <li>\(\cos x = -\dfrac{\sqrt{3}}{2}\)</li>
+            <li>\(\sin x = \dfrac{1}{2}\)</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="controle3">Voir le corrigé</button>
+          <div id="controle3" class="answer" hidden>
+            <p><strong>1.</strong> \(\cos x = \cos\!\left(\dfrac{5\pi}{6}\right)\), donc \(x = \dfrac{5\pi}{6} + 2k\pi\) ou \(x = -\dfrac{5\pi}{6} + 2k\pi\). Sur \(]-\pi;\pi]\)&nbsp;: \(S = \left\{ -\dfrac{5\pi}{6}\,;\, \dfrac{5\pi}{6} \right\}\).</p>
+            <p><strong>2.</strong> \(\sin x = \sin\!\left(\dfrac{\pi}{6}\right)\), donc \(x = \dfrac{\pi}{6} + 2k\pi\) ou \(x = \pi - \dfrac{\pi}{6} + 2k\pi = \dfrac{5\pi}{6} + 2k\pi\). Sur \(]-\pi;\pi]\)&nbsp;: \(S = \left\{ \dfrac{\pi}{6}\,;\, \dfrac{5\pi}{6} \right\}\).</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 20 · CAP 20/20 ========== -->
+      <section id="vingt-sur-vingt" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">20</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Cap 20/20</p>
+            <h2>Pas de raccourci : passe la porte avant</h2>
+          </div>
+        </div>
+
+        <div class="c-gate">
+          <p class="c-gate__label">Porte d'entrée</p>
+          <p class="c-gate__title">Deux contrôles sans corrigé d'abord</p>
+          <p>
+            Avant de tenter ces exercices, réussis au moins deux exercices de la section Contrôle
+            sans ouvrir le corrigé. Sinon, reviens aux symétries du cercle et aux deux familles de solutions.
+          </p>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Cosinus inconnu, indices ciblés</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>
+            On considère un réel \(x \in \left[-\dfrac{\pi}{2}\,;\, \dfrac{\pi}{2}\right]\) tel que
+            \(\sin x = \dfrac{\sqrt{2} - \sqrt{6}}{4}\).
+          </p>
+          <ol class="exercise-list">
+            <li>Déterminer la valeur exacte de \(\cos x\).</li>
+            <li>On sait que \(x \in \left\{ \dfrac{\pi}{12}\,;\, \dfrac{5\pi}{12}\,;\, -\dfrac{\pi}{12}\,;\, -\dfrac{5\pi}{12} \right\}\). Par élimination, déterminer \(x\).</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="vingt1">Voir le corrigé</button>
+          <div id="vingt1" class="answer" hidden>
+            <p><strong>1.</strong> \(\sin^2 x = \dfrac{(\sqrt{2}-\sqrt{6})^2}{16} = \dfrac{2 - 2\sqrt{12} + 6}{16} = \dfrac{8 - 4\sqrt{3}}{16} = \dfrac{2 - \sqrt{3}}{4}\).</p>
+            <p>Donc \(\cos^2 x = 1 - \dfrac{2-\sqrt{3}}{4} = \dfrac{2 + \sqrt{3}}{4}\). Sur \(\left[-\dfrac{\pi}{2};\dfrac{\pi}{2}\right]\), \(\cos x \geq 0\).</p>
+            <p>Donc \(\cos x = \dfrac{\sqrt{2 + \sqrt{3}}}{2}\). On peut aussi montrer (identité remarquable) que c'est \(\dfrac{\sqrt{2}+\sqrt{6}}{4}\).</p>
+            <p><strong>2.</strong> Comme \(\sin x < 0\), \(x\) est négatif, donc \(x \in \left\{-\dfrac{\pi}{12}; -\dfrac{5\pi}{12}\right\}\). Or \(\sin\!\left(-\dfrac{\pi}{12}\right)\) est petit en valeur absolue, et \(\sin\!\left(-\dfrac{5\pi}{12}\right)\) est grand. Comme \(\sqrt{6} - \sqrt{2} \approx 1{,}04\), le quotient vaut environ \(0{,}26\). Donc \(x = -\dfrac{\pi}{12}\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Équations selon un entier \(n\)</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>Soit \(n \in \mathbb{Z}\). Déterminer, en fonction de la parité de \(n\), le cosinus et le sinus des réels suivants&nbsp;:</p>
+          <div class="formula-card">
+            \[ 2n\pi,\quad (2n+1)\pi,\quad n\pi \]
+            \[ -\dfrac{\pi}{2} + (2n+1)\pi \]
+          </div>
+          <button class="reveal-button" type="button" data-reveal="vingt2">Voir le corrigé</button>
+          <div id="vingt2" class="answer" hidden>
+            <p><strong>\(2n\pi\)&nbsp;:</strong> c'est \(n\) tours complets. \(\cos(2n\pi) = 1\), \(\sin(2n\pi) = 0\).</p>
+            <p><strong>\((2n+1)\pi\)&nbsp;:</strong> c'est \(\pi\) modulo \(2\pi\). \(\cos = -1\), \(\sin = 0\).</p>
+            <p><strong>\(n\pi\)&nbsp;:</strong> dépend de la parité. Si \(n\) pair&nbsp;: \(\cos = 1\), \(\sin = 0\). Si \(n\) impair&nbsp;: \(\cos = -1\), \(\sin = 0\). On peut aussi écrire \(\cos(n\pi) = (-1)^n\) et \(\sin(n\pi) = 0\).</p>
+            <p><strong>\(-\dfrac{\pi}{2} + (2n+1)\pi = \dfrac{\pi}{2} + 2n\pi\)&nbsp;:</strong> c'est \(\dfrac{\pi}{2}\) modulo \(2\pi\). \(\cos = 0\), \(\sin = 1\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Équation et intervalle large</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>
+            À l'aide d'un cercle trigonométrique, déterminer toutes les valeurs de \(x\) telles que
+            \(\cos x = -\dfrac{\sqrt{3}}{2}\) et \(\sin x = -\dfrac{1}{2}\), avec \(x \in ]-\pi\,;\, 3\pi]\).
+          </p>
+          <button class="reveal-button" type="button" data-reveal="vingt3">Voir le corrigé</button>
+          <div id="vingt3" class="answer" hidden>
+            <p>Le couple \(\left(-\dfrac{\sqrt{3}}{2}\,;\, -\dfrac{1}{2}\right)\) correspond à l'angle situé dans le troisième quadrant&nbsp;:</p>
+            <p>L'angle de référence du premier quadrant est \(\dfrac{\pi}{6}\). Comme \(\cos < 0\) et \(\sin < 0\), on est dans le troisième quadrant&nbsp;: \(x = \pi + \dfrac{\pi}{6} = \dfrac{7\pi}{6}\) (modulo \(2\pi\)).</p>
+            <p>Une autre écriture équivalente est \(x = -\dfrac{5\pi}{6}\) (modulo \(2\pi\)).</p>
+            <p>Les solutions s'écrivent \(x = \dfrac{7\pi}{6} + 2k\pi\), avec \(k \in \mathbb{Z}\).</p>
+            <p>Sur \(]-\pi;3\pi]\), on teste les valeurs proches&nbsp;: pour \(k=-1\), \(x=-\dfrac{5\pi}{6}\), qui appartient à l'intervalle ; pour \(k=0\), \(x=\dfrac{7\pi}{6}\), qui appartient aussi à l'intervalle ; pour \(k=1\), \(x=\dfrac{19\pi}{6}>3\pi\), donc on rejette.</p>
+            <p>Finalement \(S = \left\{ -\dfrac{5\pi}{6}\,;\, \dfrac{7\pi}{6} \right\}\).</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== R · REVISION ========== -->
+      <section id="revision" class="chapter-section recap-section">
+        <div class="section-marker">
+          <div class="section-marker__num">R</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Mini-révision mélangée</p>
+            <h2>Ce que tu dois revoir ensuite</h2>
+          </div>
+        </div>
+        <p>
+          Le contrôle ne dira pas toujours «&nbsp;applique \(\cos(\pi - x) = -\cos x\)&nbsp;». Entraîne-toi à reconnaître
+          le déclencheur de la formule.
+        </p>
+
+        <div class="revision-grid">
+          <div class="revision-card">
+            <p class="box-title">Si tu as raté les signes</p>
+            <p>Refais Guidé 1 et 2. Le bon réflexe est de placer mentalement le point sur le cercle <em>avant</em> d'écrire la valeur.</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Si tu as oublié la deuxième famille</p>
+            <p>Refais Guidé 4 et Contrôle 3. Une équation \(\cos x = a\) ou \(\sin x = a\) donne presque toujours deux solutions par tour.</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Si tu as confondu les symétries</p>
+            <p>Reprends la grille des quatre symétries (section 02). Une symétrie = un axe ou un centre, dessiné sur le cercle.</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Mélange avec produit scalaire</p>
+            <p>Plus tard, \(\vec{u} \cdot \vec{v} = \|\vec{u}\|\,\|\vec{v}\|\cos\theta\)&nbsp;: les valeurs remarquables de \(\cos\) reviendront sans prévenir.</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Mélange avec fonctions</p>
+            <p>Le chapitre Fonctions trigonométriques exploitera la périodicité \(2\pi\) et la parité&nbsp;: déjà acquises ici.</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Carte d'identité du cercle</p>
+            <p>\(\cos^2 x + \sin^2 x = 1\), \(-1 \leq \cos x, \sin x \leq 1\), période \(2\pi\). Trois lignes qui reviennent partout.</p>
+          </div>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">✎</span>Dernière récupération active</p>
+          <p>Écris sans regarder&nbsp;: les quatre symétries (\(-x\), \(\pi - x\), \(\pi + x\), \(\dfrac{\pi}{2} - x\)) et leurs effets sur \(\cos\) et \(\sin\).</p>
+          <button class="reveal-button" type="button" data-reveal="revision1">Voir la fiche minimale</button>
+          <div id="revision1" class="answer" hidden>
+            <p>\(\cos(-x) = \cos x\), \(\sin(-x) = -\sin x\).</p>
+            <p>\(\cos(\pi - x) = -\cos x\), \(\sin(\pi - x) = \sin x\).</p>
+            <p>\(\cos(\pi + x) = -\cos x\), \(\sin(\pi + x) = -\sin x\).</p>
+            <p>\(\cos\!\left(\dfrac{\pi}{2} - x\right) = \sin x\), \(\sin\!\left(\dfrac{\pi}{2} - x\right) = \cos x\).</p>
+          </div>
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+  <!-- ============================================================
+       JSXGRAPH BOARDS — boards spécifiques au chapitre trigonométrie
+       (data-chapter-curve : géré ici, pas par cours.js)
+       ============================================================ -->
+  <script>
+    (function () {
+      const rootStyles = getComputedStyle(document.documentElement);
+      function token(name) {
+        return rootStyles.getPropertyValue(name).trim();
+      }
+
+      const COLORS = {
+        coral: token('--red'),
+        green: token('--green-2'),
+        ink: token('--ink'),
+        teal: token('--blue-2'),
+        yellow: token('--stabilo'),
+        paper: token('--panel')
+      };
+
+      function createBoard(el, bbox) {
+        return JXG.JSXGraph.initBoard(el.id, {
+          boundingbox: bbox,
+          axis: true,
+          grid: false,
+          showCopyright: false,
+          showNavigation: false,
+          pan: { enabled: false },
+          zoom: { enabled: false }
+        });
+      }
+
+      function addCircle(b, c) {
+        return b.create('circle', [[0, 0], 1], {
+          strokeColor: c || COLORS.ink,
+          strokeWidth: 2,
+          fillColor: 'none',
+          highlight: false
+        });
+      }
+
+      function addPoint(b, xy, n, c, off) {
+        return b.create('point', xy, {
+          name: n,
+          size: 4,
+          fillColor: c,
+          strokeColor: COLORS.ink,
+          strokeWidth: 1.5,
+          label: { offset: off || [10, 10], fontSize: 12, color: COLORS.ink },
+          fixed: true,
+          showInfobox: false
+        });
+      }
+
+      function addSegment(b, p1, p2, c, dash) {
+        return b.create('segment', [p1, p2], {
+          strokeColor: c || COLORS.ink,
+          strokeWidth: 1.5,
+          dash: dash || 0,
+          highlight: false
+        });
+      }
+
+      const boards = {
+        // 01 · CERCLE — point mobile M(x) avec projections cos/sin
+        cercle: function (el) {
+          const b = createBoard(el, [-1.5, 1.5, 1.7, -1.5]);
+          addCircle(b, COLORS.ink);
+          addPoint(b, [1, 0], 'I', COLORS.yellow, [8, -16]);
+          addPoint(b, [0, 1], 'J', COLORS.yellow, [-16, 6]);
+
+          // angle θ ≈ π/4 pour l'exemple visuel
+          const t = Math.PI / 4;
+          const cx = Math.cos(t);
+          const sy = Math.sin(t);
+
+          const M = addPoint(b, [cx, sy], 'M(x)', COLORS.coral, [10, 6]);
+          const H = addPoint(b, [cx, 0], 'H', COLORS.teal, [4, -16]);
+          const K = addPoint(b, [0, sy], 'K', COLORS.teal, [-18, 4]);
+
+          addSegment(b, [0, 0], [cx, sy], COLORS.coral);
+          addSegment(b, [cx, sy], [cx, 0], COLORS.teal, 2);
+          addSegment(b, [cx, sy], [0, sy], COLORS.teal, 2);
+
+          // arc IM
+          b.create('arc', [[0, 0], [1, 0], [cx, sy]], {
+            strokeColor: COLORS.green,
+            strokeWidth: 3,
+            highlight: false,
+            withLabel: false
+          });
+
+          b.create('text', [-1.35, 1.3, 'cos x = OH'], {
+            fontSize: 11, color: COLORS.ink, fixed: true, highlight: false
+          });
+          b.create('text', [-1.35, 1.15, 'sin x = OK'], {
+            fontSize: 11, color: COLORS.ink, fixed: true, highlight: false
+          });
+        },
+
+        // 02 · VALEURS — quart de cercle avec angles remarquables
+        valeurs: function (el) {
+          const b = createBoard(el, [-0.3, 1.25, 1.35, -0.25]);
+          // arc 0 → π/2
+          b.create('arc', [[0, 0], [1, 0], [0, 1]], {
+            strokeColor: COLORS.ink,
+            strokeWidth: 2,
+            highlight: false,
+            withLabel: false
+          });
+
+          const angles = [
+            { t: 0,            lbl: 'x = 0',    off: [8, -14] },
+            { t: Math.PI / 6,  lbl: 'π/6',      off: [10, -2] },
+            { t: Math.PI / 4,  lbl: 'π/4',      off: [10, 6] },
+            { t: Math.PI / 3,  lbl: 'π/3',      off: [4, 12] },
+            { t: Math.PI / 2,  lbl: 'π/2',      off: [-14, 14] }
+          ];
+
+          angles.forEach(function (a) {
+            const px = Math.cos(a.t);
+            const py = Math.sin(a.t);
+            addPoint(b, [px, py], a.lbl, COLORS.yellow, a.off);
+            addSegment(b, [0, 0], [px, py], COLORS.ink, 2);
+          });
+
+          b.create('text', [0.05, -0.18, '(1 ; 0)'], {
+            fontSize: 10, color: COLORS.ink, fixed: true, highlight: false
+          });
+        },
+
+        // 04 · EQUATION — cos x = 1/2, deux points symétriques
+        equation: function (el) {
+          const b = createBoard(el, [-1.5, 1.5, 1.7, -1.5]);
+          addCircle(b, COLORS.ink);
+
+          // droite verticale X = 1/2
+          b.create('line', [[0.5, -1.4], [0.5, 1.4]], {
+            strokeColor: COLORS.coral,
+            strokeWidth: 2,
+            dash: 2,
+            straightFirst: false,
+            straightLast: false,
+            highlight: false
+          });
+
+          const px = 0.5;
+          const py = Math.sqrt(3) / 2;
+
+          addPoint(b, [px,  py], 'π/3',  COLORS.green, [10, 6]);
+          addPoint(b, [px, -py], '-π/3', COLORS.green, [10, -10]);
+          addPoint(b, [1, 0], 'I', COLORS.yellow, [8, -14]);
+
+          addSegment(b, [0, 0], [px,  py], COLORS.ink);
+          addSegment(b, [0, 0], [px, -py], COLORS.ink);
+
+          b.create('text', [-1.35, 1.3, 'cos x = 1/2'], {
+            fontSize: 12, color: COLORS.ink, fixed: true, highlight: false
+          });
+          b.create('text', [-1.35, 1.13, 'x = ±π/3 (mod 2π)'], {
+            fontSize: 11, color: COLORS.ink, fixed: true, highlight: false
+          });
+        }
+      };
+
+      window.__courseGraphInitializers = window.__courseGraphInitializers || [];
+      window.__courseGraphInitializers.push(function (el) {
+        if (!el || el.dataset.courseGraphReady === 'true') return;
+        const fn = boards[el.dataset.chapterCurve];
+        if (typeof fn !== 'function') return;
+        try {
+          fn(el);
+          el.dataset.courseGraphReady = 'true';
+        } catch (err) {
+          el.textContent = 'Graphe indisponible pour le moment.';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

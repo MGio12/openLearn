@@ -179,11 +179,13 @@ html, body { height: auto; overflow: visible; }
   gap: 6px;
   padding-inline: calc(var(--ap-mission-pad-x) + var(--ap-mission-border-w));
   margin-bottom: 12px;
+  min-height: 72px;
 }
 .ap-yesterday {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  min-height: 20px;
   font-family: var(--font-body);
   font-size: 13px;
   color: var(--ink-soft);

@@ -367,45 +367,7 @@
 <script src="scripts/dom.js"></script>
 <script src="scripts/user-context-ui.js"></script>
 <script src="scripts/mission-ui.js"></script>
-<script>
-  (function () {
-    var steps = Array.from(document.querySelectorAll('[data-mission-step]'));
-    var counter = document.querySelector('[data-mission-step-counter]');
-
-    function applyStepState(step, done, shouldPersist) {
-      var index = Number(step.getAttribute('data-mission-step')) || 0;
-      step.classList.toggle('done', done);
-      step.setAttribute('aria-checked', String(done));
-      if (shouldPersist && window.OutilPrepa && typeof window.OutilPrepa.setActionChecked === 'function') {
-        window.OutilPrepa.setActionChecked(index, done);
-      }
-    }
-
-    function updateCounter() {
-      if (!counter) return;
-      var done = steps.filter(function (step) { return step.classList.contains('done'); }).length;
-      counter.textContent = done + ' / ' + steps.length + ' cochées';
-    }
-
-    steps.forEach(function (step) {
-      var index = Number(step.getAttribute('data-mission-step')) || 0;
-      var initial = window.OutilPrepa && typeof window.OutilPrepa.isActionChecked === 'function'
-        ? window.OutilPrepa.isActionChecked(index)
-        : false;
-      applyStepState(step, initial, false);
-      step.addEventListener('click', function () {
-        applyStepState(step, !step.classList.contains('done'), true);
-        updateCounter();
-      });
-      step.addEventListener('keydown', function (event) {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          step.click();
-        }
-      });
-    });
-    updateCounter();
-  })();
-</script>
+<script src="scripts/analytics.js"></script>
+<script src="assets/js/pages/mission.js"></script>
 </body>
 </html>

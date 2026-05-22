@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fonctions trigonométriques — cours V2</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="../cours.css">
+  <style>
+    .course-lesson,
+    .chapter-section,
+    .copy-grid,
+    .copy-grid > *,
+    .choice-grid > *,
+    .diagnostic-grid > *,
+    .method-grid > *,
+    .revision-grid > *,
+    .exercise,
+    .worked-example,
+    .c-callout,
+    .formula-card {
+      min-width: 0;
+    }
+  </style>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="../cours.js"></script>
+</head>
+<body class="has-course-sidebar">
+
+  <!-- Reading progress bar -->
+  <div class="progress-bar" aria-hidden="true">
+    <div class="progress-bar__fill" data-progress-fill></div>
+  </div>
+
+  <!-- Sticky section indicator -->
+  <div class="section-bar" data-section-bar aria-hidden="true">
+    <span class="section-bar__chip" data-section-bar-chip>00</span>
+    <span class="section-bar__title" data-section-bar-title>Fonctions trigonométriques</span>
+    <span class="section-bar__total" data-section-bar-total>1/12</span>
+  </div>
+
+  <!-- ============================================================
+       SIDEBAR
+       ============================================================ -->
+  <aside class="toc course-sidebar" aria-label="Plan du cours" data-course-sidebar>
+    <div class="sidebar-head">
+      <div>
+        <p class="toc-title">Plan</p>
+        <p class="sidebar-subtitle">Fonctions trigo.</p>
+      </div>
+      <button
+        class="sidebar-toggle"
+        type="button"
+        aria-label="Replier le plan"
+        aria-expanded="true"
+        data-sidebar-toggle
+      ><span aria-hidden="true">‹</span></button>
+    </div>
+
+    <nav class="toc-links" aria-label="Sections du chapitre">
+      <a href="#diagnostic" data-section-link><span class="toc-index">00</span><span class="toc-label">Diagnostic</span></a>
+      <a href="#definitions" data-section-link><span class="toc-index">01</span><span class="toc-label">Définitions</span></a>
+      <a href="#parite-periode" data-section-link><span class="toc-index">02</span><span class="toc-label">Parité·période</span></a>
+      <a href="#variations" data-section-link><span class="toc-index">03</span><span class="toc-label">Variations</span></a>
+      <a href="#courbes" data-section-link><span class="toc-index">04</span><span class="toc-label">Courbes</span></a>
+      <a href="#equations" data-section-link><span class="toc-index">05</span><span class="toc-label">Équations</span></a>
+      <a href="#redaction" data-section-link><span class="toc-index">06</span><span class="toc-label">Rédiger</span></a>
+      <a href="#pieges" data-section-link><span class="toc-index">07</span><span class="toc-label">Pièges</span></a>
+      <a href="#guides" data-section-link><span class="toc-index">G</span><span class="toc-label">Guidé</span></a>
+      <a href="#controle" data-section-link><span class="toc-index">C</span><span class="toc-label">Contrôle</span></a>
+      <a href="#vingt-sur-vingt" data-section-link><span class="toc-index">20</span><span class="toc-label">20/20</span></a>
+      <a href="#revision" data-section-link><span class="toc-index">R</span><span class="toc-label">Révision</span></a>
+    </nav>
+
+    <p class="sidebar-foot">Maths spé · Lycée</p>
+  </aside>
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <header class="course-hero">
+    <nav class="topline" aria-label="Fil d'Ariane">
+      <a href="../../../..">Objectif Lycée</a>
+      <span>Maths spécialité</span>
+      <span>Cours</span>
+    </nav>
+
+    <div class="hero-grid">
+      <div>
+        <p class="hero-eyebrow"><span class="num">06</span> Chapitre</p>
+        <h1>Fonctions trigonométriques</h1>
+        <p class="hero-lead">
+          Lire sinus et cosinus comme deux vraies fonctions de \(\mathbb{R}\) dans \([-1;1]\),
+          utiliser la parité et la période \(2\pi\) pour réduire l'étude, et résoudre les équations
+          \(\cos(x)=r\) et \(\sin(x)=r\) sans deviner.
+        </p>
+      </div>
+
+      <aside class="hero-side" aria-label="Les 4 réflexes du chapitre">
+        <p class="hero-side__label">Ce que tu gagnes</p>
+        <h2>4 réflexes, 1 contrôle solide</h2>
+        <div class="hero-side__steps">
+          <div class="hero-side__step">
+            <span class="verb">Voir</span>
+            <span class="obj">sinusoïdes, parité, période</span>
+          </div>
+          <div class="hero-side__step">
+            <span class="verb">Réduire</span>
+            <span class="obj">étude à \([0;\pi]\) ou \([-\pi;\pi]\)</span>
+          </div>
+          <div class="hero-side__step">
+            <span class="verb">Lire</span>
+            <span class="obj">variations, valeurs remarquables</span>
+          </div>
+          <div class="hero-side__step">
+            <span class="verb">Résoudre</span>
+            <span class="obj">cos(x)=r et sin(x)=r</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MAIN
+       ============================================================ -->
+  <main class="course-layout" data-course-layout>
+    <article class="lesson course-lesson">
+
+      <!-- Overview band -->
+      <section class="course-overview" aria-label="Repères du chapitre">
+        <div>
+          <p class="course-overview__title">Fil conducteur</p>
+          <h3>Deux fonctions, deux symétries, une période</h3>
+          <p class="course-overview__lead">
+            Tout part du cercle trigonométrique. Le reste se déduit&nbsp;: parité, période \(2\pi\),
+            variations, courbes, puis résolution.
+          </p>
+        </div>
+        <div class="overview-flow">
+          <span>Définir</span>
+          <em>→</em>
+          <span>Symétries</span>
+          <em>→</em>
+          <span>Courbes</span>
+          <em>→</em>
+          <span>Équations</span>
+        </div>
+      </section>
+
+      <!-- ========== 00 · DIAGNOSTIC ========== -->
+      <section id="diagnostic" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">00</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Diagnostic éclair</p>
+            <h2>Avant de commencer&nbsp;: tu sais lire \(\sin\) et \(\cos\)&nbsp;?</h2>
+          </div>
+        </div>
+        <p>
+          Réponds mentalement avant d'ouvrir les corrections. Le but n'est pas d'avoir une note&nbsp;:
+          c'est de repérer où ton attention doit aller pendant le chapitre.
+        </p>
+
+        <div class="diagnostic-grid">
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 1</p>
+            <p>Que valent \(\cos(0)\) et \(\sin(0)\)&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag1">Voir la réponse</button>
+            <p id="diag1" class="answer" hidden>\(\cos(0)=1\) et \(\sin(0)=0\). Sur le cercle, l'angle \(0\) place le point en \((1;0)\).</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 2</p>
+            <p>La fonction cosinus est-elle paire ou impaire&nbsp;? Et la fonction sinus&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag2">Voir la réponse</button>
+            <p id="diag2" class="answer" hidden>Cosinus est <strong>paire</strong>&nbsp;: \(\cos(-x)=\cos(x)\). Sinus est <strong>impaire</strong>&nbsp;: \(\sin(-x)=-\sin(x)\).</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 3</p>
+            <p>Que vaut \(\cos(x+2\pi)\) pour tout \(x\in\mathbb{R}\)&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag3">Voir la réponse</button>
+            <p id="diag3" class="answer" hidden>\(\cos(x+2\pi)=\cos(x)\). C'est la périodicité de période \(2\pi\). Idem pour sinus.</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 4</p>
+            <p>Sur \([0;\pi]\), la fonction cosinus est-elle croissante ou décroissante&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag4">Voir la réponse</button>
+            <p id="diag4" class="answer" hidden>Décroissante. Elle passe de \(\cos(0)=1\) à \(\cos(\pi)=-1\) sans remonter.</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 5</p>
+            <p>Combien de solutions a l'équation \(\cos(x)=\tfrac12\) dans \(\mathbb{R}\)&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag5">Voir la réponse</button>
+            <p id="diag5" class="answer" hidden>Une infinité. Les solutions sont \(x=\tfrac{\pi}{3}+2n\pi\) ou \(x=-\tfrac{\pi}{3}+2n\pi\), pour \(n\in\mathbb{Z}\). Ici \(n\) compte le nombre de tours complets ajoutés.</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 6</p>
+            <p>Pour quelle valeur de \(x\) dans \([0;\pi]\) a-t-on \(\sin(x)=1\)&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag6">Voir la réponse</button>
+            <p id="diag6" class="answer" hidden>\(x=\tfrac{\pi}{2}\). C'est le maximum de la fonction sinus.</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Objectif de cette session</p>
+          <p>
+            Si tu réussis seulement une chose aujourd'hui&nbsp;: apprendre à utiliser la parité et la période \(2\pi\)
+            pour ne plus jamais te perdre dans les valeurs hors de \([0;\pi]\). C'est ce qui transforme une formule
+            mémorisée en copie réussie.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 01 · DEFINITIONS ========== -->
+      <section id="definitions" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">01</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Définition</p>
+            <h2>Sinus et cosinus sont deux fonctions de \(\mathbb{R}\) dans \([-1;1]\)</h2>
+          </div>
+        </div>
+        <p>
+          Le plan est muni d'un repère orthonormé \((O;\vec{\imath},\vec{\jmath})\). À tout réel \(x\),
+          on associe l'unique point \(M\) du cercle trigonométrique de centre \(O\) tel que l'angle orienté
+          \((\vec{\imath},\overrightarrow{OM})\) mesure \(x\) radians. Le point \(M\) a pour coordonnées \((\cos x\,;\,\sin x)\).
+        </p>
+
+        <div class="formula-card is-major">
+          \[ \cos : \mathbb{R}\longrightarrow[-1;1] \]
+          \[ \sin : \mathbb{R}\longrightarrow[-1;1] \]
+          \[ \forall x\in\mathbb{R},\ -1\le\cos x\le 1 \]
+          \[ \forall x\in\mathbb{R},\ -1\le\sin x\le 1 \]
+        </div>
+
+        <div class="choice-grid">
+          <div class="choice-card">
+            <p class="box-title">\(\cos x\) = abscisse de \(M\)</p>
+            <p>On lit \(\cos x\) sur l'axe horizontal du cercle trigonométrique. Quand \(x\) parcourt \(\mathbb{R}\), \(M\) tourne autour du cercle, donc \(\cos x\) oscille entre \(-1\) et \(1\).</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">\(\sin x\) = ordonnée de \(M\)</p>
+            <p>On lit \(\sin x\) sur l'axe vertical. Pour le même \(x\), l'ordonnée oscille aussi entre \(-1\) et \(1\).</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Définies sur \(\mathbb{R}\)</p>
+            <p>Aucune valeur de \(x\) n'est interdite. Pas d'ensemble de définition à discuter pour \(\cos\) ou \(\sin\) seuls.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Image dans \([-1;1]\)</p>
+            <p>L'ensemble d'arrivée utile est \([-1;1]\). Si une équation demande \(\cos x=2\), elle n'a pas de solution.</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Image mentale</p>
+          <p>
+            <strong>Cos horizontal, sin hauteur.</strong> Dans \(M(\cos x\,;\,\sin x)\),
+            \(\cos x\) se lit de gauche à droite, et \(\sin x\) se lit de bas en haut.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Limite du mémo</p>
+          <p>
+            Cette phrase aide à ne pas inverser les coordonnées, mais elle ne remplace pas le placement de l'angle.
+            Le signe de \(\cos x\) ou de \(\sin x\) dépend du quadrant où se trouve le point \(M\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Contrôle du repère</p>
+          <p>Si \(M\) est le point associé à \(x\) et que \(M\) est en haut du cercle mais à gauche de l'axe vertical, quels signes ont \(\cos x\) et \(\sin x\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="def4">Voir la réponse</button>
+          <p id="def4" class="answer" hidden>\(\cos x<0\) car l'abscisse est à gauche, et \(\sin x>0\) car l'ordonnée est en haut. Le mémo devient donc&nbsp;: horizontal négatif, hauteur positive.</p>
+        </div>
+
+        <p>Les valeurs remarquables se déduisent du cercle. Elles servent dans presque tout le chapitre.</p>
+
+        <div class="formula-card">
+          <p>\(x=0\)&nbsp;: \(\cos x=1\), \(\sin x=0\).</p>
+          <p>\(x=\tfrac{\pi}{6}\)&nbsp;: \(\cos x=\tfrac{\sqrt{3}}{2}\), \(\sin x=\tfrac{1}{2}\).</p>
+          <p>\(x=\tfrac{\pi}{4}\)&nbsp;: \(\cos x=\tfrac{\sqrt{2}}{2}\), \(\sin x=\tfrac{\sqrt{2}}{2}\).</p>
+          <p>\(x=\tfrac{\pi}{3}\)&nbsp;: \(\cos x=\tfrac{1}{2}\), \(\sin x=\tfrac{\sqrt{3}}{2}\).</p>
+          <p>\(x=\tfrac{\pi}{2}\)&nbsp;: \(\cos x=0\), \(\sin x=1\).</p>
+          <p>\(x=\pi\)&nbsp;: \(\cos x=-1\), \(\sin x=0\).</p>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Majeur à retenir</p>
+          <p>
+            Sinus et cosinus ne sont pas de simples nombres&nbsp;: ce sont deux fonctions
+            définies sur tout \(\mathbb{R}\), à valeurs dans \([-1;1]\). On peut donc les dériver,
+            étudier leurs variations, tracer leur courbe, et résoudre des équations comme \(\cos(x)=r\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate 1</p>
+          <p>Sans calculatrice&nbsp;: que vaut \(\cos\!\left(\tfrac{\pi}{4}\right)\)&nbsp;? Et \(\sin\!\left(\tfrac{\pi}{3}\right)\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="def1">Voir la réponse</button>
+          <p id="def1" class="answer" hidden>\(\cos\!\left(\tfrac{\pi}{4}\right)=\tfrac{\sqrt{2}}{2}\) et \(\sin\!\left(\tfrac{\pi}{3}\right)=\tfrac{\sqrt{3}}{2}\). Ces valeurs doivent être connues par cœur.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate 2</p>
+          <p>L'équation \(\cos x=1{,}3\) admet-elle des solutions dans \(\mathbb{R}\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="def2">Voir la réponse</button>
+          <p id="def2" class="answer" hidden>Non. Pour tout \(x\in\mathbb{R}\), \(\cos x\le 1\), donc l'équation est impossible. Pareil pour \(\cos x=-2\) ou \(\sin x=1{,}5\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate 3</p>
+          <p>Que vaut \(\cos\!\left(\tfrac{2\pi}{3}\right)\)&nbsp;? (utiliser la table ou le cercle)</p>
+          <button class="reveal-button" type="button" data-reveal="def3">Voir la réponse</button>
+          <p id="def3" class="answer" hidden>\(\cos\!\left(\tfrac{2\pi}{3}\right)=-\tfrac{1}{2}\). C'est l'opposé de \(\cos\!\left(\tfrac{\pi}{3}\right)\), car \(\tfrac{2\pi}{3}=\pi-\tfrac{\pi}{3}\).</p>
+        </div>
+      </section>
+
+      <!-- ========== 02 · PARITE & PERIODE ========== -->
+      <section id="parite-periode" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">02</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Symétries</p>
+            <h2>Parité et période&nbsp;: deux outils pour réduire l'étude</h2>
+          </div>
+        </div>
+        <p>
+          Cosinus et sinus possèdent deux propriétés qui simplifient tout&nbsp;: une symétrie (parité)
+          et une répétition (périodicité). On les énonce d'abord pour une fonction générale, puis on les applique.
+        </p>
+
+        <div class="formula-card is-major">
+          \[ \forall x\in\mathbb{R},\ \cos(-x)=\cos(x) \]
+          \[ \forall x\in\mathbb{R},\ \sin(-x)=-\sin(x) \]
+          \[ \forall x\in\mathbb{R},\ \cos(x+2\pi)=\cos(x) \]
+          \[ \forall x\in\mathbb{R},\ \sin(x+2\pi)=\sin(x) \]
+        </div>
+
+        <p>
+          Une fonction \(f\) définie sur \(\mathbb{R}\) est <strong>paire</strong> si \(f(-x)=f(x)\) pour tout \(x\),
+          et <strong>impaire</strong> si \(f(-x)=-f(x)\) pour tout \(x\). Elle est <strong>périodique de période \(T\)</strong>
+          (avec \(T>0\)) si \(f(x+T)=f(x)\) pour tout \(x\).
+        </p>
+
+        <figure class="visual-block math-language-visual">
+          <div class="math-language-grid" role="list" aria-label="Lecture mathématique de la parité">
+            <div class="math-language-card" role="listitem">
+              <p class="box-title">Cosinus est paire</p>
+              <div class="formula-card">
+                \[ \cos(-x)=\cos(x) \]
+              </div>
+              <p>Sur le cercle, l'angle \(-x\) place le point symétrique de \(M\) par rapport à l'axe \((Ox)\). Même abscisse, ordonnée opposée. La courbe de cosinus est donc symétrique par rapport à l'axe des ordonnées.</p>
+            </div>
+            <div class="math-language-card" role="listitem">
+              <p class="box-title">Sinus est impaire</p>
+              <div class="formula-card">
+                \[ \sin(-x)=-\sin(x) \]
+              </div>
+              <p>Pour le même point symétrique, les ordonnées sont opposées. La courbe de sinus est donc symétrique par rapport à l'origine du repère.</p>
+            </div>
+          </div>
+          <figcaption>
+            La parité se lit directement sur le cercle&nbsp;: passer de l'angle \(x\) à l'angle \(-x\) revient à symétriser par rapport à l'axe horizontal.
+          </figcaption>
+        </figure>
+
+        <div class="worked-example">
+          <p>Montrer que la fonction \(f\) définie sur \(\mathbb{R}\) par \(f(x)=5+3\cos(x)\) est paire et périodique de période \(2\pi\).</p>
+          <div class="formula-card">
+            <p>\(\cos(-x)=\cos(x)\), donc \(f(-x)=5+3\cos(x)=f(x)\).</p>
+            <p>\(\cos(x+2\pi)=\cos(x)\), donc \(f(x+2\pi)=5+3\cos(x)=f(x)\).</p>
+          </div>
+          <p>Donc \(f\) est paire <strong>et</strong> périodique de période \(2\pi\). On peut l'étudier sur \([0;\pi]\) seulement, puis compléter par symétrie et par translations.</p>
+        </div>
+
+        <div class="worked-example">
+          <p>Montrer que \(g(x)=\sin(2x)\) est périodique de période \(\pi\).</p>
+          <div class="formula-card">
+            \[ \begin{aligned} g(x+\pi)&=\sin\!\big(2(x+\pi)\big)\\ &=\sin(2x+2\pi)\\ &=\sin(2x)\\ &=g(x) \end{aligned} \]
+          </div>
+          <p>Donc \(g\) est périodique de période \(\pi\). Quand le \(2\) multiplie \(x\) à l'intérieur, la période est divisée par \(2\).</p>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Réflexe</p>
+          <p>
+            <strong>Parité = miroir autour de \(0\), période = même image après un pas \(T\).</strong>
+            Pour la parité, on calcule \(f(-x)\). Pour la période, on calcule \(f(x+T)\).
+            Quand un coefficient multiplie \(x\) à l'intérieur, comme dans \(\sin(\omega x)\), le tour est plus rapide&nbsp;:
+            la période devient \(\tfrac{2\pi}{\omega}\) si \(\omega>0\).
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège de période</p>
+          <p>
+            Seul le coefficient placé <strong>dans l'angle</strong> modifie la période. Les fonctions
+            \(4\sin(x)\) et \(3+\cos(x)\) gardent la période \(2\pi\). Pour \(\sin(ax+b)\) ou \(\cos(ax+b)\),
+            la période est \(\tfrac{2\pi}{|a|}\) si \(a\ne0\)&nbsp;; le \(+b\) décale la courbe, il ne change pas sa période.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question de contrôle</p>
+          <p>La fonction \(v(x)=2\cos(-2x)\) est-elle \(2\pi\)-périodique seulement, ou peut-on trouver une période plus courte&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="parite4">Voir la réponse</button>
+          <p id="parite4" class="answer" hidden>On peut trouver plus court&nbsp;: \(\pi\). En effet \(v(x+\pi)=2\cos(-2x-2\pi)=2\cos(-2x)=v(x)\). Le coefficient intérieur \(-2\) divise la période de base par \(2\).</p>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Conséquence pratique</p>
+          <p>
+            Grâce à la parité, il suffit d'étudier sinus et cosinus sur \([0;\pi]\). On complète ensuite sur
+            \([-\pi;\pi]\) par symétrie, puis sur \(\mathbb{R}\) par translations de \(2\pi\). On n'a donc jamais
+            besoin de calculer \(\cos(7\pi)\) ou \(\sin(-15)\) à la main&nbsp;: on revient toujours à un angle simple.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Étape manquante</p>
+          <p>Pour montrer que \(h(x)=\cos(x)+\sin(x)\) n'est ni paire ni impaire, quelle valeur tester rapidement&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="parite1">Voir la réponse</button>
+          <p id="parite1" class="answer" hidden>Tester par exemple \(x=\tfrac{\pi}{4}\)&nbsp;: \(h\!\left(\tfrac{\pi}{4}\right)=\tfrac{\sqrt{2}}{2}+\tfrac{\sqrt{2}}{2}=\sqrt{2}\) et \(h\!\left(-\tfrac{\pi}{4}\right)=\tfrac{\sqrt{2}}{2}-\tfrac{\sqrt{2}}{2}=0\). On a \(h(-\tfrac{\pi}{4})\ne h(\tfrac{\pi}{4})\) (donc pas paire) et \(h(-\tfrac{\pi}{4})\ne -h(\tfrac{\pi}{4})\) (donc pas impaire).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>Quelle est la période de \(\cos(3x)\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="parite2">Voir la réponse</button>
+          <p id="parite2" class="answer" hidden>\(\tfrac{2\pi}{3}\). Pour vérifier&nbsp;: \(\cos\!\big(3(x+\tfrac{2\pi}{3})\big)=\cos(3x+2\pi)=\cos(3x)\). Plus généralement, \(\cos(\omega x)\) a pour période \(\tfrac{2\pi}{\omega}\) si \(\omega>0\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">✓</span>Vérification rapide</p>
+          <p>Sans calcul long&nbsp;: la fonction \(u(x)=\sin(x)\cos(x)\) est-elle paire, impaire, ou ni l'une ni l'autre&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="parite3">Voir la réponse</button>
+          <p id="parite3" class="answer" hidden>Impaire&nbsp;: \(u(-x)=\sin(-x)\cos(-x)=(-\sin x)(\cos x)=-\sin(x)\cos(x)=-u(x)\). Un produit pair × impair donne impair, comme \((-)\times(+)=(-)\).</p>
+        </div>
+      </section>
+
+      <!-- ========== 03 · VARIATIONS ========== -->
+      <section id="variations" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">03</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Sens de variation</p>
+            <h2>Variations de \(\cos\) et \(\sin\) sur \([0;\pi]\), puis sur \([-\pi;\pi]\)</h2>
+          </div>
+        </div>
+        <p>
+          Grâce à la périodicité et à la parité, il suffit d'étudier d'abord sur \([0;\pi]\). On admet les dérivées,
+          puis on lit les variations comme pour n'importe quelle fonction.
+        </p>
+
+        <div class="formula-card is-major">
+          \[ \forall x\in\mathbb{R},\ \cos'(x)=-\sin(x) \]
+          \[ \forall x\in\mathbb{R},\ \sin'(x)=\cos(x) \]
+        </div>
+
+        <div class="method-grid">
+          <div class="method-step">
+            <span class="step-number">1</span>
+            <p>Sur \([0;\pi]\), on a \(\sin(x)\ge 0\), donc \(\cos'(x)=-\sin(x)\le 0\). La fonction cosinus est <strong>décroissante</strong> sur \([0;\pi]\).</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">2</span>
+            <p>Sur \([0;\tfrac{\pi}{2}]\), \(\cos(x)\ge 0\), donc \(\sin'(x)\ge 0\)&nbsp;: \(\sin\) est <strong>croissante</strong>. Sur \([\tfrac{\pi}{2};\pi]\), \(\cos(x)\le 0\), donc \(\sin\) est <strong>décroissante</strong>.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">3</span>
+            <p>Sur \([-\pi;0]\), on complète&nbsp;: cosinus est croissante par parité, et sinus est décroissante sur \([-\pi;-\tfrac{\pi}{2}]\) puis croissante sur \([-\tfrac{\pi}{2};0]\) par symétrie centrale.</p>
+          </div>
+        </div>
+
+        <p>On obtient les tableaux de variation suivants.</p>
+
+        <div class="formula-card">
+          \[ \begin{array}{c|ccccc}
+          x & -\pi & & 0 & & \pi \\
+          \hline
+          \cos & -1 & \nearrow & 1 & \searrow & -1
+          \end{array} \]
+        </div>
+
+        <div class="formula-card">
+          <p>Sur \([-\pi;-\tfrac{\pi}{2}]\)&nbsp;: \(\sin x\) descend de \(0\) à \(-1\).</p>
+          <p>Sur \([-\tfrac{\pi}{2};\tfrac{\pi}{2}]\)&nbsp;: \(\sin x\) monte de \(-1\) à \(1\).</p>
+          <p>Sur \([\tfrac{\pi}{2};\pi]\)&nbsp;: \(\sin x\) descend de \(1\) à \(0\).</p>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Règle courte</p>
+          <p>
+            Sur \([0;\pi]\)&nbsp;: cosinus <strong>descend</strong> de \(1\) à \(-1\)&nbsp;; sinus <strong>monte</strong> de \(0\) à \(1\) puis <strong>redescend</strong> à \(0\). Tout le reste se déduit par parité (symétrie) puis périodicité.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Mémo technique</p>
+          <p>
+            <strong>Sur \([0;\pi]\), cos descend et sin monte puis redescend.</strong>
+            Cosinus va de \(1\) à \(-1\). Sinus va de \(0\) à \(1\), puis revient à \(0\).
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Limite du mémo</p>
+          <p>
+            Cette phrase vaut sur \([0;\pi]\), pas sur tout \(\mathbb{R}\). Dans une copie,
+            nomme toujours l'intervalle étudié&nbsp;: une sinusoïde monte, descend, puis recommence par période.
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p>Étudier le sens de variation de \(f(x)=3x+\sin(x)\) sur \(\mathbb{R}\).</p>
+          <div class="formula-card">
+            \[ \begin{aligned} f'(x)&=3+\cos(x)\\ \cos(x)&\ge -1\\ f'(x)&\ge 3-1=2>0 \end{aligned} \]
+          </div>
+          <p>Donc \(f'(x)>0\) sur \(\mathbb{R}\)&nbsp;: la fonction \(f\) est <strong>strictement croissante</strong> sur \(\mathbb{R}\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Étape manquante</p>
+          <p>Soit \(g(x)=x+\cos(x)\). Calcule \(g'(x)\), puis déduis le signe de \(g'(x)\) sur \(\mathbb{R}\).</p>
+          <button class="reveal-button" type="button" data-reveal="var1">Voir la réponse</button>
+          <p id="var1" class="answer" hidden>\(g'(x)=1-\sin(x)\). Comme \(\sin(x)\le 1\), on a \(g'(x)\ge 0\). Donc \(g\) est croissante sur \(\mathbb{R}\) (et même strictement croissante sauf aux points où \(\sin(x)=1\)).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>Sur \([0;\pi]\), peut-on dire que \(\cos(x)\le \cos\!\left(\tfrac{\pi}{4}\right)\) pour tout \(x\ge\tfrac{\pi}{4}\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="var2">Voir la réponse</button>
+          <p id="var2" class="answer" hidden>Oui. Sur \([0;\pi]\), \(\cos\) est décroissante, donc plus \(x\) augmente, plus \(\cos(x)\) diminue. Pour \(x\ge\tfrac{\pi}{4}\), on a bien \(\cos(x)\le \cos\!\left(\tfrac{\pi}{4}\right)=\tfrac{\sqrt{2}}{2}\).</p>
+        </div>
+      </section>
+
+      <!-- ========== 04 · COURBES ========== -->
+      <section id="courbes" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">04</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Représentations</p>
+            <h2>Les sinusoïdes&nbsp;: lire \(\cos\) et \(\sin\) sur un graphe</h2>
+          </div>
+        </div>
+        <p>
+          Les courbes de \(\cos\) et \(\sin\) sont appelées des <strong>sinusoïdes</strong>. Elles oscillent
+          entre \(-1\) et \(1\) avec une période de \(2\pi\). Voir la courbe permet de répondre à beaucoup
+          de questions sans calcul&nbsp;: signe, position relative, comparaison de valeurs.
+        </p>
+
+        <figure class="visual-block interactive-graph quadratic-graph">
+          <div class="graph-stage">
+            <div id="ft-cosinus-board" class="jxgbox curve-board" data-chapter-curve="cosinus"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Courbe de \(\cos\) sur \([-2\pi;2\pi]\)</span>
+              <strong>Symétrique par rapport à l'axe (Oy)</strong>
+            </p>
+          </div>
+          <figcaption>
+            La courbe est paire&nbsp;: ce que tu vois à droite de l'axe \((Oy)\) est le miroir de ce que tu vois à gauche.
+          </figcaption>
+        </figure>
+
+        <figure class="visual-block interactive-graph quadratic-graph">
+          <div class="graph-stage">
+            <div id="ft-sinus-board" class="jxgbox curve-board" data-chapter-curve="sinus"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Courbe de \(\sin\) sur \([-2\pi;2\pi]\)</span>
+              <strong>Symétrique par rapport à \(O\)</strong>
+            </p>
+          </div>
+          <figcaption>
+            La courbe est impaire&nbsp;: la partie droite est le symétrique de la partie gauche par rapport à l'origine.
+          </figcaption>
+        </figure>
+
+        <figure class="visual-block interactive-graph quadratic-graph">
+          <div class="graph-stage">
+            <div id="ft-comparaison-board" class="jxgbox curve-board" data-chapter-curve="comparaison"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>\(\sin\) et \(\cos\) superposés</span>
+              <strong>Décalage horizontal de \(\tfrac{\pi}{2}\)</strong>
+            </p>
+          </div>
+          <figcaption>
+            Les deux sinusoïdes ont la même forme&nbsp;; \(\sin\) est la courbe de \(\cos\) translatée de \(\tfrac{\pi}{2}\) vers la droite. Autrement dit, \(\cos(x)=\sin\!\left(x+\tfrac{\pi}{2}\right)\).
+          </figcaption>
+        </figure>
+
+        <div class="c-callout c-callout--note">
+          <p class="c-callout__label"><span class="dot"></span>Lecture graphique</p>
+          <p>
+            Sur la courbe de cosinus, le maximum \(1\) est atteint en \(0\), \(2\pi\), \(4\pi\)… et le minimum \(-1\)
+            en \(\pi\), \(3\pi\)… Sur la courbe de sinus, le maximum \(1\) est atteint en \(\tfrac{\pi}{2}\), \(\tfrac{5\pi}{2}\)…
+            et le minimum \(-1\) en \(-\tfrac{\pi}{2}\), \(\tfrac{3\pi}{2}\)… Toutes ces valeurs se retrouvent en ajoutant \(2n\pi\), avec \(n\in\mathbb{Z}\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Lecture graphique</p>
+          <p>Sur la courbe de cosinus, où la courbe coupe-t-elle l'axe des abscisses sur \([0;2\pi]\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="courbes1">Voir la réponse</button>
+          <p id="courbes1" class="answer" hidden>En \(\tfrac{\pi}{2}\) et \(\tfrac{3\pi}{2}\). Ce sont les solutions de \(\cos(x)=0\) sur \([0;2\pi]\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Lecture graphique</p>
+          <p>Sur la courbe de sinus, où sinus est-il négatif sur \([0;2\pi]\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="courbes2">Voir la réponse</button>
+          <p id="courbes2" class="answer" hidden>Sur \(]\pi\,;\,2\pi[\). La courbe est sous l'axe entre ces deux valeurs, et s'annule en \(\pi\) et en \(2\pi\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Reconnaître une fonction</p>
+          <p>Une courbe oscille entre \(-2\) et \(2\) et passe par \((0;2)\). Est-ce plutôt \(2\cos(x)\) ou \(2\sin(x)\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="courbes3">Voir la réponse</button>
+          <p id="courbes3" class="answer" hidden>\(2\cos(x)\). En \(x=0\), on a \(2\cos(0)=2\) alors que \(2\sin(0)=0\). L'amplitude \(2\) vient du facteur multiplicatif devant.</p>
+        </div>
+      </section>
+
+      <!-- ========== 05 · EQUATIONS ========== -->
+      <section id="equations" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">05</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Méthode</p>
+            <h2>Résoudre \(\cos(x)=r\) et \(\sin(x)=r\)</h2>
+          </div>
+        </div>
+        <p>
+          Les équations trigonométriques se résolvent en deux temps&nbsp;: d'abord on trouve une <strong>solution particulière</strong>
+          \(a\) telle que \(\cos(a)=r\) (ou \(\sin(a)=r\)), puis on ajoute tous les tours complets \(2n\pi\),
+          avec \(n\in\mathbb{Z}\). La forme finale dépend de cos ou sin.
+        </p>
+
+        <div class="formula-card is-major">
+          <p>Pour \(n\in\mathbb{Z}\)&nbsp;:</p>
+          \[ \cos(x)=\cos(a) \]
+          <p>donne \(x=a+2n\pi\) ou \(x=-a+2n\pi\).</p>
+          \[ \sin(x)=\sin(a) \]
+          <p>donne \(x=a+2n\pi\) ou \(x=\pi-a+2n\pi\).</p>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Réflexe</p>
+          <p>
+            <strong>Cosinus cherche des miroirs gauche-droite&nbsp;: \(a\) et \(-a\).</strong>
+            <strong>Sinus cherche des miroirs de hauteur&nbsp;: \(a\) et \(\pi-a\).</strong>
+            Ensuite, \(+2n\pi\) ajoute tous les tours complets.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Intervalle portique</p>
+          <p>
+            Les familles dans \(\mathbb{R}\) donnent tous les candidats. Si l'énoncé impose un intervalle,
+            cet intervalle joue le rôle d'un portique&nbsp;: tu testes les valeurs de \(n\), puis tu gardes seulement
+            les angles qui passent dedans. Ne remplace pas \(-a+2n\pi\) par \(2\pi-a\) tant que tu n'as pas restreint
+            à un intervalle comme \([0;2\pi]\).
+          </p>
+        </div>
+
+        <div class="choice-grid">
+          <div class="choice-card">
+            <p class="box-title">Pourquoi deux familles&nbsp;?</p>
+            <p>Sur un tour de cercle, il y a deux angles qui donnent le même cosinus (\(a\) et \(-a\)) ou le même sinus (\(a\) et \(\pi-a\)). Le \(+2n\pi\) ajoute tous les tours suivants, avec \(n\) entier.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Condition d'existence</p>
+            <p>Une solution existe seulement si la valeur demandée \(r\) appartient à \([-1;1]\). Sinon, l'équation est impossible et il faut le dire dans la copie.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Cas particuliers</p>
+            <p>\(\cos(x)=1\Rightarrow x=2n\pi\)&nbsp;; \(\cos(x)=-1\Rightarrow x=\pi+2n\pi\)&nbsp;; \(\sin(x)=1\Rightarrow x=\tfrac{\pi}{2}+2n\pi\)&nbsp;; \(\sin(x)=0\Rightarrow x=n\pi\), avec \(n\in\mathbb{Z}\).</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Restreindre à un intervalle</p>
+            <p>Si l'énoncé demande les solutions sur \([0;2\pi]\), on garde uniquement les valeurs de \(x\) qui tombent dans cet intervalle (souvent 2, parfois 0 ou 4).</p>
+          </div>
+        </div>
+
+        <div class="worked-example">
+          <p>Résoudre \(\cos(x)=\tfrac{1}{2}\) dans \(\mathbb{R}\).</p>
+          <div class="formula-card">
+            \[ \tfrac{1}{2}=\cos\!\left(\tfrac{\pi}{3}\right) \]
+            \[ \cos(x)=\cos\!\left(\tfrac{\pi}{3}\right) \]
+            <p>Donc \(x=\tfrac{\pi}{3}+2n\pi\) ou \(x=-\tfrac{\pi}{3}+2n\pi\).</p>
+          </div>
+          <p>Les solutions sont \(x=\tfrac{\pi}{3}+2n\pi\) ou \(x=-\tfrac{\pi}{3}+2n\pi\), avec \(n\in\mathbb{Z}\).</p>
+        </div>
+
+        <div class="worked-example">
+          <p>Résoudre \(\sin(x)=\tfrac{\sqrt{2}}{2}\) dans \(\mathbb{R}\).</p>
+          <div class="formula-card">
+            \[ \tfrac{\sqrt{2}}{2}=\sin\!\left(\tfrac{\pi}{4}\right) \]
+            \[ \sin(x)=\sin\!\left(\tfrac{\pi}{4}\right) \]
+            <p>Première famille&nbsp;: \(x=\tfrac{\pi}{4}+2n\pi\).</p>
+            <p>Deuxième famille&nbsp;: \(x=\tfrac{3\pi}{4}+2n\pi\).</p>
+          </div>
+          <p>Les solutions sont \(\tfrac{\pi}{4}+2n\pi\) et \(\tfrac{3\pi}{4}+2n\pi\), pour \(n\in\mathbb{Z}\).</p>
+        </div>
+
+        <figure class="visual-block interactive-graph quadratic-graph">
+          <div class="graph-stage">
+            <div id="ft-equation-board" class="jxgbox curve-board" data-chapter-curve="equationCos"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Lecture graphique de \(\cos(x)=\tfrac{1}{2}\)</span>
+              <strong>2 solutions par période</strong>
+            </p>
+          </div>
+          <figcaption>
+            La droite horizontale \(y=\tfrac{1}{2}\) coupe la courbe \(\cos\) deux fois par période. Sur une période, ces deux abscisses sont \(\tfrac{\pi}{3}\) et \(-\tfrac{\pi}{3}\) (ou \(\tfrac{5\pi}{3}\)).
+          </figcaption>
+        </figure>
+
+        <div class="worked-example">
+          <p>Résoudre \(\cos(x)=\tfrac{1}{2}\) sur \([0;2\pi]\) (intervalle restreint).</p>
+          <div class="formula-card">
+            <p>Famille 1&nbsp;: \(x=\tfrac{\pi}{3}+2n\pi\).</p>
+            <p>Famille 2&nbsp;: \(x=-\tfrac{\pi}{3}+2n\pi\).</p>
+            <p>Avec \(n=0\)&nbsp;: \(\tfrac{\pi}{3}\) est gardé, \(-\tfrac{\pi}{3}\) est hors de \([0;2\pi]\).</p>
+            <p>Avec \(n=1\)&nbsp;: \(\tfrac{\pi}{3}+2\pi\) est hors intervalle, et \(-\tfrac{\pi}{3}+2\pi=\tfrac{5\pi}{3}\) est gardé.</p>
+          </div>
+          <p>Sur \([0;2\pi]\), les solutions sont \(\tfrac{\pi}{3}\) et \(\tfrac{5\pi}{3}\). Méthode&nbsp;: on liste les \(x\) donnés par les deux familles, et on garde ceux qui tombent dans l'intervalle.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Portique d'intervalle</p>
+          <p>Dans la famille \(x=-\tfrac{\pi}{3}+2n\pi\), quelles valeurs de \(n\) donnent une solution dans \([0;2\pi]\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="eq4">Voir la réponse</button>
+          <p id="eq4" class="answer" hidden>Avec \(n=0\), on obtient \(-\tfrac{\pi}{3}\), hors de \([0;2\pi]\). Avec \(n=1\), on obtient \(-\tfrac{\pi}{3}+2\pi=\tfrac{5\pi}{3}\), qui est gardé. Avec \(n=2\), on dépasse \(2\pi\). Le portique garde donc seulement \(\tfrac{5\pi}{3}\) pour cette famille.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Étape manquante</p>
+          <p>Pour résoudre \(\sin(x)=\tfrac{\sqrt{3}}{2}\), quelle valeur particulière \(a\) choisir&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="eq1">Voir la réponse</button>
+          <p id="eq1" class="answer" hidden>\(a=\tfrac{\pi}{3}\), car \(\sin\!\left(\tfrac{\pi}{3}\right)=\tfrac{\sqrt{3}}{2}\). Les solutions sont donc \(x=\tfrac{\pi}{3}+2n\pi\) ou \(x=\pi-\tfrac{\pi}{3}+2n\pi=\tfrac{2\pi}{3}+2n\pi\), avec \(n\in\mathbb{Z}\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>Combien de solutions a \(\cos(x)=\tfrac{\sqrt{2}}{2}\) sur \([0;2\pi]\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="eq2">Voir la réponse</button>
+          <p id="eq2" class="answer" hidden>Deux&nbsp;: \(\tfrac{\pi}{4}\) et \(2\pi-\tfrac{\pi}{4}=\tfrac{7\pi}{4}\). Sur un intervalle de longueur \(2\pi\), il y a généralement 2 solutions (sauf cas particulier où la valeur demandée vaut \(1\) ou \(-1\), où il n'y en a qu'une).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Piège</p>
+          <p>Que répondre à \(\cos(x)=-\tfrac{1}{2}\)&nbsp;? (attention au signe)</p>
+          <button class="reveal-button" type="button" data-reveal="eq3">Voir la réponse</button>
+          <p id="eq3" class="answer" hidden>On cherche \(a\) tel que \(\cos(a)=-\tfrac{1}{2}\). On a \(\cos\!\left(\tfrac{2\pi}{3}\right)=-\tfrac{1}{2}\). Donc \(x=\tfrac{2\pi}{3}+2n\pi\) ou \(x=-\tfrac{2\pi}{3}+2n\pi\), avec \(n\in\mathbb{Z}\).</p>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Choix de méthode</p>
+          <p>
+            Avant de calculer, repère ce que l'énoncé demande. Une équation, une symétrie, une période
+            et une variation ne déclenchent pas la même preuve.
+          </p>
+        </div>
+
+        <div class="choice-grid" aria-label="Choisir la bonne méthode dans un exercice trigonométrique">
+          <div class="choice-card">
+            <p class="box-title">L'énoncé demande une parité</p>
+            <p>Calcule \(f(-x)\), puis compare à \(f(x)\) et à \(-f(x)\). Ne conclus jamais seulement parce que tu reconnais un sinus ou un cosinus.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">L'énoncé demande une période</p>
+            <p>Calcule \(f(x+T)\) avec le \(T\) proposé. Pour \(\sin(\omega x)\) ou \(\cos(\omega x)\), teste souvent \(T=\tfrac{2\pi}{\omega}\).</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">L'énoncé demande une variation</p>
+            <p>Dérive, puis encadre \(\sin\) ou \(\cos\) avec \(-1\le\sin x\le1\) et \(-1\le\cos x\le1\), ou utilise leur signe sur l'intervalle demandé.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">L'énoncé demande une équation</p>
+            <p>Vérifie d'abord que la valeur appartient à \([-1;1]\), choisis une valeur particulière \(a\), puis écris les deux familles avec \(n\in\mathbb{Z}\).</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 06 · REDACTION ========== -->
+      <section id="redaction" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">06</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Copie notée</p>
+            <h2>Rédiger comme en contrôle</h2>
+          </div>
+        </div>
+        <p>
+          Le bon résultat ne suffit pas toujours. Pour une équation trigonométrique, il faut écrire la
+          valeur particulière, citer la propriété utilisée, donner les deux familles de solutions, et conclure
+          proprement avec \(n\in\mathbb{Z}\), où \(n\) est le nombre de tours complets ajoutés.
+        </p>
+
+        <div class="copy-grid">
+          <div class="c-callout c-callout--warn">
+            <p class="c-callout__label"><span class="dot"></span>Brouillon insuffisant</p>
+            <p>\(\cos(x)=\tfrac{\sqrt{2}}{2}\)&nbsp;: \(x=\tfrac{\pi}{4}\).</p>
+            <p class="penalty">on oublie la deuxième famille, on oublie \(+2n\pi\), et on n'écrit pas l'ensemble final. Note attendue&nbsp;: 1/3.</p>
+          </div>
+
+          <div class="worked-example">
+            <p>Résoudre \(\cos(x)=\tfrac{\sqrt{2}}{2}\) dans \(\mathbb{R}\).</p>
+            <div class="formula-card">
+              \[ \tfrac{\sqrt{2}}{2}=\cos\!\left(\tfrac{\pi}{4}\right) \]
+              \[ \cos(x)=\cos\!\left(\tfrac{\pi}{4}\right) \]
+              <p>Première famille&nbsp;: \(x=\tfrac{\pi}{4}+2n\pi\).</p>
+              <p>Deuxième famille&nbsp;: \(x=-\tfrac{\pi}{4}+2n\pi\).</p>
+            </div>
+            <p>
+              L'ensemble des solutions de l'équation dans \(\mathbb{R}\) est&nbsp;:
+              \(S=\left\{\tfrac{\pi}{4}+2n\pi\,;\,-\tfrac{\pi}{4}+2n\pi\mid n\in\mathbb{Z}\right\}\).
+            </p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Points qui rapportent</p>
+          <ul class="score-list">
+            <li>Identifier une valeur particulière \(a\) telle que \(\cos(a)=k\), avec \(a\) issu des valeurs remarquables.</li>
+            <li>Écrire l'équation sous la forme \(\cos(x)=\cos(a)\) avant d'appliquer la propriété.</li>
+            <li>Donner les <strong>deux familles</strong> de solutions, sans oublier \(+2n\pi\) et \(n\in\mathbb{Z}\).</li>
+            <li>Conclure avec un ensemble \(S=\{\dots\mid n\in\mathbb{Z}\}\) propre.</li>
+            <li>Si l'énoncé restreint à \([0;2\pi]\), donner uniquement les solutions qui y tombent et le justifier.</li>
+          </ul>
+        </div>
+
+        <div class="copy-grid">
+          <div class="c-callout c-callout--warn">
+            <p class="c-callout__label"><span class="dot"></span>Brouillon insuffisant — parité</p>
+            <p>\(f(x)=x^2\cos(x)\) est paire car \(\cos\) est paire.</p>
+            <p class="penalty">on saute le calcul de \(f(-x)\). Sans \(\forall x\in\mathbb{R}\) et sans manipulation explicite, la justification ne rapporte pas tous les points.</p>
+          </div>
+
+          <div class="worked-example">
+            <p>Étudier la parité de \(f(x)=x^2\cos(x)\) sur \(\mathbb{R}\).</p>
+            <div class="formula-card">
+              <p>Pour tout \(x\in\mathbb{R}\)&nbsp;:</p>
+              \[ \begin{aligned} f(-x)&=(-x)^2\cos(-x)\\ &=x^2\cos(x)\\ &=f(x) \end{aligned} \]
+            </div>
+            <p>
+              Donc, pour tout réel \(x\), \(f(-x)=f(x)\)&nbsp;: la fonction \(f\) est <strong>paire</strong> sur \(\mathbb{R}\).
+              Sa courbe est symétrique par rapport à l'axe des ordonnées.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 07 · PIEGES ========== -->
+      <section id="pieges" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">07</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Erreurs fréquentes</p>
+            <h2>Les pièges qui coûtent des points</h2>
+          </div>
+        </div>
+        <p>
+          Plus que les formules, ce sont quelques erreurs récurrentes qui font perdre des points. Apprends à les reconnaître
+          avant de te corriger.
+        </p>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 1 — Oublier la deuxième famille</p>
+          <p>
+            Quand on écrit \(\cos(x)=\cos(a)\), il y a <strong>deux</strong> familles de solutions&nbsp;: \(a+2n\pi\) <em>et</em> \(-a+2n\pi\).
+            Écrire seulement \(x=a+2n\pi\) coûte la moitié des points.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 2 — Confondre les deux propriétés</p>
+          <p>
+            Pour cosinus, la deuxième famille est \(-a+2n\pi\). Pour sinus, c'est \(\pi-a+2n\pi\). Inverser les deux est l'erreur la plus fréquente du chapitre.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 3 — Oublier \(n\in\mathbb{Z}\)</p>
+          <p>
+            Écrire \(x=\tfrac{\pi}{3}+2n\pi\) sans préciser \(n\in\mathbb{Z}\) laisse l'ensemble de solutions indéterminé.
+            La phrase finale doit toujours mentionner \(n\in\mathbb{Z}\).
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 4 — Confondre \(\sin^2\) et \(\sin(\cdot^2)\)</p>
+          <p>
+            \(\sin^2(x)\) signifie \((\sin x)^2\). C'est différent de \(\sin(x^2)\). De même, \(\cos^2(x)+\sin^2(x)=1\),
+            ce n'est <strong>pas</strong> \(\cos(x^2)+\sin(x^2)=1\).
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 5 — Croire qu'on peut simplifier \(\cos(2x)\) en \(2\cos(x)\)</p>
+          <p>
+            <strong>Faux.</strong> Cosinus n'est pas linéaire. En général, \(\cos(2x)\ne 2\cos(x)\)&nbsp;: par exemple \(\cos(2\cdot 0)=1\) mais \(2\cos(0)=2\).
+            La formule correcte est \(\cos(2x)=2\cos^2(x)-1\).
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 6 — Période de \(\cos(\omega x)\)</p>
+          <p>
+            Quand un coefficient \(\omega>0\) multiplie \(x\) à l'intérieur, la période devient \(\tfrac{2\pi}{\omega}\), pas \(2\pi\). Pour \(\cos(2x)\), la période est \(\pi\), pas \(2\pi\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Repère le piège</p>
+          <p>Un élève écrit&nbsp;: «&nbsp;\(\sin(x)=\tfrac{1}{2}\) donc \(x=\tfrac{\pi}{6}\)&nbsp;». Qu'est-ce qui manque&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="piege1">Voir la réponse</button>
+          <p id="piege1" class="answer" hidden>Il manque la deuxième famille \(\pi-\tfrac{\pi}{6}=\tfrac{5\pi}{6}\), et le \(+2n\pi\) sur les deux familles. Réponse complète&nbsp;: \(x=\tfrac{\pi}{6}+2n\pi\) ou \(x=\tfrac{5\pi}{6}+2n\pi\), \(n\in\mathbb{Z}\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Repère le piège</p>
+          <p>«&nbsp;\(\cos(3x)\) a pour période \(2\pi\)&nbsp;». Vrai ou faux&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="piege2">Voir la réponse</button>
+          <p id="piege2" class="answer" hidden>Faux. La période est \(\tfrac{2\pi}{3}\). On vérifie&nbsp;: \(\cos\!\big(3(x+\tfrac{2\pi}{3})\big)=\cos(3x+2\pi)=\cos(3x)\).</p>
+        </div>
+      </section>
+
+      <!-- ========== G · EXERCICES GUIDES ========== -->
+      <section id="guides" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">G</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Exercices guidés</p>
+            <h2>L'aide disparaît progressivement</h2>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 1 — Reconnaître la parité</h3>
+            <span class="difficulty" aria-label="Niveau comprendre">Comprendre</span>
+          </div>
+          <p>Les fonctions suivantes, toutes définies sur \(\mathbb{R}\), sont-elles paires, impaires, ou ni l'une ni l'autre&nbsp;?</p>
+          <div class="formula-card">
+            \[ f(x)=3+\cos(x) \]
+            \[ g(x)=\tfrac{\sin(x)}{x^2+1} \]
+            \[ h(x)=x^3+x \]
+            \[ k(x)=4x+3 \]
+          </div>
+          <p class="hint-line">calcule \(f(-x)\) et compare à \(f(x)\) puis à \(-f(x)\).</p>
+          <button class="reveal-button" type="button" data-reveal="guide1">Voir le corrigé</button>
+          <div id="guide1" class="answer" hidden>
+            <p>\(f(-x)=3+\cos(-x)=3+\cos(x)=f(x)\). Donc \(f\) est <strong>paire</strong>.</p>
+            <p>\(g(-x)=\tfrac{\sin(-x)}{(-x)^2+1}=\tfrac{-\sin(x)}{x^2+1}=-g(x)\). Donc \(g\) est <strong>impaire</strong>.</p>
+            <p>\(h(-x)=(-x)^3+(-x)=-x^3-x=-h(x)\). Donc \(h\) est <strong>impaire</strong>.</p>
+            <p>\(k(1)=7\) et \(k(-1)=-1\). On a \(k(-1)\ne k(1)\) et \(k(-1)\ne -k(1)\), donc \(k\) n'est <strong>ni paire ni impaire</strong>.</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 2 — Démontrer une période</h3>
+            <span class="difficulty" aria-label="Niveau savoir refaire">Savoir refaire</span>
+          </div>
+          <p>Soit \(g\) la fonction définie sur \(\mathbb{R}\) par \(g(x)=3+4\sin(3x)\). Montrer que \(g\) est périodique de période \(T=\tfrac{2\pi}{3}\).</p>
+          <p class="hint-line">calcule \(g\!\left(x+\tfrac{2\pi}{3}\right)\) et utilise \(\sin(\theta+2\pi)=\sin(\theta)\).</p>
+          <button class="reveal-button" type="button" data-reveal="guide2">Voir le corrigé</button>
+          <div id="guide2" class="answer" hidden>
+            <div class="formula-card">
+              <p>\(3\left(x+\tfrac{2\pi}{3}\right)=3x+2\pi\).</p>
+              <p>Donc \(\sin\left(3x+2\pi\right)=\sin(3x)\).</p>
+              <p>Ainsi \(g\left(x+\tfrac{2\pi}{3}\right)=3+4\sin(3x)=g(x)\).</p>
+            </div>
+            <p>Donc, pour tout réel \(x\), \(g\!\left(x+\tfrac{2\pi}{3}\right)=g(x)\)&nbsp;: la fonction \(g\) est périodique de période \(\tfrac{2\pi}{3}\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 3 — Équation \(\cos(x)=r\)</h3>
+            <span class="difficulty" aria-label="Niveau savoir refaire">Savoir refaire</span>
+          </div>
+          <p>Résoudre dans \(\mathbb{R}\) l'équation \(\cos(x)=-\tfrac{\sqrt{2}}{2}\).</p>
+          <p class="hint-line">cherche \(a\) tel que \(\cos(a)=-\tfrac{\sqrt{2}}{2}\). Tu peux écrire \(-\tfrac{\sqrt{2}}{2}=\cos\!\left(\pi-\tfrac{\pi}{4}\right)\).</p>
+          <button class="reveal-button" type="button" data-reveal="guide3">Voir le corrigé</button>
+          <div id="guide3" class="answer" hidden>
+            <div class="formula-card">
+              \[ -\tfrac{\sqrt{2}}{2}=\cos\!\left(\tfrac{3\pi}{4}\right) \]
+              \[ \cos(x)=\cos\!\left(\tfrac{3\pi}{4}\right) \]
+              <p>Première famille&nbsp;: \(x=\tfrac{3\pi}{4}+2n\pi\).</p>
+              <p>Deuxième famille&nbsp;: \(x=-\tfrac{3\pi}{4}+2n\pi\).</p>
+            </div>
+            <p>L'ensemble des solutions est \(S=\left\{\tfrac{3\pi}{4}+2n\pi\,;\,-\tfrac{3\pi}{4}+2n\pi\mid n\in\mathbb{Z}\right\}\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 4 — Sens de variation</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>Étudier le sens de variation sur \(\mathbb{R}\) de la fonction \(f\) définie par \(f(x)=9x+3\cos(2x-1)\).</p>
+          <p class="hint-line">utilise \(\cos'(u)=-u'\sin(u)\) avec \(u(x)=2x-1\).</p>
+          <button class="reveal-button" type="button" data-reveal="guide4">Voir le corrigé</button>
+          <div id="guide4" class="answer" hidden>
+            <div class="formula-card">
+              <p>\(f'(x)=9-6\sin(2x-1)\).</p>
+              <p>Comme \(\sin(2x-1)\le 1\), on a \(-6\sin(2x-1)\ge -6\).</p>
+              <p>Donc \(f'(x)\ge 9-6=3>0\).</p>
+            </div>
+            <p>Donc \(f'(x)>0\) sur \(\mathbb{R}\)&nbsp;: la fonction \(f\) est <strong>strictement croissante</strong> sur \(\mathbb{R}\).</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Bilan d'étape</p>
+          <p>
+            Avant de passer au niveau contrôle, tu dois savoir&nbsp;: lire les valeurs remarquables sans calculatrice,
+            démontrer une parité et une période avec un calcul propre, et résoudre une équation \(\cos(x)=r\) ou
+            \(\sin(x)=r\) en donnant les deux familles. Si tu hésites encore, reviens à la section&nbsp;05 avant les exercices contrôle.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== C · CONTROLE ========== -->
+      <section id="controle" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">C</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Niveau contrôle</p>
+            <h2>Exercices à réussir sans aide</h2>
+          </div>
+        </div>
+        <p>Essaie d'abord sur feuille. Ouvre le corrigé seulement après avoir écrit une méthode complète, avec toutes les familles de solutions et la conclusion \(n\in\mathbb{Z}\).</p>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Contrôle 1 — Étude d'une fonction trigonométrique</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>Soit \(f\) la fonction définie sur \(\mathbb{R}\) par \(f(x)=x+\sin(x)\). On note \(\mathcal{C}\) sa courbe représentative et \(\mathcal{D}\) la droite d'équation \(y=x\).</p>
+          <ol class="exercise-list">
+            <li>Étudier la parité de \(f\). En déduire une propriété géométrique de \(\mathcal{C}\).</li>
+            <li>Montrer que, pour tout réel \(x\), \(f(x+2\pi)=f(x)+2\pi\). Interpréter géométriquement.</li>
+            <li>Étudier le signe de \(h(x)=f(x)-x\) sur \([0;2\pi]\). En déduire la position relative de \(\mathcal{C}\) et \(\mathcal{D}\) sur cet intervalle.</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="controle1">Voir le corrigé</button>
+          <div id="controle1" class="answer" hidden>
+            <p><strong>1.</strong> \(f(-x)=-x+\sin(-x)=-x-\sin(x)=-(x+\sin(x))=-f(x)\). Donc \(f\) est <strong>impaire</strong> sur \(\mathbb{R}\). La courbe \(\mathcal{C}\) est symétrique par rapport à l'origine \(O\) du repère.</p>
+            <p><strong>2.</strong> \(f(x+2\pi)=(x+2\pi)+\sin(x+2\pi)=x+2\pi+\sin(x)=f(x)+2\pi\). Géométriquement, on passe d'un point de \(\mathcal{C}\) au suivant par translation de vecteur \((2\pi\,;\,2\pi)\), parallèle à la droite \(\mathcal{D}\).</p>
+            <p><strong>3.</strong> \(h(x)=f(x)-x=\sin(x)\). Sur \([0;2\pi]\), \(\sin(x)\ge 0\) sur \([0;\pi]\) et \(\sin(x)\le 0\) sur \([\pi;2\pi]\). Donc&nbsp;: \(\mathcal{C}\) est <strong>au-dessus</strong> de \(\mathcal{D}\) sur \([0;\pi]\), <strong>en-dessous</strong> sur \([\pi;2\pi]\), et les deux courbes se coupent en \(x=0\), \(x=\pi\) et \(x=2\pi\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Contrôle 2 — Respiration (modélisation)</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>La vitesse du flux d'air (en L/s) lors de la respiration d'une personne au repos est modélisée par&nbsp;:</p>
+          <div class="formula-card">
+            \[ f(t)=0{,}6\sin\!\left(\tfrac{2\pi}{5}t\right) \]
+          </div>
+          <ol class="exercise-list">
+            <li>Vérifier que la période du cycle respiratoire est de 5 secondes.</li>
+            <li>À quels instants du cycle, entre \(0\) et \(5\) s, la personne inspire-t-elle \(0{,}3\) L/s&nbsp;? (\(f(t)>0\) = inspiration)</li>
+            <li>À quels instants expire-t-elle \(0{,}3\) L/s&nbsp;? (\(f(t)<0\) = expiration)</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="controle2">Voir le corrigé</button>
+          <div id="controle2" class="answer" hidden>
+            <p><strong>1.</strong> \(f(t+5)=0{,}6\sin\!\left(\tfrac{2\pi}{5}(t+5)\right)=0{,}6\sin\!\left(\tfrac{2\pi}{5}t+2\pi\right)=0{,}6\sin\!\left(\tfrac{2\pi}{5}t\right)=f(t)\). Donc la période est bien \(5\) s.</p>
+            <p><strong>2.</strong> Inspiration à \(0{,}3\) L/s&nbsp;: \(0{,}6\sin\!\left(\tfrac{2\pi}{5}t\right)=0{,}3\), donc \(\sin\!\left(\tfrac{2\pi}{5}t\right)=\tfrac{1}{2}=\sin\!\left(\tfrac{\pi}{6}\right)\). On obtient \(\tfrac{2\pi}{5}t=\tfrac{\pi}{6}+2n\pi\) ou \(\tfrac{2\pi}{5}t=\tfrac{5\pi}{6}+2n\pi\), soit \(t=\tfrac{5}{12}\) s ou \(t=\tfrac{25}{12}\) s sur \([0;5]\) (environ \(0{,}42\) s et \(2{,}08\) s).</p>
+            <p><strong>3.</strong> Expiration à \(-0{,}3\) L/s&nbsp;: \(\sin\!\left(\tfrac{2\pi}{5}t\right)=-\tfrac{1}{2}\). Les solutions sur \([0;5]\) sont \(t=\tfrac{35}{12}\approx 2{,}92\) s et \(t=\tfrac{55}{12}\approx 4{,}58\) s.</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Contrôle 3 — Reconnaître une courbe</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>On considère trois fonctions définies sur \(\mathbb{R}\)&nbsp;:</p>
+          <div class="formula-card">
+            \[ f(x)=\cos(x)+1 \]
+            \[ g(x)=2\cos(x) \]
+            \[ h(x)=-\cos(x) \]
+          </div>
+          <ol class="exercise-list">
+            <li>Quelle est l'amplitude (différence max − min divisée par 2) de chacune&nbsp;?</li>
+            <li>Que valent \(f(0)\), \(g(0)\), \(h(0)\)&nbsp;? Comment cela aide-t-il à reconnaître chaque courbe&nbsp;?</li>
+            <li>Quelle fonction prend la valeur \(0\) pour la première fois en \(x=0\)&nbsp;?</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="controle3">Voir le corrigé</button>
+          <div id="controle3" class="answer" hidden>
+            <p><strong>1.</strong> \(f\) oscille entre \(0\) et \(2\), amplitude \(1\). \(g\) oscille entre \(-2\) et \(2\), amplitude \(2\). \(h\) oscille entre \(-1\) et \(1\), amplitude \(1\).</p>
+            <p><strong>2.</strong> \(f(0)=2\), \(g(0)=2\), \(h(0)=-1\). \(f\) et \(g\) passent par leur maximum en \(0\), \(h\) passe par son minimum.</p>
+            <p><strong>3.</strong> Aucune. Aucune des trois ne s'annule en \(0\) (\(f(0)=2\), \(g(0)=2\), \(h(0)=-1\)).</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 20 · CAP 20/20 ========== -->
+      <section id="vingt-sur-vingt" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">20</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Cap 20/20</p>
+            <h2>Pas de raccourci&nbsp;: passe la porte avant</h2>
+          </div>
+        </div>
+
+        <div class="c-gate">
+          <p class="c-gate__label">Porte d'entrée</p>
+          <p class="c-gate__title">Deux exercices contrôle réussis sans corrigé</p>
+          <p>
+            Avant de tenter ces exercices, réussis au moins deux exercices de la section&nbsp;contrôle sans ouvrir le corrigé.
+            Sinon, retourne à la section&nbsp;05 (Équations) et à la section&nbsp;03 (Variations) avant.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Réflexe 20/20</p>
+          <p>
+            <strong>Équation = points, inéquation = zones.</strong>
+            Une équation trigonométrique donne des angles isolés. Une inéquation commence par les mêmes angles-frontières,
+            puis demande de choisir les arcs ou intervalles où la condition est vraie.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège d'inéquation</p>
+          <p>
+            Ne rends pas seulement les frontières. Avec \(\le\) ou \(\ge\), les frontières sont incluses&nbsp;;
+            avec \(<\) ou \(>\), elles sont exclues. Sur \([0;2\pi]\), une zone peut aussi être coupée en deux morceaux
+            autour de \(0\) et \(2\pi\).
+          </p>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Étude complète d'une fonction trigonométrique</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>Soit \(f\) la fonction définie sur \(\mathbb{R}\) par&nbsp;:</p>
+          <div class="formula-card">
+            \[ f(x)=\tfrac{1}{2+\cos(x)} \]
+          </div>
+          <ol class="exercise-list">
+            <li>Justifier que \(f\) est bien définie sur \(\mathbb{R}\).</li>
+            <li>Étudier la parité de \(f\). Conjecturer puis démontrer la période.</li>
+            <li>Justifier qu'on peut étudier \(f\) seulement sur \([0;\pi]\).</li>
+            <li>On admet que \(f'(x)=\tfrac{\sin(x)}{(2+\cos(x))^2}\). En déduire le sens de variation de \(f\) sur \([0;\pi]\), puis dresser son tableau de variation sur \([-\pi;\pi]\).</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="vingt1">Voir le corrigé</button>
+          <div id="vingt1" class="answer" hidden>
+            <p><strong>1.</strong> Pour tout réel \(x\), \(\cos(x)\ge -1\), donc \(2+\cos(x)\ge 1>0\). Le dénominateur ne s'annule jamais, donc \(f\) est bien définie sur \(\mathbb{R}\).</p>
+            <p><strong>2.</strong> \(f(-x)=\tfrac{1}{2+\cos(-x)}=\tfrac{1}{2+\cos(x)}=f(x)\)&nbsp;: \(f\) est <strong>paire</strong>. \(f(x+2\pi)=\tfrac{1}{2+\cos(x+2\pi)}=\tfrac{1}{2+\cos(x)}=f(x)\)&nbsp;: \(f\) est périodique de période \(2\pi\).</p>
+            <p><strong>3.</strong> Par périodicité, on étudie \(f\) sur un intervalle de longueur \(2\pi\), par exemple \([-\pi;\pi]\). Par parité, la courbe est symétrique par rapport à \((Oy)\)&nbsp;: il suffit d'étudier sur \([0;\pi]\) et on complète par symétrie.</p>
+            <p><strong>4.</strong> Sur \([0;\pi]\), \(\sin(x)\ge 0\) et \((2+\cos(x))^2>0\), donc \(f'(x)\ge 0\)&nbsp;: \(f\) est <strong>croissante</strong>. \(f(0)=\tfrac{1}{2+1}=\tfrac{1}{3}\) et \(f(\pi)=\tfrac{1}{2-1}=1\). Sur \([-\pi;0]\), par parité, \(f\) est décroissante de \(1\) à \(\tfrac{1}{3}\). Tableau&nbsp;: \(f\) passe de \(1\) (en \(-\pi\)) à \(\tfrac{1}{3}\) (en \(0\)) puis remonte à \(1\) (en \(\pi\)).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Composition et période</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>Soit \(f\) la fonction définie sur \(\mathbb{R}\) par \(f(x)=\sin(x)\cos(x)\).</p>
+          <ol class="exercise-list">
+            <li>Étudier la parité de \(f\).</li>
+            <li>Montrer que \(f\) est \(\pi\)-périodique (et pas seulement \(2\pi\)-périodique).</li>
+            <li>En utilisant la formule \(\sin(2x)=2\sin(x)\cos(x)\), réécrire \(f(x)\) sous une forme simple.</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="vingt2">Voir le corrigé</button>
+          <div id="vingt2" class="answer" hidden>
+            <p><strong>1.</strong> \(f(-x)=\sin(-x)\cos(-x)=(-\sin x)(\cos x)=-\sin(x)\cos(x)=-f(x)\). Donc \(f\) est <strong>impaire</strong>.</p>
+            <p><strong>2.</strong> \(f(x+\pi)=\sin(x+\pi)\cos(x+\pi)=(-\sin x)(-\cos x)=\sin(x)\cos(x)=f(x)\). Donc \(f\) est \(\pi\)-périodique.</p>
+            <p><strong>3.</strong> \(f(x)=\sin(x)\cos(x)=\tfrac{1}{2}\sin(2x)\). On voit alors directement que la période est \(\tfrac{2\pi}{2}=\pi\), et que les valeurs oscillent entre \(-\tfrac{1}{2}\) et \(\tfrac{1}{2}\).</p>
+          </div>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Frontières ou zones&nbsp;?</p>
+          <p>Pourquoi la réponse à \(\cos(x)\ge\tfrac{1}{2}\) sur \([0;2\pi]\) ne peut-elle pas être seulement \(\left\{\tfrac{\pi}{3};\tfrac{5\pi}{3}\right\}\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="vingt4">Voir la réponse</button>
+          <p id="vingt4" class="answer" hidden>Parce que \(\tfrac{\pi}{3}\) et \(\tfrac{5\pi}{3}\) sont seulement les frontières où \(\cos(x)=\tfrac{1}{2}\). L'inéquation demande toute la zone où le cosinus est au-dessus ou égal à \(\tfrac{1}{2}\)&nbsp;: \(\left[0;\tfrac{\pi}{3}\right]\cup\left[\tfrac{5\pi}{3};2\pi\right]\).</p>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Inéquation trigonométrique</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>Résoudre, sur l'intervalle \([0;2\pi]\), l'inéquation&nbsp;:</p>
+          <div class="formula-card">
+            \[ \cos(x)\ge \tfrac{1}{2} \]
+          </div>
+          <p class="hint-line">utilise la lecture sur le cercle ou sur la courbe de \(\cos\).</p>
+          <button class="reveal-button" type="button" data-reveal="vingt3">Voir le corrigé</button>
+          <div id="vingt3" class="answer" hidden>
+            <p>D'après les valeurs remarquables, \(\cos\!\left(\tfrac{\pi}{3}\right)=\tfrac{1}{2}\) et \(\cos\!\left(-\tfrac{\pi}{3}\right)=\tfrac{1}{2}\), soit \(\cos\!\left(\tfrac{5\pi}{3}\right)=\tfrac{1}{2}\) sur \([0;2\pi]\).</p>
+            <p>Sur le cercle trigonométrique, \(\cos(x)\ge\tfrac{1}{2}\) correspond aux points dont l'abscisse est supérieure ou égale à \(\tfrac{1}{2}\), c'est-à-dire les angles proches de \(0\).</p>
+            <p>L'ensemble des solutions sur \([0;2\pi]\) est donc \(S=\left[0\,;\,\tfrac{\pi}{3}\right]\cup\left[\tfrac{5\pi}{3}\,;\,2\pi\right]\).</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== R · REVISION ========== -->
+      <section id="revision" class="chapter-section recap-section">
+        <div class="section-marker">
+          <div class="section-marker__num">R</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Mini-révision mélangée</p>
+            <h2>Ce que tu dois revoir ensuite</h2>
+          </div>
+        </div>
+        <p>
+          Un contrôle ne te dira pas «&nbsp;utilise la parité&nbsp;». Tu dois reconnaître les déclencheurs et choisir
+          la bonne propriété. Cette section sert d'auto-diagnostic après le chapitre.
+        </p>
+
+        <div class="revision-grid">
+          <div class="revision-card">
+            <p class="box-title">Si tu as raté les équations</p>
+            <p>Refais Guidé 3 puis Contrôle 2. Vérifie que tu écris bien <strong>les deux familles</strong> et \(n\in\mathbb{Z}\) à chaque fois.</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Si tu as confondu parité et période</p>
+            <p>Reprends la section&nbsp;02. La parité teste \(f(-x)\), la période teste \(f(x+T)\). Ce sont deux calculs différents.</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Si tu as oublié les valeurs remarquables</p>
+            <p>Refais la table de la section&nbsp;01 à la main, sans regarder. Vise \(0\), \(\tfrac{\pi}{6}\), \(\tfrac{\pi}{4}\), \(\tfrac{\pi}{3}\), \(\tfrac{\pi}{2}\), \(\pi\).</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Mélange avec dérivation</p>
+            <p>Les dérivées \(\cos'=-\sin\) et \(\sin'=\cos\) reviennent dans presque toutes les études de fonctions de Première. Reprends Guidé 4 et l'étude du 20/20 quand tu auras vu le chapitre dérivation.</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Mélange avec géométrie</p>
+            <p>Le cercle trigonométrique est la base&nbsp;: si tu hésites sur \(\sin\!\left(\tfrac{2\pi}{3}\right)\) ou \(\cos\!\left(\tfrac{5\pi}{6}\right)\), reprends le cercle, place l'angle, lis les coordonnées du point.</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Mélange avec produit scalaire</p>
+            <p>En géométrie, \(\vec{u}\cdot\vec{v}=\|\vec{u}\|\,\|\vec{v}\|\cos(\theta)\) fera apparaître naturellement la fonction cosinus. Garder une lecture rapide des valeurs remarquables est un avantage net.</p>
+          </div>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">✎</span>Dernière récupération active</p>
+          <p>Écris sans regarder&nbsp;: les deux familles de solutions de \(\cos(x)=\cos(a)\), puis celles de \(\sin(x)=\sin(a)\). Cite la période de cos et sin.</p>
+          <button class="reveal-button" type="button" data-reveal="revision1">Voir la fiche minimale</button>
+          <div id="revision1" class="answer" hidden>
+            <p>\(\cos(x)=\cos(a)\iff x=a+2n\pi\) ou \(x=-a+2n\pi\), \(n\in\mathbb{Z}\).</p>
+            <p>\(\sin(x)=\sin(a)\iff x=a+2n\pi\) ou \(x=\pi-a+2n\pi\), \(n\in\mathbb{Z}\).</p>
+            <p>Période de \(\cos\) et \(\sin\)&nbsp;: \(2\pi\). Parité&nbsp;: \(\cos\) paire, \(\sin\) impaire.</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Prochaine étape</p>
+          <p>
+            Quand tu auras vu la dérivation, reviens ici&nbsp;: presque tous les exercices d'étude de fonction
+            de Première mélangent dérivée, sinus et cosinus. Les sections&nbsp;03 et&nbsp;Guidé&nbsp;4 sont alors
+            les meilleurs points de rappel.
+          </p>
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+  <!-- ============================================================
+       JSXGRAPH BOARDS
+       ============================================================ -->
+  <script>
+    (function () {
+      const rootStyles = getComputedStyle(document.documentElement);
+      const token = (name) => rootStyles.getPropertyValue(name).trim();
+      const COLORS = {
+        coral: token('--red'),
+        green: token('--green-2'),
+        ink: token('--ink'),
+        teal: token('--blue-2'),
+        yellow: token('--stabilo')
+      };
+      function createBoard(el, bbox) {
+        return JXG.JSXGraph.initBoard(el.id, {
+          boundingbox: bbox,
+          axis: true,
+          grid: true,
+          showCopyright: false,
+          showNavigation: false,
+          pan: { enabled: false },
+          zoom: { enabled: false }
+        });
+      }
+      function addCurve(b, fn, x0, x1, c) {
+        return b.create('functiongraph', [fn, x0, x1], {
+          strokeColor: c,
+          strokeWidth: 3,
+          highlight: false
+        });
+      }
+      function addPoint(b, xy, n, c, o) {
+        return b.create('point', xy, {
+          name: n,
+          size: 4,
+          fillColor: c,
+          strokeColor: COLORS.ink,
+          label: { offset: o || [10, 10], fontSize: 12, color: COLORS.ink },
+          fixed: true,
+          showInfobox: false
+        });
+      }
+      function addLine(b, p1, p2, c, w) {
+        return b.create('line', [p1, p2], {
+          straightFirst: true,
+          straightLast: true,
+          strokeColor: c,
+          strokeWidth: w || 2,
+          dash: 2,
+          highlight: false,
+          fixed: true
+        });
+      }
+
+      const boards = {
+        cosinus(el) {
+          const b = createBoard(el, [-7, 1.6, 7, -1.6]);
+          addCurve(b, Math.cos, -6.5, 6.5, COLORS.coral);
+          addPoint(b, [0, 1], 'max', COLORS.yellow, [10, 10]);
+          addPoint(b, [Math.PI, -1], '', COLORS.ink, [10, -14]);
+          addPoint(b, [-Math.PI, -1], '', COLORS.ink, [-22, -14]);
+        },
+        sinus(el) {
+          const b = createBoard(el, [-7, 1.6, 7, -1.6]);
+          addCurve(b, Math.sin, -6.5, 6.5, COLORS.teal);
+          addPoint(b, [Math.PI / 2, 1], 'max', COLORS.yellow, [10, 10]);
+          addPoint(b, [-Math.PI / 2, -1], 'min', COLORS.green, [-30, -14]);
+          addPoint(b, [0, 0], '', COLORS.ink, [10, 10]);
+        },
+        comparaison(el) {
+          const b = createBoard(el, [-7, 1.6, 7, -1.6]);
+          addCurve(b, Math.cos, -6.5, 6.5, COLORS.coral);
+          addCurve(b, Math.sin, -6.5, 6.5, COLORS.teal);
+          addPoint(b, [0, 1], 'cos', COLORS.coral, [10, 12]);
+          addPoint(b, [Math.PI / 2, 1], 'sin', COLORS.teal, [10, 12]);
+        },
+        equationCos(el) {
+          const b = createBoard(el, [-7, 1.6, 7, -1.6]);
+          addCurve(b, Math.cos, -6.5, 6.5, COLORS.coral);
+          // ligne horizontale y = 1/2
+          b.create('line', [[-7, 0.5], [7, 0.5]], {
+            straightFirst: true,
+            straightLast: true,
+            strokeColor: COLORS.ink,
+            strokeWidth: 2,
+            dash: 2,
+            highlight: false,
+            fixed: true
+          });
+          addPoint(b, [Math.PI / 3, 0.5], 'π/3', COLORS.yellow, [8, 12]);
+          addPoint(b, [-Math.PI / 3, 0.5], '-π/3', COLORS.yellow, [-40, 12]);
+          addPoint(b, [5 * Math.PI / 3, 0.5], '5π/3', COLORS.yellow, [8, 12]);
+        }
+      };
+
+      window.__courseGraphInitializers = window.__courseGraphInitializers || [];
+      window.__courseGraphInitializers.push((el) => {
+        if (!el || el.dataset.courseGraphReady === 'true') return;
+        const fn = boards[el.dataset.chapterCurve];
+        if (!fn) return;
+        try {
+          fn(el);
+          el.dataset.courseGraphReady = 'true';
+        } catch (error) {
+          el.textContent = 'Le graphe exact ne peut pas se charger pour le moment.';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

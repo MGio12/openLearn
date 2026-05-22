@@ -1,0 +1,1965 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Variables aléatoires — cours</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="../cours.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="../cours.js"></script>
+  <style>
+    /* Tableaux de loi de probabilité — variant of .formula-card pour rester noir/blanc */
+    .law-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      color: var(--panel);
+      font-size: clamp(15px, 1.1vw, 17px);
+      line-height: 1.5;
+    }
+    .law-table th,
+    .law-table td {
+      padding: 10px 14px;
+      text-align: center;
+      border: 1px solid var(--panel-tint);
+    }
+    .law-table th {
+      font-family: var(--font-body);
+      font-size: 13px;
+      letter-spacing: 0;
+      text-transform: none;
+      color: var(--stabilo);
+      font-weight: 800;
+      text-align: left;
+      background: var(--ink-2);
+    }
+    .law-table td:first-child,
+    .law-table th:first-child {
+      text-align: left;
+    }
+    .law-table .katex {
+      letter-spacing: 0;
+      text-transform: none;
+    }
+    .formula-card__note {
+      margin: 10px 0 0;
+      font-size: 13px;
+      color: var(--panel-tint);
+    }
+    @media (max-width: 560px) {
+      .has-course-sidebar {
+        --course-sidebar-width: 128px;
+        --course-sidebar-space: var(--course-sidebar-collapsed-width);
+      }
+      .course-hero {
+        padding-left: calc(var(--course-sidebar-space) + 16px);
+      }
+      .law-table {
+        font-size: 14px;
+      }
+      .law-table th,
+      .law-table td {
+        padding: 8px 6px;
+      }
+      .law-table th {
+        font-size: 12px;
+      }
+      .answer {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+      .check-card .answer,
+      .exercise .answer {
+        margin-left: -8px;
+        margin-right: -8px;
+      }
+      .answer .formula-card {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+    }
+  </style>
+</head>
+<body class="has-course-sidebar">
+
+  <!-- Reading progress bar -->
+  <div class="progress-bar" aria-hidden="true">
+    <div class="progress-bar__fill" data-progress-fill></div>
+  </div>
+
+  <!-- Sticky section indicator (populated by inline script) -->
+  <div class="section-bar" data-section-bar aria-hidden="true">
+    <span class="section-bar__chip" data-section-bar-chip>00</span>
+    <span class="section-bar__title" data-section-bar-title>Variables aléatoires</span>
+    <span class="section-bar__total" data-section-bar-total>1/14</span>
+  </div>
+
+  <!-- ============================================================
+       SIDEBAR
+       ============================================================ -->
+  <aside class="toc course-sidebar" aria-label="Plan du cours" data-course-sidebar>
+    <div class="sidebar-head">
+      <div>
+        <p class="toc-title">Plan</p>
+        <p class="sidebar-subtitle">Variables aléatoires</p>
+      </div>
+      <button
+        class="sidebar-toggle"
+        type="button"
+        aria-label="Replier le plan"
+        aria-expanded="true"
+        data-sidebar-toggle
+      ><span aria-hidden="true">‹</span></button>
+    </div>
+
+    <nav class="toc-links" aria-label="Sections du chapitre">
+      <a href="#diagnostic" data-section-link><span class="toc-index">00</span><span class="toc-label">Diagnostic</span></a>
+      <a href="#definition" data-section-link><span class="toc-index">01</span><span class="toc-label">Définition</span></a>
+      <a href="#loi" data-section-link><span class="toc-index">02</span><span class="toc-label">Loi</span></a>
+      <a href="#esperance" data-section-link><span class="toc-index">03</span><span class="toc-label">Espérance</span></a>
+      <a href="#variance-ecart-type" data-section-link><span class="toc-index">04</span><span class="toc-label">Variance</span></a>
+      <a href="#proprietes" data-section-link><span class="toc-index">05</span><span class="toc-label">Propriétés</span></a>
+      <a href="#jeux" data-section-link><span class="toc-index">06</span><span class="toc-label">Jeux</span></a>
+      <a href="#choix-methode" data-section-link><span class="toc-index">07</span><span class="toc-label">Choisir</span></a>
+      <a href="#redaction" data-section-link><span class="toc-index">08</span><span class="toc-label">Rédiger</span></a>
+      <a href="#pieges" data-section-link><span class="toc-index">P</span><span class="toc-label">Pièges</span></a>
+      <a href="#guides" data-section-link><span class="toc-index">G</span><span class="toc-label">Guidé</span></a>
+      <a href="#controle" data-section-link><span class="toc-index">C</span><span class="toc-label">Contrôle</span></a>
+      <a href="#vingt-sur-vingt" data-section-link><span class="toc-index">20</span><span class="toc-label">20/20</span></a>
+      <a href="#revision" data-section-link><span class="toc-index">R</span><span class="toc-label">Révision</span></a>
+    </nav>
+
+    <p class="sidebar-foot">Maths spé · Lycée</p>
+  </aside>
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <header class="course-hero">
+    <nav class="topline" aria-label="Fil d'Ariane">
+      <a href="../../../..">Objectif Lycée</a>
+      <span>Maths spécialité</span>
+      <span>Cours</span>
+    </nav>
+
+    <div class="hero-grid">
+      <div>
+        <p class="hero-eyebrow"><span class="num">09</span> Chapitre</p>
+        <h1>Variables aléatoires</h1>
+        <p class="hero-lead">
+          Numériser une expérience au hasard, lire sa loi, prédire un gain moyen,
+          puis mesurer la dispersion sans confondre variance et écart-type.
+        </p>
+      </div>
+
+      <aside class="hero-side" aria-label="Les 4 réflexes du chapitre">
+        <p class="hero-side__label">Ce que tu gagnes</p>
+        <h2>4 réflexes, 1 contrôle solide</h2>
+        <div class="hero-side__steps">
+          <div class="hero-side__step">
+            <span class="verb">Modéliser</span>
+            <span class="obj">une variable aléatoire \(X\)</span>
+          </div>
+          <div class="hero-side__step">
+            <span class="verb">Lire</span>
+            <span class="obj">la loi, vérifier somme = 1</span>
+          </div>
+          <div class="hero-side__step">
+            <span class="verb">Calculer</span>
+            <span class="obj">\(E(X)\), \(V(X)\), \(\sigma(X)\)</span>
+          </div>
+          <div class="hero-side__step">
+            <span class="verb">Conclure</span>
+            <span class="obj">jeu favorable, équitable, défavorable</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MAIN
+       ============================================================ -->
+  <main class="course-layout" data-course-layout>
+    <article class="lesson course-lesson">
+
+      <!-- Overview band — single editorial section -->
+      <section class="course-overview" aria-label="Repères du chapitre">
+        <div>
+          <p class="course-overview__title">Fil conducteur</p>
+          <h3>Ce chapitre se gagne en 4 réflexes</h3>
+          <p class="course-overview__lead">
+            Une variable aléatoire <em>numérise</em> une expérience&nbsp;: une fois la loi posée, tout le reste se calcule.
+          </p>
+        </div>
+        <div class="overview-flow">
+          <span>Loi</span>
+          <em>→</em>
+          <span>Espérance</span>
+          <em>→</em>
+          <span>Variance</span>
+          <em>→</em>
+          <span>Décision</span>
+        </div>
+      </section>
+
+      <!-- ========== 00 · DIAGNOSTIC ========== -->
+      <section id="diagnostic" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">00</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Diagnostic éclair</p>
+            <h2>Avant de commencer : tu sais faire quoi&nbsp;?</h2>
+          </div>
+        </div>
+        <p>
+          Réponds mentalement avant d'ouvrir les corrections. Le but n'est pas d'avoir une note&nbsp;:
+          c'est de savoir où ton attention doit aller pendant le chapitre.
+        </p>
+
+        <div class="diagnostic-grid">
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 1</p>
+            <p>On lance un dé équilibré et \(X\) donne le numéro de la face. Que vaut \(P(X=3)\)&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag1">Voir la réponse</button>
+            <p id="diag1" class="answer" hidden>\(P(X=3)=\tfrac{1}{6}\). Chaque face a la même probabilité car le dé est équilibré.</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 2</p>
+            <p>Une loi de \(X\) donne \(P(X=1)=0{,}3\), \(P(X=2)=0{,}5\). Quelle doit être \(P(X=3)\) si \(X\) ne prend que ces trois valeurs&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag2">Voir la réponse</button>
+            <p id="diag2" class="answer" hidden>\(P(X=3)=1-0{,}3-0{,}5=0{,}2\). La somme des probabilités vaut toujours \(1\).</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 3</p>
+            <p>Pour la loi \(P(X=1)=0{,}3\), \(P(X=2)=0{,}5\), \(P(X=3)=0{,}2\), comment commence le calcul de \(E(X)\)&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag3">Voir la réponse</button>
+            <p id="diag3" class="answer" hidden>\(E(X)=1\times0{,}3+2\times0{,}5+3\times0{,}2\). On multiplie chaque valeur par sa probabilité, puis on additionne.</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 4</p>
+            <p>Si \(E(G)=-1{,}06\) pour un gain en euros, le jeu est-il favorable au joueur&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag4">Voir la réponse</button>
+            <p id="diag4" class="answer" hidden>Non. \(E(G)<0\) signifie qu'en moyenne, sur un grand nombre de parties, le joueur perd 1,06 € par partie.</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Objectif de cette session</p>
+          <p>
+            Si tu ne réussis qu'une chose aujourd'hui&nbsp;: comprendre que \(E(X)\) est une moyenne pondérée
+            par les probabilités, et que la variance mesure l'écart à cette moyenne.
+            C'est ce que les exercices de contrôle te demanderont d'utiliser.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 01 · DEFINITION ========== -->
+      <section id="definition" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">01</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Définition</p>
+            <h2>Une variable aléatoire numérise une expérience</h2>
+          </div>
+        </div>
+        <p>
+          On considère une expérience aléatoire d'univers \(\Omega\) (l'ensemble des issues possibles).
+          Une <strong>variable aléatoire</strong> \(X\) est une fonction qui, à chaque issue \(\omega\) de \(\Omega\),
+          associe un nombre réel \(X(\omega)\). Autrement dit, elle traduit le résultat de l'expérience en un nombre,
+          ce qui permet ensuite de calculer.
+        </p>
+
+        <div class="formula-card is-major">
+          \[ X : \Omega \rightarrow \mathbb{R} \]
+          \[ \omega \mapsto X(\omega) \]
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Image mentale — étiquette numérique</p>
+          <p>
+            \(X\) colle un nombre sur chaque issue de l'expérience. L'issue reste un résultat concret, la valeur \(X(\omega)\) est son étiquette numérique.
+          </p>
+          <p>
+            Limite du mémo&nbsp;: deux issues différentes peuvent recevoir la même étiquette. Il faut donc lister les valeurs sans doublon, puis additionner les probabilités des issues qui donnent la même valeur.
+          </p>
+        </div>
+
+        <div class="choice-grid">
+          <div class="choice-card">
+            <p class="box-title">Notation</p>
+            <p>Une variable aléatoire s'écrit avec une majuscule&nbsp;: \(X\), \(Y\), \(Z\), \(G\), \(T\). Ses valeurs s'écrivent avec une minuscule&nbsp;: \(x_1\), \(x_2\), \(\dots\), \(x_n\).</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Événement abrégé</p>
+            <p>«&nbsp;\(X\) prend la valeur \(k\)&nbsp;» s'écrit \((X=k)\). On note de même \((X\le k)\), \((X>k)\), \((X\ne k)\), etc.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Ensemble image</p>
+            <p>L'ensemble des valeurs prises par \(X\) est noté \(X(\Omega)\). Il regroupe sans répétition les nombres possibles.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Probabilité d'une valeur</p>
+            <p>\(P(X=x_i)\) désigne la probabilité que \(X\) prenne la valeur \(x_i\). C'est un réel entre \(0\) et \(1\).</p>
+          </div>
+        </div>
+
+        <div class="worked-example">
+          <p>
+            <strong>Exemple — Urne bicolore.</strong>
+            Une urne contient des boules rouges et noires. On tire une boule au hasard.
+            Soit \(X\) la variable aléatoire qui vaut \(10\) si la boule tirée est rouge,
+            et \(-20\) si elle est noire.
+          </p>
+          <div class="formula-card">
+            \[ \Omega=\{\text{rouge},\,\text{noire}\} \]
+            \[ X(\text{rouge})=10 \]
+            \[ X(\text{noire})=-20 \]
+            \[ X(\Omega)=\{-20,\,10\} \]
+          </div>
+          <p>L'ensemble des valeurs prises par \(X\) est donc \(\{-20,\,10\}\)&nbsp;: il y a exactement deux issues numériques possibles.</p>
+        </div>
+
+        <div class="worked-example">
+          <p>
+            <strong>Exemple — Dé pipé.</strong>
+            On lance un dé cubique non pipé dont les faces sont numérotées \(1\), \(1\), \(1\), \(2\), \(3\) et \(4\).
+            Soit \(X\) la variable aléatoire qui donne le numéro apparu.
+          </p>
+          <div class="formula-card">
+            \[ X(\Omega)=\{1,\,2,\,3,\,4\} \]
+          </div>
+          <p>
+            Attention&nbsp;: il y a six faces mais seulement quatre valeurs possibles, car la face «&nbsp;1&nbsp;»
+            apparaît trois fois. C'est ce qui rendra \(P(X=1)\) plus grande que les autres.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Majeur à retenir</p>
+          <p>
+            Une variable aléatoire n'est pas un nombre&nbsp;: c'est une <em>fonction</em>. Elle prend des valeurs différentes selon
+            l'issue. Ce que l'on calcule ensuite (loi, espérance, variance) ne concerne pas une valeur particulière,
+            mais le comportement de \(X\) sur toute l'expérience.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate 1</p>
+          <p>On lance deux pièces équilibrées et \(X\) compte le nombre de «&nbsp;pile&nbsp;». Quel est l'ensemble \(X(\Omega)\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="def1">Voir la réponse</button>
+          <p id="def1" class="answer" hidden>\(X(\Omega)=\{0,\,1,\,2\}\)&nbsp;: zéro pile, un pile, ou deux piles.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate 2</p>
+          <p>Dans l'urne bicolore, l'événement \((X=10)\) correspond à quoi en langage courant&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="def2">Voir la réponse</button>
+          <p id="def2" class="answer" hidden>«&nbsp;Tirer une boule rouge&nbsp;». \(P(X=10)\) est donc la probabilité de tirer une rouge.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Issue ou valeur&nbsp;?</p>
+          <p>Un dé porte les faces \(1,1,2,2,2,5\). Si \(X\) donne le numéro obtenu, combien y a-t-il d'issues et combien de valeurs dans \(X(\Omega)\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="memo-def-etiquette">Voir la réponse</button>
+          <p id="memo-def-etiquette" class="answer" hidden>Il y a 6 issues physiques, une par face. Mais \(X(\Omega)=\{1,2,5\}\), donc seulement 3 valeurs numériques. Les doublons influencent les probabilités, pas la liste des valeurs.</p>
+        </div>
+      </section>
+
+      <!-- ========== 02 · LOI ========== -->
+      <section id="loi" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">02</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Méthode 1</p>
+            <h2>La loi de probabilité&nbsp;: un tableau et une somme à 1</h2>
+          </div>
+        </div>
+        <p>
+          Lorsqu'à chaque valeur \(x_i\) prise par \(X\) on associe la probabilité \(P(X=x_i)\),
+          on dit que l'on définit la <strong>loi de probabilité</strong> de \(X\). On la présente toujours sous forme
+          d'un tableau à deux lignes&nbsp;: les valeurs en haut, les probabilités en bas.
+        </p>
+
+        <div class="formula-card is-major">
+          <table class="law-table" aria-label="Tableau générique d'une loi de probabilité">
+            <tr>
+              <th>Valeur \(x_i\)</th>
+              <td>\(x_1\)</td>
+              <td>\(x_2\)</td>
+              <td>\(\dots\)</td>
+              <td>\(x_n\)</td>
+            </tr>
+            <tr>
+              <th>\(P(X=x_i)\)</th>
+              <td>\(p_1\)</td>
+              <td>\(p_2\)</td>
+              <td>\(\dots\)</td>
+              <td>\(p_n\)</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Propriété — somme à 1</p>
+          <p>
+            En reprenant les notations précédentes&nbsp;:
+          </p>
+          <div class="formula-card">
+            \[ \sum_{i=1}^{n} p_i = 1 \]
+            \[ p_1+p_2+\cdots+p_n=1 \]
+          </div>
+          <p>
+            Les événements \((X=x_i)\) sont incompatibles deux à deux et leur réunion forme tout l'univers&nbsp;:
+            ils en forment une partition, donc la somme de leurs probabilités vaut \(1\).
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Réflexe — colonnes à additionner</p>
+          <p>
+            Une loi complète finit toujours par total \(=1\). Pour un événement comme \((X\le2)\), on additionne les colonnes dont la valeur vérifie la condition.
+          </p>
+          <p>
+            Limite du mémo&nbsp;: on additionne des probabilités, jamais les valeurs \(x_i\). Les valeurs peuvent être négatives, les probabilités non.
+          </p>
+        </div>
+
+        <div class="method-grid">
+          <div class="method-step">
+            <span class="step-number">1</span>
+            <p>Lister l'ensemble \(X(\Omega)\) des valeurs prises par \(X\) (sans doublon).</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">2</span>
+            <p>Pour chaque valeur \(x_i\), compter les issues qui donnent \(X=x_i\) et calculer la probabilité.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">3</span>
+            <p>Remplir le tableau, puis vérifier que la somme des probabilités vaut bien \(1\).</p>
+          </div>
+        </div>
+
+        <div class="worked-example">
+          <p>
+            <strong>Exemple — Dé truqué.</strong>
+            On lance un dé cubique, non pipé, dont les faces sont numérotées \(1\), \(1\), \(1\), \(2\), \(3\), \(4\).
+            Soit \(X\) la variable aléatoire donnant le numéro apparu. Déterminer la loi de \(X\).
+          </p>
+          <p>Les valeurs prises sont \(1\), \(2\), \(3\) et \(4\). Le dé étant équilibré, chaque face a probabilité \(\tfrac{1}{6}\).</p>
+          <div class="formula-card">
+            \[ P(X=1)=\tfrac{3}{6}=\tfrac{1}{2} \]
+            \[
+              \begin{aligned}
+                P(X=2)&=\tfrac{1}{6}\\
+                P(X=3)&=\tfrac{1}{6}\\
+                P(X=4)&=\tfrac{1}{6}
+              \end{aligned}
+            \]
+          </div>
+          <p>D'où la loi de probabilité&nbsp;:</p>
+          <div class="formula-card">
+            <table class="law-table" aria-label="Loi du dé truqué">
+              <tr>
+                <th>\(k\)</th>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+              </tr>
+              <tr>
+                <th>\(P(X=k)\)</th>
+                <td>\(\tfrac{1}{2}\)</td>
+                <td>\(\tfrac{1}{6}\)</td>
+                <td>\(\tfrac{1}{6}\)</td>
+                <td>\(\tfrac{1}{6}\)</td>
+              </tr>
+            </table>
+          </div>
+          <p>Vérification&nbsp;: \(\tfrac{1}{2}+\tfrac{1}{6}+\tfrac{1}{6}+\tfrac{1}{6}=\tfrac{3+1+1+1}{6}=1\). La somme est bien égale à \(1\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Notation d'événement</p>
+          <p>
+            Avec la loi du dé précédent, calcule \(P(X\le 2)\) puis \(P(X>2)\).
+            Ne cherche pas une nouvelle formule&nbsp;: additionne les colonnes concernées.
+          </p>
+          <button class="reveal-button" type="button" data-reveal="loi-notation">Voir la réponse</button>
+          <div id="loi-notation" class="answer" hidden>
+            <p>Pour \((X\le2)\), on additionne les colonnes \(1\) et \(2\)&nbsp;:</p>
+            <div class="formula-card">
+              \[
+                \begin{aligned}
+                  P(X\le2)&=P(X=1)\\
+                  &\quad+P(X=2)\\
+                  &=\tfrac{1}{2}+\tfrac{1}{6}\\
+                  &=\tfrac{2}{3}
+                \end{aligned}
+              \]
+            </div>
+            <p>Pour \((X>2)\), on additionne les colonnes \(3\) et \(4\)&nbsp;:</p>
+            <div class="formula-card">
+              \[
+                \begin{aligned}
+                  P(X>2)&=P(X=3)\\
+                  &\quad+P(X=4)\\
+                  &=\tfrac{1}{6}+\tfrac{1}{6}\\
+                  &=\tfrac{1}{3}
+                \end{aligned}
+              \]
+            </div>
+            <p>Les événements \((X\le2)\) et \((X>2)\) regroupent plusieurs valeurs de \(X\).</p>
+          </div>
+        </div>
+
+        <div class="worked-example">
+          <p>
+            <strong>Exemple — Tirage dans une urne.</strong>
+            Une urne contient 5 boules bleues, 3 boules vertes et 10 boules rouges. Un joueur tire une boule au hasard&nbsp;:
+            il gagne 1 € pour une bleue, 2 € pour une verte, et perd 3 € pour une rouge.
+            Soit \(G\) le gain algébrique.
+          </p>
+          <p>Total de boules&nbsp;: \(5+3+10=18\). Les valeurs de \(G\) sont \(1\), \(2\) et \(-3\).</p>
+          <div class="formula-card">
+            \[ P(G=1)=\tfrac{5}{18} \]
+            \[ P(G=2)=\tfrac{3}{18}=\tfrac{1}{6} \]
+            \[ P(G=-3)=\tfrac{10}{18}=\tfrac{5}{9} \]
+          </div>
+          <p>D'où le tableau de loi&nbsp;:</p>
+          <div class="formula-card">
+            <table class="law-table" aria-label="Loi du gain à l'urne">
+              <tr>
+                <th>\(k\)</th>
+                <td>1</td>
+                <td>2</td>
+                <td>\(-3\)</td>
+              </tr>
+              <tr>
+                <th>\(P(G=k)\)</th>
+                <td>\(\tfrac{5}{18}\)</td>
+                <td>\(\tfrac{1}{6}\)</td>
+                <td>\(\tfrac{5}{9}\)</td>
+              </tr>
+            </table>
+          </div>
+          <p>Vérification&nbsp;: \(\tfrac{5}{18}+\tfrac{3}{18}+\tfrac{10}{18}=\tfrac{18}{18}=1\).</p>
+        </div>
+
+        <p>Pour visualiser une loi, on peut tracer un diagramme en bâtons&nbsp;: chaque bâton vertical a pour hauteur la probabilité de la valeur correspondante.</p>
+
+        <figure class="visual-block interactive-graph quadratic-graph">
+          <div class="graph-stage">
+            <div id="va-batons-board" class="jxgbox curve-board" data-chapter-curve="batons"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Diagramme en bâtons d'une loi</span>
+              <strong>La hauteur lit \(P(X=x_i)\)</strong>
+            </p>
+          </div>
+          <figcaption>
+            Sur cet exemple, \(P(X=3)=0{,}30\) domine&nbsp;: la valeur \(3\) est la plus probable.
+            La somme des hauteurs vaut \(1\).
+          </figcaption>
+        </figure>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>On donne \(P(X=0)=0{,}2\), \(P(X=1)=0{,}4\), \(P(X=2)=0{,}3\). Est-ce une loi complète&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="loi1">Voir la réponse</button>
+          <p id="loi1" class="answer" hidden>Non. La somme vaut \(0{,}9\), pas \(1\). Il manque une valeur de probabilité \(0{,}1\), ou une probabilité est mal calculée.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Étape manquante</p>
+          <p>Une loi de \(X\) sur \(\{-1,\,0,\,2\}\) a \(P(X=-1)=0{,}25\) et \(P(X=2)=0{,}15\). Combien vaut \(P(X=0)\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="loi2">Voir la réponse</button>
+          <p id="loi2" class="answer" hidden>\(P(X=0)=1-0{,}25-0{,}15=0{,}60\). Les trois probabilités donnent bien une somme égale à \(1\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Colonnes utiles</p>
+          <p>Pour une loi sur \(\{-2,0,3,7\}\), quelles colonnes additionner pour calculer \(P(X>0)\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="memo-loi-colonnes">Voir la réponse</button>
+          <p id="memo-loi-colonnes" class="answer" hidden>On additionne les colonnes de valeurs positives&nbsp;: \(3\) et \(7\). Donc \(P(X>0)=P(X=3)+P(X=7)\). La colonne \(0\) ne compte pas car \(0\) n'est pas strictement positif.</p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège classique</p>
+          <p>
+            La probabilité \(P(X=x_i)\) n'est pas la valeur \(x_i\). \(x_i=-3\) ne signifie pas que la probabilité est négative&nbsp;:
+            une probabilité est toujours dans \([0;\,1]\). Une probabilité négative ou supérieure à \(1\) signale une erreur.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 03 · ESPERANCE ========== -->
+      <section id="esperance" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">03</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Méthode 2</p>
+            <h2>L'espérance prédit la moyenne sur le long terme</h2>
+          </div>
+        </div>
+        <p>
+          Une fois la loi connue, on veut savoir ce que vaudrait, en moyenne, \(X\) si on répétait
+          l'expérience un grand nombre de fois. C'est exactement le rôle de l'espérance.
+        </p>
+
+        <div class="formula-card is-major">
+          \[
+            \begin{aligned}
+              E(X)&=\sum_{i=1}^{n} x_i\,p_i\\
+              &=x_1p_1+x_2p_2\\
+              &\quad+\cdots+x_np_n
+            \end{aligned}
+          \]
+        </div>
+        <p>avec, pour tout entier \(i\) compris entre \(1\) et \(n\), \(p_i = P(X=x_i)\).</p>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Interprétation</p>
+          <p>
+            L'espérance \(E(X)\) se lit comme une <strong>moyenne pondérée</strong>&nbsp;: chaque valeur \(x_i\)
+            est pesée par sa probabilité. Si on répète l'expérience un très grand nombre de fois,
+            la moyenne des résultats observés s'approche de \(E(X)\).
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Image mentale — les probabilités tirent la moyenne</p>
+          <p>
+            L'espérance est une moyenne tirée vers les valeurs les plus probables. Une valeur rare peut peser fort si elle est très grande, mais elle ne compte qu'avec sa probabilité.
+          </p>
+          <p>
+            Limite du mémo&nbsp;: l'espérance garde l'unité de \(X\). Si \(X\) est un gain en euros, \(E(X)\) s'exprime en euros par partie, pas en probabilité.
+          </p>
+        </div>
+
+        <div class="method-grid">
+          <div class="method-step">
+            <span class="step-number">1</span>
+            <p>Récupérer ou écrire le tableau de la loi de \(X\).</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">2</span>
+            <p>Multiplier chaque valeur \(x_i\) par sa probabilité \(p_i\).</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">3</span>
+            <p>Additionner tous ces produits. Le résultat est \(E(X)\).</p>
+          </div>
+        </div>
+
+        <div class="worked-example">
+          <p>
+            <strong>Exemple — Reprise du gain à l'urne.</strong>
+            Avec la loi de \(G\) calculée précédemment&nbsp;:
+          </p>
+          <div class="formula-card">
+            <table class="law-table" aria-label="Loi du gain G">
+              <tr>
+                <th>\(k\)</th>
+                <td>1</td>
+                <td>2</td>
+                <td>\(-3\)</td>
+              </tr>
+              <tr>
+                <th>\(P(G=k)\)</th>
+                <td>\(\tfrac{5}{18}\)</td>
+                <td>\(\tfrac{1}{6}\)</td>
+                <td>\(\tfrac{5}{9}\)</td>
+              </tr>
+            </table>
+          </div>
+          <div class="formula-card">
+            \[ \begin{aligned} E(G)&=1\times\tfrac{5}{18}\\ &\quad+2\times\tfrac{1}{6}\\ &\quad+(-3)\times\tfrac{5}{9} \end{aligned} \]
+            \[ \begin{aligned} E(G)&=\tfrac{5}{18}+\tfrac{6}{18}-\tfrac{30}{18}\\ &=-\tfrac{19}{18}\approx -1{,}06 \end{aligned} \]
+          </div>
+          <p>
+            Sur un très grand nombre de parties, le joueur perd en moyenne environ <strong>1,06 € par partie</strong>.
+            Le jeu n'est donc pas favorable au joueur, mais à l'organisateur de l'urne.
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p>
+            <strong>Exemple — Dé de gain.</strong>
+            On lance un dé équilibré à six faces. Si la face \(6\) sort, on gagne 5 €&nbsp;; pour la face \(5\), 3 €&nbsp;;
+            pour la face \(4\), 1 €&nbsp;; sinon, on perd 2 €. Soit \(X\) le gain.
+          </p>
+          <p>Loi de \(X\)&nbsp;:</p>
+          <div class="formula-card">
+            <table class="law-table" aria-label="Loi du dé de gain">
+              <tr>
+                <th>\(x_i\)</th>
+                <td>\(-2\)</td>
+                <td>1</td>
+                <td>3</td>
+                <td>5</td>
+              </tr>
+              <tr>
+                <th>\(P(X=x_i)\)</th>
+                <td>\(\tfrac{3}{6}\)</td>
+                <td>\(\tfrac{1}{6}\)</td>
+                <td>\(\tfrac{1}{6}\)</td>
+                <td>\(\tfrac{1}{6}\)</td>
+              </tr>
+            </table>
+          </div>
+          <div class="formula-card">
+            \[ \begin{aligned} E(X)&=-2\times\tfrac{3}{6}+1\times\tfrac{1}{6}\\ &\quad+3\times\tfrac{1}{6}+5\times\tfrac{1}{6} \end{aligned} \]
+            \[ \begin{aligned} E(X)&=\tfrac{-6+1+3+5}{6}\\ &=\tfrac{3}{6}=0{,}5 \end{aligned} \]
+          </div>
+          <p>Le jeu rapporte en moyenne <strong>0,50 € par partie</strong>&nbsp;: il est favorable au joueur.</p>
+        </div>
+
+        <div class="c-callout c-callout--note">
+          <p class="c-callout__label"><span class="dot"></span>Vocabulaire — jeux d'argent</p>
+          <p>
+            Si \(X\) est un gain algébrique et que \(E(X)>0\), le jeu est dit favorable au joueur.
+            Si \(E(X)<0\), il est défavorable. Si \(E(X)=0\), il est équitable.
+            Sur le long terme, le casino vit du fait que \(E(X)<0\) sur (presque) tous ses jeux.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>Une variable \(Y\) suit la loi \(P(Y=-4)=0{,}5\), \(P(Y=0)=0{,}2\), \(P(Y=4)=0{,}2\), \(P(Y=20)=0{,}1\). Calcule \(E(Y)\).</p>
+          <button class="reveal-button" type="button" data-reveal="esp1">Voir la réponse</button>
+          <p id="esp1" class="answer" hidden>\(E(Y)=-4\times0{,}5+0\times0{,}2+4\times0{,}2+20\times0{,}1=-2+0+0{,}8+2=0{,}8\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Étape manquante</p>
+          <p>Pour la loi \(P(X=2)=0{,}3\), \(P(X=5)=0{,}5\), \(P(X=10)=0{,}2\), écris la première ligne du calcul de \(E(X)\).</p>
+          <button class="reveal-button" type="button" data-reveal="esp2">Voir la réponse</button>
+          <p id="esp2" class="answer" hidden>\(E(X)=2\times0{,}3+5\times0{,}5+10\times0{,}2=0{,}6+2{,}5+2=5{,}1\).</p>
+        </div>
+      </section>
+
+      <!-- ========== 04 · VARIANCE & ECART-TYPE ========== -->
+      <section id="variance-ecart-type" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">04</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Méthode 3</p>
+            <h2>Variance et écart-type mesurent la dispersion</h2>
+          </div>
+        </div>
+        <p>
+          Deux variables aléatoires peuvent avoir la même espérance et des comportements très différents.
+          L'une peut être très stable autour de \(E(X)\), l'autre très dispersée. Pour mesurer cette dispersion,
+          on définit la <strong>variance</strong> et l'<strong>écart-type</strong>.
+        </p>
+
+        <div class="formula-card is-major">
+          \[
+            \begin{aligned}
+              V(X)&=\sum_{i=1}^{n} p_i\\
+              &\quad\times\bigl(x_i-E(X)\bigr)^2
+            \end{aligned}
+          \]
+          \[ \sigma(X) = \sqrt{V(X)} \]
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Lecture intuitive</p>
+          <p>
+            Pour chaque valeur \(x_i\), on regarde l'écart à la moyenne \(x_i-E(X)\). On l'élève au carré pour que les écarts
+            positifs et négatifs ne se compensent pas. On pondère par la probabilité \(p_i\), puis on somme&nbsp;:
+            la variance est donc une moyenne des carrés des écarts à \(E(X)\).
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Mémo technique — ÉCaPoS</p>
+          <p>
+            ÉCaPoS&nbsp;: Écart, Carré, Probabilité, Somme. Pour chaque valeur, calcule l'écart à la moyenne, mets-le au carré, pondère par la probabilité, puis somme.
+          </p>
+          <p>
+            Limite du mémo&nbsp;: la variance est en unités carrées. L'écart-type remet l'unité de départ grâce à la racine carrée.
+          </p>
+        </div>
+
+        <div class="math-language-visual">
+          <div class="math-language-grid" role="list" aria-label="Variance et écart-type">
+            <div class="math-language-card" role="listitem">
+              <p class="box-title">Variance \(V(X)\)</p>
+              <p>Toujours positive ou nulle. Elle s'exprime dans le carré de l'unité de \(X\) (par exemple, des euros²),
+                ce qui la rend peu lisible directement.</p>
+              <div class="formula-card">
+                \[ V(X)\ge 0 \]
+              </div>
+            </div>
+            <div class="math-language-card" role="listitem">
+              <p class="box-title">Écart-type \(\sigma(X)\)</p>
+              <p>Toujours positif. Il s'exprime dans la même unité que \(X\) (par exemple, des euros). C'est lui qu'on cite
+                comme «&nbsp;dispersion moyenne&nbsp;» autour de \(E(X)\).</p>
+              <div class="formula-card">
+                \[ \sigma(X)\ge 0 \]
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="method-grid">
+          <div class="method-step">
+            <span class="step-number">1</span>
+            <p>Calculer d'abord \(E(X)\). Sans la moyenne, pas de variance.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">2</span>
+            <p>Pour chaque \(x_i\), calculer \(\bigl(x_i - E(X)\bigr)^2\).</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">3</span>
+            <p>Multiplier chaque carré par \(p_i\), puis additionner.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">4</span>
+            <p>L'écart-type est \(\sigma(X)=\sqrt{V(X)}\).</p>
+          </div>
+        </div>
+
+        <div class="worked-example">
+          <p>
+            <strong>Exemple — Calcul complet.</strong>
+            Soit \(X\) de loi suivante&nbsp;:
+          </p>
+          <div class="formula-card">
+            <table class="law-table" aria-label="Loi de l'exemple variance">
+              <tr>
+                <th>\(x_i\)</th>
+                <td>1</td>
+                <td>2</td>
+                <td>\(-3\)</td>
+              </tr>
+              <tr>
+                <th>\(P(X=x_i)\)</th>
+                <td>0,3</td>
+                <td>0,5</td>
+                <td>0,2</td>
+              </tr>
+            </table>
+          </div>
+          <p>Étape 1 — espérance&nbsp;:</p>
+          <div class="formula-card">
+            \[
+              \begin{aligned}
+                E(X)&=1\times0{,}3\\
+                &\quad+2\times0{,}5\\
+                &\quad+(-3)\times0{,}2
+              \end{aligned}
+            \]
+            \[ \begin{aligned} E(X)&=0{,}3+1-0{,}6\\ &=0{,}7 \end{aligned} \]
+          </div>
+          <p>Étape 2 — écarts au carré&nbsp;:</p>
+          <div class="formula-card">
+            \[ (1-0{,}7)^2=0{,}09 \]
+            \[ (2-0{,}7)^2=1{,}69 \]
+            \[ (-3-0{,}7)^2=13{,}69 \]
+          </div>
+          <p>Étape 3 — variance&nbsp;:</p>
+          <div class="formula-card">
+            \[ \begin{aligned} V(X)&=0{,}3\times 0{,}09\\ &\quad+0{,}5\times 1{,}69\\ &\quad+0{,}2\times 13{,}69 \end{aligned} \]
+            \[ \begin{aligned} V(X)&=0{,}027+0{,}845\\ &\quad+2{,}738\\ &=3{,}61 \end{aligned} \]
+          </div>
+          <p>Étape 4 — écart-type&nbsp;:</p>
+          <div class="formula-card">
+            \[ \sigma(X)=\sqrt{3{,}61}=1{,}9 \]
+          </div>
+          <p>L'écart-type vaut \(1{,}9\). \(X\) s'écarte donc en moyenne d'environ \(1{,}9\) autour de \(0{,}7\).</p>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Formule de König-Huyghens (utile)</p>
+          <p>Une autre écriture de la variance, souvent plus rapide à la main&nbsp;:</p>
+          <div class="formula-card">
+            \[
+              \begin{aligned}
+                V(X)&=E(X^2)\\
+                &\quad-\bigl(E(X)\bigr)^2
+              \end{aligned}
+            \]
+          </div>
+          <p>
+            où \(E(X^2)=\sum p_i x_i^2\). On calcule \(E(X^2)\) (en ajoutant une ligne \(x_i^2\) au tableau) puis on soustrait le carré de l'espérance.
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p>
+            <strong>Exemple — König-Huyghens sur la même loi.</strong>
+            On reprend \(X\) de loi \(\{1,\,2,\,-3\}\) avec probabilités \(\{0{,}3,\,0{,}5,\,0{,}2\}\).
+          </p>
+          <div class="formula-card">
+            \[
+              \begin{aligned}
+                E(X^2)&=0{,}3\times 1\\
+                &\quad+0{,}5\times 4\\
+                &\quad+0{,}2\times 9
+              \end{aligned}
+            \]
+            \[ \begin{aligned} E(X^2)&=0{,}3+2+1{,}8\\ &=4{,}1 \end{aligned} \]
+            \[ V(X)=4{,}1-0{,}7^2=3{,}61 \]
+          </div>
+          <p>Le résultat est identique à la méthode par les écarts, comme attendu.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>Vrai ou faux&nbsp;? Si toutes les valeurs \(x_i\) sont égales à un même nombre \(c\), alors \(V(X)=0\).</p>
+          <button class="reveal-button" type="button" data-reveal="var1">Voir la réponse</button>
+          <p id="var1" class="answer" hidden>Vrai. \(E(X)=c\), et chaque écart \(x_i-E(X)\) vaut \(0\), donc \(V(X)=0\). \(X\) est alors une constante déguisée.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Étape manquante</p>
+          <p>Pour \(P(X=0)=0{,}5\), \(P(X=10)=0{,}5\), calcule \(E(X)\) puis \(V(X)\) par König-Huyghens.</p>
+          <button class="reveal-button" type="button" data-reveal="var2">Voir la réponse</button>
+          <p id="var2" class="answer" hidden>\(E(X)=5\), \(E(X^2)=0+0{,}5\times100=50\). Donc \(V(X)=50-25=25\) et \(\sigma(X)=5\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Unités</p>
+          <p>Si \(X\) est un gain en euros et \(V(X)=16\), quelle est l'unité de \(V(X)\) et que vaut \(\sigma(X)\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="memo-var-unites">Voir la réponse</button>
+          <p id="memo-var-unites" class="answer" hidden>\(V(X)\) vaut \(16\) euros carrés. L'écart-type vaut \(\sigma(X)=\sqrt{16}=4\) euros. C'est l'écart-type, pas la variance, qui se lit dans la même unité que le gain.</p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Erreur fréquente</p>
+          <p>
+            Ne pas oublier l'élévation au carré dans la définition. \(V(X)\) n'est jamais la somme des écarts simples
+            (qui vaut toujours \(0\)). De même, \(\sigma(X)\) n'est pas \(V(X)\)&nbsp;: il faut prendre la racine carrée.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 05 · PROPRIETES ========== -->
+      <section id="proprietes" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">05</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Méthode 4</p>
+            <h2>Linéarité&nbsp;: décaler ou multiplier change tout proprement</h2>
+          </div>
+        </div>
+        <p>
+          Si on transforme \(X\) en \(aX+b\) (par exemple en doublant un gain et en y ajoutant une mise),
+          on ne refait pas tout le calcul. Deux propriétés très utiles relient \(E\) et \(V\) à cette transformation.
+        </p>
+
+        <div class="formula-card is-major">
+          \[ E(aX+b) = a\,E(X) + b \]
+          \[ V(aX+b) = a^{2}\,V(X) \]
+          \[ \sigma(aX+b) = |a|\,\sigma(X) \]
+          <p class="formula-card__note">où \(a\) et \(b\) sont des réels quelconques.</p>
+        </div>
+
+        <div class="math-language-visual">
+          <div class="math-language-grid" role="list" aria-label="Lecture des deux propriétés">
+            <div class="math-language-card" role="listitem">
+              <p class="box-title">L'espérance est linéaire</p>
+              <p>
+                On décale toute la loi de \(b\) et on multiplie par \(a\)&nbsp;: la moyenne suit la même transformation.
+                C'est ce qui rend les calculs de gain net (gain brut moins mise) très rapides.
+              </p>
+              <div class="formula-card">
+                \[ E(aX+b)=aE(X)+b \]
+              </div>
+            </div>
+            <div class="math-language-card" role="listitem">
+              <p class="box-title">La variance ignore la translation</p>
+              <p>
+                Décaler de \(b\) ne change pas la dispersion. Multiplier par \(a\) la multiplie par \(a^2\)&nbsp;:
+                doubler les gains quadruple la variance, et double l'écart-type.
+              </p>
+              <div class="formula-card">
+                \[ V(aX+b)=a^2 V(X) \]
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="worked-example">
+          <p>
+            <strong>Exemple — Espérance d'un gain net.</strong>
+            On reprend le jeu de l'urne&nbsp;: \(E(G)=-\tfrac{19}{18}\approx-1{,}06\). Pour entrer, le joueur paie 1 € de mise.
+            Son gain net est \(N=G-1\). Que vaut \(E(N)\)&nbsp;?
+          </p>
+          <div class="formula-card">
+            \[ \begin{aligned} E(N)&=E(G-1)\\ &=E(G)-1\\ &\approx -1{,}06-1\\ &\approx -2{,}06 \end{aligned} \]
+          </div>
+          <p>Avec la mise, le joueur perd en moyenne 2,06 € par partie. Aucun nouveau calcul de loi&nbsp;: la linéarité suffit.</p>
+        </div>
+
+        <div class="worked-example">
+          <p>
+            <strong>Exemple — Variance d'un gain doublé.</strong>
+            On suppose que \(V(X)=3{,}61\) et \(\sigma(X)=1{,}9\) pour une loterie. L'organisateur double le gain&nbsp;:
+            \(Y=2X\). Que valent \(V(Y)\) et \(\sigma(Y)\)&nbsp;?
+          </p>
+          <div class="formula-card">
+            \[ V(Y)=2^2\times 3{,}61 \]
+            \[ V(Y)=14{,}44 \]
+            \[ \sigma(Y)=|2|\times 1{,}9=3{,}8 \]
+          </div>
+          <p>Doubler les gains quadruple la variance, mais double seulement l'écart-type. La «&nbsp;dispersion réelle&nbsp;» double.</p>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Idée à retenir</p>
+          <p>
+            <strong>Translation\(\,\to\,\)moyenne, pas dispersion.</strong> Ajouter une constante \(b\) déplace toute la distribution&nbsp;:
+            la moyenne se déplace de \(b\), mais l'écart à la moyenne reste identique pour chaque valeur.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>On a \(E(X)=4\) et \(V(X)=9\). Calcule \(E(3X-5)\) et \(V(3X-5)\).</p>
+          <button class="reveal-button" type="button" data-reveal="prop1">Voir la réponse</button>
+          <p id="prop1" class="answer" hidden>\(E(3X-5)=3\times 4-5=7\). \(V(3X-5)=3^2\times 9=81\). Et donc \(\sigma(3X-5)=9\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Vrai ou faux</p>
+          <p>«&nbsp;\(V(X+10)=V(X)+10\)&nbsp;»&nbsp;: cette affirmation est-elle correcte&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="prop2">Voir la réponse</button>
+          <p id="prop2" class="answer" hidden>Faux. Une translation ne change pas la variance&nbsp;: \(V(X+10)=V(X)\). Seul un facteur multiplicatif change \(V\), et il intervient au carré.</p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège fréquent</p>
+          <p>
+            \(V(aX+b)\ne a\,V(X)+b\). Beaucoup d'élèves écrivent par réflexe la même formule que pour l'espérance.
+            C'est un coefficient au carré pour la variance, et \(b\) disparaît complètement.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 06 · JEUX ========== -->
+      <section id="jeux" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">06</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Application</p>
+            <h2>Jeux d'argent&nbsp;: l'espérance dit qui gagne sur le long terme</h2>
+          </div>
+        </div>
+        <p>
+          Quand \(X\) modélise un gain algébrique en euros, le signe de \(E(X)\) répond à une question concrète&nbsp;:
+          jouer souvent à ce jeu est-il rentable ou ruineux&nbsp;? C'est l'usage que les exercices type bac privilégient.
+        </p>
+
+        <div class="choice-grid">
+          <div class="choice-card">
+            <p class="box-title">Jeu favorable</p>
+            <p>\(E(X)>0\). Sur un grand nombre de parties, le joueur gagne en moyenne. Très rare en pratique.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Jeu équitable</p>
+            <p>\(E(X)=0\). Le joueur ne perd ni ne gagne en moyenne. C'est la condition que les exercices demandent souvent à fabriquer.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Jeu défavorable</p>
+            <p>\(E(X)<0\). Le joueur perd en moyenne. Tous les jeux de casino réels sont dans cette catégorie.</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Réflexe — gain algébrique</p>
+          <p>
+            Avant de calculer l'espérance d'un jeu, transforme le résultat brut en gain algébrique&nbsp;: gain reçu moins mise, ou perte négative.
+          </p>
+          <p>
+            Limite du mémo&nbsp;: récupérer sa mise donne un gain algébrique \(0\), pas un gain positif égal à la mise.
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p>
+            <strong>Exemple — Loterie simple.</strong>
+            Un joueur mise 1 €. S'il gagne (probabilité \(\tfrac{7}{30}\)), il reçoit 5 €. Sinon, il ne reçoit rien.
+            Soit \(X\) le gain algébrique. Le jeu est-il favorable&nbsp;?
+          </p>
+          <p>Valeurs de \(X\)&nbsp;: \(-1\) (s'il perd) et \(+4\) (s'il gagne, il reçoit 5 € moins 1 € de mise).</p>
+          <div class="formula-card">
+            <table class="law-table" aria-label="Loi de la loterie">
+              <tr>
+                <th>\(x_i\)</th>
+                <td>\(-1\)</td>
+                <td>4</td>
+              </tr>
+              <tr>
+                <th>\(P(X=x_i)\)</th>
+                <td>\(\tfrac{23}{30}\)</td>
+                <td>\(\tfrac{7}{30}\)</td>
+              </tr>
+            </table>
+          </div>
+          <div class="formula-card">
+            \[
+              \begin{aligned}
+                E(X)&=-1\times\tfrac{23}{30}\\
+                &\quad+4\times\tfrac{7}{30}\\
+                &=\tfrac{-23+28}{30}\\
+                &=\tfrac{1}{6}\approx0{,}17
+              \end{aligned}
+            \]
+          </div>
+          <p>\(E(X)>0\)&nbsp;: le jeu est favorable au joueur, qui gagne en moyenne 0,17 € par partie. C'est inhabituel pour une vraie loterie.</p>
+        </div>
+
+        <div class="worked-example">
+          <p>
+            <strong>Exemple — Fabriquer un jeu équitable.</strong>
+            Une urne contient 2 boules vertes, 5 boules blanches et 8 boules rouges.
+            Après une mise de \(m\) €, on tire une boule&nbsp;: verte\(\,\to\)+16 €, blanche\(\,\to\)on récupère la mise, rouge\(\,\to\)on perd la mise.
+            Quelle mise rend le jeu équitable&nbsp;?
+          </p>
+          <p>Total&nbsp;: 15 boules. Soit \(Z\) le gain algébrique.</p>
+          <div class="formula-card">
+            \[ P(Z=16-m)=\tfrac{2}{15} \]
+            \[ P(Z=0)=\tfrac{5}{15}=\tfrac{1}{3} \]
+            \[ P(Z=-m)=\tfrac{8}{15} \]
+          </div>
+          <p>Condition d'équité&nbsp;: \(E(Z)=0\).</p>
+          <div class="formula-card">
+            \[
+              \begin{aligned}
+                E(Z)&=(16-m)\tfrac{2}{15}\\
+                &\quad+0\times\tfrac{1}{3}\\
+                &\quad+(-m)\tfrac{8}{15}
+              \end{aligned}
+            \]
+            \[
+              \begin{aligned}
+                15\,E(Z)&=2(16-m)\\
+                &\quad-8m
+              \end{aligned}
+            \]
+            \[ 15\,E(Z)=32-10m \]
+            \[ E(Z)=0 \]
+            \[ 32-10m=0 \]
+            \[ m=\tfrac{32}{10}=3{,}2 \]
+          </div>
+          <p>La mise qui rend le jeu équitable est \(m=3{,}20\) €.</p>
+        </div>
+
+        <div class="c-callout c-callout--note">
+          <p class="c-callout__label"><span class="dot"></span>Lecture pratique</p>
+          <p>
+            Quand un énoncé demande la mise qui rend le jeu équitable, on écrit toujours \(E(X)=0\),
+            on isole \(m\), puis on conclut. C'est presque mécanique une fois la loi posée correctement.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>Un joueur paie 2 € pour lancer un dé équilibré et gagne le numéro affiché. Soit \(G\) son gain algébrique. Le jeu est-il favorable&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="jeu1">Voir la réponse</button>
+          <p id="jeu1" class="answer" hidden>L'espérance des numéros vaut \(\tfrac{1+2+3+4+5+6}{6}=3{,}5\). En soustrayant la mise, \(E(G)=3{,}5-2=1{,}5>0\). Jeu favorable.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choix de méthode</p>
+          <p>Pour conclure si un jeu est équitable, faut-il calculer la variance&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="jeu2">Voir la réponse</button>
+          <p id="jeu2" class="answer" hidden>Non. La nature du jeu (favorable, équitable, défavorable) est décidée uniquement par le signe de \(E(X)\). La variance mesure le risque, pas l'équité.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Gain algébrique</p>
+          <p>Un joueur paie 4 €. S'il gagne, il reçoit 10 €. S'il perd, il ne reçoit rien. Quelles sont les deux valeurs du gain algébrique&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="memo-jeu-gain">Voir la réponse</button>
+          <p id="memo-jeu-gain" class="answer" hidden>En cas de victoire, le gain algébrique vaut \(10-4=6\) €. En cas de défaite, il vaut \(-4\) €. On ne met pas \(10\) et \(0\) dans la loi du gain algébrique, car il faut intégrer la mise.</p>
+        </div>
+      </section>
+
+      <!-- ========== 07 · CHOIX METHODE ========== -->
+      <section id="choix-methode" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">07</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Différenciateur</p>
+            <h2>Choisir la méthode avant de calculer</h2>
+          </div>
+        </div>
+        <p>
+          Beaucoup d'erreurs commencent avant la première ligne de calcul&nbsp;: l'élève lance une formule
+          parce qu'il la connaît, et oublie ce que l'énoncé demande vraiment.
+          Apprendre à reconnaître le déclencheur est aussi important que les formules elles-mêmes.
+        </p>
+
+        <div class="choice-grid">
+          <div class="choice-card">
+            <p class="box-title">On te demande la loi</p>
+            <p>Liste \(X(\Omega)\), puis calcule chaque \(P(X=x_i)\). Vérifie que la somme vaut \(1\).</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">On te demande un gain moyen ou un long terme</p>
+            <p>C'est l'espérance \(E(X)=\sum x_i p_i\). Multiplications puis somme.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">On te demande la dispersion ou le risque</p>
+            <p>Variance \(V(X)\) puis écart-type \(\sigma(X)\). Pense à König-Huyghens pour aller plus vite.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">On modifie le gain par \(aX+b\)</p>
+            <p>Utilise la linéarité de \(E\) et la règle \(V(aX+b)=a^2 V(X)\). Ne refais pas toute la loi.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">On te demande la mise qui rend le jeu équitable</p>
+            <p>Écris \(E(X)=0\) (avec \(m\) dans la loi) et résous l'équation en \(m\).</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">On te demande si un jeu est favorable</p>
+            <p>Calcule \(E(X)\), regarde son signe, puis conclus en une phrase claire.</p>
+          </div>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis sans calculer</p>
+          <p>«&nbsp;Le joueur perd-il en moyenne&nbsp;?&nbsp;»&nbsp;: que faut-il calculer&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="choix1">Voir la réponse</button>
+          <p id="choix1" class="answer" hidden>\(E(X)\). Le mot «&nbsp;en moyenne&nbsp;» déclenche l'espérance. Si \(E(X)<0\), le joueur perd à long terme.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis sans calculer</p>
+          <p>«&nbsp;Quelle action est la moins volatile&nbsp;?&nbsp;»&nbsp;: que faut-il calculer&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="choix2">Voir la réponse</button>
+          <p id="choix2" class="answer" hidden>\(V(X)\) ou \(\sigma(X)\). «&nbsp;Volatilité&nbsp;» = dispersion = écart-type. On choisit celle avec la variance la plus faible.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis sans calculer</p>
+          <p>«&nbsp;Un loto double tous ses gains&nbsp;; quelle est la nouvelle espérance&nbsp;?&nbsp;»&nbsp;: faut-il refaire la loi&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="choix3">Voir la réponse</button>
+          <p id="choix3" class="answer" hidden>Non. \(E(2X)=2E(X)\). C'est la linéarité de l'espérance qui économise le travail.</p>
+        </div>
+      </section>
+
+      <!-- ========== 08 · REDACTION ========== -->
+      <section id="redaction" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">08</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Copie notée</p>
+            <h2>Rédiger comme en contrôle</h2>
+          </div>
+        </div>
+        <p>
+          Le bon résultat ne suffit pas. Il faut laisser une trace claire des étapes&nbsp;: loi, calcul d'espérance,
+          interprétation, conclusion. Sinon, le correcteur enlève des points même quand la valeur finale est bonne.
+        </p>
+
+        <div class="copy-grid">
+          <div class="c-callout c-callout--warn">
+            <p class="c-callout__label"><span class="dot"></span>Brouillon insuffisant</p>
+            <p>\(E(X)=-1{,}06\), donc défavorable.</p>
+            <p class="penalty">aucun tableau de loi, aucune justification du calcul, aucune phrase d'interprétation. Le correcteur ne peut pas accorder tous les points.</p>
+          </div>
+
+          <div class="worked-example">
+            <p>
+              <strong>Copie propre attendue.</strong>
+              Calculer l'espérance de \(G\) et conclure sur la nature du jeu.
+            </p>
+            <p>1) Loi de probabilité de \(G\)&nbsp;:</p>
+            <div class="formula-card">
+              <table class="law-table" aria-label="Loi de G dans la copie">
+                <tr>
+                  <th>\(k\)</th>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>\(-3\)</td>
+                </tr>
+                <tr>
+                  <th>\(P(G=k)\)</th>
+                  <td>\(\tfrac{5}{18}\)</td>
+                  <td>\(\tfrac{1}{6}\)</td>
+                  <td>\(\tfrac{5}{9}\)</td>
+                </tr>
+              </table>
+            </div>
+            <p>2) Calcul de l'espérance&nbsp;:</p>
+            <div class="formula-card">
+              \[ \begin{aligned} E(G)&=1\times\tfrac{5}{18}+2\times\tfrac{1}{6}\\ &\quad+(-3)\times\tfrac{5}{9}\\ &=-\tfrac{19}{18}\approx -1{,}06 \end{aligned} \]
+            </div>
+            <p>3) Conclusion&nbsp;: comme \(E(G)<0\), le jeu est défavorable au joueur. Sur un grand nombre de parties, le joueur perd environ 1,06 € par partie.</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Points qui rapportent</p>
+          <ul class="score-list">
+            <li>Présenter la loi sous forme de tableau, avec les valeurs et les probabilités explicites.</li>
+            <li>Vérifier (ou faire apparaître) que la somme des probabilités vaut \(1\).</li>
+            <li>Écrire la formule \(E(X)=\sum x_i p_i\) avant de la calculer.</li>
+            <li>Donner la valeur exacte, puis éventuellement une valeur approchée à \(10^{-2}\).</li>
+            <li>Conclure par une phrase claire&nbsp;: jeu favorable, équitable, ou défavorable.</li>
+            <li>Pour la variance, écrire d'abord \(V(X)=\sum p_i (x_i-E(X))^2\) ou König-Huyghens, puis \(\sigma(X)=\sqrt{V(X)}\).</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ========== P · PIEGES ========== -->
+      <section id="pieges" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">P</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Pièges du chapitre</p>
+            <h2>Les erreurs qui coûtent le plus de points</h2>
+          </div>
+        </div>
+        <p>
+          Ces pièges ne viennent pas d'un manque de connaissance des formules&nbsp;: ils viennent d'automatismes mal placés.
+          Ils reviennent dans presque tous les contrôles sur ce chapitre.
+        </p>
+
+        <div class="case-grid">
+          <div class="case-card">
+            <p class="case-title">Somme des probabilités \(\ne 1\)</p>
+            <p>Si \(\sum p_i\ne 1\), la loi est incorrecte. Toujours vérifier avant de calculer \(E(X)\). Un total de \(0{,}9\) ou \(1{,}1\) signale une probabilité manquante ou mal calculée.</p>
+          </div>
+          <div class="case-card">
+            <p class="case-title">Oublier le carré dans \(V(X)\)</p>
+            <p>La somme des écarts \(\sum p_i(x_i-E(X))\) vaut toujours \(0\), pas la variance. Le carré n'est pas optionnel&nbsp;: il rend les écarts positifs pour qu'ils ne se compensent pas.</p>
+          </div>
+          <div class="case-card">
+            <p class="case-title">Confondre \(V(X)\) et \(\sigma(X)\)</p>
+            <p>\(V(X)\) s'exprime dans le carré de l'unité. \(\sigma(X)=\sqrt{V(X)}\) s'exprime dans l'unité de \(X\). Donner \(V(X)\) en euros au lieu de \(\sigma(X)\) est compté faux.</p>
+          </div>
+          <div class="case-card">
+            <p class="case-title">\(V(aX+b)\) traité comme \(E(aX+b)\)</p>
+            <p>Réflexe fréquent&nbsp;: écrire \(V(aX+b)=aV(X)+b\). C'est faux. La translation \(b\) disparaît et le facteur passe au carré&nbsp;: \(V(aX+b)=a^2V(X)\).</p>
+          </div>
+          <div class="case-card">
+            <p class="case-title">Confondre \(x_i\) et \(P(X=x_i)\)</p>
+            <p>Une probabilité négative est impossible. Si on lit \(P(X=-3)=-3\), c'est un mélange de la valeur et de la probabilité. La valeur peut être négative, la probabilité jamais.</p>
+          </div>
+          <div class="case-card">
+            <p class="case-title">Oublier l'interprétation</p>
+            <p>Donner \(E(G)=-1{,}06\) sans dire ce que cela signifie pour le joueur fait perdre des points. Écrire une phrase finale en français est attendu en contrôle.</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Le piège du «&nbsp;gain&nbsp;» versus «&nbsp;gain algébrique&nbsp;»</p>
+          <p>
+            Si la mise est de 1 € et que le joueur «&nbsp;gagne 5 €&nbsp;», son gain algébrique est de \(+4\) €, pas \(+5\) €.
+            Beaucoup d'énoncés piègent en testant cette distinction.
+            Lis bien&nbsp;: la mise est-elle automatiquement perdue ou reprise&nbsp;?
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== G · EXERCICES GUIDES ========== -->
+      <section id="guides" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">G</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Exercices guidés</p>
+            <h2>L'aide disparaît progressivement</h2>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 1 — Loi d'un dé pipé</h3>
+            <span class="difficulty" aria-label="Niveau comprendre">Comprendre</span>
+          </div>
+          <p>
+            On lance un dé cubique pipé. \(P(X=6)=\tfrac{1}{2}\) et les cinq autres faces sont équiprobables.
+            Déterminer la loi de \(X\).
+          </p>
+          <p class="hint-line">les cinq autres faces se partagent la probabilité restante.</p>
+          <button class="reveal-button" type="button" data-reveal="guide1">Voir le corrigé</button>
+          <div id="guide1" class="answer" hidden>
+            <p>La probabilité restante est \(1-\tfrac{1}{2}=\tfrac{1}{2}\), à partager en cinq probabilités égales.</p>
+            <p>Pour \(k\in\{1,2,3,4,5\}\)&nbsp;:</p>
+            <div class="formula-card">
+              \[ \tfrac{1/2}{5}=\tfrac{1}{10} \]
+              \[ P(X=k)=\tfrac{1}{10} \]
+              \[ P(X=6)=\tfrac{1}{2} \]
+            </div>
+            <p>Vérification&nbsp;: \(5\times\tfrac{1}{10}+\tfrac{1}{2}=\tfrac{1}{2}+\tfrac{1}{2}=1\). La loi est correcte.</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 2 — Espérance d'un gain</h3>
+            <span class="difficulty" aria-label="Niveau savoir refaire">Savoir refaire</span>
+          </div>
+          <p>
+            Un sac contient 20 jetons&nbsp;: 9 rouges, 4 verts, 4 jaunes et 3 noirs. Si la boule est noire, le joueur gagne 5 €&nbsp;;
+            verte ou jaune, 3 €&nbsp;; rouge, il perd 2 €. Soit \(X\) le gain algébrique. Calculer \(E(X)\) et conclure.
+          </p>
+          <p class="hint-line">les verts et les jaunes se regroupent (même gain).</p>
+          <button class="reveal-button" type="button" data-reveal="guide2">Voir le corrigé</button>
+          <div id="guide2" class="answer" hidden>
+            <p>Loi de \(X\)&nbsp;:</p>
+            <div class="formula-card">
+              <table class="law-table" aria-label="Loi du guidé 2">
+                <tr>
+                  <th>\(x_i\)</th>
+                  <td>\(-2\)</td>
+                  <td>3</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <th>\(P(X=x_i)\)</th>
+                  <td>\(\tfrac{9}{20}\)</td>
+                  <td>\(\tfrac{8}{20}\)</td>
+                  <td>\(\tfrac{3}{20}\)</td>
+                </tr>
+              </table>
+            </div>
+            <div class="formula-card">
+              \[ \begin{aligned} E(X)&=-2\times\tfrac{9}{20}+3\times\tfrac{8}{20}\\ &\quad+5\times\tfrac{3}{20}\\ &=\tfrac{-18+24+15}{20}=\tfrac{21}{20}\\ &=1{,}05 \end{aligned} \]
+            </div>
+            <p>\(E(X)=1{,}05>0\)&nbsp;: le jeu est favorable au joueur. Sur un grand nombre de parties, il gagne en moyenne 1,05 € par partie.</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 3 — Variance et écart-type</h3>
+            <span class="difficulty" aria-label="Niveau savoir refaire">Savoir refaire</span>
+          </div>
+          <p>
+            Reprends la loi du guidé 2 et calcule \(V(X)\) puis \(\sigma(X)\). Tu peux utiliser König-Huyghens.
+          </p>
+          <p class="hint-line">commence par \(E(X^2)=\sum p_i x_i^2\).</p>
+          <button class="reveal-button" type="button" data-reveal="guide3">Voir le corrigé</button>
+          <div id="guide3" class="answer" hidden>
+            <div class="formula-card">
+              \[
+                \begin{aligned}
+                  E(X^2)&=4\times\tfrac{9}{20}\\
+                  &\quad+9\times\tfrac{8}{20}\\
+                  &\quad+25\times\tfrac{3}{20}\\
+                  &=\tfrac{36+72+75}{20}\\
+                  &=\tfrac{183}{20}\\
+                  &=9{,}15
+                \end{aligned}
+              \]
+              \[ V(X)=9{,}15-(1{,}05)^2 \]
+              \[ V(X)=8{,}0475 \]
+              \[ \sigma(X)=\sqrt{8{,}0475} \]
+              \[ \sigma(X)\approx 2{,}84 \]
+            </div>
+            <p>L'écart-type d'environ 2,84 € indique que le résultat fluctue fortement autour de la moyenne (qui vaut 1,05 €).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 4 — Linéarité de l'espérance</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>
+            On reprend \(X\) du guidé 2. Le sac est désormais loué 0,50 € par partie. Le gain net du joueur est \(Y=X-0{,}5\).
+            Donner \(E(Y)\), \(V(Y)\) et \(\sigma(Y)\) sans recalculer de loi.
+          </p>
+          <p class="hint-line">une translation ne change pas la dispersion.</p>
+          <button class="reveal-button" type="button" data-reveal="guide4">Voir le corrigé</button>
+          <div id="guide4" class="answer" hidden>
+            <div class="formula-card">
+              \[ E(Y)=E(X)-0{,}5 \]
+              \[ E(Y)=0{,}55 \]
+              \[ V(Y)=V(X) \]
+              \[ V(Y)=8{,}0475 \]
+              \[ \sigma(Y)=\sigma(X)\approx 2{,}84 \]
+            </div>
+            <p>Le jeu reste favorable (\(E(Y)>0\)), mais la dispersion est inchangée. Ajouter une mise fixe ne change pas le risque, seulement la moyenne.</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Bilan d'étape</p>
+          <p>
+            Avant d'attaquer les exercices de contrôle, tu dois savoir&nbsp;: poser une loi, vérifier somme = 1,
+            calculer \(E(X)\) et l'interpréter, calculer \(V(X)\) (deux méthodes) et \(\sigma(X)\), et appliquer la linéarité.
+            Si tu hésites, reviens à la section «&nbsp;Choisir la méthode&nbsp;».
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== C · CONTROLE ========== -->
+      <section id="controle" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">C</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Niveau contrôle</p>
+            <h2>Exercices à réussir sans aide</h2>
+          </div>
+        </div>
+        <p>Essaie d'abord sur feuille. Ouvre le corrigé seulement après avoir écrit une méthode complète.</p>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Contrôle 1 — Roulette à quinze cases</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>
+            Une roulette comporte 15 secteurs angulaires égaux. Pour jouer, on mise 2 € (perdue d'office) et on choisit un numéro.
+            Si le numéro choisi sort, on gagne 20 €. Si l'un des deux numéros voisins sort, on gagne 3 €. Sinon, on ne gagne rien.
+            Soit \(Y\) le gain algébrique.
+          </p>
+          <ol class="exercise-list">
+            <li>Déterminer la loi de \(Y\).</li>
+            <li>Calculer \(E(Y)\). Le jeu est-il favorable&nbsp;?</li>
+            <li>Calculer \(\sigma(Y)\).</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="controle1">Voir le corrigé</button>
+          <div id="controle1" class="answer" hidden>
+            <p>Probabilités&nbsp;: numéro choisi \(\tfrac{1}{15}\), voisin \(\tfrac{2}{15}\), autre \(\tfrac{12}{15}\). Mise toujours retirée.</p>
+            <div class="formula-card">
+              <table class="law-table" aria-label="Loi roulette">
+                <tr>
+                  <th>\(y_i\)</th>
+                  <td>\(-2\)</td>
+                  <td>1</td>
+                  <td>18</td>
+                </tr>
+                <tr>
+                  <th>\(P(Y=y_i)\)</th>
+                  <td>\(\tfrac{12}{15}\)</td>
+                  <td>\(\tfrac{2}{15}\)</td>
+                  <td>\(\tfrac{1}{15}\)</td>
+                </tr>
+              </table>
+            </div>
+            <div class="formula-card">
+              \[ \begin{aligned} E(Y)&=-2\times\tfrac{12}{15}+1\times\tfrac{2}{15}\\ &\quad+18\times\tfrac{1}{15}\\ &=\tfrac{-24+2+18}{15}=-\tfrac{4}{15}\\ &\approx -0{,}27 \end{aligned} \]
+            </div>
+            <p>\(E(Y)<0\)&nbsp;: jeu défavorable. Le joueur perd environ 0,27 € par partie en moyenne.</p>
+            <div class="formula-card">
+              \[
+                \begin{aligned}
+                  E(Y^2)&=4\times\tfrac{12}{15}\\
+                  &\quad+1\times\tfrac{2}{15}\\
+                  &\quad+324\times\tfrac{1}{15}\\
+                  &=\tfrac{48+2+324}{15}\\
+                  &=\tfrac{374}{15}\\
+                  &\approx 24{,}93
+                \end{aligned}
+              \]
+              \[ V(Y)\approx 24{,}93-(-0{,}27)^2 \]
+              \[ V(Y)\approx 24{,}86 \]
+              \[ \sigma(Y)\approx 4{,}99 \]
+            </div>
+            <p>L'écart-type d'environ 5 € indique des fluctuations importantes&nbsp;: certaines parties rapportent 18 €, beaucoup d'autres perdent 2 €.</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Contrôle 2 — Cube peint</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>
+            Un cube de 3 cm d'arête est peint en bleu sur ses six faces, puis découpé en 27 petits cubes de 1 cm d'arête.
+            On en tire un au hasard. Soit \(X\) le nombre de faces peintes du cube tiré.
+          </p>
+          <ol class="exercise-list">
+            <li>Déterminer la loi de \(X\).</li>
+            <li>Calculer \(E(X)\). Donner une interprétation.</li>
+            <li>Calculer \(V(X)\) et \(\sigma(X)\).</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="controle2">Voir le corrigé</button>
+          <div id="controle2" class="answer" hidden>
+            <p>Comptage géométrique&nbsp;: 8 cubes-coins (3 faces peintes), 12 cubes d'arête (2 faces), 6 cubes au centre des faces (1 face), 1 cube au cœur (0 face).</p>
+            <div class="formula-card">
+              <table class="law-table" aria-label="Loi cube peint">
+                <tr>
+                  <th>\(x_i\)</th>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>2</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <th>\(P(X=x_i)\)</th>
+                  <td>\(\tfrac{1}{27}\)</td>
+                  <td>\(\tfrac{6}{27}\)</td>
+                  <td>\(\tfrac{12}{27}\)</td>
+                  <td>\(\tfrac{8}{27}\)</td>
+                </tr>
+              </table>
+            </div>
+            <div class="formula-card">
+              \[ \begin{aligned} E(X)&=\tfrac{0+6+24+24}{27}\\ &=\tfrac{54}{27}=2 \end{aligned} \]
+            </div>
+            <p>En moyenne, un petit cube tiré possède \(2\) faces peintes.</p>
+            <div class="formula-card">
+              \[ \begin{aligned} E(X^2)&=\tfrac{0+6+48+72}{27}\\ &=\tfrac{126}{27}\\ &\approx 4{,}67 \end{aligned} \]
+              \[ V(X)\approx 4{,}67-4\approx 0{,}67 \]
+              \[ \sigma(X)\approx 0{,}82 \]
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Contrôle 3 — Mise équitable</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>
+            Un joueur lance deux dés équilibrés et mise \(m\) € (perdue d'office). Si la somme des deux dés vaut \(7\),
+            il gagne 30 €&nbsp;; sinon, il ne gagne rien. Soit \(Z\) le gain algébrique.
+          </p>
+          <ol class="exercise-list">
+            <li>Déterminer la probabilité d'obtenir une somme de \(7\).</li>
+            <li>Donner la loi de \(Z\) en fonction de \(m\).</li>
+            <li>Déterminer la mise \(m\) rendant le jeu équitable.</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="controle3">Voir le corrigé</button>
+          <div id="controle3" class="answer" hidden>
+            <p>Sur 36 issues équiprobables, six donnent une somme de \(7\)&nbsp;: (1,6), (2,5), (3,4), (4,3), (5,2) et (6,1).</p>
+            <div class="formula-card">
+              \[ P(\text{somme}=7)=\tfrac{6}{36} \]
+              \[ P(\text{somme}=7)=\tfrac{1}{6} \]
+            </div>
+            <div class="formula-card">
+              <table class="law-table" aria-label="Loi du jeu équitable">
+                <tr>
+                  <th>\(z_i\)</th>
+                  <td>\(-m\)</td>
+                  <td>\(30-m\)</td>
+                </tr>
+                <tr>
+                  <th>\(P(Z=z_i)\)</th>
+                  <td>\(\tfrac{5}{6}\)</td>
+                  <td>\(\tfrac{1}{6}\)</td>
+                </tr>
+              </table>
+            </div>
+            <div class="formula-card">
+              \[ \begin{aligned} E(Z)&=-m\times\tfrac{5}{6}\\ &\quad+(30-m)\times\tfrac{1}{6}\\ &=\tfrac{-5m+30-m}{6}\\ &=\tfrac{30-6m}{6} \end{aligned} \]
+              \[ E(Z)=0 \;\Longleftrightarrow\; m=5 \]
+            </div>
+            <p>Le jeu est équitable pour une mise de 5 €.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 20 · CAP 20/20 ========== -->
+      <section id="vingt-sur-vingt" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">20</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Cap 20/20</p>
+            <h2>Pas de raccourci : passe la porte avant</h2>
+          </div>
+        </div>
+
+        <div class="c-gate">
+          <p class="c-gate__label">Porte d'entrée</p>
+          <p class="c-gate__title">Deux contrôles sans corrigé d'abord</p>
+          <p>
+            Avant de tenter ces exercices, réussis au moins deux exercices de contrôle sans ouvrir le corrigé.
+            Sinon, reviens à la section «&nbsp;Variance et écart-type&nbsp;» et au choix de méthode.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Réflexe 20/20 — même moyenne, pas même risque</p>
+          <p>
+            Deux variables peuvent avoir la même espérance et des risques très différents. Pour comparer la stabilité, regarde la variance ou l'écart-type.
+          </p>
+          <p>
+            Limite du mémo&nbsp;: l'espérance reste le bon outil pour l'équité d'un jeu. La dispersion intervient quand deux choix ont une moyenne comparable.
+          </p>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Comparaison de deux actions</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>
+            On modélise l'évolution du cours de deux actions \(A\) et \(B\) en euros par les variables aléatoires \(X\) et \(Y\) suivantes&nbsp;:
+          </p>
+          <div class="formula-card">
+            <table class="law-table" aria-label="Action A">
+              <tr>
+                <th>\(x_i\)</th>
+                <td>\(-3\)</td>
+                <td>0</td>
+                <td>3</td>
+              </tr>
+              <tr>
+                <th>\(P(X=x_i)\)</th>
+                <td>\(0{,}3\)</td>
+                <td>\(0{,}4\)</td>
+                <td>\(0{,}3\)</td>
+              </tr>
+            </table>
+          </div>
+          <div class="formula-card">
+            <table class="law-table" aria-label="Action B">
+              <tr>
+                <th>\(y_i\)</th>
+                <td>\(-10\)</td>
+                <td>0</td>
+                <td>10</td>
+              </tr>
+              <tr>
+                <th>\(P(Y=y_i)\)</th>
+                <td>\(0{,}3\)</td>
+                <td>\(0{,}4\)</td>
+                <td>\(0{,}3\)</td>
+              </tr>
+            </table>
+          </div>
+          <ol class="exercise-list">
+            <li>Calculer \(E(X)\) et \(E(Y)\). L'espérance suffit-elle à choisir une action&nbsp;?</li>
+            <li>Calculer \(V(X)\) et \(V(Y)\). Quelle action choisir si on veut limiter le risque&nbsp;?</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="vingt1">Voir le corrigé</button>
+          <div id="vingt1" class="answer" hidden>
+            <p>1) Les deux lois sont symétriques autour de \(0\)&nbsp;:</p>
+            <div class="formula-card">
+              \[ E(X)=E(Y)=0 \]
+            </div>
+            <p>L'espérance ne permet pas de différencier les actions&nbsp;: à long terme, elles rapportent autant.</p>
+            <p>2) Variances&nbsp;:</p>
+            <div class="formula-card">
+              \[
+                \begin{aligned}
+                  V(X)&=0{,}3\times 9\\
+                  &\quad+0{,}4\times 0\\
+                  &\quad+0{,}3\times 9\\
+                  &=5{,}4
+                \end{aligned}
+              \]
+              \[
+                \begin{aligned}
+                  V(Y)&=0{,}3\times 100\\
+                  &\quad+0{,}4\times 0\\
+                  &\quad+0{,}3\times 100\\
+                  &=60
+                \end{aligned}
+              \]
+            </div>
+            <p>\(V(Y)\gg V(X)\)&nbsp;: l'action \(B\) est beaucoup plus volatile. Pour limiter le risque, on choisit \(A\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Boules avec paramètre</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>
+            Une urne contient \(n\) boules vertes et 9 boules rouges, avec \(n\in\mathbb{N}^*\). Le joueur tire une boule au hasard.
+            Si elle est verte, il gagne 2,50 €. Si elle est rouge, il perd 1,50 €. Soit \(X\) le gain algébrique.
+          </p>
+          <ol class="exercise-list">
+            <li>Déterminer la loi de \(X\) en fonction de \(n\).</li>
+            <li>Calculer \(E(X)\) en fonction de \(n\) et étudier son signe.</li>
+            <li>À partir de quelle valeur de \(n\) le jeu devient-il favorable au joueur&nbsp;?</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="vingt2">Voir le corrigé</button>
+          <div id="vingt2" class="answer" hidden>
+            <div class="formula-card">
+              \[ P(X=2{,}5)=\tfrac{n}{n+9} \]
+              \[ P(X=-1{,}5)=\tfrac{9}{n+9} \]
+            </div>
+            <div class="formula-card">
+              \[ \begin{aligned} E(X)&=2{,}5\times\tfrac{n}{n+9}\\ &\quad-1{,}5\times\tfrac{9}{n+9}\\ &=\tfrac{2{,}5n-13{,}5}{n+9} \end{aligned} \]
+            </div>
+            <p>Le dénominateur \(n+9>0\). Donc \(E(X)>0\) si et seulement si \(2{,}5n-13{,}5>0\), soit \(n>\tfrac{13{,}5}{2{,}5}=5{,}4\).</p>
+            <p>Comme \(n\) est un entier, le jeu devient favorable dès \(n\ge 6\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Linéarité combinée</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>
+            Soit \(X\) une variable aléatoire telle que \(E(X)=2\) et \(\sigma(X)=3\). Soit \(Y=-2X+7\).
+          </p>
+          <ol class="exercise-list">
+            <li>Calculer \(E(Y)\), \(V(Y)\) et \(\sigma(Y)\).</li>
+            <li>Vrai ou faux&nbsp;? \(E(X-Y)=E(X)-E(Y)\). Justifier.</li>
+            <li>Si on définit \(Z=\tfrac{X-E(X)}{\sigma(X)}\), calculer \(E(Z)\) et \(\sigma(Z)\).</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="vingt3">Voir le corrigé</button>
+          <div id="vingt3" class="answer" hidden>
+            <div class="formula-card">
+              \[ E(Y)=-2\times 2+7=3 \]
+              \[ V(Y)=(-2)^2\times 9=36 \]
+              \[ \sigma(Y)=|{-2}|\times 3=6 \]
+            </div>
+            <p>2) Vrai par linéarité de l'espérance&nbsp;: \(E(X-Y)=E(X)-E(Y)=2-3=-1\). On peut aussi écrire \(X-Y=X-(-2X+7)=3X-7\), donc \(E(X-Y)=3\times 2-7=-1\). Cohérent.</p>
+            <p>3) \(Z=\tfrac{1}{\sigma(X)}X-\tfrac{E(X)}{\sigma(X)}\). Par linéarité&nbsp;:</p>
+            <div class="formula-card">
+              \[ E(Z)=\tfrac{E(X)-E(X)}{\sigma(X)} \]
+              \[ E(Z)=0 \]
+              \[ \sigma(Z)=\tfrac{1}{\sigma(X)}\times\sigma(X) \]
+              \[ \sigma(Z)=1 \]
+            </div>
+            <p>\(Z\) est dite variable «&nbsp;centrée réduite&nbsp;»&nbsp;: espérance nulle, écart-type unité. Cette transformation est très utilisée en statistique.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== R · REVISION ========== -->
+      <section id="revision" class="chapter-section recap-section">
+        <div class="section-marker">
+          <div class="section-marker__num">R</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Mini-révision mélangée</p>
+            <h2>Ce que tu dois revoir ensuite</h2>
+          </div>
+        </div>
+        <p>
+          Un contrôle ne dira pas toujours «&nbsp;calcule la variance&nbsp;». Entraîne-toi à reconnaître le déclencheur,
+          et garde en tête le lien avec les autres chapitres déjà vus.
+        </p>
+
+        <div class="revision-grid">
+          <div class="revision-card">
+            <p class="box-title">Si tu as raté la loi</p>
+            <p>Refais Guidé 1 et Contrôle 2. Pense à toujours vérifier que la somme des probabilités vaut \(1\) avant de continuer.</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Si tu as raté l'espérance</p>
+            <p>Reprends les exemples du dé et de l'urne. La formule \(\sum x_i p_i\) doit devenir un réflexe.</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Si tu as raté la variance</p>
+            <p>Choisis König-Huyghens si les calculs s'allongent&nbsp;: souvent plus rapide quand \(E(X)\) est «&nbsp;moche&nbsp;».</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Si tu as confondu \(V\) et \(\sigma\)</p>
+            <p>Refais la dernière étape de chaque exercice&nbsp;: \(\sigma(X)=\sqrt{V(X)}\). L'unité te le rappelle.</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Mélange avec probabilités conditionnelles</p>
+            <p>Plus tard, certaines lois viennent d'un arbre pondéré. Sache toujours partir de l'arbre, puis remonter à la loi de \(X\).</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Mélange avec second degré</p>
+            <p>Quand un paramètre \(n\) ou \(m\) intervient, l'étude du signe de \(E(X)\) peut nécessiter de résoudre une inéquation
+              (parfois du second degré). Le réflexe «&nbsp;racines puis signe&nbsp;» revient ici.</p>
+          </div>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">R</span>Dernière récupération active</p>
+          <p>
+            Écris, sans regarder&nbsp;: la définition de \(E(X)\), celle de \(V(X)\), la formule de König-Huyghens,
+            et les trois propriétés \(E(aX+b)\), \(V(aX+b)\), \(\sigma(aX+b)\).
+          </p>
+          <button class="reveal-button" type="button" data-reveal="revision1">Voir la fiche minimale</button>
+          <div id="revision1" class="answer" hidden>
+            <div class="formula-card">
+              \[ E(X)=\sum p_i x_i \]
+              \[
+                \begin{aligned}
+                  V(X)&=\sum p_i\\
+                  &\quad\times (x_i-E(X))^2
+                \end{aligned}
+              \]
+              \[ V(X)=E(X^2)-E(X)^2 \]
+              \[ E(aX+b)=aE(X)+b \]
+              \[ V(aX+b)=a^2 V(X) \]
+              \[ \sigma(aX+b)=|a|\,\sigma(X) \]
+            </div>
+            <p>Si tu peux reproduire ces six lignes sans hésiter, tu as la base du chapitre. La suite, c'est de les déclencher au bon moment.</p>
+          </div>
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+  <!-- ============================================================
+       JSXGraph — diagramme en bâtons (loi de probabilité)
+       ============================================================ -->
+  <script>
+    (function () {
+      function cssVar(name) {
+        return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      }
+
+      const COLORS = {
+        bar: cssVar('--blue-2'),
+        ink: cssVar('--ink'),
+        point: cssVar('--stabilo'),
+      };
+
+      function createBoard(el, bbox) {
+        return JXG.JSXGraph.initBoard(el.id, {
+          boundingbox: bbox,
+          axis: true,
+          grid: true,
+          showCopyright: false,
+          showNavigation: false,
+          pan: { enabled: false },
+          zoom: { enabled: false },
+        });
+      }
+
+      const boards = {
+        batons(el) {
+          const b = createBoard(el, [-0.5, 0.4, 7, -0.05]);
+          const data = [
+            [1, 0.15],
+            [2, 0.20],
+            [3, 0.30],
+            [4, 0.20],
+            [5, 0.10],
+            [6, 0.05],
+          ];
+          data.forEach(([x, p]) => {
+            b.create('segment', [[x, 0], [x, p]], {
+              strokeColor: COLORS.bar,
+              strokeWidth: 6,
+              fixed: true,
+            });
+            b.create('point', [x, p], {
+              name: 'p=' + p.toFixed(2).replace('.', ','),
+              size: 3,
+              fillColor: COLORS.point,
+              strokeColor: COLORS.ink,
+              label: { offset: [8, 8], fontSize: 11, color: COLORS.ink },
+              fixed: true,
+              showInfobox: false,
+            });
+          });
+        },
+      };
+
+      window.__courseGraphInitializers = window.__courseGraphInitializers || [];
+      window.__courseGraphInitializers.push((el) => {
+        if (!el || el.dataset.courseGraphReady === 'true') return;
+        const fn = boards[el.dataset.chapterCurve];
+        if (!fn) return;
+        try {
+          fn(el);
+          el.dataset.courseGraphReady = 'true';
+        } catch (error) {
+          el.textContent = 'Graphe indisponible pour le moment.';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

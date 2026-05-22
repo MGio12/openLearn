@@ -74,6 +74,16 @@
     return /^https:\/\/(buy|checkout)\.stripe\.com\/.+/i.test(url);
   }
 
+  function trackCheckoutClick(button, completed) {
+    if (!window.OLAnalytics || typeof window.OLAnalytics.track !== "function") return;
+    window.OLAnalytics.track("checkout_clicked", {
+      page: "checkout",
+      plan: button.getAttribute("data-checkout-plan"),
+      billing: button.getAttribute("data-checkout-billing"),
+      completed: completed,
+    });
+  }
+
   function showSetup(text) {
     var setupAnchor = document.getElementById("configurer-stripe");
     if (setupAnchor) {
@@ -120,11 +130,13 @@
 
       if (!isStripeCheckoutUrl(url)) {
         event.preventDefault();
+        trackCheckoutClick(button, false);
         showSetup("Ajoute une URL Payment Link Stripe pour activer cette offre.");
         return;
       }
 
       event.preventDefault();
+      trackCheckoutClick(button, true);
       window.location.assign(url);
     });
   });

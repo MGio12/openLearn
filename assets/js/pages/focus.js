@@ -51,6 +51,15 @@
   var running = true;
   var completionHandled = false;
 
+  function trackFocusEvent(name, props) {
+    if (!window.OLAnalytics || typeof window.OLAnalytics.track !== 'function') return;
+    window.OLAnalytics.track(name, Object.assign({
+      page: 'focus',
+      subject: mission.subjectId || mission.subjectLabel,
+      duration_minutes: Math.round(total / 60),
+    }, props || {}));
+  }
+
   function setRunningState(nextRunning) {
     running = nextRunning;
     if (playIcon) playIcon.classList.toggle('fx-icon-hidden', running);
@@ -91,16 +100,20 @@
     if (window.OutilPrepa && typeof window.OutilPrepa.completeMissionToday === 'function') {
       window.OutilPrepa.completeMissionToday();
     }
+    trackFocusEvent('focus_completed', { completed: true });
     showDoneOverlay();
   }
 
   if (window.OutilPrepa && typeof window.OutilPrepa.startFocusSession === 'function') {
     window.OutilPrepa.startFocusSession();
   }
+  trackFocusEvent('focus_started');
 
   if (playPauseBtn) {
     playPauseBtn.addEventListener('click', function () {
-      setRunningState(!running);
+      var nextRunning = !running;
+      setRunningState(nextRunning);
+      trackFocusEvent(nextRunning ? 'focus_resumed' : 'focus_paused');
     });
   }
 

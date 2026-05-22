@@ -1,0 +1,2143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fonction exponentielle — cours V2</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="../cours.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="../cours.js"></script>
+  <style>
+    @media (max-width: 560px) {
+      .course-lesson .formula-card {
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+    }
+  </style>
+</head>
+<body class="has-course-sidebar">
+
+  <!-- Reading progress bar -->
+  <div class="progress-bar" aria-hidden="true">
+    <div class="progress-bar__fill" data-progress-fill></div>
+  </div>
+
+  <!-- Sticky section indicator -->
+  <div class="section-bar" data-section-bar aria-hidden="true">
+    <span class="section-bar__chip" data-section-bar-chip>00</span>
+    <span class="section-bar__title" data-section-bar-title>Fonction exponentielle</span>
+    <span class="section-bar__total" data-section-bar-total>1/16</span>
+  </div>
+
+  <!-- ============================================================
+       SIDEBAR
+       ============================================================ -->
+  <aside class="toc course-sidebar" aria-label="Plan du cours" data-course-sidebar>
+    <div class="sidebar-head">
+      <div>
+        <p class="toc-title">Plan</p>
+        <p class="sidebar-subtitle">Fonction exponentielle</p>
+      </div>
+      <button
+        class="sidebar-toggle"
+        type="button"
+        aria-label="Replier le plan"
+        aria-expanded="true"
+        data-sidebar-toggle
+      ><span aria-hidden="true">‹</span></button>
+    </div>
+
+    <nav class="toc-links" aria-label="Sections du chapitre">
+      <a href="#diagnostic" data-section-link><span class="toc-index">00</span><span class="toc-label">Diagnostic</span></a>
+      <a href="#intuition" data-section-link><span class="toc-index">01</span><span class="toc-label">Intuition</span></a>
+      <a href="#definition" data-section-link><span class="toc-index">02</span><span class="toc-label">Définition</span></a>
+      <a href="#proprietes" data-section-link><span class="toc-index">03</span><span class="toc-label">Propriétés</span></a>
+      <a href="#derivee" data-section-link><span class="toc-index">04</span><span class="toc-label">Dérivée</span></a>
+      <a href="#variations" data-section-link><span class="toc-index">05</span><span class="toc-label">Variations</span></a>
+      <a href="#courbe" data-section-link><span class="toc-index">06</span><span class="toc-label">Courbe</span></a>
+      <a href="#equations" data-section-link><span class="toc-index">07</span><span class="toc-label">Équations</span></a>
+      <a href="#applications" data-section-link><span class="toc-index">08</span><span class="toc-label">Modèles</span></a>
+      <a href="#choix-methode" data-section-link><span class="toc-index">09</span><span class="toc-label">Choisir</span></a>
+      <a href="#redaction" data-section-link><span class="toc-index">10</span><span class="toc-label">Rédiger</span></a>
+      <a href="#pieges" data-section-link><span class="toc-index">P</span><span class="toc-label">Pièges</span></a>
+      <a href="#guides" data-section-link><span class="toc-index">G</span><span class="toc-label">Guidé</span></a>
+      <a href="#controle" data-section-link><span class="toc-index">C</span><span class="toc-label">Contrôle</span></a>
+      <a href="#vingt-sur-vingt" data-section-link><span class="toc-index">20</span><span class="toc-label">20/20</span></a>
+      <a href="#revision" data-section-link><span class="toc-index">R</span><span class="toc-label">Révision</span></a>
+    </nav>
+
+    <p class="sidebar-foot">Maths spé · Lycée</p>
+  </aside>
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <header class="course-hero">
+    <nav class="topline" aria-label="Fil d'Ariane">
+      <a href="../../../..">Objectif Lycée</a>
+      <span>Maths spécialité</span>
+      <span>Cours</span>
+    </nav>
+
+    <div class="hero-grid">
+      <div>
+        <p class="hero-eyebrow"><span class="num">08</span> Chapitre</p>
+        <h1>Fonction exponentielle</h1>
+        <p class="hero-lead">
+          Une seule fonction est égale à sa propre dérivée. Lis-la, manipule ses puissances,
+          puis utilise-la pour modéliser une croissance ou une décroissance.
+        </p>
+      </div>
+
+      <aside class="hero-side" aria-label="Les 4 réflexes du chapitre">
+        <p class="hero-side__label">Ce que tu gagnes</p>
+        <h2>4 réflexes, 1 contrôle solide</h2>
+        <div class="hero-side__steps">
+          <div class="hero-side__step">
+            <span class="verb">Définir</span>
+            <span class="obj">f'=f, f(0)=1, notation e^x</span>
+          </div>
+          <div class="hero-side__step">
+            <span class="verb">Manipuler</span>
+            <span class="obj">somme, différence, puissance, inverse</span>
+          </div>
+          <div class="hero-side__step">
+            <span class="verb">Dériver</span>
+            <span class="obj">(e^u)' = u' e^u, signe = signe de u'</span>
+          </div>
+          <div class="hero-side__step">
+            <span class="verb">Résoudre</span>
+            <span class="obj">e^a = e^b ⇔ a = b, équations et modèles</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MAIN
+       ============================================================ -->
+  <main class="course-layout" data-course-layout>
+    <article class="lesson course-lesson">
+
+      <!-- Overview band — single editorial section -->
+      <section class="course-overview" aria-label="Repères du chapitre">
+        <div>
+          <p class="course-overview__title">Fil conducteur</p>
+          <h3>Ce chapitre se gagne en 4 réflexes</h3>
+          <p class="course-overview__lead">
+            Comprendre <em>pourquoi</em> l'exponentielle existe, lire ses propriétés algébriques comme des puissances,
+            dériver \(e^{u}\) sans confusion, puis résoudre <em>vraiment</em> des équations et des problèmes de croissance.
+          </p>
+        </div>
+        <div class="overview-flow">
+          <span>Définition</span>
+          <em>→</em>
+          <span>Propriétés</span>
+          <em>→</em>
+          <span>Dérivée</span>
+          <em>→</em>
+          <span>Modèles</span>
+        </div>
+      </section>
+
+      <!-- ========== 00 · DIAGNOSTIC ========== -->
+      <section id="diagnostic" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">00</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Diagnostic éclair</p>
+            <h2>Avant de commencer : tu sais faire quoi&nbsp;?</h2>
+          </div>
+        </div>
+        <p>
+          Réponds mentalement avant d'ouvrir les corrections. Le but n'est pas d'avoir une note&nbsp;: c'est
+          d'identifier où ton attention doit aller pendant le chapitre.
+        </p>
+
+        <div class="diagnostic-grid">
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 1</p>
+            <p>Existe-t-il une fonction \(f\) dérivable sur \(\mathbb{R}\) telle que \(f'=f\) et \(f(0)=1\)&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag1">Voir la réponse</button>
+            <p id="diag1" class="answer" hidden>Oui, et elle est unique&nbsp;: c'est la fonction exponentielle, notée \(\exp\), et on écrit \(\exp(x)=e^x\).</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 2</p>
+            <p>Que vaut \(e^{0}\)&nbsp;? Et \(e^{1}\)&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag2">Voir la réponse</button>
+            <p id="diag2" class="answer" hidden>\(e^{0}=1\) par définition, et \(e^{1}=e\approx2{,}718\).</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 3</p>
+            <p>Simplifie \(e^{3}\times e^{-5}\) puis \(\dfrac{e^{2}}{e^{-1}}\).</p>
+            <button class="reveal-button" type="button" data-reveal="diag3">Voir la réponse</button>
+            <p id="diag3" class="answer" hidden>\(e^{3}\times e^{-5}=e^{3+(-5)}=e^{-2}\) et \(\dfrac{e^{2}}{e^{-1}}=e^{2-(-1)}=e^{3}\).</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 4</p>
+            <p>Quel est le signe de \(e^{x}\) pour \(x\in\mathbb{R}\)&nbsp;? Et celui de \((e^{x})'\)&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag4">Voir la réponse</button>
+            <p id="diag4" class="answer" hidden>\(e^{x}>0\) pour tout réel \(x\). Sa dérivée est elle-même, donc \((e^{x})'=e^{x}>0\)&nbsp;: \(\exp\) est strictement croissante.</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 5</p>
+            <p>Résous \(e^{2x+1}=e^{5}\).</p>
+            <button class="reveal-button" type="button" data-reveal="diag5">Voir la réponse</button>
+            <p id="diag5" class="answer" hidden>\(\exp\) est strictement croissante donc \(e^{a}=e^{b}\iff a=b\). Ici \(2x+1=5\) donc \(x=2\).</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 6</p>
+            <p>Dérive \(f(x)=e^{3x}\).</p>
+            <button class="reveal-button" type="button" data-reveal="diag6">Voir la réponse</button>
+            <p id="diag6" class="answer" hidden>Avec \(u(x)=3x\) et \((e^{u})'=u'e^{u}\)&nbsp;: \(f'(x)=3\,e^{3x}\). La constante \(3\) sort, l'exponentielle reste.</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Objectif de cette session</p>
+          <p>
+            Si tu réussis seulement une chose aujourd'hui&nbsp;: ne plus jamais confondre \(e^{x}\) (puissance variable de \(e\))
+            et \(x^{e}\) (puissance constante de \(x\)). C'est ce contraste qui fait tomber la moitié des erreurs en contrôle.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 01 · INTUITION ========== -->
+      <section id="intuition" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">01</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Intuition</p>
+            <h2>Pourquoi une fonction dont la dérivée est elle-même&nbsp;?</h2>
+          </div>
+        </div>
+        <p>
+          Toutes les fonctions vues jusqu'ici «&nbsp;changent&nbsp;» quand on les dérive. La dérivée de \(x^{2}\) est \(2x\),
+          celle de \(\sin\) est \(\cos\), celle d'un trinôme est un polynôme plus simple. Et pourtant, certaines situations
+          concrètes demandent une fonction qui se reproduit à l'identique sous la dérivée&nbsp;:
+        </p>
+
+        <div class="choice-grid">
+          <div class="choice-card">
+            <p class="box-title">Croissance d'une population</p>
+            <p>Le nombre de naissances par unité de temps est proportionnel à la population présente. Donc \(f'(t)=k\,f(t)\).</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Décroissance radioactive</p>
+            <p>Le nombre d'atomes qui se désintègrent par seconde est proportionnel au stock restant. Là encore, \(f'=-k\,f\).</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Intérêts composés continus</p>
+            <p>Un capital qui se rémunère en continu vérifie \(C'(t)=r\,C(t)\)&nbsp;: la vitesse de croissance dépend du capital actuel.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Refroidissement</p>
+            <p>Un corps perd sa chaleur d'autant plus vite qu'il est loin de la température ambiante&nbsp;: une exponentielle se cache derrière.</p>
+          </div>
+        </div>
+
+        <p>
+          Dans chacun de ces cas, on cherche une fonction \(f\) telle que sa dérivée est proportionnelle à elle-même.
+          Le cas le plus simple, où \(f'(x)=f(x)\) avec la valeur de départ \(f(0)=1\), <em>existe</em> et est <em>unique</em>.
+          C'est cette fonction qu'on appelle <em>la</em> fonction exponentielle.
+        </p>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Majeur à retenir</p>
+          <p>
+            L'exponentielle n'est pas définie d'abord par \(e^{x}\) avec \(e\approx2{,}718\). Elle est définie par
+            une propriété&nbsp;: <strong>une fonction qui se dérive en elle-même et vaut \(1\) en \(0\)</strong>.
+            Le nombre \(e\) et la notation \(e^{x}\) arrivent <em>après</em>.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate 1</p>
+          <p>Une fonction polynomiale peut-elle vérifier \(f'=f\) et \(f(0)=1\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="intuition1">Voir la réponse</button>
+          <p id="intuition1" class="answer" hidden>Non. Si \(f\) est de degré \(n\ge1\), alors \(f'\) est de degré \(n-1\), donc \(f'\ne f\). Si \(f\) est constante, \(f'=0\ne f\) car \(f(0)=1\). Aucune fonction polynomiale ne convient.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate 2</p>
+          <p>Pourquoi parler d'<em>unique</em> fonction&nbsp;? Que se passerait-il si on en trouvait deux&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="intuition2">Voir la réponse</button>
+          <p id="intuition2" class="answer" hidden>Si deux fonctions \(f\) et \(g\) vérifiaient à la fois \(f'=f\), \(g'=g\) et la même valeur en \(0\), on peut montrer (en étudiant \(\varphi=g/f\)) que \(g=f\). L'unicité interdit donc d'avoir une «&nbsp;autre&nbsp;» exponentielle.</p>
+        </div>
+
+        <figure class="visual-block interactive-graph quadratic-graph">
+          <div class="graph-stage">
+            <div id="ex-intuition-board" class="jxgbox curve-board" data-chapter-curve="intuition"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Pente = hauteur</span>
+              <strong>La courbe pousse à la vitesse de sa propre valeur</strong>
+            </p>
+          </div>
+          <figcaption>
+            Sur la courbe de \(\exp\), la pente de la tangente en chaque point est exactement égale à l'ordonnée du point.
+            Plus la fonction monte, plus elle monte vite&nbsp;: c'est la signature de \(f'=f\).
+          </figcaption>
+        </figure>
+      </section>
+
+      <!-- ========== 02 · DEFINITION ========== -->
+      <section id="definition" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">02</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Définition</p>
+            <h2>Existence, unicité, notation \(e^{x}\)</h2>
+          </div>
+        </div>
+        <p>
+          On pose maintenant la définition propre. L'existence est admise au lycée&nbsp;: on accepte qu'une telle fonction
+          existe, et on travaille avec ses propriétés. L'unicité, elle, se démontre.
+        </p>
+
+        <div class="formula-card is-major">
+          \[
+          \begin{aligned}
+          \forall x\in\mathbb{R},\quad \exp'(x)&=\exp(x)\\
+          \exp(0)&=1
+          \end{aligned}
+          \]
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Mémo technique — deux conditions</p>
+          <p>
+            L'exponentielle se dérive en elle-même et démarre à \(1\).
+            La phrase courte est&nbsp;: «&nbsp;même dérivée, départ \(1\)&nbsp;».
+          </p>
+          <p>
+            Limite du mémo&nbsp;: la condition \(f'=f\) seule ne suffit pas. La fonction nulle la vérifie aussi, mais elle ne vérifie pas \(f(0)=1\).
+          </p>
+        </div>
+
+        <div class="method-grid">
+          <div class="method-step">
+            <span class="step-number">1</span>
+            <p>Existence&nbsp;: admise au lycée. Une telle fonction \(\exp\) existe sur \(\mathbb{R}\).</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">2</span>
+            <p>Unicité&nbsp;: démontrable. Aucune autre fonction dérivable sur \(\mathbb{R}\) ne vérifie ces deux conditions.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">3</span>
+            <p>Notation&nbsp;: une fois \(e=\exp(1)\) posé, on écrira \(\exp(x)=e^{x}\) pour tout réel \(x\).</p>
+          </div>
+        </div>
+
+        <div class="worked-example">
+          <p>Démonstration de l'unicité (suit la trame de Maths91)&nbsp;: supposons qu'une autre fonction \(g\) dérivable sur \(\mathbb{R}\) vérifie \(g'=g\) et \(g(0)=1\). Posons \(\varphi(x)=\dfrac{g(x)}{\exp(x)}\).</p>
+          <div class="formula-card">
+            \[ \varphi(x) = \frac{g(x)}{e^x} \]
+            \[
+            \varphi'(x)=\frac{N(x)}{(e^x)^2}
+            \]
+            \[
+            \begin{aligned}
+            N(x)&=g'(x)e^x-g(x)e^x\\
+            &=g(x)e^x-g(x)e^x\\
+            &=0
+            \end{aligned}
+            \]
+            \[
+            \varphi'(x)=0
+            \]
+          </div>
+          <p>Donc \(\varphi\) est constante sur \(\mathbb{R}\). Sa valeur en \(0\) donne&nbsp;:</p>
+          <div class="formula-card">
+            \[ \varphi(0) = \frac{g(0)}{e^0} = 1 \]
+            \[ \forall x\in\mathbb{R},\ \varphi(x) = 1 \]
+            \[ g(x) = e^x=\exp(x) \]
+          </div>
+          <p>Conclusion&nbsp;: \(g\) coïncide avec \(\exp\) partout. Il n'existe qu'une seule fonction satisfaisant la définition.</p>
+        </div>
+
+        <div class="c-callout c-callout--note">
+          <p class="c-callout__label"><span class="dot"></span>Pourquoi \(\exp(x)\ne0\) ?</p>
+          <p>
+            Cette démonstration utilise le fait que \(\exp\) ne s'annule pas. Dans l'ordre logique des sources, on prouve
+            d'abord \(\exp(x)\exp(-x)=1\), puis on divise par \(\exp(x)\). Ce résultat est repris juste après, dans la section 03.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>Vrai ou faux&nbsp;? «&nbsp;La fonction nulle vérifie \(f'=f\), donc elle est une exponentielle.&nbsp;»</p>
+          <button class="reveal-button" type="button" data-reveal="def1">Voir la réponse</button>
+          <p id="def1" class="answer" hidden>Faux. \(f(x)=0\) vérifie bien \(f'=f\), mais \(f(0)=0\ne1\). C'est la condition \(f(0)=1\) qui sélectionne la <em>vraie</em> exponentielle parmi toutes les fonctions de type \(f'=f\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Étape manquante</p>
+          <p>Complète&nbsp;: «&nbsp;\(\exp'=\)\(\,?\,\) et \(\exp(0)=\)\(\,?\,\).&nbsp;»</p>
+          <button class="reveal-button" type="button" data-reveal="def2">Voir la réponse</button>
+          <p id="def2" class="answer" hidden>\(\exp'=\exp\) et \(\exp(0)=1\). Ces deux identités forment la <em>définition</em> de la fonction exponentielle&nbsp;: tout le reste en découle.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Définition complète</p>
+          <p>Une fonction \(g\) vérifie \(g'=g\) et \(g(0)=4\). Est-ce la fonction exponentielle&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="memo-def-exp">Voir la réponse</button>
+          <p id="memo-def-exp" class="answer" hidden>Non. Elle a la bonne relation de dérivée, mais elle ne démarre pas à \(1\). L'exponentielle est l'unique fonction qui vérifie à la fois \(f'=f\) et \(f(0)=1\).</p>
+        </div>
+      </section>
+
+      <!-- ========== 03 · PROPRIETES ========== -->
+      <section id="proprietes" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">03</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Algèbre</p>
+            <h2>Les propriétés algébriques : transformer une somme en produit</h2>
+          </div>
+        </div>
+        <p>
+          La propriété centrale de l'exponentielle est qu'elle <em>transforme une somme en produit</em>.
+          De cette seule relation découlent toutes les règles de calcul, qui ressemblent ensuite aux règles classiques
+          sur les puissances.
+        </p>
+
+        <div class="formula-card is-major">
+          \[ \text{Pour tous }x,y\in\mathbb{R}\ \text{et }n\in\mathbb{Z} : \]
+          \[ \begin{aligned} e^{x+y} &= e^{x}\,e^{y}\\ e^{-x} &= \frac{1}{e^{x}}\\ e^{x-y} &= \frac{e^{x}}{e^{y}}\\ (e^{x})^{n} &= e^{nx} \end{aligned} \]
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Réflexe — somme devient produit</p>
+          <p>
+            Dans l'exposant, une somme devient un produit dehors&nbsp;: \(e^{x+y}=e^x e^y\).
+            Feu rouge absolu&nbsp;: \(e^{x+y}\) ne devient jamais \(e^x+e^y\).
+          </p>
+          <p>
+            Limite du mémo&nbsp;: cette règle marche parce que la somme est dans l'exposant. Pour \(e^x+e^y\), il n'y a pas de simplification automatique.
+          </p>
+        </div>
+
+        <p>Et trois faits indispensables&nbsp;:</p>
+
+        <div class="formula-card is-major">
+          \[
+          \begin{aligned}
+          e^{0}&=1\\
+          e^{1}&=e\\
+          \forall x\in\mathbb{R},\quad e^{x}&>0
+          \end{aligned}
+          \]
+        </div>
+
+        <div class="method-grid">
+          <div class="method-step">
+            <span class="step-number">1</span>
+            <p>Repère la structure&nbsp;: somme dans l'exposant ↔ produit d'exponentielles.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">2</span>
+            <p>Regroupe les exposants comme des puissances&nbsp;: \(e^{a}\,e^{b}=e^{a+b}\), \(\frac{e^{a}}{e^{b}}=e^{a-b}\).</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">3</span>
+            <p>Sors les signes négatifs en inverses&nbsp;: \(e^{-a}=\dfrac{1}{e^{a}}\). Ne distribue jamais le \(-\) dans \(e^{-a}\).</p>
+          </div>
+        </div>
+
+        <p class="section-subtitle">Démonstration de la relation fonctionnelle</p>
+
+        <div class="worked-example">
+          <p>Soit \(y\in\mathbb{R}\) fixé. On pose, pour \(x\in\mathbb{R}\)&nbsp;:</p>
+          <div class="formula-card">
+            \[ \varphi(x) = \frac{e^{x+y}}{e^x} \]
+          </div>
+          <p>La fonction \(\varphi\) est bien définie car \(\exp(x)\ne0\). On la dérive&nbsp;:</p>
+          <div class="formula-card">
+            \[
+            \varphi'(x)=\frac{N(x)}{(e^x)^2}
+            \]
+            \[
+            \begin{aligned}
+            N(x)&=e^{x+y}e^x\\
+            &\quad-e^{x+y}e^x\\
+            &=0
+            \end{aligned}
+            \]
+            \[
+            \varphi'(x)=0
+            \]
+          </div>
+          <p>Donc \(\varphi\) est constante. En \(x=0\), on lit&nbsp;:</p>
+          <div class="formula-card">
+            \[
+            \begin{aligned}
+            \varphi(0)&=\frac{e^y}{e^0}\\
+            &=e^y
+            \end{aligned}
+            \]
+            \[ \forall x\in\mathbb{R},\ \varphi(x)=e^y \]
+            \[ e^{x+y}=e^x\,e^y \]
+          </div>
+          <p>Conclusion&nbsp;: la fonction exponentielle transforme une somme en produit.</p>
+        </div>
+
+        <p class="section-subtitle">Conséquences directes</p>
+
+        <div class="worked-example">
+          <p>Conséquence 1&nbsp;: \(\exp(-x)=\dfrac{1}{\exp(x)}\).</p>
+          <div class="formula-card">
+            \[
+            \begin{aligned}
+            e^x e^{-x}&=e^0\\
+            &=1
+            \end{aligned}
+            \]
+            \[ e^{-x}=\frac{1}{e^x} \]
+          </div>
+          <p>Conséquence 2&nbsp;: \(\exp(x-y)=\dfrac{\exp(x)}{\exp(y)}\).</p>
+          <div class="formula-card">
+            \[
+            \begin{aligned}
+            e^{x-y}&=e^x e^{-y}\\
+            &=\frac{e^x}{e^y}
+            \end{aligned}
+            \]
+          </div>
+          <p>Conséquence 3&nbsp;: pour tout \(n\in\mathbb{Z}\), \(\exp(nx)=(\exp(x))^{n}\).</p>
+          <div class="formula-card">
+            \[
+            \begin{aligned}
+            e^{nx}&=(e^x)^{n}\quad (n\ge0)\\
+            e^{-mx}&=(e^x)^{-m}\quad (m>0)
+            \end{aligned}
+            \]
+          </div>
+        </div>
+
+        <p class="section-subtitle">Pourquoi la notation \(e^{x}\)&nbsp;?</p>
+
+        <p>
+          On pose \(e=\exp(1)\approx2{,}718\). Alors pour tout entier \(n\), \(\exp(n)=(\exp(1))^{n}=e^{n}\).
+          Par extension <em>cohérente</em>, on écrit \(\exp(x)=e^{x}\) pour tout réel \(x\). Cette notation a un avantage&nbsp;:
+          les règles algébriques deviennent celles des puissances apprises au collège.
+        </p>
+
+        <div class="formula-card is-major">
+          \[
+          \begin{aligned}
+          e^{a}\,e^{b}&=e^{a+b}\\
+          \frac{e^{a}}{e^{b}}&=e^{a-b}\\
+          (e^{a})^{n}&=e^{na}\\
+          e^{-a}&=\frac{1}{e^{a}}
+          \end{aligned}
+          \]
+        </div>
+
+        <p class="section-subtitle">Exemples numériques</p>
+
+        <div class="worked-example">
+          <p>Simplifier les expressions&nbsp;:</p>
+          <div class="formula-card">
+            \[ A = \frac{e^{2}\times e^{3}}{e^{4}} \]
+            \[
+            \begin{aligned}
+            A&=\frac{e^{2+3}}{e^{4}}\\
+            &=\frac{e^{5}}{e^{4}}\\
+            &=e^{5-4}=e
+            \end{aligned}
+            \]
+          </div>
+          <div class="formula-card">
+            \[ B = (e^{-2})^{3}\times e^{-4} \]
+            \[ B = e^{-6}\times e^{-4} = e^{-10} \]
+          </div>
+          <div class="formula-card">
+            \[ C = \frac{(e^{-3})^{2}}{e^{-5}\times(e^{2})^{-1}} \]
+            \[
+            \begin{aligned}
+            C&=\frac{e^{-6}}{e^{-5}\times e^{-2}}\\
+            &=\frac{e^{-6}}{e^{-7}}\\
+            &=e^{1}=e
+            \end{aligned}
+            \]
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège qui coûte cher</p>
+          <p>
+            \(e^{x+y}\ne e^{x}+e^{y}\). L'exponentielle transforme la somme en <em>produit</em>, jamais en somme.
+            Et \(e^{x}\,e^{y}\ne e^{xy}\)&nbsp;: c'est \(e^{x+y}\). Vérifie l'opération dans l'exposant.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>Écris \(\dfrac{e^{2x+1}}{e^{x-3}}\) sous la forme \(e^{\,...}\).</p>
+          <button class="reveal-button" type="button" data-reveal="prop1">Voir la réponse</button>
+          <p id="prop1" class="answer" hidden>\(\dfrac{e^{2x+1}}{e^{x-3}}=e^{(2x+1)-(x-3)}=e^{x+4}\). Bien penser au signe du \(-3\) qui devient \(+3\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Étape manquante</p>
+          <p>Complète&nbsp;: \(e^{x+2}\times e^{-x+2}=e^{\,...}=\,?\)</p>
+          <button class="reveal-button" type="button" data-reveal="prop2">Voir la réponse</button>
+          <p id="prop2" class="answer" hidden>\(e^{x+2}\times e^{-x+2}=e^{(x+2)+(-x+2)}=e^{4}\). Le \(x\) disparaît dans l'exposant&nbsp;: le résultat est constant.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">✓</span>Vérification</p>
+          <p>Simplifie \(\dfrac{e^{-2x+1}}{e^{-x+1}}\).</p>
+          <button class="reveal-button" type="button" data-reveal="prop3">Voir la réponse</button>
+          <p id="prop3" class="answer" hidden>\(\dfrac{e^{-2x+1}}{e^{-x+1}}=e^{(-2x+1)-(-x+1)}=e^{-2x+1+x-1}=e^{-x}\). On peut aussi écrire \(e^{-x}=\dfrac{1}{e^{x}}\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Feu rouge addition</p>
+          <p>Pourquoi l'écriture \(e^{2+3}=e^2+e^3\) est-elle interdite&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="memo-prop-addition">Voir la réponse</button>
+          <p id="memo-prop-addition" class="answer" hidden>Parce que la relation correcte est \(e^{2+3}=e^2\times e^3\). L'exponentielle transforme une somme d'exposants en produit, pas en somme. Numériquement, \(e^5\) n'est pas égal à \(e^2+e^3\).</p>
+        </div>
+
+        <p class="section-subtitle">Pourquoi \(e^{x}\) ne s'annule jamais</p>
+
+        <div class="worked-example">
+          <p>On montre directement que \(\exp(x)\ne0\) en posant \(\varphi(x)=\exp(x)\times\exp(-x)\).</p>
+          <div class="formula-card">
+            \[
+            \begin{aligned}
+            \varphi'(x)&=e^x e^{-x}\\
+            &\quad-e^x e^{-x}\\
+            &=0
+            \end{aligned}
+            \]
+          </div>
+          <p>Donc \(\varphi\) est constante, et \(\varphi(0)=\exp(0)^{2}=1\). On en tire \(\exp(x)\,\exp(-x)=1\) pour tout \(x\), ce qui interdit \(\exp(x)=0\) (sinon le produit serait nul, pas \(1\)).</p>
+        </div>
+
+        <div class="worked-example">
+          <p>De plus, \(e^{x}\) est <em>strictement positif</em>. En effet&nbsp;:</p>
+          <div class="formula-card">
+            \[ e^{x}=e^{\frac{x}{2}+\frac{x}{2}}=\left(e^{x/2}\right)^{2}\ge0 \]
+          </div>
+          <p>Et comme \(e^{x}\ne0\), on conclut \(e^{x}>0\) pour tout réel \(x\).</p>
+        </div>
+      </section>
+
+      <!-- ========== 04 · DERIVEE ========== -->
+      <section id="derivee" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">04</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Méthode</p>
+            <h2>Dériver une exponentielle (et tout ce qui ressemble)</h2>
+          </div>
+        </div>
+        <p>
+          La dérivée de la fonction exponentielle est elle-même. Cette propriété, qui était la <em>définition</em>,
+          devient en pratique une règle de calcul. À côté, deux formules de dérivation suffisent pour traiter la quasi-totalité
+          des exercices du chapitre.
+        </p>
+
+        <div class="formula-card is-major">
+          \[ (e^{x})' = e^{x} \]
+          \[ (e^{ax+b})' = a\,e^{ax+b} \]
+          \[ (e^{u(x)})' = u'(x)\,e^{u(x)} \]
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Mémo technique — recopie-remorque</p>
+          <p>
+            Pour dériver \(e^{u(x)}\), tu recopies la remorque \(e^{u(x)}\), puis tu accroches devant le moteur \(u'(x)\).
+          </p>
+          <p>
+            Limite du mémo&nbsp;: si l'exponentielle est dans un produit ou un quotient, il faut aussi appliquer la formule du produit ou du quotient.
+          </p>
+        </div>
+
+        <p>La dernière formule est la plus puissante. Elle se lit&nbsp;: la dérivée de \(e^{u}\) est la <em>dérivée de l'exposant</em>, fois \(e^{u}\).</p>
+
+        <div class="method-grid">
+          <div class="method-step">
+            <span class="step-number">1</span>
+            <p>Identifie \(u(x)\) dans l'exposant. C'est la fonction <em>placée à la place du \(x\)</em>.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">2</span>
+            <p>Calcule \(u'(x)\), proprement, sans modifier l'exponentielle.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">3</span>
+            <p>Écris \(f'(x)=u'(x)\,e^{u(x)}\). L'exponentielle reste, on multiplie par la dérivée de l'exposant.</p>
+          </div>
+        </div>
+
+        <p class="section-subtitle">Exemple — exposant affine</p>
+
+        <div class="worked-example">
+          <p>Soit \(f(x)=e^{3x+2}\). On a \(u(x)=3x+2\) et \(u'(x)=3\).</p>
+          <div class="formula-card">
+            \[
+            \begin{aligned}
+            f'(x)&=u'(x)\,e^{u(x)}\\
+            &=3\,e^{3x+2}
+            \end{aligned}
+            \]
+          </div>
+          <p>L'exposant reste identique. Seule la constante \(3\) vient multiplier devant. C'est l'erreur la plus fréquente à éviter&nbsp;: ne pas dériver l'exposant.</p>
+        </div>
+
+        <p class="section-subtitle">Exemple — exposant polynomial</p>
+
+        <div class="worked-example">
+          <p>Soit \(f(x)=e^{x^{2}+3x+1}\). On a \(u(x)=x^{2}+3x+1\) et \(u'(x)=2x+3\).</p>
+          <div class="formula-card">
+            \[ f'(x) = (2x+3)\,e^{x^{2}+3x+1} \]
+          </div>
+          <p>L'exponentielle est <em>recopiée à l'identique</em>, on multiplie par la dérivée de l'exposant.</p>
+        </div>
+
+        <p class="section-subtitle">Exemple — produit \(u\,e^{x}\)</p>
+
+        <div class="worked-example">
+          <p>Soit \(g(x)=(x-1)\,e^{x}\). On utilise \((uv)'=u'v+uv'\) avec \(u(x)=x-1\) et \(v(x)=e^{x}\).</p>
+          <div class="formula-card">
+            \[
+            \begin{aligned}
+            g'(x)&=e^{x}+(x-1)e^{x}\\
+            &=x\,e^{x}
+            \end{aligned}
+            \]
+          </div>
+          <p>Astuce&nbsp;: on factorise par \(e^{x}\) à la fin. C'est ce qui permettra ensuite d'étudier le signe sans s'embrouiller.</p>
+        </div>
+
+        <p class="section-subtitle">Exemple — quotient \(\dfrac{e^{x}}{x}\)</p>
+
+        <div class="worked-example">
+          <p>Soit \(h(x)=\dfrac{e^{x}}{x}\) sur \(\mathbb{R}^{*}\). Avec la formule du quotient&nbsp;:</p>
+          <div class="formula-card">
+            \[
+            \begin{aligned}
+            h'(x)&=\frac{x e^{x}-e^{x}}{x^{2}}\\
+            &=\frac{e^{x}(x-1)}{x^{2}}
+            \end{aligned}
+            \]
+          </div>
+          <p>On garde l'écriture factorisée \(e^{x}(x-1)\) au numérateur&nbsp;: c'est ce qui permettra d'étudier le signe de \(h'(x)\) (le signe ne dépend que de \(x-1\), puisque \(e^{x}>0\) et \(x^{2}>0\)).</p>
+        </div>
+
+        <p class="section-subtitle">Pourquoi factoriser \(e^{u}\) après dérivation</p>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Réflexe central</p>
+          <p>
+            Après avoir dérivé une expression contenant \(e^{u(x)}\), le but n'est pas seulement d'obtenir une formule.
+            Le but est d'obtenir une expression dont on saura lire le <em>signe</em>. Or \(e^{u(x)}>0\) toujours.
+            Donc <strong>le signe de \(f'\) se lit dans le facteur qui multiplie \(e^{u}\)</strong>.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Étape manquante</p>
+          <p>Soit \(f(x)=e^{-x^{2}}\). Que vaut \(u(x)\) et que vaut \(u'(x)\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="der1">Voir la réponse</button>
+          <p id="der1" class="answer" hidden>\(u(x)=-x^{2}\) et \(u'(x)=-2x\). Donc \(f'(x)=-2x\,e^{-x^{2}}\). Le signe de \(f'(x)\) est celui de \(-2x\), donc opposé au signe de \(x\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>Dérive \(f(x)=5\,e^{-3t}\).</p>
+          <button class="reveal-button" type="button" data-reveal="der2">Voir la réponse</button>
+          <p id="der2" class="answer" hidden>\(f'(t)=5\times(-3)\,e^{-3t}=-15\,e^{-3t}\). On sort la constante \(5\), puis on applique \((e^{at})'=a\,e^{at}\) avec \(a=-3\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis la méthode</p>
+          <p>Comment dérives-tu \(f(x)=(2x+1)\,e^{x}\)&nbsp;? Quelle formule utilises-tu&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="der3">Voir la réponse</button>
+          <p id="der3" class="answer" hidden>Formule du produit \((uv)'=u'v+uv'\) avec \(u(x)=2x+1\), \(v(x)=e^{x}\). Donc \(f'(x)=2\,e^{x}+(2x+1)\,e^{x}=(2x+3)\,e^{x}\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Recopie-remorque</p>
+          <p>Dérive \(f(x)=e^{4-x}\) en nommant d'abord \(u(x)\).</p>
+          <button class="reveal-button" type="button" data-reveal="memo-der-remorque">Voir la réponse</button>
+          <p id="memo-der-remorque" class="answer" hidden>On pose \(u(x)=4-x\), donc \(u'(x)=-1\). Alors \(f'(x)=u'(x)e^{u(x)}=-e^{4-x}\). L'exposant \(4-x\) est recopié, il ne devient pas \(-1\).</p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège fréquent</p>
+          <p>
+            Ne <em>jamais</em> écrire \((e^{u(x)})'=e^{u'(x)}\). C'est faux. La règle est
+            \((e^{u(x)})'=u'(x)\,e^{u(x)}\)&nbsp;: on garde l'exposant intact, et on multiplie par la dérivée de l'exposant.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 05 · VARIATIONS ========== -->
+      <section id="variations" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">05</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Sens de variation</p>
+            <h2>L'exponentielle est strictement croissante sur \(\mathbb{R}\)</h2>
+          </div>
+        </div>
+        <p>
+          Le sens de variation se lit en une ligne, mais c'est une ligne décisive&nbsp;: elle débloque la résolution
+          de toutes les équations et inéquations du chapitre.
+        </p>
+
+        <div class="formula-card is-major">
+          \[ \forall x\in\mathbb{R},\ (e^{x})'=e^{x}>0 \]
+        </div>
+        <p>Donc \(\exp\) est strictement croissante sur \(\mathbb{R}\).</p>
+
+        <p>La conséquence immédiate s'utilise dans chaque équation et inéquation du chapitre&nbsp;:</p>
+
+        <div class="formula-card is-major">
+          \[ \forall a,b\in\mathbb{R} : \]
+          \[ e^{a}=e^{b}\ \iff\ a=b \]
+          \[ e^{a}\lt e^{b}\ \iff\ a\lt b \]
+        </div>
+
+        <p class="section-subtitle">Démonstration du sens de variation</p>
+
+        <div class="worked-example">
+          <p>On sait que \(\exp'=\exp\) et que \(\exp(x)>0\) pour tout \(x\) (section 03).</p>
+          <div class="formula-card">
+            \[ \exp'(x)=\exp(x)>0 \]
+          </div>
+          <p>Une fonction dérivable dont la dérivée est strictement positive sur un intervalle est strictement croissante sur cet intervalle. Conclusion&nbsp;: \(\exp\) est strictement croissante sur \(\mathbb{R}\).</p>
+        </div>
+
+        <div class="case-grid">
+          <div class="case-card">
+            <p class="case-title">Sur \([0;+\infty[\)</p>
+            <p>\(\exp\) part de \(1\) en \(x=0\) et croît sans limite.</p>
+          </div>
+          <div class="case-card">
+            <p class="case-title">Sur \(]-\infty;0]\)</p>
+            <p>\(\exp\) reste \(>0\), tend vers \(0\) en \(-\infty\), atteint \(1\) en \(x=0\).</p>
+          </div>
+          <div class="case-card">
+            <p class="case-title">Lecture clé</p>
+            <p>Comparer \(e^{a}\) et \(e^{b}\) revient à comparer \(a\) et \(b\) directement.</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Règle à coller au-dessus du bureau</p>
+          <p>
+            \(\exp\) étant strictement croissante, l'équation \(e^{A(x)}=e^{B(x)}\) équivaut à \(A(x)=B(x)\).
+            On «&nbsp;enlève&nbsp;» l'exponentielle des deux côtés, et on travaille uniquement sur les exposants.
+            C'est la <em>seule</em> façon propre de résoudre la plupart des équations du chapitre.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate 1</p>
+          <p>Compare \(e^{0{,}5}\) et \(e^{0{,}7}\) sans calculatrice.</p>
+          <button class="reveal-button" type="button" data-reveal="var1">Voir la réponse</button>
+          <p id="var1" class="answer" hidden>Comme \(\exp\) est strictement croissante et \(0{,}5\lt0{,}7\), on a \(e^{0{,}5}\lt e^{0{,}7}\). Pas besoin de valeur numérique.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate 2</p>
+          <p>Compare \(e^{-3}\) et \(e^{-1}\).</p>
+          <button class="reveal-button" type="button" data-reveal="var2">Voir la réponse</button>
+          <p id="var2" class="answer" hidden>\(-3\lt-1\), donc \(e^{-3}\lt e^{-1}\). Tous les deux sont positifs et plus petits que \(1\). L'ordre dans l'exposant impose l'ordre des images.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Étape manquante</p>
+          <p>Résous \(e^{4x-1}\ge 1\).</p>
+          <button class="reveal-button" type="button" data-reveal="var3">Voir la réponse</button>
+          <p id="var3" class="answer" hidden>\(1=e^{0}\), donc \(e^{4x-1}\ge e^{0}\). Par croissance stricte de \(\exp\), \(4x-1\ge0\), soit \(x\ge\tfrac14\). \(S=\left[\tfrac14;+\infty\right[\).</p>
+        </div>
+      </section>
+
+      <!-- ========== 06 · COURBE ========== -->
+      <section id="courbe" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">06</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Courbe représentative</p>
+            <h2>Lire la courbe : un point, une pente, deux limites</h2>
+          </div>
+        </div>
+        <p>
+          La courbe de l'exponentielle est l'un des graphes les plus utilisés en sciences. Trois informations suffisent
+          à la <em>tracer de mémoire</em> en contrôle, et à comprendre ce que dit l'énoncé d'un problème.
+        </p>
+
+        <div class="choice-grid">
+          <div class="choice-card">
+            <p class="box-title">Un point d'ancrage</p>
+            <p>\((0;1)\) appartient toujours à la courbe, puisque \(e^{0}=1\).</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Une pente en \(0\)</p>
+            <p>La tangente en \(x=0\) a pour pente \(\exp'(0)=\exp(0)=1\). Son équation est \(y=x+1\).</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Limite en \(-\infty\)</p>
+            <p>\(\displaystyle\lim_{x\to-\infty}e^{x}=0^{+}\)&nbsp;: l'axe des abscisses est asymptote horizontale.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Limite en \(+\infty\)</p>
+            <p>\(\displaystyle\lim_{x\to+\infty}e^{x}=+\infty\)&nbsp;: la courbe explose vers le haut, plus vite qu'aucun polynôme.</p>
+          </div>
+        </div>
+
+        <p class="section-subtitle">Tableau de variations</p>
+
+        <div class="formula-card is-major">
+          \[ \begin{array}{c|ccc} x & -\infty & & +\infty\\ \hline (e^{x})' & & + & \\ \hline & & & +\infty\\ e^{x} & & \nearrow & \\ & 0 & & \end{array} \]
+        </div>
+
+        <p>
+          La valeur de référence pour les calculs numériques est \(e\approx2{,}718\), avec quelques valeurs utiles en exercice&nbsp;:
+        </p>
+
+        <div class="formula-card">
+          \[
+          \begin{aligned}
+          e^{0}&=1\\
+          e^{1}&=e\approx2{,}718\\
+          e^{2}&\approx7{,}39\\
+          e^{-1}&\approx0{,}368
+          \end{aligned}
+          \]
+        </div>
+
+        <figure class="visual-block interactive-graph quadratic-graph">
+          <div class="graph-stage">
+            <div id="ex-exp-board" class="jxgbox curve-board" data-chapter-curve="exp"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Courbe de \(y=e^{x}\)</span>
+              <strong>Passe par \((0;1)\), asymptote en \(-\infty\)</strong>
+            </p>
+          </div>
+          <figcaption>
+            La courbe coupe l'axe des ordonnées en \((0;1)\). À gauche elle s'écrase sur l'axe des abscisses sans jamais le toucher&nbsp;;
+            à droite elle s'envole.
+          </figcaption>
+        </figure>
+
+        <figure class="visual-block interactive-graph quadratic-graph">
+          <div class="graph-stage">
+            <div id="ex-exp-tangente-board" class="jxgbox curve-board" data-chapter-curve="expTangente"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Tangente en \(0\) : \(y=x+1\)</span>
+              <strong>Pente exactement égale à \(1\)</strong>
+            </p>
+          </div>
+          <figcaption>
+            La tangente à la courbe de \(\exp\) en \(x=0\) a pour équation \(y=x+1\). Elle touche la courbe en \((0;1)\) et reste
+            sous elle partout ailleurs&nbsp;: c'est une autre façon de lire que \(\exp\) croît plus vite qu'une droite.
+          </figcaption>
+        </figure>
+
+        <p class="section-subtitle">Tangente en un point d'abscisse \(a\)</p>
+
+        <div class="worked-example">
+          <p>Au point d'abscisse \(a\), la courbe de \(\exp\) admet pour tangente la droite d'équation&nbsp;:</p>
+          <div class="formula-card">
+            \[ y = \exp'(a)(x-a)+\exp(a) \]
+            \[ y = e^{a}(x-a)+e^{a} \]
+            \[ y = e^{a}\,x - a\,e^{a} + e^{a} \]
+            \[ y = e^{a}\,x + (1-a)\,e^{a} \]
+          </div>
+          <p>En \(a=0\)&nbsp;: \(y=x+1\). En \(a=1\)&nbsp;: \(y=e\,x\). On retrouve les deux tangentes classiques.</p>
+        </div>
+
+        <p class="section-subtitle">Comparer la croissance avec les polynômes</p>
+
+        <p>
+          Une intuition utile pour la suite&nbsp;: pour des grandes valeurs de \(x\), \(e^{x}\) finit par dépasser \(x^{2}\),
+          \(x^{3}\), et toute puissance fixe de \(x\). On dit que <em>l'exponentielle l'emporte sur les polynômes</em>.
+          Au lycée, on retient surtout l'allure, et le fait que la courbe finit par grimper «&nbsp;plus vite que tout&nbsp;».
+        </p>
+
+        <figure class="visual-block interactive-graph quadratic-graph">
+          <div class="graph-stage">
+            <div id="ex-comparaison-board" class="jxgbox curve-board" data-chapter-curve="comparaison"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>\(e^{x}\) contre \(x^{2}\) et \(x^{3}\)</span>
+              <strong>\(e^{x}\) finit par tout dépasser</strong>
+            </p>
+          </div>
+          <figcaption>
+            Au début, un polynôme peut sembler grimper aussi vite. Mais sur la durée, l'exponentielle laisse les polynômes
+            derrière elle. C'est cette propriété qui explique l'explosion d'une population non régulée ou d'un placement à intérêts continus.
+          </figcaption>
+        </figure>
+
+        <div class="c-callout c-callout--note">
+          <p class="c-callout__label"><span class="dot"></span>Au programme</p>
+          <p>
+            Les limites \(\displaystyle\lim_{x\to+\infty}e^{x}=+\infty\) et \(\displaystyle\lim_{x\to-\infty}e^{x}=0\)
+            sont admises en Première. Tu les utilises pour tracer la courbe et conclure un tableau de variations,
+            sans démonstration formelle. La théorie des limites est approfondie en Terminale.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>Quelle est la pente de la tangente à la courbe de \(\exp\) au point d'abscisse \(2\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="courbe1">Voir la réponse</button>
+          <p id="courbe1" class="answer" hidden>La pente est \(\exp'(2)=\exp(2)=e^{2}\approx7{,}39\). C'est le même nombre que la valeur de la fonction en ce point.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">✓</span>Vérification</p>
+          <p>Vérifie sans graphe que \((1;e)\) appartient bien à la courbe de \(\exp\).</p>
+          <button class="reveal-button" type="button" data-reveal="courbe2">Voir la réponse</button>
+          <p id="courbe2" class="answer" hidden>\(\exp(1)=e\) par définition (\(e\) est défini ainsi). Donc \((1;e)\) appartient à la courbe.</p>
+        </div>
+      </section>
+
+      <!-- ========== 07 · EQUATIONS ========== -->
+      <section id="equations" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">07</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Méthode</p>
+            <h2>Résoudre une équation ou une inéquation avec exponentielle</h2>
+          </div>
+        </div>
+        <p>
+          La règle est simple&nbsp;: ramener les deux membres à la forme \(e^{A}=e^{B}\) (ou \(e^{A}\lt e^{B}\)), puis utiliser
+          la stricte croissance pour conclure sur les exposants. Quand un membre est une constante \(k>0\), on l'écrit comme \(e^{\ln k}\) si on connaît \(\ln\) (Terminale), ou on reconnaît \(1=e^{0}\), \(e=e^{1}\), etc.
+        </p>
+
+        <div class="formula-card is-major">
+          \[
+          \begin{aligned}
+          e^{A(x)}=e^{B(x)}&\iff A(x)=B(x)\\
+          e^{A(x)}\lt e^{B(x)}&\iff A(x)\lt B(x)
+          \end{aligned}
+          \]
+          \[
+          \begin{aligned}
+          e^{A(x)}=1&\iff A(x)=0\\
+          e^{A(x)}=e&\iff A(x)=1
+          \end{aligned}
+          \]
+        </div>
+        <p>
+          Pour une constante \(k>0\) qui n'est pas immédiatement \(1\), \(e\), \(e^{2}\), etc., la Première utilise
+          la lecture graphique ou la calculatrice. En Terminale, on écrira \(k=e^{\ln k}\).
+        </p>
+
+        <div class="method-grid">
+          <div class="method-step">
+            <span class="step-number">1</span>
+            <p>Place les deux membres sous forme exponentielle&nbsp;: si tu vois \(=0\), \(=1\) ou \(=e\), reconnais \(e^{0}=1\) et \(e^{1}=e\).</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">2</span>
+            <p>Utilise la stricte croissance de \(\exp\) pour égaler ou comparer les <em>exposants</em>.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">3</span>
+            <p>Résous l'équation (ou l'inéquation) classique restante sur les exposants.</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Réflexe — trois portes d'entrée</p>
+          <p>
+            Positivité ferme la porte à \(e^A=0\) ou \(e^A<0\). \(1=e^0\) transforme \(e^A=1\) en \(A=0\).
+            Si tu vois \(e^{2x}\), pose souvent \(X=e^x\) pour retrouver un polynôme.
+          </p>
+          <p>
+            Limite du mémo&nbsp;: avec \(X=e^x\), garde toujours la contrainte \(X>0\), sinon tu acceptes des solutions impossibles.
+          </p>
+        </div>
+
+        <p class="section-subtitle">Cas 1 — \(e^{a}=e^{b}\)</p>
+
+        <div class="worked-example">
+          <p>Résoudre \(e^{3x}=e^{2}\).</p>
+          <div class="formula-card">
+            \[ e^{3x}=e^{2} \]
+            \[ 3x = 2 \]
+            \[ x = \tfrac{2}{3} \]
+          </div>
+          <p>Conclusion&nbsp;: \(S=\left\{\tfrac{2}{3}\right\}\).</p>
+        </div>
+
+        <p class="section-subtitle">Cas 2 — \(e^{A}=1\) ou \(e^{A}=e\)</p>
+
+        <div class="worked-example">
+          <p>Résoudre \(e^{5x+2}-1=0\).</p>
+          <div class="formula-card">
+            \[ e^{5x+2}=1=e^{0} \]
+            \[ 5x+2 = 0 \]
+            \[ x = -\tfrac{2}{5} \]
+          </div>
+          <p>Conclusion&nbsp;: \(S=\left\{-\tfrac{2}{5}\right\}\).</p>
+        </div>
+
+        <p class="section-subtitle">Cas 3 — \(e^{A}=k\lt0\) ou \(e^{A}=0\)</p>
+
+        <div class="worked-example">
+          <p>Résoudre \(e^{5x+2}+1=0\).</p>
+          <div class="formula-card">
+            \[ e^{5x+2} = -1 \]
+          </div>
+          <p>Or pour tout réel \(t\), \(e^{t}>0\). Donc \(e^{5x+2}>0\), donc \(e^{5x+2}\ne-1\). Conclusion&nbsp;: \(S=\emptyset\).</p>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Réflexe</p>
+          <p>
+            Si une équation impose \(e^{A(x)}=k\) avec \(k\le0\), il n'y a <strong>aucune solution réelle</strong>.
+            Ne te lance pas dans une factorisation&nbsp;: invoque directement la positivité de l'exponentielle.
+          </p>
+        </div>
+
+        <p class="section-subtitle">Cas 4 — équation de type \(e^{u}=e^{v}\) avec polynôme dans les exposants</p>
+
+        <div class="worked-example">
+          <p>Résoudre \(e^{x^{2}-3}-e^{-2x}=0\).</p>
+          <div class="formula-card">
+            \[ e^{x^{2}-3}=e^{-2x} \]
+            \[ x^{2}-3 = -2x \]
+            \[ x^{2}+2x-3 = 0 \]
+            \[ \Delta = 4+12 = 16 \]
+            \[ x_{1} = \frac{-2-4}{2}=-3 \]
+            \[ x_{2} = \frac{-2+4}{2}=1 \]
+          </div>
+          <p>Conclusion&nbsp;: \(S=\{-3\,;\,1\}\). On a ramené une équation «&nbsp;avec exponentielle&nbsp;» à un second degré.</p>
+        </div>
+
+        <p class="section-subtitle">Cas 5 — inéquation</p>
+
+        <div class="worked-example">
+          <p>Résoudre \(e^{3x+1}-e^{-x}\lt0\).</p>
+          <div class="formula-card">
+            \[ e^{3x+1}\lt e^{-x} \]
+            \[ 3x+1 \lt -x \]
+            \[ 4x \lt -1 \]
+            \[ x \lt -\tfrac{1}{4} \]
+          </div>
+          <p>Conclusion&nbsp;: \(S=\left]-\infty\,;\,-\tfrac{1}{4}\right[\). La croissance stricte de \(\exp\) <em>conserve</em> le sens de l'inégalité.</p>
+        </div>
+
+        <p class="section-subtitle">Cas 6 — inéquation toujours vraie ou jamais vraie</p>
+
+        <div class="worked-example">
+          <p>Résoudre \(e^{3x+1}+e^{-x}\lt0\).</p>
+          <div class="formula-card">
+            \[ e^{3x+1}>0 \quad\text{et}\quad e^{-x}>0 \]
+            \[ \Rightarrow\ e^{3x+1}+e^{-x}>0 \]
+          </div>
+          <p>L'inéquation n'a aucune solution. \(S=\emptyset\).</p>
+          <p>Inversement&nbsp;: \(e^{5-2x}+2\ge0\) est <em>toujours</em> vrai (somme de positifs et de \(2\)). Donc \(S=\mathbb{R}\).</p>
+        </div>
+
+        <p class="section-subtitle">Cas 7 — équation type «&nbsp;polynôme en \(e^{x}\)&nbsp;»</p>
+
+        <div class="worked-example">
+          <p>Résoudre \(e^{2x}+2e^{x}=3\). On pose \(X=e^{x}\), avec la contrainte \(X>0\).</p>
+          <div class="formula-card">
+            \[ X^{2}+2X-3=0 \]
+            \[ \Delta = 4+12 = 16 \]
+            \[ X_{1}=\frac{-2-4}{2}=-3 \]
+            \[ X_{2}=\frac{-2+4}{2}=1 \]
+          </div>
+          <p>On garde uniquement les \(X>0\), donc \(X=1\). Or \(X=e^{x}=1=e^{0}\), donc \(x=0\). Conclusion&nbsp;: \(S=\{0\}\).</p>
+        </div>
+
+        <figure class="visual-block interactive-graph quadratic-graph">
+          <div class="graph-stage">
+            <div id="ex-equation-board" class="jxgbox curve-board" data-chapter-curve="equation"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Lecture graphique de \(e^{x}=k\)</span>
+              <strong>Une seule intersection pour \(k>0\)</strong>
+            </p>
+          </div>
+          <figcaption>
+            L'équation \(e^{x}=k\) admet une unique solution réelle si \(k>0\), aucune si \(k\le0\).
+            Géométriquement&nbsp;: la droite horizontale \(y=k\) coupe la courbe en un seul point, ou pas du tout.
+          </figcaption>
+        </figure>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis la méthode</p>
+          <p>Comment commences-tu \(e^{2x+1}=e^{3-x}\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="eq1">Voir la réponse</button>
+          <p id="eq1" class="answer" hidden>Les deux membres sont déjà sous forme exponentielle. On égalise les exposants&nbsp;: \(2x+1=3-x\), donc \(3x=2\), donc \(x=\tfrac{2}{3}\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis la méthode</p>
+          <p>Que vaut le sens d'inégalité dans \(e^{2x+1}\ge e^{3-x}\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="eq2">Voir la réponse</button>
+          <p id="eq2" class="answer" hidden>\(\exp\) est strictement croissante, donc le sens se conserve. \(2x+1\ge3-x\), soit \(3x\ge2\), soit \(x\ge\tfrac{2}{3}\). \(S=\left[\tfrac{2}{3};+\infty\right[\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Piège</p>
+          <p>Faut-il chercher des solutions à \(e^{x^{2}+1}=-7\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="eq3">Voir la réponse</button>
+          <p id="eq3" class="answer" hidden>Non. \(e^{x^{2}+1}>0\) pour tout réel \(x\). Donc l'équation n'a aucune solution. \(S=\emptyset\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Contrainte \(X>0\)</p>
+          <p>Dans \(e^{2x}-5e^x+4=0\), pourquoi pose-t-on \(X=e^x\) avec \(X>0\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="memo-eq-substitution">Voir la réponse</button>
+          <p id="memo-eq-substitution" class="answer" hidden>Parce que \(e^{2x}=(e^x)^2\), donc l'équation devient \(X^2-5X+4=0\). La contrainte \(X>0\) vient de la positivité de \(e^x\). Ici \(X=1\) ou \(X=4\), deux valeurs positives, donc \(e^x=1\) donne \(x=0\) et \(e^x=4\) se garde en Première sous cette forme, ou \(x=\ln 4\) en Terminale.</p>
+        </div>
+      </section>
+
+      <!-- ========== 08 · APPLICATIONS ========== -->
+      <section id="applications" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">08</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Modèles</p>
+            <h2>Croissance et décroissance exponentielles</h2>
+          </div>
+        </div>
+        <p>
+          Beaucoup de phénomènes naturels et économiques se modélisent avec une fonction de la forme&nbsp;:
+        </p>
+
+        <div class="formula-card is-major">
+          \[
+          \begin{aligned}
+          f(t)&=A\,e^{k\,t}\quad (A>0)\\
+          A&=f(0)\quad\text{valeur initiale}\\
+          k&=\text{taux instantané}\\
+          f'(t)&=A\,k\,e^{kt}=k\,f(t)
+          \end{aligned}
+          \]
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Image mentale — départ et direction</p>
+          <p>
+            Dans \(A e^{kt}\), \(A\) est le départ car \(f(0)=A\). Le signe de \(k\) donne la direction&nbsp;: \(k>0\) monte, \(k<0\) descend.
+          </p>
+          <p>
+            Limite du mémo&nbsp;: \(k\) n'est pas une augmentation absolue. La variation est proportionnelle à la valeur courante, puisque \(f'=kf\).
+          </p>
+        </div>
+
+        <p>
+          La fonction \(f\) vérifie \(f'=k\,f\)&nbsp;: la vitesse de variation est proportionnelle à la valeur courante.
+          Cette relation est <em>caractéristique</em> de l'exponentielle.
+        </p>
+
+        <div class="math-language-visual">
+          <div class="math-language-grid" role="list">
+            <div class="math-language-card" role="listitem">
+              <p class="box-title">Si \(k>0\) : croissance exponentielle</p>
+              <div class="formula-card">
+                \[
+                \begin{aligned}
+                f(t)&=A\,e^{kt}\\
+                f'(t)&=A\,k\,e^{kt}>0
+                \end{aligned}
+                \]
+              </div>
+              <p>\(f\) est strictement croissante. Plus \(k\) est grand, plus la croissance est rapide. Exemples&nbsp;: population, capital à intérêts continus, bactéries.</p>
+            </div>
+            <div class="math-language-card" role="listitem">
+              <p class="box-title">Si \(k\lt0\) : décroissance exponentielle</p>
+              <div class="formula-card">
+                \[
+                \begin{aligned}
+                f(t)&=A\,e^{kt}\\
+                f'(t)&=A\,k\,e^{kt}\lt0
+                \end{aligned}
+                \]
+              </div>
+              <p>\(f\) est strictement décroissante. Plus \(|k|\) est grand, plus la décroissance est rapide. Exemples&nbsp;: radioactivité, refroidissement, médicament éliminé par l'organisme.</p>
+            </div>
+          </div>
+        </div>
+
+        <figure class="visual-block interactive-graph quadratic-graph">
+          <div class="graph-stage">
+            <div id="ex-modeles-board" class="jxgbox curve-board" data-chapter-curve="modeles"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>\(e^{0{,}5t}\) vs \(e^{-0{,}5t}\)</span>
+              <strong>Pentes initiales opposées</strong>
+            </p>
+          </div>
+          <figcaption>
+            En vert&nbsp;: la croissance exponentielle s'envole. En corail&nbsp;: la décroissance exponentielle s'écrase vers \(0\) sans le toucher.
+            Les deux courbes se croisent en \((0;1)\), avec des pentes opposées.
+          </figcaption>
+        </figure>
+
+        <p class="section-subtitle">Démonstration du sens de variation</p>
+
+        <div class="worked-example">
+          <p>Soit \(k>0\) et \(f(t)=e^{kt}\). On dérive avec \((e^{u})'=u'e^{u}\) et \(u(t)=kt\)&nbsp;:</p>
+          <div class="formula-card">
+            \[ f'(t) = k\,e^{kt} \]
+          </div>
+          <p>Comme \(k>0\) et \(e^{kt}>0\) pour tout \(t\), on a \(f'(t)>0\). Donc \(f\) est strictement croissante sur \(\mathbb{R}\).</p>
+          <p>Si \(k\lt0\), alors \(f'(t)=k\,e^{kt}\lt0\)&nbsp;: \(f\) est strictement décroissante.</p>
+        </div>
+
+        <p class="section-subtitle">Exemple — population de bactéries</p>
+
+        <div class="worked-example">
+          <p>Par suite d'une infection, le nombre de bactéries en fonction du temps (en heures) est modélisé par \(f\) telle que \(f'(t)=0{,}14\,f(t)\) et \(f(0)=50\,000\).</p>
+          <div class="formula-card">
+            \[ f(t) = A\,e^{0{,}14\,t} \]
+            \[ f(0) = A\,e^{0} = A = 50\,000 \]
+            \[ f(t) = 50\,000\,e^{0{,}14\,t} \]
+          </div>
+          <p>Au bout de \(3\) heures&nbsp;:</p>
+          <div class="formula-card">
+            \[
+            \begin{aligned}
+            f(3)&=50\,000\,e^{0{,}42}\\
+            &\approx 76\,000
+            \end{aligned}
+            \]
+          </div>
+          <p>Au bout de \(5\)h\(30\)&nbsp;:</p>
+          <div class="formula-card">
+            \[
+            \begin{aligned}
+            f(5{,}5)&=50\,000\,e^{0{,}77}\\
+            &\approx 108\,000
+            \end{aligned}
+            \]
+          </div>
+          <p>L'organisme passe d'environ \(76\,000\) bactéries à \(108\,000\) en \(2\)h\(30\)&nbsp;: la croissance s'accélère avec le temps, ce qui est la signature d'une croissance exponentielle.</p>
+        </div>
+
+        <p class="section-subtitle">Exemple — décroissance radioactive</p>
+
+        <div class="worked-example">
+          <p>La masse d'un échantillon radioactif suit la loi \(m(t)=m_{0}\,e^{-\lambda t}\), avec \(\lambda>0\) appelé <em>constante de désintégration</em>.</p>
+          <div class="formula-card">
+            \[
+            \begin{aligned}
+            m'(t)&=-\lambda\,m_{0}\,e^{-\lambda t}\\
+            &=-\lambda\,m(t)
+            \end{aligned}
+            \]
+          </div>
+          <p>La perte de masse à l'instant \(t\) est proportionnelle à la masse restante&nbsp;: plus il en reste, plus on perd vite. Et la fonction \(m\) ne s'annule jamais&nbsp;: elle tend vers \(0\) sans l'atteindre.</p>
+        </div>
+
+        <p class="section-subtitle">Lien avec les suites géométriques</p>
+
+        <div class="formula-card is-major">
+          \[ u_{n} = e^{n\,a} = (e^{a})^{n} \]
+        </div>
+        <p>La suite \((u_n)\) est géométrique de raison \(q=e^a\) et de premier terme \(u_0=1\).</p>
+
+        <div class="worked-example">
+          <p>Posons \(u_{n}=e^{2n}\). On reconnaît \(u_{n}=(e^{2})^{n}\)&nbsp;: c'est une suite géométrique de raison \(q=e^{2}\) et de premier terme \(u_{0}=1\). Comme \(q>1\), la suite est strictement croissante.</p>
+          <p>Avec \(u_{n}=2e^{-n}=2\,(e^{-1})^{n}\)&nbsp;: la raison est \(q=e^{-1}=\tfrac{1}{e}\), le premier terme est \(u_{0}=2\). Comme \(0\lt q\lt1\), la suite est strictement décroissante.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>Une population suit \(P(t)=1000\,e^{0{,}05t}\). Quelle est la population initiale&nbsp;? Quel est son taux de croissance instantané&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="app1">Voir la réponse</button>
+          <p id="app1" class="answer" hidden>Population initiale&nbsp;: \(P(0)=1000\,e^{0}=1000\). Taux instantané&nbsp;: \(k=0{,}05\), soit environ \(5\%\) par unité de temps. La fonction vérifie \(P'(t)=0{,}05\,P(t)\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Étape manquante</p>
+          <p>Un médicament est éliminé selon \(m(t)=100\,e^{-0{,}2t}\). Au bout de combien de temps en reste-t-il la moitié&nbsp;? (Tu peux laisser la réponse sous la forme \(\ln 2 / 0{,}2\).)</p>
+          <button class="reveal-button" type="button" data-reveal="app2">Voir la réponse</button>
+          <p id="app2" class="answer" hidden>On cherche \(t\) tel que \(m(t)=50\). Soit \(100\,e^{-0{,}2t}=50\), donc \(e^{-0{,}2t}=\tfrac{1}{2}\). En classe de Terminale, on écrira \(-0{,}2\,t=\ln(1/2)\), d'où \(t=\tfrac{\ln 2}{0{,}2}\approx3{,}47\) heures. En Première, on lit le graphe ou on tabule à la calculatrice.</p>
+        </div>
+      </section>
+
+      <!-- ========== 09 · CHOIX METHODE ========== -->
+      <section id="choix-methode" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">09</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Différenciateur</p>
+            <h2>Choisir la méthode avant de calculer</h2>
+          </div>
+        </div>
+        <p>
+          La quasi-totalité des erreurs en contrôle vient d'un mauvais départ. Avant de toucher au calcul, lis ce que demande
+          l'énoncé&nbsp;: équation, signe, dérivée, modèle&nbsp;? Chaque type d'énoncé a un déclencheur.
+        </p>
+
+        <div class="choice-grid">
+          <div class="choice-card">
+            <p class="box-title">Énoncé : \(e^{A(x)}=e^{B(x)}\)</p>
+            <p>Stricte croissance de \(\exp\). Égale les <em>exposants</em>, puis résous l'équation classique.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Énoncé : \(e^{A(x)}=k\) avec \(k>0\)</p>
+            <p>Réécris \(k\) sous une forme exponentielle connue. Si \(k=1\), prends \(e^{0}\). Si \(k=e\), prends \(e^{1}\). Sinon, en Terminale, \(k=e^{\ln k}\).</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Énoncé : \(e^{A(x)}=k\) avec \(k\le0\)</p>
+            <p>\(\exp>0\) toujours. \(S=\emptyset\). Pas de calcul.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Énoncé : inéquation \(e^{A(x)}\lt e^{B(x)}\)</p>
+            <p>Stricte croissance. Le sens de l'inégalité <em>est conservé</em> sur les exposants.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Énoncé : étudier les variations de \(f\) contenant \(e^{x}\)</p>
+            <p>Dérive avec \((e^{u})'=u'e^{u}\), factorise par \(e^{u}\), puis lis le signe du facteur restant.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Énoncé : modèle \(f'=k\,f\) ou «&nbsp;croissance proportionnelle&nbsp;»</p>
+            <p>Pose \(f(t)=A\,e^{kt}\). Utilise \(f(0)\) pour trouver \(A\), et le contexte pour \(k\).</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Énoncé : polynôme en \(e^{x}\) (du type \(e^{2x}+\alpha e^{x}+\beta=0\))</p>
+            <p>Pose \(X=e^{x}>0\), résous l'équation polynomiale en \(X\), puis remonte aux \(x\).</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Énoncé : tangente à \(\exp\) au point \(a\)</p>
+            <p>Pente \(\exp'(a)=e^{a}\), ordonnée \(\exp(a)=e^{a}\). Équation \(y=e^{a}(x-a)+e^{a}\).</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Tactique de copie</p>
+          <p>
+            Avant de calculer, écris en <em>une phrase</em> ce que tu vas faire&nbsp;: «&nbsp;j'utilise la stricte croissance&nbsp;»,
+            «&nbsp;je dérive avec \((e^{u})'=u'e^{u}\)&nbsp;», «&nbsp;je pose \(X=e^{x}\)&nbsp;». Cette phrase rapporte
+            un demi-point de méthode et te sauve quand le calcul dérape.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis sans calculer</p>
+          <p>Quelle méthode démarre le mieux&nbsp;: «&nbsp;résoudre \(e^{2x}-3e^{x}+2=0\)&nbsp;»&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="choix1">Voir la réponse</button>
+          <p id="choix1" class="answer" hidden>Polynôme en \(e^{x}\)&nbsp;: poser \(X=e^{x}>0\), résoudre \(X^{2}-3X+2=0\) (\(X=1\) ou \(X=2\)), puis revenir aux \(x\)&nbsp;: \(x=0\) ou \(x=\ln 2\) (en Première, on garde l'écriture \(e^{x}=2\)).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis sans calculer</p>
+          <p>Quelle méthode démarre le mieux&nbsp;: «&nbsp;étudier les variations de \(f(x)=(x+1)e^{x}\)&nbsp;»&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="choix2">Voir la réponse</button>
+          <p id="choix2" class="answer" hidden>Dérivation comme produit \((uv)'=u'v+uv'\), puis factorisation par \(e^{x}\) pour que le signe de \(f'\) dépende seulement d'un facteur affine. \(f'(x)=(x+2)e^{x}\), donc signe de \(x+2\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis sans calculer</p>
+          <p>Quelle méthode démarre le mieux&nbsp;: «&nbsp;l'équation \(e^{x^{2}+1}=-2\)&nbsp;»&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="choix3">Voir la réponse</button>
+          <p id="choix3" class="answer" hidden>Argument de positivité immédiat. \(e^{x^{2}+1}>0\) pour tout \(x\), donc l'équation n'a aucune solution. \(S=\emptyset\). Aucun calcul à faire.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis sans calculer</p>
+          <p>Quelle méthode démarre le mieux&nbsp;: «&nbsp;la population suit \(P'=0{,}03\,P\), \(P(0)=200\)&nbsp;»&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="choix4">Voir la réponse</button>
+          <p id="choix4" class="answer" hidden>Modèle \(f'=kf\). On pose \(P(t)=A\,e^{kt}\) avec \(k=0{,}03\) et \(A=P(0)=200\). Donc \(P(t)=200\,e^{0{,}03t}\).</p>
+        </div>
+      </section>
+
+      <!-- ========== 10 · REDACTION ========== -->
+      <section id="redaction" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">10</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Rédaction notée</p>
+            <h2>Rédiger comme en contrôle</h2>
+          </div>
+        </div>
+        <p>
+          Sur ce chapitre, le correcteur attend trois choses claires&nbsp;: l'identification de la <em>structure</em>
+          (équation, inéquation, dérivée, modèle), l'<em>argument</em> qui débloque (stricte croissance, positivité, dérivée),
+          et la <em>conclusion</em> sous forme d'ensemble ou de phrase mathématique.
+        </p>
+
+        <div class="copy-grid">
+          <div class="c-callout c-callout--warn">
+            <p class="c-callout__label"><span class="dot"></span>Brouillon insuffisant</p>
+            <p>\(e^{2x+1}=e^{4}\), donc \(2x+1=4\), donc \(x=3/2\).</p>
+            <p class="penalty">Aucune mention de la stricte croissance, aucune conclusion propre. Risque&nbsp;: \(-0{,}5\) à \(-1\) point sur une copie de bac blanc.</p>
+          </div>
+
+          <div class="worked-example">
+            <p>Résoudre dans \(\mathbb{R}\) l'équation \(e^{2x+1}=e^{4}\).</p>
+            <div class="formula-card">
+              \[ e^{2x+1} = e^{4} \]
+            </div>
+            <p>La fonction exponentielle est strictement croissante sur \(\mathbb{R}\), donc&nbsp;:</p>
+            <div class="formula-card">
+              \[ 2x+1 = 4 \]
+              \[ 2x = 3 \]
+              \[ x = \tfrac{3}{2} \]
+            </div>
+            <p>Conclusion&nbsp;: l'ensemble des solutions est \(S=\left\{\tfrac{3}{2}\right\}\).</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Points qui rapportent</p>
+          <ul class="score-list">
+            <li>Annoncer en une phrase l'outil utilisé (stricte croissance, dérivée, positivité).</li>
+            <li>Conclure par un ensemble de solutions encadré ou en gras.</li>
+            <li>Pour une dérivée, factoriser par \(e^{u}\) et dire «&nbsp;\(e^{u}>0\) donc \(f'(x)\) est du signe de…&nbsp;».</li>
+            <li>Pour un modèle, justifier \(f(t)=A\,e^{kt}\) avec \(A=f(0)\), puis vérifier que \(f'=kf\).</li>
+          </ul>
+        </div>
+
+        <div class="copy-grid">
+          <div class="c-callout c-callout--warn">
+            <p class="c-callout__label"><span class="dot"></span>Brouillon insuffisant</p>
+            <p>\(f(x)=(x+1)e^{x}\), \(f'(x)=(x+2)e^{x}\), donc \(f\) est croissante après \(-2\).</p>
+            <p class="penalty">Aucune mention du signe de \(e^{x}\), aucun tableau de variations, conclusion incomplète. Le correcteur peut accepter au bac, mais ce sera limite.</p>
+          </div>
+
+          <div class="worked-example">
+            <p>Étudier les variations de \(f(x)=(x+1)e^{x}\) sur \(\mathbb{R}\).</p>
+            <p>\(f\) est dérivable sur \(\mathbb{R}\) comme produit de fonctions dérivables. Pour tout \(x\)&nbsp;:</p>
+            <div class="formula-card">
+              \[ f'(x) = 1\cdot e^{x}+(x+1)\cdot e^{x} \]
+              \[ f'(x) = (x+2)\,e^{x} \]
+            </div>
+            <p>Pour tout réel \(x\), \(e^{x}>0\), donc \(f'(x)\) est du signe de \(x+2\).</p>
+            <div class="formula-card">
+              \[ \begin{array}{c|ccc} x & -\infty & -2 & +\infty\\ \hline f'(x) & - & 0 & + \\ \hline & & & \\ f(x) & \searrow & -e^{-2} & \nearrow\\ & & & \end{array} \]
+            </div>
+            <p>Conclusion&nbsp;: \(f\) est strictement décroissante sur \(]-\infty;-2]\) et strictement croissante sur \([-2;+\infty[\). Son minimum est \(f(-2)=-e^{-2}\), atteint en \(x=-2\).</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== P · PIEGES ========== -->
+      <section id="pieges" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">P</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Pièges du chapitre</p>
+            <h2>Cinq erreurs qui coûtent vraiment des points</h2>
+          </div>
+        </div>
+        <p>
+          Ces erreurs reviennent à chaque devoir surveillé. Les lire <em>après</em> avoir travaillé le cours leur donne
+          un sens&nbsp;: tu sais d'où elles viennent et tu peux les éviter en contrôle.
+        </p>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 1 — \(e^{x}\) confondu avec \(x^{e}\)</p>
+          <p>
+            \(e^{x}\) est une <em>puissance variable</em> du nombre \(e\). \(x^{e}\) est une <em>puissance constante</em> de \(x\),
+            qui n'est même pas définie pour tout \(x\). Les deux fonctions n'ont rien en commun&nbsp;: \(\exp\) est définie sur \(\mathbb{R}\),
+            \(x\mapsto x^{e}\) demande \(x>0\) à ce niveau.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 2 — \(e^{x+y}=e^{x}+e^{y}\)</p>
+          <p>
+            <strong>FAUX.</strong> L'exponentielle transforme la somme en <em>produit</em>&nbsp;: \(e^{x+y}=e^{x}\,e^{y}\).
+            Pour vérifier&nbsp;: \(e^{1+1}=e^{2}\approx7{,}39\), tandis que \(e^{1}+e^{1}\approx5{,}44\). Les deux ne sont pas égaux.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 3 — \((e^{u})'=e^{u'}\)</p>
+          <p>
+            <strong>FAUX.</strong> La règle correcte est \((e^{u(x)})'=u'(x)\,e^{u(x)}\). L'exposant <em>reste</em>,
+            et on multiplie par la dérivée de l'exposant. Penser à \((e^{3x})'=3e^{3x}\), pas \(e^{3}\).
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 4 — Le signe de \(x\) dans \(e^{x}\)</p>
+          <p>
+            \(e^{x}>0\) <em>quel que soit le signe de \(x\)</em>. Même \(e^{-100}\) est strictement positif&nbsp;: il est très petit,
+            mais positif. Ne jamais écrire \(e^{x}\lt0\) ni \(e^{x}=0\).
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 5 — Oublier la stricte croissance comme justification</p>
+          <p>
+            Quand tu passes de \(e^{A}=e^{B}\) à \(A=B\), le correcteur attend la phrase&nbsp;: «&nbsp;\(\exp\) étant strictement
+            croissante sur \(\mathbb{R}\)&nbsp;». Sans elle, le passage n'est pas justifié, même si la suite est juste.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Récupération active</p>
+          <p>Sans regarder, écris la règle de dérivation \((e^{u})'\) puis vérifie.</p>
+          <button class="reveal-button" type="button" data-reveal="piege1">Voir la réponse</button>
+          <p id="piege1" class="answer" hidden>\((e^{u(x)})'=u'(x)\,e^{u(x)}\). On garde l'exposant, on multiplie par sa dérivée. Sur \(f(x)=e^{2x^{2}+1}\)&nbsp;: \(u(x)=2x^{2}+1\), \(u'(x)=4x\), \(f'(x)=4x\,e^{2x^{2}+1}\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Récupération active</p>
+          <p>Sans regarder, écris la règle qui transforme \(e^{a}=e^{b}\) et justifie pourquoi elle marche.</p>
+          <button class="reveal-button" type="button" data-reveal="piege2">Voir la réponse</button>
+          <p id="piege2" class="answer" hidden>\(e^{a}=e^{b}\iff a=b\), parce que \(\exp\) est strictement croissante (donc injective) sur \(\mathbb{R}\). Une fonction strictement croissante prend chaque valeur au plus une fois.</p>
+        </div>
+      </section>
+
+      <!-- ========== G · EXERCICES GUIDES ========== -->
+      <section id="guides" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">G</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Exercices guidés</p>
+            <h2>L'aide disparaît progressivement</h2>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 1 — Simplifier des expressions</h3>
+            <span class="difficulty" aria-label="Niveau comprendre">Comprendre</span>
+          </div>
+          <p>Simplifier les écritures&nbsp;:</p>
+          <ol class="exercise-list">
+            <li>\(A=e^{x+2}\times e^{-x+2}\)</li>
+            <li>\(B=\dfrac{e^{-2x+1}}{e^{-x+1}}\)</li>
+            <li>\(C=(e^{-3})^{2}\times e^{-5}\)</li>
+          </ol>
+          <p class="hint-line">commence par regrouper les exposants comme des puissances.</p>
+          <button class="reveal-button" type="button" data-reveal="guide1">Voir le corrigé</button>
+          <div id="guide1" class="answer" hidden>
+            <p>\(A=e^{(x+2)+(-x+2)}=e^{4}\). Le \(x\) disparaît.</p>
+            <p>\(B=e^{(-2x+1)-(-x+1)}=e^{-x}=\dfrac{1}{e^{x}}\).</p>
+            <p>\(C=e^{-6}\times e^{-5}=e^{-11}\), ou encore \(\dfrac{1}{e^{11}}\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 2 — Dérivée d'un produit avec \(e^{x}\)</h3>
+            <span class="difficulty" aria-label="Niveau savoir refaire">Savoir refaire</span>
+          </div>
+          <p>Soit \(f(x)=(2x+1)e^{x}\). Calculer \(f'(x)\) et en déduire le sens de variation de \(f\) sur \(\mathbb{R}\).</p>
+          <p class="hint-line">applique la formule du produit, puis factorise par \(e^{x}\).</p>
+          <button class="reveal-button" type="button" data-reveal="guide2">Voir le corrigé</button>
+          <div id="guide2" class="answer" hidden>
+            <p>\(u(x)=2x+1\), \(u'(x)=2\). \(v(x)=e^{x}\), \(v'(x)=e^{x}\). Donc&nbsp;:</p>
+            <div class="formula-card">
+              \[
+              \begin{aligned}
+              f'(x)&=2e^{x}\\
+              &\quad +(2x+1)e^{x}
+              \end{aligned}
+              \]
+              \[ f'(x)=(2x+3)\,e^{x} \]
+            </div>
+            <p>Pour tout réel \(x\), \(e^{x}>0\), donc \(f'(x)\) est du signe de \(2x+3\)&nbsp;: négatif pour \(x\lt-\tfrac{3}{2}\), nul en \(-\tfrac{3}{2}\), positif après.</p>
+            <p>Conclusion&nbsp;: \(f\) est strictement décroissante sur \(]-\infty;-\tfrac{3}{2}]\), puis strictement croissante sur \([-\tfrac{3}{2};+\infty[\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 3 — Étudier \(g(x)=e^{x}-x\)</h3>
+            <span class="difficulty" aria-label="Niveau savoir refaire">Savoir refaire</span>
+          </div>
+          <p>Soit \(g(x)=e^{x}-x\). Étudier le sens de variations de \(g\), puis déterminer l'équation de la tangente \(T_{1}\) à la courbe de \(g\) au point d'abscisse \(1\).</p>
+          <p class="hint-line">dérive terme à terme, puis cherche le signe de \(g'(x)\).</p>
+          <button class="reveal-button" type="button" data-reveal="guide3">Voir le corrigé</button>
+          <div id="guide3" class="answer" hidden>
+            <p>\(g'(x)=e^{x}-1\). On résout \(e^{x}-1=0\) soit \(e^{x}=1=e^{0}\), donc \(x=0\). Par stricte croissance, \(e^{x}\ge1\) pour \(x\ge0\), donc \(g'(x)\ge0\) pour \(x\ge0\), et \(g'(x)\le0\) pour \(x\le0\).</p>
+            <p>Conclusion&nbsp;: \(g\) est décroissante sur \(]-\infty;0]\), croissante sur \([0;+\infty[\). Minimum en \(0\)&nbsp;: \(g(0)=1\).</p>
+            <p>Tangente en \(1\)&nbsp;: \(g(1)=e-1\), \(g'(1)=e-1\). Équation&nbsp;:</p>
+            <div class="formula-card">
+              \[
+              \begin{aligned}
+              y&=(e-1)(x-1)\\
+              &\quad +(e-1)
+              \end{aligned}
+              \]
+              \[ y=(e-1)\,x \]
+            </div>
+            <p>Donc \(T_{1}\,:\,y=(e-1)x\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 4 — Résoudre une équation</h3>
+            <span class="difficulty" aria-label="Niveau savoir refaire">Savoir refaire</span>
+          </div>
+          <p>Résoudre dans \(\mathbb{R}\) l'équation \(e^{x^{2}-3}=e^{-2x}\).</p>
+          <p class="hint-line">les deux membres sont déjà deux exponentielles. Égalise les exposants.</p>
+          <button class="reveal-button" type="button" data-reveal="guide4">Voir le corrigé</button>
+          <div id="guide4" class="answer" hidden>
+            <p>\(\exp\) est strictement croissante sur \(\mathbb{R}\), donc&nbsp;:</p>
+            <div class="formula-card">
+              \[ e^{x^{2}-3}=e^{-2x} \]
+              \[ x^{2}-3=-2x \]
+              \[ x^{2}+2x-3=0 \]
+              \[ \Delta = 4+12 = 16 \]
+              \[ \sqrt{\Delta}=4 \]
+              \[ x_{1}=\frac{-2-4}{2}=-3 \]
+              \[ x_{2}=\frac{-2+4}{2}=1 \]
+            </div>
+            <p>Conclusion&nbsp;: \(S=\{-3\,;\,1\}\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 5 — Variations de \(g(x)=e^{2x}-2x+1\)</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>Étudier les variations de \(g\) sur \(\mathbb{R}\).</p>
+          <p class="hint-line">factorise \(g'(x)\) sous la forme \(2(e^{2x}-1)\), puis cherche le signe de \(e^{2x}-1\).</p>
+          <button class="reveal-button" type="button" data-reveal="guide5">Voir le corrigé</button>
+          <div id="guide5" class="answer" hidden>
+            <p>\(g'(x)=2\,e^{2x}-2=2(e^{2x}-1)\).</p>
+            <p>\(e^{2x}-1\ge0\) équivaut à \(e^{2x}\ge1=e^{0}\), donc (stricte croissance) à \(2x\ge0\), soit \(x\ge0\).</p>
+            <p>Conclusion&nbsp;: \(g\) est décroissante sur \(]-\infty;0]\), croissante sur \([0;+\infty[\). Minimum \(g(0)=e^{0}-0+1=2\).</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Bilan d'étape</p>
+          <p>
+            Avant de passer au niveau contrôle, tu dois savoir simplifier une expression algébrique, dériver un produit
+            ou une composée avec \(e^{x}\), résoudre une équation par stricte croissance, et étudier le signe d'une dérivée
+            factorisée par \(e^{u}\). Si tu hésites encore, reviens à la section 04 (Dérivée) avant les exercices longs.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== C · CONTROLE ========== -->
+      <section id="controle" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">C</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Niveau contrôle</p>
+            <h2>Exercices à réussir sans aide</h2>
+          </div>
+        </div>
+        <p>Essaie sur feuille avant d'ouvrir un corrigé. La règle est&nbsp;: écrire une méthode complète, même approximative, avant de cliquer.</p>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Contrôle 1 — Étude complète de \(f(x)=(x+1)e^{x}\)</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>Soit \(f\) la fonction définie sur \(\mathbb{R}\) par \(f(x)=(x+1)e^{x}\).</p>
+          <ol class="exercise-list">
+            <li>Calculer la dérivée \(f'(x)\) et factoriser le résultat par \(e^{x}\).</li>
+            <li>Dresser le tableau de variations de \(f\).</li>
+            <li>Déterminer l'équation de la tangente à la courbe de \(f\) au point d'abscisse \(0\).</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="controle1">Voir le corrigé</button>
+          <div id="controle1" class="answer" hidden>
+            <p>1) \(f'(x)=1\cdot e^{x}+(x+1)\cdot e^{x}=(x+2)\,e^{x}\).</p>
+            <p>2) \(e^{x}>0\), donc \(f'(x)\) est du signe de \(x+2\)&nbsp;: négatif sur \(]-\infty;-2[\), nul en \(-2\), positif sur \(]-2;+\infty[\). Donc \(f\) est strictement décroissante sur \(]-\infty;-2]\), strictement croissante sur \([-2;+\infty[\). Minimum&nbsp;: \(f(-2)=(-2+1)e^{-2}=-e^{-2}\).</p>
+            <p>3) \(f(0)=1\), \(f'(0)=2\). Équation&nbsp;: \(y=f'(0)(x-0)+f(0)=2x+1\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Contrôle 2 — Étude de \(f(x)=e^{-x^{2}}\)</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>Soit \(f\) la fonction définie sur \(\mathbb{R}\) par \(f(x)=e^{-x^{2}}\).</p>
+          <ol class="exercise-list">
+            <li>Calculer \(f'(x)\).</li>
+            <li>Étudier le signe de \(f'(x)\) et en déduire les variations de \(f\).</li>
+            <li>Calculer \(f(0)\) et tracer (sans calculette) l'allure de la courbe.</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="controle2">Voir le corrigé</button>
+          <div id="controle2" class="answer" hidden>
+            <p>1) Avec \(u(x)=-x^{2}\) et \(u'(x)=-2x\)&nbsp;:</p>
+            <div class="formula-card">
+              \[ f'(x) = -2x\,e^{-x^{2}} \]
+            </div>
+            <p>2) \(e^{-x^{2}}>0\), donc \(f'(x)\) est du signe de \(-2x\)&nbsp;: positif sur \(]-\infty;0[\), nul en \(0\), négatif sur \(]0;+\infty[\). Donc \(f\) est strictement croissante sur \(]-\infty;0]\), strictement décroissante sur \([0;+\infty[\). Maximum en \(0\)&nbsp;: \(f(0)=e^{0}=1\).</p>
+            <p>3) \(f\) est paire (\(f(-x)=f(x)\)). La courbe a une allure de «&nbsp;cloche&nbsp;» centrée sur l'axe des ordonnées, avec sommet \((0;1)\) et qui tend vers \(0\) en \(\pm\infty\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Contrôle 3 — Bactéries</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>Par suite d'une infection, le nombre de bactéries dans un organisme est modélisé sur \([0\,;\,10]\) (en heures) par \(f(t)=50\,000\,e^{0{,}14\,t}\).</p>
+          <ol class="exercise-list">
+            <li>Vérifier que \(f\) satisfait \(f'(t)=0{,}14\,f(t)\) et \(f(0)=50\,000\).</li>
+            <li>Étudier les variations de \(f\) sur \([0\,;\,10]\).</li>
+            <li>Calculer \(f(3)\) et \(f(5{,}5)\) à \(1\,000\) près à l'aide de la calculatrice.</li>
+            <li>Au bout de combien d'heures (entier le plus proche) le nombre de bactéries a-t-il doublé&nbsp;?</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="controle3">Voir le corrigé</button>
+          <div id="controle3" class="answer" hidden>
+            <p>1) \(f'(t)=50\,000\cdot 0{,}14\,e^{0{,}14t}=0{,}14\,f(t)\). Et \(f(0)=50\,000\,e^{0}=50\,000\). OK.</p>
+            <p>2) \(f'(t)=0{,}14\cdot f(t)>0\) car \(f(t)>0\). \(f\) est strictement croissante sur \([0\,;\,10]\).</p>
+            <p>3) \(f(3)=50\,000\,e^{0{,}42}\approx 76\,000\). \(f(5{,}5)=50\,000\,e^{0{,}77}\approx 108\,000\).</p>
+            <p>4) Doublement à \(t\) tel que \(f(t)=100\,000\), soit \(e^{0{,}14t}=2\). À la calculatrice, \(t\approx 5\) heures.</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Contrôle 4 — Inéquation</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>Résoudre dans \(\mathbb{R}\) l'inéquation \(e^{x^{2}-1}\le e^{3-x}\).</p>
+          <button class="reveal-button" type="button" data-reveal="controle4">Voir le corrigé</button>
+          <div id="controle4" class="answer" hidden>
+            <p>\(\exp\) est strictement croissante, donc&nbsp;:</p>
+            <div class="formula-card">
+              \[ e^{x^{2}-1}\le e^{3-x} \]
+              \[ x^{2}-1\le 3-x \]
+              \[ x^{2}+x-4\le 0 \]
+              \[ \Delta = 1+16 = 17 \]
+              \[ x_{1}=\frac{-1-\sqrt{17}}{2} \]
+              \[ x_{2}=\frac{-1+\sqrt{17}}{2} \]
+            </div>
+            <p>Comme \(a=1>0\), le trinôme est négatif entre ses racines. Donc&nbsp;:</p>
+            <div class="formula-card">
+              \[ S=[x_{1};x_{2}] \]
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 20 · CAP 20/20 ========== -->
+      <section id="vingt-sur-vingt" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">20</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Cap 20/20</p>
+            <h2>Pas de raccourci : passe la porte avant</h2>
+          </div>
+        </div>
+
+        <div class="c-gate">
+          <p class="c-gate__label">Porte d'entrée</p>
+          <p class="c-gate__title">Deux contrôles sans corrigé d'abord</p>
+          <p>
+            Avant de tenter ces exercices, réussis au moins deux exercices de la section Contrôle <em>sans ouvrir le corrigé</em>.
+            Sinon, reviens à la section Dérivée et à la section Choix de méthode.
+          </p>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Étude complète d'une fonction quotient</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>Soit \(h\) la fonction définie par \(h(x)=\dfrac{2e^{x}+3}{e^{x}-1}\).</p>
+          <ol class="exercise-list">
+            <li>Déterminer l'ensemble de définition de \(h\).</li>
+            <li>Calculer \(h'(x)\), puis en déduire les variations de \(h\) sur chacun des intervalles de son ensemble de définition.</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="vingt1">Voir le corrigé</button>
+          <div id="vingt1" class="answer" hidden>
+            <p>1) On résout \(e^{x}-1=0\)&nbsp;: \(e^{x}=1=e^{0}\), donc \(x=0\). \(h\) est définie sur \(\mathbb{R}\setminus\{0\}\), c'est-à-dire \(]-\infty;0[\cup]0;+\infty[\).</p>
+            <p>2) On dérive avec la formule du quotient. Posons \(u(x)=2e^{x}+3\) et \(v(x)=e^{x}-1\). Alors \(u'(x)=2e^{x}\) et \(v'(x)=e^{x}\).</p>
+            <div class="formula-card">
+              \[ D(x)=(e^{x}-1)^{2} \]
+              \[ h'(x)=\frac{N(x)}{D(x)} \]
+              \[
+              \begin{aligned}
+              N(x)&=2e^{x}(e^{x}-1)\\
+              &\quad -(2e^{x}+3)e^{x}
+              \end{aligned}
+              \]
+              \[
+              \begin{aligned}
+              N(x)&=e^{x}C(x)\\
+              C(x)&=2(e^{x}-1)\\
+              &\quad -(2e^{x}+3)
+              \end{aligned}
+              \]
+              \[
+              \begin{aligned}
+              C(x)&=2e^{x}-2\\
+              &\quad -2e^{x}-3\\
+              &=-5
+              \end{aligned}
+              \]
+              \[ N(x)=-5e^{x} \]
+              \[ h'(x)=\frac{-5\,e^{x}}{(e^{x}-1)^{2}} \]
+            </div>
+            <p>Pour tout \(x\) de l'ensemble de définition, \(e^{x}>0\) et \((e^{x}-1)^{2}>0\). Donc \(h'(x)\lt0\). \(h\) est strictement décroissante sur chacun des intervalles \(]-\infty;0[\) et \(]0;+\infty[\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Polynôme en \(e^{x}\)</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>Résoudre dans \(\mathbb{R}\) l'équation \(e^{2x}-5e^{x}+6=0\).</p>
+          <button class="reveal-button" type="button" data-reveal="vingt2">Voir le corrigé</button>
+          <div id="vingt2" class="answer" hidden>
+            <p>On pose \(X=e^{x}\), avec \(X>0\). L'équation devient&nbsp;:</p>
+            <div class="formula-card">
+              \[ X^{2}-5X+6=0 \]
+              \[ \Delta = 25-24 = 1 \]
+              \[ \sqrt{\Delta}=1 \]
+              \[ X_{1}=\frac{5-1}{2}=2 \]
+              \[ X_{2}=\frac{5+1}{2}=3 \]
+            </div>
+            <p>Les deux racines sont \(>0\), donc on remonte&nbsp;:</p>
+            <div class="formula-card">
+              \[ e^{x}=2 \quad\text{ou}\quad e^{x}=3 \]
+            </div>
+            <p>En Première, on laisse cette écriture en disant que la calculatrice ou la fonction \(\ln\) (Terminale) permettent de trouver \(x\approx 0{,}69\) ou \(x\approx 1{,}10\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Modèle bactérien (suite et exponentielle)</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>Soit \(u_{n}=2\,e^{3n-1}\) pour \(n\in\mathbb{N}\).</p>
+          <ol class="exercise-list">
+            <li>Montrer que \((u_{n})\) est une suite géométrique. Donner sa raison et son premier terme.</li>
+            <li>Donner le sens de variation de \((u_{n})\).</li>
+            <li>Une autre suite \((v_{n})\) vérifie \(v_{n}=3\,e^{-n}\). Donner sa nature, sa raison et son sens de variation.</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="vingt3">Voir le corrigé</button>
+          <div id="vingt3" class="answer" hidden>
+            <p>1) \(u_{n}=2\,e^{3n}\cdot e^{-1}=2e^{-1}\,(e^{3})^{n}\). C'est une suite géométrique de premier terme \(u_{0}=2e^{-1}=\tfrac{2}{e}\) et de raison \(q=e^{3}\).</p>
+            <p>2) \(q=e^{3}>1\) et \(u_{0}=\tfrac{2}{e}>0\), donc \((u_{n})\) est strictement croissante.</p>
+            <p>3) \(v_{n}=3\,(e^{-1})^{n}\)&nbsp;: suite géométrique de premier terme \(3\), de raison \(q=e^{-1}=\tfrac{1}{e}\). Comme \(0\lt q\lt1\) et \(v_{0}>0\), \((v_{n})\) est strictement décroissante.</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Tangente paramétrée</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>Soit \(a\) un réel. Déterminer l'équation de la tangente \(T_{a}\) à la courbe de \(\exp\) au point d'abscisse \(a\). Pour quelle valeur de \(a\) cette tangente passe-t-elle par l'origine&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="vingt4">Voir le corrigé</button>
+          <div id="vingt4" class="answer" hidden>
+            <p>Équation générique&nbsp;: \(y=\exp'(a)(x-a)+\exp(a)=e^{a}(x-a)+e^{a}=e^{a}x+(1-a)e^{a}\).</p>
+            <p>La tangente passe par \((0;0)\) si et seulement si \(0=e^{a}\cdot0+(1-a)e^{a}\), soit \((1-a)e^{a}=0\). Comme \(e^{a}>0\), il faut \(1-a=0\), donc \(a=1\). Et alors \(T_{1}\,:\,y=e\,x\).</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== R · REVISION ========== -->
+      <section id="revision" class="chapter-section recap-section">
+        <div class="section-marker">
+          <div class="section-marker__num">R</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Mini-révision mélangée</p>
+            <h2>Ce que tu dois revoir ensuite</h2>
+          </div>
+        </div>
+        <p>
+          Un contrôle ne dira pas «&nbsp;utilise la stricte croissance&nbsp;». Entraîne-toi à reconnaître le déclencheur,
+          et croise avec les autres chapitres du programme.
+        </p>
+
+        <div class="revision-grid">
+          <div class="revision-card">
+            <p class="box-title">Si tu as raté les dérivées</p>
+            <p>Refais Guidé 2 et Contrôle 1. Toujours factoriser par \(e^{u}\) à la fin pour lire le signe.</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Si tu as raté les équations</p>
+            <p>Reprends la section Équations. La règle est <em>une seule</em>&nbsp;: \(e^{A}=e^{B}\iff A=B\), avec phrase de justification.</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Si tu as raté la positivité</p>
+            <p>Refais Piège 4. \(e^{x}>0\) pour tout \(x\) réel, même négatif, même très petit.</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Mélange avec dérivation</p>
+            <p>Beaucoup d'exercices demandent les variations d'une fonction de la forme \(P(x)e^{x}\). Le signe de la dérivée se ramène à celui d'un polynôme.</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Mélange avec second degré</p>
+            <p>Une équation type \(e^{u}=e^{v}\) avec \(u,v\) polynomiaux mène souvent à un trinôme. Tu sauves la moitié de l'exercice si tu maîtrises le discriminant.</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Mélange avec suites géométriques</p>
+            <p>\((e^{na})\) est géométrique de raison \(e^{a}\) et de premier terme \(1\). Sens de variation selon que \(e^{a}\lessgtr1\), donc selon le signe de \(a\).</p>
+          </div>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">✎</span>Dernière récupération active</p>
+          <p>Écris sans regarder&nbsp;: la définition de \(\exp\), la formule de dérivée de \(e^{u}\), et la règle qui transforme \(e^{a}=e^{b}\).</p>
+          <button class="reveal-button" type="button" data-reveal="revision1">Voir la fiche minimale</button>
+          <div id="revision1" class="answer" hidden>
+            <p><strong>Définition</strong>&nbsp;: \(\exp\) est l'unique fonction dérivable sur \(\mathbb{R}\) vérifiant \(\exp'=\exp\) et \(\exp(0)=1\). Pour tout réel \(x\), on note \(\exp(x)=e^{x}\), avec \(e=\exp(1)\approx2{,}718\).</p>
+            <p><strong>Dérivée</strong>&nbsp;: \((e^{x})'=e^{x}\), \((e^{ax+b})'=a\,e^{ax+b}\), \((e^{u(x)})'=u'(x)\,e^{u(x)}\).</p>
+            <p><strong>Stricte croissance</strong>&nbsp;: \(\exp\) est strictement croissante sur \(\mathbb{R}\), donc \(e^{a}=e^{b}\iff a=b\) et \(e^{a}\lt e^{b}\iff a\lt b\).</p>
+            <p><strong>Positivité</strong>&nbsp;: \(e^{x}>0\) pour tout réel \(x\).</p>
+            <p><strong>Modèle</strong>&nbsp;: \(f'=k\,f\) avec \(f(0)=A\) donne \(f(t)=A\,e^{kt}\). Croissance si \(k>0\), décroissance si \(k\lt0\).</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Prochaine étape</p>
+          <p>
+            En Terminale, on introduit la fonction logarithme \(\ln\), qui est la fonction réciproque de \(\exp\). Elle permet
+            de résoudre proprement \(e^{x}=k\) pour <em>tout</em> \(k>0\), pas seulement \(k\in\{1,e,e^{2},\dots\}\). Aujourd'hui,
+            assure d'abord la définition, les propriétés algébriques, la dérivée et la stricte croissance.
+          </p>
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+  <!-- ============================================================
+       JSXGRAPH BOARDS — chapter-specific
+       ============================================================ -->
+  <script>
+  (function () {
+    function cssVar(name) {
+      return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    }
+
+    const COLORS = {
+      coral: cssVar('--red'),
+      green: cssVar('--green-2'),
+      ink: cssVar('--ink'),
+      teal: cssVar('--blue-2'),
+      yellow: cssVar('--stabilo'),
+      blue: cssVar('--blue-2')
+    };
+
+    function createBoard(el, bbox) {
+      return JXG.JSXGraph.initBoard(el.id, {
+        boundingbox: bbox,
+        axis: true,
+        grid: true,
+        showCopyright: false,
+        showNavigation: false,
+        pan: { enabled: false },
+        zoom: { enabled: false }
+      });
+    }
+
+    function addCurve(b, fn, x0, x1, color) {
+      return b.create('functiongraph', [fn, x0, x1], {
+        strokeColor: color,
+        strokeWidth: 3,
+        highlight: false
+      });
+    }
+
+    function addLine(b, fn, x0, x1, color, dash) {
+      return b.create('functiongraph', [fn, x0, x1], {
+        strokeColor: color,
+        strokeWidth: 2,
+        dash: dash || 2,
+        highlight: false
+      });
+    }
+
+    function addPoint(b, xy, name, color, offset) {
+      return b.create('point', xy, {
+        name: name,
+        size: 4,
+        fillColor: color,
+        strokeColor: COLORS.ink,
+        label: { offset: offset || [10, 10], fontSize: 12, color: COLORS.ink },
+        fixed: true,
+        showInfobox: false
+      });
+    }
+
+    const boards = {
+      intuition(el) {
+        const b = createBoard(el, [-3, 8, 3, -1]);
+        addCurve(b, Math.exp, -2.9, 2.1, COLORS.teal);
+        // Tangent lines at three points: slope = exp(a)
+        const a1 = -1, a2 = 0, a3 = 1;
+        addLine(b, x => Math.exp(a1) * (x - a1) + Math.exp(a1), -2.5, 1, COLORS.coral);
+        addLine(b, x => Math.exp(a2) * (x - a2) + Math.exp(a2), -2, 2, COLORS.coral);
+        addLine(b, x => Math.exp(a3) * (x - a3) + Math.exp(a3), 0, 2.2, COLORS.coral);
+        addPoint(b, [a1, Math.exp(a1)], '', COLORS.yellow, [10, -10]);
+        addPoint(b, [a2, 1], '(0;1)', COLORS.yellow, [-30, -20]);
+        addPoint(b, [a3, Math.exp(a3)], '', COLORS.yellow, [10, 10]);
+      },
+
+      exp(el) {
+        const b = createBoard(el, [-3, 8, 3, -1]);
+        addCurve(b, Math.exp, -2.9, 2.1, COLORS.teal);
+        addPoint(b, [0, 1], '(0;1)', COLORS.yellow, [-30, -20]);
+        addPoint(b, [1, Math.E], '(1;e)', COLORS.yellow, [10, 10]);
+      },
+
+      expTangente(el) {
+        const b = createBoard(el, [-3, 8, 3, -1]);
+        addCurve(b, Math.exp, -2.9, 2.1, COLORS.teal);
+        // Tangent y = x + 1 at (0;1)
+        addLine(b, x => x + 1, -2.5, 2.5, COLORS.coral, 0);
+        addPoint(b, [0, 1], '(0;1)', COLORS.yellow, [-50, -10]);
+      },
+
+      comparaison(el) {
+        const b = createBoard(el, [-1, 12, 4, -1]);
+        addCurve(b, Math.exp, -0.9, 3.5, COLORS.teal);
+        addCurve(b, x => x * x, -0.9, 3.5, COLORS.coral);
+        addCurve(b, x => x * x * x, -0.9, 2.3, COLORS.green);
+        addPoint(b, [0, 1], '', COLORS.yellow, [10, 10]);
+      },
+
+      equation(el) {
+        const b = createBoard(el, [-3, 8, 3, -1]);
+        addCurve(b, Math.exp, -2.9, 2.1, COLORS.teal);
+        // Horizontal line y = 4
+        addLine(b, x => 4, -3, 3, COLORS.yellow, 0);
+        // Intersection: x = ln(4)
+        const xi = Math.log(4);
+        addPoint(b, [xi, 4], '', COLORS.coral, [10, -15]);
+      },
+
+      modeles(el) {
+        const b = createBoard(el, [-3, 8, 4, -1]);
+        // Growth k = 0.5
+        addCurve(b, x => Math.exp(0.5 * x), -2.9, 3.9, COLORS.green);
+        // Decay k = -0.5
+        addCurve(b, x => Math.exp(-0.5 * x), -2.9, 3.9, COLORS.coral);
+        addPoint(b, [0, 1], '(0;1)', COLORS.yellow, [-50, -10]);
+      }
+    };
+
+    window.__courseGraphInitializers = window.__courseGraphInitializers || [];
+    window.__courseGraphInitializers.push((el) => {
+      if (!el || el.dataset.courseGraphReady === 'true') return;
+      const fn = boards[el.dataset.chapterCurve];
+      if (!fn) return;
+      try {
+        fn(el);
+        el.dataset.courseGraphReady = 'true';
+      } catch (error) {
+        el.textContent = 'Graphe indisponible pour le moment.';
+      }
+    });
+  })();
+  </script>
+</body>
+</html>

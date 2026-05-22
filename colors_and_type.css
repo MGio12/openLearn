@@ -35,10 +35,8 @@
   font-style: normal;
   font-display: swap;
 }
-/* JetBrains Mono is loaded from Google Fonts only on pages that need it.
-   Pages using --font-mono (focus, progression, onboarding) include their
-   own <link rel="preconnect"> + <link rel="stylesheet"> in <head>.
-   Everywhere else the system fallback ('Menlo', monospace) is used. */
+/* Mono falls back to system fonts. Keep pages free of a Google Fonts request
+   on the critical path. */
 
 :root {
   /* ===== COLOR TOKENS — RAW ===== */
@@ -154,6 +152,15 @@
   --grid-major-color:  rgba(18, 18, 18, 0.075);
   --grid-major-step:   96px;
   --margin-rule-color: rgba(244, 162, 97, 0.22);
+}
+
+.ph-bold {
+  display: inline-block;
+  width: 1em;
+  min-width: 1em;
+  line-height: 1;
+  text-align: center;
+  vertical-align: -0.125em;
 }
 
 /* ============================================================

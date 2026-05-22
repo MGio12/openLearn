@@ -3,301 +3,2099 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dérivation — cours prototype</title>
+  <title>Dérivation — cours V2</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css">
   <link rel="stylesheet" href="../cours.css">
+  <style>
+    @media (max-width: 560px) {
+      .worked-example,
+      .exercise,
+      .math-language-card {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .formula-card {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      .answer .formula-card {
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+    }
+  </style>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js"></script>
   <script defer src="../cours.js"></script>
 </head>
-<body>
+<body class="has-course-sidebar">
+
+  <!-- Reading progress bar -->
+  <div class="progress-bar" aria-hidden="true">
+    <div class="progress-bar__fill" data-progress-fill></div>
+  </div>
+
+  <!-- Sticky section indicator (populated by inline script) -->
+  <div class="section-bar" data-section-bar aria-hidden="true">
+    <span class="section-bar__chip" data-section-bar-chip>00</span>
+    <span class="section-bar__title" data-section-bar-title>Dérivation</span>
+    <span class="section-bar__total" data-section-bar-total>1/17</span>
+  </div>
+
+  <!-- ============================================================
+       SIDEBAR
+       ============================================================ -->
+  <aside class="toc course-sidebar" aria-label="Plan du cours" data-course-sidebar>
+    <div class="sidebar-head">
+      <div>
+        <p class="toc-title">Plan</p>
+        <p class="sidebar-subtitle">Dérivation</p>
+      </div>
+      <button
+        class="sidebar-toggle"
+        type="button"
+        aria-label="Replier le plan"
+        aria-expanded="true"
+        data-sidebar-toggle
+      ><span aria-hidden="true">‹</span></button>
+    </div>
+
+    <nav class="toc-links" aria-label="Sections du chapitre">
+      <a href="#diagnostic" data-section-link><span class="toc-index">00</span><span class="toc-label">Diagnostic</span></a>
+      <a href="#taux" data-section-link><span class="toc-index">01</span><span class="toc-label">Taux moyen</span></a>
+      <a href="#nombre-derive" data-section-link><span class="toc-index">02</span><span class="toc-label">Nombre dérivé</span></a>
+      <a href="#tangente" data-section-link><span class="toc-index">03</span><span class="toc-label">Tangente</span></a>
+      <a href="#fonction-derivee" data-section-link><span class="toc-index">04</span><span class="toc-label">Fonction f'</span></a>
+      <a href="#formules" data-section-link><span class="toc-index">05</span><span class="toc-label">Formules</span></a>
+      <a href="#operations" data-section-link><span class="toc-index">06</span><span class="toc-label">Opérations</span></a>
+      <a href="#variations" data-section-link><span class="toc-index">07</span><span class="toc-label">Variations</span></a>
+      <a href="#extremums" data-section-link><span class="toc-index">08</span><span class="toc-label">Extremums</span></a>
+      <a href="#lecture-f-prime" data-section-link><span class="toc-index">09</span><span class="toc-label">Lire f'</span></a>
+      <a href="#choix-methode" data-section-link><span class="toc-index">10</span><span class="toc-label">Choisir</span></a>
+      <a href="#redaction" data-section-link><span class="toc-index">11</span><span class="toc-label">Rédiger</span></a>
+      <a href="#pieges" data-section-link><span class="toc-index">P</span><span class="toc-label">Pièges</span></a>
+      <a href="#guides" data-section-link><span class="toc-index">G</span><span class="toc-label">Guidé</span></a>
+      <a href="#controle" data-section-link><span class="toc-index">C</span><span class="toc-label">Contrôle</span></a>
+      <a href="#vingt-sur-vingt" data-section-link><span class="toc-index">20</span><span class="toc-label">20/20</span></a>
+      <a href="#revision" data-section-link><span class="toc-index">R</span><span class="toc-label">Révision</span></a>
+    </nav>
+
+    <p class="sidebar-foot">Maths spé · Lycée</p>
+  </aside>
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
   <header class="course-hero">
     <nav class="topline" aria-label="Fil d'Ariane">
-      <a href="../../../..">Outil Prépa</a>
+      <a href="../../../..">Objectif Lycée</a>
       <span>Maths spécialité</span>
-      <span>Prototype isolé</span>
+      <span>Cours</span>
     </nav>
 
     <div class="hero-grid">
       <div>
-        <p class="eyebrow">Chapitre test</p>
+        <p class="hero-eyebrow"><span class="num">04</span> Chapitre</p>
         <h1>Dérivation</h1>
         <p class="hero-lead">
-          Comprendre ce que mesure une dérivée, savoir la calculer, puis l'utiliser pour lire les variations d'une fonction.
+          Lire la pente d'une courbe en un point, en faire une fonction, puis trier les variations
+          sans hésiter sur la méthode.
         </p>
       </div>
 
-      <aside class="hero-card" aria-label="Résumé du chapitre">
-        <p class="card-label">Difficulté</p>
-        <p class="brain-scale" aria-label="Difficulté deux cerveaux sur quatre">🧠🧠</p>
-        <p>Objectif : passer du geste de calcul à une vraie lecture graphique.</p>
+      <aside class="hero-side" aria-label="Les 4 réflexes du chapitre">
+        <p class="hero-side__label">Ce que tu gagnes</p>
+        <h2>4 réflexes, 1 contrôle solide</h2>
+        <div class="hero-side__steps">
+          <div class="hero-side__step">
+            <span class="verb">Voir</span>
+            <span class="obj">sécante, tangente, pente locale</span>
+          </div>
+          <div class="hero-side__step">
+            <span class="verb">Dériver</span>
+            <span class="obj">formules usuelles et opérations</span>
+          </div>
+          <div class="hero-side__step">
+            <span class="verb">Lire</span>
+            <span class="obj">signe de f' et variations de f</span>
+          </div>
+          <div class="hero-side__step">
+            <span class="verb">Rédiger</span>
+            <span class="obj">copie lisible et notée</span>
+          </div>
+        </div>
       </aside>
     </div>
   </header>
 
-  <main class="lesson-layout">
-    <aside class="toc" aria-label="Plan du cours">
-      <p class="toc-title">Plan</p>
-      <a href="#intuition">1. L'idée</a>
-      <a href="#nombre-derive">2. Nombre dérivé</a>
-      <a href="#fonction-derivee">3. Fonction dérivée</a>
-      <a href="#variations">4. Variations</a>
-      <a href="#fiche">Fiche</a>
-      <a href="#td">TD</a>
-    </aside>
+  <!-- ============================================================
+       MAIN
+       ============================================================ -->
+  <main class="course-layout" data-course-layout>
+    <article class="lesson course-lesson">
 
-    <article class="lesson">
-      <section id="intuition" class="chapter-section">
-        <p class="section-kicker">Intuition</p>
-        <h2>La dérivée mesure une vitesse locale</h2>
-        <p>
-          Quand on regarde une fonction de loin, on voit une courbe. Quand on zoome très fort autour d'un point,
-          la courbe ressemble de plus en plus à une droite. La dérivée mesure la pente de cette droite idéale :
-          la <strong>tangente</strong>.
-        </p>
-
-        <figure class="visual-block context-visual">
-          <img src="images/skatepark-tangente.webp" alt="Skateur sur une rampe courbe qui monte, pour imaginer une trajectoire avant de passer au graphe">
-          <figcaption>
-            Garde cette image comme contexte mental : sur une trajectoire courbe, l'inclinaison ressentie dépend de l'endroit où l'on se place.
-          </figcaption>
-        </figure>
-
-        <figure class="visual-block interactive-graph">
-          <div class="graph-stage">
-            <div id="derivative-board" class="jxgbox curve-board" data-derivative-board></div>
-            <p class="graph-readout" aria-live="polite">
-              <span>Point mobile sur la courbe</span>
-              <strong data-derivative-value>a = 1,00 · f'(a) = 1,11</strong>
-            </p>
-          </div>
-          <figcaption>
-            Déplace le point \(A\) : la tangente suit la courbe et sa pente donne la valeur de \(f'(a)\).
-          </figcaption>
-        </figure>
-
-        <div class="important">
-          <p class="box-title">Majeur à retenir</p>
-          <p>
-            Une dérivée n'est pas seulement une formule : c'est une pente locale. Le calcul sert à retrouver cette pente avec précision.
+      <!-- Overview band — single editorial section -->
+      <section class="course-overview" aria-label="Repères du chapitre">
+        <div>
+          <p class="course-overview__title">Fil conducteur</p>
+          <h3>Ce chapitre se gagne en 4 réflexes</h3>
+          <p class="course-overview__lead">
+            La pente d'une tangente <em>est</em> un nombre dérivé. Ce nombre, fait fonction, devient un test du sens de variation.
           </p>
         </div>
-
-        <div class="check-card">
-          <p class="box-title">Question rapide</p>
-          <p>Si la tangente à une courbe est horizontale en un point, que vaut la dérivée en ce point ?</p>
-          <button class="reveal-button" type="button" data-reveal="q1">Voir la réponse</button>
-          <p id="q1" class="answer" hidden>Elle vaut \(0\), car une droite horizontale a une pente nulle.</p>
+        <div class="overview-flow">
+          <span>Pente</span>
+          <em>→</em>
+          <span>Nombre dérivé</span>
+          <em>→</em>
+          <span>Fonction f'</span>
+          <em>→</em>
+          <span>Variations</span>
         </div>
       </section>
 
-      <section id="nombre-derive" class="chapter-section">
-        <p class="section-kicker">Définition</p>
-        <h2>Le nombre dérivé</h2>
+      <!-- ========== 00 · DIAGNOSTIC ========== -->
+      <section id="diagnostic" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">00</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Diagnostic éclair</p>
+            <h2>Avant de commencer : tu sais faire quoi&nbsp;?</h2>
+          </div>
+        </div>
         <p>
-          Pour mesurer la pente au point d'abscisse \(a\), on commence avec deux points proches :
-          \(A(a; f(a))\) et \(M(a+h; f(a+h))\). La pente de la sécante vaut :
+          Réponds mentalement avant d'ouvrir les corrections. Le but n'est pas une note&nbsp;:
+          c'est de savoir où ton attention doit aller pendant le chapitre.
         </p>
 
-        <div class="formula-card">
-          \[
-            \frac{f(a+h)-f(a)}{h}
-          \]
+        <div class="diagnostic-grid">
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 1</p>
+            <p>Que vaut le coefficient directeur de la droite passant par \(A(1;2)\) et \(M(3;8)\)&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag1">Voir la réponse</button>
+            <p id="diag1" class="answer" hidden>\(\dfrac{8-2}{3-1}=\dfrac{6}{2}=3\). C'est le même calcul qu'un taux d'accroissement entre \(1\) et \(3\).</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 2</p>
+            <p>Pour \(f(x)=x^2\), quelle est la dérivée \(f'(x)\)&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag2">Voir la réponse</button>
+            <p id="diag2" class="answer" hidden>\(f'(x)=2x\). On l'obtient avec la règle \((x^n)'=nx^{n-1}\) pour \(n=2\).</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 3</p>
+            <p>Si \(f'(x)\ge0\) sur un intervalle \(I\), que peut-on dire de \(f\) sur \(I\)&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag3">Voir la réponse</button>
+            <p id="diag3" class="answer" hidden>\(f\) est croissante sur \(I\). C'est la règle qui relie signe de \(f'\) et sens de variation de \(f\).</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 4</p>
+            <p>Quelle est l'équation d'une droite de pente \(3\) passant par \((2;6)\)&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag4">Voir la réponse</button>
+            <p id="diag4" class="answer" hidden>\(y=3(x-2)+6\), soit \(y=3x\). C'est la forme \(y=m(x-x_A)+y_A\), utilisée pour les tangentes.</p>
+          </div>
         </div>
 
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Objectif de cette session</p>
+          <p>
+            Si tu réussis seulement une chose aujourd'hui&nbsp;: comprendre qu'un même geste – «&nbsp;pente locale&nbsp;» –
+            répond à trois questions de contrôle (équation de tangente, étude des variations, position d'un extremum).
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 01 · TAUX MOYEN ========== -->
+      <section id="taux" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">01</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Intuition</p>
+            <h2>Le taux d'accroissement mesure une pente moyenne</h2>
+          </div>
+        </div>
         <p>
-          Puis on rapproche \(M\) de \(A\), donc on fait tendre \(h\) vers \(0\). Si la limite existe, elle s'appelle
-          le nombre dérivé de \(f\) en \(a\).
+          Sur une route, la vitesse moyenne entre deux points dépend du temps et de la distance.
+          En mathématiques, c'est la même idée&nbsp;: entre deux abscisses, on mesure la variation de \(f\)
+          divisée par la variation de \(x\). On obtient une pente <em>moyenne</em>, pas encore une pente <em>en un point</em>.
         </p>
 
         <div class="formula-card is-major">
-          \[
-            f'(a)=\lim_{h\to0}\frac{f(a+h)-f(a)}{h}
-          \]
+          \[ \tau(a,b)=\frac{f(b)-f(a)}{b-a} \]
+          \[ \tau(a,h)=\frac{f(a+h)-f(a)}{h} \]
+          \[ h\ne 0 \]
         </div>
 
-        <figure class="visual-block interactive-graph">
+        <p>
+          On utilise les deux écritures&nbsp;: la première compare deux abscisses, la seconde fait apparaître l'écart \(h\)
+          qu'on fera tendre vers \(0\). On parle aussi de <em>taux de variation</em> de \(f\) entre \(a\) et \(b\).
+        </p>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Image mentale</p>
+          <p>
+            Deux points = bilan moyen. Tu compares le point de départ \(A\) et le point d'arrivée \(M\)&nbsp;:
+            le quotient dit combien \(f\) a changé en moyenne pour \(1\) unité de \(x\).
+          </p>
+          <p>
+            Limite à garder en tête&nbsp;: tant que les deux abscisses sont différentes, tu mesures un trajet entre deux points,
+            pas encore la pente exacte en un seul point.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Majeur à retenir</p>
+          <p>
+            Le taux d'accroissement de \(f\) entre \(a\) et \(a+h\) est le coefficient directeur de la sécante
+            \((AM)\), avec \(A(a;f(a))\) et \(M(a+h;f(a+h))\).
+          </p>
+        </div>
+
+        <figure class="visual-block interactive-graph derivative-graph">
           <div class="graph-stage">
-            <div id="rate-board" class="jxgbox curve-board" data-rate-board></div>
+            <div id="rate-board" class="jxgbox curve-board" data-chapter-curve="rate"></div>
             <p class="graph-readout" aria-live="polite">
-              <span>Sécante entre \(A\) fixe et \(M\) mobile</span>
+              <span>Sécante \((AM)\) mobile, \(A\) fixé en \(a=1\)</span>
               <strong data-rate-value>h = 1,60 · taux moyen = 1,56</strong>
             </p>
           </div>
           <figcaption>
-            Déplace le point \(M\) : le taux de variation est une pente moyenne. Le nombre dérivé est la limite de ces pentes moyennes.
+            Quand on déplace \(M\) vers \(A\), la sécante \((AM)\) bascule&nbsp;: sa pente est le taux moyen entre \(a\) et \(a+h\),
+            et elle se rapproche de la pente exacte au point \(A\).
           </figcaption>
         </figure>
 
-        <div class="teacher-note">
-          <p class="box-title">Le piège classique</p>
+        <div class="worked-example">
+          <p>Soit \(f(x)=x^2\) et \(a=2\). Calculer le taux d'accroissement entre \(2\) et \(2+h\), pour \(h\ne 0\).</p>
+          <div class="formula-card">
+            \[ \begin{aligned}
+              \tau(2,h)&=\frac{f(2+h)-f(2)}{h}\\
+              &=\frac{(2+h)^2-4}{h}\\
+              &=\frac{4+4h+h^2-4}{h}\\
+              &=\frac{h(4+h)}{h}=4+h
+            \end{aligned} \]
+          </div>
           <p>
-            On ne remplace pas \(h\) par \(0\) directement dans le quotient : il y a un \(h\) au dénominateur.
-            On simplifie d'abord, puis seulement après on regarde la limite.
+            On voit déjà le mécanisme&nbsp;: le \(h\) du dénominateur se simplifie avec le \(h\) du numérateur.
+            Quand \(h\) devient très petit, le taux \(4+h\) se rapproche de \(4\).
           </p>
         </div>
 
-        <div class="worked-example">
-          <p class="box-title">Exemple guidé</p>
-          <p>Soit \(f(x)=x^2\). Calculons \(f'(3)\).</p>
-          <div class="formula-card">
-            \[
-              \frac{f(3+h)-f(3)}{h}
-              =\frac{(3+h)^2-9}{h}
-              =\frac{6h+h^2}{h}
-              =6+h
-            \]
-          </div>
-          <p>Quand \(h\) tend vers \(0\), \(6+h\) tend vers \(6\). Donc \(f'(3)=6\).</p>
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>Pour \(f(x)=3x+5\), que vaut le taux d'accroissement entre \(a\) et \(a+h\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="taux1">Voir la réponse</button>
+          <p id="taux1" class="answer" hidden>
+            \(\tau(a,h)=\dfrac{3(a+h)+5-(3a+5)}{h}=\dfrac{3h}{h}=3\). Sur une droite, le taux est constant et vaut le coefficient directeur.
+          </p>
         </div>
 
         <div class="check-card">
-          <p class="box-title">Question rapide</p>
-          <p>Pourquoi ne peut-on pas commencer par poser \(h=0\) dans \(\frac{f(a+h)-f(a)}{h}\) ?</p>
-          <button class="reveal-button" type="button" data-reveal="q2">Voir la réponse</button>
-          <p id="q2" class="answer" hidden>Parce que le dénominateur serait nul. On doit transformer l'expression avant de passer à la limite.</p>
+          <p class="check-card__label"><span class="marker">✎</span>Étape manquante</p>
+          <p>Pour \(g(x)=x^2+1\) et \(a=1\), simplifie \(\tau(1,h)\) sans laisser de \(h\) au dénominateur.</p>
+          <button class="reveal-button" type="button" data-reveal="taux2">Voir la réponse</button>
+          <p id="taux2" class="answer" hidden>
+            \(\tau(1,h)=\dfrac{(1+h)^2+1-(1+1)}{h}=\dfrac{1+2h+h^2-1}{h}=\dfrac{h(2+h)}{h}=2+h\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Contrôle du mémo</p>
+          <p>
+            Dans \(\dfrac{f(5)-f(2)}{5-2}\), est-ce que tu calcules une pente en \(x=2\), une pente en \(x=5\), ou une pente moyenne entre deux points&nbsp;?
+          </p>
+          <button class="reveal-button" type="button" data-reveal="memo-taux-bilan">Voir la réponse</button>
+          <p id="memo-taux-bilan" class="answer" hidden>
+            C'est une pente moyenne entre les deux points d'abscisses \(2\) et \(5\). Pour une pente en un point, il faudrait faire tendre le deuxième point vers le premier.
+          </p>
         </div>
       </section>
 
-      <section id="fonction-derivee" class="chapter-section">
-        <p class="section-kicker">Méthode</p>
-        <h2>La fonction dérivée</h2>
+      <!-- ========== 02 · NOMBRE DERIVE ========== -->
+      <section id="nombre-derive" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">02</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Définition</p>
+            <h2>Le nombre dérivé est la limite des taux</h2>
+          </div>
+        </div>
         <p>
-          Si on calcule le nombre dérivé pour chaque abscisse \(x\), on obtient une nouvelle fonction :
-          la fonction dérivée, notée \(f'\).
+          Le taux moyen dépend de la longueur \(h\) du saut. Quand \(h\) tend vers \(0\), la sécante se rapproche
+          d'une position limite. Si les taux \(\tau(a,h)\) se rapprochent d'un nombre réel fixé,
+          ce nombre est le <em>nombre dérivé</em> de \(f\) en \(a\), noté \(f'(a)\).
         </p>
+
+        <div class="formula-card is-major">
+          \[ f'(a)=\lim_{h\to 0}\frac{f(a+h)-f(a)}{h} \]
+        </div>
+
+        <p>
+          On dit alors que \(f\) est <em>dérivable</em> en \(a\). Si cette limite n'existe pas comme nombre réel,
+          \(f\) n'est pas dérivable en \(a\) (cas de \(\sqrt{\cdot}\) en \(0\), ou de \(|\cdot|\) en \(0\)).
+        </p>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Image mentale</p>
+          <p>
+            Le deuxième point colle presque. Le point \(M(a+h;f(a+h))\) se rapproche de \(A(a;f(a))\),
+            mais on garde \(h\ne 0\) pendant le calcul pour avoir encore deux points distincts.
+          </p>
+          <p>
+            Limite à ne jamais oublier&nbsp;: on ne remplace pas \(h\) par \(0\) dans le quotient de départ.
+            On simplifie d'abord, puis seulement ensuite on fait tendre \(h\) vers \(0\).
+          </p>
+        </div>
 
         <div class="method-grid">
           <div class="method-step">
             <span class="step-number">1</span>
-            <p>Identifier la forme de \(f(x)\).</p>
+            <p>Écrire \(\tau(a,h)=\dfrac{f(a+h)-f(a)}{h}\) avec \(h\ne 0\).</p>
           </div>
           <div class="method-step">
             <span class="step-number">2</span>
-            <p>Appliquer les formules de dérivation.</p>
+            <p>Développer \(f(a+h)\), puis simplifier le numérateur pour faire apparaître un facteur \(h\).</p>
           </div>
           <div class="method-step">
             <span class="step-number">3</span>
-            <p>Simplifier, puis utiliser \(f'\) pour étudier la fonction.</p>
+            <p>Simplifier par \(h\) (autorisé puisque \(h\ne 0\)), puis faire tendre \(h\) vers \(0\).</p>
           </div>
         </div>
 
-        <div class="formula-list" aria-label="Formules de dérivation utiles">
-          <p>\((x^n)' = nx^{n-1}\)</p>
-          <p>\((u+v)' = u' + v'\)</p>
-          <p>\((ku)' = ku'\)</p>
-          <p>\((uv)' = u'v + uv'\)</p>
+        <div class="worked-example">
+          <p>Démontrer que \(f:x\mapsto x^2\) est dérivable en \(a=3\) et calculer \(f'(3)\).</p>
+          <div class="formula-card">
+            \[ \begin{aligned}
+              \tau(3,h)&=\frac{(3+h)^2-9}{h}\\
+              &=\frac{9+6h+h^2-9}{h}\\
+              &=\frac{h(6+h)}{h}=6+h
+            \end{aligned} \]
+            \[ \lim_{h\to 0}(6+h)=6 \]
+          </div>
+          <p>Donc \(f\) est dérivable en \(3\) et \(f'(3)=6\). On retrouve bien \(2\times 3=6\) avec la formule \((x^2)'=2x\).</p>
+        </div>
+
+        <div class="c-callout c-callout--note">
+          <p class="c-callout__label"><span class="dot"></span>Notation à connaître</p>
+          <p>
+            En physique, on rencontre la notation différentielle \(f'(a)=\dfrac{\mathrm df}{\mathrm dx}(a)\).
+            C'est le même objet&nbsp;: une pente locale, vue comme un quotient d'écarts infiniment petits.
+          </p>
         </div>
 
         <div class="check-card">
-          <p class="box-title">Question rapide</p>
-          <p>Si \(f(x)=3x^2-5x+1\), que vaut \(f'(x)\) ?</p>
-          <button class="reveal-button" type="button" data-reveal="q3">Voir la réponse</button>
-          <p id="q3" class="answer" hidden>\(f'(x)=6x-5\).</p>
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>Pour \(f(x)=x^2+1\), tu as obtenu \(\tau(1,h)=2+h\). Que vaut \(f'(1)\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="ndp1">Voir la réponse</button>
+          <p id="ndp1" class="answer" hidden>
+            \(f'(1)=\lim_{h\to 0}(2+h)=2\). C'est cohérent avec \(f'(x)=2x\), donc \(f'(1)=2\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Pourquoi pas \(\sqrt{\cdot}\) en \(0\)&nbsp;?</p>
+          <p>Pourquoi dit-on que \(x\mapsto\sqrt{x}\) n'est pas dérivable en \(0\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="ndp2">Voir la réponse</button>
+          <p id="ndp2" class="answer" hidden>
+            Pour \(h>0\)&nbsp;: \(\tau(0,h)=\dfrac{\sqrt{h}-0}{h}=\dfrac{1}{\sqrt{h}}\). Quand \(h\to 0^+\), ce taux devient infiniment grand,
+            donc il n'admet aucune limite réelle. Graphiquement, la courbe admet une tangente verticale en \(0\).
+          </p>
         </div>
       </section>
 
-      <section id="variations" class="chapter-section">
-        <p class="section-kicker">Application</p>
-        <h2>Utiliser le signe de la dérivée</h2>
+      <!-- ========== 03 · TANGENTE ========== -->
+      <section id="tangente" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">03</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Lecture graphique</p>
+            <h2>La tangente en \(a\) a pour pente \(f'(a)\)</h2>
+          </div>
+        </div>
         <p>
-          Le signe de \(f'\) permet de connaître les variations de \(f\). C'est l'un des grands intérêts de la dérivation.
+          La position limite de la sécante \((AM)\) quand \(M\to A\) est une droite particulière&nbsp;:
+          la tangente à la courbe au point \(A(a;f(a))\). Son coefficient directeur est exactement \(f'(a)\).
         </p>
 
-        <figure class="visual-block interactive-graph">
+        <div class="formula-card is-major">
+          \[ T_a:\ y=f'(a)(x-a)+f(a) \]
+        </div>
+
+        <p>
+          Cette formule s'obtient simplement&nbsp;: on connaît une pente \(f'(a)\) et un point \((a;f(a))\) de la droite,
+          on applique \(y-y_A=m(x-x_A)\).
+        </p>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Mémo technique</p>
+          <p>
+            Pente dehors, point dedans&nbsp;: dans \(y=f'(a)(x-a)+f(a)\), la pente \(f'(a)\) est le facteur devant la parenthèse,
+            et le point de contact \(A(a;f(a))\) est caché dans \((x-a)\) puis dans \(+f(a)\).
+          </p>
+          <p>
+            Limite du réflexe&nbsp;: il ne remplace pas les calculs. Tu dois toujours connaître les deux nombres \(f'(a)\) et \(f(a)\)
+            avant d'écrire l'équation.
+          </p>
+        </div>
+
+        <figure class="visual-block interactive-graph derivative-graph">
           <div class="graph-stage">
-            <div id="sign-board" class="jxgbox curve-board" data-sign-board></div>
+            <div id="derivative-board" class="jxgbox curve-board" data-chapter-curve="tangent"></div>
             <p class="graph-readout" aria-live="polite">
-              <span>Point mobile sur une parabole</span>
+              <span>Tangente avec point \(A\) mobile sur la courbe</span>
+              <strong data-derivative-value>a = 1,00 · f'(a) = 1,11</strong>
+            </p>
+          </div>
+          <figcaption>
+            Quand \(A\) glisse sur la courbe, la pente \(f'(a)\) change&nbsp;: positive si \(f\) monte, négative si \(f\) descend,
+            nulle si \(A\) est à un extremum.
+          </figcaption>
+        </figure>
+
+        <div class="method-grid">
+          <div class="method-step">
+            <span class="step-number">1</span>
+            <p>Calculer \(f(a)\) (image) avec la formule de \(f\).</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">2</span>
+            <p>Calculer \(f'(x)\) (fonction dérivée), puis \(f'(a)\).</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">3</span>
+            <p>Écrire \(y=f'(a)(x-a)+f(a)\), puis simplifier pour obtenir \(y=mx+p\).</p>
+          </div>
+        </div>
+
+        <div class="worked-example">
+          <p>Soit \(f(x)=x^3-3x^2+3x+4\). Déterminer une équation de la tangente à \(\mathcal C_f\) au point d'abscisse \(a=2\).</p>
+          <div class="formula-card">
+            \[ f'(x)=3x^2-6x+3 \]
+            \[ f'(2)=12-12+3=3 \]
+            \[ f(2)=8-12+6+4=6 \]
+            \[ \begin{aligned}
+              T_2: y&=3(x-2)+6\\
+              &=3x-6+6\\
+              &=3x
+            \end{aligned} \]
+          </div>
+          <p>La tangente en \(x=2\) a donc pour équation \(y=3x\).</p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège fréquent</p>
+          <p>
+            Dans \(y=f'(a)(x-a)+f(a)\), le \(f(a)\) est l'ordonnée du point, pas la dérivée. Confondre \(f(a)\)
+            et \(f'(a)\) donne immédiatement la mauvaise équation. Note \(f'(a)\) une seule fois, en facteur de \(x-a\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>Pour \(f(x)=x^2\), donne l'équation de la tangente à la courbe au point d'abscisse \(1\).</p>
+          <button class="reveal-button" type="button" data-reveal="tan1">Voir la réponse</button>
+          <p id="tan1" class="answer" hidden>
+            \(f'(x)=2x\), donc \(f'(1)=2\) et \(f(1)=1\). L'équation est \(y=2(x-1)+1=2x-1\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">✎</span>Étape manquante</p>
+          <p>
+            On sait que \(f(a)=5\), \(f'(a)=-2\) et \(a=3\). Donne directement l'équation de la tangente en \(a\).
+          </p>
+          <button class="reveal-button" type="button" data-reveal="tan2">Voir la réponse</button>
+          <p id="tan2" class="answer" hidden>
+            \(y=-2(x-3)+5=-2x+11\). On applique le schéma sans recalculer la dérivée.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Contrôle du mémo</p>
+          <p>
+            Dans \(y=7(x-4)+9\), quel nombre est la pente et quel point appartient obligatoirement à la droite&nbsp;?
+          </p>
+          <button class="reveal-button" type="button" data-reveal="memo-tangente-point-pente">Voir la réponse</button>
+          <p id="memo-tangente-point-pente" class="answer" hidden>
+            La pente est \(7\). Le point obligatoire est \((4;9)\), car la forme \(y=m(x-a)+f(a)\) utilise le point \((a;f(a))\).
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 04 · FONCTION DERIVEE ========== -->
+      <section id="fonction-derivee" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">04</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Du local au global</p>
+            <h2>La fonction dérivée \(f'\) associe à chaque \(x\) la pente locale</h2>
+          </div>
+        </div>
+        <p>
+          Le nombre dérivé existe pour un \(a\) précis. Si \(f\) est dérivable en chaque point d'un intervalle \(I\),
+          on peut définir une nouvelle fonction, notée \(f'\), qui à \(x\) associe \(f'(x)\). C'est la <em>fonction dérivée</em> de \(f\).
+        </p>
+
+        <div class="formula-card is-major">
+          \[ f' : x\longmapsto f'(x) \]
+          \[ f'(x)=\lim_{h\to 0}\frac{f(x+h)-f(x)}{h} \]
+        </div>
+
+        <p>
+          Dire que \(f\) est dérivable sur \(I\), c'est dire que pour tout \(x\in I\), la limite existe.
+          En pratique, on n'écrit pas cette limite à chaque calcul&nbsp;: on s'appuie sur les <em>formules de référence</em>
+          (section 05) et les <em>règles d'opération</em> (section 06).
+        </p>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Réflexe</p>
+          <p>
+            Nombre vs machine&nbsp;: \(f'(2)\) est un nombre déjà sorti de la machine, tandis que \(f'\) est la machine
+            qui transforme chaque \(x\) en pente locale.
+          </p>
+          <p>
+            Limite à surveiller&nbsp;: la machine \(f'\) ne fonctionne que là où \(f\) est dérivable.
+            Pour \(\sqrt{x}\), par exemple, \(0\) appartient au domaine de \(f\), mais pas au domaine de \(f'\).
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Majeur à retenir</p>
+          <p>
+            Deux objets distincts, même nom court. \(f'(a)\) est un <em>nombre</em> (la pente en un point).
+            \(f'\) est une <em>fonction</em> (la pente en chaque point). On lit le contexte pour savoir lequel des deux est demandé.
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p>
+            Démontrer que \(f:x\mapsto x^2\) est dérivable sur \(\mathbb{R}\) et donner sa fonction dérivée.
+          </p>
+          <div class="formula-card">
+            \[ \begin{aligned}
+              \tau(x,h)&=\frac{(x+h)^2-x^2}{h}\\
+              &=\frac{2xh+h^2}{h}\\
+              &=\frac{h(2x+h)}{h}\\
+              &=2x+h
+            \end{aligned} \]
+            \[ \lim_{h\to 0}(2x+h)=2x \]
+          </div>
+          <p>
+            La limite existe pour tout \(x\) réel, donc \(f\) est dérivable sur \(\mathbb{R}\) et
+            \(f'(x)=2x\). On obtient une formule globale, pas un seul nombre.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question de vocabulaire</p>
+          <p>Lis attentivement&nbsp;: «&nbsp;Calculer \(f'(2)\)&nbsp;» et «&nbsp;Calculer \(f'\)&nbsp;» demandent-elles la même chose&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="fct1">Voir la réponse</button>
+          <p id="fct1" class="answer" hidden>
+            Non. «&nbsp;\(f'(2)\)&nbsp;» demande un <em>nombre</em>&nbsp;: la pente en \(x=2\).
+            «&nbsp;\(f'\)&nbsp;» demande une <em>fonction</em>&nbsp;: l'expression \(f'(x)\) pour \(x\) quelconque.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 05 · FORMULES ========== -->
+      <section id="formules" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">05</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Catalogue</p>
+            <h2>Dérivées des fonctions de référence</h2>
+          </div>
+        </div>
+        <p>
+          Ce tableau est l'outil de tous les exercices. Apprends-le dans le sens \(f\to f'\), puis vérifie-toi
+          dans l'autre sens pour les reconnaissances rapides en contrôle.
+        </p>
+
+        <div class="formula-card is-major">
+          \[ (k)'=0\quad (ax+b)'=a \]
+          \[ (x^n)'=n x^{n-1},\ n\in\mathbb{N}^* \]
+          \[ \left(\tfrac{1}{x}\right)'=-\tfrac{1}{x^2} \]
+          \[ \left(\sqrt{x}\right)'=\tfrac{1}{2\sqrt{x}} \]
+        </div>
+
+        <div class="sign-table" role="table" aria-label="Tableau des dérivées de référence">
+          <div class="sign-row sign-head" role="row">
+            <p role="cell">\(f(x)\)</p>
+            <p role="cell">\(f'(x)\)</p>
+            <p role="cell">\(D_f\)</p>
+            <p role="cell">\(D_{f'}\)</p>
+            <p role="cell">Condition</p>
+          </div>
+          <div class="sign-row" role="row">
+            <p role="cell">\(k\)</p>
+            <p role="cell">\(0\)</p>
+            <p role="cell">\(\mathbb{R}\)</p>
+            <p role="cell">\(\mathbb{R}\)</p>
+            <p role="cell">\(k\in\mathbb{R}\)</p>
+          </div>
+          <div class="sign-row" role="row">
+            <p role="cell">\(ax+b\)</p>
+            <p role="cell">\(a\)</p>
+            <p role="cell">\(\mathbb{R}\)</p>
+            <p role="cell">\(\mathbb{R}\)</p>
+            <p role="cell">\(a,b\in\mathbb{R}\)</p>
+          </div>
+          <div class="sign-row" role="row">
+            <p role="cell">\(x^2\)</p>
+            <p role="cell">\(2x\)</p>
+            <p role="cell">\(\mathbb{R}\)</p>
+            <p role="cell">\(\mathbb{R}\)</p>
+            <p role="cell">—</p>
+          </div>
+          <div class="sign-row" role="row">
+            <p role="cell">\(x^3\)</p>
+            <p role="cell">\(3x^2\)</p>
+            <p role="cell">\(\mathbb{R}\)</p>
+            <p role="cell">\(\mathbb{R}\)</p>
+            <p role="cell">—</p>
+          </div>
+          <div class="sign-row" role="row">
+            <p role="cell">\(x^n\)</p>
+            <p role="cell">\(n x^{n-1}\)</p>
+            <p role="cell">\(\mathbb{R}\)</p>
+            <p role="cell">\(\mathbb{R}\)</p>
+            <p role="cell">\(n\in\mathbb{N}^*\)</p>
+          </div>
+          <div class="sign-row" role="row">
+            <p role="cell">\(\tfrac{1}{x}\)</p>
+            <p role="cell">\(-\tfrac{1}{x^2}\)</p>
+            <p role="cell">\(\mathbb{R}^*\)</p>
+            <p role="cell">\(]-\infty;0[\) ou \(]0;+\infty[\)</p>
+            <p role="cell">\(x\ne 0\)</p>
+          </div>
+          <div class="sign-row" role="row">
+            <p role="cell">\(\tfrac{1}{x^n}\)</p>
+            <p role="cell">\(-\tfrac{n}{x^{n+1}}\)</p>
+            <p role="cell">\(\mathbb{R}^*\)</p>
+            <p role="cell">\(]-\infty;0[\) ou \(]0;+\infty[\)</p>
+            <p role="cell">\(n\in\mathbb{N}^*\)</p>
+          </div>
+          <div class="sign-row" role="row">
+            <p role="cell">\(\sqrt{x}\)</p>
+            <p role="cell">\(\tfrac{1}{2\sqrt{x}}\)</p>
+            <p role="cell">\([0;+\infty[\)</p>
+            <p role="cell">\(]0;+\infty[\)</p>
+            <p role="cell">non dérivable en \(0\)</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--note">
+          <p class="c-callout__label"><span class="dot"></span>Pour aller plus loin</p>
+          <p>
+            Dans le chapitre des fonctions trigonométriques, on ajoute \((\sin x)'=\cos x\) et
+            \((\cos x)'=-\sin x\). Dans celui de la fonction exponentielle, \((\mathrm e^x)'=\mathrm e^x\).
+            Pour l'instant, on reste sur le catalogue ci-dessus.
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p>Dériver chaque fonction en utilisant uniquement le tableau (sans règle d'opération avancée).</p>
+          <div class="formula-card">
+            \[ f(x)=100\Rightarrow f'(x)=0 \]
+            \[ g(x)=-5x\Rightarrow g'(x)=-5 \]
+            \[ h(x)=x^4\Rightarrow h'(x)=4x^3 \]
+            \[ k(x)=\tfrac{1}{x^5}\Rightarrow k'(x)=-\tfrac{5}{x^6} \]
+            \[ m(x)=\sqrt{x}\Rightarrow m'(x)=\tfrac{1}{2\sqrt{x}} \]
+          </div>
+          <p>Ces cinq cas couvrent la quasi-totalité des questions «&nbsp;dériver la fonction\(\dots\)&nbsp;».</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>Que vaut la dérivée de \(f(x)=\dfrac{1}{x^3}\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="formules1">Voir la réponse</button>
+          <p id="formules1" class="answer" hidden>
+            On utilise \(\left(\tfrac{1}{x^n}\right)'=-\tfrac{n}{x^{n+1}}\) avec \(n=3\)&nbsp;: \(f'(x)=-\dfrac{3}{x^4}\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>Donne la dérivée de \(g(x)=x^{10}\), puis évalue \(g'(1)\).</p>
+          <button class="reveal-button" type="button" data-reveal="formules2">Voir la réponse</button>
+          <p id="formules2" class="answer" hidden>
+            \(g'(x)=10x^9\), donc \(g'(1)=10\). On vient de calculer une pente locale sans la limite explicite.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 06 · OPERATIONS ========== -->
+      <section id="operations" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">06</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Règles</p>
+            <h2>Somme, produit, quotient, composée simple</h2>
+          </div>
+        </div>
+        <p>
+          Avec ces règles et le tableau précédent, on dérive n'importe quelle expression du programme de Première.
+          Apprends-les dans l'ordre de difficulté&nbsp;: somme, \(k u\), produit, inverse, quotient, composée \(u(ax+b)\).
+        </p>
+
+        <div class="formula-card is-major">
+          \[ (u+v)'=u'+v' \]
+          \[ (k u)'=k u',\ k\in\mathbb{R} \]
+          \[ (u v)'=u' v+u v' \]
+          \[ \left(\tfrac{1}{v}\right)'=-\tfrac{v'}{v^2} \]
+          \[ \left(\tfrac{u}{v}\right)'=\tfrac{u' v-u v'}{v^2} \]
+        </div>
+
+        <p>
+          La dérivée d'un produit n'est pas le produit des dérivées. La dérivée d'un quotient ressemble
+          à celle d'un produit, avec un signe \(-\) entre les deux termes et un dénominateur au carré.
+        </p>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Mémo technique</p>
+          <p>
+            Produit&nbsp;: chacun dérive à son tour, donc \(u'v+uv'\). Quotient&nbsp;: même alternance au numérateur,
+            mais le second terme est retiré et le dénominateur devient \(v^2\).
+          </p>
+          <p>
+            Limite du mémo&nbsp;: il aide à retenir la forme, mais il ne décide pas du domaine. Avant un quotient,
+            vérifie toujours que \(v(x)\ne 0\) sur l'intervalle étudié.
+          </p>
+        </div>
+
+        <figure class="visual-block math-language-visual">
+          <div class="math-language-grid" role="list" aria-label="Produit vs quotient">
+            <div class="math-language-card" role="listitem">
+              <p class="box-title">Produit \(u v\)</p>
+              <div class="formula-card">
+                \[ (u v)'=u' v+u v' \]
+              </div>
+              <p>Les deux termes sont positifs. On écrit \(u'\) puis \(v\), puis \(u\) puis \(v'\), dans cet ordre.</p>
+            </div>
+            <div class="math-language-card" role="listitem">
+              <p class="box-title">Quotient \(\tfrac{u}{v}\)</p>
+              <div class="formula-card">
+                \[ \left(\tfrac{u}{v}\right)'=\tfrac{u' v-u v'}{v^2} \]
+              </div>
+              <p>Le \(u' v\) reste en premier au numérateur, le \(u v'\) reste en second avec un signe \(-\). Le dénominateur est \(v^2\).</p>
+            </div>
+          </div>
+          <figcaption>
+            Mêmes briques \(u'v\) et \(uv'\), opérations différentes&nbsp;: le quotient ajoute un signe \(-\) entre les deux et passe \(v\) au carré.
+          </figcaption>
+        </figure>
+
+        <div class="worked-example">
+          <p>Dériver \(f(x)=3x^2+4\sqrt{x}\) sur \(]0;+\infty[\).</p>
+          <div class="formula-card">
+            \[ u(x)=3x^2 \]
+            \[ v(x)=4\sqrt{x} \]
+            \[ u'(x)=6x \]
+            \[ v'(x)=4\times\tfrac{1}{2\sqrt{x}} \]
+            \[ v'(x)=\tfrac{2}{\sqrt{x}} \]
+            \[ f'(x)=6x+\tfrac{2}{\sqrt{x}} \]
+          </div>
+          <p>On a appliqué \((u+v)'=u'+v'\) puis \((k u)'=k u'\) deux fois.</p>
+        </div>
+
+        <div class="worked-example">
+          <p>Dériver \(f(x)=(3x^2+4x)(5x-1)\) sur \(\mathbb{R}\).</p>
+          <div class="formula-card">
+            \[ u(x)=3x^2+4x \]
+            \[ v(x)=5x-1 \]
+            \[ u'(x)=6x+4 \]
+            \[ v'(x)=5 \]
+            \[ \begin{aligned}
+              f'(x)&=u' v+u v'\\
+              &=(6x+4)(5x-1)\\
+              &\quad+(3x^2+4x)\cdot 5
+            \end{aligned} \]
+            \[ \begin{aligned}
+              &=30x^2-6x+20x-4\\
+              &\quad+15x^2+20x\\
+              &=45x^2+34x-4
+            \end{aligned} \]
+          </div>
+          <p>On garde \(u'v+uv'\) sous la forme factorisée tant qu'on peut, on développe seulement si on veut étudier le signe.</p>
+        </div>
+
+        <div class="worked-example">
+          <p>Dériver \(f(x)=\dfrac{6x-5}{x^2-2x-1}\) sur un intervalle où \(v\) ne s'annule pas.</p>
+          <div class="formula-card">
+            \[ u(x)=6x-5 \]
+            \[ v(x)=x^2-2x-1 \]
+            \[ u'(x)=6 \]
+            \[ v'(x)=2x-2 \]
+            \[ A=6(x^2-2x-1) \]
+            \[ B=(6x-5)(2x-2) \]
+            \[ \begin{aligned}
+              f'(x)&=\frac{u'v-uv'}{v^2}\\
+              &=\frac{A-B}{v(x)^2}
+            \end{aligned} \]
+            \[ B=12x^2-22x+10 \]
+            \[ A-B=-6x^2+10x-16 \]
+            \[ f'(x)=\frac{-6x^2+10x-16}{v(x)^2} \]
+          </div>
+          <p>
+            Pour étudier ensuite le signe de \(f'(x)\), il suffira d'étudier le signe du numérateur,
+            car \((x^2-2x-1)^2>0\) (sauf là où \(v\) s'annule, exclus du domaine).
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Cas particulier — composée \(u(ax+b)\)</p>
+          <p>
+            Si \(g(x)=f(ax+b)\), alors \(g'(x)=a\,f'(ax+b)\). Deux exemples utiles&nbsp;:
+            \(\big((ax+b)^n\big)'=a\,n\,(ax+b)^{n-1}\) et \(\big(\sqrt{ax+b}\big)'=\dfrac{a}{2\sqrt{ax+b}}\) sur le bon domaine.
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p>Dériver \(g(x)=(7x+1)^3\) et \(h(x)=\sqrt{5x-4}\) (sur \(\left[\tfrac{4}{5};+\infty\right[\) pour \(h\)).</p>
+          <div class="formula-card">
+            \[ g'(x)=7\times 3(7x+1)^2 \]
+            \[ g'(x)=21(7x+1)^2 \]
+            \[ h'(x)=\tfrac{5}{2\sqrt{5x-4}} \]
+          </div>
+          <p>La règle \(g(x)=f(ax+b)\Rightarrow g'(x)=a\,f'(ax+b)\) suffit pour les composées vues en Première.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>Dériver \(f(x)=5x^3-3x^2\) sur \(\mathbb{R}\).</p>
+          <button class="reveal-button" type="button" data-reveal="op1">Voir la réponse</button>
+          <p id="op1" class="answer" hidden>
+            \(f'(x)=15x^2-6x\). On utilise la somme et \((k u)'=k u'\) deux fois.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>Dériver \(f(x)=\dfrac{1}{2x^2+5x}\) sur un intervalle où le dénominateur ne s'annule pas.</p>
+          <button class="reveal-button" type="button" data-reveal="op2">Voir la réponse</button>
+          <p id="op2" class="answer" hidden>
+            On utilise \(\left(\tfrac{1}{v}\right)'=-\tfrac{v'}{v^2}\) avec \(v(x)=2x^2+5x\), \(v'(x)=4x+5\)&nbsp;:
+            \(f'(x)=-\dfrac{4x+5}{(2x^2+5x)^2}\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">✎</span>Étape manquante</p>
+          <p>Pour \(f(x)=(3x-5)^5\), donne \(f'(x)\) sans développer.</p>
+          <button class="reveal-button" type="button" data-reveal="op3">Voir la réponse</button>
+          <p id="op3" class="answer" hidden>
+            Composée \(f(x)=(ax+b)^n\) avec \(a=3\), \(b=-5\), \(n=5\)&nbsp;: \(f'(x)=3\times 5(3x-5)^4=15(3x-5)^4\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Produit ou quotient&nbsp;?</p>
+          <p>
+            Pour \(f(x)=(2x+1)(x^2-3)\), pourquoi la réponse \(f'(x)=2\cdot 2x\) est-elle impossible&nbsp;?
+          </p>
+          <button class="reveal-button" type="button" data-reveal="memo-operations-produit-quotient">Voir la réponse</button>
+          <p id="memo-operations-produit-quotient" class="answer" hidden>
+            Cette réponse dérive seulement les deux facteurs puis les multiplie. Pour un produit, il faut garder un facteur intact à chaque tour&nbsp;:
+            \(f'(x)=2(x^2-3)+(2x+1)\cdot 2x\).
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 07 · VARIATIONS ========== -->
+      <section id="variations" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">07</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Application clé</p>
+            <h2>Signe de \(f'\) et sens de variation de \(f\)</h2>
+          </div>
+        </div>
+        <p>
+          La dérivée ne sert pas seulement à écrire une tangente. Elle est l'outil principal pour étudier
+          les variations d'une fonction&nbsp;: c'est <em>le</em> chapitre où le second degré sert à dériver et le tableau de signes sert à lire \(f\).
+        </p>
+
+        <div class="formula-card is-major">
+          \[ f'\ge 0\text{ sur }I \]
+          \[ \Rightarrow f\text{ croissante sur }I \]
+          \[ f'\le 0\text{ sur }I \]
+          \[ \Rightarrow f\text{ décroissante sur }I \]
+          \[ f'=0\text{ sur }I \]
+          \[ \Rightarrow f\text{ constante sur }I \]
+        </div>
+
+        <p>
+          On admet ce théorème en Première&nbsp;: il est démontré rigoureusement en Terminale avec un théorème
+          des accroissements finis. Pour le contrôle, il suffit d'étudier le signe de \(f'(x)\) pour en déduire
+          les variations de \(f\).
+        </p>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Réflexe</p>
+          <p>
+            \(+\) monte, \(-\) descend. Le signe de \(f'\) indique le sens de déplacement de \(f\)&nbsp;:
+            \(f'(x)>0\) fait monter la courbe, \(f'(x)<0\) la fait descendre.
+          </p>
+          <p>
+            Limite du réflexe&nbsp;: on parle toujours d'un intervalle. Un signe isolé en un seul \(x\) ne suffit pas
+            pour conclure sur les variations de toute la fonction.
+          </p>
+        </div>
+
+        <figure class="visual-block interactive-graph derivative-graph">
+          <div class="graph-stage">
+            <div id="sign-board" class="jxgbox curve-board" data-chapter-curve="sign"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Une parabole et sa tangente mobile</span>
               <strong data-sign-value>a = -1,20 · f'(a) &lt; 0</strong>
             </p>
           </div>
           <figcaption>
-            Déplace le point \(A\) : dérivée positive, la fonction monte ; dérivée négative, elle descend.
+            À gauche du sommet, la tangente descend&nbsp;: \(f'(a)<0\), donc \(f\) décroît. À droite, la tangente monte&nbsp;:
+            \(f'(a)>0\), donc \(f\) croît. Au sommet, \(f'(a)=0\).
           </figcaption>
         </figure>
 
-        <div class="important">
-          <p class="box-title">Majeur à retenir</p>
+        <div class="method-grid">
+          <div class="method-step">
+            <span class="step-number">1</span>
+            <p>Calculer \(f'(x)\) à l'aide du catalogue et des règles d'opération.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">2</span>
+            <p>Étudier le signe de \(f'(x)\) (souvent second degré, parfois facteur évident).</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">3</span>
+            <p>Reporter le signe dans un tableau, puis traduire en variations de \(f\).</p>
+          </div>
+        </div>
+
+        <div class="worked-example">
           <p>
-            \(f'(x)>0\) signifie que \(f\) est croissante sur l'intervalle étudié.
-            \(f'(x)<0\) signifie que \(f\) est décroissante.
+            Étudier les variations de \(f\) définie sur \(\mathbb{R}\) par \(f(x)=2x^2-8x+1\).
           </p>
-        </div>
-
-        <div class="teacher-note">
-          <p class="box-title">Erreur fréquente</p>
+          <div class="formula-card">
+            \[ f'(x)=4x-8 \]
+            \[ 4x-8=0\iff x=2 \]
+            \[ f(2)=2\cdot 4-16+1=-7 \]
+          </div>
           <p>
-            On ne confond pas le signe de \(f(x)\) et le signe de \(f'(x)\).
-            Une fonction peut être positive tout en étant décroissante.
+            \(f'\) est une fonction affine de coefficient directeur \(4>0\). Donc \(f'(x)<0\) avant \(2\) et \(f'(x)>0\) après \(2\).
           </p>
-        </div>
-      </section>
-
-      <section id="fiche" class="chapter-section recap-section">
-        <p class="section-kicker">Fiche synthèse</p>
-        <h2>Ce qu'il faut savoir refaire</h2>
-        <ul class="recap-list">
-          <li>Interpréter \(f'(a)\) comme la pente de la tangente au point d'abscisse \(a\).</li>
-          <li>Calculer un nombre dérivé avec la limite du taux de variation.</li>
-          <li>Dériver une fonction simple avec les formules usuelles.</li>
-          <li>Utiliser le signe de \(f'\) pour construire un tableau de variations.</li>
-          <li>Repérer les pièges : division par zéro, confusion entre \(f\) et \(f'\), lecture graphique trop rapide.</li>
-        </ul>
-      </section>
-
-      <section id="td" class="chapter-section">
-        <p class="section-kicker">TD progressif</p>
-        <h2>S'entraîner</h2>
-
-        <div class="exercise">
-          <div class="exercise-header">
-            <h3>Exercice 1 — Calcul direct</h3>
-            <span class="difficulty" aria-label="Difficulté un cerveau">🧠</span>
-          </div>
-          <p>Soit \(f(x)=x^2+2x\). Calculer \(f'(x)\), puis \(f'(1)\).</p>
-          <button class="reveal-button" type="button" data-reveal="td1">Voir le corrigé</button>
-          <div id="td1" class="answer" hidden>
-            <p>\(f'(x)=2x+2\). Donc \(f'(1)=2\times1+2=4\).</p>
-          </div>
-        </div>
-
-        <div class="exercise">
-          <div class="exercise-header">
-            <h3>Exercice 2 — Taux de variation</h3>
-            <span class="difficulty" aria-label="Difficulté deux cerveaux">🧠🧠</span>
-          </div>
-          <p>Avec \(f(x)=x^2\), retrouver \(f'(a)\) à partir de la définition du nombre dérivé.</p>
-          <button class="reveal-button" type="button" data-reveal="td2">Voir le corrigé</button>
-          <div id="td2" class="answer" hidden>
-            <div class="formula-card">
-              \[
-                \frac{f(a+h)-f(a)}{h}
-                =\frac{(a+h)^2-a^2}{h}
-                =\frac{2ah+h^2}{h}
-                =2a+h
-              \]
+          <div class="sign-table" role="table" aria-label="Tableau de variations de f">
+            <div class="sign-row sign-head" role="row">
+              <p role="cell">\(x\)</p>
+              <p role="cell">\(-\infty\)</p>
+              <p role="cell">\(2\)</p>
+              <p role="cell">\(+\infty\)</p>
             </div>
-            <p>Quand \(h\to0\), \(2a+h\to2a\). Donc \(f'(a)=2a\).</p>
+            <div class="sign-row" role="row">
+              <p role="cell">\(f'(x)\)</p>
+              <p role="cell">−</p>
+              <p role="cell">0</p>
+              <p role="cell">+</p>
+            </div>
+            <div class="sign-row" role="row">
+              <p role="cell">\(f(x)\)</p>
+              <p role="cell">↘</p>
+              <p role="cell">\(-7\)</p>
+              <p role="cell">↗</p>
+            </div>
+          </div>
+          <p>\(f\) admet donc un minimum égal à \(-7\), atteint en \(x=2\).</p>
+        </div>
+
+        <div class="worked-example">
+          <p>
+            Étudier les variations de \(f\) définie sur \(\mathbb{R}\) par \(f(x)=x^3+\tfrac{9}{2}x^2-12x+5\).
+          </p>
+          <div class="formula-card">
+            \[ f'(x)=3x^2+9x-12 \]
+            \[ f'(x)=3(x+4)(x-1) \]
+            \[ f'(x)=0 \]
+            \[ x=-4\text{ ou }x=1 \]
+            \[ f(-4)=61 \]
+            \[ f(1)=-\tfrac{3}{2} \]
+          </div>
+          <p>
+            Le coefficient dominant de \(f'\) est \(3>0\), donc \(f'\) est positive à l'extérieur des racines, négative entre.
+          </p>
+          <div class="sign-table" role="table" aria-label="Tableau de variations cube">
+            <div class="sign-row sign-head" role="row">
+              <p role="cell">\(x\)</p>
+              <p role="cell">\(]-\infty;-4[\)</p>
+              <p role="cell">\(-4\)</p>
+              <p role="cell">\(]-4;1[\)</p>
+              <p role="cell">\(1\)</p>
+              <p role="cell">\(]1;+\infty[\)</p>
+            </div>
+            <div class="sign-row" role="row">
+              <p role="cell">\(f'(x)\)</p>
+              <p role="cell">+</p>
+              <p role="cell">0</p>
+              <p role="cell">−</p>
+              <p role="cell">0</p>
+              <p role="cell">+</p>
+            </div>
+            <div class="sign-row" role="row">
+              <p role="cell">\(f(x)\)</p>
+              <p role="cell">↗</p>
+              <p role="cell">\(61\)</p>
+              <p role="cell">↘</p>
+              <p role="cell">\(-\tfrac{3}{2}\)</p>
+              <p role="cell">↗</p>
+            </div>
+          </div>
+          <p>
+            On lit&nbsp;: \(f\) croît jusqu'en \(-4\), décroît entre \(-4\) et \(1\), puis croît à nouveau au-delà de \(1\).
+            Le pic local vaut \(61\), le creux local vaut \(-\tfrac{3}{2}\).
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège du signe de \(f'\)</p>
+          <p>
+            Quand \(f'(x)\) est un trinôme \(\alpha x^2+\beta x+\gamma\), on étudie son signe avec le discriminant ou la forme factorisée
+            du chapitre Second degré. Le signe vient du coefficient \(\alpha\), pas de \(a\) dans la fonction \(f\) initiale.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>Pour \(f(x)=-x^2+6x-5\), trouve \(f'(x)\) puis dis sur quel intervalle \(f\) est croissante.</p>
+          <button class="reveal-button" type="button" data-reveal="var1">Voir la réponse</button>
+          <p id="var1" class="answer" hidden>
+            \(f'(x)=-2x+6\). \(f'(x)\ge 0\iff x\le 3\). Donc \(f\) est croissante sur \(]-\infty;3]\) et décroissante sur \([3;+\infty[\).
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 08 · EXTREMUMS ========== -->
+      <section id="extremums" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">08</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Pic et creux</p>
+            <h2>Extremum local : \(f'\) s'annule en changeant de signe</h2>
+          </div>
+        </div>
+        <p>
+          Un extremum local de \(f\) (maximum ou minimum) s'accompagne d'une tangente horizontale&nbsp;:
+          la pente s'annule en ce point.
+          </p>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Réflexe</p>
+          <p>
+            Zéro ouvre, signe tranche. Résoudre \(f'(x)=0\) ouvre la liste des candidats,
+            mais seul le changement de signe de \(f'\) décide s'il y a vraiment un maximum ou un minimum.
+          </p>
+          <p>
+            Limite cruciale&nbsp;: \(f'(a)=0\) tout seul ne prouve pas un extremum. Il faut regarder ce qui se passe juste avant et juste après \(a\).
+          </p>
+        </div>
+
+        <div class="formula-card is-major">
+          \[ f\text{ admet un extremum en }a \]
+          \[ \Rightarrow f'(a)=0 \]
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Attention au sens de l'implication</p>
+          <p>
+            La réciproque est fausse&nbsp;: \(f'(a)=0\) ne suffit pas pour un extremum. Exemple&nbsp;: \(f(x)=x^3\) en \(0\)
+            vérifie \(f'(0)=0\) mais \(f\) reste croissante. Pour avoir un extremum, il faut que \(f'\) <em>change de signe</em> en \(a\).
+          </p>
+        </div>
+
+        <div class="method-grid">
+          <div class="method-step">
+            <span class="step-number">1</span>
+            <p>Résoudre \(f'(x)=0\) pour repérer les candidats.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">2</span>
+            <p>Étudier le signe de \(f'\) autour de chaque candidat.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">3</span>
+            <p>Conclure&nbsp;: \(f'\) passe de \(-\) à \(+\) → minimum local ; de \(+\) à \(-\) → maximum local ; pas de changement → ni l'un ni l'autre.</p>
+          </div>
+        </div>
+
+        <div class="worked-example">
+          <p>
+            Soit \(f(x)=x^3-3x+1\) sur \(\mathbb{R}\). Trouver les extremums locaux.
+          </p>
+          <div class="formula-card">
+            \[ f'(x)=3x^2-3 \]
+            \[ f'(x)=0\iff x^2=1 \]
+            \[ x=-1\text{ ou }x=1 \]
+            \[ f'(x)=3(x-1)(x+1) \]
+          </div>
+          <p>
+            Le coefficient dominant \(3>0\)&nbsp;: \(f'\) est positive à l'extérieur de \([-1;1]\), négative entre les racines.
+          </p>
+          <div class="sign-table" role="table" aria-label="Variations de x^3-3x+1">
+            <div class="sign-row sign-head" role="row">
+              <p role="cell">\(x\)</p>
+              <p role="cell">\(]-\infty;-1[\)</p>
+              <p role="cell">\(-1\)</p>
+              <p role="cell">\(]-1;1[\)</p>
+              <p role="cell">\(1\)</p>
+              <p role="cell">\(]1;+\infty[\)</p>
+            </div>
+            <div class="sign-row" role="row">
+              <p role="cell">\(f'(x)\)</p>
+              <p role="cell">+</p>
+              <p role="cell">0</p>
+              <p role="cell">−</p>
+              <p role="cell">0</p>
+              <p role="cell">+</p>
+            </div>
+            <div class="sign-row" role="row">
+              <p role="cell">\(f(x)\)</p>
+              <p role="cell">↗</p>
+              <p role="cell">\(3\)</p>
+              <p role="cell">↘</p>
+              <p role="cell">\(-1\)</p>
+              <p role="cell">↗</p>
+            </div>
+          </div>
+          <p>
+            \(f(-1)=-1+3+1=3\) est un maximum local. \(f(1)=1-3+1=-1\) est un minimum local.
+            Les signes \(+\,0\,-\) puis \(-\,0\,+\) confirment respectivement le maximum et le minimum.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>
+            \(f'(0)=0\) pour \(f(x)=x^3\). Pourquoi \(0\) n'est-il pas un extremum local de \(f\)&nbsp;?
+          </p>
+          <button class="reveal-button" type="button" data-reveal="ext1">Voir la réponse</button>
+          <p id="ext1" class="answer" hidden>
+            \(f'(x)=3x^2\ge 0\) pour tout \(x\). La dérivée ne change pas de signe en \(0\), donc \(f\) reste croissante.
+            La tangente y est horizontale mais la fonction continue à monter.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">✎</span>Étape manquante</p>
+          <p>
+            On a \(f'(x)=(x-2)(x+5)\). En \(x=2\), \(f'\) passe de \(-\) à \(+\). Quelle conclusion&nbsp;?
+          </p>
+          <button class="reveal-button" type="button" data-reveal="ext2">Voir la réponse</button>
+          <p id="ext2" class="answer" hidden>
+            \(f\) admet un minimum local en \(x=2\). Le changement \(-\to+\) signifie que \(f\) décroît juste avant et croît juste après.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Contrôle du mémo</p>
+          <p>
+            On sait que \(f'(4)=0\), mais que \(f'\) est positive avant \(4\) et positive après \(4\). Peut-on annoncer un extremum en \(4\)&nbsp;?
+          </p>
+          <button class="reveal-button" type="button" data-reveal="memo-extremums-signe">Voir la réponse</button>
+          <p id="memo-extremums-signe" class="answer" hidden>
+            Non. \(f'(4)=0\) donne seulement un candidat. Comme le signe ne change pas, on ne peut pas conclure à un extremum local en \(4\).
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 09 · LIRE F' DEPUIS GRAPHE DE F ========== -->
+      <section id="lecture-f-prime" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">09</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Lecture graphique</p>
+            <h2>Lire \(f'\) à partir du graphe de \(f\)</h2>
+          </div>
+        </div>
+        <p>
+          On ne te demande pas seulement de calculer&nbsp;: on te demande aussi de <em>lire</em>. Sur le graphe de \(f\),
+          \(f'(a)\) est la pente de la tangente en \(a\). On peut souvent l'estimer avec le quadrillage.
+        </p>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Quatre lectures qui rapportent</p>
+          <ul class="score-list">
+            <li>\(f'(a)>0\) ⟺ la tangente «&nbsp;monte de gauche à droite&nbsp;» ⟺ \(f\) croît localement.</li>
+            <li>\(f'(a)<0\) ⟺ la tangente descend ⟺ \(f\) décroît localement.</li>
+            <li>\(f'(a)=0\) ⟺ la tangente est horizontale ⟺ candidat extremum.</li>
+            <li>Pente de la tangente = \(\dfrac{\Delta y}{\Delta x}\) lue sur le quadrillage.</li>
+          </ul>
+        </div>
+
+        <div class="worked-example">
+          <p>
+            On lit sur un graphique trois tangentes à la courbe de \(f\).
+          </p>
+          <div class="formula-card">
+            \[ f(-4)=3 \]
+            \[ f'(-4)=\tfrac{1}{1}=1 \]
+            \[ f(2)=4 \]
+            \[ f'(2)=\tfrac{-1}{2}=-\tfrac12 \]
+            \[ f(6)=0 \]
+            \[ f'(6)=\tfrac{-2}{1}=-2 \]
+          </div>
+          <p>
+            On lit chaque pente en comptant les carreaux&nbsp;: «&nbsp;monte d'un carreau pour un en x&nbsp;» donne \(1\),
+            «&nbsp;descend de \(2\) carreaux pour \(1\) en \(x\)&nbsp;» donne \(-2\). On obtient bien des nombres dérivés sans formule.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--note">
+          <p class="c-callout__label"><span class="dot"></span>De \(\mathcal C_f\) à \(\mathcal C_{f'}\)</p>
+          <p>
+            Si \(f\) admet un maximum en \(a\), alors \(\mathcal C_{f'}\) coupe l'axe des abscisses en \(a\) en passant de \(+\) à \(-\).
+            Inversement, si la courbe de \(f'\) coupe l'axe en \(b\), alors \(f\) a une tangente horizontale en \(b\)&nbsp;;
+            c'est un extremum si \(f'\) change de signe en \(b\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>
+            Sur un graphe de \(f\), tu lis qu'en \(a=2\), la tangente passe de \((1;3)\) à \((4;0)\). Que vaut \(f'(2)\)&nbsp;?
+          </p>
+          <button class="reveal-button" type="button" data-reveal="lect1">Voir la réponse</button>
+          <p id="lect1" class="answer" hidden>
+            \(f'(2)=\dfrac{0-3}{4-1}=\dfrac{-3}{3}=-1\). On a calculé le coefficient directeur de la tangente lue.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>
+            Si \(\mathcal C_{f'}\) est entièrement au-dessus de l'axe des abscisses sur un intervalle \(I\), que peut-on dire de \(f\) sur \(I\)&nbsp;?
+          </p>
+          <button class="reveal-button" type="button" data-reveal="lect2">Voir la réponse</button>
+          <p id="lect2" class="answer" hidden>
+            \(f'(x)>0\) sur \(I\), donc \(f\) est strictement croissante sur \(I\). On lit les variations de \(f\) dans le signe de \(f'\), sans formule.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 10 · CHOIX METHODE ========== -->
+      <section id="choix-methode" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">10</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Différenciateur</p>
+            <h2>Choisir la bonne approche avant de calculer</h2>
+          </div>
+        </div>
+        <p>
+          La difficulté n'est pas d'appliquer une formule&nbsp;: c'est de reconnaître <em>quelle</em> formule l'énoncé déclenche.
+          Avant de poser une seule ligne, range mentalement l'exercice dans une de ces catégories.
+        </p>
+
+        <div class="choice-grid">
+          <div class="choice-card">
+            <p class="box-title">On te demande une équation de tangente</p>
+            <p>Calcule \(f'\), puis \(f'(a)\), puis \(f(a)\), puis écris \(y=f'(a)(x-a)+f(a)\).</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">On te demande les variations</p>
+            <p>Calcule \(f'\), étudie son <em>signe</em>, traduis-le dans un tableau de variations.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">On te demande un extremum</p>
+            <p>Résous \(f'(x)=0\), regarde si \(f'\) change de signe, calcule la valeur de \(f\) au candidat retenu.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">On te demande de prouver dérivable</p>
+            <p>Utilise les fonctions usuelles dérivables sur leur domaine, puis les règles d'opération. Évite la limite à la main si une formule existe.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">L'énoncé donne un graphe</p>
+            <p>Lis les pentes des tangentes, lis le signe de \(f'\) selon que la courbe monte ou descend, lis les extremums comme tangentes horizontales.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">L'énoncé donne un quotient compliqué</p>
+            <p>Identifie \(u\), \(v\), \(u'\), \(v'\), applique \(\left(\tfrac{u}{v}\right)'=\dfrac{u'v-uv'}{v^2}\). Garde une forme factorisée si possible pour le signe.</p>
+          </div>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis sans calculer</p>
+          <p>
+            Quelle méthode démarre le mieux&nbsp;: «&nbsp;déterminer en quels points la tangente à \(\mathcal C_f\) est horizontale, pour \(f(x)=x^3-3x+1\)&nbsp;»&nbsp;?
+          </p>
+          <button class="reveal-button" type="button" data-reveal="choix1">Voir la réponse</button>
+          <p id="choix1" class="answer" hidden>
+            Résoudre \(f'(x)=0\). «&nbsp;Tangente horizontale&nbsp;» = «&nbsp;pente nulle&nbsp;» = «&nbsp;\(f'(a)=0\)&nbsp;».
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis sans calculer</p>
+          <p>
+            Quelle méthode démarre le mieux&nbsp;: «&nbsp;déterminer le minimum de \(f(x)=2x^2-8x+1\)&nbsp;»&nbsp;?
+          </p>
+          <button class="reveal-button" type="button" data-reveal="choix2">Voir la réponse</button>
+          <p id="choix2" class="answer" hidden>
+            Deux choix valides&nbsp;: forme canonique (chapitre Second degré) <em>ou</em> dériver puis étudier le signe de \(f'\).
+            Ici les deux donnent \(x=2\), \(f(2)=-7\), avec le tableau \(f'<0\) puis \(f'>0\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis sans calculer</p>
+          <p>
+            Quelle méthode démarre le mieux&nbsp;: «&nbsp;équation de la tangente à \(\mathcal C_f\) en \(x=1\) pour \(f(x)=3x^2-5x+2\)&nbsp;»&nbsp;?
+          </p>
+          <button class="reveal-button" type="button" data-reveal="choix3">Voir la réponse</button>
+          <p id="choix3" class="answer" hidden>
+            Calcul direct. \(f'(x)=6x-5\), \(f'(1)=1\), \(f(1)=0\). Équation&nbsp;: \(y=1\cdot(x-1)+0=x-1\).
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 11 · REDACTION ========== -->
+      <section id="redaction" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">11</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Copie notée</p>
+            <h2>Rédiger une étude de variations comme en contrôle</h2>
+          </div>
+        </div>
+        <p>
+          Le bon résultat ne suffit pas&nbsp;: il faut laisser une trace claire de la dérivée, du signe, du tableau et de la conclusion.
+          La copie attendue mentionne les fonctions \(u\), \(v\), \(u'\), \(v'\) à chaque application de règle.
+        </p>
+
+        <div class="copy-grid">
+          <div class="c-callout c-callout--warn">
+            <p class="c-callout__label"><span class="dot"></span>Brouillon insuffisant</p>
+            <p>\(f'=6x+4\), \(f'=0\) en \(-\tfrac{2}{3}\), donc min en \(-\tfrac{2}{3}\). Fin.</p>
+            <p class="penalty">on ne sait pas pourquoi \(f'\) change de signe, ni quelle est la valeur du minimum.</p>
+          </div>
+
+          <div class="worked-example">
+            <p>Étudier les variations de \(f(x)=3x^2+4x+1\) sur \(\mathbb{R}\).</p>
+            <div class="formula-card">
+              \[ f'(x)=6x+4 \]
+              \[ 6x+4=0\iff x=-\tfrac{2}{3} \]
+              \[ f\!\left(-\tfrac{2}{3}\right)=3\cdot\tfrac{4}{9}-\tfrac{8}{3}+1=-\tfrac{1}{3} \]
+            </div>
+            <p>
+              \(f'\) est une fonction affine de coefficient \(6>0\), donc strictement croissante.
+              Ainsi \(f'(x)<0\) pour \(x<-\tfrac{2}{3}\), \(f'(x)>0\) pour \(x>-\tfrac{2}{3}\).
+            </p>
+            <p>
+              On en déduit&nbsp;: \(f\) est décroissante sur \(\left]-\infty;-\tfrac{2}{3}\right]\),
+              croissante sur \(\left[-\tfrac{2}{3};+\infty\right[\), et admet un minimum global égal à \(-\tfrac{1}{3}\)
+              atteint en \(x=-\tfrac{2}{3}\).
+            </p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Points qui rapportent</p>
+          <ul class="score-list">
+            <li>Justifier la dérivabilité en citant les fonctions usuelles et les règles d'opération.</li>
+            <li>Écrire le calcul de \(f'(x)\) en détaillant \(u\), \(v\), \(u'\), \(v'\) pour produit/quotient.</li>
+            <li>Justifier le signe de \(f'\) (signe d'une affine, d'un trinôme, d'un produit).</li>
+            <li>Dresser un tableau de variations propre, puis conclure en français avec la valeur de l'extremum.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ========== P · PIEGES ========== -->
+      <section id="pieges" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">P</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Erreurs fréquentes</p>
+            <h2>Six pièges qui coûtent des points</h2>
+          </div>
+        </div>
+        <p>
+          Ces erreurs reviennent à chaque contrôle. Apprends-les à l'envers&nbsp;: «&nbsp;quel énoncé déclenche cette erreur&nbsp;?&nbsp;»
+          plutôt que «&nbsp;quelle erreur dois-je éviter&nbsp;?&nbsp;»
+        </p>
+
+        <div class="case-grid">
+          <div class="case-card">
+            <p class="case-title">Dérivée d'une constante</p>
+            <p>La dérivée d'une constante vaut \(0\), pas la constante. Pour \(f(x)=7\), \(f'(x)=0\) (pas \(7\)).</p>
+          </div>
+          <div class="case-card">
+            <p class="case-title">Produit ≠ produit des dérivées</p>
+            <p>\((uv)'=u'v+uv'\), pas \(u'v'\). Cette confusion fait perdre tout l'exercice.</p>
+          </div>
+          <div class="case-card">
+            <p class="case-title">Signe du quotient</p>
+            <p>\(\left(\tfrac{u}{v}\right)'=\dfrac{u'v-uv'}{v^2}\). Un \(+\) à la place du \(-\) renverse le signe.</p>
+          </div>
+          <div class="case-card">
+            <p class="case-title">\((x^n)'=n x^{n-1}\)</p>
+            <p>L'exposant baisse d'<em>une</em> unité. Pour \(x^4\), la dérivée est \(4x^3\), pas \(4x^4\) ni \(4x\).</p>
+          </div>
+          <div class="case-card">
+            <p class="case-title">\(f'=0\) ≠ extremum</p>
+            <p>Il faut que \(f'\) <em>change de signe</em>. Sinon, tangente horizontale sans extremum (cas \(x^3\) en \(0\)).</p>
+          </div>
+          <div class="case-card">
+            <p class="case-title">Tangente confondue avec \(f\)</p>
+            <p>\(y=f'(a)(x-a)+f(a)\) est l'équation d'une <em>droite</em>, pas de \(f\). Ne pas écrire \(y=f(x)=\dots\).</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Étude du signe du numérateur d'un quotient</p>
+          <p>
+            Pour étudier le signe de \(f'(x)=\dfrac{N(x)}{v(x)^2}\), on remarque que \(v(x)^2>0\) là où \(f\) est définie.
+            Le signe de \(f'\) est donc celui de \(N(x)\) seul. Beaucoup d'élèves oublient cet argument et ratent la simplification.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== G · EXERCICES GUIDES ========== -->
+      <section id="guides" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">G</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Exercices guidés</p>
+            <h2>L'aide disparaît progressivement</h2>
           </div>
         </div>
 
         <div class="exercise">
           <div class="exercise-header">
-            <h3>Exercice 3 — Variations</h3>
-            <span class="difficulty" aria-label="Difficulté trois cerveaux">🧠🧠🧠</span>
+            <h3>Guidé 1 — Dérivée d'un polynôme</h3>
+            <span class="difficulty" aria-label="Niveau comprendre">Comprendre</span>
           </div>
-          <p>Soit \(f(x)=x^2-4x+1\). Étudier les variations de \(f\).</p>
-          <button class="reveal-button" type="button" data-reveal="td3">Voir le corrigé</button>
-          <div id="td3" class="answer" hidden>
-            <p>\(f'(x)=2x-4\). On a \(f'(x)<0\) si \(x<2\), \(f'(2)=0\), et \(f'(x)>0\) si \(x>2\).</p>
-            <p>Donc \(f\) décroît sur \((-\infty,2]\), puis croît sur \([2,+\infty)\). Elle admet un minimum en \(x=2\).</p>
+          <p>Soit \(f(x)=4x^3-2x^2+7x-1\). Calculer \(f'(x)\).</p>
+          <p class="hint-line">applique la somme, le scalaire et \((x^n)'=n x^{n-1}\) terme par terme.</p>
+          <button class="reveal-button" type="button" data-reveal="g1">Voir le corrigé</button>
+          <div id="g1" class="answer" hidden>
+            <p>\(f\) est une fonction polynôme, donc dérivable sur \(\mathbb{R}\).</p>
+            <div class="formula-card">
+              \[ (4x^3)'=12x^2 \]
+              \[ (-2x^2)'=-4x \]
+              \[ (7x)'=7 \]
+              \[ f'(x)=12x^2-4x+7 \]
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 2 — Dérivée et tangente</h3>
+            <span class="difficulty" aria-label="Niveau savoir refaire">Savoir refaire</span>
+          </div>
+          <p>Soit \(f(x)=3x^2-5x+2\). Donner l'équation de la tangente à \(\mathcal C_f\) au point d'abscisse \(a=1\).</p>
+          <p class="hint-line">calcule \(f'(1)\) puis \(f(1)\), puis applique le schéma.</p>
+          <button class="reveal-button" type="button" data-reveal="g2">Voir le corrigé</button>
+          <div id="g2" class="answer" hidden>
+            <div class="formula-card">
+              \[ f'(x)=6x-5 \]
+              \[ f'(1)=1 \]
+              \[ f(1)=0 \]
+              \[ y=1\cdot(x-1)+0 \]
+              \[ y=x-1 \]
+            </div>
+            <p>L'équation de la tangente en \(a=1\) est \(y=x-1\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 3 — Quotient et signe</h3>
+            <span class="difficulty" aria-label="Niveau savoir refaire">Savoir refaire</span>
+          </div>
+          <p>
+            Soit \(f(x)=\dfrac{2x+1}{x-3}\) définie sur \(]3;+\infty[\). Calculer \(f'(x)\) puis donner l'équation
+            de la tangente en \(a=4\).
+          </p>
+          <p class="hint-line">pose \(u(x)=2x+1\) et \(v(x)=x-3\), puis applique la formule du quotient.</p>
+          <button class="reveal-button" type="button" data-reveal="g3">Voir le corrigé</button>
+          <div id="g3" class="answer" hidden>
+            <div class="formula-card">
+              \[ u'=2,\ v'=1 \]
+              \[ D(x)=(x-3)^2 \]
+              \[ f'(x)=\frac{N(x)}{D(x)} \]
+              \[ N(x)=2(x-3) \]
+              \[ \quad -(2x+1) \]
+              \[ N(x)=2x-6 \]
+              \[ \quad -2x-1 \]
+              \[ N(x)=-7 \]
+              \[ f'(x)=\frac{-7}{(x-3)^2} \]
+              \[ f(4)=\tfrac{9}{1}=9 \]
+              \[ f'(4)=-7 \]
+              \[ y=-7(x-4)+9 \]
+              \[ y=-7x+37 \]
+            </div>
+            <p>
+              Comme \((x-3)^2>0\) sur \(]3;+\infty[\), \(f'(x)<0\) partout&nbsp;: \(f\) est strictement décroissante sur cet intervalle.
+              La tangente en \(a=4\) a pour équation \(y=-7x+37\).
+            </p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 4 — Variations d'un trinôme</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>Soit \(f(x)=2x^2-8x+1\). Étudier les variations de \(f\) et déterminer son minimum.</p>
+          <p class="hint-line">commence par \(f'(x)\), puis le signe d'une fonction affine.</p>
+          <button class="reveal-button" type="button" data-reveal="g4">Voir le corrigé</button>
+          <div id="g4" class="answer" hidden>
+            <div class="formula-card">
+              \[ f'(x)=4x-8 \]
+              \[ f'(x)=0\iff x=2 \]
+              \[ f(2)=8-16+1=-7 \]
+            </div>
+            <p>
+              \(f'\) affine de pente \(4>0\)&nbsp;: négative avant \(2\), positive après. Donc \(f\) décroît sur \(]-\infty;2]\)
+              et croît sur \([2;+\infty[\). \(f\) admet un minimum global égal à \(-7\) en \(x=2\).
+            </p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Bilan d'étape</p>
+          <p>
+            Avant de passer au niveau contrôle, tu dois savoir dériver un polynôme, un quotient, écrire une tangente,
+            et étudier les variations d'un polynôme du second degré. Si tu hésites encore, reviens à la section «&nbsp;Choisir la méthode&nbsp;».
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== C · CONTROLE ========== -->
+      <section id="controle" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">C</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Niveau contrôle</p>
+            <h2>Exercices à réussir sans aide</h2>
+          </div>
+        </div>
+        <p>Essaie d'abord sur feuille. Ouvre le corrigé seulement après avoir écrit une méthode complète.</p>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Contrôle 1 — Tangente cubique</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>Soit \(f(x)=x^3-3x^2+3x+4\).</p>
+          <ol class="exercise-list">
+            <li>Calculer \(f'(x)\).</li>
+            <li>Déterminer l'équation de la tangente \(T_2\) à \(\mathcal C_f\) au point d'abscisse \(2\).</li>
+            <li>Trouver les abscisses des points où la tangente à \(\mathcal C_f\) est parallèle à l'axe des abscisses.</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="c1">Voir le corrigé</button>
+          <div id="c1" class="answer" hidden>
+            <p>
+              <strong>1.</strong> \(f\) est polynôme, dérivable sur \(\mathbb{R}\), et \(f'(x)=3x^2-6x+3=3(x-1)^2\).
+            </p>
+            <p>
+              <strong>2.</strong> \(f'(2)=3\cdot(2-1)^2=3\) et \(f(2)=8-12+6+4=6\). Donc \(T_2:y=3(x-2)+6=3x\).
+            </p>
+            <p>
+              <strong>3.</strong> Tangente horizontale ⟺ \(f'(x)=0\) ⟺ \(3(x-1)^2=0\) ⟺ \(x=1\).
+              Donc une seule abscisse&nbsp;: \(x=1\). Le point correspondant est \((1;f(1))=(1;5)\).
+            </p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Contrôle 2 — Étude complète</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>Soit \(f(x)=-x^3+3x^2+2\) définie sur \(\mathbb{R}\).</p>
+          <ol class="exercise-list">
+            <li>Calculer \(f'(x)\) et le factoriser.</li>
+            <li>Étudier le signe de \(f'(x)\).</li>
+            <li>Dresser le tableau de variations de \(f\) sur \(\mathbb{R}\).</li>
+            <li>Donner les valeurs des extremums locaux.</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="c2">Voir le corrigé</button>
+          <div id="c2" class="answer" hidden>
+            <p><strong>1.</strong> \(f'(x)=-3x^2+6x=3x(-x+2)=-3x(x-2)\).</p>
+            <p>
+              <strong>2.</strong> Le coefficient de tête de \(f'\) vaut \(-3<0\), racines \(0\) et \(2\). Donc \(f'(x)>0\) entre les racines,
+              \(f'(x)<0\) à l'extérieur.
+            </p>
+            <p>
+              <strong>3.</strong> Tableau&nbsp;: sur \(]-\infty;0]\), \(f\) décroît&nbsp;; sur \([0;2]\), \(f\) croît&nbsp;;
+              sur \([2;+\infty[\), \(f\) décroît.
+            </p>
+            <p>
+              <strong>4.</strong> \(f(0)=2\) (minimum local), \(f(2)=-8+12+2=6\) (maximum local).
+              Pas de minimum/maximum global puisque \(f\) tend vers \(\pm\infty\) aux bornes.
+            </p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Contrôle 3 — Quotient et signe</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>Soit \(f(x)=\dfrac{x^2+1}{x-1}\) définie sur \(]1;+\infty[\).</p>
+          <ol class="exercise-list">
+            <li>Calculer \(f'(x)\) et simplifier.</li>
+            <li>Étudier le signe de \(f'(x)\) sur \(]1;+\infty[\).</li>
+            <li>En déduire les variations de \(f\) sur \(]1;+\infty[\).</li>
+            <li>Déterminer le minimum éventuel de \(f\) sur cet intervalle.</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="c3">Voir le corrigé</button>
+          <div id="c3" class="answer" hidden>
+            <p><strong>1.</strong> \(u(x)=x^2+1\), \(v(x)=x-1\), \(u'=2x\), \(v'=1\).</p>
+            <div class="formula-card">
+              \[ D(x)=(x-1)^2 \]
+              \[ N(x)=2x(x-1) \]
+              \[ \quad -(x^2+1) \]
+              \[ N(x)=2x^2-2x \]
+              \[ \quad -x^2-1 \]
+              \[ N(x)=x^2-2x-1 \]
+              \[ f'(x)=\frac{x^2-2x-1}{(x-1)^2} \]
+            </div>
+            <p>
+              <strong>2.</strong> \((x-1)^2>0\) sur \(]1;+\infty[\), donc le signe de \(f'\) est celui de \(N(x)=x^2-2x-1\).
+              Discriminant \(\Delta=4+4=8\), racines \(1\pm\sqrt{2}\). Seule \(1+\sqrt{2}\approx 2{,}41\) est dans \(]1;+\infty[\).
+              \(N\) est positif à l'extérieur des racines (coefficient \(1>0\))&nbsp;: négatif sur \(]1;1+\sqrt{2}[\), positif sur \(]1+\sqrt{2};+\infty[\).
+            </p>
+            <p>
+              <strong>3.</strong> Donc \(f\) décroît sur \(]1;1+\sqrt{2}]\) puis croît sur \([1+\sqrt{2};+\infty[\).
+            </p>
+            <p>
+              <strong>4.</strong> Minimum atteint en \(x=1+\sqrt{2}\). On admet la valeur numérique du minimum&nbsp;:
+              \(f(1+\sqrt{2})=\dfrac{(1+\sqrt{2})^2+1}{\sqrt{2}}=\dfrac{4+2\sqrt{2}}{\sqrt{2}}=2+2\sqrt{2}\).
+            </p>
           </div>
         </div>
       </section>
+
+      <!-- ========== 20 · CAP 20/20 ========== -->
+      <section id="vingt-sur-vingt" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">20</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Cap 20/20</p>
+            <h2>Pas de raccourci : passe la porte avant</h2>
+          </div>
+        </div>
+
+        <div class="c-gate">
+          <p class="c-gate__label">Porte d'entrée</p>
+          <p class="c-gate__title">Deux contrôles sans corrigé d'abord</p>
+          <p>
+            Avant de tenter ces exercices, réussis au moins deux exercices de la section Contrôle sans ouvrir
+            le corrigé. Sinon, retourne d'abord au tableau de variations et à la dérivée d'un quotient.
+          </p>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Cinématique</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>
+            Deux mobiles \(M_1\) et \(M_2\) sur l'axe des abscisses ont pour lois horaires
+            \(x_1(t)=2t^2+t+4\) et \(x_2(t)=-t^2+5t+8\), pour \(t\ge 0\).
+          </p>
+          <ol class="exercise-list">
+            <li>Déterminer leurs positions et leurs vitesses initiales.</li>
+            <li>Déterminer l'instant \(t_0\) où ils se rencontrent. Quelle est leur position à cet instant&nbsp;?</li>
+            <li>Calculer leurs vitesses à l'instant \(t_0\). \(M_1\) double-t-il \(M_2\) ou inversement&nbsp;?</li>
+            <li>Calculer leurs accélérations \(a_1(t)\) et \(a_2(t)\). À quel instant \(M_2\) rebrousse-t-il chemin&nbsp;?</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="v1">Voir le corrigé</button>
+          <div id="v1" class="answer" hidden>
+            <p><strong>1.</strong> \(x_1(0)=4\), \(x_2(0)=8\). \(v_1(t)=x'_1(t)=4t+1\), \(v_2(t)=x'_2(t)=-2t+5\). Donc \(v_1(0)=1\), \(v_2(0)=5\).</p>
+            <p>
+              <strong>2.</strong> \(x_1=x_2\Leftrightarrow 3t^2-4t-4=0\). \(\Delta=16+48=64=8^2\), solution positive \(t_0=\dfrac{4+8}{6}=2\).
+              Position commune&nbsp;: \(x_1(2)=x_2(2)=14\).
+            </p>
+            <p>
+              <strong>3.</strong> \(v_1(2)=9\), \(v_2(2)=1\). \(v_1(2)>v_2(2)>0\)&nbsp;: \(M_1\) double \(M_2\) en \(t_0=2\).
+            </p>
+            <p>
+              <strong>4.</strong> \(a_1(t)=v'_1(t)=4\), \(a_2(t)=v'_2(t)=-2\)&nbsp;: mouvements uniformément accélérés.
+              \(M_2\) rebrousse chemin quand \(v_2(t)=0\), soit \(t=2{,}5\,\text{s}\).
+            </p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Tangentes parallèles</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>Soit \(f(x)=x^3-3x+1\) définie sur \(\mathbb{R}\).</p>
+          <ol class="exercise-list">
+            <li>Calculer \(f'(x)\).</li>
+            <li>Déterminer les abscisses des points où la tangente à \(\mathcal C_f\) est horizontale, puis donner l'équation de chaque tangente.</li>
+            <li>Déterminer les abscisses des points où la tangente est parallèle à la droite \(d:y=9x-1\).</li>
+            <li>En déduire les extremums locaux de \(f\) sur \(\mathbb{R}\).</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="v2">Voir le corrigé</button>
+          <div id="v2" class="answer" hidden>
+            <p><strong>1.</strong> \(f'(x)=3x^2-3\).</p>
+            <p>
+              <strong>2.</strong> \(f'(x)=0\iff x^2=1\iff x=\pm 1\). \(f(-1)=-1+3+1=3\), \(f(1)=1-3+1=-1\).
+              Tangentes&nbsp;: \(y=3\) en \(x=-1\) et \(y=-1\) en \(x=1\).
+            </p>
+            <p>
+              <strong>3.</strong> Tangente parallèle à \(d\) ⟺ \(f'(a)=9\) ⟺ \(3a^2-3=9\) ⟺ \(a^2=4\) ⟺ \(a=\pm 2\).
+              Aux points d'abscisses \(-2\) et \(2\), la tangente a pour pente \(9\).
+            </p>
+            <p>
+              <strong>4.</strong> \(f'(x)=3(x-1)(x+1)\), coefficient dominant \(3>0\)&nbsp;: \(f'\) positive à l'extérieur de \([-1;1]\), négative entre.
+              Donc \(f(-1)=3\) maximum local, \(f(1)=-1\) minimum local.
+            </p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Optimiser une grandeur</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>
+            Une entreprise vend \(x\) produits, avec \(x\in[0;770]\). Son bénéfice en euros est
+            \(B(x)=-0{,}1x^2+77x-1500\).
+          </p>
+          <ol class="exercise-list">
+            <li>Justifier que \(B\) est dérivable sur \([0;770]\) et calculer \(B'(x)\).</li>
+            <li>Étudier le signe de \(B'(x)\) sur \([0;770]\).</li>
+            <li>En déduire la quantité \(x^*\) qui maximise le bénéfice et la valeur de ce bénéfice maximum.</li>
+            <li>Comparer avec la méthode «&nbsp;forme canonique&nbsp;» du chapitre Second degré.</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="v3">Voir le corrigé</button>
+          <div id="v3" class="answer" hidden>
+            <p>
+              <strong>1.</strong> \(B\) est polynôme, donc dérivable sur \(\mathbb{R}\), en particulier sur \([0;770]\)&nbsp;:
+              \(B'(x)=-0{,}2x+77\).
+            </p>
+            <p>
+              <strong>2.</strong> \(B'(x)\ge 0\iff x\le \dfrac{77}{0{,}2}=385\). Donc \(B'>0\) sur \([0;385[\), \(B'(385)=0\), \(B'<0\) sur \(]385;770]\).
+            </p>
+            <p>
+              <strong>3.</strong> \(B\) croît jusqu'en \(x^*=385\) puis décroît. Donc maximum en \(385\)&nbsp;:
+              \(B(385)=-0{,}1\cdot 385^2+77\cdot 385-1500=13\,322{,}5\) euros.
+            </p>
+            <p>
+              <strong>4.</strong> Forme canonique du chapitre Second degré&nbsp;: \(\alpha=-\dfrac{b}{2a}=-\dfrac{77}{-0{,}2}=385\),
+              \(\beta=B(385)=13\,322{,}5\). On retrouve la même réponse, ce qui était attendu.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== R · REVISION ========== -->
+      <section id="revision" class="chapter-section recap-section">
+        <div class="section-marker">
+          <div class="section-marker__num">R</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Mini-révision mélangée</p>
+            <h2>Ce que tu dois revoir ensuite</h2>
+          </div>
+        </div>
+        <p>
+          La dérivation reviendra mélangée à d'autres chapitres dans presque chaque contrôle. Entraîne-toi à reconnaître
+          le déclencheur sans attendre que l'énoncé écrive «&nbsp;dériver&nbsp;».
+        </p>
+
+        <div class="revision-grid">
+          <div class="revision-card">
+            <p class="box-title">Si tu rates le calcul de \(f'\)</p>
+            <p>Refais Guidé 1 et Guidé 3. Rejoue le catalogue à voix haute&nbsp;: \(x^n\to n x^{n-1}\), \(\tfrac{1}{x}\to-\tfrac{1}{x^2}\), \(\sqrt{x}\to\tfrac{1}{2\sqrt{x}}\).</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Si tu rates les variations</p>
+            <p>Refais Guidé 4 et Contrôle 2. Le signe de \(f'\) se lit comme un trinôme&nbsp;: chapitre Second degré.</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Si tu rates les tangentes</p>
+            <p>Refais Guidé 2 et Contrôle 1. Schéma figé&nbsp;: \(y=f'(a)(x-a)+f(a)\).</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Mélange avec Second degré</p>
+            <p>Quand \(f'(x)\) est un trinôme, l'étude du signe utilise tout le chapitre Second degré&nbsp;: discriminant, racines, signe de \(a\).</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Mélange avec Fonctions trigonométriques</p>
+            <p>Plus tard, \((\sin x)'=\cos x\) et \((\cos x)'=-\sin x\)&nbsp;: tu réutiliseras la méthode «&nbsp;signe de \(f'\)&nbsp;» avec ces nouvelles dérivées.</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Mélange avec Exponentielle</p>
+            <p>Quand on rencontrera \((\mathrm e^x)'=\mathrm e^x\), le réflexe d'étude des variations restera identique.</p>
+          </div>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">✎</span>Dernière récupération active</p>
+          <p>
+            Écris sans regarder&nbsp;: la définition de \(f'(a)\) comme limite, la formule de la tangente,
+            le tableau des dérivées usuelles, et les cinq règles d'opération.
+          </p>
+          <button class="reveal-button" type="button" data-reveal="rev1">Voir la fiche minimale</button>
+          <div id="rev1" class="answer" hidden>
+            <p>
+              <strong>Nombre dérivé.</strong> \(f'(a)=\lim_{h\to 0}\dfrac{f(a+h)-f(a)}{h}\).
+            </p>
+            <p>
+              <strong>Tangente.</strong> \(T_a:y=f'(a)(x-a)+f(a)\).
+            </p>
+            <p>
+              <strong>Catalogue.</strong> \((k)'=0\), \((ax+b)'=a\), \((x^n)'=n x^{n-1}\), \(\left(\tfrac{1}{x}\right)'=-\tfrac{1}{x^2}\),
+              \(\left(\tfrac{1}{x^n}\right)'=-\tfrac{n}{x^{n+1}}\), \(\left(\sqrt{x}\right)'=\tfrac{1}{2\sqrt{x}}\).
+            </p>
+            <p>
+              <strong>Règles.</strong> \((u+v)'=u'+v'\), \((k u)'=k u'\), \((u v)'=u' v+u v'\),
+              \(\left(\tfrac{1}{v}\right)'=-\tfrac{v'}{v^2}\), \(\left(\tfrac{u}{v}\right)'=\dfrac{u' v-u v'}{v^2}\),
+              \(\big(f(ax+b)\big)'=a\,f'(ax+b)\).
+            </p>
+            <p>
+              <strong>Variations.</strong> \(f'\ge 0\Rightarrow f\) croissante&nbsp;; \(f'\le 0\Rightarrow f\) décroissante&nbsp;;
+              extremum local \(\Rightarrow f'(a)=0\) (réciproque fausse).
+            </p>
+          </div>
+        </div>
+      </section>
+
     </article>
   </main>
+
+  <!-- ============================================================
+       CHAPTER CURVES — exact JSXGraph boards for derivation
+       ============================================================ -->
+  <script>
+    (function () {
+      const mainFunction = (x) => 0.28 * x * x + 0.55 * x - 0.8;
+      const mainDerivative = (x) => 0.56 * x + 0.55;
+      const variationFunction = (x) => 0.3 * (x - 0.2) * (x - 0.2) - 1.6;
+      const variationDerivative = (x) => 0.6 * (x - 0.2);
+
+      const colors = () => ({
+        curve: token('--blue-2', 'currentColor'),
+        ink: token('--ink', 'currentColor'),
+        green: token('--green-2', 'currentColor'),
+        red: token('--red', 'currentColor'),
+        yellow: token('--stabilo', 'currentColor'),
+        panel: token('--panel', 'currentColor'),
+      });
+      const initializers = {
+        rate: initRateCurve,
+        tangent: initTangentCurve,
+        sign: initSignCurve,
+      };
+
+      window.__courseGraphInitializers = window.__courseGraphInitializers || [];
+      window.__courseGraphInitializers.push((element) => {
+        if (!element || element.dataset.courseGraphReady === 'true') return;
+        const init = initializers[element.dataset.chapterCurve];
+        if (!init) return;
+        try {
+          init(element, colors());
+          element.dataset.courseGraphReady = 'true';
+        } catch (error) {
+          setGraphFallback(element);
+        }
+      });
+
+      function initRateCurve(element, colors) {
+        const board = createBoard(element, [-4.2, 4.2, 4.2, -3.2]);
+        const readout = element.closest('figure')?.querySelector('[data-rate-value]');
+        const fixedA = 1;
+        const minStep = 0.05;
+        const curve = addCurve(board, mainFunction, -4, 4, colors.curve);
+        const pointA = board.create('point', [fixedA, mainFunction(fixedA)], {
+          name: 'A',
+          fixed: true,
+          size: 5,
+          face: 'o',
+          fillColor: colors.panel,
+          strokeColor: colors.ink,
+          strokeWidth: 3,
+          highlight: false,
+          label: { fontSize: 18, fontWeight: 900, offset: [-24, 14] },
+        });
+        const pointM = board.create('glider', [2.6, mainFunction(2.6), curve], {
+          name: 'M',
+          size: 6,
+          face: 'o',
+          fillColor: colors.yellow,
+          strokeColor: colors.ink,
+          strokeWidth: 3,
+          highlightFillColor: colors.yellow,
+          highlightStrokeColor: colors.ink,
+          label: { fontSize: 18, fontWeight: 900, offset: [12, 14] },
+        });
+
+        board.create('line', [pointA, pointM], {
+          strokeColor: colors.red,
+          strokeWidth: 3,
+          highlight: false,
+        });
+        board.create('text', [-3.8, 3.65, () => {
+          const h = pointM.X() - fixedA;
+          return Math.abs(h) < minStep ? 'h trop proche de 0' : `taux moyen = ${formatNumber(averageRate(fixedA, h))}`;
+        }], {
+          fontSize: 16,
+          fixed: true,
+          highlight: false,
+          strokeColor: colors.ink,
+        });
+
+        const update = () => {
+          if (!readout) return;
+          const h = pointM.X() - fixedA;
+          readout.textContent = Math.abs(h) < minStep
+            ? `h = ${formatNumber(h)} · h trop proche de 0`
+            : `h = ${formatNumber(h)} · taux moyen = ${formatNumber(averageRate(fixedA, h))}`;
+        };
+        pointM.on('drag', update);
+        board.on('update', update);
+        update();
+      }
+
+      function initTangentCurve(element, colors) {
+        const board = createBoard(element, [-4.2, 4.2, 4.2, -3.2]);
+        const readout = element.closest('figure')?.querySelector('[data-derivative-value]');
+        const curve = addCurve(board, mainFunction, -4, 4, colors.curve);
+        const point = board.create('glider', [1, mainFunction(1), curve], {
+          name: 'A',
+          size: 6,
+          face: 'o',
+          fillColor: colors.yellow,
+          strokeColor: colors.ink,
+          strokeWidth: 3,
+          highlightFillColor: colors.yellow,
+          highlightStrokeColor: colors.ink,
+          label: { fontSize: 18, fontWeight: 900, offset: [12, 14] },
+        });
+        const tangentPoint = board.create('point', [
+          () => point.X() + 1,
+          () => point.Y() + mainDerivative(point.X()),
+        ], { visible: false, fixed: true });
+
+        board.create('line', [point, tangentPoint], {
+          strokeColor: () => slopeState(mainDerivative(point.X()), colors).color,
+          strokeWidth: 3,
+          highlight: false,
+        });
+        board.create('text', [
+          -3.8,
+          3.65,
+          () => `pente de la tangente = ${formatNumber(mainDerivative(point.X()))}`,
+        ], {
+          fontSize: 16,
+          fixed: true,
+          highlight: false,
+          strokeColor: colors.ink,
+        });
+
+        const update = () => {
+          if (!readout) return;
+          readout.textContent = `a = ${formatNumber(point.X())} · f'(a) = ${formatNumber(mainDerivative(point.X()))}`;
+        };
+        point.on('drag', update);
+        board.on('update', update);
+        update();
+      }
+
+      function initSignCurve(element, colors) {
+        const board = createBoard(element, [-4.2, 4.4, 4.2, -2.5]);
+        const readout = element.closest('figure')?.querySelector('[data-sign-value]');
+        const curve = addCurve(board, variationFunction, -4, 4, colors.curve);
+        const point = board.create('glider', [-1.2, variationFunction(-1.2), curve], {
+          name: 'A',
+          size: 6,
+          face: 'o',
+          fillColor: colors.yellow,
+          strokeColor: colors.ink,
+          strokeWidth: 3,
+          highlightFillColor: colors.yellow,
+          highlightStrokeColor: colors.ink,
+          label: { fontSize: 18, fontWeight: 900, offset: [12, 14] },
+        });
+        const tangentPoint = board.create('point', [
+          () => point.X() + 1,
+          () => point.Y() + variationDerivative(point.X()),
+        ], { visible: false, fixed: true });
+
+        board.create('line', [point, tangentPoint], {
+          strokeColor: () => slopeState(variationDerivative(point.X()), colors).color,
+          strokeWidth: 3,
+          highlight: false,
+        });
+        board.create('text', [-3.8, 3.85, () => slopeState(variationDerivative(point.X()), colors).label], {
+          fontSize: 16,
+          fixed: true,
+          highlight: false,
+          strokeColor: colors.ink,
+        });
+
+        const update = () => {
+          if (!readout) return;
+          readout.textContent = `a = ${formatNumber(point.X())} · ${slopeState(variationDerivative(point.X()), colors).label}`;
+        };
+        point.on('drag', update);
+        board.on('update', update);
+        update();
+      }
+
+      function createBoard(element, boundingbox) {
+        return JXG.JSXGraph.initBoard(element.id, {
+          boundingbox,
+          axis: true,
+          grid: true,
+          showCopyright: false,
+          showNavigation: false,
+          pan: { enabled: false },
+          zoom: { enabled: false },
+        });
+      }
+
+      function addCurve(board, fn, start, end, color) {
+        return board.create('functiongraph', [fn, start, end], {
+          strokeColor: color,
+          strokeWidth: 4,
+          highlight: false,
+        });
+      }
+
+      function averageRate(a, h) {
+        return (mainFunction(a + h) - mainFunction(a)) / h;
+      }
+
+      function slopeState(slope, colors) {
+        const epsilon = 0.05;
+        if (slope < -epsilon) return { color: colors.red, label: "f'(a) < 0" };
+        if (slope > epsilon) return { color: colors.green, label: "f'(a) > 0" };
+        return { color: colors.yellow, label: "f'(a) = 0" };
+      }
+
+      function setGraphFallback(element) {
+        element.textContent = 'Graphe indisponible pour le moment.';
+      }
+
+      function token(name, fallback) {
+        return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback;
+      }
+
+      function formatNumber(value) {
+        return value.toLocaleString('fr-FR', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        });
+      }
+    })();
+  </script>
 </body>
 </html>

@@ -1,0 +1,2042 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Suites numériques — cours Maths spé Première</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="../cours.css">
+  <style>
+    @media (max-width: 560px) {
+      .has-course-sidebar {
+        --course-sidebar-space: var(--course-sidebar-collapsed-width);
+      }
+
+      .exercise-header {
+        flex-wrap: wrap;
+        align-items: flex-start;
+      }
+
+      .copy-grid,
+      .copy-grid > * {
+        min-width: 0;
+      }
+
+      .answer .formula-card {
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+    }
+  </style>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="../cours.js"></script>
+</head>
+<body class="has-course-sidebar">
+
+  <!-- Reading progress bar -->
+  <div class="progress-bar" aria-hidden="true">
+    <div class="progress-bar__fill" data-progress-fill></div>
+  </div>
+
+  <!-- Sticky section indicator (populated by inline script) -->
+  <div class="section-bar" data-section-bar aria-hidden="true">
+    <span class="section-bar__chip" data-section-bar-chip>00</span>
+    <span class="section-bar__title" data-section-bar-title>Suites numériques</span>
+    <span class="section-bar__total" data-section-bar-total>1/15</span>
+  </div>
+
+  <!-- ============================================================
+       SIDEBAR
+       ============================================================ -->
+  <aside class="toc course-sidebar" aria-label="Plan du cours" data-course-sidebar>
+    <div class="sidebar-head">
+      <div>
+        <p class="toc-title">Plan</p>
+        <p class="sidebar-subtitle">Suites numériques</p>
+      </div>
+      <button
+        class="sidebar-toggle"
+        type="button"
+        aria-label="Replier le plan"
+        aria-expanded="true"
+        data-sidebar-toggle
+      ><span aria-hidden="true">‹</span></button>
+    </div>
+
+    <nav class="toc-links" aria-label="Sections du chapitre">
+      <a href="#diagnostic" data-section-link><span class="toc-index">00</span><span class="toc-label">Diagnostic</span></a>
+      <a href="#definitions" data-section-link><span class="toc-index">01</span><span class="toc-label">Définition</span></a>
+      <a href="#modes-generation" data-section-link><span class="toc-index">02</span><span class="toc-label">Génération</span></a>
+      <a href="#variations" data-section-link><span class="toc-index">03</span><span class="toc-label">Variations</span></a>
+      <a href="#arithmetiques" data-section-link><span class="toc-index">04</span><span class="toc-label">Arithmétiques</span></a>
+      <a href="#geometriques" data-section-link><span class="toc-index">05</span><span class="toc-label">Géométriques</span></a>
+      <a href="#reconnaitre" data-section-link><span class="toc-index">06</span><span class="toc-label">Reconnaître</span></a>
+      <a href="#applications" data-section-link><span class="toc-index">07</span><span class="toc-label">Applications</span></a>
+      <a href="#limite-intuition" data-section-link><span class="toc-index">08</span><span class="toc-label">Limite</span></a>
+      <a href="#choix-methode" data-section-link><span class="toc-index">09</span><span class="toc-label">Choisir</span></a>
+      <a href="#redaction" data-section-link><span class="toc-index">10</span><span class="toc-label">Rédiger</span></a>
+      <a href="#pieges" data-section-link><span class="toc-index">P</span><span class="toc-label">Pièges</span></a>
+      <a href="#guides" data-section-link><span class="toc-index">G</span><span class="toc-label">Guidé</span></a>
+      <a href="#controle" data-section-link><span class="toc-index">C</span><span class="toc-label">Contrôle</span></a>
+      <a href="#vingt-sur-vingt" data-section-link><span class="toc-index">20</span><span class="toc-label">20/20</span></a>
+      <a href="#revision" data-section-link><span class="toc-index">R</span><span class="toc-label">Révision</span></a>
+    </nav>
+
+    <p class="sidebar-foot">Maths spé · Lycée</p>
+  </aside>
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <header class="course-hero">
+    <nav class="topline" aria-label="Fil d'Ariane">
+      <a href="../../../..">Objectif Lycée</a>
+      <span>Maths spécialité</span>
+      <span>Cours</span>
+    </nav>
+
+    <div class="hero-grid">
+      <div>
+        <p class="hero-eyebrow"><span class="num">07</span> Chapitre</p>
+        <h1>Suites numériques</h1>
+        <p class="hero-lead">
+          Lire un indice, choisir entre formule explicite et récurrence,
+          repérer une suite arithmétique ou géométrique, puis modéliser proprement.
+        </p>
+      </div>
+
+      <aside class="hero-side" aria-label="Les 4 réflexes du chapitre">
+        <p class="hero-side__label">Ce que tu gagnes</p>
+        <h2>4 réflexes, 1 contrôle solide</h2>
+        <div class="hero-side__steps">
+          <div class="hero-side__step">
+            <span class="verb">Lire</span>
+            <span class="obj">indices, terme général, premier rang</span>
+          </div>
+          <div class="hero-side__step">
+            <span class="verb">Reconnaître</span>
+            <span class="obj">arithmétique, géométrique, ni l'une ni l'autre</span>
+          </div>
+          <div class="hero-side__step">
+            <span class="verb">Calculer</span>
+            <span class="obj">terme général, somme, seuil</span>
+          </div>
+          <div class="hero-side__step">
+            <span class="verb">Modéliser</span>
+            <span class="obj">capital, population, décroissance</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MAIN
+       ============================================================ -->
+  <main class="course-layout" data-course-layout>
+    <article class="lesson course-lesson">
+
+      <!-- Overview band — single editorial section -->
+      <section class="course-overview" aria-label="Repères du chapitre">
+        <div>
+          <p class="course-overview__title">Fil conducteur</p>
+          <h3>Ce chapitre se gagne en 4 réflexes</h3>
+          <p class="course-overview__lead">
+            Reconnaître la forme d'une suite <em>avant</em> de calculer, puis écrire une rédaction qui justifie la raison, le terme général et la conclusion.
+          </p>
+        </div>
+        <div class="overview-flow">
+          <span>Lire</span>
+          <em>→</em>
+          <span>Reconnaître</span>
+          <em>→</em>
+          <span>Calculer</span>
+          <em>→</em>
+          <span>Modéliser</span>
+        </div>
+      </section>
+
+      <!-- ========== 00 · DIAGNOSTIC ========== -->
+      <section id="diagnostic" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">00</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Diagnostic éclair</p>
+            <h2>Avant de commencer : tu sais faire quoi&nbsp;?</h2>
+          </div>
+        </div>
+        <p>
+          Réponds mentalement avant d'ouvrir les corrections. Le but n'est pas d'avoir une note&nbsp;:
+          c'est de savoir où ton attention doit aller pendant ce chapitre.
+        </p>
+
+        <div class="diagnostic-grid">
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 1</p>
+            <p>Soit la suite \((u_n)\) définie par \(u_n = 3n - 5\). Que vaut \(u_0\) et que vaut \(u_4\)&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag1">Voir la réponse</button>
+            <p id="diag1" class="answer" hidden>\(u_0 = 3 \times 0 - 5 = -5\) et \(u_4 = 3 \times 4 - 5 = 7\). Le rang s'écrit en indice et indique la place dans la suite.</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 2</p>
+            <p>Soit \(u_0 = 2\) et \(u_{n+1} = 3u_n + 1\). Calcule \(u_1\) et \(u_2\).</p>
+            <button class="reveal-button" type="button" data-reveal="diag2">Voir la réponse</button>
+            <p id="diag2" class="answer" hidden>\(u_1 = 3 \times 2 + 1 = 7\), puis \(u_2 = 3 \times 7 + 1 = 22\). On utilise le terme précédent à chaque étape.</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 3</p>
+            <p>On passe d'un terme au suivant en ajoutant \(7\). Si \(u_0 = 4\), quel est \(u_n\) en fonction de \(n\)&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag3">Voir la réponse</button>
+            <p id="diag3" class="answer" hidden>\((u_n)\) est arithmétique de raison \(7\), donc \(u_n = u_0 + nr = 4 + 7n\).</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 4</p>
+            <p>On passe d'un terme au suivant en multipliant par \(0{,}5\). Si \(u_0 = 100\), à quoi ressemble la suite&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag4">Voir la réponse</button>
+            <p id="diag4" class="answer" hidden>\((u_n)\) est géométrique de raison \(0{,}5\), donc \(u_n = 100 \times 0{,}5^n\). Elle décroît et tend vers \(0\).</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Objectif de cette session</p>
+          <p>
+            Si tu réussis seulement une chose aujourd'hui&nbsp;: apprendre à reconnaître si une suite est arithmétique, géométrique, ou aucune des deux.
+            C'est ce choix qui transforme un cours lu en copie réussie.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 01 · DEFINITIONS ========== -->
+      <section id="definitions" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">01</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Définition</p>
+            <h2>Une suite, c'est une liste numérotée de réels</h2>
+          </div>
+        </div>
+        <p>
+          Une suite numérique est une fonction qui à chaque entier naturel \(n\) associe un réel noté \(u_n\).
+          Elle ressemble à une fonction, mais sa variable est <em>entière</em>, pas réelle&nbsp;: on ne calcule pas \(u_{2{,}5}\).
+        </p>
+
+        <div class="formula-card is-major">
+          \[ u : \mathbb{N} \longrightarrow \mathbb{R} \]
+          \[ n \longmapsto u(n) = u_n \]
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Mémo technique — adresse et contenu</p>
+          <p>
+            \(n\) est l'adresse du casier, \(u_n\) est ce qu'il y a dans le casier.
+            Ne confonds pas l'indice avec la valeur&nbsp;: \(u_5\) n'est pas forcément égal à \(5\).
+          </p>
+        </div>
+
+        <p>
+          On note la suite \((u_n)_{n \in \mathbb{N}}\), ou simplement \((u_n)\). Attention à la nuance&nbsp;:
+          \(u_n\) est un <em>réel</em> (un seul terme), tandis que \((u_n)\) est la suite entière (tous les termes).
+        </p>
+
+        <div class="choice-grid">
+          <div class="choice-card">
+            <p class="box-title">Le rang</p>
+            <p>L'entier \(n\) qui indique la place du terme dans la suite. On l'écrit en indice. Premier rang&nbsp;: souvent \(0\), parfois \(1\).</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Le terme général</p>
+            <p>L'expression \(u_n\) qui décrit le terme de rang \(n\). C'est l'objet que l'on étudie.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Le premier terme</p>
+            <p>Le terme initial donné par l'énoncé&nbsp;: \(u_0\) ou \(u_1\). Toute la suite en dépend.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Représentation</p>
+            <p>Sur un repère, on trace l'ensemble des points \(M_n(n;u_n)\)&nbsp;: un nuage de points, pas une courbe continue.</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Majeur à retenir</p>
+          <p>
+            Une suite n'est pas une fonction sur \(\mathbb{R}\)&nbsp;: sa variable saute d'entier en entier.
+            La représentation graphique d'une suite est un <em>nuage de points discrets</em>, pas une courbe continue.
+          </p>
+        </div>
+
+        <figure class="visual-block interactive-graph">
+          <div class="graph-stage">
+            <div id="su-nuage-board" class="jxgbox curve-board" data-chapter-curve="nuage"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Nuage de la suite explicite \(u_n = \tfrac{n^2}{2} - 3\)</span>
+              <strong>9 points discrets, pas une courbe</strong>
+            </p>
+          </div>
+          <figcaption>
+            Chaque rang \(n\) entier donne un point \((n;u_n)\). On ne relie pas les points par une courbe continue&nbsp;:
+            entre deux entiers, la suite n'est pas définie.
+          </figcaption>
+        </figure>
+
+        <div class="worked-example">
+          <p>Soit la suite \((u_n)\) définie sur \(\mathbb{N}\) par \(u_n = n^2 + 2n + 3\). Calculer les quatre premiers termes.</p>
+          <div class="formula-card">
+            \[ u_0 = 0^2 + 2\times0 + 3 = 3 \]
+            \[ u_1 = 1^2 + 2\times1 + 3 = 6 \]
+            \[ u_2 = 2^2 + 2\times2 + 3 = 11 \]
+            \[ u_3 = 3^2 + 2\times3 + 3 = 18 \]
+          </div>
+          <p>On a remplacé \(n\) par sa valeur entière à chaque ligne, sans chercher à dériver ou à étudier de fonction continue.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate 1</p>
+          <p>Soit \(v_n = 3n^2 - 1\). Que vaut \(v_3\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="def1">Voir la réponse</button>
+          <p id="def1" class="answer" hidden>\(v_3 = 3 \times 3^2 - 1 = 3\times 9 - 1 = 26\). On lit «&nbsp;\(v\) indice 3&nbsp;».</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">✎</span>Récupération active</p>
+          <p>Écris sans regarder&nbsp;: la différence entre \(u_n\) et \((u_n)\), puis dis pourquoi on ne trace pas une courbe continue.</p>
+          <button class="reveal-button" type="button" data-reveal="def2">Voir la réponse</button>
+          <p id="def2" class="answer" hidden>\(u_n\) est un nombre réel, le terme de rang \(n\). \((u_n)\) est la suite, c'est-à-dire l'objet qui contient tous les termes. On ne trace pas une courbe continue car la suite n'est définie que pour les entiers naturels.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Adresse ou contenu&nbsp;?</p>
+          <p>Dans \(u_{12}=37\), quel nombre est l'adresse et quel nombre est le contenu&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="memo-def-adresse">Voir la réponse</button>
+          <p id="memo-def-adresse" class="answer" hidden>L'adresse est le rang \(12\). Le contenu du casier de rang 12 est le terme \(u_{12}\), qui vaut \(37\). Une erreur classique est de lire \(12\) comme une valeur de la suite.</p>
+        </div>
+      </section>
+
+      <!-- ========== 02 · MODES DE GENERATION ========== -->
+      <section id="modes-generation" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">02</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Modes de génération</p>
+            <h2>Explicite ou récurrente&nbsp;: deux façons de définir une suite</h2>
+          </div>
+        </div>
+        <p>
+          Une même suite peut souvent s'écrire de deux manières. La forme <em>explicite</em> donne \(u_n\) directement en fonction de \(n\).
+          La forme <em>récurrente</em> donne un premier terme et une règle qui calcule \(u_{n+1}\) à partir de \(u_n\).
+        </p>
+
+        <div class="formula-card is-major">
+          \[ \text{Explicite}\,:\ u_n = f(n) \]
+          \[ \text{R\acute ecurrente}\,:\ \begin{cases} u_0 \text{ donn\acute e} \\ u_{n+1} = g(u_n) \end{cases} \]
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Image mentale — ascenseur ou escalier</p>
+          <p>
+            Une formule explicite est un ascenseur&nbsp;: tu tapes l'étage \(n\), tu arrives directement à \(u_n\).
+            Une récurrence est un escalier&nbsp;: pour atteindre \(u_{20}\), tu montes marche après marche depuis le premier terme.
+          </p>
+          <p>
+            Limite du mémo&nbsp;: certaines récurrences peuvent ensuite se transformer en formule explicite, mais ce n'est pas automatique.
+          </p>
+        </div>
+
+        <figure class="visual-block math-language-visual">
+          <div class="math-language-grid" role="list" aria-label="Lecture mathématique des deux modes">
+            <div class="math-language-card" role="listitem">
+              <p class="box-title">Forme explicite</p>
+              <div class="formula-card">
+                \[ u_n = n^2 + 2n + 3 \]
+                \[ u_{17} = 17^2 + 34 + 3 \]
+                \[ u_{17} = 326 \]
+              </div>
+              <p>
+                Avantage&nbsp;: on calcule directement n'importe quel terme. L'étude se rapproche de celle d'une fonction.
+              </p>
+            </div>
+            <div class="math-language-card" role="listitem">
+              <p class="box-title">Forme récurrente</p>
+              <div class="formula-card">
+                \[ u_0 = 1,\ u_{n+1} = 3u_n + 1 \]
+                \[ u_1 = 3\times1 + 1 = 4 \]
+                \[ u_2 = 3\times4 + 1 = 13 \]
+              </div>
+              <p>
+                Avantage&nbsp;: modélise des évolutions «&nbsp;pas à pas&nbsp;» (population, capital).
+                Inconvénient&nbsp;: pour atteindre \(u_{17}\), il faut calculer les 16 précédents.
+              </p>
+            </div>
+          </div>
+          <figcaption>
+            Les deux écritures décrivent la même suite quand elles existent. L'un des buts du chapitre est d'apprendre à passer d'une récurrence à sa forme explicite.
+          </figcaption>
+        </figure>
+
+        <div class="worked-example">
+          <p>Soit \((u_n)\) définie par \(u_0 = 5\) et, pour tout \(n \in \mathbb{N}\), \(u_{n+1} = 3u_n\). Calculer les quatre premiers termes.</p>
+          <div class="formula-card">
+            \[ u_0 = 5 \]
+            \[ u_1 = 3 \times u_0 = 15 \]
+            \[ u_2 = 3 \times u_1 = 45 \]
+            \[ u_3 = 3 \times u_2 = 135 \]
+          </div>
+          <p>Chaque terme se déduit du précédent en appliquant la règle de récurrence.</p>
+        </div>
+
+        <div class="worked-example">
+          <p>
+            Soit \((v_n)\) définie par \(v_0 = 3\) et, pour tout \(n\in\mathbb{N}\), \(v_{n+1} = 4v_n - 6\).
+            Calculer les trois premiers termes.
+          </p>
+          <div class="formula-card">
+            \[ v_0 = 3 \]
+            \[ v_1 = 4\times 3 - 6 = 6 \]
+            \[ v_2 = 4\times 6 - 6 = 18 \]
+            \[ v_3 = 4\times 18 - 6 = 66 \]
+          </div>
+          <p>Attention&nbsp;: la relation \(v_{n+1} = 4v_n - 6\) n'est pas du tout \(v_n + r\) ni \(qv_n\). Cette suite n'est ni arithmétique, ni géométrique (on le verra plus loin).</p>
+        </div>
+
+        <div class="c-callout c-callout--note">
+          <p class="c-callout__label"><span class="dot"></span>Premier rang variable</p>
+          <p>
+            Parfois la suite commence à \(n=1\)&nbsp;: on parle alors de \(u_1\) comme premier terme.
+            Toutes les propriétés du chapitre restent valables, mais il faut adapter les formules&nbsp;:
+            par exemple \(u_n = u_1 + (n-1)r\) au lieu de \(u_n = u_0 + nr\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis sans calculer</p>
+          <p>Pour calculer \(u_{50}\), quelle forme est la plus rapide&nbsp;: \(u_n = 2n - 7\) ou \(u_0 = 1\), \(u_{n+1} = u_n + 2\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="modes1">Voir la réponse</button>
+          <p id="modes1" class="answer" hidden>La forme explicite \(u_n = 2n - 7\)&nbsp;: on substitue \(n=50\) directement. Avec la récurrence, il faut 50 calculs successifs.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Étape manquante</p>
+          <p>Soit \(u_0 = 2\) et \(u_{n+1} = 2u_n + n - 5\). Calculer \(u_1\), puis \(u_2\).</p>
+          <button class="reveal-button" type="button" data-reveal="modes2">Voir la réponse</button>
+          <p id="modes2" class="answer" hidden>Pour \(u_1\)&nbsp;: \(n=0\), donc \(u_1 = 2\times 2 + 0 - 5 = -1\). Pour \(u_2\)&nbsp;: \(n=1\), donc \(u_2 = 2\times(-1) + 1 - 5 = -6\). Il faut lire la bonne valeur de \(n\) à chaque étape.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Ascenseur ou escalier&nbsp;?</p>
+          <p>Pour \(u_0=4\) et \(u_{n+1}=u_n+7\), que dois-tu connaître avant de calculer \(u_4\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="memo-modes-escalier">Voir la réponse</button>
+          <p id="memo-modes-escalier" class="answer" hidden>C'est une définition récurrente, donc on descend l'escalier dans l'ordre&nbsp;: \(u_1=11\), \(u_2=18\), \(u_3=25\), puis \(u_4=32\). On pourra ensuite reconnaître une suite arithmétique, mais la lecture immédiate est bien pas à pas.</p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège fréquent</p>
+          <p>
+            Quand la récurrence contient \(n\) (par exemple \(u_{n+1} = 2u_n + n\)), il faut <em>changer la valeur de \(n\)</em> à chaque étape.
+            Pour calculer \(u_3\) à partir de \(u_2\), on utilise \(n=2\) dans la formule&nbsp;: \(u_3 = 2u_2 + 2\).
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 03 · VARIATIONS ========== -->
+      <section id="variations" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">03</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Sens de variation</p>
+            <h2>Croissante, décroissante, constante&nbsp;: c'est le signe de \(u_{n+1}-u_n\)</h2>
+          </div>
+        </div>
+        <p>
+          Le sens de variation d'une suite se définit en comparant chaque terme à son suivant.
+          On ne dérive pas une suite&nbsp;: la variable est entière. On étudie une <em>différence</em> ou un <em>ratio</em>.
+        </p>
+
+        <div class="formula-card is-major">
+          \[ \begin{aligned} (u_n)\ \text{croissante}\\ \iff \forall n,\ u_{n+1} \geqslant u_n \end{aligned} \]
+          \[ \begin{aligned} (u_n)\ \text{d\acute ecroissante}\\ \iff \forall n,\ u_{n+1} \leqslant u_n \end{aligned} \]
+          \[ \begin{aligned} (u_n)\ \text{constante}\\ \iff \forall n,\ u_{n+1} = u_n \end{aligned} \]
+        </div>
+
+        <div class="c-callout c-callout--note">
+          <p class="c-callout__label"><span class="dot"></span>Monotone</p>
+          <p>
+            Une suite est dite <em>monotone</em> si elle est croissante <em>ou</em> décroissante (sans changer de sens en route).
+            Une suite peut aussi être croissante <em>à partir d'un certain rang</em>&nbsp;: elle est alors monotone seulement à partir de ce rang.
+          </p>
+        </div>
+
+        <p>Trois méthodes existent pour étudier le sens de variation. La plus utilisée est l'étude du signe de la différence.</p>
+
+        <div class="method-grid">
+          <div class="method-step">
+            <span class="step-number">1</span>
+            <p>Méthode 1&nbsp;: calculer \(u_{n+1} - u_n\) et étudier son signe. Universelle, marche presque toujours.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">2</span>
+            <p>Méthode 2&nbsp;: si la suite est explicite \(u_n = f(n)\), étudier le sens de variation de \(f\) sur \([0;+\infty[\).</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">3</span>
+            <p>Méthode 3 (si \(u_n &gt; 0\))&nbsp;: comparer le quotient \(\tfrac{u_{n+1}}{u_n}\) à 1. Utile surtout pour les suites géométriques.</p>
+          </div>
+        </div>
+
+        <div class="worked-example">
+          <p>Soit \((u_n)\) définie sur \(\mathbb{N}\) par \(u_n = 3n + 5\). Étudier ses variations.</p>
+          <div class="formula-card">
+            \[ \begin{aligned} u_{n+1} - u_n &= 3(n+1) + 5 \\ &\quad - (3n + 5) \\ &= 3 \end{aligned} \]
+          </div>
+          <p>Comme \(u_{n+1} - u_n = 3 &gt; 0\) pour tout \(n\), la suite est strictement croissante. On verra plus loin qu'elle est arithmétique.</p>
+        </div>
+
+        <div class="worked-example">
+          <p>Soit \((w_n)\) définie sur \(\mathbb{N}\) par \(w_n = n^2 - 4n + 4\). Étudier ses variations.</p>
+          <div class="formula-card">
+            \[ w_{n+1} = n^2 - 2n + 1 \]
+            \[ w_n = n^2 - 4n + 4 \]
+            \[ w_{n+1} - w_n = 2n - 3 \]
+          </div>
+          <p>
+            Étudions le signe de \(2n - 3\)&nbsp;: il est positif pour \(n \geqslant \tfrac{3}{2}\), donc pour tout entier \(n \geqslant 2\).
+            La suite \((w_n)\) est donc croissante à partir du rang \(2\) (avec \(w_0 = 4\), \(w_1 = 1\), \(w_2 = 0\), \(w_3 = 1\)).
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p>Soit \((u_n)\) définie sur \(\mathbb{N}\) par \(u_n = \dfrac{5}{2^n}\). Étudier ses variations.</p>
+          <p>Méthode 2&nbsp;: posons \(f(x) = \dfrac{5}{2^x}\) sur \([0;+\infty[\). La fonction \(x \mapsto 2^x\) est croissante et positive, donc \(x \mapsto \tfrac{1}{2^x}\) est décroissante. Donc \(f\) est décroissante sur \([0;+\infty[\).</p>
+          <div class="formula-card">
+            \[ f \text{ d\acute ecroissante sur } [0;+\infty[ \]
+            \[ \Longrightarrow (u_n)\ \text{d\acute ecroissante} \]
+          </div>
+          <p>On peut le vérifier&nbsp;: \(u_0 = 5\), \(u_1 = 2{,}5\), \(u_2 = 1{,}25\). La suite décroît bien.</p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège d'examen</p>
+          <p>
+            On ne peut pas conclure sur le sens de variation à partir de quelques termes seulement.
+            Si \(u_1 - u_0 &gt; 0\) et \(u_2 - u_1 &gt; 0\), cela ne prouve pas que la suite est croissante.
+            Il faut étudier \(u_{n+1} - u_n\) pour <em>tout</em> entier \(n\), avec la variable \(n\), pas avec des valeurs particulières.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>Soit \((u_n)\) telle que \(u_{n+1} - u_n = -2n - 1\). \((u_n)\) est-elle croissante ou décroissante&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="var1">Voir la réponse</button>
+          <p id="var1" class="answer" hidden>Pour tout \(n \geqslant 0\), on a \(-2n - 1 \leqslant -1 &lt; 0\). Donc \(u_{n+1} - u_n &lt; 0\)&nbsp;: la suite est strictement décroissante.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Étape manquante</p>
+          <p>Pour \(u_n = -3n + 10\)&nbsp;: calcule \(u_{n+1} - u_n\) puis conclus.</p>
+          <button class="reveal-button" type="button" data-reveal="var2">Voir la réponse</button>
+          <p id="var2" class="answer" hidden>\(u_{n+1} - u_n = -3(n+1) + 10 - (-3n + 10) = -3\). Comme \(-3 &lt; 0\), la suite est strictement décroissante.</p>
+        </div>
+      </section>
+
+      <!-- ========== 04 · ARITHMETIQUES ========== -->
+      <section id="arithmetiques" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">04</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Première famille</p>
+            <h2>Suites arithmétiques&nbsp;: on ajoute toujours la même raison</h2>
+          </div>
+        </div>
+        <p>
+          Une suite arithmétique modélise une évolution «&nbsp;additive&nbsp;»&nbsp;: on passe d'un terme au suivant
+          en <em>ajoutant</em> toujours le même réel, appelé <em>raison</em>.
+        </p>
+
+        <div class="formula-card is-major">
+          \[ (u_n)\ \text{arithm\acute etique de raison } r \]
+          \[ \iff \forall n,\ u_{n+1} = u_n + r \]
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Formule explicite</p>
+          <p>
+            Si \((u_n)\) est arithmétique de raison \(r\) et de premier terme \(u_0\), alors pour tout \(n \in \mathbb{N}\)&nbsp;:
+            \(u_n = u_0 + nr\). Et plus généralement \(u_n = u_p + (n-p) r\) pour passer de \(u_p\) à \(u_n\).
+          </p>
+        </div>
+
+        <div class="formula-card is-major">
+          \[ u_n = u_0 + n\,r \]
+          \[ u_n = u_p + (n-p)\,r \]
+        </div>
+
+        <figure class="visual-block interactive-graph">
+          <div class="graph-stage">
+            <div id="su-arith-board" class="jxgbox curve-board" data-chapter-curve="arith"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Suite arithmétique \(u_0 = 1\), \(r = 1{,}5\)</span>
+              <strong>Points alignés sur une droite</strong>
+            </p>
+          </div>
+          <figcaption>
+            Une suite arithmétique se reconnaît sur le graphique&nbsp;: tous les points \(M_n(n;u_n)\) sont <em>alignés</em>.
+            L'évolution est linéaire&nbsp;: la variation absolue \(u_{n+1}-u_n = r\) est constante.
+          </figcaption>
+        </figure>
+
+        <div class="worked-example">
+          <p>
+            Soit \((u_n)\) la suite arithmétique de premier terme \(u_0 = 3\) et de raison \(r = 5\).
+            Calculer les premiers termes et donner l'expression de \(u_n\) en fonction de \(n\).
+          </p>
+          <div class="formula-card">
+            \[ u_0 = 3,\quad u_1 = 8 \]
+            \[ u_2 = 13,\quad u_3 = 18 \]
+            \[ u_n = 3 + 5n \]
+          </div>
+          <p>Vérification rapide&nbsp;: \(u_3 = 3 + 5\times 3 = 18\) ✓.</p>
+        </div>
+
+        <p>Pour <em>montrer qu'une suite est arithmétique</em>, il y a une seule méthode propre&nbsp;: calculer \(u_{n+1} - u_n\) pour tout \(n\) et vérifier que cette différence est <em>constante</em>.</p>
+
+        <div class="method-grid">
+          <div class="method-step">
+            <span class="step-number">1</span>
+            <p>Écrire \(u_{n+1}\) en remplaçant \(n\) par \(n+1\) dans l'expression de \(u_n\).</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">2</span>
+            <p>Calculer \(u_{n+1} - u_n\) et simplifier.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">3</span>
+            <p>Si on obtient un réel \(r\) indépendant de \(n\)&nbsp;: la suite est arithmétique de raison \(r\). Sinon, elle ne l'est pas.</p>
+          </div>
+        </div>
+
+        <div class="worked-example">
+          <p>Montrer que la suite \((u_n)\) définie par \(u_n = 7 - 9n\) est arithmétique. Préciser sa raison et son premier terme.</p>
+          <div class="formula-card">
+            \[ \begin{aligned} u_{n+1} - u_n &= 7 - 9(n+1) \\ &\quad - (7 - 9n) \\ &= -9 \end{aligned} \]
+          </div>
+          <p>La différence vaut \(-9\), constante. Donc \((u_n)\) est arithmétique de raison \(r = -9\), de premier terme \(u_0 = 7\).</p>
+        </div>
+
+        <div class="worked-example">
+          <p>La suite \((v_n)\) définie par \(v_n = n^2 + 3\) est-elle arithmétique&nbsp;?</p>
+          <div class="formula-card">
+            \[ \begin{aligned} v_{n+1} &= (n+1)^2 + 3 \\ &= n^2 + 2n + 4 \end{aligned} \]
+            \[ \begin{aligned} v_{n+1} - v_n &= (n^2 + 2n + 4) \\ &\quad - (n^2 + 3) \\ &= 2n + 1 \end{aligned} \]
+          </div>
+          <p>La différence dépend de \(n\)&nbsp;: elle vaut \(1\) pour \(n=0\), puis \(3\) pour \(n=1\). Elle n'est donc pas constante. La suite \((v_n)\) <em>n'est pas</em> arithmétique.</p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Pour montrer qu'une suite n'est PAS arithmétique</p>
+          <p>
+            Il suffit d'un <em>contre-exemple</em>&nbsp;: calculer trois termes consécutifs et montrer que les différences ne sont pas égales.
+            Par exemple \(v_1 - v_0 \ne v_2 - v_1\) suffit à conclure.
+          </p>
+        </div>
+
+        <p><strong>Sens de variation.</strong> Le signe de la raison donne directement le sens de variation.</p>
+
+        <div class="case-grid">
+          <div class="case-card">
+            <p class="case-title">\(r &gt; 0\)</p>
+            <p>La suite est strictement croissante&nbsp;: \(u_{n+1} - u_n = r &gt; 0\).</p>
+          </div>
+          <div class="case-card">
+            <p class="case-title">\(r &lt; 0\)</p>
+            <p>La suite est strictement décroissante&nbsp;: \(u_{n+1} - u_n = r &lt; 0\).</p>
+          </div>
+          <div class="case-card">
+            <p class="case-title">\(r = 0\)</p>
+            <p>La suite est constante&nbsp;: tous les termes valent \(u_0\).</p>
+          </div>
+        </div>
+
+        <div class="worked-example">
+          <p>
+            Soit \((u_n)\) arithmétique telle que \(u_5 = 7\) et \(u_9 = 19\). Déterminer la raison, le premier terme, puis \(u_n\).
+          </p>
+          <div class="formula-card">
+            \[ \begin{cases} u_5 = u_0 + 5r = 7 \\ u_9 = u_0 + 9r = 19 \end{cases} \]
+            \[ u_9 - u_5 = 4r = 12 \]
+            \[ r = 3 \]
+            \[ u_0 = 7 - 5\times 3 = -8 \]
+            \[ u_n = -8 + 3n \]
+          </div>
+          <p>Astuce&nbsp;: soustraire les deux équations élimine \(u_0\) et donne \(r\). Comme \(r &gt; 0\), la suite est croissante.</p>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Somme des termes</p>
+          <p>
+            La somme des termes consécutifs d'une suite arithmétique se calcule sans tout additionner&nbsp;:
+            <em>nombre de termes</em> × (<em>premier + dernier</em>) / 2.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Mémo technique — nombre de pas</p>
+          <p>
+            Pour aller de \(u_p\) à \(u_n\), le nombre de pas est \(n-p\). Pour additionner de \(u_p\) à \(u_n\), le nombre de termes est \(n-p+1\).
+          </p>
+          <p>
+            Limite du mémo&nbsp;: le \(+1\) apparaît seulement quand on compte les termes inclus dans la somme, pas quand on compte les intervalles entre deux rangs.
+          </p>
+        </div>
+
+        <div class="formula-card is-major">
+          \[ S = u_0 + u_1 + \cdots + u_n \]
+          \[ S = \frac{(n+1)(u_0 + u_n)}{2} \]
+        </div>
+
+        <div class="worked-example">
+          <p>Calculer \(S = 1 + 2 + 3 + \cdots + 100\).</p>
+          <div class="formula-card">
+            \[ S = \frac{100 \times (1 + 100)}{2} \]
+            \[ S = \frac{100 \times 101}{2} = 5050 \]
+          </div>
+          <p>C'est la fameuse astuce du jeune Gauss à 10 ans&nbsp;: regrouper les termes par paires de somme \(101\).</p>
+        </div>
+
+        <div class="worked-example">
+          <p>Calculer \(S = 15 + 16 + 17 + \cdots + 88\).</p>
+          <div class="formula-card">
+            \[ S = (1 + 2 + \cdots + 88) \]
+            \[ \quad - (1 + 2 + \cdots + 14) \]
+            \[ S = \frac{88\times 89}{2} - \frac{14\times 15}{2} \]
+            \[ S = 3916 - 105 = 3811 \]
+          </div>
+          <p>Astuce&nbsp;: on complète la somme à partir de \(1\), puis on retire ce qui dépasse en bas.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Étape manquante</p>
+          <p>\((u_n)\) arithmétique, \(u_0 = 2\), \(r = 4\). Calcule \(u_{10}\) puis la somme \(u_0 + u_1 + \cdots + u_{10}\).</p>
+          <button class="reveal-button" type="button" data-reveal="arith1">Voir la réponse</button>
+          <p id="arith1" class="answer" hidden>\(u_{10} = 2 + 10\times 4 = 42\). La somme contient 11 termes, donc \(S = \tfrac{11\times(2+42)}{2} = \tfrac{11\times 44}{2} = 242\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">✓</span>Vérification</p>
+          <p>Une suite arithmétique a \(u_3 = 11\) et \(u_8 = 31\). Trouve sa raison.</p>
+          <button class="reveal-button" type="button" data-reveal="arith2">Voir la réponse</button>
+          <p id="arith2" class="answer" hidden>\(u_8 - u_3 = (8-3)r = 5r\), donc \(5r = 31 - 11 = 20\), donc \(r = 4\).</p>
+        </div>
+      </section>
+
+      <!-- ========== 05 · GEOMETRIQUES ========== -->
+      <section id="geometriques" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">05</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Deuxième famille</p>
+            <h2>Suites géométriques&nbsp;: on multiplie toujours par la même raison</h2>
+          </div>
+        </div>
+        <p>
+          Une suite géométrique modélise une évolution «&nbsp;multiplicative&nbsp;»&nbsp;: on passe d'un terme au suivant
+          en <em>multipliant</em> toujours par le même réel non nul, appelé <em>raison</em>.
+        </p>
+
+        <div class="formula-card is-major">
+          \[ (u_n)\ \text{g\acute eom\acute etrique de raison } q \neq 0 \]
+          \[ \iff \forall n,\ u_{n+1} = q \times u_n \]
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Formule explicite</p>
+          <p>
+            Si \((u_n)\) est géométrique de raison \(q\) et de premier terme \(u_0\), alors pour tout \(n \in \mathbb{N}\)&nbsp;:
+            \(u_n = u_0 \times q^n\). Et plus généralement \(u_n = u_p \times q^{\,n-p}\) pour passer de \(u_p\) à \(u_n\).
+          </p>
+        </div>
+
+        <div class="formula-card is-major">
+          \[ u_n = u_0 \times q^n \]
+          \[ u_n = u_p \times q^{\,n-p} \]
+        </div>
+
+        <figure class="visual-block interactive-graph">
+          <div class="graph-stage">
+            <div id="su-geom-board" class="jxgbox curve-board" data-chapter-curve="geom"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Suite géométrique \(u_0 = 0{,}8\), \(q = 1{,}3\)</span>
+              <strong>Croissance accélérée, points non alignés</strong>
+            </p>
+          </div>
+          <figcaption>
+            Une suite géométrique se reconnaît sur le graphique&nbsp;: les points <em>ne sont pas alignés</em>.
+            La croissance (ou décroissance) est <em>exponentielle</em>&nbsp;: la variation relative \(\tfrac{u_{n+1}-u_n}{u_n} = q - 1\) est constante.
+          </figcaption>
+        </figure>
+
+        <div class="worked-example">
+          <p>Soit \((u_n)\) géométrique de raison \(q = 2\) et de premier terme \(u_0 = 5\). Calculer les premiers termes et l'expression de \(u_n\).</p>
+          <div class="formula-card">
+            \[ u_0 = 5,\quad u_1 = 10 \]
+            \[ u_2 = 20,\quad u_3 = 40 \]
+            \[ u_n = 5 \times 2^n \]
+          </div>
+          <p>Chaque terme double le précédent. Vérification&nbsp;: \(u_3 = 5\times 8 = 40\) ✓.</p>
+        </div>
+
+        <p>Pour <em>montrer qu'une suite est géométrique</em>, la méthode propre est d'exprimer \(u_{n+1}\) en fonction de \(u_n\) et de montrer qu'il existe un réel \(q\) tel que \(u_{n+1} = q\,u_n\). On peut aussi étudier le quotient \(\tfrac{u_{n+1}}{u_n}\), <em>à condition de vérifier d'abord que \(u_n \ne 0\)</em>.</p>
+
+        <div class="worked-example">
+          <p>Montrer que la suite \((u_n)\) définie par \(u_n = 3 \times 5^n\) est géométrique.</p>
+          <div class="formula-card">
+            \[ \begin{aligned} u_{n+1} &= 3 \times 5^{n+1} \\ &= 5(3 \times 5^n) \\ &= 5u_n \end{aligned} \]
+          </div>
+          <p>Donc \((u_n)\) est géométrique de raison \(q = 5\) et de premier terme \(u_0 = 3 \times 5^0 = 3\).</p>
+        </div>
+
+        <div class="worked-example">
+          <p>La suite définie par \(u_n = 4n^2 - 1\) est-elle géométrique&nbsp;?</p>
+          <div class="formula-card">
+            \[ u_0 = -1,\ u_1 = 3,\ u_2 = 15 \]
+            \[ \frac{u_1}{u_0} = -3,\ \frac{u_2}{u_1} = 5 \]
+          </div>
+          <p>Les deux quotients ne sont pas égaux&nbsp;: par contre-exemple, \((u_n)\) n'est <em>pas</em> géométrique.</p>
+        </div>
+
+        <p><strong>Sens de variation.</strong> Pour une suite géométrique de raison \(q &gt; 0\) et de premier terme non nul&nbsp;:</p>
+
+        <figure class="visual-block math-language-visual">
+          <div class="math-language-grid" role="list" aria-label="Sens de variation d'une suite géométrique">
+            <div class="math-language-card" role="listitem">
+              <p class="box-title">Si \(u_0 &gt; 0\)</p>
+              <div class="formula-card">
+                \[ q &gt; 1 \Longrightarrow \text{croissante} \]
+                \[ q = 1 \Longrightarrow \text{constante} \]
+                \[ 0 &lt; q &lt; 1 \Longrightarrow \text{d\acute ecroissante} \]
+              </div>
+              <p>Plus \(q\) est grand, plus la croissance est rapide. Quand \(0&lt;q&lt;1\), la suite décroît vers \(0\).</p>
+            </div>
+            <div class="math-language-card" role="listitem">
+              <p class="box-title">Si \(u_0 &lt; 0\)</p>
+              <div class="formula-card">
+                \[ q &gt; 1 \Longrightarrow \text{d\acute ecroissante} \]
+                \[ q = 1 \Longrightarrow \text{constante} \]
+                \[ 0 &lt; q &lt; 1 \Longrightarrow \text{croissante} \]
+              </div>
+              <p>Tout est inversé&nbsp;: multiplier un nombre négatif par \(q&gt;1\) le rend plus négatif (donc plus petit).</p>
+            </div>
+          </div>
+          <figcaption>
+            Si \(q \leqslant 0\), la suite n'est pas monotone&nbsp;: elle alterne entre signes ou termes nuls.
+          </figcaption>
+        </figure>
+
+        <div class="worked-example">
+          <p>Étudier le sens de variation de \((u_n)\) définie par \(u_n = -4 \times 2^n\).</p>
+          <div class="formula-card">
+            \[ u_0 = -4 &lt; 0,\ q = 2 &gt; 1 \]
+            \[ \Longrightarrow (u_n)\ \text{d\acute ecroissante} \]
+          </div>
+          <p>On le vérifie&nbsp;: \(u_0 = -4\), \(u_1 = -8\), \(u_2 = -16\)&nbsp;: les termes deviennent de plus en plus petits.</p>
+        </div>
+
+        <div class="worked-example">
+          <p>Considérons la suite géométrique \((u_n)\) avec \(u_4 = 8\) et \(u_7 = 512\). Trouver \(q\), \(u_0\), puis \(u_n\).</p>
+          <div class="formula-card">
+            \[ \frac{u_7}{u_4} = q^{\,7-4} = q^3 \]
+            \[ q^3 = \frac{512}{8} = 64 \]
+            \[ q = \sqrt[3]{64} = 4 \]
+            \[ u_0 = \frac{u_4}{q^4} = \frac{8}{256} = \frac{1}{32} \]
+            \[ u_n = \frac{1}{32} \times 4^n \]
+          </div>
+          <p>Astuce&nbsp;: diviser les deux équations élimine \(u_0\) et donne \(q\), comme dans le cas arithmétique on les soustrayait.</p>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Somme des puissances de \(q\)</p>
+          <p>
+            Pour \(q \ne 1\) et \(n \in \mathbb{N}\)&nbsp;:
+            \(\displaystyle 1 + q + q^2 + \cdots + q^n = \frac{1 - q^{n+1}}{1 - q}\).
+            C'est <em>la</em> formule de somme géométrique à retenir.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Réflexe — l'exposant compte les sauts</p>
+          <p>
+            Dans \(u_n=u_p q^{n-p}\), l'exposant \(n-p\) compte le nombre de multiplications par \(q\).
+            Dans \(1+q+\cdots+q^n\), l'exposant final est \(n\), mais il y a \(n+1\) termes.
+          </p>
+          <p>
+            Limite du mémo&nbsp;: dès que le premier terme est \(u_1\), remplace \(n\) par \(n-1\) dans la formule explicite.
+          </p>
+        </div>
+
+        <div class="formula-card is-major">
+          \[ 1 + q + q^2 + \cdots + q^n \]
+          \[ = \frac{1 - q^{n+1}}{1 - q} \quad (q \ne 1) \]
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Le \(-1\) qu'on oublie</p>
+          <p>
+            Beaucoup d'élèves écrivent \(\tfrac{q^n - 1}{q - 1}\). Cette formule existe (elle est juste équivalente),
+            mais l'erreur la plus fréquente est d'oublier de mettre \(n+1\) à l'exposant&nbsp;: la somme \(1+q+\cdots+q^n\)
+            contient bien <em>\(n+1\) termes</em>, donc on retrouve \(q^{n+1}\) dans la formule.
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p>Calculer \(S_1 = 1 + \tfrac{1}{2} + \tfrac{1}{4} + \cdots + \tfrac{1}{2^8}\).</p>
+          <div class="formula-card">
+            \[ S_1 = \frac{1 - (1/2)^{9}}{1 - 1/2} \]
+            \[ S_1 = \frac{1 - 1/512}{1/2} \]
+            \[ S_1 = 2 \times \left(1 - \frac{1}{512}\right) \]
+            \[ S_1 = \frac{511}{256} \]
+          </div>
+          <p>On observe que plus on ajoute de termes, plus la somme se rapproche de \(2\)&nbsp;: c'est l'intuition du paradoxe de Zénon.</p>
+        </div>
+
+        <div class="c-callout c-callout--note">
+          <p class="c-callout__label"><span class="dot"></span>Cas particulier \(q = 1\)</p>
+          <p>
+            Si \(q = 1\), tous les termes valent \(1\), donc la somme \(1 + 1 + \cdots + 1\) (avec \(n+1\) termes) vaut simplement \(n+1\).
+            La formule générale n'est pas définie ici (division par \(0\))&nbsp;: il faut bien préciser \(q \ne 1\) avant de l'utiliser.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Étape manquante</p>
+          <p>\((u_n)\) géométrique, \(u_0 = 2\), \(q = 3\). Calcule \(u_5\), puis \(u_0 + u_1 + \cdots + u_5\).</p>
+          <button class="reveal-button" type="button" data-reveal="geom1">Voir la réponse</button>
+          <p id="geom1" class="answer" hidden>\(u_5 = 2 \times 3^5 = 486\). Pour la somme&nbsp;: \(u_0 + \cdots + u_5 = 2(1 + 3 + 9 + 27 + 81 + 243) = 2 \times \tfrac{1 - 3^6}{1 - 3} = 2 \times \tfrac{-728}{-2} = 728\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">✓</span>Vérification</p>
+          <p>Une suite géométrique a \(u_2 = 12\) et \(u_5 = 96\). Trouve sa raison \(q\).</p>
+          <button class="reveal-button" type="button" data-reveal="geom2">Voir la réponse</button>
+          <p id="geom2" class="answer" hidden>\(q^{5-2} = q^3 = \tfrac{96}{12} = 8\), donc \(q = 2\). Et \(u_0 = \tfrac{12}{q^2} = 3\), donc \(u_n = 3 \times 2^n\).</p>
+        </div>
+      </section>
+
+      <!-- ========== 06 · RECONNAITRE ========== -->
+      <section id="reconnaitre" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">06</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Différenciateur</p>
+            <h2>Arithmétique, géométrique, ou ni l'une ni l'autre&nbsp;?</h2>
+          </div>
+        </div>
+        <p>
+          C'est la question qui revient tout le temps en contrôle. Et c'est la plus discriminante&nbsp;: l'élève qui choisit la mauvaise famille
+          se trompe de formule, calcule une somme avec la mauvaise structure, et perd des points qu'il aurait eus avec la bonne lecture initiale.
+        </p>
+
+        <figure class="visual-block math-language-visual">
+          <div class="math-language-grid" role="list" aria-label="Lecture comparée arithmétique vs géométrique">
+            <div class="math-language-card" role="listitem">
+              <p class="box-title">Arithmétique&nbsp;:</p>
+              <div class="formula-card">
+                \[ u_{n+1} - u_n = r \]
+                \[ u_n = u_0 + nr \]
+                \[ S = \tfrac{(n+1)(u_0 + u_n)}{2} \]
+              </div>
+              <p>Différence constante. Évolution linéaire&nbsp;: points alignés. Modèles&nbsp;: ajout constant, dépôt mensuel fixe.</p>
+            </div>
+            <div class="math-language-card" role="listitem">
+              <p class="box-title">Géométrique&nbsp;:</p>
+              <div class="formula-card">
+                \[ u_{n+1} = q \times u_n \]
+                \[ u_n = u_0 \times q^n \]
+                \[ 1+q+\cdots+q^n = \tfrac{1-q^{n+1}}{1-q} \]
+              </div>
+              <p>Quotient constant. Évolution exponentielle&nbsp;: points non alignés. Modèles&nbsp;: intérêts composés, demi-vie, pourcentage.</p>
+            </div>
+          </div>
+          <figcaption>
+            La distinction tient à <em>une seule</em> opération&nbsp;: ajoute-t-on, ou multiplie-t-on pour passer d'un terme au suivant&nbsp;?
+          </figcaption>
+        </figure>
+
+        <figure class="visual-block interactive-graph">
+          <div class="graph-stage">
+            <div id="su-compare-board" class="jxgbox curve-board" data-chapter-curve="compare"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Même premier terme, croissances différentes</span>
+              <strong>Arithm. (droite) vs géom. (courbée)</strong>
+            </p>
+          </div>
+          <figcaption>
+            Deux suites partant du même \(u_0 = 1\)&nbsp;: arithmétique de raison \(r = 1\) (points alignés, en bleu)
+            vs géométrique de raison \(q = 1{,}4\) (points non alignés, en corail). Au début elles se ressemblent, puis la géométrique explose.
+          </figcaption>
+        </figure>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Test rapide</p>
+          <p>
+            Calcule \(u_0\), \(u_1\), \(u_2\)&nbsp;:<br>
+            • Si \(u_1 - u_0 = u_2 - u_1\)&nbsp;: piste arithmétique. Confirmer avec \(u_{n+1} - u_n\) pour tout \(n\).<br>
+            • Si \(\tfrac{u_1}{u_0} = \tfrac{u_2}{u_1}\) (et \(u_n \ne 0\))&nbsp;: piste géométrique. Confirmer avec \(u_{n+1} = q\,u_n\) pour tout \(n\).<br>
+            • Si aucune des deux ne fonctionne&nbsp;: la suite n'est ni arithmétique, ni géométrique.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Réflexe — A ajouter, G coefficient</p>
+          <p>
+            A comme arithmétique&nbsp;: on ajoute toujours le même nombre. G comme géométrique&nbsp;: on garde un coefficient multiplicateur.
+          </p>
+          <p>
+            Limite du mémo&nbsp;: un énoncé peut commencer par un pourcentage puis ajouter une quantité fixe. Dans ce cas, ce n'est pas géométrique directement.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Le test ne suffit jamais à conclure</p>
+          <p>
+            Trouver que \(u_1 - u_0 = u_2 - u_1\) <em>ne prouve pas</em> que la suite est arithmétique pour tout \(n\)&nbsp;:
+            c'est seulement une indication. La preuve formelle exige le calcul de \(u_{n+1} - u_n\) <em>avec la variable \(n\)</em>.
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p>
+            On considère \((u_n)\) définie par \(u_n = \tfrac{2^n}{3}\). Reconnaître la nature de cette suite.
+          </p>
+          <div class="formula-card">
+            \[ u_{n+1} = \frac{2^{n+1}}{3} = 2 \times \frac{2^n}{3} \]
+            \[ u_{n+1} = 2 \times u_n \]
+          </div>
+          <p>Donc \((u_n)\) est géométrique de raison \(q = 2\) et de premier terme \(u_0 = \tfrac{1}{3}\).</p>
+        </div>
+
+        <div class="worked-example">
+          <p>
+            On considère \((w_n)\) définie par \(w_n = 5n - 8\). Reconnaître la nature de cette suite.
+          </p>
+          <div class="formula-card">
+            \[ w_{n+1} = 5n - 3 \]
+            \[ w_n = 5n - 8 \]
+            \[ w_{n+1} - w_n = 5 \]
+          </div>
+          <p>La différence est constante et vaut \(5\). Donc \((w_n)\) est arithmétique de raison \(r = 5\) et de premier terme \(w_0 = -8\).</p>
+        </div>
+
+        <div class="choice-grid">
+          <div class="choice-card">
+            <p class="box-title">Indices visuels arithmétiques</p>
+            <p>«&nbsp;chaque année, on ajoute…&nbsp;», «&nbsp;+50 nouveaux clients&nbsp;», «&nbsp;le salaire augmente de 100 € par an&nbsp;».</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Indices visuels géométriques</p>
+            <p>«&nbsp;diminue de 10 %&nbsp;», «&nbsp;double chaque jour&nbsp;», «&nbsp;capital à 4 % d'intérêts&nbsp;», «&nbsp;coefficient multiplicateur&nbsp;».</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Indices d'une suite mixte</p>
+            <p>«&nbsp;multiplie par \(q\) <em>puis</em> ajoute \(b\)&nbsp;»&nbsp;: ni l'une ni l'autre directement. Il faudra une suite auxiliaire (voir 20/20).</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Méthode universelle</p>
+            <p>En cas de doute&nbsp;: calculer trois termes, regarder différence puis quotient. Si rien n'est constant, la suite est «&nbsp;ni-ni&nbsp;».</p>
+          </div>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Reconnaître</p>
+          <p>Soit \(u_0 = 3\) et \(u_{n+1} = u_n - 2\). Nature de la suite&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="reco1">Voir la réponse</button>
+          <p id="reco1" class="answer" hidden>La relation est de la forme \(u_{n+1} = u_n + r\) avec \(r = -2\). C'est une suite arithmétique de raison \(-2\). Elle est strictement décroissante.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Reconnaître</p>
+          <p>Soit \(u_0 = 200\) et \(u_{n+1} = 0{,}5 u_n + 400\). Nature de la suite&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="reco2">Voir la réponse</button>
+          <p id="reco2" class="answer" hidden>La relation \(u_{n+1} = q u_n + b\) avec \(b \ne 0\) n'est <em>ni</em> arithmétique ni géométrique directement. On peut souvent étudier une suite auxiliaire \(v_n = u_n - \ell\) (où \(\ell\) est un point fixe) qui, elle, devient géométrique.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Reconnaître</p>
+          <p>Soit \(u_n = 7 \times 0{,}5^n\). Nature de la suite, sens de variation&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="reco3">Voir la réponse</button>
+          <p id="reco3" class="answer" hidden>\(u_{n+1} = 7 \times 0{,}5^{n+1} = 0{,}5 \times u_n\). Donc géométrique de raison \(q = 0{,}5\), de premier terme \(u_0 = 7 &gt; 0\). Comme \(0 &lt; q &lt; 1\), la suite est décroissante (et tend vers 0).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>A ou G&nbsp;?</p>
+          <p>On donne \(u_{n+1}=1{,}08u_n\) puis \(v_{n+1}=v_n+80\). Quelle suite est géométrique, laquelle est arithmétique&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="memo-reco-ag">Voir la réponse</button>
+          <p id="memo-reco-ag" class="answer" hidden>\((u_n)\) est géométrique de raison \(1{,}08\), car on multiplie par un coefficient. \((v_n)\) est arithmétique de raison \(80\), car on ajoute toujours le même nombre.</p>
+        </div>
+      </section>
+
+      <!-- ========== 07 · APPLICATIONS ========== -->
+      <section id="applications" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">07</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Modèles réels</p>
+            <h2>Modéliser une situation par une suite</h2>
+          </div>
+        </div>
+        <p>
+          Les suites apparaissent dès qu'on suit une grandeur d'année en année, de mois en mois, de pas en pas.
+          La traduction est presque toujours la même&nbsp;: lire l'énoncé, identifier le premier terme, écrire la relation de récurrence, puis chercher la forme explicite.
+        </p>
+
+        <div class="method-grid">
+          <div class="method-step">
+            <span class="step-number">1</span>
+            <p>Repérer la grandeur étudiée et la nommer \(u_n\). Donner clairement ce qu'elle représente.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">2</span>
+            <p>Déterminer \(u_0\) (le premier instant) à partir de l'énoncé.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">3</span>
+            <p>Écrire \(u_{n+1}\) en fonction de \(u_n\) en traduisant chaque verbe&nbsp;: «&nbsp;multiplier par…&nbsp;», «&nbsp;ajouter…&nbsp;», «&nbsp;perdre 20 %…&nbsp;».</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">4</span>
+            <p>Identifier la famille (arithmétique, géométrique, mixte) et appliquer la bonne formule explicite.</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Traduire les pourcentages</p>
+          <p>
+            «&nbsp;Augmenter de \(t\)&nbsp;%&nbsp;»&nbsp;: multiplier par \(\bigl(1 + \tfrac{t}{100}\bigr)\). «&nbsp;Diminuer de \(t\)&nbsp;%&nbsp;»&nbsp;: multiplier par \(\bigl(1 - \tfrac{t}{100}\bigr)\).
+            Le coefficient multiplicateur devient la raison \(q\) d'une suite géométrique.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Réflexe — pourcentage caché</p>
+          <p>
+            Un pourcentage répété cache presque toujours un coefficient \(q\). \(+4\,\%\) devient \(q=1{,}04\), \(-15\,\%\) devient \(q=0{,}85\).
+          </p>
+          <p>
+            Limite du mémo&nbsp;: si l'énoncé ajoute ensuite une quantité fixe, la récurrence devient \(u_{n+1}=q u_n+b\), donc il faut chercher un point fixe avant de parler de suite géométrique.
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p>
+            On place un capital de \(500\) € sur un compte à \(4\,\%\) d'intérêts annuels. On note \(u_n\) le capital après \(n\) années.
+            Donner \(u_0\), exprimer \(u_{n+1}\) en fonction de \(u_n\), puis \(u_n\) en fonction de \(n\). Que vaut le capital après 10 ans&nbsp;?
+          </p>
+          <div class="formula-card">
+            \[ u_0 = 500 \]
+            \[ u_{n+1} = 1{,}04 \times u_n \]
+            \[ u_n = 500 \times 1{,}04^n \]
+            \[ u_{10} = 500 \times 1{,}04^{10} \]
+            \[ u_{10} \approx 740{,}12\ \text{euros} \]
+          </div>
+          <p>
+            \((u_n)\) est géométrique de raison \(q = 1{,}04\). Le capital n'augmente pas linéairement&nbsp;: c'est le mécanisme des
+            «&nbsp;intérêts composés&nbsp;», où les intérêts produisent à leur tour des intérêts.
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p>
+            Une colonie de vacances accueille \(160\) enfants en 2017. Chaque année, \(80\,\%\) des inscrits se réinscrivent
+            et \(50\) nouveaux enfants rejoignent la colonie. On note \(u_n\) le nombre d'inscrits l'année \(2017 + n\).
+            Justifier la relation \(u_{n+1} = 0{,}8\, u_n + 50\), puis calculer les 4 premiers termes (arrondis à l'entier).
+          </p>
+          <div class="formula-card">
+            \[ u_0 = 160 \]
+            \[ u_{n+1} = 0{,}8 \times u_n + 50 \]
+            \[ u_1 = 0{,}8\times 160 + 50 \]
+            \[ u_1 = 178 \]
+            \[ u_2 = 0{,}8\times 178 + 50 \]
+            \[ u_2 \approx 192 \]
+            \[ u_3 = 0{,}8\times 192 + 50 \]
+            \[ u_3 \approx 204 \]
+          </div>
+          <p>
+            \((u_n)\) n'est ni arithmétique (la différence dépend de \(u_n\)), ni géométrique (à cause du \(+50\)).
+            C'est une suite <em>arithmético-géométrique</em>&nbsp;: on l'étudie via une suite auxiliaire \(v_n = u_n - \ell\) (point fixe).
+            En 20/20, on verra que \(u_n = 250 - 90 \times 0{,}8^n\).
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p>
+            Une entreprise a 1500 employés au 1er janvier 2018. Chaque année, \(10\,\%\) partent à la retraite et \(100\) sont embauchés.
+            On note \(u_n\) l'effectif au 1er janvier de l'année \(2018 + n\). Donner \(u_0\), \(u_{n+1}\).
+          </p>
+          <div class="formula-card">
+            \[ u_0 = 1500 \]
+            \[ u_{n+1} = 0{,}9\, u_n + 100 \]
+          </div>
+          <p>
+            Même schéma que l'exemple précédent. La suite auxiliaire \(v_n = u_n - 1000\) (où \(1000\) est le point fixe de \(x \mapsto 0{,}9x + 100\))
+            sera géométrique de raison \(0{,}9\). À la longue, l'effectif tend vers \(1000\).
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--note">
+          <p class="c-callout__label"><span class="dot"></span>Point fixe d'une récurrence</p>
+          <p>
+            Pour une suite définie par \(u_{n+1} = a\,u_n + b\) (avec \(a \ne 1\)), le <em>point fixe</em> est la valeur \(\ell\)
+            qui vérifie \(\ell = a\,\ell + b\), c'est-à-dire \(\ell = \tfrac{b}{1-a}\).
+            La suite \(v_n = u_n - \ell\) devient alors géométrique de raison \(a\).
+            Cette astuce est centrale pour les exercices «&nbsp;20/20&nbsp;» de Première.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis le modèle</p>
+          <p>Le salaire annuel d'Alex démarre à 24 000 € et augmente de 600 € chaque année. Quelle famille de suite, et que vaut le salaire au bout de 8 ans&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="app1">Voir la réponse</button>
+          <p id="app1" class="answer" hidden>Suite arithmétique de raison \(r = 600\), premier terme \(u_0 = 24000\). Au bout de 8 ans&nbsp;: \(u_8 = 24000 + 8\times 600 = 28800\) €.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis le modèle</p>
+          <p>Le salaire annuel de Bella démarre à 24 000 € et augmente de 3 % chaque année. Quelle famille, et que vaut le salaire au bout de 8 ans&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="app2">Voir la réponse</button>
+          <p id="app2" class="answer" hidden>Suite géométrique de raison \(q = 1{,}03\), premier terme \(u_0 = 24000\). Au bout de 8 ans&nbsp;: \(u_8 = 24000 \times 1{,}03^8 \approx 30407\) €. L'augmentation en pourcentage finit par battre l'augmentation linéaire.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis le modèle</p>
+          <p>Une voiture vaut 18 000 € et perd 15 % de sa valeur chaque année. Quelle suite&nbsp;? Que vaut-elle après 5 ans&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="app3">Voir la réponse</button>
+          <p id="app3" class="answer" hidden>«&nbsp;Perd 15&nbsp;%&nbsp;» = multiplie par \(0{,}85\). Donc géométrique de raison \(q = 0{,}85\), \(u_0 = 18000\). Après 5 ans&nbsp;: \(u_5 = 18000 \times 0{,}85^5 \approx 7990\) €.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Point fixe ou géométrique&nbsp;?</p>
+          <p>Une population garde \(90\,\%\) de ses membres chaque année et reçoit 120 arrivants. Écris la récurrence et dis si elle est géométrique directement.</p>
+          <button class="reveal-button" type="button" data-reveal="memo-app-pointfixe">Voir la réponse</button>
+          <p id="memo-app-pointfixe" class="answer" hidden>Si \(u_n\) désigne la population au rang \(n\), alors \(u_{n+1}=0{,}9u_n+120\). Ce n'est pas géométrique directement à cause du \(+120\). Le point fixe vérifie \(\ell=0{,}9\ell+120\), donc \(\ell=1200\), puis \(v_n=u_n-1200\) est géométrique.</p>
+        </div>
+      </section>
+
+      <!-- ========== 08 · LIMITE INTUITION ========== -->
+      <section id="limite-intuition" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">08</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Limite (intuition)</p>
+            <h2>Comportement à l'infini&nbsp;: où va la suite quand \(n\) grandit&nbsp;?</h2>
+          </div>
+        </div>
+        <p>
+          En Première, on ne formalise pas la limite (ce sera en Terminale). Mais on s'autorise déjà à observer le comportement à long terme.
+          On regarde les valeurs de \(u_n\) pour \(n\) grand, et on note ce que l'on observe.
+        </p>
+
+        <div class="c-callout c-callout--note">
+          <p class="c-callout__label"><span class="dot"></span>Définition intuitive</p>
+          <p>
+            Une suite \((u_n)\) <em>converge</em> vers \(\ell\) quand ses termes se rapprochent autant qu'on veut de \(\ell\) pour \(n\) assez grand.
+            On note \(\lim_{n\to+\infty} u_n = \ell\). Une suite qui ne converge pas est dite <em>divergente</em>&nbsp;:
+            elle peut tendre vers \(+\infty\), vers \(-\infty\), ou osciller sans se stabiliser.
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p>Soit \(u_n = \dfrac{2n+1}{n}\) pour \(n \geqslant 1\). Calculer plusieurs termes et conjecturer la limite.</p>
+          <div class="formula-card">
+            \[ u_1 = 3,\quad u_2 = 2{,}5 \]
+            \[ u_5 = 2{,}2 \]
+            \[ u_{10} = 2{,}1,\ u_{50} = 2{,}02 \]
+            \[ u_{500} = 2{,}002 \]
+          </div>
+          <p>
+            Quand \(n\) grandit, \(u_n\) se rapproche de \(2\). On conjecture \(\lim_{n\to+\infty} u_n = 2\).
+            On peut le justifier en réécrivant \(u_n = 2 + \tfrac{1}{n}\)&nbsp;: la partie \(\tfrac{1}{n}\) devient négligeable.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Suites usuelles à connaître intuitivement</p>
+          <p>
+            • Pour une suite arithmétique avec \(r &gt; 0\)&nbsp;: \(u_n \to +\infty\). Avec \(r &lt; 0\)&nbsp;: \(u_n \to -\infty\). Avec \(r = 0\)&nbsp;: la suite est constante.<br>
+            • Pour une suite géométrique avec \(u_0 &gt; 0\)&nbsp;: si \(q &gt; 1\), \(u_n \to +\infty\). Si \(0 &lt; q &lt; 1\), \(u_n \to 0\). Si \(q = 1\), constante.<br>
+            • Si \(q &lt; 0\), la suite alterne de signe&nbsp;: elle diverge (sauf cas particuliers).
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p>
+            Soit \(u_n = n^2 + 1\). Calculer \(u_{10}\), \(u_{100}\). La suite est-elle convergente&nbsp;?
+          </p>
+          <div class="formula-card">
+            \[ u_{10} = 101,\ u_{100} = 10\,001 \]
+            \[ \lim_{n\to+\infty} u_n = +\infty \]
+          </div>
+          <p>
+            Les termes deviennent aussi grands qu'on veut&nbsp;: la suite diverge vers \(+\infty\).
+            Elle n'est pas convergente, car il n'y a pas de réel \(\ell\) qu'elle approche.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--note">
+          <p class="c-callout__label"><span class="dot"></span>Algorithme de seuil</p>
+          <p>
+            Un <em>algorithme de seuil</em> détermine le plus petit rang \(n\) à partir duquel la suite dépasse (ou descend sous) une valeur donnée.
+            Très courant pour les modèles bancaires et démographiques. On l'écrit en Python avec une boucle <code>while</code>.
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p>
+            Soit \(u_0 = 2\) et \(u_{n+1} = 0{,}9\, u_n + 1\). À partir de quel rang \(u_n &gt; 8\)&nbsp;? Écrire un programme Python.
+          </p>
+          <div class="formula-card">
+            \[ \texttt{def seuil():} \]
+            \[ \quad\texttt{n, u = 0, 2} \]
+            \[ \quad\texttt{while u <= 8:} \]
+            \[ \quad\quad\texttt{u = 0.9*u + 1} \]
+            \[ \quad\quad\texttt{n = n + 1} \]
+            \[ \quad\texttt{return n} \]
+          </div>
+          <p>
+            En exécutant ce programme, on obtient \(n = 14\)&nbsp;: les termes dépassent \(8\) à partir de \(u_{14}\).
+            Intuition&nbsp;: le point fixe est \(\ell = 10\), donc la suite tend vers \(10\) et finit par dépasser \(8\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>Vers quoi tend \(u_n = 5 \times 0{,}8^n\)&nbsp;quand \(n\) grandit&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="lim1">Voir la réponse</button>
+          <p id="lim1" class="answer" hidden>Suite géométrique de raison \(0{,}8 &lt; 1\) et de premier terme positif. Elle décroît et tend vers \(0\). On peut le voir&nbsp;: \(u_0 = 5\), \(u_5 \approx 1{,}6\), \(u_{20} \approx 0{,}058\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Convergente ou divergente&nbsp;?</p>
+          <p>Pour \(u_n = (-1)^n\), peut-on parler de limite&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="lim2">Voir la réponse</button>
+          <p id="lim2" class="answer" hidden>La suite alterne entre \(1\) et \(-1\) sans jamais se stabiliser. Elle est divergente, mais pas vers \(\pm \infty\)&nbsp;: elle <em>oscille</em>.</p>
+        </div>
+      </section>
+
+      <!-- ========== 09 · CHOIX DE METHODE ========== -->
+      <section id="choix-methode" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">09</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Différenciateur</p>
+            <h2>Choisir la bonne méthode avant de calculer</h2>
+          </div>
+        </div>
+        <p>
+          Beaucoup d'erreurs commencent avant la première ligne de calcul&nbsp;: l'élève applique une formule
+          parce qu'il l'a vue récemment, pas parce que l'énoncé la demande. Voici les déclencheurs typiques.
+        </p>
+
+        <div class="choice-grid">
+          <div class="choice-card">
+            <p class="box-title">«&nbsp;Calculer \(u_n\) pour \(n\) grand&nbsp;»</p>
+            <p>Cherche d'abord la <em>forme explicite</em> (arithmétique&nbsp;: \(u_0 + nr\)&nbsp;; géométrique&nbsp;: \(u_0 q^n\)). N'itère pas la récurrence.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">«&nbsp;Montrer qu'elle est arithmétique&nbsp;»</p>
+            <p>Calcule \(u_{n+1} - u_n\) pour tout \(n\). Si c'est constant, conclus avec la raison trouvée.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">«&nbsp;Montrer qu'elle est géométrique&nbsp;»</p>
+            <p>Exprime \(u_{n+1}\) en fonction de \(u_n\). Si \(u_{n+1} = q\,u_n\) pour tout \(n\), conclus avec la raison.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">«&nbsp;Sens de variation&nbsp;»</p>
+            <p>Méthode 1&nbsp;: signe de \(u_{n+1} - u_n\). Méthode 2 (explicite)&nbsp;: variations de \(f\). Méthode 3 (positive)&nbsp;: ratio.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">«&nbsp;Somme des termes&nbsp;»</p>
+            <p>Arithmétique&nbsp;: \(\tfrac{(n+1)(u_0 + u_n)}{2}\). Géométrique&nbsp;: \(u_0 \times \tfrac{1 - q^{n+1}}{1 - q}\). Sinon, programme Python.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">«&nbsp;\(u_{n+1} = a u_n + b\) avec \(b \ne 0\)&nbsp;»</p>
+            <p>Trouve le point fixe \(\ell = \tfrac{b}{1-a}\), puis pose \(v_n = u_n - \ell\). Alors \((v_n)\) est géométrique de raison \(a\).</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Astuce de lecture</p>
+          <p>
+            Souligne dans l'énoncé les verbes de changement&nbsp;: «&nbsp;ajoute&nbsp;», «&nbsp;multiplie&nbsp;», «&nbsp;perd \(t\)&nbsp;%&nbsp;», «&nbsp;augmente de \(t\)&nbsp;%&nbsp;».
+            C'est l'opération sous-jacente qui détermine la famille de suite.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis sans calculer</p>
+          <p>«&nbsp;Calculer la somme \(2 + 5 + 8 + 11 + \cdots + 98\)&nbsp;». Quelle méthode démarre&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="choix1">Voir la réponse</button>
+          <p id="choix1" class="answer" hidden>La différence entre termes est constante (\(+3\))&nbsp;: c'est une suite arithmétique. On utilise la formule \(\tfrac{n(\text{premier}+\text{dernier})}{2}\). Le nombre de termes est \(\tfrac{98-2}{3} + 1 = 33\), donc \(S = \tfrac{33 \times 100}{2} = 1650\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis sans calculer</p>
+          <p>«&nbsp;Capital de 1000 € à 5 % par an, valeur au bout de 20 ans&nbsp;». Quelle famille de suite&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="choix2">Voir la réponse</button>
+          <p id="choix2" class="answer" hidden>Géométrique de raison \(q = 1{,}05\), premier terme \(u_0 = 1000\). Donc \(u_{20} = 1000 \times 1{,}05^{20} \approx 2653{,}30\) €.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis sans calculer</p>
+          <p>«&nbsp;\(u_0 = 6\), \(u_{n+1} = 0{,}5\,u_n + 3\). Étudier la nature et la limite&nbsp;». Quelle méthode&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="choix3">Voir la réponse</button>
+          <p id="choix3" class="answer" hidden>C'est une suite arithmético-géométrique. Trouve le point fixe \(\ell = \tfrac{3}{1-0{,}5} = 6\)&nbsp;: ici \(u_0 = \ell\), donc la suite est constante (\(u_n = 6\) pour tout \(n\)) et sa limite est \(6\). Si \(u_0 \ne 6\), on poserait \(v_n = u_n - 6\) pour obtenir une géométrique.</p>
+        </div>
+      </section>
+
+      <!-- ========== 10 · REDACTION ========== -->
+      <section id="redaction" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">10</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Copie notée</p>
+            <h2>Rédiger comme en contrôle</h2>
+          </div>
+        </div>
+        <p>
+          Le bon résultat ne suffit pas toujours. Pour une suite, il faut laisser une trace claire&nbsp;: type de suite, premier terme,
+          raison, formule explicite, puis interprétation. Une rédaction bâclée peut coûter 1 ou 2 points même si la réponse finale est juste.
+        </p>
+
+        <div class="copy-grid">
+          <div class="c-callout c-callout--warn">
+            <p class="c-callout__label"><span class="dot"></span>Brouillon insuffisant</p>
+            <p>\((u_n)\) géométrique, \(q = 1{,}04\), \(u_{10} \approx 740\) €.</p>
+            <p class="penalty">on ne sait pas pourquoi \(q = 1{,}04\), ni quel est \(u_0\), ni d'où sort le résultat.</p>
+          </div>
+
+          <div class="worked-example">
+            <p>Capital de 500 € placé à 4 % par an. Calculer la valeur au bout de 10 ans.</p>
+            <div class="formula-card">
+              \[ u_0 = 500 \]
+              \[ u_{n+1} = 1{,}04 \times u_n \]
+            </div>
+            <p>
+              <em>«&nbsp;On augmente de 4 % chaque année revient à multiplier par \(1{,}04\). La suite \((u_n)\) est donc géométrique
+              de raison \(q = 1{,}04\) et de premier terme \(u_0 = 500\). D'après la formule explicite&nbsp;:&nbsp;»</em>
+            </p>
+            <div class="formula-card">
+              \[ u_n = u_0 \times q^n \]
+              \[ u_n = 500 \times 1{,}04^n \]
+              \[ u_{10} = 500 \times 1{,}04^{10} \]
+              \[ u_{10} \approx 740{,}12 \]
+            </div>
+            <p>
+              <em>«&nbsp;Le capital après 10 ans est d'environ \(740{,}12\) €.&nbsp;»</em>
+            </p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Points qui rapportent</p>
+          <ul class="score-list">
+            <li>Justifier le coefficient multiplicateur («&nbsp;augmenter de 4 % revient à multiplier par 1,04&nbsp;»).</li>
+            <li>Annoncer explicitement&nbsp;: «&nbsp;\((u_n)\) est géométrique de raison \(q = …\) et de premier terme \(u_0 = …\)&nbsp;».</li>
+            <li>Écrire la formule explicite \(u_n = u_0 \times q^n\) avant de l'évaluer.</li>
+            <li>Conclure par une phrase qui répond à la question, avec l'unité (euros, enfants, …).</li>
+            <li>Pour une démonstration «&nbsp;arithmétique&nbsp;» ou «&nbsp;géométrique&nbsp;»&nbsp;: faire le calcul de \(u_{n+1} - u_n\) ou de \(u_{n+1}\) en fonction de \(u_n\) <em>avec la variable \(n\)</em>, pas avec des valeurs.</li>
+          </ul>
+        </div>
+
+        <div class="c-callout c-callout--note">
+          <p class="c-callout__label"><span class="dot"></span>Pour une démo «&nbsp;arithmétique&nbsp;»</p>
+          <p>
+            La phrase à écrire en fin de calcul&nbsp;: «&nbsp;Pour tout entier naturel \(n\), \(u_{n+1} - u_n = r\) (constante).
+            Donc \((u_n)\) est arithmétique de raison \(r\) et de premier terme \(u_0 = …\).&nbsp;»
+            On rédige <em>la conclusion</em>, pas seulement le calcul.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== P · PIEGES ========== -->
+      <section id="pieges" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">P</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Erreurs fréquentes</p>
+            <h2>Les pièges qui coûtent des points</h2>
+          </div>
+        </div>
+        <p>Cinq erreurs reviennent dans presque tous les contrôles. Les connaître, c'est déjà gagner un demi-point.</p>
+
+        <div class="case-grid">
+          <div class="case-card">
+            <p class="case-title">1. Confusion d'indices</p>
+            <p>Quand la suite commence à \(u_1\), on a \(u_n = u_1 + (n-1)r\), pas \(u_1 + nr\). De même pour la géométrique. <em>Compter le nombre de pas</em> entre le terme connu et celui qu'on cherche.</p>
+          </div>
+          <div class="case-card">
+            <p class="case-title">2. Raison négative</p>
+            <p>Pour une géométrique \(q &lt; 0\), la suite alterne de signe&nbsp;: elle <em>n'est pas monotone</em>. Ne pas appliquer le tableau «&nbsp;\(q&gt;1\), donc croissante&nbsp;»&nbsp;: ce tableau est valable seulement pour \(q &gt; 0\).</p>
+          </div>
+          <div class="case-card">
+            <p class="case-title">3. Oublier le \(+1\) à l'exposant</p>
+            <p>Dans \(\tfrac{1 - q^{n+1}}{1 - q}\), c'est bien \(q^{n+1}\), pas \(q^n\)&nbsp;: la somme \(1 + q + \cdots + q^n\) a \(n+1\) termes, et la formule s'arrête à \(q^n\), donc l'exposant passe à \(n+1\) après simplification.</p>
+          </div>
+          <div class="case-card">
+            <p class="case-title">4. Tester sur 2 ou 3 valeurs</p>
+            <p>Vérifier que \(u_1 - u_0 = u_2 - u_1\) ne suffit pas à dire que la suite est arithmétique. La preuve exige \(u_{n+1} - u_n\) pour <em>tout</em> \(n\).</p>
+          </div>
+          <div class="case-card">
+            <p class="case-title">5. Quotient avec \(u_n = 0\)</p>
+            <p>Étudier \(\tfrac{u_{n+1}}{u_n}\) suppose \(u_n \ne 0\). Sinon, retourner à \(u_{n+1} = q\,u_n\) pour éviter la division par zéro.</p>
+          </div>
+          <div class="case-card">
+            <p class="case-title">6. Mélanger \(r\) et \(q\)</p>
+            <p>Ne pas écrire «&nbsp;arithmétique de raison \(q\)&nbsp;» ni «&nbsp;géométrique de raison \(r\)&nbsp;». La convention est \(r\) pour l'addition, \(q\) pour la multiplication. Garder les notations stables tout au long de la copie.</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Le piège du «&nbsp;ni-ni&nbsp;»</p>
+          <p>
+            Une suite définie par \(u_{n+1} = a\,u_n + b\) avec \(b \ne 0\) <em>n'est ni arithmétique ni géométrique</em>.
+            Beaucoup d'élèves écrivent «&nbsp;géométrique de raison \(a\)&nbsp;» en oubliant le \(+b\). La preuve formelle (montrer que \(u_{n+1}/u_n\) n'est pas constant)
+            doit toujours être faite sur la suite originale, pas sur la suite auxiliaire \(v_n = u_n - \ell\).
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== G · GUIDES ========== -->
+      <section id="guides" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">G</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Exercices guidés</p>
+            <h2>L'aide disparaît progressivement</h2>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 1 — Reconnaître une suite arithmétique</h3>
+            <span class="difficulty" aria-label="Niveau comprendre">Comprendre</span>
+          </div>
+          <p>Soit \((u_n)\) définie par \(u_n = -2n + 7\). Montrer qu'elle est arithmétique et préciser raison, premier terme, sens de variation.</p>
+          <p class="hint-line">commence par calculer \(u_{n+1} - u_n\) avec la variable \(n\).</p>
+          <button class="reveal-button" type="button" data-reveal="guide1">Voir le corrigé</button>
+          <div id="guide1" class="answer" hidden>
+            <p>Pour tout \(n \in \mathbb{N}\)&nbsp;:</p>
+            <div class="formula-card">
+              \[ u_{n+1} - u_n \]
+              \[ = -2(n+1) + 7 \]
+              \[ \quad - (-2n + 7) \]
+              \[ = -2 \]
+            </div>
+            <p>La différence est constante et vaut \(-2\). Donc \((u_n)\) est arithmétique de raison \(r = -2\) et de premier terme \(u_0 = 7\). Comme \(r &lt; 0\), la suite est strictement décroissante.</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 2 — Reconnaître une suite géométrique</h3>
+            <span class="difficulty" aria-label="Niveau savoir refaire">Savoir refaire</span>
+          </div>
+          <p>Soit \((u_n)\) définie par \(u_n = 7 \times 3^n\). Montrer qu'elle est géométrique et préciser raison, premier terme, sens de variation.</p>
+          <p class="hint-line">exprime \(u_{n+1}\) en fonction de \(u_n\).</p>
+          <button class="reveal-button" type="button" data-reveal="guide2">Voir le corrigé</button>
+          <div id="guide2" class="answer" hidden>
+            <div class="formula-card">
+              \[ u_{n+1} = 7 \times 3^{n+1} \]
+              \[ = 3 \times (7 \times 3^n) \]
+              \[ = 3 \times u_n \]
+            </div>
+            <p>Donc \((u_n)\) est géométrique de raison \(q = 3\) et de premier terme \(u_0 = 7 \times 3^0 = 7\). Comme \(u_0 &gt; 0\) et \(q &gt; 1\), la suite est strictement croissante.</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 3 — Somme arithmétique</h3>
+            <span class="difficulty" aria-label="Niveau savoir refaire">Savoir refaire</span>
+          </div>
+          <p>Soit \((u_n)\) arithmétique avec \(u_0 = 5\) et \(r = 3\). Calculer \(u_{10}\), puis la somme \(S = u_0 + u_1 + \cdots + u_{10}\).</p>
+          <p class="hint-line">la somme contient 11 termes, pas 10.</p>
+          <button class="reveal-button" type="button" data-reveal="guide3">Voir le corrigé</button>
+          <div id="guide3" class="answer" hidden>
+            <p>\(u_{10} = u_0 + 10 r = 5 + 30 = 35\).</p>
+            <div class="formula-card">
+              \[ S = \frac{11 \times (u_0 + u_{10})}{2} \]
+              \[ S = \frac{11 \times (5 + 35)}{2} \]
+              \[ S = \frac{11 \times 40}{2} = 220 \]
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 4 — Trouver raison et premier terme</h3>
+            <span class="difficulty" aria-label="Niveau savoir refaire">Savoir refaire</span>
+          </div>
+          <p>\((u_n)\) est arithmétique. On a \(u_5 = 12\) et \(u_{11} = 36\). Trouver \(r\), \(u_0\), puis \(u_n\) en fonction de \(n\).</p>
+          <p class="hint-line">soustrais les deux équations \(u_n = u_0 + nr\) pour éliminer \(u_0\).</p>
+          <button class="reveal-button" type="button" data-reveal="guide4">Voir le corrigé</button>
+          <div id="guide4" class="answer" hidden>
+            <div class="formula-card">
+              \[ u_{11} - u_5 = 6r = 24 \]
+              \[ r = 4 \]
+              \[ u_0 = 12 - 5\times 4 \]
+              \[ u_0 = -8 \]
+              \[ u_n = -8 + 4n \]
+            </div>
+            <p>Vérification&nbsp;: \(u_5 = -8 + 20 = 12\) ✓ et \(u_{11} = -8 + 44 = 36\) ✓.</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 5 — Somme géométrique</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>Calculer \(S = 1 + 2 + 4 + 8 + \cdots + 2^{10}\).</p>
+          <p class="hint-line">c'est une somme géométrique de raison \(q = 2\) à 11 termes.</p>
+          <button class="reveal-button" type="button" data-reveal="guide5">Voir le corrigé</button>
+          <div id="guide5" class="answer" hidden>
+            <div class="formula-card">
+              \[ S = \frac{1 - 2^{11}}{1 - 2} \]
+              \[ S = \frac{1 - 2048}{-1} \]
+              \[ S=2047 \]
+            </div>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Bilan d'étape</p>
+          <p>
+            Avant de passer au niveau contrôle, tu dois savoir&nbsp;: reconnaître arithmétique vs géométrique,
+            écrire la formule explicite, calculer une somme. Si tu hésites encore, retourne à «&nbsp;Reconnaître&nbsp;» avant d'ouvrir les exercices plus longs.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== C · CONTROLE ========== -->
+      <section id="controle" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">C</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Niveau contrôle</p>
+            <h2>Exercices à réussir sans aide</h2>
+          </div>
+        </div>
+        <p>Essaie d'abord sur feuille. Ouvre le corrigé seulement après avoir écrit une méthode complète&nbsp;: type de suite, premier terme, raison, formule, conclusion.</p>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Contrôle 1 — Capital placé</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>Léa place \(2\,000\) € sur un livret à \(2{,}5\,\%\) d'intérêts annuels. On note \(u_n\) le capital après \(n\) années.</p>
+          <ol class="exercise-list">
+            <li>Donner \(u_0\) et exprimer \(u_{n+1}\) en fonction de \(u_n\).</li>
+            <li>Quelle est la nature de la suite \((u_n)\)&nbsp;? Préciser la raison.</li>
+            <li>Exprimer \(u_n\) en fonction de \(n\) et calculer le capital au bout de 8 ans.</li>
+            <li>Combien d'années faut-il attendre (à entier près) pour que le capital dépasse \(3\,000\) €&nbsp;?</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="controle1">Voir le corrigé</button>
+          <div id="controle1" class="answer" hidden>
+            <p>1. \(u_0 = 2000\)&nbsp;; «&nbsp;augmenter de 2,5 %&nbsp;» revient à multiplier par \(1{,}025\), donc \(u_{n+1} = 1{,}025 \times u_n\).</p>
+            <p>2. \((u_n)\) est géométrique de raison \(q = 1{,}025\).</p>
+            <p>3. \(u_n = 2000 \times 1{,}025^n\)&nbsp;; \(u_8 = 2000 \times 1{,}025^8 \approx 2436{,}81\) €.</p>
+            <p>4. On cherche le plus petit \(n\) tel que \(2000 \times 1{,}025^n &gt; 3000\), soit \(1{,}025^n &gt; 1{,}5\). En testant&nbsp;: \(1{,}025^{16} \approx 1{,}485\), \(1{,}025^{17} \approx 1{,}522\). Donc à partir de la 17ᵉ année.</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Contrôle 2 — Salle de sport</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>Une salle de sport compte \(500\) adhérents au 1er janvier 2024. Chaque année, \(80\,\%\) renouvellent leur abonnement et \(120\) nouveaux adhérents s'inscrivent. On note \(u_n\) le nombre d'adhérents au 1er janvier de l'année \(2024 + n\).</p>
+          <ol class="exercise-list">
+            <li>Donner \(u_0\) et la relation entre \(u_{n+1}\) et \(u_n\).</li>
+            <li>La suite \((u_n)\) est-elle arithmétique&nbsp;? Géométrique&nbsp;? Justifier.</li>
+            <li>Calculer \(u_1\), \(u_2\), \(u_3\) (arrondis à l'entier).</li>
+            <li>Quelle valeur limite \(\ell\) peut-on conjecturer&nbsp;? Justifier rapidement en supposant \(u_{n+1} \approx u_n \approx \ell\).</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="controle2">Voir le corrigé</button>
+          <div id="controle2" class="answer" hidden>
+            <p>1. \(u_0 = 500\)&nbsp;; \(u_{n+1} = 0{,}8\,u_n + 120\).</p>
+            <p>2. Différence \(u_{n+1} - u_n = -0{,}2\,u_n + 120\) dépend de \(u_n\), donc pas arithmétique. Quotient \(u_{n+1}/u_n = 0{,}8 + 120/u_n\) dépend de \(u_n\), donc pas géométrique. Cette suite est arithmético-géométrique.</p>
+            <p>3. \(u_1 = 0{,}8\times 500 + 120 = 520\), \(u_2 = 0{,}8\times 520 + 120 = 536\), \(u_3 \approx 549\).</p>
+            <p>4. À long terme, si \(u_n \to \ell\), alors \(\ell = 0{,}8\,\ell + 120\), soit \(0{,}2\,\ell = 120\), donc \(\ell = 600\). La salle se stabilise autour de 600 adhérents.</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Contrôle 3 — Sommes mélangées</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>Calculer&nbsp;:</p>
+          <ol class="exercise-list">
+            <li>\(S_1 = 3 + 7 + 11 + 15 + \cdots + 99\).</li>
+            <li>\(S_2 = 5 + 10 + 20 + 40 + \cdots + 5 \times 2^{12}\).</li>
+            <li>\(S_3 = 1 + \tfrac{1}{3} + \tfrac{1}{9} + \cdots + \tfrac{1}{3^7}\) (donner une fraction simple).</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="controle3">Voir le corrigé</button>
+          <div id="controle3" class="answer" hidden>
+            <p>1. Arithmétique de raison \(4\). Nombre de termes&nbsp;: \(\tfrac{99 - 3}{4} + 1 = 25\). Donc \(S_1 = \tfrac{25 \times (3 + 99)}{2} = \tfrac{25 \times 102}{2} = 1275\).</p>
+            <p>2. Géométrique de raison \(2\), premier terme \(5\), 13 termes. \(S_2 = 5 \times \tfrac{1 - 2^{13}}{1 - 2} = 5 \times (2^{13} - 1) = 5 \times 8191 = 40\,955\).</p>
+            <p>3. Géométrique de raison \(1/3\), 8 termes. \(S_3 = \tfrac{1 - (1/3)^8}{1 - 1/3} = \tfrac{3}{2}\left(1 - \tfrac{1}{6561}\right) = \tfrac{3}{2} \times \tfrac{6560}{6561} = \tfrac{9840}{6561} = \tfrac{3280}{2187}\).</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 20 · VINGT SUR VINGT ========== -->
+      <section id="vingt-sur-vingt" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">20</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Cap 20/20</p>
+            <h2>Pas de raccourci&nbsp;: passe la porte avant</h2>
+          </div>
+        </div>
+
+        <div class="c-gate">
+          <p class="c-gate__label">Porte d'entrée</p>
+          <p class="c-gate__title">Deux contrôles sans corrigé d'abord</p>
+          <p>
+            Avant de tenter ces exercices, réussis au moins deux exercices de contrôle sans ouvrir le corrigé.
+            Sinon, reviens à «&nbsp;Reconnaître&nbsp;», puis à «&nbsp;Applications&nbsp;»&nbsp;: ce sont les fondations.
+          </p>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Suite auxiliaire géométrique</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>
+            Soit \((u_n)\) définie par \(u_0 = 160\) et, pour tout \(n \in \mathbb{N}\), \(u_{n+1} = 0{,}8\, u_n + 50\).
+            On pose \(v_n = u_n - 250\).
+          </p>
+          <ol class="exercise-list">
+            <li>Montrer que \((v_n)\) est géométrique. Préciser sa raison et son premier terme.</li>
+            <li>Exprimer \(v_n\) puis \(u_n\) en fonction de \(n\).</li>
+            <li>Déterminer le sens de variation de \((u_n)\) et conjecturer sa limite.</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="vingt1">Voir le corrigé</button>
+          <div id="vingt1" class="answer" hidden>
+            <p><strong>1.</strong> Pour tout \(n \in \mathbb{N}\)&nbsp;:</p>
+            <div class="formula-card">
+              \[ v_{n+1} = u_{n+1} - 250 \]
+              \[ = 0{,}8\,u_n + 50 - 250 \]
+              \[ = 0{,}8\,u_n - 200 \]
+              \[ = 0{,}8(u_n - 250) \]
+              \[ = 0{,}8\, v_n \]
+            </div>
+            <p>Donc \((v_n)\) est géométrique de raison \(q = 0{,}8\) et de premier terme \(v_0 = u_0 - 250 = 160 - 250 = -90\).</p>
+            <p><strong>2.</strong> \(v_n = v_0 \times q^n = -90 \times 0{,}8^n\). Donc \(u_n = v_n + 250 = 250 - 90 \times 0{,}8^n\).</p>
+            <p><strong>3.</strong> Comme \(0 &lt; 0{,}8 &lt; 1\), le terme \(0{,}8^n\) tend vers \(0\) en décroissant. Donc \(-90 \times 0{,}8^n\) croît vers \(0\), et \(u_n\) croît vers \(250\). La suite est croissante et \(\lim u_n = 250\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Probabilité et récurrence</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>
+            On choisit au hasard un client. On note \(p_n\) la probabilité qu'il rapporte une bouteille la \(n\)-ième semaine.
+            Une étude montre que pour tout \(n \geqslant 1\)&nbsp;: \(p_{n+1} = 0{,}75\, p_n + 0{,}2\), avec \(p_1 = 0{,}9\).
+            On pose \(v_n = p_n - 0{,}8\).
+          </p>
+          <ol class="exercise-list">
+            <li>Démontrer que \((v_n)\) est géométrique.</li>
+            <li>Exprimer \(p_n\) en fonction de \(n\). En déduire la limite de \((p_n)\).</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="vingt2">Voir le corrigé</button>
+          <div id="vingt2" class="answer" hidden>
+            <p><strong>1.</strong></p>
+            <div class="formula-card">
+              \[ v_{n+1} = p_{n+1} - 0{,}8 \]
+              \[ = 0{,}75\, p_n + 0{,}2 - 0{,}8 \]
+              \[ = 0{,}75\, p_n - 0{,}6 \]
+              \[ = 0{,}75 (p_n - 0{,}8) \]
+              \[ = 0{,}75\, v_n \]
+            </div>
+            <p>Donc \((v_n)\) est géométrique de raison \(q = 0{,}75\) et de premier terme \(v_1 = 0{,}9 - 0{,}8 = 0{,}1\).</p>
+            <p><strong>2.</strong> \(v_n = 0{,}1 \times 0{,}75^{n-1}\), donc \(p_n = 0{,}8 + 0{,}1 \times 0{,}75^{n-1}\). Comme \(0 &lt; 0{,}75 &lt; 1\), \(0{,}75^{n-1} \to 0\), donc \(\lim p_n = 0{,}8\). À long terme, environ 80 % des clients rapportent leur bouteille.</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Variation et conjecture graphique</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>
+            Soit \((u_n)\) la suite définie par \(u_0 = 2\) et \(u_{n+1} = 0{,}5\, u_n + 3\).
+          </p>
+          <ol class="exercise-list">
+            <li>Calculer \(u_1\), \(u_2\), \(u_3\). Conjecturer le sens de variation et la limite.</li>
+            <li>Trouver le point fixe \(\ell\) de la relation. Poser \(v_n = u_n - \ell\) et montrer que \((v_n)\) est géométrique.</li>
+            <li>En déduire \(u_n\) en fonction de \(n\) puis vérifier la conjecture.</li>
+          </ol>
+          <figure class="visual-block interactive-graph">
+            <div class="graph-stage">
+              <div id="su-escalier-board" class="jxgbox curve-board" data-chapter-curve="escalier"></div>
+              <p class="graph-readout" aria-live="polite">
+                <span>Représentation «&nbsp;escalier&nbsp;» pour \(u_{n+1} = 0{,}5 u_n + 3\)</span>
+                <strong>La suite monte vers le point fixe \(\ell = 6\)</strong>
+              </p>
+            </div>
+            <figcaption>
+              L'escalier (parfois appelé «&nbsp;toile d'araignée&nbsp;») permet de lire les termes successifs d'une suite récurrente sur la courbe de \(f(x) = 0{,}5x + 3\) et la droite \(y = x\). L'intersection des deux droites donne le point fixe \(\ell = 6\).
+            </figcaption>
+          </figure>
+          <button class="reveal-button" type="button" data-reveal="vingt3">Voir le corrigé</button>
+          <div id="vingt3" class="answer" hidden>
+            <p><strong>1.</strong> \(u_1 = 0{,}5\times 2 + 3 = 4\), \(u_2 = 0{,}5\times 4 + 3 = 5\), \(u_3 = 0{,}5\times 5 + 3 = 5{,}5\). La suite semble croissante et bornée par 6.</p>
+            <p><strong>2.</strong> Point fixe&nbsp;: \(\ell = 0{,}5\,\ell + 3 \Rightarrow 0{,}5\,\ell = 3 \Rightarrow \ell = 6\). Posons \(v_n = u_n - 6\). Alors :</p>
+            <div class="formula-card">
+              \[ v_{n+1} = u_{n+1} - 6 \]
+              \[ = 0{,}5\,u_n + 3 - 6 \]
+              \[ = 0{,}5(u_n - 6) = 0{,}5\, v_n \]
+            </div>
+            <p>Donc \((v_n)\) est géométrique de raison \(0{,}5\), de premier terme \(v_0 = 2 - 6 = -4\).</p>
+            <p><strong>3.</strong> \(v_n = -4 \times 0{,}5^n\), donc \(u_n = 6 - 4 \times 0{,}5^n\). Comme \(0{,}5^n \to 0\), on a \(\lim u_n = 6\), et \(u_n\) est croissante (la quantité retirée diminue).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Algorithme et seuil</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>
+            La colonie de l'exercice précédent (\(u_0 = 160\), \(u_{n+1} = 0{,}8\, u_n + 50\)) comptait 22 tentes de 10 places en 2017.
+            À partir de quelle année faudra-t-il une 23ᵉ tente&nbsp;? Compléter et exécuter mentalement&nbsp;:
+          </p>
+          <div class="formula-card">
+            \[ \texttt{U = 160 ; N = 0} \]
+            \[ \texttt{tant que U <= 220 :} \]
+            \[ \quad\texttt{U = 0.8*U + 50} \]
+            \[ \quad\texttt{N = N + 1} \]
+            \[ \texttt{renvoyer N} \]
+          </div>
+          <button class="reveal-button" type="button" data-reveal="vingt4">Voir le corrigé</button>
+          <div id="vingt4" class="answer" hidden>
+            <p>Il faut \(u_n &gt; 220\). On a \(u_n = 250 - 90 \times 0{,}8^n\), donc on cherche \(90 \times 0{,}8^n &lt; 30\), soit \(0{,}8^n &lt; \tfrac{1}{3}\). En testant&nbsp;: \(0{,}8^4 \approx 0{,}410\), donc \(u_4 \approx 213{,}14\), puis \(0{,}8^5 \approx 0{,}328\), donc \(u_5 \approx 220{,}51\). Le premier rang qui dépasse \(220\) est donc \(n = 5\), soit en \(2022\).</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== R · REVISION ========== -->
+      <section id="revision" class="chapter-section recap-section">
+        <div class="section-marker">
+          <div class="section-marker__num">R</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Mini-révision mélangée</p>
+            <h2>Ce que tu dois revoir ensuite</h2>
+          </div>
+        </div>
+        <p>
+          Un contrôle ne dira pas toujours «&nbsp;c'est une suite géométrique&nbsp;». Entraîne-toi à reconnaître les déclencheurs
+          dans les énoncés courants.
+        </p>
+
+        <div class="revision-grid">
+          <div class="revision-card">
+            <p class="box-title">Si tu as raté la nature</p>
+            <p>Refais Guidé 1 et 2, puis Contrôle 2 question 2. Calcule toujours \(u_{n+1} - u_n\) <em>et</em> \(\tfrac{u_{n+1}}{u_n}\) avant de conclure.</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Si tu as raté les sommes</p>
+            <p>Reprends la section 04 et 05. Vérifie le nombre exact de termes&nbsp;: une somme «&nbsp;de \(u_0\) à \(u_n\)&nbsp;» contient \(n+1\) termes, pas \(n\).</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Si tu as raté les suites mixtes</p>
+            <p>Refais le 20/20 n°1 et n°3. Le réflexe&nbsp;: chercher le point fixe \(\ell\), puis poser \(v_n = u_n - \ell\) pour obtenir une géométrique.</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Mélange avec exponentielle</p>
+            <p>Plus tard, la suite géométrique de raison \(q\) se relie à la fonction exponentielle&nbsp;: \(q^n = e^{n \ln q}\). Tu retrouveras la croissance/décroissance exponentielle.</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Mélange avec probabilités</p>
+            <p>De nombreuses suites apparaissent en probabilités (arbres pondérés successifs)&nbsp;: \(p_{n+1} = a\,p_n + b\) est un modèle classique au bac.</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Mélange avec second degré</p>
+            <p>Pour étudier \(u_{n+1} - u_n\) ou \(u_n\) lui-même quand l'expression contient un trinôme du second degré (par exemple \(u_n = n^2 - 6n - 7\)), tu utilises directement les méthodes du chapitre 1.</p>
+          </div>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">✎</span>Dernière récupération active</p>
+          <p>Écris sans regarder&nbsp;: les deux formules explicites (arithmétique et géométrique), les deux formules de somme, et la définition du point fixe d'une suite arithmético-géométrique.</p>
+          <button class="reveal-button" type="button" data-reveal="revision1">Voir la fiche minimale</button>
+          <div id="revision1" class="answer" hidden>
+            <p><strong>Arithmétique</strong>&nbsp;: \(u_n = u_0 + n r\)&nbsp;; somme \(= \tfrac{(n+1)(u_0 + u_n)}{2}\).</p>
+            <p><strong>Géométrique</strong>&nbsp;: \(u_n = u_0 \times q^n\)&nbsp;; somme \(= u_0 \times \tfrac{1 - q^{n+1}}{1 - q}\) (si \(q \ne 1\)).</p>
+            <p><strong>Point fixe</strong>&nbsp;: pour \(u_{n+1} = a\,u_n + b\), \(\ell = \tfrac{b}{1 - a}\). Alors \(v_n = u_n - \ell\) est géométrique de raison \(a\).</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Prochaine étape</p>
+          <p>
+            Quand tu maîtrises ces réflexes, passe au chapitre exponentielle&nbsp;: tu y verras que les suites géométriques
+            sont les «&nbsp;cousines discrètes&nbsp;» de la fonction exponentielle, et que les méthodes de seuil deviennent encore plus rapides.
+          </p>
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+  <!-- ============================================================
+       JSXGRAPH BOARDS — chapter-specific (data-chapter-curve)
+       ============================================================ -->
+  <script>
+    (function () {
+      const COLORS = {
+        coral: '#d96c5f',
+        green: '#8bbf5f',
+        ink: '#121212',
+        teal: '#3f7f8f',
+        yellow: '#f4d35e',
+        blue: '#a8c2c0'
+      };
+
+      function createBoard(el, bbox) {
+        return JXG.JSXGraph.initBoard(el.id, {
+          boundingbox: bbox,
+          axis: true,
+          grid: true,
+          showCopyright: false,
+          showNavigation: false,
+          pan: { enabled: false },
+          zoom: { enabled: false }
+        });
+      }
+
+      function nuage(b, vals, color) {
+        vals.forEach(function (v, i) {
+          b.create('point', [i, v], {
+            name: '',
+            size: 3,
+            fillColor: color,
+            strokeColor: COLORS.ink,
+            fixed: true,
+            showInfobox: false
+          });
+        });
+      }
+
+      function addLine(b, fn, x0, x1, color) {
+        return b.create('functiongraph', [fn, x0, x1], {
+          strokeColor: color,
+          strokeWidth: 2,
+          highlight: false,
+          dash: 2
+        });
+      }
+
+      const boards = {
+        // 01 — nuage discret de u_n = n^2/2 - 3
+        nuage: function (el) {
+          const b = createBoard(el, [-1, 32, 9, -5]);
+          const vals = [];
+          for (var n = 0; n <= 8; n++) vals.push((n * n) / 2 - 3);
+          nuage(b, vals, COLORS.teal);
+        },
+
+        // 04 — suite arithmétique u0=1, r=1.5
+        arith: function (el) {
+          const b = createBoard(el, [-1, 18, 11, -2]);
+          const vals = [];
+          for (var n = 0; n <= 10; n++) vals.push(1 + 1.5 * n);
+          nuage(b, vals, COLORS.teal);
+          // droite support pour visualiser l'alignement
+          addLine(b, function (x) { return 1 + 1.5 * x; }, -0.5, 10.5, COLORS.blue);
+        },
+
+        // 05 — suite géométrique u0=0.8, q=1.3
+        geom: function (el) {
+          const b = createBoard(el, [-1, 16, 11, -2]);
+          const vals = [];
+          for (var n = 0; n <= 10; n++) vals.push(0.8 * Math.pow(1.3, n));
+          nuage(b, vals, COLORS.coral);
+        },
+
+        // 06 — comparaison arith (r=1) vs geom (q=1.4), même u0=1
+        compare: function (el) {
+          const b = createBoard(el, [-1, 25, 11, -3]);
+          for (var n = 0; n <= 10; n++) {
+            // arithmétique
+            b.create('point', [n, 1 + n], {
+              name: '', size: 3,
+              fillColor: COLORS.teal, strokeColor: COLORS.ink,
+              fixed: true, showInfobox: false
+            });
+            // géométrique
+            b.create('point', [n, Math.pow(1.4, n)], {
+              name: '', size: 3,
+              fillColor: COLORS.coral, strokeColor: COLORS.ink,
+              fixed: true, showInfobox: false
+            });
+          }
+        },
+
+        // 20/20 — escalier pour u_{n+1} = 0.5 u_n + 3, u0 = 2
+        escalier: function (el) {
+          const b = createBoard(el, [-0.5, 8, 8, -0.5]);
+          // f(x) = 0.5 x + 3
+          b.create('functiongraph', [function (x) { return 0.5 * x + 3; }, -0.5, 8], {
+            strokeColor: COLORS.teal, strokeWidth: 2.5, highlight: false
+          });
+          // y = x
+          b.create('functiongraph', [function (x) { return x; }, -0.5, 8], {
+            strokeColor: COLORS.coral, strokeWidth: 2, highlight: false, dash: 2
+          });
+          // escalier u0 = 2
+          var x = 2;
+          for (var k = 0; k < 6; k++) {
+            var y = 0.5 * x + 3;
+            // segment vertical x -> (x, y)
+            b.create('segment', [[x, x], [x, y]], {
+              strokeColor: COLORS.ink, strokeWidth: 1.5, highlight: false
+            });
+            // segment horizontal (x, y) -> (y, y)
+            b.create('segment', [[x, y], [y, y]], {
+              strokeColor: COLORS.ink, strokeWidth: 1.5, highlight: false
+            });
+            x = y;
+          }
+          // point fixe (6, 6)
+          b.create('point', [6, 6], {
+            name: 'ℓ = 6', size: 4, fillColor: COLORS.yellow,
+            strokeColor: COLORS.ink,
+            label: { offset: [10, 10], fontSize: 12, color: COLORS.ink },
+            fixed: true, showInfobox: false
+          });
+        }
+      };
+
+      window.__courseGraphInitializers = window.__courseGraphInitializers || [];
+      window.__courseGraphInitializers.push(function (el) {
+        if (!el || el.dataset.courseGraphReady === 'true') return;
+        var fn = boards[el.dataset.chapterCurve];
+        if (!fn) return;
+        try {
+          fn(el);
+          el.dataset.courseGraphReady = 'true';
+        } catch (error) {
+          el.textContent = 'Graphe indisponible pour le moment.';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1815 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Géométrie repérée — cours V2</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="../cours.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="../cours.js"></script>
+  <style>
+    .chapter-method-title {
+      margin: 32px 0 0;
+      font-family: var(--font-display);
+      font-size: 20px;
+      line-height: 1.15;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+    .copy-grid > * {
+      min-width: 0;
+    }
+    @media (max-width: 560px) {
+      .exercise {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+      .answer {
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+      .formula-card {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+      .answer .formula-card {
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+    }
+  </style>
+</head>
+<body class="has-course-sidebar">
+
+  <!-- Reading progress bar -->
+  <div class="progress-bar" aria-hidden="true">
+    <div class="progress-bar__fill" data-progress-fill></div>
+  </div>
+
+  <!-- Sticky section indicator (populated by inline script) -->
+  <div class="section-bar" data-section-bar aria-hidden="true">
+    <span class="section-bar__chip" data-section-bar-chip>00</span>
+    <span class="section-bar__title" data-section-bar-title>Géométrie repérée</span>
+    <span class="section-bar__total" data-section-bar-total>1/14</span>
+  </div>
+
+  <!-- ============================================================
+       SIDEBAR
+       ============================================================ -->
+  <aside class="toc course-sidebar" aria-label="Plan du cours" data-course-sidebar>
+    <div class="sidebar-head">
+      <div>
+        <p class="toc-title">Plan</p>
+        <p class="sidebar-subtitle">Géométrie repérée</p>
+      </div>
+      <button
+        class="sidebar-toggle"
+        type="button"
+        aria-label="Replier le plan"
+        aria-expanded="true"
+        data-sidebar-toggle
+      ><span aria-hidden="true">‹</span></button>
+    </div>
+
+    <nav class="toc-links" aria-label="Sections du chapitre">
+      <a href="#diagnostic" data-section-link><span class="toc-index">00</span><span class="toc-label">Diagnostic</span></a>
+      <a href="#reperage" data-section-link><span class="toc-index">01</span><span class="toc-label">Repère</span></a>
+      <a href="#vecteurs" data-section-link><span class="toc-index">02</span><span class="toc-label">Vecteurs</span></a>
+      <a href="#milieu-distance" data-section-link><span class="toc-index">03</span><span class="toc-label">Milieu·distance</span></a>
+      <a href="#colinearite" data-section-link><span class="toc-index">04</span><span class="toc-label">Colinéarité</span></a>
+      <a href="#droites" data-section-link><span class="toc-index">05</span><span class="toc-label">Droites</span></a>
+      <a href="#positions" data-section-link><span class="toc-index">06</span><span class="toc-label">Positions</span></a>
+      <a href="#cercles" data-section-link><span class="toc-index">07</span><span class="toc-label">Cercles</span></a>
+      <a href="#choix-methode" data-section-link><span class="toc-index">08</span><span class="toc-label">Choisir</span></a>
+      <a href="#redaction" data-section-link><span class="toc-index">09</span><span class="toc-label">Rédiger</span></a>
+      <a href="#pieges" data-section-link><span class="toc-index">P</span><span class="toc-label">Pièges</span></a>
+      <a href="#guides" data-section-link><span class="toc-index">G</span><span class="toc-label">Guidé</span></a>
+      <a href="#controle" data-section-link><span class="toc-index">C</span><span class="toc-label">Contrôle</span></a>
+      <a href="#vingt-sur-vingt" data-section-link><span class="toc-index">20</span><span class="toc-label">20/20</span></a>
+      <a href="#revision" data-section-link><span class="toc-index">R</span><span class="toc-label">Révision</span></a>
+    </nav>
+
+    <p class="sidebar-foot">Maths spé · Lycée</p>
+  </aside>
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <header class="course-hero">
+    <nav class="topline" aria-label="Fil d'Ariane">
+      <a href="../../../..">Objectif Lycée</a>
+      <span>Maths spécialité</span>
+      <span>Cours</span>
+    </nav>
+
+    <div class="hero-grid">
+      <div>
+        <p class="hero-eyebrow"><span class="num">10</span> Chapitre</p>
+        <h1>Géométrie repérée</h1>
+        <p class="hero-lead">
+          Lire un point, écrire un vecteur, choisir entre directeur et normal,
+          puis tracer une équation de droite ou de cercle sans hésiter.
+        </p>
+      </div>
+
+      <aside class="hero-side" aria-label="Les 4 réflexes du chapitre">
+        <p class="hero-side__label">Ce que tu gagnes</p>
+        <h2>4 réflexes, 1 contrôle solide</h2>
+        <div class="hero-side__steps">
+          <div class="hero-side__step">
+            <span class="verb">Lire</span>
+            <span class="obj">coordonnées, vecteurs, milieu</span>
+          </div>
+          <div class="hero-side__step">
+            <span class="verb">Calculer</span>
+            <span class="obj">distance, déterminant, colinéarité</span>
+          </div>
+          <div class="hero-side__step">
+            <span class="verb">Écrire</span>
+            <span class="obj">équation de droite ou de cercle</span>
+          </div>
+          <div class="hero-side__step">
+            <span class="verb">Rédiger</span>
+            <span class="obj">copie claire avec justifications</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MAIN
+       ============================================================ -->
+  <main class="course-layout" data-course-layout>
+    <article class="lesson course-lesson">
+
+      <!-- Overview band — single editorial section -->
+      <section class="course-overview" aria-label="Repères du chapitre">
+        <div>
+          <p class="course-overview__title">Fil conducteur</p>
+          <h3>Ce chapitre se joue dans un repère orthonormé</h3>
+          <p class="course-overview__lead">
+            On part toujours d'un repère orthonormé \((O\,;\,\vec{\imath},\vec{\jmath})\) du plan&nbsp;:
+            chaque objet (point, vecteur, droite, cercle) y reçoit une écriture chiffrée.
+          </p>
+        </div>
+        <div class="overview-flow">
+          <span>Repère</span>
+          <em>→</em>
+          <span>Vecteurs</span>
+          <em>→</em>
+          <span>Droites</span>
+          <em>→</em>
+          <span>Cercles</span>
+        </div>
+      </section>
+
+      <!-- ========== 00 · DIAGNOSTIC ========== -->
+      <section id="diagnostic" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">00</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Diagnostic éclair</p>
+            <h2>Avant de commencer : tu sais lire un repère&nbsp;?</h2>
+          </div>
+        </div>
+        <p>
+          Réponds mentalement avant d'ouvrir les corrections. Le but n'est pas d'avoir une note&nbsp;: c'est de repérer
+          quel réflexe te manque encore (lecture d'un point, calcul d'un vecteur, choix d'une équation).
+        </p>
+
+        <div class="diagnostic-grid">
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 1</p>
+            <p>Si \(A(2;-3)\) et \(B(5;1)\), quelles sont les coordonnées du vecteur \(\overrightarrow{AB}\)&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag1">Voir la réponse</button>
+            <p id="diag1" class="answer" hidden>\(\overrightarrow{AB}(x_B-x_A\,;\,y_B-y_A)=(3;4)\). On fait toujours «&nbsp;arrivée moins départ&nbsp;».</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 2</p>
+            <p>Pour \(A(1;2)\) et \(B(5;6)\), quelles sont les coordonnées du milieu de \([AB]\)&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag2">Voir la réponse</button>
+            <p id="diag2" class="answer" hidden>\(I\left(\tfrac{1+5}{2};\,\tfrac{2+6}{2}\right)=I(3;4)\). On fait la moyenne, coordonnée par coordonnée.</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 3</p>
+            <p>Calcule la distance \(AB\) avec \(A(1;2)\) et \(B(4;6)\).</p>
+            <button class="reveal-button" type="button" data-reveal="diag3">Voir la réponse</button>
+            <p id="diag3" class="answer" hidden>\(AB=\sqrt{(4-1)^2+(6-2)^2}=\sqrt{9+16}=\sqrt{25}=5\).</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 4</p>
+            <p>Dans l'équation \(2x-3y+5=0\), quel est un vecteur directeur de la droite&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag4">Voir la réponse</button>
+            <p id="diag4" class="answer" hidden>\(\vec{u}(-b;a)=(3;2)\). Attention au signe&nbsp;: c'est \(-b\) en première coordonnée, pas \(b\).</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 5</p>
+            <p>Donne le centre et le rayon du cercle \((x-3)^2+(y+1)^2=16\).</p>
+            <button class="reveal-button" type="button" data-reveal="diag5">Voir la réponse</button>
+            <p id="diag5" class="answer" hidden>Centre \(\Omega(3;-1)\), rayon \(r=4\) (car \(16=4^2\)). On lit les signes en inversant ceux qui sont dans les parenthèses.</p>
+          </div>
+
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">?</span>Question 6</p>
+            <p>Les vecteurs \(\vec{u}(2;-3)\) et \(\vec{v}(-4;6)\) sont-ils colinéaires&nbsp;?</p>
+            <button class="reveal-button" type="button" data-reveal="diag6">Voir la réponse</button>
+            <p id="diag6" class="answer" hidden>Oui. Le déterminant vaut \(2\times6-(-3)\times(-4)=12-12=0\). On peut aussi voir que \(\vec{v}=-2\vec{u}\).</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Objectif de cette session</p>
+          <p>
+            Si tu réussis seulement une chose aujourd'hui&nbsp;: apprendre à reconnaître ce que l'énoncé te donne (un point seul,
+            deux points, un vecteur directeur, un vecteur normal, un cercle) et choisir la formule qui correspond.
+            C'est ce choix qui transforme un cours lu en copie réussie.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 01 · REPERAGE ========== -->
+      <section id="reperage" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">01</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Définitions de base</p>
+            <h2>Un repère orthonormé fixe l'écriture de chaque point</h2>
+          </div>
+        </div>
+        <p>
+          Dans tout le chapitre, on se place dans un repère \((O\,;\,\vec{\imath},\vec{\jmath})\) du plan. Quand les deux
+          vecteurs \(\vec{\imath}\) et \(\vec{\jmath}\) sont de même longueur et perpendiculaires, on dit que le repère
+          est <strong>orthonormé</strong>. C'est l'hypothèse qui rend les formules de distance et d'orthogonalité valables.
+        </p>
+
+        <div class="formula-card is-major">
+          \[ M(x_M\,;\,y_M) \]
+          \[ \overrightarrow{OM}=x_M\,\vec{\imath}+y_M\,\vec{\jmath} \]
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Image mentale — adresse du point</p>
+          <p>
+            Les coordonnées sont l'adresse du point&nbsp;: d'abord la rue horizontale \(x\), ensuite l'étage vertical \(y\).
+          </p>
+          <p>
+            Limite du mémo&nbsp;: cette image marche dans un repère orthonormé. Si le repère n'est pas orthonormé, les formules de distance et d'angle ne se lisent plus de la même façon.
+          </p>
+        </div>
+
+        <div class="choice-grid">
+          <div class="choice-card">
+            <p class="box-title">Abscisse</p>
+            <p>\(x_M\) est la coordonnée selon \(\vec{\imath}\)&nbsp;: tu lis à l'horizontale en partant de \(O\).</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Ordonnée</p>
+            <p>\(y_M\) est la coordonnée selon \(\vec{\jmath}\)&nbsp;: tu lis à la verticale en partant de \(O\).</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Repère orthonormé</p>
+            <p>Les vecteurs \(\vec{\imath}\) et \(\vec{\jmath}\) sont de même norme et orthogonaux. C'est l'hypothèse standard.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Couple ordonné</p>
+            <p>L'ordre compte&nbsp;: \((3;2)\) et \((2;3)\) désignent deux points différents.</p>
+          </div>
+        </div>
+
+        <figure class="visual-block interactive-graph quadratic-graph">
+          <div class="graph-stage">
+            <div id="gr-points-board" class="jxgbox curve-board" data-chapter-curve="points"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Trois points exacts dans un repère</span>
+              <strong>A(1 ; 2), B(4 ; 3), C(-2 ; 1)</strong>
+            </p>
+          </div>
+          <figcaption>
+            Chaque point est repéré par un couple \((x\,;\,y)\). Le repère orthonormé permet de lire l'abscisse à l'horizontale et l'ordonnée à la verticale.
+          </figcaption>
+        </figure>
+
+        <div class="worked-example">
+          <p>Placer \(A(3;1)\), \(B(-2;4)\) et \(C(0;-3)\) dans un repère orthonormé, puis lire les coordonnées d'un point \(M\) tel que \(\overrightarrow{OM}=2\vec{\imath}-\vec{\jmath}\).</p>
+          <div class="formula-card">
+            \[ A(3\,;\,1) \]
+            \[ B(-2\,;\,4) \]
+            \[ C(0\,;\,-3) \]
+            \[ M(2\,;\,-1) \]
+          </div>
+          <p>
+            Pour \(M\), on lit directement les coefficients de \(\vec{\imath}\) et \(\vec{\jmath}\) dans l'écriture
+            \(\overrightarrow{OM}=2\vec{\imath}-\vec{\jmath}\)&nbsp;: c'est exactement le couple \((2\,;\,-1)\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>Si \(\overrightarrow{OK}=-3\vec{\imath}+5\vec{\jmath}\), quelles sont les coordonnées de \(K\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="rep1">Voir la réponse</button>
+          <p id="rep1" class="answer" hidden>\(K(-3\,;\,5)\). On prend le coefficient de \(\vec{\imath}\) en abscisse et celui de \(\vec{\jmath}\) en ordonnée, sans toucher au signe.</p>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Majeur à retenir</p>
+          <p>
+            Dans un repère orthonormé, un point \(M\) et son vecteur position \(\overrightarrow{OM}\) ont les mêmes coordonnées.
+            Toutes les formules du chapitre exploitent cette équivalence.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 02 · VECTEURS ========== -->
+      <section id="vecteurs" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">02</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Méthode 1</p>
+            <h2>Les coordonnées d'un vecteur, c'est «&nbsp;arrivée moins départ&nbsp;»</h2>
+          </div>
+        </div>
+        <p>
+          Un vecteur \(\overrightarrow{AB}\) ne dépend pas de la position où on le dessine&nbsp;: il dépend uniquement
+          de la translation entre \(A\) et \(B\). En coordonnées, cela se traduit par une soustraction simple.
+        </p>
+
+        <div class="formula-card is-major">
+          \[ \overrightarrow{AB}\begin{pmatrix} x_B-x_A \\ y_B-y_A \end{pmatrix} \]
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Réflexe — B moins A</p>
+          <p>
+            \(\overrightarrow{AB}\), c'est toujours arrivée moins départ&nbsp;: \(B-A\). L'ordre des lettres donne l'ordre de la soustraction.
+          </p>
+          <p>
+            Limite du mémo&nbsp;: pour \(\overrightarrow{BA}\), tout s'inverse. Même segment, vecteur opposé, signes opposés.
+          </p>
+        </div>
+
+        <div class="method-grid">
+          <div class="method-step">
+            <span class="step-number">1</span>
+            <p>Identifie le point de départ \(A\) et le point d'arrivée \(B\) dans l'énoncé.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">2</span>
+            <p>Calcule séparément \(x_B-x_A\) et \(y_B-y_A\), en gardant les signes.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">3</span>
+            <p>Écris le vecteur sous forme de couple ordonné ou de vecteur colonne.</p>
+          </div>
+        </div>
+
+        <div class="worked-example">
+          <p>Soit \(A(1;1)\) et \(B(5;4)\). Calculer les coordonnées de \(\overrightarrow{AB}\), puis celles de \(\overrightarrow{BA}\).</p>
+          <div class="formula-card">
+            \[ \overrightarrow{AB}\begin{pmatrix} 5-1 \\ 4-1 \end{pmatrix}=\begin{pmatrix} 4 \\ 3 \end{pmatrix} \]
+            \[ \overrightarrow{BA}\begin{pmatrix} 1-5 \\ 1-4 \end{pmatrix}=\begin{pmatrix} -4 \\ -3 \end{pmatrix} \]
+          </div>
+          <p>
+            On observe que \(\overrightarrow{BA}=-\overrightarrow{AB}\)&nbsp;: c'est toujours vrai. Changer le sens
+            du vecteur change le signe des deux coordonnées.
+          </p>
+        </div>
+
+        <figure class="visual-block interactive-graph quadratic-graph">
+          <div class="graph-stage">
+            <div id="gr-vecteur-board" class="jxgbox curve-board" data-chapter-curve="vecteur"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Vecteur exact entre deux points</span>
+              <strong>AB(4 ; 3) avec A(1 ; 1) et B(5 ; 4)</strong>
+            </p>
+          </div>
+          <figcaption>
+            La flèche part de \(A\) et arrive à \(B\). Le déplacement vaut \(+4\) en \(x\) et \(+3\) en \(y\) : ce sont les coordonnées de \(\overrightarrow{AB}\).
+          </figcaption>
+        </figure>
+
+        <div class="formula-card is-major">
+          \[ \begin{aligned} \vec{u}+\vec{v}&\begin{pmatrix} x+x' \\ y+y' \end{pmatrix} \\[4pt] k\,\vec{u}&\begin{pmatrix} kx \\ ky \end{pmatrix} \end{aligned} \]
+        </div>
+
+        <p>
+          La somme s'effectue coordonnée par coordonnée. La multiplication par un réel \(k\) multiplie chaque
+          coordonnée par \(k\). Ces deux opérations ne demandent jamais de racine ni de division&nbsp;: elles sont
+          la base de la quasi-totalité des calculs du chapitre.
+        </p>
+
+        <div class="worked-example">
+          <p>Soit \(\vec{u}(3;-1)\) et \(\vec{v}(-2;4)\). Calculer \(\vec{u}+\vec{v}\), puis \(2\vec{u}-3\vec{v}\).</p>
+          <div class="formula-card">
+            \[ \vec{u}+\vec{v}\begin{pmatrix} 3+(-2) \\ -1+4 \end{pmatrix}=\begin{pmatrix} 1 \\ 3 \end{pmatrix} \]
+            \[ 2\vec{u}\begin{pmatrix} 6 \\ -2 \end{pmatrix} \]
+            \[ 3\vec{v}\begin{pmatrix} -6 \\ 12 \end{pmatrix} \]
+            \[ 2\vec{u}-3\vec{v}\begin{pmatrix} 12 \\ -14 \end{pmatrix} \]
+          </div>
+          <p>
+            On termine par la soustraction&nbsp;: \(6-(-6)=12\) en abscisse, et \(-2-12=-14\) en ordonnée.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Étape manquante</p>
+          <p>Pour \(A(-2;3)\) et \(B(4;-1)\), complète&nbsp;: \(\overrightarrow{AB}\begin{pmatrix} \,?\, \\ \,? \end{pmatrix}\).</p>
+          <button class="reveal-button" type="button" data-reveal="vec1">Voir la réponse</button>
+          <p id="vec1" class="answer" hidden>\(\overrightarrow{AB}\begin{pmatrix} 4-(-2) \\ -1-3 \end{pmatrix}=\begin{pmatrix} 6 \\ -4 \end{pmatrix}\). Le double signe \(-(-2)\) devient \(+2\), c'est l'erreur classique.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>Pour \(\vec{u}(2;-5)\), calcule les coordonnées de \(-\tfrac12\,\vec{u}\).</p>
+          <button class="reveal-button" type="button" data-reveal="vec2">Voir la réponse</button>
+          <p id="vec2" class="answer" hidden>\(-\tfrac12\,\vec{u}\begin{pmatrix} -1 \\ \tfrac52 \end{pmatrix}\). Chaque coordonnée est multipliée par \(-\tfrac12\), donc le signe change et la valeur est divisée par \(2\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>B moins A</p>
+          <p>Pour \(A(7;-2)\) et \(B(1;5)\), calcule mentalement la première coordonnée de \(\overrightarrow{AB}\).</p>
+          <button class="reveal-button" type="button" data-reveal="memo-vec-bmoinsa">Voir la réponse</button>
+          <p id="memo-vec-bmoinsa" class="answer" hidden>La première coordonnée vaut \(x_B-x_A=1-7=-6\). On ne fait pas \(7-1\), car le vecteur part de \(A\) et arrive en \(B\).</p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège du sens</p>
+          <p>
+            \(\overrightarrow{AB}\) et \(\overrightarrow{BA}\) ont les mêmes valeurs absolues, mais des signes opposés.
+            Avant d'écrire la soustraction, identifie clairement quel point est l'arrivée.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 03 · MILIEU & DISTANCE ========== -->
+      <section id="milieu-distance" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">03</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Méthode 2</p>
+            <h2>Milieu et distance se lisent directement sur les coordonnées</h2>
+          </div>
+        </div>
+        <p>
+          Avec un repère orthonormé, deux formules suffisent pour traiter la plupart des questions de géométrie
+          plane chiffrée&nbsp;: la formule du milieu (une moyenne) et la formule de la distance (une racine carrée).
+        </p>
+
+        <div class="formula-card is-major">
+          \[ I_{[AB]}\left(\frac{x_A+x_B}{2}\,;\,\frac{y_A+y_B}{2}\right) \]
+          \[ \Delta x=x_B-x_A \]
+          \[ \Delta y=y_B-y_A \]
+          \[ AB=\sqrt{(\Delta x)^2+(\Delta y)^2} \]
+        </div>
+
+        <p>
+          Le milieu est la moyenne des coordonnées. La distance est la longueur du vecteur \(\overrightarrow{AB}\),
+          calculée par le théorème de Pythagore appliqué au triangle rectangle dont les côtés sont les écarts
+          en \(x\) et en \(y\).
+        </p>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Mémo technique — moyenne ou Pythagore</p>
+          <p>
+            Milieu&nbsp;: moyenne des coordonnées, donc deux nombres. Distance&nbsp;: Pythagore, donc une longueur positive.
+          </p>
+          <p>
+            Limite du mémo&nbsp;: ne mélange pas les sorties. Un milieu est un point \(I(x;y)\), une distance est un seul nombre.
+          </p>
+        </div>
+
+        <figure class="visual-block math-language-visual">
+          <div class="math-language-grid" role="list" aria-label="Comparaison milieu et distance">
+            <div class="math-language-card" role="listitem">
+              <p class="box-title">Milieu de \([AB]\)</p>
+              <div class="formula-card">
+                \[ I\left(\tfrac{x_A+x_B}{2}\,;\,\tfrac{y_A+y_B}{2}\right) \]
+              </div>
+              <p>Une moyenne, coordonnée par coordonnée. Pas de racine, pas de carré.</p>
+            </div>
+            <div class="math-language-card" role="listitem">
+              <p class="box-title">Distance \(AB\)</p>
+              <div class="formula-card">
+                \[ \Delta x=x_B-x_A \]
+                \[ \Delta y=y_B-y_A \]
+                \[ AB=\sqrt{(\Delta x)^2+(\Delta y)^2} \]
+              </div>
+              <p>Une racine de somme de carrés. Toujours positive.</p>
+            </div>
+          </div>
+          <figcaption>
+            Le milieu donne un point, donc deux coordonnées. La distance donne un nombre, toujours positif.
+          </figcaption>
+        </figure>
+
+        <div class="worked-example">
+          <p>Soient \(A(-1;2)\) et \(B(5;-4)\). Calculer le milieu \(I\) de \([AB]\), puis la distance \(AB\).</p>
+          <div class="formula-card">
+            \[ x_I=\frac{-1+5}{2}=2 \]
+            \[ y_I=\frac{2+(-4)}{2}=-1 \]
+            \[ I(2\,;\,-1) \]
+            \[ 5-(-1)=6 \]
+            \[ -4-2=-6 \]
+            \[ AB=\sqrt{6^2+(-6)^2} \]
+            \[ AB=\sqrt{72}=6\sqrt{2} \]
+          </div>
+          <p>
+            Le milieu est \(I(2;-1)\). La distance vaut \(6\sqrt{2}\), soit environ \(8{,}49\).
+            On garde la forme exacte \(6\sqrt{2}\) sur la copie, sauf demande contraire.
+          </p>
+        </div>
+
+        <figure class="visual-block interactive-graph quadratic-graph">
+          <div class="graph-stage">
+            <div id="gr-milieu-board" class="jxgbox curve-board" data-chapter-curve="milieu"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Milieu exact de [AB]</span>
+              <strong>I(2 ; -1) entre A(-1 ; 2) et B(5 ; -4)</strong>
+            </p>
+          </div>
+          <figcaption>
+            Le segment relie \(A\) et \(B\). Le point jaune \(I\) est à mi-chemin, lu directement comme moyenne des coordonnées.
+          </figcaption>
+        </figure>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Étape manquante</p>
+          <p>Pour \(A(2;5)\) et \(B(-4;-1)\), complète le milieu&nbsp;: \(I\!\left(\tfrac{2+(-4)}{2}\,;\,\tfrac{5+(-1)}{2}\right)=?\).</p>
+          <button class="reveal-button" type="button" data-reveal="md1">Voir la réponse</button>
+          <p id="md1" class="answer" hidden>\(I(-1\,;\,2)\). Les sommes valent \(-2\) et \(4\), puis on divise chacune par \(2\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>Avec \(A(0;0)\) et \(B(3;4)\), calcule \(AB\) sans calculatrice.</p>
+          <button class="reveal-button" type="button" data-reveal="md2">Voir la réponse</button>
+          <p id="md2" class="answer" hidden>\(AB=\sqrt{3^2+4^2}=\sqrt{25}=5\). C'est le triangle \(3\)-\(4\)-\(5\) classique, à reconnaître à vue.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Point ou longueur&nbsp;?</p>
+          <p>Pour \(A(-1;4)\) et \(B(5;8)\), la formule avec une moyenne donne quel type d'objet&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="memo-md-objet">Voir la réponse</button>
+          <p id="memo-md-objet" class="answer" hidden>Elle donne le milieu, donc un point&nbsp;: \(I\left(\frac{-1+5}{2};\frac{4+8}{2}\right)=I(2;6)\). Pour une longueur, il faudrait utiliser la racine de somme de carrés.</p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège de signe</p>
+          <p>
+            Dans la distance, le carré tue le signe&nbsp;: \((-6)^2=36\), pas \(-36\). Ne pas confondre avec un calcul
+            de vecteur où le signe se garde.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 04 · COLINEARITE ========== -->
+      <section id="colinearite" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">04</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Méthode 3</p>
+            <h2>La colinéarité se teste avec un seul déterminant</h2>
+          </div>
+        </div>
+        <p>
+          Deux vecteurs sont colinéaires s'ils «&nbsp;pointent dans la même direction&nbsp;», c'est-à-dire si l'un est
+          un multiple de l'autre. En coordonnées, ce test devient un calcul scalaire&nbsp;: le déterminant.
+        </p>
+
+        <div class="formula-card is-major">
+          \[ \vec{u}\begin{pmatrix} x \\ y \end{pmatrix},\ \vec{v}\begin{pmatrix} x' \\ y' \end{pmatrix} \]
+          \[ \det(\vec{u},\vec{v})=xy'-yx' \]
+          \[ \vec{u}\ /\!/\ \vec{v}\ \Longleftrightarrow\ xy'-yx'=0 \]
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Mémo technique — croix descendante moins montante</p>
+          <p>
+            Pour \((x;y)\) et \((x';y')\), calcule «&nbsp;descendante moins montante&nbsp;»&nbsp;: \(xy'-yx'\).
+          </p>
+          <p>
+            Limite du mémo&nbsp;: pour prouver la colinéarité, seul le résultat \(0\) compte. Si tu inverses l'ordre des vecteurs, tu changes le signe du déterminant, pas le fait qu'il soit nul.
+          </p>
+        </div>
+
+        <div class="method-grid">
+          <div class="method-step">
+            <span class="step-number">1</span>
+            <p>Repère les coordonnées de \(\vec{u}\) et \(\vec{v}\) dans l'énoncé.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">2</span>
+            <p>Calcule \(xy'-yx'\)&nbsp;: produit en croix, on garde le signe.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">3</span>
+            <p>Si le résultat vaut \(0\), les vecteurs sont colinéaires. Sinon, ils ne le sont pas.</p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Lien géométrique</p>
+          <p>
+            Deux droites sont parallèles si et seulement si elles ont des vecteurs directeurs colinéaires.
+            Trois points \(A\), \(B\), \(C\) sont alignés si et seulement si \(\overrightarrow{AB}\) et \(\overrightarrow{AC}\) sont colinéaires.
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p>Les vecteurs \(\vec{u}(3;-2)\) et \(\vec{v}(-6;4)\) sont-ils colinéaires&nbsp;?</p>
+          <div class="formula-card">
+            \[ 3\times4=12 \]
+            \[ (-2)\times(-6)=12 \]
+            \[ \det(\vec{u},\vec{v})=12-12=0 \]
+          </div>
+          <p>
+            Le déterminant vaut \(0\), donc \(\vec{u}\) et \(\vec{v}\) sont colinéaires. On peut vérifier&nbsp;:
+            \(\vec{v}=-2\,\vec{u}\), ce qui confirme le calcul.
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p>Les points \(A(1;2)\), \(B(3;5)\) et \(C(-1;-1)\) sont-ils alignés&nbsp;?</p>
+          <div class="formula-card">
+            \[ \overrightarrow{AB}\begin{pmatrix} 2 \\ 3 \end{pmatrix},\ \overrightarrow{AC}\begin{pmatrix} -2 \\ -3 \end{pmatrix} \]
+            \[ \det=2\times(-3)-3\times(-2) \]
+            \[ =-6+6=0 \]
+          </div>
+          <p>
+            Le déterminant vaut \(0\), donc \(\overrightarrow{AB}\) et \(\overrightarrow{AC}\) sont colinéaires&nbsp;:
+            les trois points \(A\), \(B\), \(C\) sont alignés.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>\(\vec{u}(4;6)\) et \(\vec{v}(2;3)\) sont-ils colinéaires&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="col1">Voir la réponse</button>
+          <p id="col1" class="answer" hidden>Oui&nbsp;: \(4\times3-6\times2=12-12=0\). On peut aussi écrire \(\vec{u}=2\vec{v}\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis la méthode</p>
+          <p>Pour montrer que trois points sont alignés, quelle méthode démarrer&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="col2">Voir la réponse</button>
+          <p id="col2" class="answer" hidden>Calculer deux vecteurs partageant un point commun (ici \(\overrightarrow{AB}\) et \(\overrightarrow{AC}\)) puis tester leur colinéarité par le déterminant.</p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Ordre du produit en croix</p>
+          <p>
+            Le déterminant n'est pas symétrique en valeur, mais il l'est en signe&nbsp;: \(\det(\vec{u},\vec{v})=-\det(\vec{v},\vec{u})\).
+            Pour tester la colinéarité, seul «&nbsp;valeur = 0&nbsp;» compte, donc l'ordre est sans importance.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 05 · DROITES ========== -->
+      <section id="droites" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">05</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Méthode 4</p>
+            <h2>Une droite admet une équation cartésienne et une équation réduite</h2>
+          </div>
+        </div>
+        <p>
+          Toute droite du plan peut s'écrire sous deux formes utiles selon ce qu'on veut faire&nbsp;: l'équation
+          cartésienne \(ax+by+c=0\), qui marche pour toutes les droites, et l'équation réduite \(y=mx+p\),
+          qui marche pour les droites non verticales.
+        </p>
+
+        <div class="formula-card is-major">
+          \[ ax+by+c=0 \quad (a,b)\ne(0,0) \]
+          \[ y=mx+p \quad (\text{si non verticale}) \]
+          \[ x=k \quad (\text{si verticale}) \]
+        </div>
+
+        <div class="choice-grid">
+          <div class="choice-card">
+            <p class="box-title">Équation cartésienne</p>
+            <p>Forme \(ax+by+c=0\). Toujours possible, même pour une verticale.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Équation réduite</p>
+            <p>Forme \(y=mx+p\). Le coefficient directeur \(m\) et l'ordonnée à l'origine \(p\) se lisent directement.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Vecteur directeur</p>
+            <p>Pour \(ax+by+c=0\), un vecteur directeur est \(\vec{u}(-b\,;\,a)\).</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">Vecteur normal</p>
+            <p>Pour \(ax+by+c=0\), un vecteur normal est \(\vec{n}(a\,;\,b)\).</p>
+          </div>
+        </div>
+
+        <div class="formula-card is-major">
+          \[ d:\ ax+by+c=0 \]
+          \[ \vec{u}\begin{pmatrix} -b \\ a \end{pmatrix}\ \text{vecteur directeur} \]
+          \[ \vec{n}\begin{pmatrix} a \\ b \end{pmatrix}\ \text{vecteur normal} \]
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Réflexe — normal garde, directeur tourne</p>
+          <p>
+            Dans \(ax+by+c=0\), le normal garde les coefficients \((a;b)\). Le directeur tourne les coefficients&nbsp;: \((-b;a)\).
+          </p>
+          <p>
+            Limite du mémo&nbsp;: tous les multiples non nuls de ces vecteurs conviennent. \((2;4)\) et \((1;2)\) peuvent diriger la même droite.
+          </p>
+        </div>
+
+        <p>
+          Le vecteur directeur dirige la droite (il est colinéaire à \(\overrightarrow{AB}\) pour tous \(A,B\in d\)).
+          Le vecteur normal est orthogonal à la droite&nbsp;: il sert pour les questions de perpendicularité,
+          de projeté orthogonal ou d'équation à partir d'un angle droit.
+        </p>
+
+        <figure class="visual-block interactive-graph quadratic-graph">
+          <div class="graph-stage">
+            <div id="gr-droite-board" class="jxgbox curve-board" data-chapter-curve="droite"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Droite 2x − 3y + 5 = 0 avec ses vecteurs</span>
+              <strong>Directeur u(3 ; 2), normal n(2 ; -3)</strong>
+            </p>
+          </div>
+          <figcaption>
+            Le vecteur \(\vec{u}\) (vert) est parallèle à la droite. Le vecteur \(\vec{n}\) (rouge) est perpendiculaire à la droite. Leur produit scalaire vaut \(0\).
+          </figcaption>
+        </figure>
+
+        <h3 class="chapter-method-title">Méthode A — Avec un point et un vecteur directeur</h3>
+
+        <div class="method-grid">
+          <div class="method-step">
+            <span class="step-number">1</span>
+            <p>L'énoncé donne \(A(x_A;y_A)\) et \(\vec{u}(u_x;u_y)\). Pose \(M(x;y)\) un point variable de la droite.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">2</span>
+            <p>Écris la colinéarité&nbsp;: \(\det(\overrightarrow{AM},\vec{u})=0\), soit \((x-x_A)\,u_y-(y-y_A)\,u_x=0\).</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">3</span>
+            <p>Développe puis range sous la forme \(ax+by+c=0\).</p>
+          </div>
+        </div>
+
+        <div class="worked-example">
+          <p>Déterminer une équation cartésienne de la droite \(d\) passant par \(A(3;1)\) et de vecteur directeur \(\vec{u}(-1;5)\).</p>
+          <div class="formula-card">
+            \[ M(x;y)\in d \]
+            \[ \det(\overrightarrow{AM},\vec{u})=0 \]
+            \[ (x-3)\times 5+(y-1)=0 \]
+            \[ 5x-15+y-1=0 \]
+            \[ 5x+y-16=0 \]
+          </div>
+          <p>
+            Une équation cartésienne de \(d\) est donc \(5x+y-16=0\). On peut vérifier&nbsp;: \(\vec{u}(-1;5)\)
+            doit être \((-b;a)\), donc \(a=5\), \(b=1\), ce qui est cohérent.
+          </p>
+        </div>
+
+        <h3 class="chapter-method-title">Méthode B — Avec un point et un vecteur normal</h3>
+
+        <div class="method-grid">
+          <div class="method-step">
+            <span class="step-number">1</span>
+            <p>L'énoncé donne \(A(x_A;y_A)\) et \(\vec{n}(a;b)\). Comme \(\vec{n}\) est normal, l'équation est \(ax+by+c=0\).</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">2</span>
+            <p>Substitue \(A\) pour trouver \(c\)&nbsp;: \(a\,x_A+b\,y_A+c=0\), donc \(c=-a\,x_A-b\,y_A\).</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">3</span>
+            <p>Écris l'équation finale, par exemple \(ax+by+c=0\).</p>
+          </div>
+        </div>
+
+        <div class="worked-example">
+          <p>Déterminer une équation cartésienne de la droite \(d\) passant par \(A(-5;4)\) et de vecteur normal \(\vec{n}(3;-1)\).</p>
+          <div class="formula-card">
+            \[ d:\ 3x-y+c=0 \]
+            \[ 3\times(-5)-4+c=0 \]
+            \[ -15-4+c=0 \]
+            \[ c=19 \]
+            \[ d:\ 3x-y+19=0 \]
+          </div>
+          <p>
+            On a directement lu \(a=3\), \(b=-1\) dans les coordonnées de \(\vec{n}\). Le réel \(c\) est l'inconnue à
+            ajuster pour que \(A\) appartienne bien à la droite.
+          </p>
+        </div>
+
+        <h3 class="chapter-method-title">Méthode C — Avec deux points</h3>
+
+        <div class="method-grid">
+          <div class="method-step">
+            <span class="step-number">1</span>
+            <p>Calcule \(\overrightarrow{AB}\)&nbsp;: il sert de vecteur directeur.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">2</span>
+            <p>Applique la méthode A avec \(A\) et \(\overrightarrow{AB}\).</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">3</span>
+            <p>Si possible, simplifie les coefficients (division par un facteur commun).</p>
+          </div>
+        </div>
+
+        <div class="worked-example">
+          <p>Déterminer une équation cartésienne de la droite passant par \(B(5;3)\) et \(C(1;-3)\).</p>
+          <div class="formula-card">
+            \[ \overrightarrow{BC}\begin{pmatrix} 1-5 \\ -3-3 \end{pmatrix} \]
+            \[ \overrightarrow{BC}\begin{pmatrix} -4 \\ -6 \end{pmatrix} \]
+            \[ a=-6,\quad b=4 \]
+            \[ -6x+4y+c=0 \]
+            \[ -6\times5+4\times3+c=0 \]
+            \[ -30+12+c=0 \]
+            \[ c=18 \]
+            \[ -6x+4y+18=0 \]
+            \[ -3x+2y+9=0 \]
+          </div>
+          <p>
+            On peut diviser toute l'équation par \(2\) sans changer la droite. La forme \(-3x+2y+9=0\) est plus lisible.
+          </p>
+        </div>
+
+        <h3 class="chapter-method-title">Passer de cartésienne à réduite</h3>
+
+        <p>
+          Une droite non verticale (\(b\ne0\)) admet une équation réduite \(y=mx+p\), où&nbsp;:
+        </p>
+
+        <div class="formula-card is-major">
+          \[ ax+by+c=0 \quad (b\ne0) \]
+          \[ y=-\frac{a}{b}\,x-\frac{c}{b} \]
+          \[ m=-\frac{a}{b},\quad p=-\frac{c}{b} \]
+        </div>
+
+        <div class="worked-example">
+          <p>Donner l'équation réduite de la droite \(d:\ 3x-6y+12=0\).</p>
+          <div class="formula-card">
+            \[ -6y=-3x-12 \]
+            \[ y=\tfrac{-3}{-6}\,x+\tfrac{-12}{-6} \]
+            \[ y=\tfrac12\,x+2 \]
+          </div>
+          <p>
+            Le coefficient directeur est \(m=\tfrac12\), l'ordonnée à l'origine est \(p=2\).
+            La droite est non verticale car \(b=-6\ne0\).
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Étape manquante</p>
+          <p>Pour \(d:\ 4x-2y+6=0\), complète&nbsp;: un vecteur directeur de \(d\) est \(\vec{u}(?\,;\,?)\).</p>
+          <button class="reveal-button" type="button" data-reveal="dr1">Voir la réponse</button>
+          <p id="dr1" class="answer" hidden>\(\vec{u}(-b;a)=(2;4)\). On peut aussi écrire \(\vec{u}(1;2)\) (en divisant par \(2\)) : c'est le même vecteur directeur à un facteur près.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis la méthode</p>
+          <p>On te donne \(A(2;-1)\) et un vecteur normal \(\vec{n}(3;4)\). Tu utilises quelle méthode&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="dr2">Voir la réponse</button>
+          <p id="dr2" class="answer" hidden>Méthode B. L'équation prend la forme \(3x+4y+c=0\), puis on remplace par les coordonnées de \(A\) pour trouver \(c\). Pas besoin de passer par la colinéarité.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>Le point \(A(2;6)\) appartient-il à la droite \(d:\ 3x-2y+6=0\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="dr3">Voir la réponse</button>
+          <p id="dr3" class="answer" hidden>On remplace&nbsp;: \(3\times2-2\times6+6=6-12+6=0\). C'est nul, donc oui, \(A\in d\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Normal ou directeur&nbsp;?</p>
+          <p>Pour \(d:\ -2x+5y-1=0\), donne un vecteur normal et un vecteur directeur.</p>
+          <button class="reveal-button" type="button" data-reveal="memo-dr-normal">Voir la réponse</button>
+          <p id="memo-dr-normal" class="answer" hidden>Un vecteur normal est \(\vec n(-2;5)\), car il garde les coefficients. Un vecteur directeur est \(\vec u(-5;-2)\) avec la règle \((-b;a)\). On pourrait aussi prendre \((5;2)\), multiple opposé.</p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Directeur ou normal&nbsp;?</p>
+          <p>
+            Pour \(ax+by+c=0\)&nbsp;: directeur \(\vec{u}(-b\,;\,a)\), normal \(\vec{n}(a\,;\,b)\).
+            Ne pas confondre les deux. Astuce&nbsp;: le directeur «&nbsp;suit la droite&nbsp;», le normal «&nbsp;la traverse à angle droit&nbsp;».
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 06 · POSITIONS RELATIVES ========== -->
+      <section id="positions" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">06</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Méthode 5</p>
+            <h2>Deux droites sont parallèles, sécantes ou perpendiculaires</h2>
+          </div>
+        </div>
+        <p>
+          La position relative de deux droites se lit sur leurs vecteurs directeurs ou normaux.
+          Une fois la position identifiée, on connaît la stratégie&nbsp;: rien à faire (parallèles distinctes),
+          résoudre un système (sécantes), ou utiliser l'orthogonalité (perpendiculaires).
+        </p>
+
+        <div class="formula-card is-major">
+          \[ d:\ ax+by+c=0 \]
+          \[ d':\ a'x+b'y+c'=0 \]
+          \[ \vec{u}(-b;a) \]
+          \[ \vec{u'}(-b';a') \]
+          \[ d\ /\!/\ d'\ \Longleftrightarrow\ ab'-ba'=0 \]
+          \[ d\perp d'\ \Longleftrightarrow\ aa'+bb'=0 \]
+        </div>
+
+        <div class="case-grid">
+          <div class="case-card">
+            <p class="case-title">Parallèles confondues</p>
+            <p>Vecteurs directeurs colinéaires et un point commun. Les équations sont proportionnelles.</p>
+          </div>
+          <div class="case-card">
+            <p class="case-title">Parallèles distinctes</p>
+            <p>Vecteurs directeurs colinéaires mais aucun point commun. Système sans solution.</p>
+          </div>
+          <div class="case-card">
+            <p class="case-title">Sécantes</p>
+            <p>Vecteurs directeurs non colinéaires. Le système admet une unique solution&nbsp;: le point d'intersection.</p>
+          </div>
+          <div class="case-card">
+            <p class="case-title">Perpendiculaires</p>
+            <p>Les vecteurs normaux sont orthogonaux, soit \(aa'+bb'=0\) dans un repère orthonormé.</p>
+          </div>
+        </div>
+
+        <figure class="visual-block interactive-graph quadratic-graph">
+          <div class="graph-stage">
+            <div id="gr-secantes-board" class="jxgbox curve-board" data-chapter-curve="secantes"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Deux droites sécantes</span>
+              <strong>Point d'intersection lu par résolution</strong>
+            </p>
+          </div>
+          <figcaption>
+            Les deux droites se coupent en un unique point&nbsp;: ses coordonnées vérifient les deux équations à la fois, on les obtient en résolvant un système \(2\times2\).
+          </figcaption>
+        </figure>
+
+        <div class="worked-example">
+          <p>Les droites \(d:\ 2x-3y+5=0\) et \(d':\ 4x-6y+1=0\) sont-elles parallèles&nbsp;?</p>
+          <div class="formula-card">
+            \[ \vec{u}(3;2),\ \vec{u'}(6;4) \]
+            \[ \det(\vec{u},\vec{u'})=3\times4-2\times6 \]
+            \[ =12-12=0 \]
+          </div>
+          <p>
+            Les vecteurs directeurs sont colinéaires, donc \(d\ /\!/\ d'\). Pour savoir si elles sont confondues ou
+            distinctes, on teste un point&nbsp;: si \((0\,;\,\tfrac53)\) appartient à \(d\), il faut vérifier qu'il
+            appartient aussi à \(d'\). Ici, \(4\times0-6\times\tfrac53+1=-9\ne0\), donc \(d\) et \(d'\) sont
+            <strong>parallèles distinctes</strong>.
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p>Déterminer l'intersection des droites \(d:\ x+3y-4=0\) et \(d':\ -3x+y+2=0\).</p>
+          <div class="formula-card">
+            \[ \begin{cases} x+3y-4=0 \\ -3x+y+2=0 \end{cases} \]
+            \[ x=-3y+4 \]
+            \[ -3(-3y+4)+y+2=0 \]
+            \[ 9y-12+y+2=0 \]
+            \[ 10y-10=0\ \Rightarrow\ y=1 \]
+            \[ x=-3\times1+4=1 \]
+          </div>
+          <p>
+            Les deux droites se coupent au point \(H(1;1)\). On vérifie&nbsp;: \(1+3-4=0\) et \(-3+1+2=0\). C'est cohérent.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>Les droites \(d:\ 2x+y-1=0\) et \(d':\ x-2y+5=0\) sont-elles perpendiculaires&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="pos1">Voir la réponse</button>
+          <p id="pos1" class="answer" hidden>Test&nbsp;: \(aa'+bb'=2\times1+1\times(-2)=0\). Oui, elles sont perpendiculaires (en repère orthonormé).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis la méthode</p>
+          <p>On veut une droite \(d'\) parallèle à \(2x-y+4=0\) passant par \(A(3;-1)\). Comment commencer&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="pos2">Voir la réponse</button>
+          <p id="pos2" class="answer" hidden>Parallèles signifie mêmes \(a\) et \(b\). On part de \(d':\ 2x-y+c=0\), puis on substitue \(A\)&nbsp;: \(6+1+c=0\), donc \(c=-7\). Soit \(d':\ 2x-y-7=0\).</p>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Réflexe parallèle / perpendiculaire</p>
+          <p>
+            Parallèle à \(ax+by+c=0\)&nbsp;: garder \(a\) et \(b\), recalculer \(c\). Perpendiculaire&nbsp;: échanger \(a\) et \(b\)
+            et changer un signe (par exemple passer de \(ax+by+c=0\) à \(-bx+ay+c'=0\)), puis recalculer \(c'\) avec le point.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 07 · CERCLES ========== -->
+      <section id="cercles" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">07</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Méthode 6</p>
+            <h2>Un cercle est défini par son centre et son rayon</h2>
+          </div>
+        </div>
+        <p>
+          Dans un repère orthonormé, un cercle se reconnaît à sa formule de distance. Tout point \(M(x;y)\)
+          du cercle de centre \(\Omega(a;b)\) et de rayon \(r\) vérifie \(\Omega M=r\), soit \(\Omega M^2=r^2\).
+        </p>
+
+        <div class="formula-card is-major">
+          \[ \mathcal{C}(\Omega,r) \]
+          \[ (x-a)^2+(y-b)^2=r^2 \]
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Réflexe — centre annule la parenthèse</p>
+          <p>
+            Le centre est la valeur qui annule chaque parenthèse&nbsp;: \((x-a)^2\) s'annule pour \(x=a\), \((y-b)^2\) pour \(y=b\).
+          </p>
+          <p>
+            Limite du mémo&nbsp;: le membre de droite est \(r^2\), pas \(r\). Pour lire le rayon, prends la racine carrée.
+          </p>
+        </div>
+
+        <div class="method-grid">
+          <div class="method-step">
+            <span class="step-number">1</span>
+            <p>Lis le centre \(\Omega(a;b)\)&nbsp;: les signes sont inversés par rapport à ceux des parenthèses.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">2</span>
+            <p>Lis le rayon \(r\)&nbsp;: il vaut la racine carrée du membre de droite, jamais le nombre lui-même.</p>
+          </div>
+          <div class="method-step">
+            <span class="step-number">3</span>
+            <p>Si l'énoncé donne deux points (centre et un point du cercle), calcule \(r^2\) avec la formule de distance.</p>
+          </div>
+        </div>
+
+        <figure class="visual-block interactive-graph quadratic-graph">
+          <div class="graph-stage">
+            <div id="gr-cercle-board" class="jxgbox curve-board" data-chapter-curve="cercle"></div>
+            <p class="graph-readout" aria-live="polite">
+              <span>Cercle exact (x-1)² + (y+2)² = 9</span>
+              <strong>Centre Ω(1 ; -2), rayon r = 3</strong>
+            </p>
+          </div>
+          <figcaption>
+            Le centre est marqué d'un point jaune. Chaque point du cercle est exactement à distance \(3\) du centre, ce qui définit le rayon.
+          </figcaption>
+        </figure>
+
+        <div class="worked-example">
+          <p>Donner une équation cartésienne du cercle de centre \(\Omega(3;-1)\) et de rayon \(5\).</p>
+          <div class="formula-card">
+            \[ y-(-1)=y+1 \]
+            \[ (x-3)^2+(y+1)^2=25 \]
+          </div>
+          <p>
+            On a juste appliqué la formule. Le piège classique est dans \(y-(-1)\), qui se simplifie en \(y+1\)&nbsp;:
+            ce double signe est l'erreur la plus fréquente du chapitre.
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p>Soit le cercle de centre \(A(4;-1)\) passant par le point \(B(3;5)\). Déterminer son équation.</p>
+          <div class="formula-card">
+            \[ r^2=AB^2 \]
+            \[ 3-4=-1 \]
+            \[ 5-(-1)=6 \]
+            \[ AB^2=(-1)^2+6^2=37 \]
+            \[ (x-4)^2+(y+1)^2=37 \]
+          </div>
+          <p>
+            On garde \(r^2=37\) sans le développer en \(\sqrt{37}\)&nbsp;: l'équation utilise directement \(r^2\),
+            pas \(r\). On ne cherche \(r\) qu'en cas de besoin explicite.
+          </p>
+        </div>
+
+        <div class="worked-example">
+          <p>L'équation \(x^2+y^2-2x-10y+17=0\) est-elle l'équation d'un cercle&nbsp;? Si oui, donner son centre et son rayon.</p>
+          <div class="formula-card">
+            \[ x^2-2x=(x-1)^2-1 \]
+            \[ y^2-10y=(y-5)^2-25 \]
+            \[ (x-1)^2+(y-5)^2-9=0 \]
+            \[ (x-1)^2+(y-5)^2=9 \]
+          </div>
+          <p>
+            On reconnaît la forme \((x-a)^2+(y-b)^2=r^2\) avec \(a=1\), \(b=5\), \(r^2=9\). C'est donc le cercle
+            de centre \(\Omega(1;5)\) et de rayon \(3\). La technique utilisée s'appelle la <strong>complétion du carré</strong>.
+          </p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Étape manquante</p>
+          <p>Complète&nbsp;: l'équation du cercle de centre \(\Omega(-2;3)\) et de rayon \(4\) est \((x+\,?\,)^2+(y-\,?\,)^2=\,?\,\).</p>
+          <button class="reveal-button" type="button" data-reveal="cer1">Voir la réponse</button>
+          <p id="cer1" class="answer" hidden>\((x+2)^2+(y-3)^2=16\). Centre \((-2;3)\) donne \((x-(-2))^2=(x+2)^2\) et \(r=4\) donne \(r^2=16\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Question immédiate</p>
+          <p>Le point \(M(4;1)\) appartient-il au cercle \((x-1)^2+(y+2)^2=18\)&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="cer2">Voir la réponse</button>
+          <p id="cer2" class="answer" hidden>On remplace&nbsp;: \((4-1)^2+(1+2)^2=9+9=18\). C'est égal à \(r^2\), donc oui, \(M\) est sur le cercle.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Centre et rayon</p>
+          <p>Lis sans développer le centre et le rayon de \((x+4)^2+(y-1)^2=25\).</p>
+          <button class="reveal-button" type="button" data-reveal="memo-cer-centre">Voir la réponse</button>
+          <p id="memo-cer-centre" class="answer" hidden>Le centre est \(\Omega(-4;1)\), car \(x+4=x-(-4)\) et \(y-1=y-1\). Le rayon vaut \(5\), car le membre de droite est \(r^2=25\).</p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Erreur de signe</p>
+          <p>
+            Dans \((x-a)^2\), la coordonnée du centre est \(a\), pas \(-a\). Pour \((x+3)^2+(y-2)^2=4\), le centre est
+            \((-3;2)\), pas \((3;2)\), et le rayon est \(2\), pas \(4\).
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 08 · CHOIX DE METHODE ========== -->
+      <section id="choix-methode" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">08</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Différenciateur</p>
+            <h2>Choisir la formule avant de calculer</h2>
+          </div>
+        </div>
+        <p>
+          La géométrie repérée propose une dizaine de formules. La difficulté du contrôle n'est pas de connaître la
+          formule&nbsp;: c'est de reconnaître <em>quelle</em> formule l'énoncé déclenche. Voici les six déclencheurs principaux.
+        </p>
+
+        <div class="choice-grid">
+          <div class="choice-card">
+            <p class="box-title">On te donne deux points</p>
+            <p>Vecteur «&nbsp;arrivée − départ&nbsp;», puis milieu (moyenne) ou distance (racine de somme de carrés) selon la question.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">On te demande si trois points sont alignés</p>
+            <p>Forme deux vecteurs avec un point commun, puis teste le déterminant.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">On te donne un point et un vecteur directeur</p>
+            <p>Méthode A&nbsp;: colinéarité \(\overrightarrow{AM}\) et \(\vec{u}\), déterminant nul.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">On te donne un point et un vecteur normal</p>
+            <p>Méthode B&nbsp;: équation \(ax+by+c=0\) avec \((a;b)\) lus dans \(\vec{n}\), puis \(c\) par substitution.</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">On te demande si un point est sur une droite ou un cercle</p>
+            <p>Substituer ses coordonnées dans l'équation. Le résultat doit valoir \(0\) (droite) ou \(r^2\) (cercle).</p>
+          </div>
+          <div class="choice-card">
+            <p class="box-title">On te donne une équation de cercle développée</p>
+            <p>Complétion du carré pour retrouver la forme \((x-a)^2+(y-b)^2=r^2\), puis lecture du centre et du rayon.</p>
+          </div>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis sans calculer</p>
+          <p>«&nbsp;Soient \(A(1;2)\) et \(B(7;10)\). Calculer la longueur de \([AB]\) et donner le milieu.&nbsp;» Quelles formules&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="choix1">Voir la réponse</button>
+          <p id="choix1" class="answer" hidden>Formule de distance \(\sqrt{(x_B-x_A)^2+(y_B-y_A)^2}\) pour la longueur, formule du milieu (moyenne des coordonnées) pour \(I\). Deux formules indépendantes, à appliquer dans l'ordre demandé.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis sans calculer</p>
+          <p>«&nbsp;Déterminer une équation cartésienne de la droite passant par \(A(2;-1)\) et perpendiculaire au vecteur \(\vec{n}(3;4)\).&nbsp;» Quelle méthode&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="choix2">Voir la réponse</button>
+          <p id="choix2" class="answer" hidden>Méthode B. «&nbsp;Perpendiculaire à \(\vec{n}\)&nbsp;» signifie que \(\vec{n}\) est un vecteur normal de la droite. On écrit \(3x+4y+c=0\), puis on remplace par \(A\).</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis sans calculer</p>
+          <p>«&nbsp;Le point \(C(2;3)\) est-il sur le cercle de centre \(\Omega(0;0)\) et de rayon \(\sqrt{13}\)&nbsp;?&nbsp;» Quel test&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="choix3">Voir la réponse</button>
+          <p id="choix3" class="answer" hidden>Substituer dans \((x-0)^2+(y-0)^2=13\). Ici \(2^2+3^2=4+9=13\)&nbsp;: oui, \(C\) appartient au cercle.</p>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">?</span>Choisis sans calculer</p>
+          <p>«&nbsp;Les droites \(d:\ y=2x+3\) et \(d':\ y=2x-1\) sont-elles parallèles&nbsp;?&nbsp;» Comment trancher&nbsp;?</p>
+          <button class="reveal-button" type="button" data-reveal="choix4">Voir la réponse</button>
+          <p id="choix4" class="answer" hidden>Même coefficient directeur \(m=2\) mais des \(p\) différents, donc parallèles distinctes. Pas besoin de calcul de déterminant&nbsp;: l'équation réduite suffit.</p>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Lecture d'énoncé</p>
+          <p>
+            Avant tout calcul, surligne dans l'énoncé&nbsp;: les points donnés, les vecteurs, les conditions
+            («&nbsp;parallèle&nbsp;», «&nbsp;perpendiculaire&nbsp;», «&nbsp;passe par&nbsp;»). Tu sauras alors quelle formule lancer en premier.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== 09 · REDACTION ========== -->
+      <section id="redaction" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">09</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Copie notée</p>
+            <h2>Rédiger comme en contrôle</h2>
+          </div>
+        </div>
+        <p>
+          Le bon résultat ne suffit pas. Le correcteur veut voir une rédaction claire&nbsp;:
+          repérage des données, calcul intermédiaire visible, conclusion qui dit ce qu'on a montré.
+        </p>
+
+        <div class="copy-grid">
+          <div class="c-callout c-callout--warn">
+            <p class="c-callout__label"><span class="dot"></span>Brouillon insuffisant</p>
+            <p>\(\Delta=12-12=0\), donc colinéaires.</p>
+            <p class="penalty">on ne sait pas quels vecteurs ont été utilisés, ni quels points sont concernés, ni la conclusion géométrique.</p>
+          </div>
+
+          <div class="worked-example">
+            <p>Montrer que les points \(A(1;2)\), \(B(3;5)\) et \(C(-1;-1)\) sont alignés.</p>
+            <div class="formula-card">
+              \[ \overrightarrow{AB}\begin{pmatrix} 3-1 \\ 5-2 \end{pmatrix} \]
+              \[ \overrightarrow{AB}\begin{pmatrix} 2 \\ 3 \end{pmatrix} \]
+              \[ \overrightarrow{AC}\begin{pmatrix} -1-1 \\ -1-2 \end{pmatrix} \]
+              \[ \overrightarrow{AC}\begin{pmatrix} -2 \\ -3 \end{pmatrix} \]
+              \[ \det=2\times(-3)-3\times(-2) \]
+              \[ =-6+6=0 \]
+            </div>
+            <p>
+              Le déterminant est nul, donc \(\overrightarrow{AB}\) et \(\overrightarrow{AC}\) sont colinéaires.
+              Les points \(A\), \(B\) et \(C\) sont donc alignés.
+            </p>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--key">
+          <p class="c-callout__label"><span class="dot"></span>Points qui rapportent</p>
+          <ul class="score-list">
+            <li>Écrire les coordonnées de chaque vecteur en colonne ou en couple, sans sauter d'étape.</li>
+            <li>Annoncer la formule utilisée (distance, déterminant, équation cartésienne) avant le calcul.</li>
+            <li>Conclure avec une phrase qui répond à la question posée, pas juste un nombre.</li>
+            <li>Pour une équation de droite, vérifier qu'elle est bien sous la forme demandée (cartésienne ou réduite).</li>
+            <li>Pour un cercle, distinguer rayon \(r\) et carré du rayon \(r^2\).</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ========== P · PIEGES ========== -->
+      <section id="pieges" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">P</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Pièges du chapitre</p>
+            <h2>Les erreurs qui coûtent le plus de points</h2>
+          </div>
+        </div>
+        <p>
+          Ces pièges sont récurrents dans les copies. Les connaître à l'avance permet de les éviter le jour J.
+        </p>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 1 — Directeur vs normal</p>
+          <p>
+            Pour \(ax+by+c=0\)&nbsp;: vecteur directeur \(\vec{u}(-b;a)\), vecteur normal \(\vec{n}(a;b)\).
+            L'erreur la plus fréquente est d'écrire \(\vec{u}(a;b)\), qui est en réalité le vecteur normal.
+            Vérification rapide&nbsp;: \(\vec{u}\cdot\vec{n}=-b\,a+a\,b=0\), donc ils sont bien orthogonaux.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 2 — Oubli du carré dans la distance</p>
+          <p>
+            La formule de distance est \(AB=\sqrt{(x_B-x_A)^2+(y_B-y_A)^2}\). On voit parfois \(\sqrt{(x_B-x_A)+(y_B-y_A)}\)
+            (sans les carrés)&nbsp;: c'est faux, et la quantité sous la racine peut même devenir négative.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 3 — Centre d'un cercle</p>
+          <p>
+            Pour \((x+3)^2+(y-2)^2=25\), le centre est \((-3;2)\), pas \((3;-2)\). Le signe dans la parenthèse
+            est l'opposé de la coordonnée du centre. Astuce&nbsp;: réécrire \((x-(-3))^2+(y-2)^2\) pour visualiser.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 4 — Rayon ou carré du rayon</p>
+          <p>
+            Dans \((x-1)^2+(y-5)^2=9\), le rayon est \(\sqrt{9}=3\), pas \(9\). Le membre de droite est \(r^2\),
+            pas \(r\). Cette erreur fait perdre la moitié des points sur une question de rayon.
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 5 — Sens de soustraction du vecteur</p>
+          <p>
+            \(\overrightarrow{AB}=(x_B-x_A\,;\,y_B-y_A)\), donc «&nbsp;arrivée − départ&nbsp;». L'erreur fréquente est
+            d'écrire \(x_A-x_B\). Conséquence&nbsp;: les coordonnées du vecteur changent de signe et toute la suite
+            est fausse (notamment pour une équation de droite passant par deux points).
+          </p>
+        </div>
+
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Piège 6 — Repère non orthonormé</p>
+          <p>
+            La formule \(AB=\sqrt{(x_B-x_A)^2+(y_B-y_A)^2}\) et le test de perpendicularité \(aa'+bb'=0\) ne sont
+            valables que si le repère est orthonormé. Les énoncés du chapitre le précisent presque toujours&nbsp;:
+            relire la première ligne avant de calculer une longueur.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== G · EXERCICES GUIDES ========== -->
+      <section id="guides" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">G</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Exercices guidés</p>
+            <h2>L'aide disparaît progressivement</h2>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 1 — Distance et milieu</h3>
+            <span class="difficulty" aria-label="Niveau comprendre">Comprendre</span>
+          </div>
+          <p>Soient \(A(-3;2)\) et \(B(5;-4)\). Calculer la distance \(AB\) et les coordonnées du milieu \(I\) de \([AB]\).</p>
+          <p class="hint-line">applique successivement les deux formules&nbsp;: distance, puis milieu.</p>
+          <button class="reveal-button" type="button" data-reveal="g1">Voir le corrigé</button>
+          <div id="g1" class="answer" hidden>
+            <p>\(AB=\sqrt{(5-(-3))^2+(-4-2)^2}=\sqrt{8^2+(-6)^2}=\sqrt{64+36}=\sqrt{100}=10\).</p>
+            <p>\(I\!\left(\tfrac{-3+5}{2};\tfrac{2+(-4)}{2}\right)=I(1;-1)\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 2 — Équation à partir d'un point et d'un vecteur directeur</h3>
+            <span class="difficulty" aria-label="Niveau savoir refaire">Savoir refaire</span>
+          </div>
+          <p>Déterminer une équation cartésienne de la droite \(d\) passant par \(A(2;3)\) et de vecteur directeur \(\vec{u}(1;4)\).</p>
+          <p class="hint-line">le directeur est \((-b;a)\), donc \(a=4\) et \(b=-1\).</p>
+          <button class="reveal-button" type="button" data-reveal="g2">Voir le corrigé</button>
+          <div id="g2" class="answer" hidden>
+            <div class="formula-card">
+              \[ d:\ 4x-y+c=0 \]
+              \[ A\in d \]
+              \[ 4\times2-3+c=0 \]
+              \[ 8-3+c=0 \]
+              \[ c=-5 \]
+              \[ d:\ 4x-y-5=0 \]
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 3 — Équation à partir de deux points</h3>
+            <span class="difficulty" aria-label="Niveau savoir refaire">Savoir refaire</span>
+          </div>
+          <p>Déterminer une équation cartésienne de la droite passant par \(A(-2;4)\) et \(B(3;-1)\).</p>
+          <p class="hint-line">calcule d'abord \(\overrightarrow{AB}\), puis applique la méthode du point et du vecteur directeur.</p>
+          <button class="reveal-button" type="button" data-reveal="g3">Voir le corrigé</button>
+          <div id="g3" class="answer" hidden>
+            <div class="formula-card">
+              \[ \vec{u}=(5;-5) \]
+              \[ (-b;a)=(5;-5) \]
+              \[ a=-5,\quad b=-5 \]
+              \[ -5x-5y+c=0 \]
+              \[ A\in d \]
+              \[ -5\times(-2) \]
+              \[ \quad -5\times4+c=0 \]
+              \[ 10-20+c=0 \]
+              \[ c=10 \]
+              \[ -5x-5y+10=0 \]
+              \[ x+y-2=0 \]
+            </div>
+            <p>Une écriture plus simple est \(x+y-2=0\) (division par \(-5\)).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 4 — Colinéarité de trois points</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>Les points \(A(2;1)\), \(B(5;7)\) et \(C(-1;-5)\) sont-ils alignés&nbsp;?</p>
+          <p class="hint-line">calcule \(\overrightarrow{AB}\) et \(\overrightarrow{AC}\), puis le déterminant.</p>
+          <button class="reveal-button" type="button" data-reveal="g4">Voir le corrigé</button>
+          <div id="g4" class="answer" hidden>
+            <div class="formula-card">
+              \[ \overrightarrow{AB}\begin{pmatrix} 3 \\ 6 \end{pmatrix} \]
+              \[ \overrightarrow{AC}\begin{pmatrix} -3 \\ -6 \end{pmatrix} \]
+              \[ \det=3\times(-6) \]
+              \[ \quad -6\times(-3) \]
+              \[ \det=-18+18=0 \]
+            </div>
+            <p>Les vecteurs \(\overrightarrow{AB}\) et \(\overrightarrow{AC}\) sont colinéaires, donc \(A\), \(B\) et \(C\) sont alignés.</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Guidé 5 — Équation de cercle (centre et rayon)</h3>
+            <span class="difficulty" aria-label="Niveau savoir refaire">Savoir refaire</span>
+          </div>
+          <p>Donner une équation cartésienne du cercle de centre \(\Omega(-1;2)\) et de rayon \(\sqrt{10}\).</p>
+          <p class="hint-line">attention à \(r^2\), pas \(r\), au second membre.</p>
+          <button class="reveal-button" type="button" data-reveal="g5">Voir le corrigé</button>
+          <div id="g5" class="answer" hidden>
+            <div class="formula-card">
+              \[ (x-(-1))^2+(y-2)^2 \]
+              \[ =(\sqrt{10})^2 \]
+              \[ (x+1)^2+(y-2)^2 \]
+              \[ =10 \]
+            </div>
+          </div>
+        </div>
+
+        <div class="c-callout c-callout--tip">
+          <p class="c-callout__label"><span class="dot"></span>Bilan d'étape</p>
+          <p>
+            Avant de passer au niveau contrôle, tu dois savoir choisir entre&nbsp;: calcul de vecteur, milieu, distance,
+            déterminant, équation à partir d'un point + vecteur, équation de cercle. Si tu hésites encore,
+            relis le bloc «&nbsp;Choisir la méthode&nbsp;».
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== C · CONTROLE ========== -->
+      <section id="controle" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">C</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Niveau contrôle</p>
+            <h2>Exercices à réussir sans aide</h2>
+          </div>
+        </div>
+        <p>Essaie d'abord sur feuille. Ouvre le corrigé seulement après avoir écrit une méthode complète.</p>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Contrôle 1 — Étude complète d'une droite</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>On considère la droite \(d\) d'équation \(3x-2y+6=0\).</p>
+          <ol class="exercise-list">
+            <li>Donner un vecteur directeur et un vecteur normal de \(d\).</li>
+            <li>Le point \(A(2;6)\) appartient-il à \(d\)&nbsp;?</li>
+            <li>Donner l'équation réduite de \(d\), puis le coefficient directeur et l'ordonnée à l'origine.</li>
+            <li>Déterminer les coordonnées des points d'intersection de \(d\) avec les axes du repère.</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="c1">Voir le corrigé</button>
+          <div id="c1" class="answer" hidden>
+            <p>1. \(\vec{u}(-b;a)=(2;3)\) et \(\vec{n}(a;b)=(3;-2)\).</p>
+            <p>2. \(3\times2-2\times6+6=6-12+6=0\). Oui, \(A\in d\).</p>
+            <p>3. \(-2y=-3x-6\), donc \(y=\tfrac32 x+3\). Coefficient directeur \(m=\tfrac32\), ordonnée à l'origine \(p=3\).</p>
+            <p>4. Avec \(y=0\)&nbsp;: \(3x+6=0\), donc \(x=-2\), point \((-2;0)\). Avec \(x=0\)&nbsp;: \(-2y+6=0\), donc \(y=3\), point \((0;3)\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Contrôle 2 — Parallèle et perpendiculaire</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>Soit \(d:\ 2x+3y-6=0\).</p>
+          <ol class="exercise-list">
+            <li>Déterminer une équation cartésienne de la droite \(d_1\) parallèle à \(d\) passant par \(A(1;4)\).</li>
+            <li>Déterminer une équation cartésienne de la droite \(d_2\) perpendiculaire à \(d\) passant par \(B(-2;1)\).</li>
+            <li>Calculer les coordonnées du point d'intersection de \(d_1\) et \(d_2\).</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="c2">Voir le corrigé</button>
+          <div id="c2" class="answer" hidden>
+            <p>1. Parallèle&nbsp;: même \(a\) et \(b\)&nbsp;: \(d_1:\ 2x+3y+c=0\). Avec \(A(1;4)\)&nbsp;: \(2+12+c=0\), \(c=-14\). Donc \(d_1:\ 2x+3y-14=0\).</p>
+            <p>2. Perpendiculaire&nbsp;: \(\vec{n}_d(2;3)\) devient un vecteur directeur de \(d_2\). Donc \((-b';a')=(2;3)\), soit \(a'=3,\ b'=-2\). \(d_2:\ 3x-2y+c'=0\). Avec \(B(-2;1)\)&nbsp;: \(-6-2+c'=0\), \(c'=8\). Donc \(d_2:\ 3x-2y+8=0\).</p>
+            <p>3. Système&nbsp;: \(\begin{cases} 2x+3y=14 \\ 3x-2y=-8 \end{cases}\). En multipliant la première par \(2\) et la seconde par \(3\) puis en additionnant&nbsp;: \(4x+9x=28-24\), donc \(13x=4\), \(x=\tfrac{4}{13}\). Puis \(y=\tfrac{14-2\times4/13}{3}=\tfrac{174/13}{3}=\tfrac{58}{13}\). Intersection&nbsp;: \(\left(\tfrac{4}{13};\tfrac{58}{13}\right)\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>Contrôle 3 — Cercle et appartenance</h3>
+            <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+          </div>
+          <p>On considère les points \(A(2;-3)\) et \(B(6;1)\).</p>
+          <ol class="exercise-list">
+            <li>Déterminer les coordonnées du milieu \(I\) de \([AB]\) et la longueur \(AB\).</li>
+            <li>Donner une équation cartésienne du cercle de diamètre \([AB]\).</li>
+            <li>Le point \(C(2;1)\) appartient-il à ce cercle&nbsp;?</li>
+          </ol>
+          <button class="reveal-button" type="button" data-reveal="c3">Voir le corrigé</button>
+          <div id="c3" class="answer" hidden>
+            <p>1. \(I\!\left(\tfrac{2+6}{2};\tfrac{-3+1}{2}\right)=I(4;-1)\). \(AB=\sqrt{(6-2)^2+(1-(-3))^2}=\sqrt{16+16}=\sqrt{32}=4\sqrt{2}\).</p>
+            <p>2. Le centre du cercle est \(I(4;-1)\) et son rayon est \(\tfrac{AB}{2}=2\sqrt{2}\), donc \(r^2=8\). Équation&nbsp;: \((x-4)^2+(y+1)^2=8\).</p>
+            <p>3. On remplace&nbsp;: \((2-4)^2+(1+1)^2=4+4=8\). Oui, \(C\) appartient au cercle.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== 20 · CAP 20/20 ========== -->
+      <section id="vingt-sur-vingt" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">20</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Cap 20/20</p>
+            <h2>Pas de raccourci : passe la porte avant</h2>
+          </div>
+        </div>
+
+        <div class="c-gate">
+          <p class="c-gate__label">Porte d'entrée</p>
+          <p class="c-gate__title">Deux contrôles sans corrigé d'abord</p>
+          <p>
+            Avant de tenter ces exercices, réussis au moins deux exercices de contrôle sans ouvrir le corrigé.
+            Sinon, reviens à la section «&nbsp;Droites&nbsp;» et à la section «&nbsp;Cercles&nbsp;».
+          </p>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Projeté orthogonal</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>Soit la droite \(d\) d'équation \(x+3y-4=0\) et le point \(A(2;4)\). Déterminer les coordonnées du projeté orthogonal \(H\) de \(A\) sur \(d\), puis la distance \(AH\).</p>
+          <button class="reveal-button" type="button" data-reveal="v1">Voir le corrigé</button>
+          <div id="v1" class="answer" hidden>
+            <p>La droite \((AH)\) est perpendiculaire à \(d\). Un vecteur directeur de \(d\) est \(\vec{u}(-3;1)\)&nbsp;: c'est donc un vecteur normal de \((AH)\).</p>
+            <p>Équation de \((AH)\)&nbsp;: \(-3x+y+c=0\). Avec \(A(2;4)\)&nbsp;: \(-6+4+c=0\), donc \(c=2\). Soit \((AH):\ -3x+y+2=0\).</p>
+            <p>\(H\) est solution du système \(\begin{cases} x+3y-4=0 \\ -3x+y+2=0 \end{cases}\). On obtient \(H(1;1)\).</p>
+            <p>\(AH=\sqrt{(1-2)^2+(1-4)^2}=\sqrt{1+9}=\sqrt{10}\). Cette distance est la distance du point \(A\) à la droite \(d\).</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Cercle développé</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>L'équation \(x^2+y^2-4x+6y-12=0\) est-elle l'équation d'un cercle&nbsp;? Si oui, déterminer son centre et son rayon, puis vérifier si \(M(5;0)\) appartient à ce cercle.</p>
+          <button class="reveal-button" type="button" data-reveal="v2">Voir le corrigé</button>
+          <div id="v2" class="answer" hidden>
+            <div class="formula-card">
+              \[ (x^2-4x)+(y^2+6y) \]
+              \[ \quad -12=0 \]
+              \[ (x^2-4x+4)-4 \]
+              \[ +(y^2+6y+9)-9 \]
+              \[ \quad -12=0 \]
+              \[ (x-2)^2+(y+3)^2 \]
+              \[ \quad -25=0 \]
+              \[ (x-2)^2+(y+3)^2 \]
+              \[ =25 \]
+            </div>
+            <p>C'est l'équation du cercle de centre \(\Omega(2;-3)\) et de rayon \(5\).</p>
+            <p>Pour \(M(5;0)\)&nbsp;: \((5-2)^2+(0+3)^2=9+9=18\ne25\). Donc \(M\) n'appartient pas au cercle.</p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-header">
+            <h3>20/20 — Intersection droite-cercle</h3>
+            <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+          </div>
+          <p>Soit le cercle \(\mathcal{C}\) d'équation \((x-1)^2+(y-2)^2=10\) et la droite \(d:\ y=x+1\). Déterminer les coordonnées des points d'intersection de \(\mathcal{C}\) et \(d\).</p>
+          <figure class="visual-block interactive-graph quadratic-graph">
+            <div class="graph-stage">
+              <div id="gr-inter-board" class="jxgbox curve-board" data-chapter-curve="inter"></div>
+              <p class="graph-readout" aria-live="polite">
+                <span>Intersection droite et cercle</span>
+                <strong>Deux points résolvent le système</strong>
+              </p>
+            </div>
+            <figcaption>
+              La droite \(y=x+1\) coupe le cercle en deux points exacts. Leurs coordonnées vérifient les deux équations simultanément.
+            </figcaption>
+          </figure>
+          <button class="reveal-button" type="button" data-reveal="v3">Voir le corrigé</button>
+          <div id="v3" class="answer" hidden>
+            <p>On substitue \(y=x+1\) dans l'équation du cercle&nbsp;:</p>
+            <div class="formula-card">
+              \[ (x-1)^2+(x+1-2)^2 \]
+              \[ =10 \]
+              \[ (x-1)^2+(x-1)^2 \]
+              \[ =10 \]
+              \[ 2(x-1)^2=10 \]
+              \[ (x-1)^2=5 \]
+              \[ x-1=\pm\sqrt{5} \]
+              \[ x=1\pm\sqrt{5} \]
+            </div>
+            <p>Pour \(x=1+\sqrt{5}\)&nbsp;: \(y=2+\sqrt{5}\). Pour \(x=1-\sqrt{5}\)&nbsp;: \(y=2-\sqrt{5}\).</p>
+            <p>Les deux points d'intersection sont \(P_1(1+\sqrt{5}\,;\,2+\sqrt{5})\) et \(P_2(1-\sqrt{5}\,;\,2-\sqrt{5})\).</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== R · REVISION ========== -->
+      <section id="revision" class="chapter-section recap-section">
+        <div class="section-marker">
+          <div class="section-marker__num">R</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Mini-révision mélangée</p>
+            <h2>Ce que tu dois revoir ensuite</h2>
+          </div>
+        </div>
+        <p>
+          Le contrôle ne dira pas toujours «&nbsp;utilise le déterminant&nbsp;». Entraîne-toi à reconnaître le déclencheur
+          dans l'énoncé&nbsp;: deux points donnés, un vecteur directeur, une perpendicularité, un cercle développé.
+        </p>
+
+        <div class="revision-grid">
+          <div class="revision-card">
+            <p class="box-title">Si tu as raté les vecteurs</p>
+            <p>Refais Guidé 1 et Guidé 3. Vérifie toujours «&nbsp;arrivée moins départ&nbsp;» pour \(\overrightarrow{AB}\).</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Si tu as raté les équations de droite</p>
+            <p>Reprends les méthodes A, B, C. Pour \(ax+by+c=0\)&nbsp;: directeur \((-b;a)\), normal \((a;b)\).</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Si tu as raté les cercles</p>
+            <p>Refais Guidé 5 et 20/20 «&nbsp;Cercle développé&nbsp;». Centre \((a;b)\), rayon \(\sqrt{r^2}\).</p>
+          </div>
+          <div class="revision-card">
+            <p class="box-title">Mélange avec produit scalaire</p>
+            <p>Plus tard, l'orthogonalité de deux vecteurs se traduit aussi par \(\vec{u}\cdot\vec{v}=0\)&nbsp;: même test, autre écriture.</p>
+          </div>
+        </div>
+
+        <div class="check-card">
+          <p class="check-card__label"><span class="marker">R</span>Dernière récupération active</p>
+          <p>Écris sans regarder&nbsp;: la formule du vecteur \(\overrightarrow{AB}\), la formule de la distance, la formule du milieu, l'équation du cercle de centre \(\Omega(a;b)\) et de rayon \(r\), et le couple (directeur, normal) pour \(ax+by+c=0\).</p>
+          <button class="reveal-button" type="button" data-reveal="r1">Voir la fiche minimale</button>
+          <div id="r1" class="answer" hidden>
+            <p>\(\overrightarrow{AB}(x_B-x_A\,;\,y_B-y_A)\).</p>
+            <p>\(AB=\sqrt{(x_B-x_A)^2+(y_B-y_A)^2}\).</p>
+            <p>\(I_{[AB]}\!\left(\tfrac{x_A+x_B}{2}\,;\,\tfrac{y_A+y_B}{2}\right)\).</p>
+            <p>Cercle&nbsp;: \((x-a)^2+(y-b)^2=r^2\).</p>
+            <p>Pour \(ax+by+c=0\)&nbsp;: \(\vec{u}(-b;a)\), \(\vec{n}(a;b)\). Test colinéarité&nbsp;: \(xy'-yx'=0\). Test orthogonalité&nbsp;: \(aa'+bb'=0\).</p>
+          </div>
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+  <!-- ============================================================
+       JSXGRAPH BOARDS — chapter-scoped
+       ============================================================ -->
+  <script>
+    (function(){
+      const rootStyles = getComputedStyle(document.documentElement);
+      const token = (name, fallback) => rootStyles.getPropertyValue(name).trim() || fallback;
+      const COLORS = {
+        coral: token('--red', 'currentColor'),
+        green: token('--green-2', 'currentColor'),
+        ink: token('--ink', 'currentColor'),
+        teal: token('--blue-2', 'currentColor'),
+        yellow: token('--stabilo', 'currentColor')
+      };
+
+      function createBoard(el, bbox){
+        return JXG.JSXGraph.initBoard(el.id, {
+          boundingbox: bbox,
+          axis: true,
+          grid: true,
+          showCopyright: false,
+          showNavigation: false,
+          pan: { enabled: false },
+          zoom: { enabled: false }
+        });
+      }
+      function addPoint(b, xy, n, c, o){
+        return b.create('point', xy, {
+          name: n,
+          size: 4,
+          fillColor: c,
+          strokeColor: COLORS.ink,
+          label: { offset: o || [10, 10], fontSize: 12, color: COLORS.ink },
+          fixed: true,
+          showInfobox: false
+        });
+      }
+      function addLine(b, p1, p2, c){
+        return b.create('line', [p1, p2], {
+          strokeColor: c, strokeWidth: 2.5, fixed: true,
+          straightFirst: true, straightLast: true
+        });
+      }
+      function addSegment(b, p1, p2, c){
+        return b.create('segment', [p1, p2], {
+          strokeColor: c, strokeWidth: 2.5, fixed: true
+        });
+      }
+      function addCircle(b, center, r, c){
+        return b.create('circle', [center, r], {
+          strokeColor: c, strokeWidth: 2.5, fixed: true, fillOpacity: 0
+        });
+      }
+      function addArrow(b, p1, p2, c){
+        return b.create('arrow', [p1, p2], {
+          strokeColor: c, strokeWidth: 2.5, fixed: true
+        });
+      }
+
+      const boards = {
+        points(el){
+          const b = createBoard(el, [-5, 6, 7, -4]);
+          addPoint(b, [1, 2],  'A', COLORS.coral);
+          addPoint(b, [4, 3],  'B', COLORS.green);
+          addPoint(b, [-2, 1], 'C', COLORS.teal);
+        },
+        vecteur(el){
+          const b = createBoard(el, [-1, 6, 7, -1]);
+          const A = addPoint(b, [1, 1], 'A', COLORS.ink);
+          const B = addPoint(b, [5, 4], 'B', COLORS.ink);
+          addArrow(b, A, B, COLORS.teal);
+        },
+        milieu(el){
+          const b = createBoard(el, [-3, 4, 7, -6]);
+          const A = addPoint(b, [-1, 2],  'A', COLORS.coral);
+          const B = addPoint(b, [5, -4], 'B', COLORS.green);
+          addSegment(b, A, B, COLORS.ink);
+          addPoint(b, [2, -1], 'I', COLORS.yellow);
+        },
+        droite(el){
+          const b = createBoard(el, [-4, 5, 6, -3]);
+          // Droite 2x - 3y + 5 = 0  ->  y = (2x+5)/3
+          // Two points: (-1, 1) and (2, 3)
+          const P1 = addPoint(b, [-1, 1], 'P', COLORS.ink, [-18, 8]);
+          const P2 = addPoint(b, [2, 3],  'Q', COLORS.ink);
+          addLine(b, P1, P2, COLORS.ink);
+          // Vecteur directeur u(3; 2) drawn from P1
+          const U2 = addPoint(b, [2, 3], '', COLORS.green);
+          addArrow(b, P1, U2, COLORS.green);
+          // Vecteur normal n(2; -3) drawn from P1
+          const N2 = addPoint(b, [1, -2], '', COLORS.coral);
+          addArrow(b, P1, N2, COLORS.coral);
+        },
+        secantes(el){
+          const b = createBoard(el, [-4, 5, 5, -4]);
+          // d1: x + 3y - 4 = 0  passe par (4,0) et (1,1)
+          const A1 = addPoint(b, [4, 0], '', COLORS.ink);
+          const A2 = addPoint(b, [-2, 2], '', COLORS.ink);
+          addLine(b, A1, A2, COLORS.teal);
+          // d2: -3x + y + 2 = 0  -> y = 3x - 2  passe par (0,-2) et (1,1)
+          const B1 = addPoint(b, [0, -2], '', COLORS.ink);
+          const B2 = addPoint(b, [2, 4],  '', COLORS.ink);
+          addLine(b, B1, B2, COLORS.coral);
+          // Intersection (1,1)
+          addPoint(b, [1, 1], 'H', COLORS.yellow);
+        },
+        cercle(el){
+          const b = createBoard(el, [-5, 4, 6, -6]);
+          // Centre (1, -2), r = 3
+          const O = addPoint(b, [1, -2], 'Ω', COLORS.yellow);
+          addCircle(b, O, 3, COLORS.coral);
+        },
+        inter(el){
+          const b = createBoard(el, [-4, 7, 6, -3]);
+          // Cercle centre (1,2), r = sqrt(10) ≈ 3.16
+          const O = addPoint(b, [1, 2], 'Ω', COLORS.ink);
+          addCircle(b, O, Math.sqrt(10), COLORS.coral);
+          // Droite y = x + 1, points (-2,-1) et (4,5)
+          const D1 = addPoint(b, [-2, -1], '', COLORS.ink);
+          const D2 = addPoint(b, [4, 5],   '', COLORS.ink);
+          addLine(b, D1, D2, COLORS.teal);
+          // Points d'intersection (1 ± sqrt(5), 2 ± sqrt(5))
+          addPoint(b, [1 + Math.sqrt(5), 2 + Math.sqrt(5)], 'P₁', COLORS.green);
+          addPoint(b, [1 - Math.sqrt(5), 2 - Math.sqrt(5)], 'P₂', COLORS.green);
+        }
+      };
+
+      window.__courseGraphInitializers = window.__courseGraphInitializers || [];
+      window.__courseGraphInitializers.push((el) => {
+        if (!el || el.dataset.courseGraphReady === 'true') return;
+        const fn = boards[el.dataset.chapterCurve];
+        if (!fn) return;
+        try {
+          fn(el);
+          el.dataset.courseGraphReady = 'true';
+        } catch (error) {
+          el.textContent = 'Graphe indisponible pour le moment.';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
