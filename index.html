@@ -12,11 +12,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Objectif Lycée — Cockpit</title>
+  <link rel="icon" type="image/webp" href="assets/brand/trophy-logo-home.webp">
   <link rel="stylesheet" href="colors_and_type.css">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css">
   <link rel="stylesheet" href="assets/css/pages/dashboard.css">
   <link rel="stylesheet" href="assets/css/pages/home.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css">
 </head>
 <body>
 
@@ -35,7 +36,7 @@
         <span class="ic"><i class="ph-bold ph-target" aria-hidden="true"></i></span>
         Aujourd'hui
       </a>
-      <a href="index.html" class="sb-item">
+      <a href="planning.html" class="sb-item">
         <span class="ic"><i class="ph-bold ph-calendar-blank" aria-hidden="true"></i></span>
         Planning
       </a>
@@ -56,13 +57,9 @@
         Objectif
         <span class="count">3</span>
       </a>
-      <a href="fiches.html" class="sb-item">
-        <span class="ic"><i class="ph-bold ph-cards" aria-hidden="true"></i></span>
-        Fiches
-      </a>
-      <a href="controles.html" class="sb-item">
-        <span class="ic"><i class="ph-bold ph-exam" aria-hidden="true"></i></span>
-        Contrôles
+      <a href="contenu.html" class="sb-item">
+        <span class="ic"><i class="ph-bold ph-book-open-text" aria-hidden="true"></i></span>
+        Contenu
       </a>
     </div>
 
@@ -180,6 +177,33 @@
           </div>
         </aside>
 
+        <div class="ap-mission__proof-strip" aria-label="Mission, preuve et avance visible">
+          <div class="ap-proof-chip">
+            <span class="ap-proof-chip__label">
+              <i class="ph-bold ph-check-square-offset" aria-hidden="true"></i>
+              Mission claire
+            </span>
+            <strong><span data-daily-mission-step-count>3 étapes</span> · <span data-daily-mission-duration>25 min</span></strong>
+            <span>Tu sais quoi produire avant de fermer la page.</span>
+          </div>
+          <div class="ap-proof-chip">
+            <span class="ap-proof-chip__label">
+              <i class="ph-bold ph-seal-check" aria-hidden="true"></i>
+              Preuve
+            </span>
+            <strong data-daily-mission-proof-label>Contrôle vendredi + dossier ingénieur</strong>
+            <span data-daily-mission-proof-summary>Cette action sert un chapitre prioritaire.</span>
+          </div>
+          <div class="ap-proof-chip">
+            <span class="ap-proof-chip__label">
+              <i class="ph-bold ph-chart-line-up" aria-hidden="true"></i>
+              Avance visible
+            </span>
+            <strong><span data-daily-mission-mastery>62%</span> de maîtrise affichée</strong>
+            <span>Après le focus, la progression garde la trace.</span>
+          </div>
+        </div>
+
         <!-- Reveal IA : x-ray sur la mission. Affiché quand data-why-open="true". -->
         <div
           class="ap-why-panel"
@@ -275,6 +299,7 @@
           </li>
         </ol>
       </section>
+
     </section>
   </div>
 </div>
@@ -287,6 +312,14 @@
     <i class="ph-bold ph-target" aria-hidden="true"></i>
     <span>Aujourd'hui</span>
   </a>
+  <a href="planning.html" class="mobile-tab">
+    <i class="ph-bold ph-calendar-blank" aria-hidden="true"></i>
+    <span>Planning</span>
+  </a>
+  <a href="contenu.html" class="mobile-tab">
+    <i class="ph-bold ph-book-open-text" aria-hidden="true"></i>
+    <span>Contenu</span>
+  </a>
   <a href="progression.html" class="mobile-tab">
     <i class="ph-bold ph-chart-line-up" aria-hidden="true"></i>
     <span>Progression</span>
@@ -294,10 +327,6 @@
   <a href="objectif.html" class="mobile-tab">
     <i class="ph-bold ph-squares-four" aria-hidden="true"></i>
     <span>Objectif</span>
-  </a>
-  <a href="focus.html" class="mobile-tab">
-    <i class="ph-bold ph-timer" aria-hidden="true"></i>
-    <span>Focus</span>
   </a>
 </nav>
 <script src="scripts/model.js"></script>

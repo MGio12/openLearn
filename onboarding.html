@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Objectif Lycée — Installation</title>
-    <meta name="description" content="2 minutes pour caler ton cockpit : objectif, classe, spécialités, rythme. 3 missions offertes pour démarrer." />
+    <title>Objectif Lycée | Installation</title>
+    <meta name="description" content="2 minutes pour transformer ton objectif, ta classe et tes priorités en une première mission utile aujourd'hui." />
     <meta name="theme-color" content="#F4D35E" />
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='6' width='52' height='52' rx='12' fill='%23F4D35E' stroke='%23121212' stroke-width='5' transform='rotate(-6 32 32)'/%3E%3Ctext x='32' y='44' font-family='Arial Black, Impact, sans-serif' font-size='34' font-weight='900' text-anchor='middle' fill='%23121212' transform='rotate(-6 32 32)'%3EO%3C/text%3E%3C/svg%3E" />
     <link rel="stylesheet" href="colors_and_type.css" />
@@ -21,7 +21,7 @@
           </span>
           <span class="name">Objectif Lycée</span>
         </a>
-        <button class="ob-back" id="back" hidden>
+        <button class="ob-back" id="back" type="button" hidden>
           <i class="ph-bold ph-caret-left" aria-hidden="true"></i>
           Retour
         </button>
@@ -42,35 +42,35 @@
             de tes spécialités et de ton dossier actuel.
           </p>
           <div class="options" data-options="goal">
-            <button class="opt" data-value="ingenieur">
+            <button class="opt" type="button" data-value="ingenieur">
               <span class="ic"><i class="ph-bold ph-wrench" aria-hidden="true"></i></span>
               <span class="copy">
                 <span class="title">École d'ingénieur</span>
                 <span class="sub">INSA, UTC, Polytech, écoles post-bac…</span>
               </span>
             </button>
-            <button class="opt" data-value="commerce">
+            <button class="opt" type="button" data-value="commerce">
               <span class="ic"><i class="ph-bold ph-briefcase" aria-hidden="true"></i></span>
               <span class="copy">
                 <span class="title">École de commerce</span>
                 <span class="sub">Post-bac, IEP, double diplôme, commerce.</span>
               </span>
             </button>
-            <button class="opt" data-value="sante">
+            <button class="opt" type="button" data-value="sante">
               <span class="ic"><i class="ph-bold ph-atom" aria-hidden="true"></i></span>
               <span class="copy">
                 <span class="title">Santé ou sciences</span>
                 <span class="sub">PASS, LAS, licence sélective, CPES.</span>
               </span>
             </button>
-            <button class="opt" data-value="droit-sciencespo">
+            <button class="opt" type="button" data-value="droit-sciencespo">
               <span class="ic"><i class="ph-bold ph-scales" aria-hidden="true"></i></span>
               <span class="copy">
                 <span class="title">Droit, IEP, sciences po</span>
                 <span class="sub">Dossier régulier, expression claire, méthode.</span>
               </span>
             </button>
-            <button class="opt" data-value="indecis">
+            <button class="opt" type="button" data-value="indecis">
               <span class="ic"><i class="ph-bold ph-compass" aria-hidden="true"></i></span>
               <span class="copy">
                 <span class="title">Je ne sais pas encore</span>
@@ -88,14 +88,14 @@
             Le calendrier change selon ta classe : construire ton dossier ou attaquer Parcoursup.
           </p>
           <div class="options options--two" data-options="classe">
-            <button class="opt" data-value="premiere">
+            <button class="opt" type="button" data-value="premiere">
               <span class="ic"><i class="ph-bold ph-graduation-cap" aria-hidden="true"></i></span
               ><span class="copy"
                 ><span class="title">Première</span
                 ><span class="sub">Construire les bases et les notes du dossier</span></span
               >
             </button>
-            <button class="opt" data-value="terminale">
+            <button class="opt" type="button" data-value="terminale">
               <span class="ic"><i class="ph-bold ph-graduation-cap" aria-hidden="true"></i></span
               ><span class="copy"
                 ><span class="title">Terminale</span
@@ -113,28 +113,28 @@
             On s'en sert pour prioriser les matières qui pèsent dans le dossier.
           </p>
           <div class="options options--two" data-options="specialite">
-            <button class="opt" data-value="maths-pc">
+            <button class="opt" type="button" data-value="maths-pc">
               <span class="ic"><i class="ph-bold ph-calculator" aria-hidden="true"></i></span
               ><span class="copy"
                 ><span class="title">Maths · Physique-chimie</span
                 ><span class="sub">Ingénieur, sciences, santé</span></span
               >
             </button>
-            <button class="opt" data-value="maths-svt">
+            <button class="opt" type="button" data-value="maths-svt">
               <span class="ic"><i class="ph-bold ph-leaf" aria-hidden="true"></i></span
               ><span class="copy"
                 ><span class="title">Maths · SVT</span
                 ><span class="sub">Santé, bio, écoles scientifiques</span></span
               >
             </button>
-            <button class="opt" data-value="ses-hggsp">
+            <button class="opt" type="button" data-value="ses-hggsp">
               <span class="ic"><i class="ph-bold ph-globe-hemisphere-west" aria-hidden="true"></i></span
               ><span class="copy"
                 ><span class="title">SES · HGGSP</span
                 ><span class="sub">Commerce, droit, IEP</span></span
               >
             </button>
-            <button class="opt" data-value="autre">
+            <button class="opt" type="button" data-value="autre">
               <span class="ic"><i class="ph-bold ph-squares-four" aria-hidden="true"></i></span
               ><span class="copy"
                 ><span class="title">Autre combinaison</span
@@ -149,10 +149,10 @@
           <span class="kicker">Ton rythme</span>
           <h1>Quel rythme te semble<br />réaliste cette semaine&nbsp;?</h1>
           <p class="lede">
-            Pas ce que tu devrais faire. Ce que tu peux tenir sans t'épuiser. On ajustera ensemble.
+            Pas ce que tu devrais faire. Ce que tu peux tenir sans t'épuiser. Tu pourras ajuster ensuite.
           </p>
           <div class="options options--two" data-options="rythme">
-            <button class="opt" data-value="leger">
+            <button class="opt" type="button" data-value="leger">
               <span class="ic"><i class="ph-bold ph-clock" aria-hidden="true"></i></span>
               <span class="copy"
                 ><span class="title">Léger</span
@@ -161,25 +161,25 @@
                 ></span
               >
             </button>
-            <button class="opt" data-value="moyen">
+            <button class="opt" type="button" data-value="moyen">
               <span class="ic"><i class="ph-bold ph-gauge" aria-hidden="true"></i></span>
               <span class="copy"
                 ><span class="title">Régulier</span
                 ><span class="sub"
-                  >4 à 6 h — assez pour faire bouger les notes</span
+                  >4 à 6 h : assez pour faire bouger les notes</span
                 ></span
               >
             </button>
-            <button class="opt" data-value="intense">
+            <button class="opt" type="button" data-value="intense">
               <span class="ic"><i class="ph-bold ph-lightning" aria-hidden="true"></i></span>
               <span class="copy"
                 ><span class="title">Intense</span
                 ><span class="sub"
-                  >7 h et plus — période de contrôles ou Parcoursup</span
+                  >7 h et plus : période de contrôles ou Parcoursup</span
                 ></span
               >
             </button>
-            <button class="opt" data-value="indecis">
+            <button class="opt" type="button" data-value="indecis">
               <span class="ic"><i class="ph-bold ph-compass" aria-hidden="true"></i></span>
               <span class="copy"
                 ><span class="title">Je ne sais pas encore</span
@@ -194,39 +194,39 @@
           <span class="kicker">Tes priorités</span>
           <h1>Sur quoi veux-tu<br />progresser en premier&nbsp;?</h1>
           <p class="lede">
-            Choisis 2 ou 3 matières. Pas une liste exhaustive — juste là où tu
-            sens que ça doit bouger en premier.
+            Choisis au moins une matière. Si tu en prends 2 ou 3, la première
+            mission sera plus précise.
           </p>
           <div class="chips" data-chips="priorites">
-            <button class="chip-opt" data-value="maths">
+            <button class="chip-opt" type="button" data-value="maths">
               <span class="check"><i class="ph-bold ph-check" aria-hidden="true"></i></span>Mathématiques
             </button>
-            <button class="chip-opt" data-value="physique">
+            <button class="chip-opt" type="button" data-value="physique">
               <span class="check"><i class="ph-bold ph-check" aria-hidden="true"></i></span>Physique-chimie
             </button>
-            <button class="chip-opt" data-value="svt">
+            <button class="chip-opt" type="button" data-value="svt">
               <span class="check"><i class="ph-bold ph-check" aria-hidden="true"></i></span>SVT
             </button>
-            <button class="chip-opt" data-value="ses">
+            <button class="chip-opt" type="button" data-value="ses">
               <span class="check"><i class="ph-bold ph-check" aria-hidden="true"></i></span>SES
             </button>
-            <button class="chip-opt" data-value="hggsp">
+            <button class="chip-opt" type="button" data-value="hggsp">
               <span class="check"><i class="ph-bold ph-check" aria-hidden="true"></i></span>HGGSP
             </button>
-            <button class="chip-opt" data-value="francais">
+            <button class="chip-opt" type="button" data-value="francais">
               <span class="check"><i class="ph-bold ph-check" aria-hidden="true"></i></span>Français · Philo
             </button>
-            <button class="chip-opt" data-value="anglais">
+            <button class="chip-opt" type="button" data-value="anglais">
               <span class="check"><i class="ph-bold ph-check" aria-hidden="true"></i></span>Anglais
             </button>
-            <button class="chip-opt" data-value="lv2">
+            <button class="chip-opt" type="button" data-value="lv2">
               <span class="check"><i class="ph-bold ph-check" aria-hidden="true"></i></span>LV2
             </button>
-            <button class="chip-opt" data-value="grand-oral">
+            <button class="chip-opt" type="button" data-value="grand-oral">
               <span class="check"><i class="ph-bold ph-check" aria-hidden="true"></i></span>Grand oral
             </button>
           </div>
-          <button class="ob-continue" id="continue-priorites" disabled>
+          <button class="ob-continue" id="continue-priorites" type="button" disabled>
             Continuer <i class="ph-bold ph-arrow-right" aria-hidden="true"></i>
           </button>
         </section>
@@ -234,25 +234,33 @@
         <!-- STEP 6 — First win / preview -->
         <section class="step" data-step="6" data-screen-label="06 First-win">
           <span class="kicker">Ta première semaine</span>
-          <h1>Voici à quoi<br />ça ressemblera.</h1>
+          <h1>Ta première mission<br />est prête.</h1>
           <p class="lede">
-            Une semaine construite à partir de tes réponses. Tu pourras tout
-            ajuster — ou laisser l'IA s'en occuper.
+            Tes réponses servent à choisir l'action la plus utile maintenant.
+            Le bouton ouvre directement la page mission.
           </p>
+
+          <div class="route-strip" aria-label="Chemin de démarrage">
+            <span>Réponses</span>
+            <i class="ph-bold ph-arrow-right" aria-hidden="true"></i>
+            <strong>Mission utile maintenant</strong>
+            <i class="ph-bold ph-arrow-right" aria-hidden="true"></i>
+            <strong>Page mission</strong>
+          </div>
 
           <div class="preview-card" id="preview-week-card">
             <div class="preview-card-header">
               <div class="preview-card-title">
-                <span data-current-day-name>Aujourd'hui</span> · ta journée
+                <span data-current-day-name>Aujourd'hui</span> · aperçu de départ
               </div>
-              <span class="preview-card-meta">3 missions · 2 h 15</span>
+              <span class="preview-card-meta" id="preview-card-meta">3 pistes · 1 h 25</span>
             </div>
             <div class="preview-row suggest">
               <div class="ic"><i class="ph-bold ph-sparkle" aria-hidden="true"></i></div>
               <div class="copy">
                 <div class="top">Suggéré pour commencer · 25 min</div>
                 <div class="title">
-                  Maths spé — exponentielle &amp; dérivation
+                  Maths spé : exponentielle &amp; dérivation
                 </div>
               </div>
               <div class="duration">25 min</div>
@@ -262,7 +270,7 @@
               <div class="copy">
                 <div class="top">Physique-chimie · matinée</div>
                 <div class="title">
-                  Énergie mécanique — exercice type contrôle
+                  Énergie mécanique : exercice type contrôle
                 </div>
               </div>
               <div class="duration">45 min</div>
@@ -272,7 +280,7 @@
               <div class="copy">
                 <div class="top">Objectif · début d'après-midi</div>
                 <div class="title">
-                  Projet motivé — noter 3 preuves concrètes
+                  Projet motivé : noter 3 preuves concrètes
                 </div>
               </div>
               <div class="duration">30 min</div>
@@ -280,20 +288,21 @@
           </div>
 
           <div class="preview-actions">
-            <button class="ob-continue" id="continue-preview">
-              Ouvrir cette mission <i class="ph-bold ph-arrow-right" aria-hidden="true"></i>
+            <button class="ob-continue" id="continue-preview" type="button" aria-label="Ouvrir la première mission">
+              Commencer la mission <i class="ph-bold ph-arrow-right" aria-hidden="true"></i>
             </button>
-            <span class="preview-action-note">25 min · tu peux t'arrêter quand tu veux</span>
+            <span class="preview-action-note" id="preview-action-note">25 min · une trace courte à terminer</span>
           </div>
         </section>
 
         <!-- STEP 7 — Email (after commitment) -->
         <section class="step" data-step="7" data-screen-label="07 Email">
-          <span class="kicker">Dernière étape</span>
-          <h1>Pour ne rien perdre,<br />ton email&nbsp;:</h1>
+          <span class="kicker">Email de suivi · prototype</span>
+          <h1>Ajouter un email<br />pour le rappel&nbsp;?</h1>
           <p class="lede">
-            On sauvegarde ta progression, ton planning, tes fiches. Aucune
-            newsletter, aucun spam — promis.
+            Ta mission est déjà prête. Dans cette version statique, l'email
+            sert seulement à garder l'adresse dans ce navigateur pour la démo.
+            Aucun compte n'est créé.
           </p>
 
           <div class="email-field">
@@ -305,18 +314,19 @@
               autocomplete="email"
               required
               aria-describedby="ob-email-note ob-email-error"
+              aria-errormessage="ob-email-error"
             />
             <span class="email-note" id="ob-email-note"
-              >Tu pourras te connecter avec ton email seul — pas de mot de passe
-              à retenir.</span
+              >Pas de mot de passe, pas de synchronisation multi-appareil dans
+              ce prototype.</span
             >
             <span class="email-error" id="ob-email-error" hidden role="alert"
-              >Format email invalide — vérifie l'arobase et l'extension.</span
+              >Entre une adresse comme prenom@lycee.fr.</span
             >
           </div>
 
-          <p class="email-offer-note">Tes 3 premières missions sont offertes · sans carte bancaire</p>
-          <button class="ob-continue" id="finish">Tout est prêt <i class="ph-bold ph-arrow-right" aria-hidden="true"></i></button>
+          <p class="email-offer-note">Les 3 premières missions restent ouvertes sans carte bancaire.</p>
+          <button class="ob-continue" id="finish" type="button">Voir le récapitulatif <i class="ph-bold ph-arrow-right" aria-hidden="true"></i></button>
         </section>
 
         <!-- STEP 8 — Done -->
@@ -324,8 +334,8 @@
           <span class="kicker">Ton dossier commence</span>
           <h1>Installe-toi.<br />Travaille le bon sujet.</h1>
           <p class="lede">
-            Ta première mission t'attend. On a déjà préparé le reste de la
-            semaine — tu pourras la réajuster à tout moment.
+            Ta première mission t'attend. Les autres pistes restent un aperçu
+            local, à ajuster après cette première action.
           </p>
 
           <div class="done-recap" id="done-recap"></div>
@@ -335,8 +345,8 @@
             <div class="preview-row suggest">
               <div class="ic" id="done-ic"><i class="ph-bold ph-calculator" aria-hidden="true"></i></div>
               <div class="copy">
-                <div class="top" id="done-top">Maths spé — suggéré pour commencer</div>
-                <div class="title" id="done-title">Exponentielle &amp; dérivation — exercice type contrôle</div>
+                <div class="top" id="done-top">Maths spé · suggéré pour commencer</div>
+                <div class="title" id="done-title">Exponentielle &amp; dérivation : exercice type contrôle</div>
               </div>
               <div class="duration" id="done-dur">25 min</div>
             </div>
@@ -351,7 +361,7 @@
       </main>
 
       <!-- ============================================================ PROGRESS -->
-      <div class="ob-progress" id="progress">
+      <div class="ob-progress" id="progress" aria-hidden="true">
         <span class="dot current"></span>
         <span class="dot"></span>
         <span class="dot"></span>

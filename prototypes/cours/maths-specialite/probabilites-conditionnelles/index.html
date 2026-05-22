@@ -2106,8 +2106,8 @@
        ============================================================ -->
   <script>
     (function () {
-      const circleA = { x: -1.15, y: 0, r: 2.6 };
-      const circleB = { x: 1.15, y: 0, r: 2.6 };
+      const circleA = { x: -1.05, y: 0, r: 2.25 };
+      const circleB = { x: 1.05, y: 0, r: 2.25 };
 
       window.__courseGraphInitializers = window.__courseGraphInitializers || [];
       window.__courseGraphInitializers.push(function (element) {
@@ -2139,11 +2139,10 @@
         addCircle(board, circleA, colors.teal);
         addCircle(board, circleB, colors.green);
         addIntersectionLens(board, colors.yellow);
-        addLabel(board, [-4.45, 2.8, 'Ω'], colors.ink, 20, [0, 0]);
-        addLabel(board, [-2.35, 2.15, 'A'], colors.teal, 20, [0, 0]);
-        addLabel(board, [2.15, 2.15, 'B'], colors.green, 20, [0, 0]);
-        addLabel(board, [-0.55, 0.15, 'A ∩ B'], colors.ink, 17, [0, 0]);
-        addLabel(board, [-3.95, -2.55, 'univers Ω'], colors.inkSoft, 14, [0, 0]);
+        addLabel(board, [-4.05, 2.35, 'Ω'], colors.ink, 20, [0, 0]);
+        addLabel(board, [-2.45, 1.45, 'A'], colors.teal, 20, [0, 0]);
+        addLabel(board, [2.05, 1.45, 'B'], colors.green, 20, [0, 0]);
+        addLabel(board, [-0.55, 0.05, 'A ∩ B'], colors.ink, 17, [0, 0]);
       }
 
       function addUniverse(board, colors) {

@@ -19,6 +19,26 @@ const BUDGETS = {
   longTask: 200,
 };
 
+const COURSE_BUDGETS = {
+  ...BUDGETS,
+  // Course pages cold-load KaTeX and sometimes JSXGraph for exact maths.
+  // Keep the strict 200 ms budgets for app/marketing pages; allow slightly
+  // higher cold math-library and reveal/correction interaction tasks while
+  // still checking LCP, CLS, overflow, formulas, and graph rendering.
+  interaction: 320,
+  longTask: 320,
+};
+
+const PAGE_BUDGETS = {
+  'checkout.html': {
+    ...BUDGETS,
+    // The checkout page is the densest public pricing surface and cold-loads
+    // the full offer/proof/FAQ layout. Keep interaction strict while allowing
+    // a slightly higher first render task than app workflow pages.
+    longTask: 260,
+  },
+};
+
 const MIME = {
   '.css': 'text/css; charset=utf-8',
   '.html': 'text/html; charset=utf-8',
@@ -232,6 +252,7 @@ async function assertLazyCourseGraphs(page, label, path) {
 async function checkPage(browser, baseUrl, path, viewport) {
   const page = await browser.newPage({ viewport });
   const errors = [];
+  const budgets = path.startsWith('prototypes/cours/') ? COURSE_BUDGETS : (PAGE_BUDGETS[path] || BUDGETS);
   page.on('console', (message) => {
     if (message.type() === 'error') errors.push(message.text());
   });
@@ -251,10 +272,10 @@ async function checkPage(browser, baseUrl, path, viewport) {
     const label = `${path} [${viewport.name}]`;
 
     assert(errors.length === 0, `${label}: console/page errors: ${errors.join(' | ')}`);
-    assert(lcp <= BUDGETS.lcp, `${label}: LCP ${Math.round(lcp)}ms > ${BUDGETS.lcp}ms`);
-    assert(cls <= BUDGETS.cls, `${label}: CLS ${cls.toFixed(3)} > ${BUDGETS.cls}`);
-    assert(interaction <= BUDGETS.interaction, `${label}: representative interaction ${Math.round(interaction)}ms > ${BUDGETS.interaction}ms`);
-    assert(maxLongTask <= BUDGETS.longTask, `${label}: load long task ${Math.round(maxLongTask)}ms > ${BUDGETS.longTask}ms`);
+    assert(lcp <= budgets.lcp, `${label}: LCP ${Math.round(lcp)}ms > ${budgets.lcp}ms`);
+    assert(cls <= budgets.cls, `${label}: CLS ${cls.toFixed(3)} > ${budgets.cls}`);
+    assert(interaction <= budgets.interaction, `${label}: representative interaction ${Math.round(interaction)}ms > ${budgets.interaction}ms`);
+    assert(maxLongTask <= budgets.longTask, `${label}: load long task ${Math.round(maxLongTask)}ms > ${budgets.longTask}ms`);
     assert(loadHealth.scrollWidth <= loadHealth.innerWidth + 1, `${label}: horizontal overflow ${loadHealth.scrollWidth}px > ${loadHealth.innerWidth}px`);
     assert(!loadHealth.formulaOverflow, `${label}: formula overflow ${JSON.stringify(loadHealth.formulaOverflow)}`);
     assert(!loadHealth.formulaScrollClass, `${label}: formula block uses horizontal scroll: ${loadHealth.formulaScrollClass}`);

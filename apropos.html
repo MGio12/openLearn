@@ -36,31 +36,51 @@
   <meta property="og:locale" content="fr_FR">
 
   <link rel="stylesheet" href="colors_and_type.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css">
 
   <style>
     /* ============================================================
        APROPOS - style inline self-contained
        ============================================================ */
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
     html, body { margin: 0; padding: 0; }
     body {
+      --font-display: "Arial Black", Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+      --font-body: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background-color: var(--paper);
-      background-image:
-        linear-gradient(rgba(18,18,18,0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(18,18,18,0.035) 1px, transparent 1px);
-      background-size: 24px 24px;
       color: var(--ink);
       font-family: var(--font-body);
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      text-rendering: auto;
     }
-    a { color: inherit; }
+    a { color: inherit; text-underline-offset: 4px; }
+    a:focus-visible,
+    .btn:focus-visible,
+    .nav-pill:focus-visible {
+      outline: 3px solid var(--blue-2);
+      outline-offset: 4px;
+      border-radius: 10px;
+    }
     sup a { text-decoration: none; font-weight: 800; padding: 0 1px; }
     sup a:hover { text-decoration: underline; }
 
     .wrap { max-width: 1100px; margin: 0 auto; padding: 0 clamp(18px, 4vw, 40px); }
+    .skip-link {
+      position: fixed;
+      left: 16px;
+      top: 12px;
+      z-index: 100;
+      transform: translateY(-160%);
+      padding: 10px 14px;
+      border: 3px solid var(--ink);
+      border-radius: 10px;
+      background: var(--stabilo);
+      box-shadow: 4px 4px 0 var(--ink);
+      font-weight: 800;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .skip-link:focus-visible { transform: translateY(0); }
 
     /* ----- NAV ----- */
     .nav {
@@ -68,8 +88,7 @@
       display: flex; align-items: center; justify-content: space-between;
       gap: 18px;
       padding: 14px clamp(18px, 4vw, 40px);
-      background: rgba(246, 242, 235, 0.92);
-      backdrop-filter: blur(6px);
+      background: var(--paper);
       border-bottom: 1.5px solid rgba(42, 39, 36, 0.13);
     }
     .brand { display: inline-flex; align-items: center; gap: 12px; color: var(--ink); text-decoration: none; }
@@ -91,21 +110,42 @@
       background: var(--paper-2);
       font-family: var(--font-body); font-weight: 800; font-size: 11px;
       letter-spacing: .08em; text-transform: uppercase;
+      color: var(--ink); text-decoration: none;
     }
     .nav-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green-2); border: 1.5px solid var(--ink); }
     @media (max-width: 640px) {
       .nav-link[data-hide-sm] { display: none; }
     }
+    @media (max-width: 380px) {
+      .brand .name { display: none; }
+      .nav { gap: 10px; }
+      .nav-pill { padding: 7px 10px; font-size: 10px; }
+    }
 
     /* ----- HERO ----- */
     .hero { padding: clamp(40px, 7vw, 88px) 0 clamp(28px, 4vw, 48px); }
+    .hero-eyebrow {
+      display: inline-flex;
+      margin: 0 0 12px;
+      padding: 6px 10px;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      background: var(--paper-2);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
     .hero h1 {
       margin: 0 0 18px;
       font-family: var(--font-display);
-      font-size: clamp(36px, 5.4vw, 64px);
+      font-size: clamp(34px, 5.2vw, 62px);
       line-height: 0.98;
       letter-spacing: -.01em;
       text-wrap: balance;
+      max-width: 920px;
+      hyphens: auto;
     }
     .hero h1 .hl {
       background-image: linear-gradient(transparent 58%, var(--stabilo) 58%, var(--stabilo) 96%, transparent 96%);
@@ -114,10 +154,29 @@
       -webkit-box-decoration-break: clone;
     }
     .hero p.lead {
-      max-width: 760px;
+      max-width: 780px;
       margin: 0 0 28px;
       font-size: clamp(17px, 1.6vw, 20px);
       line-height: 1.55;
+      color: var(--ink-2);
+    }
+    .hero-proof {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: -8px 0 24px;
+      max-width: 840px;
+    }
+    .hero-proof span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 7px 10px;
+      border: 1.5px solid rgba(18, 18, 18, .22);
+      border-radius: 999px;
+      background: rgba(255, 253, 248, .58);
+      font-size: 13px;
+      font-weight: 800;
       color: var(--ink-2);
     }
     .hero-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
@@ -131,8 +190,8 @@
       letter-spacing: .01em;
       color: var(--ink); text-decoration: none;
       transition: transform .14s ease, box-shadow .14s ease;
+      touch-action: manipulation;
     }
-    .btn .ph-bold { font-size: 16px; line-height: 1; }
     .btn:hover { transform: translate(2px, 2px); box-shadow: 4px 4px 0 var(--ink); }
     .btn:active { transform: translate(4px, 4px); box-shadow: 2px 2px 0 var(--ink); }
     .btn--ghost { background: transparent; box-shadow: none; border-width: 0; padding: 14px 6px; font-size: 14px; }
@@ -140,6 +199,15 @@
 
     /* ----- SECTION ----- */
     section { padding: clamp(32px, 5vw, 64px) 0; }
+    .defer-section {
+      content-visibility: auto;
+      contain-intrinsic-size: auto 640px;
+    }
+    .quotes-stack,
+    .stat-row {
+      content-visibility: auto;
+      contain-intrinsic-size: auto 360px;
+    }
     .section-kicker {
       display: inline-flex;
       align-items: center;
@@ -148,7 +216,15 @@
       letter-spacing: .14em; text-transform: uppercase;
       color: var(--ink); margin-bottom: 8px;
     }
-    .section-kicker .ph-bold { font-size: 13px; line-height: 1; color: var(--stabilo-2); }
+    .section-kicker::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border: 2px solid var(--ink);
+      border-radius: 50%;
+      background: var(--stabilo);
+      box-shadow: 2px 2px 0 var(--ink);
+    }
     h2.section-title {
       margin: 0 0 24px;
       font-family: var(--font-display);
@@ -167,7 +243,7 @@
     /* ----- 3 CARTES "CE QU'ON EST" ----- */
     .cards-3 {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, .95fr) minmax(0, .95fr);
       gap: 18px;
     }
     .card {
@@ -226,70 +302,23 @@
     .quote-attrib strong { color: var(--ink); font-weight: 800; }
     .quote-gloss {
       margin: 8px 0 0 8px;
-      font-family: var(--font-hand);
-      font-size: 18px;
-      line-height: 1.2;
+      font-size: 14px;
+      line-height: 1.45;
+      font-weight: 800;
       color: var(--ink-soft);
-      transform: rotate(-1deg);
     }
 
-    /* ----- EASTER EGG TEASE entre les 2 quote-cards ----- */
     .quotes-stack {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 18px;
       margin-top: 28px;
     }
     .quotes-stack > .quote-card { margin-bottom: 0; }
-    .quote-tease {
-      align-self: flex-start;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin: -2px 0 -2px 36px;
-      padding: 4px 14px;
-      max-width: 520px;
-      transform: rotate(-1.5deg);
-      color: var(--ink);
-    }
-    .tease-arrow {
-      flex: 0 0 auto;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 44px; height: 44px;
-      color: var(--ink);
-    }
-    .tease-arrow svg { width: 38px; height: 38px; display: block; }
-    .tease-arrow--up { transform: translateY(-2px); }
-    .tease-arrow--down { transform: translateY(2px); }
-    .tease-text {
-      font-family: var(--font-hand);
-      font-size: clamp(20px, 1.9vw, 26px);
-      line-height: 1.15;
-      color: var(--ink-soft);
-      max-width: 320px;
-    }
-    .tease-emoji {
-      font-size: 1.15em;
-      margin-left: 2px;
-      vertical-align: -2px;
-    }
 
     @media (max-width: 640px) {
       .quote-card { grid-template-columns: 1fr; text-align: left; padding: 20px; }
       .quote-avatar { width: 80px; height: 80px; font-size: 26px; }
-      .quote-tease {
-        align-self: center;
-        margin: 4px auto;
-        padding: 6px 8px;
-        transform: none;
-        text-align: center;
-        max-width: 100%;
-        justify-content: center;
-      }
-      .tease-arrow { display: none; }
-      .tease-text { max-width: 100%; }
     }
 
     /* ----- LIGNE DE CHIFFRES ----- */
@@ -309,20 +338,28 @@
       font-family: var(--font-display);
       font-size: clamp(28px, 3vw, 38px);
       line-height: 1; margin-bottom: 6px;
+      overflow-wrap: anywhere;
     }
     .stat p { margin: 0; font-size: 14px; line-height: 1.5; color: var(--ink-2); }
     @media (max-width: 640px) { .stat-row { grid-template-columns: 1fr; } }
 
     /* ----- MÉTHODE ----- */
     .method-block {
-      border-left: 6px solid var(--stabilo);
-      padding: 4px 0 4px 20px;
+      border: 3px solid var(--ink);
+      border-radius: 14px;
+      background: var(--stabilo-wash);
+      padding: 22px;
       max-width: 760px;
     }
     .method-block p { font-size: clamp(15px, 1.35vw, 17px); line-height: 1.6; color: var(--ink-2); margin: 0 0 10px; }
     .method-block .real-talk {
-      font-family: var(--font-hand);
-      font-size: 22px;
+      display: inline-block;
+      padding: 6px 10px;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      background: var(--paper);
+      font-size: 15px;
+      font-weight: 900;
       color: var(--ink);
       margin-top: 12px;
     }
@@ -352,8 +389,8 @@
       text-align: center; padding: 24px;
     }
     .story-photo .photo-placeholder .sig {
-      font-family: var(--font-hand);
-      font-size: 26px;
+      font-family: var(--font-display);
+      font-size: 24px;
       color: var(--ink);
     }
     .story-photo .photo-placeholder .note {
@@ -365,8 +402,8 @@
     .story-text p { margin: 0 0 14px; font-size: clamp(15px, 1.35vw, 17px); line-height: 1.62; color: var(--ink-2); }
     .story-signature {
       margin-top: 18px;
-      font-family: var(--font-hand);
-      font-size: 30px;
+      font-family: var(--font-display);
+      font-size: 22px;
       color: var(--ink);
     }
     .story-signature small {
@@ -402,7 +439,8 @@
       border-bottom: 1px dashed rgba(18, 18, 18, .18);
     }
     .paywall li:last-child { border-bottom: none; }
-    .paywall li .ph-bold {
+    .paywall li::before {
+      content: "✓";
       position: absolute; left: 0; top: 9px;
       color: var(--ink);
       background: var(--stabilo);
@@ -411,6 +449,7 @@
       border-radius: 999px;
       display: grid; place-items: center;
       font-size: 12px;
+      font-weight: 900;
       line-height: 1;
     }
     .paywall .fine { font-size: 13px; color: var(--ink-soft); margin: 14px 0 0; line-height: 1.5; }
@@ -420,6 +459,8 @@
     .sito {
       padding: 32px 0 16px;
       border-top: 1.5px solid rgba(18, 18, 18, .15);
+      content-visibility: auto;
+      contain-intrinsic-size: auto 360px;
     }
     .sito h3 {
       margin: 0 0 14px;
@@ -427,15 +468,27 @@
       font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
       color: var(--ink-soft);
     }
-    .sito ol { margin: 0; padding: 0 0 0 22px; }
+    .sito ol {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0 0 0 22px;
+      max-width: 880px;
+    }
     .sito li {
-      margin: 6px 0;
-      font-size: 13px;
+      margin: 0;
+      padding: 10px 12px;
+      border: 1.5px solid rgba(18, 18, 18, .16);
+      border-radius: 10px;
+      background: rgba(255, 253, 248, .55);
+      font-size: 14px;
       color: var(--ink-2);
-      line-height: 1.5;
+      line-height: 1.58;
     }
     .sito li a { color: var(--ink); }
     .sito li a:hover { text-decoration: underline; }
+    .quote-attrib em,
+    .sito em { font-style: normal; }
 
     /* ----- FOOTER ----- */
     .foot {
@@ -447,9 +500,29 @@
     }
     .foot a { color: var(--ink); text-decoration: none; }
     .foot a:hover { text-decoration: underline; }
+
+    @media (max-width: 520px) {
+      .hero { padding-top: 30px; }
+      .hero h1 { font-size: clamp(30px, 9.2vw, 38px); line-height: 1.02; }
+      .hero-proof { margin-top: -4px; }
+      .hero-proof span { width: 100%; }
+      .btn { width: 100%; justify-content: center; text-align: center; }
+      .btn--ghost { width: auto; justify-content: flex-start; padding-left: 0; }
+      .quote-card { gap: 14px; }
+      .paywall { box-shadow: 6px 6px 0 var(--ink); }
+      .foot { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
   </style>
 </head>
 <body>
+<a class="skip-link" href="#contenu">Aller au contenu</a>
 
 <!-- ============================================================ NAV -->
 <header class="nav">
@@ -460,36 +533,42 @@
   <nav class="nav-right" aria-label="Navigation principale">
     <a class="nav-link" href="#histoire" data-hide-sm>Histoire</a>
     <a class="nav-link" href="checkout.html" data-hide-sm>Offres</a>
-    <span class="nav-pill"><span class="dot"></span> Essai 3 j · sans débit</span>
+    <a class="nav-pill" href="onboarding.html"><span class="dot"></span> 3 missions offertes</a>
   </nav>
 </header>
 
-<main class="wrap">
+<main class="wrap" id="contenu">
 
   <!-- ============================================================ HERO -->
   <section class="hero">
-    <h1>L'IA va creuser <span class="hl">l'inégalité des chances</span>.<br>Sauf si on s'en sert d'abord.</h1>
+    <span class="hero-eyebrow">Pour les lycéens, lisible par les parents</span>
+    <h1>L'IA peut creuser <span class="hl">l'écart</span>. On veut en faire un cadre de travail juste.</h1>
     <p class="lead">
-      Je m'appelle Max, je suis en prépa scientifique. J'ai créé Objectif Lycée pour donner aux lycéens qui n'ont pas accès à un prof particulier un coach disponible quand ils en ont besoin. Construit avec des profs de lycée, pour les questions de fond.
+      Je m'appelle Max, je suis en prépa scientifique. J'ai créé Objectif Lycée pour donner aux lycéens qui n'ont pas accès à un prof particulier un coach disponible quand ils travaillent. Les profs de lycée gardent le fond scolaire, l'IA aide à choisir la prochaine mission, et le parent voit une preuve simple sans devoir piloter chaque soir.
     </p>
+    <div class="hero-proof" aria-label="Repères de confiance">
+      <span>Fond scolaire relu avec des profs</span>
+      <span>Objectif du soir en 25 minutes</span>
+      <span>Parent informé, élève autonome</span>
+    </div>
     <div class="hero-cta">
-      <a class="btn" href="onboarding.html">Tester 3 jours, sans débit</a>
-      <a class="btn btn--ghost" href="#histoire">Lire mon histoire <i class="ph-bold ph-arrow-down" aria-hidden="true"></i></a>
+      <a class="btn" href="onboarding.html">Tester les 3 missions offertes</a>
+      <a class="btn btn--ghost" href="#histoire">Lire mon histoire</a>
     </div>
   </section>
 
   <!-- ============================================================ CE QU'ON EST -->
-  <section>
-    <span class="section-kicker"><i class="ph-bold ph-sparkle" aria-hidden="true"></i> Ce qu'on est</span>
-    <h2 class="section-title">Trois choix qu'un cours particulier ne te donne pas.</h2>
+  <section class="content-section">
+    <span class="section-kicker">Ce qu'on est</span>
+    <h2 class="section-title">Trois choix qui rassurent sans reprendre la main à l'élève.</h2>
     <div class="cards-3">
       <article class="card">
         <h3>Sans jugement.</h3>
-        <p>Tu peux poser la question que tu n'oses pas demander en classe. L'IA répond comme un grand frère qui a compris, pas comme un prof qui s'impatiente. Tu choisis son ton : encourageant, direct, exigeant.</p>
+        <p>Tu peux poser la question que tu n'oses pas demander en classe. L'IA répond comme un tuteur patient qui veut comprendre le blocage, pas comme un prof qui s'impatiente. Tu choisis son ton : encourageant, direct, exigeant.</p>
       </article>
       <article class="card">
         <h3>Le parent voit ce qui compte.</h3>
-        <p>Un espace clair pour le parent : dates de contrôle, missions faites, chapitres à consolider. Il sait quand intervenir et quand laisser tranquille. Sans rapport flicage.</p>
+        <p>Un espace clair pour le parent : dates de contrôle, missions faites, chapitres à consolider. Il sait quand intervenir et quand laisser tranquille, sans transformer le soir en surveillance.</p>
       </article>
       <article class="card">
         <h3>Une méthode, pas une bibliothèque.</h3>
@@ -499,8 +578,8 @@
   </section>
 
   <!-- ============================================================ IA & CHANCES -->
-  <section>
-    <span class="section-kicker"><i class="ph-bold ph-sparkle" aria-hidden="true"></i> Pourquoi maintenant</span>
+  <section class="content-section">
+    <span class="section-kicker">Pourquoi maintenant</span>
     <h2 class="section-title">Cette fois, l'inégalité peut baisser.</h2>
     <p class="section-lead">
       Un cours particulier au lycée coûte 30 à 45 € de l'heure<sup><a href="#sito-1">1</a></sup>. Ce que tu paies, ce n'est pas la matière. C'est un humain qui n'a que toi en tête sur ce créneau, qui s'adapte à ton humeur, à tes blocages, à ton emploi du temps. Un prof particulier, c'est un coach qui n'a rien d'autre dans sa vie à ce moment-là.
@@ -521,24 +600,6 @@
         </div>
       </div>
 
-      <aside class="quote-tease" aria-hidden="true">
-        <span class="tease-arrow tease-arrow--up">
-          <!-- Lucide corner-up-left - MIT - lucide.dev -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <polyline points="9 14 4 9 9 4"/>
-            <path d="M20 20v-7a4 4 0 0 0-4-4H4"/>
-          </svg>
-        </span>
-        <span class="tease-text">j'ai pas les droits, utilisez votre imagination <span class="tease-emoji">😄</span></span>
-        <span class="tease-arrow tease-arrow--down">
-          <!-- Lucide corner-down-left - MIT - lucide.dev -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <polyline points="9 10 4 15 9 20"/>
-            <path d="M20 4v7a4 4 0 0 1-4 4H4"/>
-          </svg>
-        </span>
-      </aside>
-
       <div class="quote-card">
         <div class="quote-avatar" aria-hidden="true">LA</div>
         <div class="quote-body">
@@ -555,15 +616,15 @@
         <p>Effet d'un tuteur 1-pour-1 vs cours classique (Bloom, 1984). C'est l'ordre de grandeur que l'IA bien utilisée commence à approcher.</p>
       </div>
       <div class="stat">
-        <div class="num">30 – 45 € / h<sup><a href="#sito-1">1</a></sup></div>
+        <div class="num">30 à 45 € / h<sup><a href="#sito-1">1</a></sup></div>
         <p>Tarif moyen d'un cours particulier au lycée en France, surtout en sciences. Notre abonnement annuel pèse moins qu'une heure de prof par semaine.</p>
       </div>
     </div>
   </section>
 
   <!-- ============================================================ MÉTHODE -->
-  <section>
-    <span class="section-kicker"><i class="ph-bold ph-sparkle" aria-hidden="true"></i> Méthode</span>
+  <section class="content-section defer-section">
+    <span class="section-kicker">Méthode</span>
     <h2 class="section-title">À terme, tu travailles tout seul.</h2>
     <div class="method-block">
       <p>
@@ -577,8 +638,8 @@
   </section>
 
   <!-- ============================================================ HISTOIRE -->
-  <section id="histoire">
-    <span class="section-kicker"><i class="ph-bold ph-sparkle" aria-hidden="true"></i> Histoire</span>
+  <section class="content-section defer-section" id="histoire">
+    <span class="section-kicker">Histoire</span>
     <h2 class="section-title">Pourquoi je fais ça.</h2>
     <div class="story-grid">
       <div class="story-photo">
@@ -602,16 +663,16 @@
   </section>
 
   <!-- ============================================================ CTA PAYWALL -->
-  <section>
+  <section class="content-section defer-section">
     <div class="paywall">
       <h2>Essaie. Si ça ne te sert à rien, tu pars.</h2>
       <ul>
-        <li><i class="ph-bold ph-check" aria-hidden="true"></i><strong>3 jours d'essai</strong> - aucun débit pendant ces 3 jours.</li>
-        <li><i class="ph-bold ph-check" aria-hidden="true"></i><strong>Mail de rappel la veille</strong> du premier prélèvement. Tu décides après, en connaissance de cause.</li>
-        <li><i class="ph-bold ph-check" aria-hidden="true"></i><strong>Résiliation en 1 clic</strong>, à n'importe quel moment, depuis ton compte.</li>
-        <li><i class="ph-bold ph-check" aria-hidden="true"></i>Le compte parent peut payer ; l'élève garde son espace de travail séparé.</li>
+        <li><strong>3 missions offertes</strong> pour vérifier que le cadre aide vraiment avant de payer.</li>
+        <li><strong>10 € par mois ensuite</strong>, uniquement si tu veux garder le plan quotidien personnalisé.</li>
+        <li><strong>Promesse simple</strong> : une mission claire, une preuve qu'elle compte, une avance visible.</li>
+        <li>La cible produit reste nette : le parent peut financer, l'élève garde son espace de travail.</li>
       </ul>
-      <a class="btn" href="onboarding.html">Démarrer l'essai 3 jours</a>
+      <a class="btn" href="onboarding.html">Démarrer les 3 missions offertes</a>
       <p class="fine">Pas de jeu sur les CGU. Pas de cases pré-cochées. Si on a déconné quelque part, écris à <a href="mailto:hello@objectiflycee.fr">hello@objectiflycee.fr</a>.</p>
     </div>
   </section>

@@ -12,245 +12,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Objectif Lycée — Objectif dossier</title>
+  <link rel="icon" type="image/webp" href="assets/brand/trophy-logo-home.webp">
   <link rel="stylesheet" href="colors_and_type.css">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css">
-  <style>
-    html, body { height: auto; overflow: visible; }
-    .app { height: auto; min-height: 100vh; }
-    .main { overflow: visible; }
-    .view { display: block !important; flex: none !important; overflow: visible !important; height: auto !important; padding: 28px 36px 32px !important; background-image: none !important; }
-
-    .op-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 22px; flex-wrap: wrap; }
-    .op-head h1 { font-family: var(--font-display); font-size: 40px; line-height: 1; text-transform: uppercase; letter-spacing: -.01em; margin: 0; }
-    .op-head .sub { font-family: var(--font-body); font-size: 14px; color: var(--ink-soft); margin-top: 6px; }
-    .op-filter { display: flex; gap: 4px; padding: 4px; background: var(--paper-2); border: 2.5px solid var(--ink); border-radius: 12px; }
-    .op-filter button {
-      padding: 8px 14px;
-      background: transparent; border: none;
-      font-family: var(--font-body); font-weight: 800; font-size: 12px;
-      letter-spacing: .04em; color: var(--ink); cursor: pointer;
-      border-radius: 8px;
-    }
-    .op-filter button.active { background: var(--ink); color: var(--paper); }
-
-    /* Top row: 2 stats (not 3) — "Leviers" stat removed (redundant with right column) */
-    .op-hero {
-      display: grid;
-      grid-template-columns: 1.5fr 1fr;
-      gap: 18px;
-      margin-bottom: 22px;
-    }
-    .op-stat {
-      background: #FFFDF8;
-      border: 2.5px solid var(--ink);
-      border-radius: 14px;
-      padding: 22px 24px;
-      box-shadow: 5px 5px 0 var(--ink);
-      display: flex; flex-direction: column; gap: 6px;
-    }
-    .op-stat--stabilo { background: var(--stabilo); }
-    .op-stat--beige { background: var(--beige); }
-    .op-stat .label {
-      font-family: var(--font-body); font-size: 11px; font-weight: 800;
-      letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft);
-    }
-    .op-stat--stabilo .label { color: #5C4A0A; }
-    .op-stat--beige .label { color: #6C4A28; }
-    .op-stat .value {
-      font-family: var(--font-display); font-size: 48px; line-height: 1; letter-spacing: -.01em;
-    }
-    .op-stat .value small {
-      font-family: var(--font-body); font-size: 14px; font-weight: 800;
-      color: var(--ink-soft); margin-left: 6px;
-    }
-    .op-stat--stabilo .value small { color: #5C4A0A; }
-    .op-stat--beige .value small { color: #6C4A28; }
-    .op-stat .note { font-family: var(--font-body); font-size: 13px; color: var(--ink-soft); line-height: 1.45; margin-top: 6px; }
-    .op-stat--stabilo .note { color: #5C4A0A; }
-    .op-stat--beige .note { color: #6C4A28; }
-
-    /* Split */
-    .op-split {
-      display: grid;
-      grid-template-columns: 1.55fr 1fr;
-      gap: 22px;
-    }
-    .op-card {
-      background: #FFFDF8;
-      border: 2.5px solid var(--ink);
-      border-radius: 14px;
-      padding: 22px 24px;
-      box-shadow: 5px 5px 0 var(--ink);
-    }
-    .op-card__head {
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 14px;
-      margin-bottom: 16px;
-    }
-    .op-card__head h2 {
-      font-family: var(--font-display); font-size: 18px;
-      text-transform: uppercase; margin: 0;
-    }
-    .op-legend {
-      display: flex; align-items: center; gap: 6px;
-      font-family: var(--font-body); font-size: 11px; color: var(--ink-soft);
-    }
-    .op-legend .swatches { display: flex; gap: 2px; }
-    .op-legend .sw {
-      width: 14px; height: 14px;
-      border: 1.5px solid var(--ink);
-      border-radius: 3px;
-      display: inline-block;
-    }
-    .op-legend .sw1 { background: var(--paper-2); }
-    .op-legend .sw2 { background: var(--stabilo-wash); }
-    .op-legend .sw3 { background: #F2D87C; }
-    .op-legend .sw4 { background: var(--stabilo); }
-    .op-legend .sw5 { background: #E7A847; }
-    .op-legend .lbl { letter-spacing: .04em; }
-
-    /* Heatmap — clean solid cells, no glyphs */
-    .op-heatmap {
-      display: grid;
-      grid-template-columns: 200px repeat(6, 1fr) 70px;
-      gap: 5px;
-      align-items: center;
-    }
-    .op-heatmap .col-head {
-      font-family: var(--font-body); font-size: 10px; font-weight: 800;
-      letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft);
-      text-align: center; padding: 4px 0;
-    }
-    .op-heatmap .row-head {
-      font-family: var(--font-body); font-size: 14px; font-weight: 700;
-      padding-right: 12px;
-      line-height: 1.3;
-    }
-    .op-heatmap .cell {
-      height: 36px;
-      border-radius: 6px;
-      border: 1.5px solid rgba(18,18,18,0.18);
-    }
-    .op-heatmap .cell-0 { background: var(--paper-2); }
-    .op-heatmap .cell-1 { background: var(--stabilo-wash); border-color: rgba(18,18,18,0.22); }
-    .op-heatmap .cell-2 { background: #F2D87C; border-color: rgba(18,18,18,0.32); }
-    .op-heatmap .cell-3 { background: var(--stabilo); border-color: var(--ink); border-width: 2px; }
-    .op-heatmap .cell-4 { background: #E7A847; border-color: var(--ink); border-width: 2px; }
-    .op-heatmap .impact {
-      font-family: var(--font-display); font-size: 18px;
-      text-align: right; padding-left: 8px;
-    }
-    .op-heatmap .impact small {
-      font-family: var(--font-body); font-size: 11px; font-weight: 700;
-      color: var(--ink-soft);
-    }
-
-    /* Priorities — clean ranked list with IA insight integrated as eyebrow */
-    .op-strategy {
-      background: var(--ink); color: var(--paper);
-      border-radius: 14px;
-      padding: 22px 24px;
-      box-shadow: 5px 5px 0 var(--stabilo);
-      border: 2.5px solid var(--ink);
-      display: flex; flex-direction: column; gap: 18px;
-    }
-    .op-strategy__head { display: flex; align-items: center; gap: 12px; }
-    .op-strategy__av {
-      width: 30px; height: 30px; border-radius: 50%;
-      background: var(--stabilo); color: var(--ink);
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--font-display); font-size: 11px;
-      border: 2px solid var(--stabilo);
-    }
-    .op-strategy__tag {
-      font-family: var(--font-body); font-size: 10px; font-weight: 800;
-      letter-spacing: .14em; text-transform: uppercase;
-      color: rgba(246, 242, 235, 0.55);
-    }
-    .op-strategy__body {
-      font-family: var(--font-body); font-size: 14px;
-      line-height: 1.5;
-      color: rgba(246, 242, 235, 0.92);
-    }
-    .op-strategy__body b { color: var(--stabilo); font-weight: 800; }
-
-    .op-prio-list { display: flex; flex-direction: column; gap: 10px; }
-    .op-prio {
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 0;
-      border-top: 1px dashed rgba(246, 242, 235, 0.12);
-    }
-    .op-prio:first-of-type { border-top: 0; padding-top: 4px; }
-    .op-prio__rank {
-      font-family: var(--font-display); font-size: 22px;
-      color: rgba(246, 242, 235, 0.5);
-      width: 28px;
-    }
-    .op-prio__copy {
-      display: flex; flex-direction: column; gap: 4px;
-    }
-    .op-prio__name {
-      font-family: var(--font-body); font-weight: 800; font-size: 14px;
-      color: var(--paper);
-    }
-    .op-prio__meta {
-      font-family: var(--font-mono); font-size: 11px;
-      color: rgba(246, 242, 235, 0.55);
-      letter-spacing: .04em;
-    }
-    .op-prio__bar {
-      width: 64px; height: 6px;
-      background: rgba(246, 242, 235, 0.12);
-      border-radius: 999px; overflow: hidden;
-    }
-    .op-prio__bar .fill {
-      height: 100%; background: var(--stabilo);
-      border-radius: 999px;
-    }
-    .op-prio__bar.low .fill { background: var(--red); }
-    .op-prio__bar.mid .fill { background: var(--orange); }
-
-    .op-strategy__cta {
-      display: inline-flex; align-self: flex-start;
-      align-items: center; gap: 8px;
-      margin-right: 8px;
-      margin-top: 10px;
-      padding: 10px 16px;
-      background: var(--stabilo); color: var(--ink);
-      border: 2px solid var(--stabilo);
-      border-radius: 8px;
-      font-family: var(--font-body); font-weight: 800; font-size: 13px;
-      text-decoration: none;
-    }
-    .op-strategy__cta .ph-bold { font-size: 15px; line-height: 1; }
-    .op-strategy__cta--secondary {
-      background: var(--ink);
-      border-color: var(--ink);
-      color: var(--paper);
-    }
-
-    @media (max-width: 900px) {
-      .op-hero,
-      .op-split { grid-template-columns: 1fr; }
-      .op-card { overflow-x: auto; }
-      .op-heatmap { min-width: 720px; }
-    }
-    @media (max-width: 640px) {
-      .view { padding: 18px 14px 90px !important; }
-      .op-head { align-items: flex-start; }
-      .op-head h1 { font-size: 31px; }
-      .op-filter { overflow-x: auto; max-width: 100%; }
-      .op-stat,
-      .op-card,
-      .op-strategy { padding: 18px 16px; box-shadow: 4px 4px 0 var(--ink); }
-      .op-stat .value { font-size: 40px; }
-      .op-card__head { align-items: flex-start; flex-direction: column; }
-    }
-  </style>
+  <link rel="stylesheet" href="assets/css/pages/objectif.css">
 </head>
 <body>
 
@@ -260,17 +26,19 @@
     <div class="sb-group">
       <div class="head">Cockpit</div>
       <a href="index.html" class="sb-item"><span class="ic"><i class="ph-bold ph-target" aria-hidden="true"></i></span>Aujourd'hui</a>
-      <a href="index.html" class="sb-item"><span class="ic"><i class="ph-bold ph-calendar-blank" aria-hidden="true"></i></span>Planning</a>
+      <a href="planning.html" class="sb-item"><span class="ic"><i class="ph-bold ph-calendar-blank" aria-hidden="true"></i></span>Planning</a>
       <a href="progression.html" class="sb-item"><span class="ic"><i class="ph-bold ph-chart-line-up" aria-hidden="true"></i></span>Progression</a>
       <a href="focus.html" class="sb-item"><span class="ic"><i class="ph-bold ph-timer" aria-hidden="true"></i></span>Focus</a>
     </div>
     <div class="sb-group">
       <div class="head">Travail</div>
       <div class="sb-item active"><span class="ic"><i class="ph-bold ph-squares-four" aria-hidden="true"></i></span>Objectif</div>
+      <a href="contenu.html" class="sb-item"><span class="ic"><i class="ph-bold ph-book-open-text" aria-hidden="true"></i></span>Contenu</a>
     </div>
     <div class="sb-group">
-      <div class="head" style="opacity:.5;font-size:10px">Bientôt</div>
-      <div style="font-family:var(--font-body);font-size:11px;color:var(--ink-mute);padding:0 12px;line-height:1.6">Fiches · Contrôles · Abonnement</div>
+      <div class="head">Compte</div>
+      <a href="abonnement.html" class="sb-item"><span class="ic"><i class="ph-bold ph-credit-card" aria-hidden="true"></i></span>Abonnement</a>
+      <a href="parametres.html" class="sb-item"><span class="ic"><i class="ph-bold ph-gear" aria-hidden="true"></i></span>Paramètres</a>
     </div>
     <div class="sb-bottom">
       <a class="sb-about" href="apropos.html" aria-label="À propos d'Objectif Lycée">
@@ -286,35 +54,67 @@
       <div class="op-head">
         <div>
           <h1>Objectif · Maths spé</h1>
-          <div class="sub">Pourquoi cette mission est intelligente.</div>
+          <div class="sub">Pourquoi cette mission est intelligente, et quoi faire ensuite.</div>
         </div>
-        <div class="op-filter">
-          <button type="button" class="active">Maths spé</button>
-          <button type="button">Physique-chimie</button>
-          <button type="button">Dossier</button>
-          <button type="button">Expression</button>
+        <div class="op-filter" aria-label="Aperçu des axes de travail">
+          <button type="button" class="active" aria-pressed="true">Maths spé</button>
+          <button type="button" aria-pressed="false">Physique-chimie</button>
+          <button type="button" aria-pressed="false">Dossier</button>
+          <button type="button" aria-pressed="false">Expression</button>
         </div>
       </div>
 
-      <!-- 2 stats only — "Leviers prioritaires" stat dropped (already in priorities list) -->
       <div class="op-hero">
-        <div class="op-stat op-stat--stabilo">
-          <div class="label">Dossier construit</div>
-          <div class="value">73%<small>/ 85% attendu</small></div>
-          <div class="note">12 points sous le rythme conseillé pour les écoles que tu vises.</div>
-        </div>
-        <div class="op-stat op-stat--beige">
-          <div class="label">Avant Parcoursup</div>
-          <div class="value">8<small>semaines</small></div>
-          <div class="note">Assez pour que la régularité se voie sur ton dossier.</div>
+        <article class="op-decision">
+          <div class="op-decision__label">Mission recommandée maintenant</div>
+          <h2>Suites &amp; limites, parce que c'est le levier le plus rentable aujourd'hui.</h2>
+          <p>
+            La mission n'est pas choisie parce que le chapitre est joli dans une liste.
+            Elle croise trois preuves : le chapitre revient dans les prochaines échéances,
+            ton niveau est encore fragile sur les justifications, et 28 minutes suffisent
+            pour produire une réponse plus propre dès ce soir.
+          </p>
+          <div class="op-reasons" aria-label="Raisons du choix de mission">
+            <div class="op-reason">
+              <span class="op-reason__key">Urgence</span>
+              <span>4 jalons dans les 6 prochaines semaines.</span>
+            </div>
+            <div class="op-reason">
+              <span class="op-reason__key">Impact</span>
+              <span>Les erreurs de rédaction coûtent vite des points de dossier.</span>
+            </div>
+            <div class="op-reason">
+              <span class="op-reason__key">Faisable</span>
+              <span>Une séance courte peut corriger une méthode précise.</span>
+            </div>
+          </div>
+          <div class="op-decision__actions">
+            <a href="mission.html" class="op-cta op-cta--primary">Ouvrir la mission <i class="ph-bold ph-arrow-right" aria-hidden="true"></i></a>
+            <a href="planning.html" class="op-cta op-cta--ghost">Planifier la semaine</a>
+          </div>
+        </article>
+
+        <div class="op-evidence-stack">
+          <div class="op-stat op-stat--stabilo">
+            <div class="label">Dossier construit</div>
+            <div class="value">73%<small>/ 85% attendu</small></div>
+            <div class="note">12 points sous le rythme conseillé pour les écoles que tu vises.</div>
+          </div>
+          <div class="op-stat op-stat--beige">
+            <div class="label">Fenêtre utile</div>
+            <div class="value">8<small>semaines</small></div>
+            <div class="note">Encore assez long pour que la régularité se voie.</div>
+          </div>
         </div>
       </div>
 
-      <!-- Split: heatmap + strategy -->
       <div class="op-split">
         <div class="op-card">
           <div class="op-card__head">
-            <h2>Impact · 6 prochaines semaines</h2>
+            <div>
+              <h2>Preuve du choix</h2>
+              <p>La carte sert à décider. Plus une case est foncée, plus le levier compte dans une échéance proche.</p>
+            </div>
             <div class="op-legend">
               <span class="lbl">faible</span>
               <span class="swatches">
@@ -328,7 +128,7 @@
             </div>
           </div>
 
-          <div class="op-heatmap">
+          <div class="op-heatmap" role="img" aria-label="Impact des leviers de maths spécialité sur les six prochaines semaines">
             <div></div>
             <div class="col-head">S1</div>
             <div class="col-head">S2</div>
@@ -339,81 +139,88 @@
             <div></div>
 
             <div class="row-head">Suites &amp; limites</div>
-            <div class="cell cell-3"></div>
-            <div class="cell cell-3"></div>
-            <div class="cell cell-0"></div>
-            <div class="cell cell-4"></div>
-            <div class="cell cell-0"></div>
-            <div class="cell cell-3"></div>
+            <div class="cell cell-3" title="Semaine 1 : attendu au contrôle"></div>
+            <div class="cell cell-3" title="Semaine 2 : consolidation utile"></div>
+            <div class="cell cell-0" title="Semaine 3 : pas prioritaire"></div>
+            <div class="cell cell-4" title="Semaine 4 : décisif pour le dossier"></div>
+            <div class="cell cell-0" title="Semaine 5 : pas prioritaire"></div>
+            <div class="cell cell-3" title="Semaine 6 : retour probable"></div>
             <div class="impact">4<small>/6</small></div>
 
             <div class="row-head">Probabilités</div>
-            <div class="cell cell-0"></div>
-            <div class="cell cell-2"></div>
-            <div class="cell cell-0"></div>
-            <div class="cell cell-2"></div>
-            <div class="cell cell-3"></div>
-            <div class="cell cell-0"></div>
+            <div class="cell cell-0" title="Semaine 1 : pas prioritaire"></div>
+            <div class="cell cell-2" title="Semaine 2 : entraînement utile"></div>
+            <div class="cell cell-0" title="Semaine 3 : pas prioritaire"></div>
+            <div class="cell cell-2" title="Semaine 4 : entraînement utile"></div>
+            <div class="cell cell-3" title="Semaine 5 : attendu au contrôle"></div>
+            <div class="cell cell-0" title="Semaine 6 : pas prioritaire"></div>
             <div class="impact">3<small>/6</small></div>
 
             <div class="row-head">Rédaction propre</div>
-            <div class="cell cell-2"></div>
-            <div class="cell cell-0"></div>
-            <div class="cell cell-2"></div>
-            <div class="cell cell-0"></div>
-            <div class="cell cell-0"></div>
-            <div class="cell cell-2"></div>
+            <div class="cell cell-2" title="Semaine 1 : points faciles à récupérer"></div>
+            <div class="cell cell-0" title="Semaine 2 : pas prioritaire"></div>
+            <div class="cell cell-2" title="Semaine 3 : points faciles à récupérer"></div>
+            <div class="cell cell-0" title="Semaine 4 : pas prioritaire"></div>
+            <div class="cell cell-0" title="Semaine 5 : pas prioritaire"></div>
+            <div class="cell cell-2" title="Semaine 6 : points faciles à récupérer"></div>
             <div class="impact">3<small>/6</small></div>
 
             <div class="row-head">Récurrence</div>
-            <div class="cell cell-1"></div>
-            <div class="cell cell-1"></div>
-            <div class="cell cell-0"></div>
-            <div class="cell cell-0"></div>
-            <div class="cell cell-1"></div>
-            <div class="cell cell-0"></div>
+            <div class="cell cell-1" title="Semaine 1 : faible rappel"></div>
+            <div class="cell cell-1" title="Semaine 2 : faible rappel"></div>
+            <div class="cell cell-0" title="Semaine 3 : pas prioritaire"></div>
+            <div class="cell cell-0" title="Semaine 4 : pas prioritaire"></div>
+            <div class="cell cell-1" title="Semaine 5 : faible rappel"></div>
+            <div class="cell cell-0" title="Semaine 6 : pas prioritaire"></div>
             <div class="impact">3<small>/6</small></div>
+          </div>
+          <div class="op-proof-note">
+            Décision : ouvrir une mission sur suites et limites maintenant, puis placer probabilités et rédaction dans le planning.
           </div>
         </div>
 
-        <!-- Strategy — IA insight + ranked priorities in ONE block -->
         <div class="op-strategy">
           <div class="op-strategy__head">
             <div class="op-strategy__av">IA</div>
-            <span class="op-strategy__tag">Analyse stratégique</span>
+            <span class="op-strategy__tag">Priorités actionnables</span>
           </div>
           <div class="op-strategy__body">
-            Trois leviers font passer ton dossier de <b>73 % à 88 %</b> en 6 semaines.
-            Travaille-les chaque semaine — c'est tout.
+            Le bon plan n'est pas de tout revoir. C'est de travailler les leviers
+            qui ont une raison scolaire claire et une prochaine action visible.
           </div>
           <div class="op-prio-list">
-            <div class="op-prio">
+            <a class="op-prio" href="mission.html">
               <span class="op-prio__rank">1</span>
               <div class="op-prio__copy">
                 <span class="op-prio__name">Suites &amp; limites</span>
-                <span class="op-prio__meta">4 jalons · maîtrise 74 %</span>
+                <span class="op-prio__meta">Mission du jour · 28 min · maîtrise 74 %</span>
               </div>
+              <span class="op-prio__action">Mission</span>
               <div class="op-prio__bar mid"><div class="fill" style="width:74%"></div></div>
-            </div>
-            <div class="op-prio">
+            </a>
+            <a class="op-prio" href="planning.html">
               <span class="op-prio__rank">2</span>
               <div class="op-prio__copy">
                 <span class="op-prio__name">Probabilités</span>
-                <span class="op-prio__meta">3 jalons · maîtrise 49 %</span>
+                <span class="op-prio__meta">À placer avant S5 · maîtrise 49 %</span>
               </div>
+              <span class="op-prio__action">Planifier</span>
               <div class="op-prio__bar low"><div class="fill" style="width:49%"></div></div>
-            </div>
-            <div class="op-prio">
+            </a>
+            <a class="op-prio" href="planning.html">
               <span class="op-prio__rank">3</span>
               <div class="op-prio__copy">
                 <span class="op-prio__name">Rédaction propre</span>
-                <span class="op-prio__meta">3 jalons · maîtrise 68 %</span>
+                <span class="op-prio__meta">À glisser dans les corrections · maîtrise 68 %</span>
               </div>
+              <span class="op-prio__action">Planifier</span>
               <div class="op-prio__bar mid"><div class="fill" style="width:68%"></div></div>
-            </div>
+            </a>
           </div>
-          <a href="index.html" class="op-strategy__cta">Planifier ces leviers <i class="ph-bold ph-arrow-right" aria-hidden="true"></i></a>
-          <a href="checkout.html" class="op-strategy__cta op-strategy__cta--secondary">Voir l'abonnement <i class="ph-bold ph-arrow-right" aria-hidden="true"></i></a>
+          <div class="op-strategy__actions">
+            <a href="planning.html" class="op-strategy__cta">Planifier ces leviers <i class="ph-bold ph-arrow-right" aria-hidden="true"></i></a>
+            <a href="checkout.html" class="op-strategy__cta op-strategy__cta--secondary">Voir l'abonnement <i class="ph-bold ph-arrow-right" aria-hidden="true"></i></a>
+          </div>
         </div>
       </div>
     </section>
@@ -426,6 +233,14 @@
     <i class="ph-bold ph-target" aria-hidden="true"></i>
     <span>Aujourd'hui</span>
   </a>
+  <a href="planning.html" class="mobile-tab">
+    <i class="ph-bold ph-calendar-blank" aria-hidden="true"></i>
+    <span>Planning</span>
+  </a>
+  <a href="contenu.html" class="mobile-tab">
+    <i class="ph-bold ph-book-open-text" aria-hidden="true"></i>
+    <span>Contenu</span>
+  </a>
   <a href="progression.html" class="mobile-tab">
     <i class="ph-bold ph-chart-line-up" aria-hidden="true"></i>
     <span>Progression</span>
@@ -433,10 +248,6 @@
   <a href="objectif.html" class="mobile-tab is-active" aria-current="page">
     <i class="ph-bold ph-squares-four" aria-hidden="true"></i>
     <span>Objectif</span>
-  </a>
-  <a href="focus.html" class="mobile-tab">
-    <i class="ph-bold ph-timer" aria-hidden="true"></i>
-    <span>Focus</span>
   </a>
 </nav>
 <script src="scripts/model.js"></script>

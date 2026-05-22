@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
   ============================================================
-  Objectif Lycée — Ton avance
+  Objectif Lycée - Ton avance
   Drop-in replacement: paths use root-level CSS/JS.
   Navigation links point to final .html pages.
   ============================================================
@@ -12,284 +12,108 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Objectif Lycée — Ton avance</title>
+  <link rel="icon" type="image/webp" href="assets/brand/trophy-logo-home.webp">
   <link rel="stylesheet" href="colors_and_type.css">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="assets/css/pages/progression.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css">
-  <style>
-    html, body { height: auto; overflow: visible; }
-    .app { height: auto; min-height: 100vh; }
-    .main { overflow: visible; }
-    .view { display: block !important; flex: none !important; overflow: visible !important; height: auto !important; padding: 28px 36px 32px !important; background-image: none !important; }
-
-    /* Progression APRES */
-    .pp-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 22px; gap: 18px; }
-    .pp-head h1 { font-family: var(--font-display); font-size: 40px; line-height: 1; text-transform: uppercase; letter-spacing: -.01em; margin: 0; }
-    .pp-head .sub { font-family: var(--font-body); font-size: 14px; color: var(--ink-soft); margin-top: 6px; }
-    .pp-head .details {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 9px 16px;
-      background: var(--paper-2); border: 2.5px solid var(--ink); border-radius: 10px;
-      box-shadow: 3px 3px 0 var(--ink);
-      font-family: var(--font-body); font-weight: 800; font-size: 13px;
-      text-decoration: none; color: var(--ink); cursor: pointer;
-    }
-    .pp-head .details .ph-bold { font-size: 15px; line-height: 1; }
-
-    /* The hero — split horizontally to keep things in one viewport */
-    .pp-hero {
-      display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 22px;
-      margin-bottom: 22px;
-    }
-
-    .pp-garden {
-      position: relative;
-      padding: 26px 26px 22px;
-      background:
-        radial-gradient(ellipse 80% 60% at 50% 92%, rgba(244, 211, 94, .28), transparent 70%),
-        #FFFDF8;
-      border: 3px solid var(--ink); border-radius: 20px;
-      box-shadow: 8px 8px 0 var(--ink);
-      display: flex; flex-direction: column; align-items: center; gap: 8px;
-      overflow: hidden;
-    }
-    .pp-garden::before {
-      content: "";
-      position: absolute; inset: 16px;
-      border: 1.5px dashed rgba(18,18,18,0.12);
-      border-radius: 14px;
-      pointer-events: none;
-    }
-    .pp-stamp {
-      align-self: flex-start;
-      display: inline-flex; align-items: center;
-      padding: 5px 11px;
-      background: var(--green);
-      border: 2px solid var(--ink); border-radius: 6px;
-      box-shadow: 2px 2px 0 var(--ink);
-      font-family: var(--font-mono); font-size: 11px; font-weight: 800;
-      letter-spacing: .08em; text-transform: uppercase;
-      transform: rotate(-1.5deg);
-      z-index: 1;
-    }
-    .pp-plant {
-      width: min(260px, 60%); height: auto;
-      filter: drop-shadow(4px 4px 0 rgba(18,18,18,0.14));
-      z-index: 1;
-    }
-    .pp-caption {
-      text-align: center; z-index: 1;
-      display: flex; flex-direction: column; align-items: center; gap: 6px;
-    }
-    .pp-stage-pill {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 5px 12px;
-      background: var(--green); border: 2.5px solid var(--ink); border-radius: 999px;
-      box-shadow: 2px 2px 0 var(--ink);
-      font-family: var(--font-body); font-weight: 800; font-size: 11px;
-      letter-spacing: .08em; text-transform: uppercase;
-    }
-    .pp-stage-pill .dot { width: 7px; height: 7px; background: var(--ink); border-radius: 50%; }
-    .pp-caption .copy {
-      font-family: var(--font-hand);
-      font-size: 26px; font-weight: 600; color: var(--ink);
-      line-height: 1.15; margin: 4px 0 2px;
-    }
-    .pp-caption .meta {
-      font-family: var(--font-body); font-size: 13px; color: var(--ink-soft);
-    }
-
-    /* Right side of hero: rhythm summary */
-    .pp-rhythm {
-      display: flex; flex-direction: column; gap: 14px;
-    }
-    .pp-stat {
-      background: #FFFDF8;
-      border: 2.5px solid var(--ink);
-      border-radius: 14px;
-      padding: 18px 22px;
-      display: flex; align-items: baseline; justify-content: space-between; gap: 14px;
-      box-shadow: 5px 5px 0 var(--ink);
-    }
-    .pp-stat .label {
-      font-family: var(--font-body); font-size: 11px; font-weight: 800;
-      letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft);
-    }
-    .pp-stat .value {
-      font-family: var(--font-display); font-size: 56px; line-height: 1;
-      letter-spacing: -.02em;
-    }
-    .pp-stat .value small {
-      font-family: var(--font-body); font-size: 14px; font-weight: 800;
-      color: var(--ink-soft); margin-left: 6px; letter-spacing: 0; text-transform: none;
-    }
-    .pp-stat--stabilo { background: var(--stabilo); }
-    .pp-stat__copy {
-      font-family: var(--font-body); font-size: 12px; color: var(--ink-soft);
-      max-width: 180px; line-height: 1.45;
-      text-align: right;
-    }
-    .pp-stat--stabilo .pp-stat__copy { color: #5C4A0A; }
-
-    /* Reminder — only when undone, integrated like a study-note */
-    .pp-reminder {
-      display: flex; align-items: center; gap: 14px;
-      padding: 14px 18px;
-      background: var(--stabilo-wash);
-      border: 2px dashed var(--ink); border-radius: 12px;
-      margin-top: 4px;
-    }
-    .pp-reminder .ic {
-      width: 36px; height: 36px;
-      display: flex; align-items: center; justify-content: center;
-      background: var(--stabilo); border: 2px solid var(--ink); border-radius: 50%;
-    }
-    .pp-reminder .ic .ph-bold { font-size: 18px; line-height: 1; }
-    .pp-reminder__copy { flex: 1; }
-    .pp-reminder__copy .lbl {
-      font-family: var(--font-body); font-size: 10px; font-weight: 800;
-      letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft);
-      display: block;
-    }
-    .pp-reminder__copy .title { font-family: var(--font-body); font-weight: 700; font-size: 14px; }
-    .pp-reminder .go {
-      padding: 8px 14px;
-      background: var(--ink); color: var(--paper);
-      border: 2px solid var(--ink); border-radius: 8px;
-      font-family: var(--font-body); font-weight: 800; font-size: 12px;
-      text-decoration: none;
-    }
-
-    /* History — clean horizontal strip */
-    .pp-history {
-      background: #FFFDF8;
-      border: 2.5px solid var(--ink); border-radius: 16px;
-      padding: 20px 24px;
-      box-shadow: 5px 5px 0 var(--ink);
-    }
-    .pp-history__head {
-      display: flex; align-items: baseline; justify-content: space-between;
-      margin-bottom: 14px;
-    }
-    .pp-history__head h2 {
-      font-family: var(--font-display); font-size: 20px;
-      text-transform: uppercase; margin: 0;
-    }
-    .pp-history__chip {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 4px 12px;
-      background: var(--stabilo);
-      border: 2px solid var(--ink); border-radius: 999px;
-      font-family: var(--font-body); font-size: 11px; font-weight: 800;
-      letter-spacing: .06em;
-    }
-    .pp-history__chip .dot { width: 7px; height: 7px; background: var(--ink); border-radius: 50%; }
-    .pp-history__grid {
-      display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px;
-    }
-    .pp-day {
-      display: flex; flex-direction: column; align-items: center; gap: 4px;
-      padding: 14px 6px 12px;
-      border: 2px solid var(--ink); border-radius: 10px;
-      background: var(--paper-2);
-    }
-    .pp-day .dow {
-      font-family: var(--font-body); font-size: 10px; font-weight: 800;
-      letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft);
-    }
-    .pp-day .dom {
-      font-family: var(--font-display); font-size: 20px; line-height: 1;
-    }
-    .pp-day .mark {
-      width: 14px; height: 14px; margin-top: 2px;
-      border: 1.5px dashed rgba(18,18,18,0.22); border-radius: 50%;
-    }
-    .pp-day.active { background: var(--green); }
-    .pp-day.active .mark {
-      background: var(--ink); border: 2px solid var(--ink);
-      position: relative;
-    }
-    .pp-day.active .mark::after {
-      content: ""; position: absolute; left: 3px; top: 0;
-      width: 4px; height: 7px;
-      border-right: 2px solid var(--paper);
-      border-bottom: 2px solid var(--paper);
-      transform: rotate(40deg);
-    }
-    .pp-day.today {
-      box-shadow: 3px 3px 0 var(--ink);
-      transform: translate(-1.5px, -1.5px);
-    }
-    .pp-history__note {
-      margin: 14px 0 0;
-      font-family: var(--font-body); font-size: 13px; color: var(--ink-soft);
-      font-style: italic;
-      text-align: center;
-    }
-
-    @media (max-width: 900px) {
-      .pp-hero { grid-template-columns: 1fr; }
-      .pp-head { align-items: flex-start; flex-direction: column; }
-    }
-    @media (max-width: 640px) {
-      .view { padding: 18px 14px 90px !important; }
-      .pp-head h1 { font-size: 32px; }
-      .pp-garden,
-      .pp-history { padding: 20px 16px; box-shadow: 5px 5px 0 var(--ink); }
-      .pp-plant { width: min(230px, 82%); }
-      .pp-stat { align-items: flex-start; flex-direction: column; }
-      .pp-reminder { align-items: flex-start; flex-wrap: wrap; }
-      .pp-reminder .go { margin-left: 0; }
-      .pp-history__grid { grid-template-columns: repeat(7, minmax(38px, 1fr)); gap: 6px; }
-      .pp-day { min-height: 58px; }
-    }
-  </style>
 </head>
-<body>
+<body class="progression-page">
 
 <div class="app">
   <aside class="sidebar">
-    <div class="sb-brand"><span class="mark mark--image"><img src="assets/brand/trophy-logo-home.webp" width="52" height="52" alt=""></span><span class="name">Objectif Lycée</span></div>
+    <div class="sb-brand">
+      <span class="mark mark--image" aria-hidden="true">
+        <img src="assets/brand/trophy-logo-home.webp" width="52" height="52" alt="">
+      </span>
+      <span class="name">Objectif Lycée</span>
+    </div>
+
     <div class="sb-group">
       <div class="head">Cockpit</div>
-      <a href="index.html" class="sb-item"><span class="ic"><i class="ph-bold ph-target" aria-hidden="true"></i></span>Aujourd'hui</a>
-      <a href="index.html" class="sb-item"><span class="ic"><i class="ph-bold ph-calendar-blank" aria-hidden="true"></i></span>Planning</a>
-      <div class="sb-item active"><span class="ic"><i class="ph-bold ph-chart-line-up" aria-hidden="true"></i></span>Progression</div>
-      <a href="focus.html" class="sb-item"><span class="ic"><i class="ph-bold ph-timer" aria-hidden="true"></i></span>Focus</a>
+      <a href="index.html" class="sb-item">
+        <span class="ic"><i class="ph-bold ph-target" aria-hidden="true"></i></span>
+        Aujourd'hui
+      </a>
+      <a href="planning.html" class="sb-item">
+        <span class="ic"><i class="ph-bold ph-calendar-blank" aria-hidden="true"></i></span>
+        Planning
+      </a>
+      <div class="sb-item active" aria-current="page">
+        <span class="ic"><i class="ph-bold ph-chart-line-up" aria-hidden="true"></i></span>
+        Progression
+      </div>
+      <a href="focus.html" class="sb-item">
+        <span class="ic"><i class="ph-bold ph-timer" aria-hidden="true"></i></span>
+        Focus
+      </a>
     </div>
+
     <div class="sb-group">
       <div class="head">Travail</div>
-      <a href="objectif.html" class="sb-item"><span class="ic"><i class="ph-bold ph-squares-four" aria-hidden="true"></i></span>Objectif</a>
+      <a href="objectif.html" class="sb-item">
+        <span class="ic"><i class="ph-bold ph-squares-four" aria-hidden="true"></i></span>
+        Objectif
+      </a>
+      <a href="contenu.html" class="sb-item">
+        <span class="ic"><i class="ph-bold ph-book-open-text" aria-hidden="true"></i></span>
+        Contenu
+      </a>
     </div>
+
     <div class="sb-group">
-      <div class="head" style="opacity:.5;font-size:10px">Bientôt</div>
-      <div style="font-family:var(--font-body);font-size:11px;color:var(--ink-mute);padding:0 12px;line-height:1.6">Fiches · Contrôles · Abonnement</div>
+      <div class="head">Compte</div>
+      <a href="abonnement.html" class="sb-item">
+        <span class="ic"><i class="ph-bold ph-credit-card" aria-hidden="true"></i></span>
+        Abonnement
+      </a>
+      <a href="parametres.html" class="sb-item">
+        <span class="ic"><i class="ph-bold ph-gear" aria-hidden="true"></i></span>
+        Paramètres
+      </a>
     </div>
+
     <div class="sb-bottom">
       <a class="sb-about" href="apropos.html" aria-label="À propos d'Objectif Lycée">
         <span class="sb-about__icon" aria-hidden="true"><i class="ph-bold ph-info"></i></span>
         <span class="sb-about__label">À propos</span>
       </a>
-      <div class="sb-profile"><div class="av">OP</div><div class="who"><span class="nm">Profil démo</span><span class="role">Lycée</span></div></div>
+      <div class="sb-profile">
+        <div class="av">OP</div>
+        <div class="who"><span class="nm">Profil démo</span><span class="role">Lycée</span></div>
+      </div>
     </div>
   </aside>
 
   <div class="main">
-    <section class="view active">
-      <div class="pp-head">
+    <main class="view active" id="progression-main">
+      <header class="pp-head">
         <div>
           <h1>Ton avance</h1>
-          <div class="sub">Jour 7 actif · ton rythme tient.</div>
+          <div class="sub" data-progress-subtitle>La plante montre ce qui avance vraiment : des missions terminées et un retour régulier.</div>
         </div>
-        <a href="objectif.html" class="details">Détails par matière <i class="ph-bold ph-arrow-right" aria-hidden="true"></i></a>
-      </div>
+        <div class="pp-actions" aria-label="Actions progression">
+          <button
+            type="button"
+            class="pp-details-button"
+            data-progress-details-open
+            aria-expanded="false"
+            aria-controls="progress-details-panel"
+          >
+            Détails par matière
+            <i class="ph-bold ph-sidebar-simple" aria-hidden="true"></i>
+          </button>
+          <a href="objectif.html" class="pp-impact-route">
+            Impact objectif
+            <i class="ph-bold ph-arrow-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </header>
 
-      <div class="pp-hero">
-        <!-- Garden — kept prominent -->
-        <div class="pp-garden">
-          <span class="pp-stamp">Jour 7 · ton avance tient</span>
-          <svg class="pp-plant" viewBox="0 0 320 380" aria-hidden="true">
+      <section class="pp-hero" aria-labelledby="garden-title">
+        <article class="pp-garden">
+          <span class="pp-stamp" data-progress-stamp>Départ · une mission lance la pousse</span>
+          <svg class="pp-plant" data-progress-plant viewBox="0 0 320 380" aria-hidden="true">
             <ellipse cx="170" cy="350" rx="92" ry="7" fill="#121212" opacity=".14"/>
             <path d="M80 277 L240 277 L230 300 L90 300 Z" fill="#E8C7A9" stroke="#121212" stroke-width="3.5"/>
             <path d="M88 300 L232 300 L220 342 L100 342 Z" fill="#D6AE89" stroke="#121212" stroke-width="3.5"/>
@@ -307,65 +131,161 @@
             <path d="M164 160 Q174 150 169 138 Q160 144 159 157 Z" fill="#D8E6C3" stroke="#121212" stroke-width="2.5"/>
           </svg>
           <div class="pp-caption">
-            <span class="pp-stage-pill"><span class="dot"></span>Plante</span>
-            <p class="copy">Belle plante. Ton avance est claire.</p>
-            <span class="meta">5 missions terminées cette semaine</span>
+            <span class="pp-stage-pill"><span class="dot"></span><span data-progress-stage>Graine</span></span>
+            <h2 class="copy" id="garden-title" data-progress-garden-title>Ton avance commence ici.</h2>
+            <span class="meta" data-progress-garden-meta>Termine une mission pour voir le jardin bouger.</span>
           </div>
-        </div>
+        </article>
 
-        <!-- Right: 2 stats + reminder -->
-        <div class="pp-rhythm">
-          <div class="pp-stat pp-stat--stabilo">
+        <aside class="pp-advance" aria-label="Suite recommandée">
+          <article class="pp-status-card is-pending" data-progress-status-card>
+            <span class="pp-status-card__label" data-progress-status-label>Mission du jour prête</span>
+            <h2 data-progress-status-title>Ouvre la mission utile maintenant.</h2>
+            <p data-progress-status-copy>
+              La progression avance avec une action terminée. Le prochain geste est court et relié à ton objectif.
+            </p>
+            <a class="pp-route" href="mission.html" data-progress-primary-route>
+              <span data-progress-primary-route-label>Ouvrir la mission</span>
+              <i class="ph-bold ph-arrow-right" aria-hidden="true"></i>
+            </a>
+          </article>
+
+          <article class="pp-proof">
+            <span class="pp-proof__icon" aria-hidden="true"><i class="ph-bold ph-check-circle"></i></span>
+            <span>
+              <span class="pp-proof__label">Ce qui compte</span>
+              <span class="pp-proof__text" data-progress-proof>Le jardin suit le travail réel : mission terminée, jours actifs, reprise demain.</span>
+            </span>
+          </article>
+        </aside>
+      </section>
+
+      <section class="pp-analytics" aria-labelledby="analytics-title">
+        <h2 class="pp-section-title" id="analytics-title">Repères secondaires</h2>
+        <div class="pp-stat-grid">
+          <article class="pp-stat pp-stat--stabilo">
             <div>
               <div class="label">Cette semaine</div>
-              <div class="value">5<small>missions</small></div>
+              <div class="value"><span data-progress-week-count>0</span><small>missions</small></div>
             </div>
-            <div class="pp-stat__copy">2 de plus que la semaine dernière. Tu accélères.</div>
-          </div>
-          <div class="pp-stat">
+            <div class="pp-stat__copy" data-progress-week-copy">Le compteur augmente quand une mission est terminée.</div>
+          </article>
+          <article class="pp-stat">
             <div>
-              <div class="label">Régularité</div>
-              <div class="value">3<small>jours d'affilée</small></div>
+              <div class="label">Rythme récent</div>
+              <div class="value"><span data-progress-streak>0</span><small>jours</small></div>
             </div>
-            <div class="pp-stat__copy">À 4 jours de ton record (11 j).</div>
-          </div>
-          <div class="pp-reminder">
-            <div class="ic"><i class="ph-bold ph-arrow-right" aria-hidden="true"></i></div>
-            <div class="pp-reminder__copy">
-              <span class="lbl">Mission du jour · pas encore faite</span>
-              <span class="title">Maths spé — corriger le DM sur les suites</span>
+            <div class="pp-stat__copy" data-progress-streak-copy">Revenir demain suffit à garder une continuité lisible.</div>
+          </article>
+          <article class="pp-stat">
+            <div>
+              <div class="label">Jours actifs</div>
+              <div class="value"><span data-progress-active-days>0</span><small>total</small></div>
             </div>
-            <a class="go" href="mission.html">Ouvrir</a>
-          </div>
+            <div class="pp-stat__copy">Un jour actif commence dès qu'une étape utile est cochée.</div>
+          </article>
         </div>
-      </div>
-
-      <!-- History strip -->
-      <section class="pp-history">
-        <div class="pp-history__head">
-          <h2>7 derniers jours</h2>
-          <span class="pp-history__chip"><span class="dot"></span>3 jours de suite</span>
-        </div>
-        <div class="pp-history__grid">
-          <div class="pp-day active"><span class="dow">Mar</span><span class="dom">13</span><span class="mark"></span></div>
-          <div class="pp-day"><span class="dow">Mer</span><span class="dom">14</span><span class="mark"></span></div>
-          <div class="pp-day active"><span class="dow">Jeu</span><span class="dom">15</span><span class="mark"></span></div>
-          <div class="pp-day active"><span class="dow">Ven</span><span class="dom">16</span><span class="mark"></span></div>
-          <div class="pp-day"><span class="dow">Sam</span><span class="dom">17</span><span class="mark"></span></div>
-          <div class="pp-day active"><span class="dow">Dim</span><span class="dom">18</span><span class="mark"></span></div>
-          <div class="pp-day today"><span class="dow">Lun</span><span class="dom">19</span><span class="mark"></span></div>
-        </div>
-        <p class="pp-history__note">La plante pousse parce que tu reviens, pas parce que tu scrolles.</p>
       </section>
-    </section>
+
+      <section class="pp-history" aria-labelledby="history-title">
+        <div class="pp-history__head">
+          <h2 id="history-title">7 derniers jours</h2>
+          <span class="pp-history__chip"><span class="dot"></span><span data-progress-history-chip>Rythme à construire</span></span>
+        </div>
+        <div class="pp-history__grid" data-progress-history>
+          <div class="pp-day today"><span class="dow">Auj</span><span class="dom">1</span><span class="mark"></span></div>
+          <div class="pp-day"><span class="dow">J-6</span><span class="dom">2</span><span class="mark"></span></div>
+          <div class="pp-day"><span class="dow">J-5</span><span class="dom">3</span><span class="mark"></span></div>
+          <div class="pp-day"><span class="dow">J-4</span><span class="dom">4</span><span class="mark"></span></div>
+          <div class="pp-day"><span class="dow">J-3</span><span class="dom">5</span><span class="mark"></span></div>
+          <div class="pp-day"><span class="dow">J-2</span><span class="dom">6</span><span class="mark"></span></div>
+          <div class="pp-day"><span class="dow">J-1</span><span class="dom">7</span><span class="mark"></span></div>
+        </div>
+        <p class="pp-history__note">La plante suit les missions et les retours, sans sanction pour un jour plus léger.</p>
+      </section>
+    </main>
   </div>
 </div>
 
+<div class="pp-drawer" data-progress-details hidden>
+  <button class="pp-drawer__backdrop" type="button" data-progress-details-close aria-label="Fermer les détails"></button>
+  <aside
+    class="pp-drawer__panel"
+    id="progress-details-panel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="progress-details-title"
+    tabindex="-1"
+  >
+    <header class="pp-drawer__head">
+      <div>
+        <h2 id="progress-details-title">Détails</h2>
+        <p class="pp-drawer__lede">Les chiffres restent en soutien. Le jardin et la prochaine action gardent la priorité.</p>
+      </div>
+      <button class="pp-drawer__close" type="button" data-progress-details-close aria-label="Fermer">
+        <i class="ph-bold ph-x" aria-hidden="true"></i>
+      </button>
+    </header>
+
+    <div class="pp-drawer__body">
+      <section class="pp-panel-block" aria-labelledby="details-subjects-title">
+        <h3 id="details-subjects-title">Matières</h3>
+        <div class="pp-progress-list">
+          <div class="pp-progress-row">
+            <div class="top"><span class="name">Maths spé</span><span class="pct">86%</span></div>
+            <div class="bar" aria-hidden="true"><div class="fill fill--86"></div></div>
+          </div>
+          <div class="pp-progress-row blue">
+            <div class="top"><span class="name">Physique-chimie</span><span class="pct">71%</span></div>
+            <div class="bar" aria-hidden="true"><div class="fill fill--71"></div></div>
+          </div>
+          <div class="pp-progress-row beige">
+            <div class="top"><span class="name">Français</span><span class="pct">62%</span></div>
+            <div class="bar" aria-hidden="true"><div class="fill fill--62"></div></div>
+          </div>
+          <div class="pp-progress-row orange">
+            <div class="top"><span class="name">Grand oral</span><span class="pct">58%</span></div>
+            <div class="bar" aria-hidden="true"><div class="fill fill--58"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="pp-panel-block" aria-labelledby="details-review-title">
+        <h3 id="details-review-title">À revoir demain</h3>
+        <ul class="pp-review-list">
+          <li><span class="lbl">Maths spé</span>Reprendre une erreur proprement rédigée sur <span data-daily-mission-review-title>Fonctions exponentielles</span>.</li>
+          <li><span class="lbl">Méthode</span>Écrire la première ligne de solution avant de regarder la correction.</li>
+          <li><span class="lbl">Objectif</span>Relier la mission au contrôle et au dossier, en une phrase simple.</li>
+        </ul>
+      </section>
+
+      <section class="pp-panel-block" aria-labelledby="details-note-title">
+        <h3 id="details-note-title">Lecture calme</h3>
+        <div class="pp-note">
+          <span class="pp-note__label">Pourquoi revenir demain</span>
+          <p data-progress-detail-note>Une reprise courte garde le chapitre en mémoire. Le but est de savoir quoi faire, pas de remplir un tableau.</p>
+        </div>
+        <a class="pp-panel-link" href="objectif.html">
+          Voir l'impact objectif
+          <i class="ph-bold ph-arrow-right" aria-hidden="true"></i>
+        </a>
+      </section>
+    </div>
+  </aside>
+</div>
 
 <nav class="mobile-tabs" aria-label="Navigation principale">
   <a href="index.html" class="mobile-tab">
     <i class="ph-bold ph-target" aria-hidden="true"></i>
     <span>Aujourd'hui</span>
+  </a>
+  <a href="planning.html" class="mobile-tab">
+    <i class="ph-bold ph-calendar-blank" aria-hidden="true"></i>
+    <span>Planning</span>
+  </a>
+  <a href="contenu.html" class="mobile-tab">
+    <i class="ph-bold ph-book-open-text" aria-hidden="true"></i>
+    <span>Contenu</span>
   </a>
   <a href="progression.html" class="mobile-tab is-active" aria-current="page">
     <i class="ph-bold ph-chart-line-up" aria-hidden="true"></i>
@@ -375,11 +295,8 @@
     <i class="ph-bold ph-squares-four" aria-hidden="true"></i>
     <span>Objectif</span>
   </a>
-  <a href="focus.html" class="mobile-tab">
-    <i class="ph-bold ph-timer" aria-hidden="true"></i>
-    <span>Focus</span>
-  </a>
 </nav>
+
 <script src="scripts/model.js"></script>
 <script src="scripts/state.js"></script>
 <script src="scripts/dom.js"></script>
@@ -387,5 +304,218 @@
 <script src="scripts/mission-ui.js"></script>
 <script src="assets/js/ui/free-trial-banner.js"></script>
 <script src="assets/js/ui/mission-checklist.js"></script>
+<script src="scripts/analytics.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var drawer = document.querySelector('[data-progress-details]');
+  var drawerPanel = document.getElementById('progress-details-panel');
+  var openButton = document.querySelector('[data-progress-details-open]');
+  var closeButtons = document.querySelectorAll('[data-progress-details-close]');
+  var previouslyFocused = null;
+
+  var stageLabels = {
+    seed: 'Graine',
+    sprout: 'Pousse',
+    stem: 'Tige',
+    plant: 'Plante',
+    bloom: 'Floraison',
+  };
+
+  function setText(selector, value) {
+    document.querySelectorAll(selector).forEach(function (element) {
+      element.textContent = value;
+    });
+  }
+
+  function plural(count, singular, pluralLabel) {
+    return String(count) + ' ' + (count > 1 ? (pluralLabel || singular + 's') : singular);
+  }
+
+  function safeNumber(value) {
+    var number = Number(value);
+    return Number.isFinite(number) ? number : 0;
+  }
+
+  function appState() {
+    return window.OutilPrepa || null;
+  }
+
+  function mission() {
+    var app = appState();
+    if (app && app.mission) return app.mission;
+    if (window.OutilPrepaModel && window.OutilPrepaModel.DEFAULT_MISSION) {
+      return window.OutilPrepaModel.DEFAULT_MISSION;
+    }
+    return {};
+  }
+
+  function formatDayName(iso) {
+    var label = new Intl.DateTimeFormat('fr-FR', { weekday: 'short' }).format(new Date(iso + 'T00:00:00'));
+    return label.replace('.', '');
+  }
+
+  function renderHistory(history) {
+    var container = document.querySelector('[data-progress-history]');
+    if (!container || !Array.isArray(history)) return;
+
+    container.innerHTML = '';
+    var today = appState() && typeof appState().today === 'function' ? appState().today() : '';
+
+    history.forEach(function (entry) {
+      var day = document.createElement('div');
+      day.className = 'pp-day' + (entry.active ? ' active' : '') + (entry.date === today ? ' today' : '');
+
+      var dow = document.createElement('span');
+      dow.className = 'dow';
+      dow.textContent = formatDayName(entry.date);
+
+      var dom = document.createElement('span');
+      dom.className = 'dom';
+      dom.textContent = String(Number(entry.date.slice(-2)));
+
+      var mark = document.createElement('span');
+      mark.className = 'mark';
+
+      day.appendChild(dow);
+      day.appendChild(dom);
+      day.appendChild(mark);
+      container.appendChild(day);
+    });
+  }
+
+  function renderProgression() {
+    var app = appState();
+    var currentMission = mission();
+    var completedToday = !!(app && typeof app.missionCompletedToday === 'function' && app.missionCompletedToday());
+    var weekCount = app && typeof app.weekMissionCount === 'function' ? safeNumber(app.weekMissionCount()) : 0;
+    var streak = app && typeof app.streakDays === 'function' ? safeNumber(app.streakDays()) : 0;
+    var activeDays = app && typeof app.activeDaysCount === 'function' ? safeNumber(app.activeDaysCount()) : 0;
+    var stage = app && typeof app.plantStage === 'function' ? app.plantStage() : 'seed';
+    var stageLabel = stageLabels[stage] || stageLabels.seed;
+    var missionTitle = currentMission.title || 'Mission du jour';
+    var subject = currentMission.subjectLabel || 'Mission';
+    var duration = currentMission.durationMinutes ? String(currentMission.durationMinutes) + ' min' : 'mission courte';
+
+    document.querySelectorAll('[data-progress-plant]').forEach(function (plant) {
+      plant.setAttribute('data-stage', stage);
+    });
+
+    setText('[data-progress-stage]', stageLabel);
+    setText('[data-progress-week-count]', String(weekCount));
+    setText('[data-progress-streak]', String(streak));
+    setText('[data-progress-active-days]', String(activeDays));
+    setText('[data-progress-history-chip]', streak > 0 ? plural(streak, 'jour', 'jours') + ' de suite' : 'Rythme à construire');
+    setText('[data-progress-week-copy]', weekCount > 0 ? plural(weekCount, 'mission') + ' terminée cette semaine.' : 'Le compteur augmente quand une mission est terminée.');
+    setText('[data-progress-streak-copy]', streak > 0 ? 'Un retour régulier garde la suite facile à reprendre.' : 'Revenir demain suffit à créer le premier repère.');
+
+    if (completedToday) {
+      document.querySelectorAll('[data-progress-status-card]').forEach(function (card) {
+        card.classList.remove('is-pending');
+      });
+      setText('[data-progress-subtitle]', "Mission terminée aujourd'hui. Ton avance est visible, puis la suite reste simple à retrouver.");
+      setText('[data-progress-stamp]', 'Aujourd\'hui · mission enregistrée');
+      setText('[data-progress-garden-title]', 'Ton avance a pris racine.');
+      setText('[data-progress-garden-meta]', subject + ' · ' + missionTitle);
+      setText('[data-progress-status-label]', 'Focus terminé');
+      setText('[data-progress-status-title]', 'La mission est ajoutée à ton avance.');
+      setText('[data-progress-status-copy]', 'Tu arrives ici depuis le focus : la session est bien prise en compte. La suite se lit dans le cockpit, sans repartir de zéro.');
+      setText('[data-progress-primary-route-label]', 'Voir la suite du jour');
+      setText('[data-progress-proof]', 'Mission terminée : le jardin, les jours actifs et le compteur semaine se mettent à jour ensemble.');
+      setText('[data-progress-detail-note]', 'Demain, le cockpit reprendra cette mission comme repère et proposera le prochain geste utile.');
+      document.querySelectorAll('[data-progress-primary-route]').forEach(function (link) {
+        link.href = 'index.html';
+      });
+    } else {
+      document.querySelectorAll('[data-progress-status-card]').forEach(function (card) {
+        card.classList.add('is-pending');
+      });
+      setText('[data-progress-subtitle]', 'La plante montre ce qui avance vraiment : des missions terminées et un retour régulier.');
+      setText('[data-progress-stamp]', activeDays > 0 ? plural(activeDays, 'jour actif', 'jours actifs') : 'Départ · une mission lance la pousse');
+      setText('[data-progress-garden-title]', activeDays > 0 ? 'Ton avance reste visible.' : 'Ton avance commence ici.');
+      setText('[data-progress-garden-meta]', activeDays > 0 ? plural(activeDays, 'jour actif', 'jours actifs') + ' enregistrés' : 'Termine une mission pour voir le jardin bouger.');
+      setText('[data-progress-status-label]', 'Mission du jour prête');
+      setText('[data-progress-status-title]', subject + ' · ' + missionTitle);
+      setText('[data-progress-status-copy]', 'Prochaine action : ' + duration + '. Elle compte pour ton objectif et elle suffit à faire avancer le jardin aujourd\'hui.');
+      setText('[data-progress-primary-route-label]', 'Ouvrir la mission');
+      setText('[data-progress-proof]', 'Le jardin suit le travail réel : mission terminée, jours actifs, reprise demain.');
+      setText('[data-progress-detail-note]', 'Une reprise courte garde le chapitre en mémoire. Le but est de savoir quoi faire, pas de remplir un tableau.');
+      document.querySelectorAll('[data-progress-primary-route]').forEach(function (link) {
+        link.href = 'mission.html';
+      });
+    }
+
+    if (app && typeof app.history === 'function') {
+      renderHistory(app.history(7));
+    }
+  }
+
+  function focusableInsidePanel() {
+    if (!drawerPanel) return [];
+    return Array.prototype.slice.call(drawerPanel.querySelectorAll(
+      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    ));
+  }
+
+  function openDrawer() {
+    if (!drawer || !drawerPanel || !openButton) return;
+    previouslyFocused = document.activeElement;
+    drawer.removeAttribute('hidden');
+    document.body.classList.add('has-progress-details-open');
+    openButton.setAttribute('aria-expanded', 'true');
+    window.requestAnimationFrame(function () {
+      drawer.classList.add('is-open');
+      drawerPanel.focus();
+    });
+  }
+
+  function closeDrawer() {
+    if (!drawer || !openButton || drawer.hasAttribute('hidden')) return;
+    drawer.classList.remove('is-open');
+    document.body.classList.remove('has-progress-details-open');
+    openButton.setAttribute('aria-expanded', 'false');
+    window.setTimeout(function () {
+      drawer.setAttribute('hidden', '');
+      if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
+        previouslyFocused.focus();
+      }
+    }, 220);
+  }
+
+  function trapFocus(event) {
+    if (!drawer || drawer.hasAttribute('hidden') || event.key !== 'Tab') return;
+    var focusables = focusableInsidePanel();
+    if (!focusables.length) return;
+    var first = focusables[0];
+    var last = focusables[focusables.length - 1];
+
+    if (!drawerPanel.contains(document.activeElement) || document.activeElement === drawerPanel) {
+      event.preventDefault();
+      (event.shiftKey ? last : first).focus();
+    } else if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+
+  if (openButton) openButton.addEventListener('click', openDrawer);
+  closeButtons.forEach(function (button) {
+    button.addEventListener('click', closeDrawer);
+  });
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') closeDrawer();
+    trapFocus(event);
+  });
+
+  renderProgression();
+  if (appState() && typeof appState().subscribe === 'function') {
+    appState().subscribe(renderProgression);
+  }
+}());
+</script>
 </body>
 </html>

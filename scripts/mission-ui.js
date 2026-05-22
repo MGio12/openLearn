@@ -264,7 +264,6 @@
   };
 
   render();
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', render);
 
   if (root.OutilPrepa && typeof root.OutilPrepa.subscribe === 'function') {
     root.OutilPrepa.subscribe(render);

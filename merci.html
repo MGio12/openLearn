@@ -3,47 +3,61 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Objectif Lycée — Paiement confirmé</title>
-  <meta name="description" content="Retour de paiement Stripe Objectif Lycée : confirmation statique, reçu et abonnement gérés par Stripe.">
+  <title>Objectif Lycée : Paiement confirmé</title>
+  <meta name="description" content="Retour de paiement Stripe Objectif Lycée : confirmation statique, reçu envoyé par Stripe.">
   <meta name="theme-color" content="#F4D35E">
-  <!-- Transactional return page — should not be indexed by search engines. -->
+  <!-- Transactional return page: should not be indexed by search engines. -->
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='6' width='52' height='52' rx='12' fill='%23F4D35E' stroke='%23121212' stroke-width='5' transform='rotate(-6 32 32)'/%3E%3Ctext x='32' y='44' font-family='Arial Black, Impact, sans-serif' font-size='34' font-weight='900' text-anchor='middle' fill='%23121212' transform='rotate(-6 32 32)'%3EO%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="colors_and_type.css">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="assets/css/pages/merci.css">
-  <!-- 99% of converted users click "Ouvrir mon cockpit" next — prefetch
-       so the navigation is instant. -->
+  <!-- Prefetch the continuation routes shown on the return page. -->
   <link rel="prefetch" href="index.html">
+  <link rel="prefetch" href="mission.html">
+  <link rel="prefetch" href="objectif.html">
+  <link rel="prefetch" href="progression.html">
 </head>
 <body>
   <main class="success-wrap">
-    <section class="success-main paper-folder pressable">
-      <div>
+    <section class="success-main paper-folder">
+      <div class="success-stamp">
         <span class="tape-label" aria-hidden="true">Paiement reçu</span>
         <div class="success-mark" aria-hidden="true">OK</div>
+        <p>Confirmé par Stripe</p>
       </div>
-      <div>
+      <div class="success-copy">
         <h1>Paiement confirmé.</h1>
-        <p>Tu gardes le plan personnalisé que tu as essayé sur tes 3 missions offertes. Un reçu Stripe vient d'arriver par email.</p>
-        <p class="study-note">Ton plan tient en trois gestes : ouvrir le cockpit, finir la bonne mission, voir ton dossier avancer.</p>
-        <p class="success-commitment">On est là tous les jours maintenant — pas juste à l'inscription.</p>
+        <p>Stripe confirme le paiement et envoie le reçu à l'adresse utilisée au checkout. Le reçu Stripe reste la référence pour le montant et les détails de paiement.</p>
+        <p class="study-note">Cette page ne crée pas d'espace de gestion. Elle sert à reprendre le parcours : cockpit, mission, objectif, puis progression visible.</p>
       </div>
-      <div class="success-actions">
-        <a class="op-btn pressable op-btn--dark" href="index.html">Ouvrir mon cockpit</a>
-        <a class="op-btn pressable op-btn--ghost" href="mission.html">Voir la mission du jour</a>
-        <a class="op-btn pressable op-btn--ghost" href="objectif.html">Voir l'impact objectif</a>
+      <div class="success-actions" aria-label="Continuer après le paiement">
+        <a class="op-btn pressable op-btn--dark success-actions__primary" href="index.html">
+          <span>Ouvrir mon cockpit</span>
+        </a>
+        <a class="op-btn pressable op-btn--ghost" href="mission.html">
+          <strong>Mission</strong>
+          <span>Faire le prochain geste utile</span>
+        </a>
+        <a class="op-btn pressable op-btn--ghost" href="objectif.html">
+          <strong>Objectif</strong>
+          <span>Revoir pourquoi cette mission compte</span>
+        </a>
+        <a class="op-btn pressable op-btn--ghost" href="progression.html">
+          <strong>Progression</strong>
+          <span>Voir ce qui avance après le travail</span>
+        </a>
       </div>
     </section>
 
     <aside class="success-side">
-      <h2>Prochaines étapes</h2>
+      <h2>À vérifier</h2>
       <ul class="next-list">
-        <li>Ouvre ton email — ton reçu Stripe confirme le montant et la date du prochain prélèvement.</li>
-        <li>Explore le cockpit dès maintenant — la carte d'impact objectif et tes missions du jour sont déjà prêtes.</li>
-        <li>Reviens demain — ta prochaine mission sera prête, calibrée sur ce que tu viens de faire.</li>
+        <li><strong>Email</strong><span>Le reçu est envoyé par Stripe, avec le montant et les informations de paiement.</span></li>
+        <li><strong>Carte</strong><span>Objectif Lycée ne stocke pas de numéro de carte dans cette page statique.</span></li>
+        <li><strong>Suite</strong><span>Le meilleur retour produit reste simple : ouvrir le cockpit, finir une mission, regarder la progression.</span></li>
       </ul>
-      <p class="receipt-note">Stripe gère la facturation et envoie un reçu chaque mois. Pour annuler ou modifier ton abonnement, utilise le lien « Gérer mon abonnement » dans n'importe quel email Stripe.</p>
+      <p class="receipt-note">Si l'email Stripe n'apparaît pas tout de suite, vérifie les spams et conserve l'adresse utilisée au paiement. Cette page ne remplace pas le reçu Stripe.</p>
     </aside>
   </main>
 </body>

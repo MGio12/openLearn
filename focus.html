@@ -2,8 +2,7 @@
 <!--
   ============================================================
   Objectif Lycée — Focus
-  Drop-in replacement: paths use root-level CSS/JS.
-  Navigation links point to final .html pages.
+  Mission-driven focus ritual with completion routed to progression.
   ============================================================
 -->
 
@@ -12,288 +11,189 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Objectif Lycée — Focus</title>
+  <link rel="icon" type="image/webp" href="assets/brand/trophy-logo-home.webp">
   <link rel="stylesheet" href="colors_and_type.css">
+  <link rel="stylesheet" href="assets/css/pages/focus.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css">
-  <style>
-    * { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; height: 820px; min-height: 820px; }
-    body {
-      background-color: #2A2622;
-      background-image:
-        radial-gradient(ellipse 90% 70% at 50% 38%, #3F3833 0%, #2A2622 55%, #1E1B18 100%),
-        repeating-linear-gradient(0deg, rgba(255,255,255,0.012) 0 1px, transparent 1px 4px),
-        repeating-linear-gradient(90deg, rgba(255,255,255,0.012) 0 1px, transparent 1px 4px);
-      color: var(--paper);
-      font-family: var(--font-body);
-      overflow: hidden;
-      min-height: 820px;
-    }
-
-    .fx2 {
-      position: relative;
-      min-height: 820px;
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-      padding: 24px 36px;
-    }
-
-    /* Top: very thin */
-    .fx2-top { display: flex; justify-content: space-between; align-items: center; }
-    .fx2-exit {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-family: var(--font-body); font-weight: 700; font-size: 12px;
-      color: rgba(246, 242, 235, 0.55);
-      text-decoration: none;
-      padding: 6px 10px; border-radius: 8px;
-    }
-    .fx2-exit:hover { color: var(--paper); background: rgba(246,242,235,0.06); }
-    .fx2-session {
-      font-family: var(--font-mono); font-size: 11px; font-weight: 600;
-      color: rgba(246, 242, 235, 0.45); letter-spacing: .14em; text-transform: uppercase;
-    }
-
-    /* Stage: centered, single column */
-    .fx2-stage {
-      display: flex; flex-direction: column; align-items: center;
-      justify-content: center;
-      gap: 28px;
-      padding: 12px 0;
-    }
-    .fx2-task {
-      font-family: var(--font-body); font-size: 14px; font-weight: 600;
-      color: rgba(246, 242, 235, 0.75);
-      letter-spacing: .02em;
-    }
-    .fx2-task .pill {
-      display: inline-block;
-      font-family: var(--font-mono); font-size: 11px; font-weight: 700;
-      letter-spacing: .12em; text-transform: uppercase;
-      padding: 3px 9px;
-      background: var(--stabilo); color: var(--ink);
-      border-radius: 999px;
-      margin-right: 10px;
-      vertical-align: 2px;
-    }
-    .fx2-timer {
-      font-family: var(--font-display);
-      font-size: 240px;
-      line-height: 0.92;
-      letter-spacing: -.04em;
-      color: var(--paper);
-      text-shadow: 0 0 80px rgba(244, 211, 94, 0.08);
-      font-variant-numeric: tabular-nums;
-      margin: -10px 0;
-    }
-    .fx2-bar {
-      width: 360px; height: 5px;
-      background: rgba(246, 242, 235, 0.10);
-      border-radius: 999px;
-      overflow: hidden;
-    }
-    .fx2-bar .fill {
-      width: 38%; height: 100%;
-      background: var(--stabilo);
-      border-radius: 999px;
-    }
-
-    .fx2-controls { display: flex; align-items: center; gap: 22px; margin-top: 4px; }
-    .fx2-ctl {
-      width: 52px; height: 52px; border-radius: 999px;
-      background: transparent;
-      border: 1.5px solid rgba(246, 242, 235, 0.18);
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; color: var(--paper);
-    }
-    .fx2-ctl:disabled { opacity: 0.25; }
-    .fx2-exit .ph-bold { font-size: 13px; line-height: 1; }
-    .fx2-ctl .ph-bold { font-size: 22px; line-height: 1; color: currentColor; }
-    .fx2-ctl.primary {
-      width: 76px; height: 76px; background: var(--stabilo); color: var(--ink);
-      border: none; box-shadow: 0 10px 32px rgba(244, 211, 94, 0.22);
-    }
-    .fx2-ctl.primary .ph-bold { font-size: 30px; }
-    .fx-icon-hidden { display: none; }
-
-    /* Steps — discreet, below the timer */
-    .fx2-steps {
-      width: min(560px, 90%);
-      display: flex; flex-direction: column; gap: 4px;
-      margin-top: 16px;
-    }
-    .fx2-steps__head {
-      font-family: var(--font-body); font-size: 10px; font-weight: 800;
-      letter-spacing: .18em; text-transform: uppercase;
-      color: rgba(246, 242, 235, 0.4);
-      margin-bottom: 8px;
-      text-align: center;
-    }
-    .fx2-step {
-      display: flex; align-items: center; gap: 12px;
-      padding: 10px 6px;
-      font-family: var(--font-body); font-size: 14px;
-      color: var(--paper);
-      border-bottom: 1px dashed rgba(246, 242, 235, 0.08);
-    }
-    .fx2-step:last-child { border-bottom: none; }
-    .fx2-step .box {
-      width: 16px; height: 16px; flex-shrink: 0;
-      border: 1.5px solid rgba(246, 242, 235, 0.35);
-      border-radius: 4px;
-    }
-    .fx2-step.done .box {
-      background: var(--stabilo); border-color: var(--stabilo);
-    }
-    .fx2-step.done .label { opacity: 0.45; text-decoration: line-through; }
-    .fx2-step .dur {
-      margin-left: auto;
-      font-family: var(--font-mono); font-size: 11px;
-      color: rgba(246, 242, 235, 0.45);
-    }
-
-    /* Floating ambient — tiny, discreet, bottom-left */
-    .fx2-ambient {
-      position: absolute;
-      left: 36px; bottom: 24px;
-      display: flex; gap: 6px;
-    }
-    .fx2-amb {
-      width: 36px; height: 36px;
-      display: flex; align-items: center; justify-content: center;
-      border-radius: 999px;
-      background: rgba(246, 242, 235, 0.05);
-      border: 1.5px solid rgba(246, 242, 235, 0.12);
-      cursor: pointer; color: var(--paper);
-    }
-    .fx2-amb .ph-bold { font-size: 17px; line-height: 1; }
-    .fx2-amb:hover { background: rgba(246, 242, 235, 0.10); }
-    .fx2-amb.active {
-      background: rgba(244, 211, 94, 0.18);
-      border-color: rgba(244, 211, 94, 0.5);
-      color: var(--stabilo);
-    }
-
-    /* Bottom strip */
-    .fx2-bottom {
-      display: flex; justify-content: center; gap: 28px;
-      padding-top: 16px;
-      font-family: var(--font-mono); font-size: 10px;
-      color: rgba(246, 242, 235, 0.35);
-      letter-spacing: .14em; text-transform: uppercase;
-    }
-    .fx2-bottom .sep { color: rgba(246, 242, 235, 0.2); }
-
-    /* Complete button — floating, only visible at session-end ideally; here we show it discretely */
-    .fx2-complete-link {
-      position: absolute; right: 36px; bottom: 26px;
-      display: inline-flex; align-items: center; gap: 6px;
-      font-family: var(--font-body); font-size: 12px; font-weight: 700;
-      color: rgba(246, 242, 235, 0.55);
-      text-decoration: none;
-      padding: 8px 12px;
-      border: 1.5px solid rgba(246, 242, 235, 0.18);
-      border-radius: 999px;
-      background: rgba(246, 242, 235, 0.04);
-    }
-    .fx2-complete-link .ph-bold { font-size: 13px; line-height: 1; }
-    .fx2-complete-link:hover { color: var(--stabilo); border-color: rgba(244, 211, 94, 0.4); }
-
-    @media (max-width: 700px) {
-      html, body { height: auto; min-height: 100svh; }
-      body { min-height: 100svh; overflow: auto; }
-      .fx2 { min-height: 100svh; padding: 18px 16px 92px; }
-      .fx2-top { align-items: flex-start; gap: 12px; flex-direction: column; }
-      .fx2-stage { gap: 20px; justify-content: flex-start; padding-top: 36px; }
-      .fx2-task { text-align: center; line-height: 1.45; }
-      .fx2-timer { font-size: clamp(86px, 26vw, 148px); margin: 0; }
-      .fx2-bar { width: min(320px, 86vw); }
-      .fx2-controls { gap: 14px; }
-      .fx2-ctl { width: 48px; height: 48px; }
-      .fx2-ctl.primary { width: 66px; height: 66px; }
-      .fx2-steps { width: 100%; }
-      .fx2-step { align-items: flex-start; flex-wrap: wrap; }
-      .fx2-step .label { flex-basis: calc(100% - 28px); }
-      .fx2-step .dur { margin-left: 28px; }
-      .fx2-ambient { bottom: 44px; left: 16px; }
-      .fx2-complete-link { bottom: 44px; right: 16px; }
-      .fx2-bottom { display: none; }
-    }
-  </style>
 </head>
 <body>
 
-<div class="fx2">
+<div class="fx2" data-focus-page>
+  <div class="rain" id="rain" aria-hidden="true"></div>
+
   <header class="fx2-top">
-    <a href="index.html" class="fx2-exit">
+    <a href="mission.html" class="fx2-exit" aria-label="Quitter le focus et revenir à la mission">
       <i class="ph-bold ph-caret-left" aria-hidden="true"></i>
-      Quitter
+      <span>Mission</span>
     </a>
-    <div class="fx2-session">Session 3/4 · 24 min restantes</div>
+
+    <p class="fx2-session" aria-label="Session de focus en cours">
+      <span class="fx2-session__dot" aria-hidden="true"></span>
+      <span>Focus en cours</span>
+      <span class="fx2-session__duration" data-daily-mission-focus-duration>25 min</span>
+    </p>
   </header>
 
-  <main class="fx2-stage">
-    <div class="fx2-task">
-      <span class="pill">Maths spé</span>
-      Corriger le DM sur les suites
-    </div>
+  <main class="fx2-shell" id="main">
+    <section class="fx2-stage" aria-labelledby="focus-title">
+      <p class="fx2-kicker">Mission du jour</p>
 
-    <div class="fx2-timer" id="timer">24:38</div>
+      <h1 class="fx2-task" id="focus-title">
+        <span class="pill" data-daily-mission-subject>Maths spé</span>
+        <span data-daily-mission-task-title>Exponentielle & dérivation, exercice type contrôle</span>
+      </h1>
 
-    <div class="fx2-bar"><div class="fill"></div></div>
+      <p class="fx2-intro" data-daily-mission-focus-lede>
+        25 min de focus. Commence par les formules, puis garde une erreur à revoir demain.
+      </p>
 
-    <div class="fx2-controls">
-      <button type="button" class="fx2-ctl" disabled aria-label="Précédent">
-        <i class="ph-bold ph-skip-back" aria-hidden="true"></i>
-      </button>
-      <button type="button" class="fx2-ctl primary" id="playPause" aria-label="Pause ou reprise (Espace)">
-        <i class="ph-bold ph-play fx-icon-hidden" id="play-icon" aria-hidden="true"></i>
-        <i class="ph-bold ph-pause" id="pause-icon" aria-hidden="true"></i>
-      </button>
-      <button type="button" class="fx2-ctl" disabled aria-label="Suivant">
-        <i class="ph-bold ph-skip-forward" aria-hidden="true"></i>
-      </button>
-    </div>
+      <div class="fx2-timer-wrap">
+        <div
+          class="fx2-timer"
+          id="timer"
+          role="timer"
+          aria-live="polite"
+          aria-atomic="true"
+          aria-label="Temps restant : 25 minutes"
+        >25:00</div>
 
-    <div class="fx2-steps">
-      <div class="fx2-steps__head">3 étapes</div>
-      <div class="fx2-step done">
-        <span class="box"></span>
-        <span class="label">Relire l'énoncé · entourer ce que tu n'as pas compris</span>
-        <span class="dur">5 min</span>
+        <div
+          class="fx2-bar"
+          data-progress-bar
+          role="progressbar"
+          aria-label="Temps écoulé pendant la session"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="0"
+        >
+          <div class="fill" data-progress-fill></div>
+        </div>
       </div>
-      <div class="fx2-step">
-        <span class="box"></span>
-        <span class="label">Refaire la question 3 en rédigeant proprement</span>
-        <span class="dur">12 min</span>
+
+      <div class="fx2-controls" aria-label="Contrôles du timer">
+        <button
+          type="button"
+          class="fx2-ctl primary"
+          id="playPause"
+          aria-label="Mettre le timer en pause"
+          aria-pressed="false"
+        >
+          <i class="ph-bold ph-play fx-icon-hidden" id="play-icon" aria-hidden="true"></i>
+          <i class="ph-bold ph-pause" id="pause-icon" aria-hidden="true"></i>
+        </button>
+
+        <button
+          type="button"
+          class="fx2-finish"
+          id="finishMission"
+          aria-label="Terminer la session et marquer la mission terminée"
+        >
+          <span>Terminer la session</span>
+          <small>progression prête après validation</small>
+        </button>
       </div>
-      <div class="fx2-step">
-        <span class="box"></span>
-        <span class="label">Comparer avec la correction officielle</span>
-        <span class="dur">8 min</span>
-      </div>
-    </div>
+
+      <p class="fx2-assist">
+        Termine seulement quand la trace est prête : les étapes seront marquées faites, puis tu verras l'avance gagnée.
+      </p>
+    </section>
+
+    <aside class="fx2-plan" aria-label="Plan de la session">
+      <section class="fx2-card fx2-card--steps" aria-labelledby="focus-steps-title">
+        <div class="fx2-card__head">
+          <h2 id="focus-steps-title">Trace à produire</h2>
+          <span data-daily-mission-step-count>3 étapes</span>
+        </div>
+
+        <div class="fx2-steps">
+          <div class="fx2-step" data-mission-action data-mission-index="0" role="checkbox" tabindex="0" aria-checked="false">
+            <span class="box" aria-hidden="true"></span>
+            <span class="label" data-daily-mission-step-title="0">Relire la définition de l'exponentielle et noter les deux formules à sécuriser.</span>
+            <span class="dur" data-daily-mission-step-duration="0">10 min</span>
+          </div>
+          <div class="fx2-step" data-mission-action data-mission-index="1" role="checkbox" tabindex="0" aria-checked="false">
+            <span class="box" aria-hidden="true"></span>
+            <span class="label" data-daily-mission-step-title="1">Refaire trois dérivées avec enchaînement de fonctions, sans regarder la correction.</span>
+            <span class="dur" data-daily-mission-step-duration="1">15 min</span>
+          </div>
+          <div class="fx2-step" data-mission-action data-mission-index="2" role="checkbox" tabindex="0" aria-checked="false">
+            <span class="box" aria-hidden="true"></span>
+            <span class="label" data-daily-mission-step-title="2">Corriger un exercice type contrôle et garder une erreur à revoir demain.</span>
+            <span class="dur" data-daily-mission-step-duration="2">20 min</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="fx2-card fx2-card--proof" aria-labelledby="focus-proof-title">
+        <div>
+          <p class="fx2-card__eyebrow">Pourquoi maintenant</p>
+          <h2 id="focus-proof-title" data-daily-mission-proof-label>Contrôle vendredi + dossier ingénieur</h2>
+        </div>
+        <p data-daily-mission-proof-summary>
+          La mission sert à sécuriser un chapitre prioritaire et à produire une correction propre.
+        </p>
+        <a href="objectif.html" class="fx2-card__link">
+          <span>Voir l'impact objectif</span>
+          <i class="ph-bold ph-arrow-right" aria-hidden="true"></i>
+        </a>
+      </section>
+    </aside>
   </main>
 
-  <!-- Ambient: tiny dot-toggles, bottom-left -->
-  <div class="fx2-ambient" role="radiogroup" aria-label="Ambiance">
-    <button type="button" class="fx2-amb amb active" data-amb="lofi" role="radio" aria-checked="true" title="Lofi"><i class="ph-bold ph-music-notes" aria-hidden="true"></i></button>
-    <button type="button" class="fx2-amb amb" data-amb="rain" role="radio" aria-checked="false" title="Pluie"><i class="ph-bold ph-cloud-rain" aria-hidden="true"></i></button>
-    <button type="button" class="fx2-amb amb" data-amb="cafe" role="radio" aria-checked="false" title="Café"><i class="ph-bold ph-coffee" aria-hidden="true"></i></button>
-    <button type="button" class="fx2-amb amb" data-amb="silence" role="radio" aria-checked="false" title="Silence"><i class="ph-bold ph-speaker-slash" aria-hidden="true"></i></button>
-  </div>
+  <footer class="fx2-footer">
+    <div class="fx2-ambient">
+      <span id="ambient-label" class="fx2-footer-label">Ambiance optionnelle</span>
+      <div class="fx2-ambient__choices amb-group" role="radiogroup" aria-labelledby="ambient-label">
+        <button type="button" class="fx2-amb amb active" data-amb="lofi" role="radio" aria-checked="true" aria-label="Ambiance lofi">
+          <i class="ph-bold ph-music-notes" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="fx2-amb amb" data-amb="rain" role="radio" aria-checked="false" aria-label="Ambiance pluie">
+          <i class="ph-bold ph-cloud-rain" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="fx2-amb amb" data-amb="cafe" role="radio" aria-checked="false" aria-label="Ambiance café">
+          <i class="ph-bold ph-coffee" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="fx2-amb amb" data-amb="silence" role="radio" aria-checked="false" aria-label="Silence">
+          <i class="ph-bold ph-speaker-slash" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
 
-  <!-- Marquer terminée: discreet, bottom-right -->
-  <a href="progression.html" class="fx2-complete-link" id="finishMission">Mission terminée <i class="ph-bold ph-arrow-up-right" aria-hidden="true"></i></a>
-
-  <footer class="fx2-bottom">
-    <span>Notifications coupées</span>
-    <span class="sep">·</span>
-    <span>Sites bloqués</span>
-    <span class="sep">·</span>
-    <span>Espace · Pause</span>
-    <span class="sep">·</span>
-    <span>Échap · Quitter</span>
+    <nav class="fx2-footer-actions" aria-label="Routes de travail">
+      <a href="mission.html">Mission</a>
+      <a href="objectif.html">Objectif</a>
+    </nav>
   </footer>
+
+  <section
+    class="fx-done"
+    id="fx-done"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="fx-done-title"
+    aria-describedby="fx-done-copy"
+    hidden
+  >
+    <div class="fx-done-inner">
+      <div class="fx-done-icon" aria-hidden="true">
+        <i class="ph-bold ph-check-circle"></i>
+      </div>
+      <p class="fx-done-kicker">Mission marquée terminée</p>
+      <h2 class="fx-done-title" id="fx-done-title">Session terminée</h2>
+      <p class="fx-done-sub" id="fx-done-copy">
+        <span data-daily-mission-done-summary>Ta mission avance. La progression est prête.</span>
+      </p>
+      <div class="fx-done-actions">
+        <a href="progression.html" class="fx-done-btn fx-done-btn--next" data-completion-primary>
+          Voir ma progression
+        </a>
+        <a href="mission.html" class="fx-done-btn fx-done-btn--quiet">Revoir la mission</a>
+        <a href="objectif.html" class="fx-done-btn fx-done-btn--quiet">Impact objectif</a>
+      </div>
+    </div>
+  </section>
 </div>
+
 <script src="scripts/model.js"></script>
 <script src="scripts/state.js"></script>
 <script src="scripts/dom.js"></script>

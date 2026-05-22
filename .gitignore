@@ -1,4 +1,5 @@
 ﻿screenshots/
+/output/
 node_modules/
 .superpowers/
 
@@ -8,6 +9,7 @@ node_modules/
 .mcp.json
 .bg-shell/
 .playwright-mcp/
+.playwright-cli/
 .claude/*.local.md
 .claude/*.local.json
 .DS_Store

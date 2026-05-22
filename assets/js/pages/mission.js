@@ -9,7 +9,7 @@
 
   var steps = Array.from(document.querySelectorAll('[data-mission-step]'));
   var counter = document.querySelector('[data-mission-step-counter]');
-  var startLink = document.querySelector('.mp-cta');
+  var startLink = document.querySelector('[data-mission-start], .mp-cta');
 
   function missionProps(extra) {
     var mission = window.OutilPrepa && window.OutilPrepa.mission;

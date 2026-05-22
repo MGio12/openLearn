@@ -6,6 +6,8 @@
     "screenshot": "node scripts/screenshot.js",
     "verify:course-sidebar": "node scripts/verify-course-sidebar.mjs",
     "verify:cwv": "node scripts/verify-cwv.mjs",
+    "verify:redesign": "node scripts/verify-redesign-pages.mjs",
+    "capture:redesign": "node scripts/capture-redesign-pages.mjs",
     "validate:json": "node scripts/validate-json.mjs",
     "verify": "npm run validate:json && npm run verify:analytics && npm run verify:s01 && npm run verify:s02 && npm run verify:s03 && npm run verify:s04 && npm run verify:s05 && npm run verify:cwv",
     "ralph:start": "bash scripts/codex-ralph.sh start",

@@ -12,6 +12,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Objectif Lycée — Mission</title>
+  <link rel="icon" type="image/webp" href="assets/brand/trophy-logo-home.webp">
   <link rel="stylesheet" href="colors_and_type.css">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css">
@@ -225,6 +226,7 @@
       .mp-cta { align-items: flex-start; flex-direction: column; }
     }
   </style>
+  <link rel="stylesheet" href="assets/css/pages/mission.css">
 </head>
 <body>
 
@@ -234,17 +236,19 @@
     <div class="sb-group">
       <div class="head">Cockpit</div>
       <a href="index.html" class="sb-item"><span class="ic"><i class="ph-bold ph-target" aria-hidden="true"></i></span>Aujourd'hui</a>
-      <a href="index.html" class="sb-item"><span class="ic"><i class="ph-bold ph-calendar-blank" aria-hidden="true"></i></span>Planning</a>
+      <a href="planning.html" class="sb-item"><span class="ic"><i class="ph-bold ph-calendar-blank" aria-hidden="true"></i></span>Planning</a>
       <a href="progression.html" class="sb-item"><span class="ic"><i class="ph-bold ph-chart-line-up" aria-hidden="true"></i></span>Progression</a>
       <a href="mission.html" class="sb-item active"><span class="ic"><i class="ph-bold ph-timer" aria-hidden="true"></i></span>Mission</a>
     </div>
     <div class="sb-group">
       <div class="head">Travail</div>
       <a href="objectif.html" class="sb-item"><span class="ic"><i class="ph-bold ph-squares-four" aria-hidden="true"></i></span>Objectif</a>
+      <a href="contenu.html" class="sb-item"><span class="ic"><i class="ph-bold ph-book-open-text" aria-hidden="true"></i></span>Contenu</a>
     </div>
     <div class="sb-group">
-      <div class="head" style="opacity:.5;font-size:10px">Bientôt</div>
-      <div style="font-family:var(--font-body);font-size:11px;color:var(--ink-mute);padding:0 12px;line-height:1.6">Fiches · Contrôles · Abonnement</div>
+      <div class="head">Compte</div>
+      <a href="abonnement.html" class="sb-item"><span class="ic"><i class="ph-bold ph-credit-card" aria-hidden="true"></i></span>Abonnement</a>
+      <a href="parametres.html" class="sb-item"><span class="ic"><i class="ph-bold ph-gear" aria-hidden="true"></i></span>Paramètres</a>
     </div>
     <div class="sb-bottom">
       <a class="sb-about" href="apropos.html" aria-label="À propos d'Objectif Lycée">
@@ -262,15 +266,15 @@
       <div class="mp-hero">
         <div class="mp-hero__top">
           <span class="mp-hero__pill">Mission du jour</span>
-          <span>Maths spé · Échéance vendredi 23 mai</span>
+          <span>Maths spé · Signal démo · contrôle à venir</span>
         </div>
         <h1>Mission : corriger le DM sur les suites</h1>
         <p class="mp-hero__why">
-          Cette correction lève les 2 erreurs récurrentes du DM précédent — celles qui apparaissent dans 4 des 6 derniers sujets de bac.
+          Objectif Lycée te fait travailler une seule chose utile maintenant : repérer l'endroit exact où ta rédaction se décale, puis repartir avec une phrase propre à réutiliser au contrôle.
         </p>
         <span class="mp-hero__duration">
           <span class="clock"><i class="ph-bold ph-timer" aria-hidden="true"></i></span>
-          <b>25 min</b> · routine courte
+          <b>25 min</b> · action finissable
         </span>
       </div>
 
@@ -278,34 +282,40 @@
         <div>
           <div class="mp-steps">
             <div class="mp-steps__head">
-              <h2>3 étapes</h2>
-              <span class="mp-steps__count" data-mission-step-counter>0 / 3 cochées</span>
+              <h2>4 étapes</h2>
+              <span class="mp-steps__count" data-mission-step-counter>0 / 4 cochées</span>
             </div>
 
             <div class="mp-step" data-mission-step="0" role="checkbox" tabindex="0" aria-checked="false">
               <span class="box"><i class="ph-bold ph-check" aria-hidden="true"></i></span>
               <span class="num">1</span>
-              <span class="lbl">Relire l'énoncé et entourer ce que tu n'as pas compris.</span>
-              <span class="dur">5 min</span>
+              <span class="lbl">Relire l'énoncé et écrire en une phrase ce que la question demande.</span>
+              <span class="dur">4 min</span>
             </div>
             <div class="mp-step" data-mission-step="1" role="checkbox" tabindex="0" aria-checked="false">
               <span class="box"><i class="ph-bold ph-check" aria-hidden="true"></i></span>
               <span class="num">2</span>
-              <span class="lbl">Refaire la question 3 en rédigeant proprement, sans regarder la correction.</span>
+              <span class="lbl">Refaire la question 3 en rédaction complète, sans ouvrir la correction.</span>
               <span class="dur">12 min</span>
             </div>
             <div class="mp-step" data-mission-step="2" role="checkbox" tabindex="0" aria-checked="false">
               <span class="box"><i class="ph-bold ph-check" aria-hidden="true"></i></span>
               <span class="num">3</span>
-              <span class="lbl">Comparer avec la correction officielle et marquer les écarts.</span>
-              <span class="dur">8 min</span>
+              <span class="lbl">Comparer avec la correction et souligner la première ligne qui diffère.</span>
+              <span class="dur">6 min</span>
+            </div>
+            <div class="mp-step" data-mission-step="3" role="checkbox" tabindex="0" aria-checked="false">
+              <span class="box"><i class="ph-bold ph-check" aria-hidden="true"></i></span>
+              <span class="num">4</span>
+              <span class="lbl">Noter la phrase de méthode à réutiliser demain.</span>
+              <span class="dur">3 min</span>
             </div>
           </div>
 
-          <a href="focus.html" class="mp-cta">
+          <a href="focus.html" class="mp-cta" data-mission-start>
             <div>
-              <div class="mp-cta__lbl">Commencer le focus</div>
-              <div class="mp-cta__sub">25 min · notifications coupées</div>
+              <div class="mp-cta__lbl">Lancer le focus maintenant</div>
+              <div class="mp-cta__sub">25 min · juste cette fiche d'action</div>
             </div>
             <span class="mp-cta__arrow"><i class="ph-bold ph-play" aria-hidden="true"></i></span>
           </a>
@@ -315,26 +325,39 @@
           <div class="mp-proof">
             <span class="mp-proof__lbl">Pourquoi maintenant</span>
             <span class="mp-proof__copy">
-              Contrôle <b>vendredi 23 mai</b> sur ce chapitre. Le sujet pèse <b>n°1</b> dans ta moyenne du semestre.
+              Donnée démo : le chapitre est signalé comme fragile et proche d'un contrôle. La mission garde l'effort court, mais produit une trace relisible.
             </span>
           </div>
 
           <div class="mp-aside">
             <h3>Ressources</h3>
-            <div class="mp-resource"><span class="ic"><i class="ph-bold ph-book-open-text" aria-hidden="true"></i></span>Cours — chapitre 7 · suites<span class="arr"><i class="ph-bold ph-arrow-right" aria-hidden="true"></i></span></div>
-            <div class="mp-resource"><span class="ic"><i class="ph-bold ph-notebook" aria-hidden="true"></i></span>Fiche méthode — récurrence<span class="arr"><i class="ph-bold ph-arrow-right" aria-hidden="true"></i></span></div>
-            <div class="mp-resource"><span class="ic"><i class="ph-bold ph-file-text" aria-hidden="true"></i></span>DM précédent corrigé<span class="arr"><i class="ph-bold ph-arrow-right" aria-hidden="true"></i></span></div>
+            <div class="mp-resource mp-resource--preview">
+              <span class="ic"><i class="ph-bold ph-book-open-text" aria-hidden="true"></i></span>
+              <span class="mp-resource__copy">Cours · suites numériques</span>
+              <span class="mp-resource__badge">Preview</span>
+            </div>
+            <div class="mp-resource mp-resource--preview">
+              <span class="ic"><i class="ph-bold ph-notebook" aria-hidden="true"></i></span>
+              <span class="mp-resource__copy">Fiche méthode · récurrence</span>
+              <span class="mp-resource__badge">Preview</span>
+            </div>
+            <div class="mp-resource mp-resource--preview">
+              <span class="ic"><i class="ph-bold ph-file-text" aria-hidden="true"></i></span>
+              <span class="mp-resource__copy">DM précédent corrigé</span>
+              <span class="mp-resource__badge">Preview</span>
+            </div>
           </div>
         </aside>
       </div>
 
       <div class="routine-continuation" aria-label="Continuer le parcours">
         <div>
-          <h3>Continuer proprement</h3>
-          <p>Reviens au cockpit, vérifie l'impact objectif, ou garde le plan complet après l'essai.</p>
+          <h3>Continuer sans te disperser</h3>
+          <p>La suite garde le même ordre : agir, comprendre l'impact, puis garder le plan si l'essai t'a servi.</p>
         </div>
         <div class="links">
           <a class="route" href="index.html">Cockpit</a>
+          <a class="route" href="focus.html">Focus</a>
           <a class="route" href="objectif.html">Impact objectif</a>
           <a class="route" href="checkout.html">Abonnement</a>
         </div>
@@ -349,6 +372,14 @@
     <i class="ph-bold ph-target" aria-hidden="true"></i>
     <span>Aujourd'hui</span>
   </a>
+  <a href="planning.html" class="mobile-tab">
+    <i class="ph-bold ph-calendar-blank" aria-hidden="true"></i>
+    <span>Planning</span>
+  </a>
+  <a href="contenu.html" class="mobile-tab">
+    <i class="ph-bold ph-book-open-text" aria-hidden="true"></i>
+    <span>Contenu</span>
+  </a>
   <a href="progression.html" class="mobile-tab">
     <i class="ph-bold ph-chart-line-up" aria-hidden="true"></i>
     <span>Progression</span>
@@ -356,10 +387,6 @@
   <a href="objectif.html" class="mobile-tab">
     <i class="ph-bold ph-squares-four" aria-hidden="true"></i>
     <span>Objectif</span>
-  </a>
-  <a href="focus.html" class="mobile-tab">
-    <i class="ph-bold ph-timer" aria-hidden="true"></i>
-    <span>Focus</span>
   </a>
 </nav>
 <script src="scripts/model.js"></script>
