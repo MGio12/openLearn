@@ -4,7 +4,6 @@
    Hydrate le rituel d'entrée du dashboard :
    - Bandeau "Hier" : lit OutilPrepa.yesterdayEntry(), fallback démo
      si aucune donnée stockée (cohérent avec la maquette statique).
-   - Mood/énergie check : 3 chips persistés via OutilPrepa.setMood().
    ============================================================ */
 (function () {
   'use strict';
@@ -59,62 +58,6 @@
     banner.removeAttribute('hidden');
   }
 
-  function wireMoodChips() {
-    var container = document.querySelector('[data-mood-check]');
-    if (!container) return;
-    var chips = Array.prototype.slice.call(container.querySelectorAll('[data-mood-value]'));
-    if (!chips.length) return;
-    var ack = container.querySelector('[data-mood-feedback]');
-    var ackTimer = null;
-
-    function setActive(value) {
-      chips.forEach(function (chip) {
-        var isActive = chip.getAttribute('data-mood-value') === value;
-        chip.setAttribute('aria-checked', String(isActive));
-      });
-    }
-
-    function flashAck() {
-      if (!ack) return;
-      ack.removeAttribute('hidden');
-      requestAnimationFrame(function () { ack.classList.add('is-visible'); });
-      if (ackTimer) clearTimeout(ackTimer);
-      ackTimer = setTimeout(function () {
-        ack.classList.remove('is-visible');
-        setTimeout(function () { ack.setAttribute('hidden', ''); }, 220);
-      }, 2200);
-    }
-
-    var initial = window.OutilPrepa && typeof window.OutilPrepa.getMood === 'function'
-      ? window.OutilPrepa.getMood()
-      : null;
-    setActive(initial);
-
-    function selectMood(value) {
-      setActive(value);
-      if (window.OutilPrepa && typeof window.OutilPrepa.setMood === 'function') {
-        window.OutilPrepa.setMood(value);
-      }
-      flashAck();
-    }
-
-    chips.forEach(function (chip) {
-      chip.addEventListener('click', function () {
-        selectMood(chip.getAttribute('data-mood-value'));
-      });
-      chip.addEventListener('keydown', function (event) {
-        if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
-        event.preventDefault();
-        var index = chips.indexOf(chip);
-        var nextIndex = event.key === 'ArrowRight'
-          ? (index + 1) % chips.length
-          : (index - 1 + chips.length) % chips.length;
-        chips[nextIndex].focus();
-        selectMood(chips[nextIndex].getAttribute('data-mood-value'));
-      });
-    });
-  }
-
   function wireWhyPanel() {
     var toggle = document.querySelector('[data-why-toggle]');
     var mission = document.querySelector('[data-contract="daily-mission"], [data-testid="daily-mission"]');
@@ -123,13 +66,8 @@
     var svg = document.querySelector('[data-why-lines]');
     if (!toggle || !mission || !panel || !svg) return;
 
-    var cards = {
-      tl: panel.querySelector('[data-why-card="tl"]'),
-      tr: panel.querySelector('[data-why-card="tr"]'),
-      bl: panel.querySelector('[data-why-card="bl"]'),
-      br: panel.querySelector('[data-why-card="br"]')
-    };
-    if (!cards.tl || !cards.tr || !cards.bl || !cards.br) return;
+    var cards = Array.prototype.slice.call(panel.querySelectorAll('[data-why-card]'));
+    if (!cards.length) return;
 
     var SVG_NS = 'http://www.w3.org/2000/svg';
     var FADE_SEL = '.ap-head, .ap-ritual, .ap-section, .sidebar';
@@ -157,18 +95,21 @@
       var panelRect = panel.getBoundingClientRect();
       if (panelRect.width === 0 || panelRect.height === 0) return;
       var m = rectIn(mission, panelRect);
-      var c = {
-        tl: rectIn(cards.tl, panelRect),
-        tr: rectIn(cards.tr, panelRect),
-        bl: rectIn(cards.bl, panelRect),
-        br: rectIn(cards.br, panelRect)
-      };
-      var lines = [
-        { sx: c.tl.right, sy: c.tl.bottom, ex: m.left,  ey: m.top    },
-        { sx: c.tr.left,  sy: c.tr.bottom, ex: m.right, ey: m.top    },
-        { sx: c.bl.right, sy: c.bl.top,    ex: m.left,  ey: m.bottom },
-        { sx: c.br.left,  sy: c.br.top,    ex: m.right, ey: m.bottom }
-      ];
+      var lines = cards.map(function (card) {
+        var c = rectIn(card, panelRect);
+        var slot = card.getAttribute('data-why-card');
+
+        if (slot === 'tr') {
+          return { sx: c.left, sy: c.bottom, ex: m.right, ey: m.top };
+        }
+        if (slot === 'bl') {
+          return { sx: c.right, sy: c.top, ex: m.left, ey: m.bottom };
+        }
+        if (slot === 'br') {
+          return { sx: c.left, sy: c.top, ex: m.right, ey: m.bottom };
+        }
+        return { sx: c.right, sy: c.bottom, ex: m.left, ey: m.top };
+      });
       svg.setAttribute('viewBox', '0 0 ' + Math.ceil(panelRect.width) + ' ' + Math.ceil(panelRect.height));
       svg.setAttribute('preserveAspectRatio', 'none');
       clearSvg();
@@ -227,6 +168,11 @@
       setFade(isOpen);
       if (isOpen) {
         try { panel.focus({ preventScroll: true }); } catch (e) { panel.focus(); }
+        if (mobileQuery.matches && typeof panel.scrollIntoView === 'function') {
+          window.setTimeout(function () {
+            panel.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+          }, 0);
+        }
         window.addEventListener('resize', onResize);
         document.addEventListener('keydown', onKey);
         scheduleConnectorDraw(240);
@@ -265,7 +211,6 @@
 
   ready(function () {
     renderYesterday();
-    wireMoodChips();
     wireWhyPanel();
   });
 })();

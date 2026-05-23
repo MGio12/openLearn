@@ -64,7 +64,7 @@
     </div>
 
     <div class="sb-group">
-      <div class="head">Compte</div>
+      <div class="head">Offre</div>
       <a href="abonnement.html" class="sb-item">
         <span class="ic"><i class="ph-bold ph-credit-card" aria-hidden="true"></i></span>
         Abonnement
@@ -88,15 +88,6 @@
     <!-- NO TOPBAR. Search/IA/notifs removed: didn't work, added noise. -->
 
     <section class="view active" id="view-today">
-      <!-- Annotations périphériques : suggèrent le système plus grand, sans crier -->
-      <div class="ap-periphery" aria-hidden="true">
-        <span class="ap-periphery__mark ap-periphery__mark--tr">semaine 21 · lundi</span>
-        <span class="ap-periphery__mark ap-periphery__mark--bl">~18 mois jusqu'à l'objectif</span>
-        <span class="ap-periphery__mark ap-periphery__mark--br">vendredi · J-3 contrôle</span>
-        <span class="ap-periphery__mark ap-periphery__mark--tl">avant 8h ▸ matinée</span>
-        <span class="ap-periphery__mark ap-periphery__mark--mid">jour 7 · régularité</span>
-      </div>
-
       <div class="ap-head">
         <div>
           <div class="ap-date">
@@ -109,20 +100,11 @@
         </div>
       </div>
 
-      <!-- Rituel d'entrée : continuité + énergie -->
+      <!-- Rituel d'entrée : continuité -->
       <div class="ap-ritual">
         <div class="ap-yesterday" data-yesterday-banner data-completed="true" hidden>
           <i class="ph-bold ph-check" data-yesterday-icon aria-hidden="true"></i>
           <span data-yesterday-text></span>
-        </div>
-        <div class="ap-mood ap-mood--inline" data-mood-check>
-          <span class="ap-mood__label">Comment tu te sens là ?</span>
-          <div class="ap-mood__chips" role="radiogroup" aria-label="Comment tu te sens là ?">
-            <button type="button" class="ap-mood__chip" role="radio" aria-checked="false" data-mood-value="calm">Calme</button>
-            <button type="button" class="ap-mood__chip" role="radio" aria-checked="false" data-mood-value="tense">Tendu</button>
-            <button type="button" class="ap-mood__chip" role="radio" aria-checked="false" data-mood-value="tired">Fatigué</button>
-          </div>
-          <span class="ap-mood__ack" data-mood-feedback aria-live="polite" hidden>Noté pour aujourd'hui.</span>
         </div>
       </div>
 
@@ -132,16 +114,23 @@
           <div class="ap-mission__eyebrow">
             <span class="pill">Mission du jour</span>
             <span><span data-daily-mission-subject>Maths spé</span> · <span data-daily-mission-duration>25 min</span></span>
-            <span class="ap-signal"><span class="dot"></span>Régularité · 7 jours</span>
+            <span class="ap-signal"><span class="dot"></span>Démo locale · essai gratuit</span>
           </div>
           <h2 data-daily-mission-title>Corriger le DM sur les suites</h2>
           <p class="ap-mission__why" data-daily-mission-reason>
-            Contrôle vendredi sur ce chapitre. Cette correction lève les 2 erreurs récurrentes
-            du DM précédent — sur des questions qui apparaissent dans 4 des 6 derniers sujets.
+            Contrôle vendredi sur ce chapitre. Cette correction cible les formules et la rédaction
+            qui bloquent encore sur l'exercice type.
           </p>
+          <div class="free-trial-banner" data-free-trial-banner>
+            <span class="free-trial-banner__chip">
+              <span data-free-trial-count>3</span> <span data-free-trial-noun>missions offertes</span>
+            </span>
+            <span class="free-trial-banner__hint" data-free-trial-hint>Pas de carte bancaire : commence par une mission utile.</span>
+            <a href="checkout.html" class="free-trial-banner__cta" data-free-trial-cta hidden>Garder le plan personnalisé →</a>
+          </div>
           <div class="ap-mission__cta-row">
-            <a href="mission.html" class="ap-mission__cta">
-              <span data-daily-mission-duration-cta>Commencer la mission</span>
+            <a href="mission.html" class="ap-mission__cta" data-lockable-mission-cta data-locked-href="checkout.html">
+              <span data-daily-mission-duration-cta data-gated-label>Commencer la mission</span>
               <span class="arrow"><i class="ph-bold ph-arrow-right" aria-hidden="true"></i></span>
             </a>
             <button
@@ -199,7 +188,7 @@
               <i class="ph-bold ph-chart-line-up" aria-hidden="true"></i>
               Avance visible
             </span>
-            <strong><span data-daily-mission-mastery>62%</span> de maîtrise affichée</strong>
+            <strong><span data-daily-mission-mastery>62%</span> de maîtrise démo</strong>
             <span>Après le focus, la progression garde la trace.</span>
           </div>
         </div>
@@ -230,49 +219,10 @@
             </div>
             <div class="ap-why-card__body">École d'ingé post-bac · ~18 mois</div>
           </article>
-          <article class="ap-why-card ap-why-card--bl" data-why-card="bl">
-            <div class="ap-why-card__head">
-              <i class="ph-bold ph-arrows-clockwise" aria-hidden="true"></i>
-              <span>Erreurs récurrentes</span>
-            </div>
-            <div class="ap-why-card__body">Une erreur à isoler maintenant pour ne pas la refaire au contrôle.</div>
-          </article>
-          <article class="ap-why-card ap-why-card--br" data-why-card="br">
-            <div class="ap-why-card__head">
-              <i class="ph-bold ph-wave-sawtooth" aria-hidden="true"></i>
-              <span>Adapté à ton énergie</span>
-            </div>
-            <div class="ap-why-card__body">Mission courte · <span data-daily-mission-focus-duration>25 min</span> · faisable maintenant</div>
-          </article>
         </div>
       </div>
 
-      <!-- Suite de la journée -->
-      <section class="ap-section ap-section--next stats" aria-labelledby="ap-next-title">
-        <div class="ap-card">
-          <div class="ap-card__head">
-            <h3 id="ap-next-title">Après cette mission</h3>
-            <span class="ap-card__hint">3 prévues aujourd'hui</span>
-          </div>
-          <div class="ap-next-list">
-            <div class="ap-next-item done">
-              <span class="when"><i class="ph-bold ph-check" aria-hidden="true"></i> 8h00</span>
-              <span class="title">Physique-chimie — énergie cinétique, ex. 4 & 5</span>
-              <span class="dur">45 min</span>
-            </div>
-            <div class="ap-next-item">
-              <span class="when">14h00</span>
-              <span class="title">Philo — plan détaillé sur la technique</span>
-              <span class="dur">30 min</span>
-            </div>
-            <div class="ap-next-item">
-              <span class="when">16h30</span>
-              <span class="title">Grand oral — reformuler la problématique</span>
-              <span class="dur">30 min</span>
-            </div>
-          </div>
-        </div>
-      </section>
+      <section class="ap-section ap-section--next stats" hidden aria-hidden="true"></section>
 
       <!-- Repères : passé proche, mission, échéance, objectif -->
       <section class="ap-section ap-timeline-section" aria-labelledby="ap-timeline-title">
