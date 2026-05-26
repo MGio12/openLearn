@@ -2,8 +2,8 @@
 <!--
   ============================================================
   Objectif Lycee - Planning
-  Placeholder quasi-final pour parcourir le prototype statique.
-  Aucun backend ni sauvegarde multi-appareil n'est pretendu ici.
+  Planning data-ready rendu depuis window.OutilPrepa.schedule.
+  Aucun backend ni agent IA n'est branche dans cette passe.
   ============================================================
 -->
 <html lang="fr">
@@ -11,262 +11,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Objectif Lycee - Planning</title>
-  <meta name="description" content="Prototype du planning Objectif Lycee : une semaine claire, une mission du jour, et les prochaines actions reliees a l'objectif.">
+  <meta name="description" content="Planning Objectif Lycee : cours, activites et travail recommande dans une semaine lisible.">
   <meta name="theme-color" content="#F4D35E">
   <link rel="icon" type="image/webp" href="assets/brand/trophy-logo-home.webp">
   <link rel="stylesheet" href="colors_and_type.css">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="assets/css/pages/planning.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css">
-  <style>
-    html,
-    body { height: auto; overflow: visible; }
-    .app { height: auto; min-height: 100vh; }
-    .main { overflow: visible; }
-    .view {
-      display: block !important;
-      flex: none !important;
-      height: auto !important;
-      overflow: visible !important;
-      padding: 28px 36px 32px !important;
-      background-image: none !important;
-    }
-
-    .pl-head {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 22px;
-      align-items: end;
-      margin-bottom: 24px;
-    }
-    .pl-kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      width: fit-content;
-      margin-bottom: 10px;
-      padding: 5px 12px;
-      background: var(--stabilo-wash);
-      border: 2px solid var(--ink);
-      border-radius: 999px;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-    .pl-kicker .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--green-2);
-      border: 1.5px solid var(--ink);
-    }
-    .pl-head h1 {
-      max-width: 780px;
-      margin: 0;
-      font-family: var(--font-display);
-      font-size: clamp(36px, 4.8vw, 58px);
-      line-height: .98;
-      letter-spacing: 0;
-      text-transform: uppercase;
-    }
-    .pl-head p {
-      max-width: 690px;
-      margin: 10px 0 0;
-      color: var(--ink-soft);
-      font-size: 15px;
-      line-height: 1.6;
-    }
-    .pl-note {
-      max-width: 300px;
-      padding: 14px 16px;
-      background: #FFFDF8;
-      border: 2.5px solid var(--ink);
-      border-radius: 14px;
-      box-shadow: 5px 5px 0 var(--ink);
-      font-size: 13px;
-      line-height: 1.45;
-      color: var(--ink-soft);
-    }
-    .pl-note strong { display: block; color: var(--ink); margin-bottom: 4px; }
-
-    .pl-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.45fr) minmax(300px, .75fr);
-      gap: 22px;
-      align-items: start;
-    }
-    .pl-panel {
-      background: #FFFDF8;
-      border: 3px solid var(--ink);
-      border-radius: 18px;
-      box-shadow: 7px 7px 0 var(--ink);
-      padding: 22px;
-    }
-    .pl-panel h2 {
-      margin: 0 0 14px;
-      font-family: var(--font-display);
-      font-size: 20px;
-      line-height: 1.05;
-      text-transform: uppercase;
-    }
-
-    .pl-week {
-      display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: 10px;
-    }
-    .pl-day {
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      padding: 14px 12px;
-      background: var(--paper-2);
-      border: 2px solid var(--ink);
-      border-radius: 12px;
-    }
-    .pl-day.is-today {
-      background: var(--stabilo);
-      box-shadow: 4px 4px 0 var(--ink);
-      transform: translate(-1px, -1px);
-    }
-    .pl-day__top {
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--ink-soft);
-    }
-    .pl-day.is-today .pl-day__top { color: #5C4A0A; }
-    .pl-task {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      min-height: 104px;
-    }
-    .pl-task strong {
-      font-family: var(--font-body);
-      font-size: 14px;
-      line-height: 1.28;
-      color: var(--ink);
-    }
-    .pl-task span {
-      font-size: 12px;
-      line-height: 1.4;
-      color: var(--ink-soft);
-    }
-    .pl-day.is-today .pl-task span { color: #5C4A0A; }
-    .pl-day__action {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7px;
-      min-height: 42px;
-      margin-top: auto;
-      padding: 9px 10px;
-      background: var(--ink);
-      color: var(--paper);
-      border: 2px solid var(--ink);
-      border-radius: 10px;
-      font-size: 12px;
-      font-weight: 800;
-      text-decoration: none;
-    }
-    .pl-day__action .ph-bold { font-size: 13px; line-height: 1; }
-    .pl-day__action:hover { color: var(--stabilo); }
-    .pl-day__action:focus-visible,
-    .pl-route:focus-visible,
-    .mobile-tab:focus-visible,
-    .sb-item:focus-visible,
-    .sb-about:focus-visible {
-      outline: 3px solid var(--orange);
-      outline-offset: 3px;
-    }
-
-    .pl-side {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .pl-today {
-      background: var(--ink);
-      color: var(--paper);
-      border-color: var(--ink);
-      box-shadow: 7px 7px 0 var(--stabilo);
-    }
-    .pl-today h2 { color: var(--paper); }
-    .pl-today p {
-      margin: 0;
-      color: rgba(246, 242, 235, .78);
-      font-size: 14px;
-      line-height: 1.5;
-    }
-    .pl-actions {
-      display: grid;
-      gap: 9px;
-      margin-top: 16px;
-    }
-    .pl-route {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      min-height: 44px;
-      padding: 10px 12px;
-      background: var(--paper);
-      color: var(--ink);
-      border: 2px solid var(--paper);
-      border-radius: 10px;
-      font-size: 13px;
-      font-weight: 800;
-      text-decoration: none;
-    }
-    .pl-route .ph-bold { font-size: 14px; line-height: 1; }
-    .pl-route--outline {
-      background: transparent;
-      color: var(--paper);
-      border-color: rgba(246, 242, 235, .24);
-    }
-    .pl-route:hover { transform: translate(1px, 1px); }
-    .pl-proof {
-      display: grid;
-      gap: 12px;
-    }
-    .pl-proof__item {
-      padding: 12px 0;
-      border-top: 1.5px dashed rgba(18, 18, 18, .16);
-    }
-    .pl-proof__item:first-child { border-top: 0; padding-top: 0; }
-    .pl-proof__item strong {
-      display: block;
-      margin-bottom: 3px;
-      font-size: 13px;
-    }
-    .pl-proof__item span {
-      color: var(--ink-soft);
-      font-size: 13px;
-      line-height: 1.45;
-    }
-
-    @media (max-width: 1080px) {
-      .pl-grid,
-      .pl-head { grid-template-columns: 1fr; }
-      .pl-note { max-width: none; }
-      .pl-week { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-    @media (max-width: 640px) {
-      .view { padding: 18px 14px 90px !important; }
-      .pl-head h1 { font-size: 32px; }
-      .pl-panel { padding: 18px 16px; box-shadow: 5px 5px 0 var(--ink); }
-      .pl-week { grid-template-columns: 1fr; }
-      .pl-task { min-height: 0; }
-    }
-  </style>
 </head>
 <body>
 <div class="app">
@@ -302,100 +53,32 @@
   </aside>
 
   <div class="main">
-    <section class="view active">
-      <header class="pl-head">
-        <div>
-          <span class="pl-kicker"><span class="dot"></span>Semaine demo</span>
-          <h1>Le planning qui garde la mission utile en premier.</h1>
-          <p>
-            Cette page montre le comportement vise : une semaine lisible, une priorite par jour,
-            et des liens directs vers l'action. Les donnees sont encore statiques dans ce prototype.
-          </p>
-        </div>
-        <aside class="pl-note">
-          <strong>Prototype honnete</strong>
-          Les missions affichees ici ne sont pas encore sauvegardees entre appareils. Elles servent a parcourir le flux.
-        </aside>
+    <section class="view active planning-view">
+      <header class="planning-toolbar">
+        <h1>Planning</h1>
+        <p class="planning-toolbar__meta">
+          Semaine type &middot; 08:00-20:00 &middot; <span data-schedule-meta>Europe/Paris - v1</span>
+        </p>
       </header>
 
-      <div class="pl-grid">
-        <section class="pl-panel" aria-labelledby="week-title">
-          <h2 id="week-title">Semaine du 19 mai</h2>
-          <div class="pl-week">
-            <article class="pl-day is-today">
-              <div class="pl-day__top"><span>Lun.</span><span>25 min</span></div>
-              <div class="pl-task">
-                <strong>Corriger le DM sur les suites</strong>
-                <span>Levier prioritaire avant le controle de vendredi.</span>
+      <div class="planning-shell">
+        <main class="planning-main" aria-labelledby="planning-week-title">
+          <div class="planning-panel planning-panel--week">
+            <div class="planning-panel__head">
+              <div>
+                <span class="planning-panel__eyebrow">08:00 - 20:00</span>
+                <h2 id="planning-week-title">Semaine type</h2>
               </div>
-              <a class="pl-day__action" href="mission.html">Ouvrir <i class="ph-bold ph-arrow-right" aria-hidden="true"></i></a>
-            </article>
-            <article class="pl-day">
-              <div class="pl-day__top"><span>Mar.</span><span>30 min</span></div>
-              <div class="pl-task">
-                <strong>Refaire deux questions type controle</strong>
-                <span>Passer de correction lue a redaction propre.</span>
-              </div>
-              <a class="pl-day__action" href="focus.html">Focus</a>
-            </article>
-            <article class="pl-day">
-              <div class="pl-day__top"><span>Mer.</span><span>20 min</span></div>
-              <div class="pl-task">
-                <strong>Verifier les erreurs recurrentes</strong>
-                <span>Ne garder que les points qui coutent vraiment des points.</span>
-              </div>
-              <a class="pl-day__action" href="objectif.html">Pourquoi</a>
-            </article>
-            <article class="pl-day">
-              <div class="pl-day__top"><span>Jeu.</span><span>35 min</span></div>
-              <div class="pl-task">
-                <strong>Mini controle blanc</strong>
-                <span>Un sujet court, corrige tout de suite.</span>
-              </div>
-              <a class="pl-day__action" href="contenu.html">Contenu</a>
-            </article>
-            <article class="pl-day">
-              <div class="pl-day__top"><span>Ven.</span><span>10 min</span></div>
-              <div class="pl-task">
-                <strong>Relire la fiche utile</strong>
-                <span>Derniere passe avant le controle, sans surcharge.</span>
-              </div>
-              <a class="pl-day__action" href="contenu.html">Fiche</a>
-            </article>
+              <span class="planning-panel__meta">Europe/Paris</span>
+            </div>
+
+            <div class="subject-legend" data-subject-legend aria-label="Legende des matieres"></div>
+            <div class="planning-board" data-planning-board aria-label="Emploi du temps hebdomadaire"></div>
+            <div class="mobile-agenda" data-mobile-agenda aria-label="Agenda mobile"></div>
           </div>
-        </section>
+        </main>
 
-        <aside class="pl-side">
-          <section class="pl-panel pl-today" aria-labelledby="today-title">
-            <h2 id="today-title">Aujourd'hui</h2>
-            <p>Une seule decision utile : finir la correction du DM, puis regarder ce que ca change dans l'objectif.</p>
-            <div class="pl-actions">
-              <a class="pl-route" href="mission.html">Commencer la mission <i class="ph-bold ph-arrow-right" aria-hidden="true"></i></a>
-              <a class="pl-route pl-route--outline" href="focus.html">Lancer le focus</a>
-              <a class="pl-route pl-route--outline" href="progression.html">Voir l'avance</a>
-            </div>
-          </section>
-
-          <section class="pl-panel pl-proof" aria-labelledby="proof-title">
-            <h2 id="proof-title">Pourquoi cet ordre ?</h2>
-            <div class="pl-proof__item">
-              <strong>Controle proche</strong>
-              <span>Vendredi arrive avant les autres echeances, donc la mission du jour protege la note la plus immediate.</span>
-            </div>
-            <div class="pl-proof__item">
-              <strong>Objectif dossier</strong>
-              <span>Maths spe reste le levier fort pour une ecole d'ingenieur post-bac.</span>
-            </div>
-            <div class="pl-proof__item">
-              <strong>Suite logique</strong>
-              <span>Correction, entrainement, controle blanc, fiche : chaque jour prepare le suivant.</span>
-            </div>
-            <div class="pl-actions">
-              <a class="pl-route" href="objectif.html">Voir la preuve objectif</a>
-              <a class="pl-route" href="checkout.html">Garder le plan quotidien</a>
-            </div>
-          </section>
-        </aside>
+        <aside class="planning-assistant" data-planning-assistant aria-labelledby="planning-assistant-title"></aside>
       </div>
     </section>
   </div>
@@ -408,5 +91,9 @@
   <a href="progression.html" class="mobile-tab"><i class="ph-bold ph-chart-line-up" aria-hidden="true"></i><span>Progression</span></a>
   <a href="objectif.html" class="mobile-tab"><i class="ph-bold ph-squares-four" aria-hidden="true"></i><span>Objectif</span></a>
 </nav>
+
+<script src="scripts/model.js"></script>
+<script src="scripts/state.js"></script>
+<script src="assets/js/pages/planning.js"></script>
 </body>
 </html>

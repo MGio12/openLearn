@@ -12,6 +12,7 @@
      missionProgress: {},
      focusSession: {},
      subscriptionState: {},
+     schedule: {},
      totalMissionsCompleted: 0,
      activeDays: ["2026-05-13", ...],
      byDate: {
@@ -58,6 +59,7 @@
         locked: false,
         checkoutUrl: null,
       },
+      schedule: null,
       totalMissionsCompleted: 0,
       activeDays: [],
       byDate: {},
@@ -250,6 +252,7 @@
     get missionProgress() { return state.missionProgress; },
     get focusSession() { return state.focusSession; },
     get subscriptionState() { return state.subscriptionState; },
+    get schedule() { return state.schedule; },
     today: todayISO,
     get freeLimit() {
       syncSubscriptionState();

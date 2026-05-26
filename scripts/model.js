@@ -149,6 +149,395 @@
     currentPeriodEnd: null,
   };
 
+  var DEFAULT_SCHEDULE = {
+    id: 'schedule-demo-lycee',
+    version: 1,
+    timezone: DEFAULT_PROFILE.timezone,
+    ownerProfileId: DEFAULT_PROFILE.id,
+    subjects: {
+      maths: {
+        label: 'Maths spé',
+        color: '#F4D35E',
+        icon: 'ph-function',
+      },
+      'physique-chimie': {
+        label: 'Physique-chimie',
+        color: '#C7D9D7',
+        icon: 'ph-flask',
+      },
+      svt: {
+        label: 'SVT',
+        color: '#D8E6C3',
+        icon: 'ph-leaf',
+      },
+      'francais-philo': {
+        label: 'Français · Philo',
+        color: '#E8C7A9',
+        icon: 'ph-pen-nib',
+      },
+      anglais: {
+        label: 'Anglais',
+        color: '#F4A261',
+        icon: 'ph-translate',
+      },
+      hggsp: {
+        label: 'HGGSP',
+        color: '#D96C5F',
+        icon: 'ph-globe-hemisphere-west',
+      },
+    },
+    items: [
+      {
+        id: 'mon-0800-maths-suites',
+        day: 'mon',
+        start: '08:00',
+        end: '09:00',
+        kind: 'course',
+        subjectId: 'maths',
+        title: 'Cours - suites numériques',
+        location: 'B214',
+        locked: true,
+        source: 'demo',
+      },
+      {
+        id: 'mon-0910-pc-energie',
+        day: 'mon',
+        start: '09:10',
+        end: '10:10',
+        kind: 'course',
+        subjectId: 'physique-chimie',
+        title: 'TP énergie mécanique',
+        location: 'Labo 2',
+        locked: true,
+        source: 'demo',
+      },
+      {
+        id: 'mon-1025-anglais-essay',
+        day: 'mon',
+        start: '10:25',
+        end: '11:20',
+        kind: 'course',
+        subjectId: 'anglais',
+        title: 'Essay writing',
+        location: 'C103',
+        locked: true,
+        source: 'demo',
+      },
+      {
+        id: 'mon-1330-fr-philo',
+        day: 'mon',
+        start: '13:30',
+        end: '14:30',
+        kind: 'course',
+        subjectId: 'francais-philo',
+        title: 'Philo - la technique',
+        location: 'A108',
+        locked: true,
+        source: 'demo',
+      },
+      {
+        id: 'mon-1730-basket',
+        day: 'mon',
+        start: '17:30',
+        end: '18:30',
+        kind: 'activity',
+        subjectId: null,
+        title: 'Basket',
+        location: 'Gymnase',
+        locked: false,
+        source: 'student',
+      },
+      {
+        id: 'mon-1845-work-maths',
+        day: 'mon',
+        start: '18:45',
+        end: '19:15',
+        kind: 'recommended_work',
+        subjectId: 'maths',
+        title: 'Refaire 2 questions du DM',
+        location: 'Maison',
+        locked: false,
+        source: 'objectif-lycee',
+      },
+      {
+        id: 'tue-0800-svt-genetique',
+        day: 'tue',
+        start: '08:00',
+        end: '09:00',
+        kind: 'course',
+        subjectId: 'svt',
+        title: 'Génétique',
+        location: 'B106',
+        locked: true,
+        source: 'demo',
+      },
+      {
+        id: 'tue-1010-hggsp-puissance',
+        day: 'tue',
+        start: '10:10',
+        end: '11:10',
+        kind: 'course',
+        subjectId: 'hggsp',
+        title: 'Puissance et frontières',
+        location: 'A204',
+        locked: true,
+        source: 'demo',
+      },
+      {
+        id: 'tue-1120-maths-derivees',
+        day: 'tue',
+        start: '11:20',
+        end: '12:20',
+        kind: 'course',
+        subjectId: 'maths',
+        title: 'Dérivation',
+        location: 'B214',
+        locked: true,
+        source: 'demo',
+      },
+      {
+        id: 'tue-1400-anglais-oral',
+        day: 'tue',
+        start: '14:00',
+        end: '15:00',
+        kind: 'course',
+        subjectId: 'anglais',
+        title: 'Oral en binôme',
+        location: 'C103',
+        locked: true,
+        source: 'demo',
+      },
+      {
+        id: 'tue-1800-work-pc',
+        day: 'tue',
+        start: '18:00',
+        end: '18:30',
+        kind: 'recommended_work',
+        subjectId: 'physique-chimie',
+        title: 'Bilan d’énergie propre',
+        location: 'Maison',
+        locked: false,
+        source: 'objectif-lycee',
+      },
+      {
+        id: 'wed-0800-pc-electricite',
+        day: 'wed',
+        start: '08:00',
+        end: '09:00',
+        kind: 'course',
+        subjectId: 'physique-chimie',
+        title: 'Circuit RC',
+        location: 'Labo 1',
+        locked: true,
+        source: 'demo',
+      },
+      {
+        id: 'wed-0910-maths-proba',
+        day: 'wed',
+        start: '09:10',
+        end: '10:10',
+        kind: 'course',
+        subjectId: 'maths',
+        title: 'Probabilités',
+        location: 'B214',
+        locked: true,
+        source: 'demo',
+      },
+      {
+        id: 'wed-1025-fr-analyse',
+        day: 'wed',
+        start: '10:25',
+        end: '11:20',
+        kind: 'course',
+        subjectId: 'francais-philo',
+        title: 'Analyse de texte',
+        location: 'A108',
+        locked: true,
+        source: 'demo',
+      },
+      {
+        id: 'wed-1500-atelier-code',
+        day: 'wed',
+        start: '15:00',
+        end: '16:30',
+        kind: 'activity',
+        subjectId: null,
+        title: 'Atelier code',
+        location: 'Médiathèque',
+        locked: false,
+        source: 'student',
+      },
+      {
+        id: 'wed-1800-work-anglais',
+        day: 'wed',
+        start: '18:00',
+        end: '18:30',
+        kind: 'recommended_work',
+        subjectId: 'anglais',
+        title: '5 arguments reformulés',
+        location: 'Maison',
+        locked: false,
+        source: 'objectif-lycee',
+      },
+      {
+        id: 'thu-0800-maths-expo',
+        day: 'thu',
+        start: '08:00',
+        end: '09:00',
+        kind: 'course',
+        subjectId: 'maths',
+        title: 'Exponentielle',
+        location: 'B214',
+        locked: true,
+        source: 'demo',
+      },
+      {
+        id: 'thu-0910-hggsp-carte',
+        day: 'thu',
+        start: '09:10',
+        end: '10:10',
+        kind: 'course',
+        subjectId: 'hggsp',
+        title: 'Carte méthode',
+        location: 'A204',
+        locked: true,
+        source: 'demo',
+      },
+      {
+        id: 'thu-1330-svt-schema',
+        day: 'thu',
+        start: '13:30',
+        end: '14:30',
+        kind: 'course',
+        subjectId: 'svt',
+        title: 'Schéma bilan',
+        location: 'B106',
+        locked: true,
+        source: 'demo',
+      },
+      {
+        id: 'thu-1540-anglais-vocab',
+        day: 'thu',
+        start: '15:40',
+        end: '16:40',
+        kind: 'course',
+        subjectId: 'anglais',
+        title: 'Vocabulaire ciblé',
+        location: 'C103',
+        locked: true,
+        source: 'demo',
+      },
+      {
+        id: 'thu-1815-work-maths',
+        day: 'thu',
+        start: '18:15',
+        end: '18:45',
+        kind: 'recommended_work',
+        subjectId: 'maths',
+        title: 'Mini contrôle blanc',
+        location: 'Maison',
+        locked: false,
+        source: 'objectif-lycee',
+      },
+      {
+        id: 'fri-0800-pc-controle',
+        day: 'fri',
+        start: '08:00',
+        end: '09:00',
+        kind: 'course',
+        subjectId: 'physique-chimie',
+        title: 'Exercices énergie',
+        location: 'Labo 2',
+        locked: true,
+        source: 'demo',
+      },
+      {
+        id: 'fri-1010-maths-controle',
+        day: 'fri',
+        start: '10:10',
+        end: '11:10',
+        kind: 'course',
+        subjectId: 'maths',
+        title: 'Contrôle type',
+        location: 'B214',
+        locked: true,
+        source: 'demo',
+      },
+      {
+        id: 'fri-1120-fr-redaction',
+        day: 'fri',
+        start: '11:20',
+        end: '12:20',
+        kind: 'course',
+        subjectId: 'francais-philo',
+        title: 'Rédaction',
+        location: 'A108',
+        locked: true,
+        source: 'demo',
+      },
+      {
+        id: 'fri-1400-hggsp-intro',
+        day: 'fri',
+        start: '14:00',
+        end: '15:00',
+        kind: 'course',
+        subjectId: 'hggsp',
+        title: 'Intro dissertation',
+        location: 'A204',
+        locked: true,
+        source: 'demo',
+      },
+      {
+        id: 'fri-1730-work-pc',
+        day: 'fri',
+        start: '17:30',
+        end: '18:00',
+        kind: 'recommended_work',
+        subjectId: 'physique-chimie',
+        title: 'Corriger une erreur',
+        location: 'Maison',
+        locked: false,
+        source: 'objectif-lycee',
+      },
+      {
+        id: 'sat-1000-running',
+        day: 'sat',
+        start: '10:00',
+        end: '11:30',
+        kind: 'activity',
+        subjectId: null,
+        title: 'Sport',
+        location: 'Parc',
+        locked: false,
+        source: 'student',
+      },
+      {
+        id: 'sat-1400-work-maths',
+        day: 'sat',
+        start: '14:00',
+        end: '14:45',
+        kind: 'recommended_work',
+        subjectId: 'maths',
+        title: 'Reprendre la fiche erreurs',
+        location: 'Maison',
+        locked: false,
+        source: 'objectif-lycee',
+      },
+      {
+        id: 'sun-1030-week-review',
+        day: 'sun',
+        start: '10:30',
+        end: '11:00',
+        kind: 'recommended_work',
+        subjectId: 'francais-philo',
+        title: 'Préparer la semaine',
+        location: 'Maison',
+        locked: false,
+        source: 'objectif-lycee',
+      },
+    ],
+  };
+
   var GOAL_LABELS = {
     ingenieur: 'Ecole d ingenieur post-bac',
     commerce: 'Ecole de commerce post-bac',
@@ -825,6 +1214,61 @@
     return next;
   }
 
+  function normalizeScheduleItem(item, index) {
+    var fallback = DEFAULT_SCHEDULE.items[index] || {};
+    var next = deepMerge(
+      {
+        id: 'schedule-item-' + (index + 1),
+        day: 'mon',
+        start: '08:00',
+        end: '09:00',
+        kind: 'course',
+        subjectId: null,
+        title: 'Créneau',
+        location: null,
+        locked: false,
+        source: 'student',
+      },
+      isPlainObject(item) ? item : fallback
+    );
+    var validDays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+    var validKinds = ['course', 'activity', 'recommended_work', 'break'];
+
+    if (validDays.indexOf(next.day) === -1) next.day = 'mon';
+    if (validKinds.indexOf(next.kind) === -1) next.kind = 'course';
+    if (!next.id) next.id = 'schedule-item-' + (index + 1);
+    if (!next.start) next.start = '08:00';
+    if (!next.end) next.end = '09:00';
+    if (!next.title) next.title = 'Créneau';
+    if (typeof next.locked !== 'boolean') next.locked = false;
+    if (!next.source) next.source = 'student';
+
+    return next;
+  }
+
+  function normalizeSchedule(rawSchedule, options) {
+    options = options || {};
+    var next = deepMerge(DEFAULT_SCHEDULE, isPlainObject(rawSchedule) ? rawSchedule : {});
+    var rawItems = rawSchedule && Array.isArray(rawSchedule.items) ? rawSchedule.items : next.items;
+
+    if (!isPlainObject(next.subjects)) next.subjects = clone(DEFAULT_SCHEDULE.subjects);
+    Object.keys(next.subjects).forEach(function (subjectId) {
+      var subject = isPlainObject(next.subjects[subjectId]) ? next.subjects[subjectId] : {};
+      next.subjects[subjectId] = {
+        label: subject.label || subjectId,
+        color: subject.color || '#E7DECF',
+        icon: subject.icon || 'ph-book-open-text',
+      };
+    });
+
+    next.version = Number(next.version) || DEFAULT_SCHEDULE.version;
+    next.timezone = next.timezone || DEFAULT_PROFILE.timezone;
+    next.ownerProfileId = next.ownerProfileId || options.profileId || DEFAULT_PROFILE.id;
+    next.items = rawItems.map(normalizeScheduleItem);
+
+    return next;
+  }
+
   function createDefaultAppState(options) {
     options = options || {};
     var date = options.date || todayISO();
@@ -838,6 +1282,7 @@
       missionProgress: missionProgress,
       focusSession: createFocusSession(mission),
       subscriptionState: clone(DEFAULT_SUBSCRIPTION_STATE),
+      schedule: normalizeSchedule(null, { profileId: DEFAULT_PROFILE.id }),
       totalMissionsCompleted: 0,
       activeDays: [],
       byDate: {},
@@ -873,6 +1318,9 @@
       state.subscriptionState,
       state.totalMissionsCompleted
     );
+    state.schedule = normalizeSchedule(state.schedule, {
+      profileId: state.profile && state.profile.id,
+    });
 
     if (!isPlainObject(state.byDate[date])) {
       state.byDate[date] = {
@@ -894,9 +1342,11 @@
     DEFAULT_OBJECTIVE: clone(DEFAULT_OBJECTIVE),
     DEFAULT_MISSION: clone(DEFAULT_MISSION),
     DEFAULT_SUBSCRIPTION_STATE: clone(DEFAULT_SUBSCRIPTION_STATE),
+    DEFAULT_SCHEDULE: clone(DEFAULT_SCHEDULE),
     todayISO: todayISO,
     createDefaultAppState: createDefaultAppState,
     normalizeAppState: normalizeAppState,
+    normalizeSchedule: normalizeSchedule,
     createProfileFromOnboarding: createProfileFromOnboarding,
     createObjectiveFromOnboarding: createObjectiveFromOnboarding,
     createMissionFromOnboarding: createMissionFromOnboarding,
