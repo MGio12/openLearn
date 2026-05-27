@@ -17,6 +17,7 @@
     "ralph:status": "bash scripts/codex-ralph.sh status",
     "ralph:tail": "bash scripts/codex-ralph.sh tail",
     "verify:analytics": "node scripts/verify-analytics.mjs",
+    "verify:onboarding": "node scripts/verify-onboarding.mjs",
     "verify:s01": "node scripts/verify-s01-dashboard.mjs",
     "verify:s02": "node scripts/verify-s02-routine.mjs",
     "verify:s03": "node scripts/verify-s03-checkout.mjs",
