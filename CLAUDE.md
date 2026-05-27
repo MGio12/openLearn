@@ -13,6 +13,13 @@
 - **Pas de dépendance npm** sans demander d'abord.
 - CSS par page dans `assets/css/pages/` si > 50 lignes, sinon `styles.css`. Tokens dans `:root`.
 
+## Garde-fou Markdown après édition
+- Après toute modification de fichiers du repo, avant la réponse finale, lancer le skill projet `.agents/skills/doc-impact-review`.
+- Le skill lit le diff courant, choisit les docs candidates via la carte de lecture ci-dessous, puis décide `docs_needed: yes/no` avec une raison courte.
+- Si le changement modifie comportement, architecture, commandes, analytics, pricing, onboarding, funnel, cours, règles pédagogiques ou conventions projet, mettre à jour les `.md` concernés avant de répondre.
+- Si aucune doc ne mérite de changer, le dire brièvement dans la réponse finale : `Docs vérifiées : pas de mise à jour utile.`
+- Ne pas remplacer cette v1 par un hook PostToolUse : les hooks sont fragiles ici, et le jugement sémantique doit rester côté agent.
+
 ## Universal CLAUDE.md - drona23/claude-token-efficient
 - Lire les fichiers existants avant d'ecrire. Ne pas relire sauf si le fichier a change.
 - Raisonnement rigoureux, sortie concise.

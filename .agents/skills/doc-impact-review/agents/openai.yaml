@@ -1,0 +1,4 @@
+interface:
+  display_name: "Doc Impact Review"
+  short_description: "Check whether repo changes need Markdown docs"
+  default_prompt: "Use $doc-impact-review before the final response after editing files."

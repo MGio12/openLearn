@@ -4,6 +4,8 @@ Use `CLAUDE.md` as the source of truth for this project.
 
 It contains the stack, editing rules, scenario-based reading map, and the latest course-generation rules.
 
+After any repository file edit and before the final response, run the project skill `.agents/skills/doc-impact-review`. If the change affects behavior, architecture, commands, analytics, pricing, onboarding, funnel, course pages, or project conventions, update the relevant Markdown docs first. If no doc update is useful, say so briefly in the final response.
+
 ## Course Page Agent
 
 When the task is to create, modify, review, or generalize a maths course page, act as the **Course Page Agent**.
