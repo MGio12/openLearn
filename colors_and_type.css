@@ -35,6 +35,34 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: 'Libre Caslon Display';
+  src: url('fonts/LibreCaslonDisplay-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Libre Caslon Text';
+  src: url('fonts/LibreCaslonText-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Libre Caslon Text';
+  src: url('fonts/LibreCaslonText-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: 'Libre Caslon Text';
+  src: url('fonts/LibreCaslonText-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: block;
+}
 /* Mono falls back to system fonts. Keep pages free of a Google Fonts request
    on the critical path. */
 
@@ -91,6 +119,8 @@
   /* ===== TYPOGRAPHY TOKENS ===== */
   --font-display:   'Archivo Black', 'Arial Black', sans-serif;
   --font-body:      'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  --font-serif-display: 'Libre Caslon Display', Georgia, serif;
+  --font-serif:     'Libre Caslon Text', Georgia, serif;
   --font-hand:      'Caveat', 'Comic Sans MS', cursive;
   --font-mono:      'JetBrains Mono', 'Menlo', monospace;
 
@@ -260,6 +290,22 @@ code, .mono {
   font-weight: 600;
   color: var(--fg-1);
   /* Use sparingly — annotations, onboarding only. */
+}
+
+.serif-display {
+  font-family: var(--font-serif-display);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.serif-text {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  line-height: 1.48;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 /* ============================================================

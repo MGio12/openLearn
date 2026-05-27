@@ -151,7 +151,7 @@
     setText('[data-user-greeting]', 'Bonjour, ' + shortName + '.');
     setText('[data-current-day-label]', dayLabel);
     setText('[data-current-day-name]', dayName);
-    setText('[data-today-subtitle]', dayLabel + ' · commence par une mission courte, puis on ajuste le reste.');
+    setText('[data-today-subtitle]', dayLabel + ' · travaille 5 minutes pour te lancer.');
     setText('[data-week-label]', weekLabel);
     setText('[data-planning-subtitle]', weekLabel + ' · ajustée à ta progression');
     setText('[data-objective-heading]', 'Objectif · ' + objectiveDisplay);

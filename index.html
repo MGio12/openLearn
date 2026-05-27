@@ -15,7 +15,8 @@
   <link rel="icon" type="image/webp" href="assets/brand/trophy-logo-home.webp">
   <link rel="stylesheet" href="colors_and_type.css">
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css">
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css"></noscript>
   <link rel="stylesheet" href="assets/css/pages/dashboard.css">
   <link rel="stylesheet" href="assets/css/pages/home.css">
 </head>
@@ -90,13 +91,8 @@
     <section class="view active" id="view-today">
       <div class="ap-head">
         <div>
-          <div class="ap-date">
-            <span data-current-day-label>Lundi 19 mai</span> ·
-            <span data-user-role>Première spé maths</span> ·
-            <span data-week-label>semaine 21</span>
-          </div>
           <h1 data-user-greeting>Bonjour, Lina.</h1>
-          <div class="sub" data-today-subtitle>Une mission, courte, qui pèse pour vendredi.</div>
+          <div class="sub" data-today-subtitle>Travaille 5 minutes pour te lancer.</div>
         </div>
       </div>
 
@@ -107,6 +103,7 @@
           <div class="ap-mission__eyebrow">
             <span class="pill">Mission du jour</span>
             <span><span data-daily-mission-subject>Maths spé</span> · <span data-daily-mission-duration>25 min</span></span>
+            <span class="ap-signal"><span class="dot"></span>Preuve prête</span>
           </div>
           <h2 data-daily-mission-title>Corriger le DM sur les suites</h2>
           <p class="ap-mission__why" data-daily-mission-reason>

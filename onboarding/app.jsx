@@ -25,11 +25,26 @@ function App() {
   const screen = SCREENS[Math.min(screenIdx, SCREENS.length - 1)];
   const currentScreenId = screen.id;
 
+  const trackScreenEvent = useCallbackA((eventName, idx, screenId, extra = {}) => {
+    if (!window.OLAnalytics || typeof window.OLAnalytics.track !== "function") return;
+    window.OLAnalytics.track(eventName, {
+      page: "onboarding",
+      screen_id: screenId,
+      screen_idx: idx,
+      ...extra,
+    });
+  }, []);
+
+  useEffectA(() => {
+    trackScreenEvent("onboarding_screen_viewed", screenIdx, currentScreenId);
+  }, [screenIdx, currentScreenId, trackScreenEvent]);
+
   const goNext = useCallbackA(() => {
+    trackScreenEvent("onboarding_screen_completed", screenIdx, currentScreenId);
     setScreenIdx(i => Math.min(SCREENS.length - 1, i + 1));
     setJustFilledKey(null);
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
+  }, [screenIdx, currentScreenId, trackScreenEvent]);
 
   const goBack = useCallbackA(() => {
     setScreenIdx(i => Math.max(0, i - 1));
@@ -42,13 +57,14 @@ function App() {
     setJustFilledKey(key);
 
     if (autoAdvance) {
+      trackScreenEvent("onboarding_screen_completed", screenIdx, currentScreenId);
       const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       setTimeout(() => {
         setScreenIdx(i => Math.min(SCREENS.length - 1, i + 1));
         window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
       }, reduced ? 50 : 320);
     }
-  }, []);
+  }, [screenIdx, currentScreenId, trackScreenEvent]);
 
   const answerFor = (key, isMulti) => (value, opts) => {
     if (isMulti) {
@@ -69,7 +85,8 @@ function App() {
 
   const resetAll = () => {
     if (!window.confirm("Recommencer le diagnostic ?")) return;
-    localStorage.removeItem(LS_KEY);
+    try { localStorage.removeItem(LS_KEY); }
+    catch (error) { reportStorageIssue("remove", error); }
     setProfile({});
     setMission(null);
     setScreenIdx(0);

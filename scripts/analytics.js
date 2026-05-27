@@ -8,7 +8,12 @@
   var ALLOWED_EVENTS = {
     onboarding_started: true,
     onboarding_step_completed: true,
+    onboarding_screen_viewed: true,
+    onboarding_screen_completed: true,
     onboarding_completed: true,
+    parent_share_clicked: true,
+    parent_recap_viewed: true,
+    parent_recap_checkout_clicked: true,
     mission_opened: true,
     mission_step_toggled: true,
     mission_started: true,
@@ -38,6 +43,10 @@
     duration_minutes: true,
     completed: true,
     priority_count: true,
+    screen_id: true,
+    screen_idx: true,
+    share_channel: true,
+    payload_valid: true,
   };
 
   var DATASET_TO_PROP = {
@@ -53,6 +62,10 @@
     analyticsDurationMinutes: "duration_minutes",
     analyticsCompleted: "completed",
     analyticsPriorityCount: "priority_count",
+    analyticsScreenId: "screen_id",
+    analyticsScreenIdx: "screen_idx",
+    analyticsShareChannel: "share_channel",
+    analyticsPayloadValid: "payload_valid",
   };
 
   var SENSITIVE_KEY_RE = /(email|mail|name|nom|prenom|first|last|student|eleve|answer|response|reponse|texte|text|stripe|checkout_?url|url|token|secret|password|query|phone|tel)/i;

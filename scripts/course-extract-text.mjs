@@ -7,7 +7,7 @@ const require = createRequire(import.meta.url);
 const { PDFParse } = require('pdf-parse');
 
 const HELP = `Usage:
-  node scripts/course-extract-text.mjs <input-dir> <output-dir>
+  node scripts/course-extract-text.mjs [--force] [--concurrency 2-4] <input-dir> <output-dir>
 
 Extracts text from every PDF in <input-dir> and writes:
   - one text file per PDF
@@ -16,6 +16,40 @@ Extracts text from every PDF in <input-dir> and writes:
 
 The script is deterministic and does not call an AI model.
 `;
+
+function parseArgs(argv) {
+  const options = {
+    force: false,
+    concurrency: 3,
+    positional: [],
+  };
+
+  for (let index = 0; index < argv.length; index++) {
+    const arg = argv[index];
+    if (arg === '--force') {
+      options.force = true;
+      continue;
+    }
+    if (arg === '--concurrency') {
+      const raw = argv[index + 1];
+      if (!raw) throw new Error('--concurrency expects a number from 2 to 4');
+      options.concurrency = Number(raw);
+      index++;
+      continue;
+    }
+    if (arg.startsWith('--concurrency=')) {
+      options.concurrency = Number(arg.slice('--concurrency='.length));
+      continue;
+    }
+    options.positional.push(arg);
+  }
+
+  if (!Number.isInteger(options.concurrency)) {
+    throw new Error(`--concurrency must be an integer, got ${options.concurrency}`);
+  }
+  options.concurrency = Math.max(2, Math.min(4, options.concurrency));
+  return options;
+}
 
 function slugify(value) {
   return value
@@ -35,8 +69,70 @@ function normalizeText(value) {
     .trim();
 }
 
+async function readJsonIfExists(filePath) {
+  try {
+    return JSON.parse(await fs.readFile(filePath, 'utf8'));
+  } catch {
+    return null;
+  }
+}
+
+async function fileExists(filePath) {
+  try {
+    await fs.access(filePath);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function writeIfChanged(filePath, content) {
+  try {
+    const current = await fs.readFile(filePath, 'utf8');
+    if (current === content) return false;
+  } catch {}
+
+  await fs.writeFile(filePath, content, 'utf8');
+  return true;
+}
+
+async function mapLimit(items, limit, worker) {
+  const results = new Array(items.length);
+  let cursor = 0;
+
+  async function runNext() {
+    while (cursor < items.length) {
+      const index = cursor++;
+      results[index] = await worker(items[index], index);
+    }
+  }
+
+  await Promise.all(
+    Array.from({ length: Math.min(limit, items.length) }, () => runNext()),
+  );
+
+  return results;
+}
+
+async function extractPdfText(sourcePath) {
+  const buffer = await fs.readFile(sourcePath);
+  let parser = null;
+
+  try {
+    parser = new PDFParse({ data: buffer });
+    const parsed = await parser.getText();
+    return {
+      text: normalizeText(parsed.text || ''),
+      pages: parsed.total ?? null,
+    };
+  } finally {
+    if (parser) await parser.destroy().catch(() => {});
+  }
+}
+
 async function main() {
-  const [inputDir, outputDir] = process.argv.slice(2);
+  const args = parseArgs(process.argv.slice(2));
+  const [inputDir, outputDir] = args.positional;
 
   if (inputDir === '--help' || inputDir === '-h') {
     process.stdout.write(HELP);
@@ -61,12 +157,18 @@ async function main() {
   }
 
   await fs.mkdir(absoluteOutput, { recursive: true });
+  const previousManifest = await readJsonIfExists(path.join(absoluteOutput, 'manifest.json'));
+  const previousSources = new Map(
+    (previousManifest?.sources || []).map((source) => [source.filename, source]),
+  );
 
   const manifest = {
     inputDir: absoluteInput,
     outputDir: absoluteOutput,
     extractedAt: new Date().toISOString(),
     expectedCorpusSize: '2-5 PDFs for the prototype',
+    force: args.force,
+    concurrency: args.concurrency,
     warnings: [],
     sources: [],
   };
@@ -75,41 +177,66 @@ async function main() {
     manifest.warnings.push(`Prototype expects 2-5 PDFs; found ${pdfs.length}.`);
   }
 
-  const combined = [];
-
-  for (const [index, filename] of pdfs.entries()) {
+  const results = await mapLimit(pdfs, args.concurrency, async (filename, index) => {
     const sourcePath = path.join(absoluteInput, filename);
-    const buffer = await fs.readFile(sourcePath);
-    const parser = new PDFParse({ data: buffer });
-    const parsed = await parser.getText();
-    await parser.destroy();
-    const text = normalizeText(parsed.text || '');
+    const stat = await fs.stat(sourcePath);
     const sourceId = `source-${String(index + 1).padStart(2, '0')}-${slugify(path.basename(filename, '.pdf'))}`;
     const textFilename = `${sourceId}.txt`;
+    const textPath = path.join(absoluteOutput, textFilename);
+    const previous = previousSources.get(filename);
+    const canReuse = !args.force
+      && previous
+      && previous.size === stat.size
+      && previous.mtimeMs === stat.mtimeMs
+      && previous.textFile === textFilename
+      && await fileExists(textPath);
 
-    await fs.writeFile(path.join(absoluteOutput, textFilename), `${text}\n`, 'utf8');
+    let text;
+    let pages;
+    let cached = false;
 
-    manifest.sources.push({
+    if (canReuse) {
+      text = normalizeText(await fs.readFile(textPath, 'utf8'));
+      pages = previous.pages ?? null;
+      cached = true;
+    } else {
+      const parsed = await extractPdfText(sourcePath);
+      text = parsed.text;
+      pages = parsed.pages;
+      await writeIfChanged(textPath, `${text}\n`);
+    }
+
+    return {
       id: sourceId,
       filename,
       textFile: textFilename,
-      pages: parsed.total ?? null,
+      pages,
       characters: text.length,
-    });
+      size: stat.size,
+      mtimeMs: stat.mtimeMs,
+      cached,
+      text,
+    };
+  });
 
+  const combined = [];
+  for (const result of results) {
+    const { text, ...source } = result;
+    manifest.sources.push(source);
     combined.push([
-      `# ${sourceId}`,
-      `Original file: ${filename}`,
+      `# ${source.id}`,
+      `Original file: ${source.filename}`,
       '',
       text,
       '',
     ].join('\n'));
   }
 
-  await fs.writeFile(path.join(absoluteOutput, 'combined.txt'), combined.join('\n---\n\n'), 'utf8');
-  await fs.writeFile(path.join(absoluteOutput, 'manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
+  await writeIfChanged(path.join(absoluteOutput, 'combined.txt'), combined.join('\n---\n\n'));
+  await writeIfChanged(path.join(absoluteOutput, 'manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`);
 
-  process.stdout.write(`Extracted ${pdfs.length} PDF(s) to ${absoluteOutput}\n`);
+  const cachedCount = manifest.sources.filter((source) => source.cached).length;
+  process.stdout.write(`Extracted ${pdfs.length - cachedCount} PDF(s), reused ${cachedCount}, to ${absoluteOutput}\n`);
 }
 
 main().catch((error) => {

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Objectif Lycée - Récap parent</title>
+  <meta name="description" content="Récapitulatif parent d'une mission Objectif Lycée partagée par un élève.">
+  <meta name="theme-color" content="#F6F2EB">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='6' width='52' height='52' rx='12' fill='%23F4D35E' stroke='%23121212' stroke-width='5' transform='rotate(-6 32 32)'/%3E%3Ctext x='32' y='44' font-family='Arial Black, Impact, sans-serif' font-size='34' font-weight='900' text-anchor='middle' fill='%23121212' transform='rotate(-6 32 32)'%3EO%3C/text%3E%3C/svg%3E">
+  <link rel="preload" href="fonts/ArchivoBlack-Regular.ttf" as="font" type="font/ttf">
+  <link rel="preload" href="fonts/PlusJakartaSans-VariableFont_wght.ttf" as="font" type="font/ttf">
+  <link rel="stylesheet" href="colors_and_type.css">
+  <link rel="stylesheet" href="assets/css/pages/parent.css">
+</head>
+<body class="parent-page">
+  <nav class="parent-nav" aria-label="Navigation principale">
+    <a class="parent-brand" href="index.html">
+      <span class="parent-brand__mark" aria-hidden="true">
+        <img src="assets/brand/trophy-logo-home.webp" alt="" width="36" height="36">
+      </span>
+      <span>Objectif Lycée</span>
+    </a>
+    <a class="parent-nav__link" href="onboarding.html">Refaire un diagnostic</a>
+  </nav>
+
+  <main>
+    <section class="parent-fallback" data-parent-fallback hidden>
+      <p class="parent-eyebrow">Lien parent</p>
+      <h1>Le lien n'est plus lisible.</h1>
+      <p>
+        Le récapitulatif partagé ne peut pas être ouvert. Le plus simple est de refaire le diagnostic,
+        puis de générer un nouveau lien parent.
+      </p>
+      <a class="parent-cta parent-cta--primary" href="onboarding.html">Ouvrir le diagnostic</a>
+    </section>
+
+    <section class="parent-hero" data-parent-recap hidden>
+      <div class="parent-hero__main">
+        <p class="parent-eyebrow">Plan partagé par un élève</p>
+        <h1>Voici le cadre de travail proposé.</h1>
+        <p class="parent-lede">
+          Objectif Lycée ne promet pas une note. Le produit donne une mission courte, une raison claire,
+          et une trace écrite pour éviter le travail au hasard.
+        </p>
+
+        <div class="parent-snapshot" aria-label="Résumé du profil scolaire">
+          <span data-parent-classe></span>
+          <span data-parent-matiere></span>
+          <span data-parent-echeance></span>
+        </div>
+      </div>
+
+      <aside class="parent-offer" aria-label="Cadre d'essai et paiement">
+        <div class="parent-offer__label">Cadre parent</div>
+        <h2>Essai <span data-parent-trial-days></span> jours, puis <span data-parent-price></span> / mois.</h2>
+        <p>
+          Paiement Stripe : les données bancaires sont traitées par Stripe, pas stockées sur ce site statique.
+        </p>
+        <a
+          class="parent-cta parent-cta--primary"
+          href="checkout.html?source=parent-share#offre"
+          data-parent-checkout
+        >
+          Voir l'offre et le paiement
+        </a>
+      </aside>
+    </section>
+
+    <section class="parent-wrap parent-grid" data-parent-recap hidden>
+      <article class="parent-panel parent-panel--mission">
+        <p class="parent-eyebrow">Mission proposée</p>
+        <h2 data-parent-mission-action></h2>
+        <dl class="parent-mission-meta">
+          <div>
+            <dt>Durée</dt>
+            <dd><span data-parent-mission-duration></span> minutes</dd>
+          </div>
+          <div>
+            <dt>Objectif</dt>
+            <dd data-parent-objectif></dd>
+          </div>
+          <div>
+            <dt>Niveau déclaré</dt>
+            <dd data-parent-niveau></dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="parent-panel">
+        <p class="parent-eyebrow">Pourquoi cette mission</p>
+        <p class="parent-panel__text" data-parent-mission-why></p>
+      </article>
+
+      <article class="parent-panel parent-panel--trace">
+        <p class="parent-eyebrow">Trace attendue</p>
+        <p class="parent-panel__text" data-parent-mission-trace></p>
+      </article>
+
+      <article class="parent-panel">
+        <p class="parent-eyebrow">Paiement Stripe</p>
+        <p class="parent-panel__text">
+          L'offre garde le plan quotidien personnalisé ouvert après l'essai. Sans paiement, l'élève conserve
+          l'idée de la première mission, mais pas la continuité des missions suivantes.
+        </p>
+      </article>
+    </section>
+
+    <section class="parent-wrap parent-frame" data-parent-recap hidden>
+      <div>
+        <p class="parent-eyebrow">Ce que le parent achète vraiment</p>
+        <h2>Un rythme visible, pas un pilotage de plus à la maison.</h2>
+      </div>
+      <ul class="parent-checks">
+        <li>Une action assez courte pour être faite un soir de semaine.</li>
+        <li>Une raison explicite : l'élève sait pourquoi cette mission passe avant le reste.</li>
+        <li>Une trace vérifiable : pas seulement "j'ai relu", mais quelque chose d'écrit.</li>
+        <li>Un coût lisible, inférieur à un soutien scolaire hebdomadaire classique.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="scripts/analytics.js"></script>
+  <script src="assets/js/shared/parent-share.js"></script>
+  <script src="assets/js/pages/parent.js"></script>
+</body>
+</html>

@@ -12,6 +12,8 @@ assets/js/
   state/    localStorage, schéma, store/actions
   ui/       islands DOM réutilisables, montées par data-*
   pages/    comportement propre à une seule page
+  shared/   petits contrats navigateur partagés par deux pages réelles
+  lib/      bibliothèques tierces vendues localement, sans CDN runtime
 
 scripts/    scripts Node, Playwright, extraction, vérification
 ```
@@ -22,6 +24,8 @@ Règles de décision :
 - `ui/` : comportement réutilisé sur au moins deux pages ou monté par contrat `data-*`.
 - `domain/` : entrée objet, sortie objet, aucune dépendance à `document`, `window.localStorage`, au CSS ou au DOM.
 - `state/` : persistance et actions métier locales. Le DOM doit rester dans `ui/` ou `pages/`.
+- `shared/` : helper navigateur partagé par deux pages concrètes, avec une API globale volontaire et bornée.
+- `lib/` : code tiers copié dans le dépôt quand le runtime ne doit pas dépendre d'un CDN ou d'un service externe.
 - Pas de `utils.js` fourre-tout. Un helper partagé n'existe qu'à la troisième duplication claire.
 
 Les anciens fichiers dans `scripts/` peuvent rester comme wrappers compatibles pendant la migration, mais les nouveaux scripts navigateur vont dans `assets/js/`.
@@ -42,6 +46,12 @@ Les prix, libellés de facturation, limites gratuites et états d'abonnement son
 - `assets/js/domain/pricing.js` expose les offres checkout.
 - `scripts/checkout.js` garde seulement le câblage Payment Links Stripe.
 - Le compteur d'essai gratuit vit dans le store `window.OutilPrepa`; son rendu est dans `assets/js/ui/free-trial-banner.js`.
+
+## Pont parent
+
+Le pont parent est statique et sans backend. L'onboarding génère un lien `parent.html#p=...` qui contient un payload v1 compact en base64url. Ce payload doit rester non sensible : pas de nom, email, moyenne exacte, upload d'emploi du temps, URL Stripe privée, token ou texte libre non borné.
+
+Le helper partagé expose seulement les opérations nécessaires : créer le payload, l'encoder, le décoder et fabriquer l'URL parent. La page parent lit le hash, affiche le récap si le payload est valide, sinon affiche un fallback. Le QR code utilise une bibliothèque locale dans `assets/js/lib/` et doit être chargé seulement à la demande.
 
 ## Pages de cours
 

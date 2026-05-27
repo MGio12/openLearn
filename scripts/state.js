@@ -188,6 +188,12 @@
     return next;
   }
 
+  function isoOffset(baseIso, offset) {
+    var d = new Date(baseIso + 'T00:00:00');
+    d.setDate(d.getDate() + offset);
+    return d.toISOString().slice(0, 10);
+  }
+
   var state;
   try {
     var raw = localStorage.getItem(KEY);
@@ -195,6 +201,15 @@
   } catch (e) {
     state = normalizeState(null);
   }
+  var activeDaySet = new Set(state.activeDays);
+  state.activeDays = Array.from(activeDaySet);
+
+  function markActiveDay(date) {
+    if (activeDaySet.has(date)) return;
+    activeDaySet.add(date);
+    state.activeDays.push(date);
+  }
+
   ensureDay(state, todayISO());
   syncMissionProgressFromDay(state.byDate[todayISO()], todayISO());
   syncSubscriptionState();
@@ -210,28 +225,30 @@
   }
 
   function streakDays() {
-    if (!state.activeDays.length) return 0;
-    var days = state.activeDays.slice().sort();
+    if (!activeDaySet.size) return 0;
+    var latest = null;
+    activeDaySet.forEach(function (day) {
+      if (!latest || day > latest) latest = day;
+    });
+    if (!latest) return 0;
+
     var streak = 1;
-    var prev = new Date(days[days.length - 1] + 'T00:00:00');
-    for (var i = days.length - 2; i >= 0; i--) {
-      var cur = new Date(days[i] + 'T00:00:00');
-      var diff = Math.round((prev - cur) / 86400000);
-      if (diff === 1) { streak++; prev = cur; } else break;
+    var cursor = latest;
+    while (true) {
+      cursor = isoOffset(cursor, -1);
+      if (!activeDaySet.has(cursor)) break;
+      streak++;
     }
     return streak;
   }
 
   function weekMissionCount() {
-    var now = new Date();
     var count = 0;
-    Object.keys(state.byDate).forEach(function (date) {
-      if (state.byDate[date].missionCompleted) {
-        var d = new Date(date + 'T00:00:00');
-        var diff = Math.round((now - d) / 86400000);
-        if (diff >= 0 && diff <= 6) count++;
-      }
-    });
+    var today = todayISO();
+    for (var offset = 0; offset >= -6; offset--) {
+      var date = isoOffset(today, offset);
+      if (state.byDate[date] && state.byDate[date].missionCompleted) count++;
+    }
     return count;
   }
 
@@ -286,9 +303,7 @@
       if (prev === next) return;
       day.actionsChecked[index] = next;
 
-      if (next && state.activeDays.indexOf(todayISO()) === -1) {
-        state.activeDays.push(todayISO());
-      }
+      if (next) markActiveDay(todayISO());
 
       var allDone = day.actionsChecked.slice(0, missionActionCount(state)).every(Boolean);
       if (allDone && !day.missionCompleted) {
@@ -373,9 +388,7 @@
       day.missionCompleted = true;
       day.completedAt = day.completedAt || stamp;
 
-      if (state.activeDays.indexOf(date) === -1) {
-        state.activeDays.push(date);
-      }
+      markActiveDay(date);
       if (!wasCompleted) {
         state.totalMissionsCompleted++;
       }
@@ -435,7 +448,7 @@
         var iso = d.toISOString().slice(0, 10);
         out.push({
           date: iso,
-          active: state.activeDays.indexOf(iso) !== -1,
+          active: activeDaySet.has(iso),
           missionCompleted: state.byDate[iso] ? !!state.byDate[iso].missionCompleted : false,
         });
       }
@@ -450,6 +463,7 @@
     },
     reset: function () {
       state = defaultState(todayISO());
+      activeDaySet = new Set(state.activeDays);
       ensureDay(state, todayISO());
       syncMissionProgressFromDay(state.byDate[todayISO()], todayISO());
       syncSubscriptionState();

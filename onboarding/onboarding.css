@@ -165,6 +165,14 @@ button { font-family: inherit; }
 .ob-title-md {
   font-size: clamp(28px, 3.5vw, 36px);
 }
+.ob-title-ready {
+  font-family: var(--font-serif-display);
+  font-size: clamp(34px, 4.4vw, 52px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: none;
+}
 .ob-microcopy {
   font-size: 15.5px;
   line-height: 1.55;
@@ -172,6 +180,22 @@ button { font-family: inherit; }
   max-width: 620px;
   margin: 0 0 26px 0;
   text-wrap: pretty;
+}
+.ob-storage-warning {
+  position: fixed;
+  z-index: 80;
+  right: 18px;
+  bottom: 18px;
+  max-width: min(360px, calc(100vw - 36px));
+  padding: 12px 14px;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  font-size: 13px;
+  line-height: 1.35;
+  font-weight: 800;
 }
 
 /* highlight inline stabilo passthrough */
@@ -839,6 +863,154 @@ button { font-family: inherit; }
 .ob-recap-foot .stab { font-weight: 700; }
 
 /* ============================================================
+   PARENT SHARE
+   ============================================================ */
+.ob-parent-share {
+  margin: 0 0 18px;
+  padding: 18px 20px;
+  background: var(--paper-2);
+  border: 2.5px solid var(--ink);
+  border-radius: 14px;
+  box-shadow: 5px 5px 0 var(--ink);
+}
+.ob-parent-share.is-compact {
+  margin-bottom: 0;
+  box-shadow: none;
+  background: var(--bg-panel);
+}
+.ob-parent-share-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+.ob-parent-share-kicker {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 4px;
+}
+.ob-parent-share h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.4vw, 30px);
+  line-height: 1.08;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+.ob-parent-share-badge {
+  flex-shrink: 0;
+  padding: 4px 8px;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  background: var(--green);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.ob-parent-share-text {
+  margin: 0 0 12px;
+  max-width: 760px;
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.ob-parent-url-label {
+  display: block;
+  margin-bottom: 5px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.ob-parent-url {
+  width: 100%;
+  min-height: 42px;
+  padding: 10px 12px;
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  background: var(--bg-panel);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.ob-parent-share-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+.ob-parent-share-action {
+  padding: 10px 14px;
+  min-height: 40px;
+  box-shadow: 4px 4px 0 var(--stabilo);
+}
+.ob-parent-share-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 9px 12px;
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+}
+.ob-parent-share-link:hover {
+  background: var(--stabilo-wash);
+}
+.ob-parent-qr {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.ob-parent-qr-box {
+  width: 168px;
+  max-width: 100%;
+  padding: 10px;
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  background: #fff;
+}
+.ob-parent-qr-box svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.ob-parent-qr p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+@media (max-width: 720px) {
+  .ob-parent-share-head {
+    flex-direction: column;
+  }
+  .ob-parent-share-badge {
+    align-self: flex-start;
+  }
+  .ob-parent-share-link,
+  .ob-parent-share-action {
+    flex: 1 1 calc(50% - 10px);
+  }
+}
+
+/* ============================================================
    PAYWALL
    ============================================================ */
 .ob-paywall-grid {
@@ -1190,19 +1362,21 @@ button { font-family: inherit; }
   padding-top: 4vh;
 }
 .ob-intro-display {
-  font-family: var(--font-display);
-  font-size: clamp(44px, 6vw, 76px);
-  line-height: 0.96;
-  letter-spacing: -0.015em;
-  text-transform: uppercase;
+  font-family: var(--font-serif-display);
+  font-size: clamp(48px, 6.6vw, 82px);
+  font-weight: 400;
+  line-height: 0.94;
+  letter-spacing: 0;
+  text-transform: none;
   text-wrap: balance;
   color: var(--ink);
 }
 .ob-intro-display .stab-strong { background: linear-gradient(180deg, transparent 60%, var(--stabilo) 60%); }
 .ob-intro-display .small {
   display: block;
-  font-family: var(--font-display);
-  font-size: 0.55em;
+  font-family: var(--font-serif);
+  font-size: 0.42em;
+  font-weight: 400;
   color: var(--ink-soft);
   margin-top: 12px;
   text-transform: none;
@@ -1254,6 +1428,32 @@ button { font-family: inherit; }
     color: var(--ink-soft); cursor: pointer;
     padding: 4px 8px; margin-left: auto;
     display: inline-flex; align-items: center; gap: 4px;
+  }
+
+  .ob-top {
+    gap: 10px;
+  }
+
+  .ob-top > div:last-child {
+    min-width: 0;
+    justify-content: flex-end;
+  }
+
+  .ob-brand {
+    min-width: 0;
+    font-size: 15px;
+  }
+
+  .ob-progress-dots {
+    gap: 4px;
+    font-size: 10px;
+    letter-spacing: 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .ob-progress-dot {
+    display: none;
   }
 }
 
@@ -1592,6 +1792,13 @@ button { font-family: inherit; }
 .ob-upload-sub {
   font-size: 12.5px;
   color: var(--ink-soft);
+}
+.ob-upload-error {
+  margin: 8px 0 0;
+  color: var(--red-2);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.35;
 }
 .ob-link-btn {
   background: transparent; border: none;

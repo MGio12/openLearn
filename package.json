@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "screenshot": "node scripts/screenshot.js",
+    "build:onboarding": "node scripts/build-onboarding.mjs",
     "verify:course-sidebar": "node scripts/verify-course-sidebar.mjs",
     "verify:cwv": "node scripts/verify-cwv.mjs",
     "verify:redesign": "node scripts/verify-redesign-pages.mjs",
@@ -18,6 +19,7 @@
     "ralph:tail": "bash scripts/codex-ralph.sh tail",
     "verify:analytics": "node scripts/verify-analytics.mjs",
     "verify:onboarding": "node scripts/verify-onboarding.mjs",
+    "verify:parent-share": "node scripts/verify-parent-share.mjs",
     "verify:s01": "node scripts/verify-s01-dashboard.mjs",
     "verify:s02": "node scripts/verify-s02-routine.mjs",
     "verify:s03": "node scripts/verify-s03-checkout.mjs",
@@ -25,10 +27,8 @@
     "verify:s05": "node scripts/verify-s05-tunnel.mjs"
   },
   "devDependencies": {
+    "esbuild": "^0.28.0",
     "pdf-parse": "^2.4.5",
     "playwright": "^1.60.0"
-  },
-  "dependencies": {
-    "pdfjs-dist": "^5.7.284"
   }
 }

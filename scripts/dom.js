@@ -1,8 +1,8 @@
 /* ============================================================
    OUTIL PREPA - Helpers DOM partages
    ------------------------------------------------------------
-   Doit etre charge AVANT mission-ui.js, user-context-ui.js et
-   demo-fixtures.js qui consomment setText().
+   Doit etre charge AVANT mission-ui.js et user-context-ui.js,
+   qui consomment setText().
    ============================================================ */
 (function (root) {
   'use strict';

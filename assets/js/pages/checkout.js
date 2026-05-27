@@ -45,9 +45,9 @@
   buttons.forEach(function (button) {
     button.addEventListener('click', function () {
       if (!window.OLAnalytics || typeof window.OLAnalytics.track !== 'function') return;
-      window.OLAnalytics.track('checkout_selected', {
+      window.OLAnalytics.track('billing_selected', {
         page: 'checkout',
-        offer: button.getAttribute('data-checkout-plan') || 'personalized-plan',
+        plan: button.getAttribute('data-checkout-plan') || 'personalized-plan',
         billing: button.getAttribute('data-checkout-billing') || 'monthly',
       });
     });

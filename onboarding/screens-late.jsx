@@ -13,6 +13,195 @@ function effortHours(profile) {
   return e;
 }
 
+function trackParentShare(channel) {
+  if (!window.OLAnalytics || typeof window.OLAnalytics.track !== "function") return;
+  window.OLAnalytics.track("parent_share_clicked", {
+    page: "onboarding",
+    share_channel: channel,
+    payload_valid: true,
+  });
+}
+
+function copyTextToClipboard(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    return navigator.clipboard.writeText(text);
+  }
+
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  textarea.setAttribute("readonly", "");
+  textarea.style.position = "fixed";
+  textarea.style.left = "-9999px";
+  document.body.appendChild(textarea);
+  textarea.select();
+
+  let copied = false;
+  try {
+    copied = document.execCommand("copy");
+  } catch (error) {
+    copied = false;
+  }
+  document.body.removeChild(textarea);
+  return copied ? Promise.resolve() : Promise.reject(new Error("copy failed"));
+}
+
+function ensureQrCodeLibrary() {
+  if (typeof window.qrcode === "function") return Promise.resolve(window.qrcode);
+  if (window.__OLQrCodePromise) return window.__OLQrCodePromise;
+
+  window.__OLQrCodePromise = new Promise((resolve, reject) => {
+    const existing = document.querySelector('script[data-ol-qr-code="true"]');
+    if (existing) {
+      existing.addEventListener("load", () => resolve(window.qrcode), { once: true });
+      existing.addEventListener("error", reject, { once: true });
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = "assets/js/lib/qrcode-generator-2.0.4/qrcode.js";
+    script.async = true;
+    script.dataset.olQrCode = "true";
+    script.onload = () => {
+      if (typeof window.qrcode === "function") resolve(window.qrcode);
+      else reject(new Error("qrcode global missing"));
+    };
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+
+  return window.__OLQrCodePromise;
+}
+
+function ParentShareCard({ profile, mission, tweaks, compact = false }) {
+  const helper = window.OLParentShare;
+  const payload = React.useMemo(() => {
+    if (!helper) return null;
+    return helper.createPayload(profile, mission, tweaks, new Date());
+  }, [helper, profile, mission, tweaks]);
+  const parentUrl = React.useMemo(() => {
+    if (!helper || !payload) return "";
+    return helper.createParentUrl(payload, window.location.href);
+  }, [helper, payload]);
+  const [copied, setCopied] = React.useState(false);
+  const [qrVisible, setQrVisible] = React.useState(false);
+  const [qrSvg, setQrSvg] = React.useState("");
+  const [qrError, setQrError] = React.useState("");
+  const canNativeShare = typeof navigator !== "undefined" && typeof navigator.share === "function";
+  const shareTitle = "Plan Objectif Lycée";
+  const shareText = "Voici ma première mission Objectif Lycée, avec la raison et la trace attendue.";
+  const encodedMessage = encodeURIComponent(`${shareText}\n${parentUrl}`);
+  const encodedSubject = encodeURIComponent("Plan Objectif Lycée à valider");
+  const encodedBody = encodeURIComponent(`${shareText}\n\n${parentUrl}`);
+
+  const copyLink = () => {
+    if (!parentUrl) return;
+    trackParentShare("copy");
+    copyTextToClipboard(parentUrl)
+      .then(() => {
+        setCopied(true);
+        window.setTimeout(() => setCopied(false), 2200);
+      })
+      .catch(() => setCopied(false));
+  };
+
+  const nativeShare = () => {
+    if (!canNativeShare || !parentUrl) return;
+    trackParentShare("native");
+    navigator.share({
+      title: shareTitle,
+      text: shareText,
+      url: parentUrl,
+    }).catch(() => {});
+  };
+
+  const showQr = () => {
+    if (!parentUrl) return;
+    trackParentShare("qr");
+    setQrVisible(true);
+    if (qrSvg || qrError) return;
+    ensureQrCodeLibrary()
+      .then((qrcodeFactory) => {
+        const qr = qrcodeFactory(0, "M");
+        qr.addData(parentUrl);
+        qr.make();
+        setQrSvg(qr.createSvgTag({ cellSize: 4, margin: 2, scalable: true }));
+      })
+      .catch(() => setQrError("Impossible de générer le QR code pour ce lien."));
+  };
+
+  if (!helper || !payload || !parentUrl) {
+    return null;
+  }
+
+  return (
+    <div className={`ob-parent-share ${compact ? "is-compact" : ""}`} data-parent-share-card>
+      <div className="ob-parent-share-head">
+        <div>
+          <div className="ob-parent-share-kicker">Parent</div>
+          <h2>Partager ce plan à un parent</h2>
+        </div>
+        <span className="ob-parent-share-badge">Lien sans compte</span>
+      </div>
+      <p className="ob-parent-share-text">
+        Le lien montre la mission, pourquoi elle est logique, la trace attendue et le cadre de l'offre.
+        Il ne contient ni nom, ni email, ni moyenne exacte, ni photo d'emploi du temps.
+      </p>
+
+      <label className="ob-parent-url-label" htmlFor={compact ? "parent-url-paywall" : "parent-url-recap"}>
+        Lien parent
+      </label>
+      <input
+        id={compact ? "parent-url-paywall" : "parent-url-recap"}
+        className="ob-parent-url"
+        data-parent-share-url
+        value={parentUrl}
+        readOnly
+        onFocus={(event) => event.target.select()}
+      />
+
+      <div className="ob-parent-share-actions">
+        {canNativeShare && (
+          <button type="button" className="ob-btn ob-btn--dark ob-parent-share-action" onClick={nativeShare}>
+            Partager
+          </button>
+        )}
+        <a
+          className="ob-parent-share-link"
+          href={`https://wa.me/?text=${encodedMessage}`}
+          target="_blank"
+          rel="noreferrer"
+          onClick={() => trackParentShare("whatsapp")}
+        >
+          WhatsApp
+        </a>
+        <a
+          className="ob-parent-share-link"
+          href={`mailto:?subject=${encodedSubject}&body=${encodedBody}`}
+          onClick={() => trackParentShare("email")}
+        >
+          Email
+        </a>
+        <button type="button" className="ob-parent-share-link" onClick={copyLink}>
+          {copied ? "Lien copié" : "Copier"}
+        </button>
+        <button type="button" className="ob-parent-share-link" onClick={showQr}>
+          Afficher le QR code
+        </button>
+      </div>
+
+      {qrVisible && (
+        <div className="ob-parent-qr" data-parent-share-qr>
+          {qrSvg ? (
+            <div className="ob-parent-qr-box" dangerouslySetInnerHTML={{ __html: qrSvg }} />
+          ) : (
+            <p>{qrError || "Génération du QR code..."}</p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ----------------------------------------------------------------
 // 13. GENERATION ANIMÉE
 // ----------------------------------------------------------------
@@ -88,7 +277,7 @@ function MissionScreen({ profile, mission, onNext, tweaks }) {
 
       <div className="ob-mission-eyebrow">Mission du jour · personnalisée</div>
 
-      <h1 className="ob-title ob-title-md" style={{ marginBottom: 14 }}>
+      <h1 className="ob-title ob-title-md ob-title-ready" style={{ marginBottom: 14 }}>
         Ta première mission est prête, {nom}.
       </h1>
 
@@ -298,6 +487,8 @@ function RecapScreen({ profile, mission, onNext, tweaks }) {
         </p>
       </div>
 
+      <ParentShareCard profile={profile} mission={mission} tweaks={tweaks} />
+
       <div className="ob-actions" style={{ marginTop: 6 }}>
         <button className="ob-btn ob-btn--dark" onClick={onNext}>
           Activer mon plan <span className="ob-arrow">→</span>
@@ -354,6 +545,8 @@ function PaywallScreen({ profile, mission, tweaks, onActivate, onReviewMission }
               <li><span><b>Adaptation</b> à tes contrôles, bac blanc et Parcoursup</span></li>
             </ul>
           </div>
+
+          <ParentShareCard profile={profile} mission={mission} tweaks={tweaks} compact />
 
           {tweaks.showAnchorMath && (
             <div className="ob-anchor">

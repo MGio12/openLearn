@@ -1,0 +1,8 @@
+qrcode-generator 2.0.4
+
+QR Code Generator for JavaScript
+Copyright (c) 2009 Kazuhiko Arase
+
+Source package: https://www.npmjs.com/package/qrcode-generator/v/2.0.4
+Vendored file: dist/qrcode.js
+License: MIT, as declared in package.json and the source file header.

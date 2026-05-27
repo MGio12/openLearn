@@ -57,7 +57,7 @@ html, body { height: auto; overflow: visible; }
   align-items: flex-end;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 8px;
+  margin-bottom: 20px;
 }
 .ap-head h1 {
   font-family: var(--font-display);
@@ -67,8 +67,11 @@ html, body { height: auto; overflow: visible; }
   margin: 0.25rem 0 0;
 }
 .ap-head .sub {
-  font-family: var(--font-body);
-  font-size: 0.9375rem;
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  line-height: 1.35;
+  letter-spacing: 0;
   color: var(--ink-soft);
   margin-top: 2px;
 }
@@ -679,7 +682,7 @@ html, body { height: auto; overflow: visible; }
 @media (min-width: 1500px) {
   #view-today { --ap-mission-pad-x: 28px; }
   .view { padding: 60px 38px 22px; }
-  .ap-head { margin-bottom: 10px; }
+  .ap-head { margin-bottom: 18px; }
   .ap-head h1 { font-size: 1.875rem; }
   .ap-head .sub { font-size: 14px; }
   .ap-ritual { margin: 0 auto 16px; gap: 8px; }
@@ -714,7 +717,7 @@ html, body { height: auto; overflow: visible; }
 @media (max-height: 720px) {
   #view-today { --ap-mission-pad-x: 18px; }
   .view { padding: 60px 28px 10px; }
-  .ap-head { margin-bottom: 6px; }
+  .ap-head { margin-bottom: 10px; }
   .ap-head h1 { font-size: 26px; }
   .ap-head .sub { font-size: 12px; margin-top: 2px; }
   .ap-ritual { margin: 0 auto 6px; gap: 4px; }
@@ -844,7 +847,7 @@ html, body { height: auto; overflow: visible; }
   }
 
   .ap-head {
-    margin-bottom: 12px;
+    margin-bottom: 22px;
   }
 
   .ap-head h1 {

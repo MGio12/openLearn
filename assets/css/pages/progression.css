@@ -225,10 +225,12 @@ body.progression-page.has-progress-details-open {
 .pp-caption .copy {
   margin: 4px 0 2px;
   color: var(--ink);
-  font-family: var(--font-hand);
-  font-size: 28px;
-  font-weight: 650;
-  line-height: 1.15;
+  font-family: var(--font-serif-display);
+  font-size: clamp(32px, 3.2vw, 44px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 .pp-caption .meta {
@@ -947,7 +949,7 @@ body.progression-page.has-progress-details-open {
   }
 
   .pp-caption .copy {
-    font-size: 25px;
+    font-size: 30px;
   }
 
   .pp-status-card {

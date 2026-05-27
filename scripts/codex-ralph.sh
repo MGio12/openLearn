@@ -17,6 +17,7 @@ TODO_FILE="${RALPH_TODO_FILE:-TODO.md}"
 
 SLEEP_SECONDS="${RALPH_SLEEP_SECONDS:-15}"
 FAIL_SLEEP_SECONDS="${RALPH_FAIL_SLEEP_SECONDS:-60}"
+MAX_FAIL_SLEEP_SECONDS="${RALPH_MAX_FAIL_SLEEP_SECONDS:-600}"
 MODEL_OPT=()
 SANDBOX_MODE="${RALPH_SANDBOX:-danger-full-access}"
 APPROVAL_POLICY="${RALPH_APPROVAL:-never}"
@@ -63,7 +64,36 @@ require_uint() {
 validate_config() {
   require_uint "RALPH_SLEEP_SECONDS" "$SLEEP_SECONDS"
   require_uint "RALPH_FAIL_SLEEP_SECONDS" "$FAIL_SLEEP_SECONDS"
+  require_uint "RALPH_MAX_FAIL_SLEEP_SECONDS" "$MAX_FAIL_SLEEP_SECONDS"
   require_uint "RALPH_MAX_ITERS" "$MAX_ITERS"
+}
+
+fail_backoff_seconds() {
+  local failures="$1"
+  local exponent=$((failures - 1))
+  local multiplier=1
+  local i
+
+  if [[ "$exponent" -gt 6 ]]; then
+    exponent=6
+  fi
+
+  for ((i = 0; i < exponent; i++)); do
+    multiplier=$((multiplier * 2))
+  done
+
+  local delay=$((FAIL_SLEEP_SECONDS * multiplier))
+  if [[ "$delay" -gt "$MAX_FAIL_SLEEP_SECONDS" ]]; then
+    delay="$MAX_FAIL_SLEEP_SECONDS"
+  fi
+
+  local jitter_window=$((delay / 3))
+  local jitter=0
+  if [[ "$jitter_window" -gt 0 ]]; then
+    jitter=$((RANDOM % (jitter_window + 1)))
+  fi
+
+  echo $((delay + jitter))
 }
 
 event() {
@@ -206,6 +236,7 @@ run_loop() {
   trap 'rm -f "$PID_FILE"' EXIT
 
   local iteration=0
+  local consecutive_failures=0
   event "runner-started" "{\"root\":\"$(json_escape "$ROOT")\",\"todo_file\":\"$(json_escape "$TODO_FILE")\",\"max_iters\":$MAX_ITERS,\"sleep_seconds\":$SLEEP_SECONDS}"
   write_status "running" 0 "Runner started"
 
@@ -258,10 +289,13 @@ run_loop() {
     set -e
 
     if [[ "$codex_exit" -ne 0 ]]; then
+      consecutive_failures=$((consecutive_failures + 1))
+      local retry_sleep
+      retry_sleep="$(fail_backoff_seconds "$consecutive_failures")"
       event "iteration-failed" "{\"iteration\":$iteration,\"exit_code\":$codex_exit,\"log\":\"$(json_escape "$codex_log")\"}"
       write_error "codex" "$iteration" "$codex_exit" "Codex failed. See $codex_log"
-      write_status "degraded" "$iteration" "Codex failed; sleeping before retry"
-      sleep "$FAIL_SLEEP_SECONDS"
+      write_status "degraded" "$iteration" "Codex failed; retry $consecutive_failures after ${retry_sleep}s"
+      sleep "$retry_sleep"
       continue
     fi
 
@@ -269,11 +303,15 @@ run_loop() {
     write_status "verifying" "$iteration" "Codex iteration completed"
 
     if ! run_verify "$iteration"; then
-      write_status "degraded" "$iteration" "Verification failed; sleeping before retry"
-      sleep "$FAIL_SLEEP_SECONDS"
+      consecutive_failures=$((consecutive_failures + 1))
+      local retry_sleep
+      retry_sleep="$(fail_backoff_seconds "$consecutive_failures")"
+      write_status "degraded" "$iteration" "Verification failed; retry $consecutive_failures after ${retry_sleep}s"
+      sleep "$retry_sleep"
       continue
     fi
 
+    consecutive_failures=0
     rm -f "$ERROR_FILE"
     write_status "sleeping" "$iteration" "Waiting before next iteration"
     event "iteration-complete" "{\"iteration\":$iteration}"

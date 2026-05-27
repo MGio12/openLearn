@@ -36,6 +36,7 @@
   var total = (mission.focusDurationMinutes || 25) * 60;
   var remaining = total;
   var running = true;
+  var intervalId = null;
   var completionHandled = false;
 
   function stepIndex(item, fallbackIndex) {
@@ -107,6 +108,8 @@
         running ? 'Mettre le timer en pause' : 'Reprendre le timer'
       );
     }
+    if (running) startTimer();
+    else stopTimer();
   }
 
   function updateProgress() {
@@ -116,7 +119,7 @@
     var elapsedPct = Math.round((1 - remainingPct) * 100);
     if (ringEl) ringEl.setAttribute('stroke-dashoffset', String(circumference * (1 - remainingPct)));
     if (pctEl) pctEl.textContent = remainingPct === 0 ? '0%' : Math.round(remainingPct * 100) + '%';
-    if (progressFillEl) progressFillEl.style.width = elapsedPct + '%';
+    if (progressFillEl) progressFillEl.style.transform = 'scaleX(' + (elapsedPct / 100) + ')';
     if (progressBarEl) progressBarEl.setAttribute('aria-valuenow', String(elapsedPct));
   }
 
@@ -172,6 +175,28 @@
     showDoneOverlay();
   }
 
+  function tickTimer() {
+    if (!running) return;
+    remaining--;
+    if (remaining <= 0) {
+      finishFocusSession();
+      return;
+    }
+    renderTimer();
+    updateProgress();
+  }
+
+  function startTimer() {
+    if (intervalId || !running || remaining <= 0) return;
+    intervalId = window.setInterval(tickTimer, 1000);
+  }
+
+  function stopTimer() {
+    if (!intervalId) return;
+    window.clearInterval(intervalId);
+    intervalId = null;
+  }
+
   if (window.OutilPrepa && typeof window.OutilPrepa.startFocusSession === 'function') {
     window.OutilPrepa.startFocusSession();
   }
@@ -191,17 +216,6 @@
   }
   renderTimer();
   updateProgress();
-
-  setInterval(function () {
-    if (!running) return;
-    remaining--;
-    if (remaining <= 0) {
-      finishFocusSession();
-      return;
-    }
-    renderTimer();
-    updateProgress();
-  }, 1000);
 
   document.addEventListener('keydown', function (event) {
     var fxDoneEl = document.getElementById('fx-done');

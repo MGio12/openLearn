@@ -441,12 +441,42 @@ function addDays(d, n) {
 // PERSIST
 // ----------------------------------------------------------------
 const LS_KEY = "objectif-lycee-onboarding-v3";
+let storageWarningShown = false;
+
+function reportStorageIssue(action, error) {
+  if (storageWarningShown) return;
+  storageWarningShown = true;
+  if (window.console && typeof window.console.warn === "function") {
+    window.console.warn(`Onboarding localStorage ${action} failed`, error);
+  }
+
+  const show = () => {
+    if (!document.body || document.querySelector("[data-ob-storage-warning]")) return;
+    const warning = document.createElement("div");
+    warning.className = "ob-storage-warning";
+    warning.dataset.obStorageWarning = "true";
+    warning.setAttribute("role", "status");
+    warning.textContent = "Sauvegarde locale indisponible : ton diagnostic reste utilisable, mais il ne sera peut-être pas conservé après fermeture.";
+    document.body.appendChild(warning);
+  };
+
+  if (document.body) {
+    show();
+  } else {
+    window.addEventListener("DOMContentLoaded", show, { once: true });
+  }
+}
+
 function loadState() {
   try { return JSON.parse(localStorage.getItem(LS_KEY) || "{}"); }
-  catch { return {}; }
+  catch (error) {
+    reportStorageIssue("read", error);
+    return {};
+  }
 }
 function saveState(s) {
-  try { localStorage.setItem(LS_KEY, JSON.stringify(s)); } catch {}
+  try { localStorage.setItem(LS_KEY, JSON.stringify(s)); }
+  catch (error) { reportStorageIssue("write", error); }
 }
 
 // ----------------------------------------------------------------
@@ -461,5 +491,5 @@ Object.assign(window, {
   echeanceLabel, echeancesShortLabel, blocageLabel, echeancesForClasse, echeancePsyMessage, choiceEmoji,
   computeMission, getSocialStats, getTestimonials, TESTIMONIAL_BANK, ADVICE_BY_BLOCAGE,
   formatDateFr, addDays,
-  loadState, saveState,
+  loadState, saveState, reportStorageIssue,
 });

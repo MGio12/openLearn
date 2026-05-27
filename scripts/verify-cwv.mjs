@@ -1,6 +1,7 @@
 import { createServer } from 'http';
 import { createReadStream, existsSync, readdirSync, statSync } from 'fs';
 import { extname, join, normalize, relative, resolve, sep } from 'path';
+import { pipeline } from 'stream/promises';
 import { fileURLToPath } from 'url';
 import { chromium } from 'playwright';
 
@@ -98,7 +99,10 @@ function startServer() {
       'Content-Type': MIME[extname(filePath)] || 'application/octet-stream',
       'Cache-Control': 'no-store',
     });
-    createReadStream(filePath).pipe(response);
+    pipeline(createReadStream(filePath), response).catch(() => {
+      if (!response.headersSent) response.writeHead(500);
+      response.destroy();
+    });
   });
 
   return new Promise((resolveServer) => {

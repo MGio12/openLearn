@@ -4,7 +4,7 @@
 - Solo dev, bases en info, pas ingénieur. Code simple, lisible dans 6 mois par moi-même.
 - Site statique : HTML/CSS/JS **vanilla**, pas de framework.
 - Arbo : `*.html` racine, `assets/css/pages/`, `assets/js/`, `data/`, `scripts/`, `docs/`.
-- **Exception `onboarding.html`** : React 18 + Babel standalone via CDN unpkg (port direct du design Claude). Sources dans `onboarding/` à la racine : `onboarding.css` + 5 modules JSX (`state`, `profile`, `screens-early/mid/late`, `app`). State machine 15 écrans + moteur mission 9 matières × 8 blocages, persisté en `localStorage` clé `objectif-lycee-onboarding-v3`. Pas le pattern par défaut, ne pas étendre aux autres pages.
+- **Exception `onboarding.html`** : React 18 production UMD via CDN unpkg + bundle précompilé `onboarding/onboarding.bundle.js`. Sources dans `onboarding/` à la racine : `onboarding.css` + 5 modules JSX (`state`, `profile`, `screens-early/mid/late`, `app`). Après modification des JSX, lancer `npm run build:onboarding`. State machine 15 écrans + moteur mission 9 matières × 8 blocages, persisté en `localStorage` clé `objectif-lycee-onboarding-v3`. Pas le pattern par défaut, ne pas étendre aux autres pages.
 
 ## Règles projet (priment sur les défauts Claude)
 - **Inline > extraction.** Duplique 2× sans réfléchir, extrais à la 3ᵉ. Pas de `utils.js` fourre-tout.
@@ -75,7 +75,7 @@ Objectif : ne pas tout relire. Charge seulement les fichiers utiles au travail e
 | Travailler la promesse, paywall, pricing, parent/élève | `docs/mission-valeur-monetisation.md` + `docs/version-lycee-priorites.md` | Positionnement produit, funnel, valeur élève/parent, priorités lycée. |
 | Prioriser le prochain sprint | `TODO.md` + `docs/version-lycee-priorites.md` | Roadmap active et priorités produit lycée. |
 | Modifier le parcours site/app | `WORKFLOW.md` + `TODO.md` | Boucle dashboard → mission → focus → progression → checkout. |
-| Toucher au flow d'onboarding | `onboarding.html` + `onboarding/state.jsx` (manifeste écrans, choix, moteur mission) + `onboarding/onboarding.css` | React+Babel CDN, state machine 15 écrans, persistance localStorage. Voir bullet "Exception onboarding" plus haut. |
+| Toucher au flow d'onboarding | `onboarding.html` + `onboarding/state.jsx` (manifeste écrans, choix, moteur mission) + `onboarding/onboarding.css` | React précompilé avec `npm run build:onboarding`, state machine 15 écrans, persistance localStorage. Voir bullet "Exception onboarding" plus haut. |
 | Reprendre une décision produit majeure | `docs/superpowers/specs/2026-05-14-vision-produit.md` + `docs/superpowers/specs/2026-05-14-objectif-lycee-dashboard-design.md` | Vision et design dashboard déjà validés. |
 | Chercher la méthode de dev solo | `docs/vibe-coding-methode.md` + `SKILLS-GUIDE.md` | Méthode de travail, skills, revues, itérations. |
 

@@ -82,6 +82,10 @@ Elle ne doit pas devenir un tableau de bord froid. Elle doit etre une preuve cal
 
 C'est probablement un levier commercial majeur.
 
+Etat actuel : un premier pont parent existe sans backend. Apres le diagnostic, l'eleve peut partager un recapitulatif `parent.html#p=...` avec la mission, la justification, la trace attendue et le cadre d'offre. Le lien exclut les donnees sensibles : nom, email, moyenne exacte, upload d'emploi du temps, URL Stripe privee et token.
+
+Ce pont valide la co-decision parent avant de construire un espace parent complet. Il ne remplace pas un backend : il n'y a pas de compte parent, pas d'expiration serveur, pas d'historique partage et pas de preuve de paiement cote serveur.
+
 L'eleve achete de la clarte quotidienne :
 
 - je sais quoi faire maintenant ;
@@ -144,9 +148,10 @@ Pour une version vendable, il faudra :
 - sauvegarde des reponses d'onboarding ;
 - sauvegarde des missions terminees ;
 - progression persistante ;
+- espace ou recap parent durable, si les tests parent le justifient ;
 - Stripe reellement connecte ;
 - email de confirmation ;
-- analytics simples : onboarding termine, mission lancee, mission terminee, checkout clique, paiement.
+- analytics simples : vues d'ecran onboarding, partage parent, recap parent ouvert, checkout parent clique, mission lancee, mission terminee, paiement.
 
 Sans backend, le site peut convaincre. Avec backend, il peut retenir.
 
@@ -172,8 +177,8 @@ Le prochain sprint le plus rentable :
 1. Sauvegarder l'onboarding.
 2. Generer dynamiquement la mission du jour.
 3. Alimenter la page Objectif avec les reponses de l'eleve.
-4. Ajouter un bloc parent sur le checkout.
-5. Tester le parcours avec un lyceen et un parent.
+4. Mesurer le pont parent partageable : lien ouvert, checkout parent clique, objections parent.
+5. Tester le parcours complet avec un lyceen et un parent.
 
 Ce sprint transforme le prototype actuel en premiere version lycee credible.
 

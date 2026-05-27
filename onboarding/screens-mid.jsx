@@ -48,14 +48,50 @@ function NiveauScreen({ value, onAnswer, profile }) {
 function EffortScreen({ value, onAnswer, profile }) {
   const initial = value?.hours ?? value ?? 4;
   const [hours, setHours] = React.useState(typeof initial === "number" ? initial : 4);
-  const [scheduleImg, setScheduleImg] = React.useState(value?.scheduleImg || null);
+  const [schedulePreviewUrl, setSchedulePreviewUrl] = React.useState(null);
+  const [scheduleMeta, setScheduleMeta] = React.useState(value?.scheduleUpload || null);
+  const [scheduleError, setScheduleError] = React.useState("");
   const fileInput = React.useRef(null);
+  const objectUrl = React.useRef(null);
+  const MAX_IMAGE_BYTES = 4 * 1024 * 1024;
+
+  React.useEffect(() => () => {
+    if (objectUrl.current) URL.revokeObjectURL(objectUrl.current);
+  }, []);
+
+  const clearSchedule = () => {
+    if (objectUrl.current) URL.revokeObjectURL(objectUrl.current);
+    objectUrl.current = null;
+    setSchedulePreviewUrl(null);
+    setScheduleMeta(null);
+    setScheduleError("");
+    if (fileInput.current) fileInput.current.value = "";
+  };
 
   const handleFile = (file) => {
     if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (e) => setScheduleImg(e.target.result);
-    reader.readAsDataURL(file);
+    if (!file.type || !file.type.startsWith("image/")) {
+      clearSchedule();
+      setScheduleError("Choisis une image : JPG, PNG, WEBP ou HEIC selon ton appareil.");
+      return;
+    }
+    if (file.size > MAX_IMAGE_BYTES) {
+      clearSchedule();
+      setScheduleError("Image trop lourde : limite 4 Mo pour ne pas bloquer la page.");
+      return;
+    }
+
+    if (objectUrl.current) URL.revokeObjectURL(objectUrl.current);
+    objectUrl.current = URL.createObjectURL(file);
+    setSchedulePreviewUrl(objectUrl.current);
+    setScheduleMeta({
+      fileName: file.name,
+      type: file.type,
+      size: file.size,
+      lastModified: file.lastModified,
+      previewOnly: true,
+    });
+    setScheduleError("");
   };
 
   const onPick = (e) => handleFile(e.target.files?.[0]);
@@ -120,10 +156,10 @@ function EffortScreen({ value, onAnswer, profile }) {
         {/* Photo upload */}
         <div className="ob-effort-col">
           <label className="ob-effort-label">Une photo de ton emploi du temps ?</label>
-          <p className="ob-effort-sub">L'IA va l'ajouter à ton profil.</p>
+          <p className="ob-effort-sub">Aperçu local seulement : on garde le nom du fichier, pas l'image.</p>
 
           <div
-            className={`ob-upload ${scheduleImg ? "has-image" : ""}`}
+            className={`ob-upload ${schedulePreviewUrl || scheduleMeta ? "has-image" : ""}`}
             onDragOver={(e) => e.preventDefault()}
             onDrop={onDrop}
             onClick={() => fileInput.current?.click()}
@@ -131,12 +167,18 @@ function EffortScreen({ value, onAnswer, profile }) {
             tabIndex={0}
             onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && fileInput.current?.click()}
           >
-            {scheduleImg ? (
+            {schedulePreviewUrl ? (
               <>
-                <img src={scheduleImg} alt="Emploi du temps" />
+                <img src={schedulePreviewUrl} alt="Emploi du temps" />
                 <div className="ob-upload-overlay">
                   <span>Cliquer pour remplacer</span>
                 </div>
+              </>
+            ) : scheduleMeta ? (
+              <>
+                <div className="ob-upload-icon" aria-hidden>✓</div>
+                <div className="ob-upload-main">{scheduleMeta.fileName || "Image sélectionnée"}</div>
+                <div className="ob-upload-sub">Aperçu à reprendre si tu changes de fichier.</div>
               </>
             ) : (
               <>
@@ -154,10 +196,12 @@ function EffortScreen({ value, onAnswer, profile }) {
             />
           </div>
 
-          {scheduleImg && (
+          {scheduleError && <p className="ob-upload-error" role="alert">{scheduleError}</p>}
+
+          {(schedulePreviewUrl || scheduleMeta) && (
             <button
               className="ob-link-btn"
-              onClick={(e) => { e.stopPropagation(); setScheduleImg(null); }}
+              onClick={(e) => { e.stopPropagation(); clearSchedule(); }}
             >
               Retirer la photo
             </button>
@@ -168,13 +212,13 @@ function EffortScreen({ value, onAnswer, profile }) {
       <div className="ob-actions" style={{ marginTop: 22 }}>
         <button
           className="ob-btn"
-          onClick={() => onAnswer({ hours, scheduleImg })}
+          onClick={() => onAnswer({ hours, scheduleUpload: scheduleMeta })}
         >
           Continuer <span className="ob-arrow">→</span>
         </button>
         <button
           className="ob-btn ob-btn--ghost"
-          onClick={() => onAnswer({ hours: null, scheduleImg: null, deferred: true })}
+          onClick={() => onAnswer({ hours: null, scheduleUpload: null, deferred: true })}
         >
           On verra plus tard
         </button>

@@ -5,7 +5,7 @@ Source de vérité produit pour le flow d'onboarding. Le code de référence vit
 ## Stack
 
 - Page hôte : `onboarding.html` à la racine.
-- Framework : React 18 + Babel standalone via CDN unpkg. Exception assumée à la règle vanilla du projet (voir CLAUDE.md).
+- Framework : React 18 production UMD via CDN unpkg + bundle précompilé `onboarding/onboarding.bundle.js`. Exception assumée à la règle vanilla du projet (voir CLAUDE.md). Après chaque modification des JSX, lancer `npm run build:onboarding`.
 - Modules JSX dans `onboarding/` :
   - `state.jsx` : manifeste des 15 écrans, listes de choix, moteur mission, helpers dates, helpers localStorage.
   - `profile.jsx` : sidebar IKEA, lignes profil avec emojis, animation `just-filled`.
@@ -14,8 +14,10 @@ Source de vérité produit pour le flow d'onboarding. Le code de référence vit
   - `screens-late.jsx` : génération, mission, social, recap, paywall, écran post-activation.
   - `app.jsx` : orchestrateur, persistance, navigation, dots de progression.
 - CSS : `onboarding/onboarding.css`. Tokens hérités de `colors_and_type.css`.
+- Pont parent : `parent.html` + `assets/js/shared/parent-share.js` + `assets/js/pages/parent.js`. Le partage QR charge localement `qrcode-generator@2.0.4` seulement quand l'élève clique sur "Afficher le QR code".
 - Persistance : `localStorage`, clé `objectif-lycee-onboarding-v3`. Trois champs : `profile`, `screenIdx`, `mission`.
 - Tweaks runtime : objet global `window.__ONBOARDING_TWEAKS_DEFAULTS` défini en haut de `onboarding.html`. Pas de panneau debug en prod.
+- Analytics : `scripts/analytics.js` doit être chargé avant le bundle onboarding pour capter les vues et complétions d'écrans React.
 
 ## Décisions verrouillées
 
@@ -99,13 +101,13 @@ Manifeste exact dans `onboarding/state.jsx` (`SCREENS`). Vue d'ensemble :
 | 5 | `matiere` | multi choice | `matieres[]` | matière prioritaire pour la mission |
 | 6 | `blocage` | single choice | `blocage` | variable la plus pesante pour la mission |
 | 7 | `niveau` | single choice | `niveau` | calibrage difficulté d'entrée |
-| 8 | `effort` | slider 0 à 10 h + photo emploi du temps | `effortHebdo.hours`, `effortHebdo.scheduleImg` | engagement hebdo, dérive durée mission |
+| 8 | `effort` | slider 0 à 10 h + photo emploi du temps | `effortHebdo.hours`, `effortHebdo.scheduleUpload` | engagement hebdo, dérive durée mission |
 | 9 | `nom` | champ libre | `nom` | personnalisation UI |
 | 10 | `generation` | animation 5 étapes | aucune | preuve visible que la mission est construite |
 | 11 | `mission` | écran de livraison | `missionRecommandee` calculée | première valeur ressentie |
 | 12 | `social` | stats + 4 témoignages élève/parent + conseil | aucune | rassurer sans inventer |
-| 13 | `recap` | "Ton année en clair" | aucune | cohérence avant paywall, IKEA stack |
-| 14 | `paywall` | hard paywall avec essai 3 jours | `trialActivated` à l'activation | décision finale |
+| 13 | `recap` | "Ton année en clair" + partage parent | aucune | cohérence avant paywall, IKEA stack, co-décision parent |
+| 14 | `paywall` | hard paywall avec essai 3 jours + partage parent | `trialActivated` à l'activation | décision finale |
 
 Le compteur de progression montre `n / 15` et des dots. Retour arrière possible à chaque étape avant activation.
 
@@ -130,6 +132,40 @@ Variables qui modulent ton et urgence sans changer le template :
 Variables purement UI :
 
 - `nom` : affichage seulement, jamais envoyé en analytics.
+
+## Pont parent sans backend
+
+Le pont parent sert à transformer le diagnostic élève en récapitulatif partageable sans compte et sans serveur. L'élève voit une carte "Partager ce plan à un parent" sur le récap et sur le paywall.
+
+Format public :
+
+```text
+parent.html#p=<base64url-json>
+```
+
+Payload v1 autorisé :
+
+- `version`, `date`, `classe`, `objectif`, `matiere`, `blocage`, `niveau` ;
+- `heuresParSemaine`, `premiereEcheance` quand ces infos existent ;
+- `mission.action`, `mission.duree`, `mission.why`, `mission.trace` ;
+- `offre.trialDays`, `offre.pricePerMonth`.
+
+Champs interdits dans le lien :
+
+- `nom`, email, téléphone ou identifiant personnel ;
+- moyenne exacte actuelle/cible ;
+- photo d'emploi du temps, nom de fichier ou métadonnées upload ;
+- URL Stripe privée, token, query sensible ou texte libre non borné.
+
+Canaux de partage :
+
+- partage natif `navigator.share` quand disponible ;
+- WhatsApp ;
+- email `mailto:` ;
+- copie du lien pour Instagram, SMS ou autre app ;
+- QR code généré en SVG local, sans service externe ni CDN runtime.
+
+La page parent affiche la mission proposée, pourquoi elle est logique, la trace attendue, le cadre parent et un CTA vers `checkout.html?source=parent-share#offre`. Si le hash est absent ou invalide, elle affiche un fallback sobre : "Le lien n'est plus lisible", avec retour vers l'onboarding.
 
 ## Templates de mission
 
@@ -193,6 +229,21 @@ Texte commercial obligatoire et visible :
 - "Annulation en 1 clic avant le {trialEnd}."
 - "Prélèvement automatique 19,99 €/mois si tu n'annules pas."
 - "Paiement Stripe, aucune donnée bancaire stockée chez nous."
+
+## Instrumentation
+
+Événements analytics autorisés pour l'onboarding et le pont parent :
+
+- `onboarding_screen_viewed` : déclenché à chaque vue d'écran React ;
+- `onboarding_screen_completed` : déclenché quand l'élève avance après un écran ;
+- `parent_share_clicked` : déclenché avec `share_channel` (`native`, `whatsapp`, `email`, `copy`, `qr`) ;
+- `parent_recap_viewed` : déclenché sur `parent.html`, avec `payload_valid` ;
+- `parent_recap_checkout_clicked` : déclenché quand le parent clique vers le checkout ;
+- `billing_selected` : événement checkout autorisé pour le choix d'offre, avec `plan` et `billing`.
+
+Props safe supplémentaires : `screen_id`, `screen_idx`, `share_channel`, `payload_valid`.
+
+Ne pas réintroduire `checkout_selected` ni la prop `offer` : l'événement valide est `billing_selected`, et la prop valide est `plan`.
 
 ## Tweaks runtime
 
@@ -266,9 +317,20 @@ Avant de considérer le flow comme bon :
 - La mission dit quoi faire, pourquoi, combien de temps, quelle trace produire.
 - Aucune mention de missions gratuites avant abonnement n'apparaît dans le flow.
 - Le paywall affiche prix, date exacte de prélèvement, annulation en 1 clic, prélèvement automatique.
-- `nom` n'est pas envoyé en analytics si analytics il y a un jour.
+- `nom` n'est jamais envoyé en analytics.
+- Le lien parent généré se décode, reste sous 1800 caractères et ne contient pas de champ sensible.
+- Le QR code parent rend un SVG local après clic.
+- `parent.html#p=...` affiche mission, justification, trace et CTA checkout ; un payload invalide affiche le fallback.
 - Mobile et desktop testés à 390 px et 1440 px, sans overflow horizontal.
 - `prefers-reduced-motion` testé : transitions instantanées, génération raccourcie.
+
+Commandes de vérification dédiées :
+
+- `npm run build:onboarding`
+- `npm run verify:analytics`
+- `npm run verify:onboarding`
+- `npm run verify:parent-share`
+- `git diff --check`
 
 ## Interdits
 
