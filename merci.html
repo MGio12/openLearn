@@ -14,7 +14,6 @@
   <link rel="stylesheet" href="assets/css/pages/merci.css">
   <!-- Prefetch the continuation routes shown on the return page. -->
   <link rel="prefetch" href="index.html">
-  <link rel="prefetch" href="mission.html">
   <link rel="prefetch" href="objectif.html">
   <link rel="prefetch" href="progression.html">
 </head>
@@ -29,15 +28,11 @@
       <div class="success-copy">
         <h1>Paiement confirmé.</h1>
         <p>Stripe confirme le paiement et envoie le reçu à l'adresse utilisée au checkout. Le reçu Stripe reste la référence pour le montant et les détails de paiement.</p>
-        <p class="study-note">Cette page ne crée pas d'espace de gestion. Elle sert à reprendre le parcours : cockpit, mission, objectif, puis progression visible.</p>
+        <p class="study-note">Cette page ne crée pas d'espace de gestion. Elle sert à reprendre le parcours : cockpit, objectif, puis progression visible.</p>
       </div>
       <div class="success-actions" aria-label="Continuer après le paiement">
         <a class="op-btn pressable op-btn--dark success-actions__primary" href="index.html">
           <span>Ouvrir mon cockpit</span>
-        </a>
-        <a class="op-btn pressable op-btn--ghost" href="mission.html">
-          <strong>Mission</strong>
-          <span>Faire le prochain geste utile</span>
         </a>
         <a class="op-btn pressable op-btn--ghost" href="objectif.html">
           <strong>Objectif</strong>
@@ -55,7 +50,7 @@
       <ul class="next-list">
         <li><strong>Email</strong><span>Le reçu est envoyé par Stripe, avec le montant et les informations de paiement.</span></li>
         <li><strong>Carte</strong><span>Objectif Lycée ne stocke pas de numéro de carte dans cette page statique.</span></li>
-        <li><strong>Suite</strong><span>Le meilleur retour produit reste simple : ouvrir le cockpit, finir une mission, regarder la progression.</span></li>
+        <li><strong>Suite</strong><span>Le meilleur retour produit reste simple : ouvrir le cockpit, revoir l'objectif, regarder la progression.</span></li>
       </ul>
       <p class="receipt-note">Si l'email Stripe n'apparaît pas tout de suite, vérifie les spams et conserve l'adresse utilisée au paiement. Cette page ne remplace pas le reçu Stripe.</p>
     </aside>

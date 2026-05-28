@@ -67,7 +67,7 @@ html, body { height: auto; overflow: visible; }
   margin: 0.25rem 0 0;
 }
 .ap-head .sub {
-  font-family: var(--font-serif);
+  font-family: var(--font-body);
   font-size: 1.0625rem;
   font-weight: 400;
   line-height: 1.35;

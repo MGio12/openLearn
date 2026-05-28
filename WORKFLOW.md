@@ -31,6 +31,7 @@ Etape 3 — Scoring
 Etape 4 — Affichage
   objectif.html explique pourquoi la mission compte
   index.html garde la mission du jour en premier
+  planning.html reçoit l'action à placer dans la semaine
   progression.html montre l'avance sans surcharger
 ```
 

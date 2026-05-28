@@ -8,7 +8,6 @@ const ROOT = join(__dirname, '..');
 
 const FILES = {
   'index.html': join(ROOT, 'index.html'),
-  'mission.html': join(ROOT, 'mission.html'),
   'objectif.html': join(ROOT, 'objectif.html'),
   'checkout.html': join(ROOT, 'checkout.html'),
   'merci.html': join(ROOT, 'merci.html'),
@@ -16,7 +15,7 @@ const FILES = {
   'scripts/checkout.js': join(ROOT, 'scripts', 'checkout.js'),
 };
 
-const CORE_PAGES = ['index.html', 'mission.html', 'objectif.html', 'checkout.html', 'merci.html'];
+const CORE_PAGES = ['index.html', 'objectif.html', 'checkout.html', 'merci.html'];
 
 const VIEWPORTS = [
   { label: 'desktop', width: 1440, height: 900 },
@@ -137,46 +136,46 @@ async function clickAndAssertLocalRoute(page, link, expectedFileName, routeLabel
   assert(page.url().endsWith(`/${expectedFileName}`), `${routeLabel}: click must navigate to /${expectedFileName}, got ${page.url()}`);
 }
 
-async function assertDashboardPrimaryMissionRoute(browser, viewport) {
+async function assertDashboardPrimaryObjectifRoute(browser, viewport) {
   const page = await browser.newPage();
   const failures = await collectPageFailures(page, 'index.html', viewport.label);
 
   try {
     await page.setViewportSize({ width: viewport.width, height: viewport.height });
     await gotoLocalPage(page, 'index.html');
-    const missionCta = await visibleAnchorIn(
+    const objectifCta = await visibleAnchorIn(
       page,
       '[data-contract="daily-mission"], [data-testid="daily-mission"], .daily-mission',
-      'mission.html',
-      `${viewport.label} index.html: dashboard primary mission CTA must be visible in the daily mission block`,
+      'objectif.html',
+      `${viewport.label} index.html: dashboard primary Objectif CTA must be visible in the daily mission block`,
     );
-    await clickAndAssertLocalRoute(page, missionCta, 'mission.html', `${viewport.label} index.html primary mission CTA`);
+    await clickAndAssertLocalRoute(page, objectifCta, 'objectif.html', `${viewport.label} index.html primary Objectif CTA`);
     assert(failures.length === 0, failures.join(' | '));
   } finally {
     await page.close();
   }
 }
 
-async function assertMissionVisibleRoutes(browser, viewport) {
+async function assertObjectifVisibleRoutes(browser, viewport) {
   const routes = [
-    { href: 'objectif.html', label: 'Objectif continuation' },
+    { href: 'planning.html', label: 'planning continuation' },
     { href: 'checkout.html', label: 'checkout continuation' },
   ];
 
   for (const route of routes) {
     const page = await browser.newPage();
-    const failures = await collectPageFailures(page, 'mission.html', viewport.label);
+    const failures = await collectPageFailures(page, 'objectif.html', viewport.label);
 
     try {
       await page.setViewportSize({ width: viewport.width, height: viewport.height });
-      await gotoLocalPage(page, 'mission.html');
+      await gotoLocalPage(page, 'objectif.html');
       const link = await visibleAnchorIn(
         page,
-        '.routine-continuation',
+        '.op-decision, .op-strategy, .op-prio-list',
         route.href,
-        `${viewport.label} mission.html: visible main-content route must include ${route.href}`,
+        `${viewport.label} objectif.html: visible main-content route must include ${route.href}`,
       );
-      await clickAndAssertLocalRoute(page, link, route.href, `${viewport.label} mission.html ${route.label}`);
+      await clickAndAssertLocalRoute(page, link, route.href, `${viewport.label} objectif.html ${route.label}`);
       assert(failures.length === 0, failures.join(' | '));
     } finally {
       await page.close();
@@ -206,7 +205,7 @@ async function assertObjectifCheckoutRoute(browser, viewport) {
 }
 
 async function assertMerciContinuationRoutes(browser, viewport) {
-  const expectedRoutes = ['index.html', 'mission.html', 'objectif.html'];
+  const expectedRoutes = ['index.html', 'objectif.html', 'progression.html'];
 
   for (const href of expectedRoutes) {
     const page = await browser.newPage();
@@ -287,8 +286,8 @@ try {
       await assertPageHealth(browser, fileName, viewport);
     }
 
-    await assertDashboardPrimaryMissionRoute(browser, viewport);
-    await assertMissionVisibleRoutes(browser, viewport);
+    await assertDashboardPrimaryObjectifRoute(browser, viewport);
+    await assertObjectifVisibleRoutes(browser, viewport);
     await assertObjectifCheckoutRoute(browser, viewport);
     await assertMerciContinuationRoutes(browser, viewport);
     await assertCheckoutPaymentLinkReadiness(browser, viewport);

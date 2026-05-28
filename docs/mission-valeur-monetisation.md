@@ -16,7 +16,7 @@ Apres lecture, il doit pouvoir decider quoi ameliorer en priorite pour augmenter
 
 ## Diagnostic rapide
 
-Objectif Lycee a deja une direction forte : ce n'est pas une bibliotheque de contenu, c'est un cockpit qui dit quoi travailler maintenant. Les pages actuelles montrent deja les briques principales : onboarding, mission du jour, focus, Objectif, progression, checkout et retour Stripe.
+Objectif Lycee a deja une direction forte : ce n'est pas une bibliotheque de contenu, c'est un cockpit qui dit quoi travailler maintenant. Les pages actuelles montrent deja les briques principales : onboarding, mission du jour dans le cockpit, preuve Objectif, planning, progression, checkout et retour Stripe.
 
 La valeur la plus differenciante est claire : transformer les sujets de bac, l'objectif et le temps disponible en une mission courte et rationnelle. L'etudiant n'achete pas des fiches. Il achete moins d'incertitude, moins de hasard, et une sensation de controle.
 
@@ -37,7 +37,7 @@ Formule courte :
 Le produit doit vendre une transformation :
 
 - avant : je ne sais pas quoi travailler, j'ouvre mes fiches au hasard, je culpabilise ;
-- pendant : l'app me donne une mission courte, explique pourquoi elle compte, puis me met en focus ;
+- pendant : l'app me donne une mission courte, explique pourquoi elle compte, puis me fait placer ou faire le prochain geste concret ;
 - apres : je vois une progression visible et je sais quoi faire demain ;
 - a long terme : je deviens l'etudiant qui travaille juste, regulierement, sans se disperser.
 
@@ -47,7 +47,7 @@ La boucle centrale doit devenir evidente sur toutes les pages :
 
 1. **Diagnostic** : l'utilisateur donne son objectif, sa filiere, son rythme et ses priorites.
 2. **Decision** : Objectif Lycee choisit la mission du jour.
-3. **Execution** : l'utilisateur lance une session focus et termine une action concrete.
+3. **Execution** : l'utilisateur planifie ou termine une action concrete.
 4. **Preuve** : l'app explique le lien entre la mission, les sujets de bac, le programme ou l'objectif.
 5. **Progression visible** : l'utilisateur voit son avance grandir.
 6. **Retour le lendemain** : l'app propose la prochaine mission et entretient l'elan.
@@ -67,7 +67,7 @@ Ce qui marche deja :
 - l'email arrive apres une premiere projection de valeur ;
 - la premiere mission donne une victoire immediate.
 
-Amelioration prioritaire : l'onboarding doit deboucher sur un vrai moment de valeur, pas seulement sur le cockpit. Le bon enchainement est : reponses -> premiere mission personnalisee -> focus court -> progression visible -> email ou abonnement.
+Amelioration prioritaire : l'onboarding doit deboucher sur un vrai moment de valeur, pas seulement sur le cockpit. Le bon enchainement est : reponses -> premiere mission personnalisee -> preuve Objectif -> progression visible -> email ou abonnement.
 
 ### Aujourd'hui
 
@@ -80,9 +80,9 @@ La page Aujourd'hui doit etre le coeur quotidien. Elle doit repondre en moins de
 
 Les metriques de soutien doivent rester en second niveau. La mission du jour doit etre plus importante que les statistiques.
 
-### Mission
+### Mission du jour
 
-La page Mission doit etre une fiche d'action, pas une page de contenu. Elle doit reduire la friction entre "je comprends" et "je travaille".
+La mission du jour n'est plus une page publique separee. Elle doit rester visible dans `index.html` et expliquee dans `objectif.html`, comme une fiche d'action integree au parcours.
 
 Le format ideal :
 
@@ -90,12 +90,12 @@ Le format ideal :
 - une justification courte ;
 - 3 a 5 etapes cocheables ;
 - les ressources liees ;
-- un bouton focus dominant ;
-- une action apres mission.
+- une action de planification dominante ;
+- une action apres mission vers la progression ou l'abonnement quand la valeur a ete prouvee.
 
 ### Focus
 
-Le focus vend l'experience premium : une seule mission, un timer, une ambiance, une sortie propre. Il doit rester calme et presque rituel.
+Le focus reste un concept d'experience premium possible, mais il n'a plus de route publique dediee. Si on le remet plus tard, il doit rester calme et presque rituel, sans recreer une page redondante avec Objectif.
 
 Le moment de fin de session est commercialement important. C'est la que l'utilisateur ressent la valeur. Il faut y montrer :
 
@@ -118,72 +118,46 @@ Le bon usage commercial :
 
 ### Progression
 
-La page Progression doit devenir moins scolaire et plus attachante. Aujourd'hui elle met trop en avant la maitrise par matiere. C'est utile, mais ce n'est pas la meilleure surface emotionnelle.
+La page Progression doit rendre le progres scolaire lisible sans devenir un tableau de bord froid. La surface principale n'est plus une metaphore de jardin : c'est un graphe doux des moyennes, avec un point de depart, un point actuel et une evolution en points.
 
-La progression doit montrer d'abord une avance qui grandit, puis les details analytiques en second niveau.
+Le streak reste utile, mais il doit rester simple et secondaire : combien de jours de suite, puis les 7 derniers jours. Il sert a montrer le rythme, pas a remplacer la preuve scolaire.
 
-## Refonte prioritaire : progression par plante
+## Refonte prioritaire : progression par resultats
 
-La meilleure direction est de transformer Progression en **jardin d'avance**.
+La meilleure direction actuelle est de transformer Progression en **courbe de resultats lisible**.
 
-L'idee : chaque mission du jour terminee fait grandir une plante. Ce n'est pas une gamification agressive. C'est une metaphore calme : l'avance pousse parce que l'etudiant revient, travaille juste, et termine ses missions.
+L'idee : l'etudiant voit d'abord si ses moyennes montent, globalement puis par matiere. Les notes brutes pourront etre stockees ailleurs plus tard ; la page n'a besoin que d'un JSON d'affichage produit par le backend ou l'IA.
 
 ### Hierarchie recommandee
 
 Au chargement de Progression, l'utilisateur doit voir :
 
-- une grande plante ou pousse centrale ;
-- un statut du type "Jour 7 — ton avance tient" ;
-- le nombre de missions terminees cette semaine ;
-- un rappel de la mission du jour si elle n'est pas finie ;
-- un historique simple des derniers jours ;
-- un bouton "Voir la maitrise par matiere".
+- un grand graphe de moyenne generale par defaut ;
+- des boutons matiere : moyenne generale, Maths spe, Physique-chimie, etc. ;
+- des boutons periode : global, trimestre 1, trimestre 2, trimestre 3 ;
+- la moyenne de depart sur le site ;
+- le point actuel et l'evolution en points ;
+- un bloc streak tres simple avec le nombre de jours de suite et les 7 derniers jours.
 
-La maitrise par matiere ne doit plus etre le bloc principal. Elle doit etre accessible via un panneau lateral.
+La progression par matiere n'a plus besoin d'un panneau lateral dedie : le graphe permet de changer de matiere directement.
 
-### Panneau lateral de maitrise
+### Format de donnees
 
-Interaction recommandee :
+Format recommande pour la page statique :
 
-- bouton : "Details par matiere" ;
-- slide-over depuis la droite sur desktop ;
-- panneau plein ecran sur mobile ;
-- bouton de fermeture visible ;
-- fond assombri discret ;
-- focus clavier piege dans le panneau ;
-- fermeture via Escape et clic hors panneau ;
-- dernier bouton restaure au retour.
+- `defaultSubjectId` pour la vue par defaut ;
+- `subjects[]` avec `id`, `label`, puis `points[]` ;
+- chaque point contient `label`, `term` et `value` sur 20.
 
-Contenu du panneau :
-
-- couverture globale ;
-- progression par matiere ;
-- chapitres a revoir ;
-- recommandation IA ;
-- lien vers Objectif pour comprendre les priorites.
-
-Ce panneau garde la puissance analytique sans voler la place de la progression emotionnelle.
-
-### Etats de plante
-
-Les etats doivent rester sobres :
-
-- graine : debut, moins de 2 jours actifs ;
-- pousse : 2 a 4 jours actifs ;
-- tige : 5 a 9 jours actifs ;
-- plante stable : 10 a 20 jours actifs ;
-- floraison discrete : serie longue ou semaine complete ;
-- carnet d'avance : recap mensuel.
-
-La plante ne doit pas devenir cartoon. Elle doit ressembler a une illustration de carnet, avec le style papier, stabilo et bordures du produit.
+La page doit lire en priorite `window.OutilPrepa.state.gradeProgress`, puis utiliser un JSON local de demonstration si aucune donnee utilisateur n'existe.
 
 ### Regles produit
 
-- La plante grandit seulement avec des missions terminees, pas avec du scroll.
-- Une mission courte vaut mieux qu'une grosse journee aleatoire.
-- Si l'utilisateur rate un jour, la plante ne "meurt" pas. Elle marque une pause.
-- Le message doit rester calme : pas de honte, pas de punition.
-- La croissance doit etre liee a l'avance reelle : missions, focus, couverture utile, regularite.
+- Le graphe montre des moyennes scolaires, pas une simulation de progres.
+- Le point de depart doit toujours rester visible.
+- L'evolution doit etre exprimee en points pour eviter les interpretations vagues.
+- Le streak ne doit pas culpabiliser : il montre un rythme recent, pas une punition.
+- Une base de donnees servira plus tard a stocker les notes brutes ; pour ce prototype, le JSON d'affichage est suffisant.
 
 ## Valeur a rendre plus monnayable
 
@@ -203,9 +177,9 @@ Ce qui doit etre payant :
 - plan quotidien personnalise ;
 - missions adaptees au niveau, au temps disponible et aux objectifs ;
 - historique de progression ;
-- jardin d'avance et suivi long terme ;
+- evolution des resultats et suivi long terme ;
 - priorisation automatique apres chaque mission ;
-- focus lie aux missions ;
+- mode focus integre aux missions, si on le reintroduit sans route publique dediee ;
 - sauvegarde multi-appareils ;
 - rappels et ajustements de planning ;
 - mode bac blanc ou sprint Parcoursup 8 semaines.
@@ -221,8 +195,8 @@ Le funnel le plus fort pour ce produit :
 1. Landing : "travaille ce qui rapporte, pas au hasard".
 2. Onboarding court : objectif, filiere, rythme, priorites.
 3. Generation d'une premiere mission.
-4. Session focus courte ou preview actionnable.
-5. Progression visible : la plante gagne son premier etat.
+4. Action guidee courte ou preview actionnable.
+5. Progression visible : le graphe ou le streak donne un premier signe lisible.
 6. Email pour sauvegarder.
 7. Offre : 10 euros par mois pour garder le plan quotidien personnalise.
 
@@ -297,7 +271,7 @@ Eviter les temoignages inventes ou trop precis tant qu'ils ne sont pas reels. A 
 
 ### Connecter paiement et progression
 
-Le moment ou la plante grandit est un tres bon endroit pour convertir :
+Le moment ou la progression devient visible est un tres bon endroit pour convertir :
 
 > Tu viens de terminer ta premiere mission. On peut preparer les 7 prochaines et suivre ton avance jour apres jour.
 
@@ -309,20 +283,20 @@ Choisir une logique unique : 3 missions gratuites, essai gratuit, ou paiement di
 
 Mettre a jour tous les textes pour eviter les contradictions entre onboarding, checkout et retour paiement.
 
-### Priorite 2 — Refaire Progression autour du jardin
+### Priorite 2 — Refaire Progression autour du graphe de moyennes
 
-Remplacer la priorite visuelle "maitrise par matiere" par une progression vivante. Mettre les details analytiques dans un panneau lateral.
+Remplacer la priorite visuelle "maitrise par matiere" ou "jardin" par une progression scolaire lisible : moyenne generale, matieres, periodes, depart, actuel, evolution.
 
-Critere de succes : l'utilisateur comprend en trois secondes que son travail quotidien construit quelque chose.
+Critere de succes : l'utilisateur comprend en trois secondes si ses resultats avancent et sur quelle matiere regarder.
 
-### Priorite 3 — Persister les missions terminees
+### Priorite 3 — Persister l'activite et les resultats
 
 Meme en local, il faut que cocher une mission ait un effet durable :
 
 - compteur de mission ;
-- plante qui evolue ;
 - streak ou jours actifs ;
 - prochain objectif quotidien.
+- plus tard : notes brutes et JSON de progression produit pour le graphe.
 
 Sans persistance, la boucle emotionnelle est faible.
 
@@ -367,8 +341,8 @@ Le blog methode doit servir l'acquisition, mais rester leger :
 - retour lendemain ;
 - nombre de jours actifs sur 7 ;
 - missions terminees par semaine ;
-- sessions focus lancees ;
-- progression de la plante.
+- actions guidees lancees ;
+- evolution de moyenne et streak recent.
 
 ### Conversion
 
@@ -406,7 +380,7 @@ Utiliser Playwright pour :
 - verifier desktop et mobile ;
 - comparer avant/apres ;
 - tester les pages importantes ;
-- capturer les etats de panneaux, menus, focus et checkout ;
+- capturer les etats de panneaux, menus et checkout ;
 - garder une trace objective des iterations.
 
 Utiliser Claude Chrome pour :

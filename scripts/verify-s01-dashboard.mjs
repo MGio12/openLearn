@@ -101,11 +101,11 @@ async function assertStaticContract(page) {
   const blockText = normalizeText(await missionBlock.textContent());
   assert(/(dur[ée]e\s+totale|total\s*:|total\s+\d|\d+\s*(min|mn|h))|\d+h\d{0,2}/i.test(blockText), 'daily mission block must show total duration');
 
-  const primaryLink = missionBlock.locator('a[href="mission.html"]').first();
-  await expectVisible(primaryLink, 'daily mission block must include a primary link with href="mission.html"');
+  const primaryLink = missionBlock.locator('a[href="objectif.html"]').first();
+  await expectVisible(primaryLink, 'daily mission block must include a primary link with href="objectif.html"');
 
-  const supportLink = missionBlock.locator('a[href="objectif.html"]').first();
-  await expectVisible(supportLink, 'daily mission block must include a support link with href="objectif.html"');
+  const supportLink = missionBlock.locator('a[href="planning.html"]').first();
+  await expectVisible(supportLink, 'daily mission block must include a support link with href="planning.html"');
 
   return { missionBlock, heading, primaryLink, supportLink };
 }
@@ -148,13 +148,13 @@ async function assertNavigation(page) {
   let { primaryLink } = await assertStaticContract(page);
   await primaryLink.click();
   await page.waitForLoadState('networkidle');
-  assert(page.url().endsWith('/mission.html'), `primary mission CTA must navigate to /mission.html, got ${page.url()}`);
+  assert(page.url().endsWith('/objectif.html'), `primary mission CTA must navigate to /objectif.html, got ${page.url()}`);
 
   await gotoIndex(page);
   const contract = await assertStaticContract(page);
   await contract.supportLink.click();
   await page.waitForLoadState('networkidle');
-  assert(page.url().endsWith('/objectif.html'), `support Objectif link must navigate to /objectif.html, got ${page.url()}`);
+  assert(page.url().endsWith('/planning.html'), `support planning link must navigate to /planning.html, got ${page.url()}`);
 }
 
 if (!existsSync(INDEX_PATH)) {
@@ -167,7 +167,7 @@ try {
   await assertDesktop(page);
   await assertMobile(page);
   await assertNavigation(page);
-  console.log('PASS S01 dashboard mission verification: mission-first structure, responsive visibility, console health, and CTA navigation are valid.');
+  console.log('PASS S01 dashboard mission verification: mission-first structure, responsive visibility, console health, and Objectif/Planning CTA navigation are valid.');
 } finally {
   await browser.close();
 }

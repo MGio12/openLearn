@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const ANALYTICS_PATH = join(ROOT, 'scripts', 'analytics.js');
-const CORE_PAGES = ['index.html', 'onboarding.html', 'mission.html', 'focus.html', 'checkout.html', 'parent.html'];
+const CORE_PAGES = ['index.html', 'onboarding.html', 'objectif.html', 'progression.html', 'checkout.html', 'parent.html'];
 
 function fail(message) {
   throw new Error(message);

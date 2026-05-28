@@ -20,7 +20,7 @@ Puis ouvrir `http://localhost:4173`.
 ## Entrees principales
 
 - `index.html` : entree du prototype public.
-- `objectif.html`, `mission.html`, `focus.html`, `progression.html`, `checkout.html` : parcours lycee.
+- `objectif.html`, `planning.html`, `progression.html`, `checkout.html` : parcours lycee apres la mission du jour du cockpit.
 - `prototypes/cours/` : cours de maths isoles avant integration au site public.
 - `docs/` : decisions produit, regles de creation de cours, pipeline IA et guides pedagogiques.
 - `lien/` : sources de reference, notamment les PDFs de Premiere specialite maths.

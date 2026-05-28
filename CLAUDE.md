@@ -72,9 +72,10 @@ Objectif : ne pas tout relire. Charge seulement les fichiers utiles au travail e
 | Générer un cours depuis des PDF | `docs/pipeline-cours-ia.md` → `lien/premiere/math.md` → les fichiers de règles maths ci-dessus | Workflow PDF → extraction → page HTML+KaTeX, avec contraintes pédagogiques et sources validées. |
 | Choisir les sources PDF Première maths | `lien/premiere/math.md` | Liens validés vers cours et TD Maths91/Maths-et-tiques. |
 | Ajouter des visuels pédagogiques | `docs/generation-image-cours.md` + `docs/erreurs-rencontrees.md` | Règles imagegen et pièges KaTeX/CSS à éviter. |
+| Concevoir des interactions IA dans les cours | `docs/vision-cours-ia-interactifs.md` + `docs/regles-creation-cours-maths.md` + `docs/techniques-apprentissage-maths.md` | Vision des blocs IA de compréhension, contexte minimal par bloc, profils de ton, garde-fous et logique de feedback. |
 | Travailler la promesse, paywall, pricing, parent/élève | `docs/mission-valeur-monetisation.md` + `docs/version-lycee-priorites.md` | Positionnement produit, funnel, valeur élève/parent, priorités lycée. |
 | Prioriser le prochain sprint | `TODO.md` + `docs/version-lycee-priorites.md` | Roadmap active et priorités produit lycée. |
-| Modifier le parcours site/app | `WORKFLOW.md` + `TODO.md` | Boucle dashboard → mission → focus → progression → checkout. |
+| Modifier le parcours site/app | `WORKFLOW.md` + `TODO.md` | Boucle dashboard → objectif → planning/progression → checkout, avec "mission du jour" comme concept produit et non comme page dédiée. |
 | Toucher au flow d'onboarding | `onboarding.html` + `onboarding/state.jsx` (manifeste écrans, choix, moteur mission) + `onboarding/onboarding.css` | React précompilé avec `npm run build:onboarding`, state machine 15 écrans, persistance localStorage. Voir bullet "Exception onboarding" plus haut. |
 | Reprendre une décision produit majeure | `docs/superpowers/specs/2026-05-14-vision-produit.md` + `docs/superpowers/specs/2026-05-14-objectif-lycee-dashboard-design.md` | Vision et design dashboard déjà validés. |
 | Chercher la méthode de dev solo | `docs/vibe-coding-methode.md` + `SKILLS-GUIDE.md` | Méthode de travail, skills, revues, itérations. |
@@ -84,6 +85,7 @@ Objectif : ne pas tout relire. Charge seulement les fichiers utiles au travail e
 - Zéro ambiguïté : l'élève ne doit jamais deviner ce que signifie un symbole, pourquoi une méthode est choisie, quelle étape suit, ni quelle est la réponse finale. S'il faut parler davantage pour lever l'ambiguïté, parler davantage.
 - Ne pas promettre 20/20 comme garantie visible ; le niveau 20/20 est une cible d'entraînement.
 - Le vrai différenciateur n'est pas un meilleur PDF : c'est un entraînement qui combat l'illusion de compréhension.
+- La direction produit long terme est de parsemer les cours de blocs IA où l'élève écrit une réponse, reçoit un diagnostic contextualisé, peut réessayer, puis accède à une correction propre. Voir `docs/vision-cours-ia-interactifs.md`.
 - Chaque notion doit pousser l'élève à produire : question immédiate, étape manquante, exercice seul, choix de méthode, rédaction propre.
 - Les exercices `20/20` doivent être préparés par des portes simples, pas accessibles comme un raccourci décoratif.
 - Le paywall doit arriver après une preuve de progrès, jamais avant la première valeur ressentie.

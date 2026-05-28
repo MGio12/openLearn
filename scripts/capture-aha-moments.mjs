@@ -173,44 +173,43 @@ const SHOTS = [
     },
   },
   {
-    slug: '03-focus-session-progression',
-    title: 'Focus -> session terminee -> progression',
+    slug: '03-objectif-progression',
+    title: 'Objectif -> progression visible',
     viewport: MOBILE,
     run: async ({ page, baseUrl, capture }) => {
-      await goto(page, baseUrl, 'focus.html');
-      await page.locator('#timer').waitFor({ timeout: 8000 });
-      await capture('00-focus');
-      await page.getByRole('button', { name: /Terminer la session/i }).click();
-      await pause(900);
-      await capture('01-session-terminee');
-      await page.getByRole('link', { name: /Voir ma progression/i }).click();
+      await goto(page, baseUrl, 'objectif.html');
+      await page.locator('.op-decision').waitFor({ timeout: 8000 });
+      await capture('00-pourquoi-cette-mission');
+      await goto(page, baseUrl, 'progression.html');
       await page.waitForLoadState('networkidle');
+      await completeMissionOnPage(page);
+      await page.locator('[data-progress-history]').waitFor({ timeout: 8000 });
       await pause(900);
       await capture('02-avance-visible');
     },
   },
   {
     slug: '04-progress-plant',
-    title: 'Ton avance / plante',
+    title: 'Rythme recent',
     viewport: MOBILE,
     run: async ({ page, baseUrl, capture }) => {
       await goto(page, baseUrl, 'progression.html');
       await completeMissionOnPage(page);
-      await page.locator('[data-progress-garden-title]').waitFor({ timeout: 8000 });
-      await capture('00-plante-apres-mission');
+      await page.locator('.pp-streak-panel').waitFor({ timeout: 8000 });
+      await capture('00-rythme-apres-mission');
     },
   },
   {
     slug: '05-progress-details',
-    title: 'Details par matiere',
+    title: 'Moyennes par matiere',
     viewport: DESKTOP,
     run: async ({ page, baseUrl, capture }) => {
       await goto(page, baseUrl, 'progression.html');
       await completeMissionOnPage(page);
       await capture('00-avance');
-      await page.getByRole('button', { name: /D.tails par mati.re/i }).click();
+      await page.getByRole('button', { name: /Maths sp/i }).click();
       await pause(800);
-      await capture('01-tiroir-details');
+      await capture('01-maths-spe');
     },
   },
   {

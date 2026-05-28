@@ -1,9 +1,8 @@
 <!doctype html>
 <!--
   ============================================================
-  Objectif Lycée - Ton avance
-  Drop-in replacement: paths use root-level CSS/JS.
-  Navigation links point to final .html pages.
+  Objectif Lycée - Progression
+  Page statique vanilla : graphe de moyennes + streak simple.
   ============================================================
 -->
 
@@ -11,7 +10,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Objectif Lycée — Ton avance</title>
+  <title>Objectif Lycée - Progression</title>
   <link rel="icon" type="image/webp" href="assets/brand/trophy-logo-home.webp">
   <link rel="stylesheet" href="colors_and_type.css">
   <link rel="stylesheet" href="styles.css">
@@ -44,21 +43,17 @@
         <span class="ic"><i class="ph-bold ph-chart-line-up" aria-hidden="true"></i></span>
         Progression
       </div>
-      <a href="focus.html" class="sb-item">
-        <span class="ic"><i class="ph-bold ph-timer" aria-hidden="true"></i></span>
-        Focus
-      </a>
     </div>
 
     <div class="sb-group">
       <div class="head">Travail</div>
-      <a href="objectif.html" class="sb-item">
-        <span class="ic"><i class="ph-bold ph-squares-four" aria-hidden="true"></i></span>
-        Objectif
-      </a>
       <a href="contenu.html" class="sb-item">
         <span class="ic"><i class="ph-bold ph-book-open-text" aria-hidden="true"></i></span>
         Contenu
+      </a>
+      <a href="objectif.html" class="sb-item">
+        <span class="ic"><i class="ph-bold ph-squares-four" aria-hidden="true"></i></span>
+        Objectif
       </a>
     </div>
 
@@ -90,20 +85,10 @@
     <main class="view active" id="progression-main">
       <header class="pp-head">
         <div>
-          <h1>Ton avance</h1>
-          <div class="sub" data-progress-subtitle>La plante montre ce qui avance vraiment : des missions terminées et un retour régulier.</div>
+          <h1>Progression</h1>
+          <div class="sub" data-progress-subtitle>Suis l'évolution de tes moyennes, matière par matière, sans transformer tes notes en tableau froid.</div>
         </div>
         <div class="pp-actions" aria-label="Actions progression">
-          <button
-            type="button"
-            class="pp-details-button"
-            data-progress-details-open
-            aria-expanded="false"
-            aria-controls="progress-details-panel"
-          >
-            Détails par matière
-            <i class="ph-bold ph-sidebar-simple" aria-hidden="true"></i>
-          </button>
           <a href="objectif.html" class="pp-impact-route">
             Impact objectif
             <i class="ph-bold ph-arrow-right" aria-hidden="true"></i>
@@ -111,168 +96,89 @@
         </div>
       </header>
 
-      <section class="pp-hero" aria-labelledby="garden-title">
-        <article class="pp-garden">
-          <span class="pp-stamp" data-progress-stamp>Départ · une mission lance la pousse</span>
-          <svg class="pp-plant" data-progress-plant viewBox="0 0 320 380" aria-hidden="true">
-            <ellipse cx="170" cy="350" rx="92" ry="7" fill="#121212" opacity=".14"/>
-            <path d="M80 277 L240 277 L230 300 L90 300 Z" fill="#E8C7A9" stroke="#121212" stroke-width="3.5"/>
-            <path d="M88 300 L232 300 L220 342 L100 342 Z" fill="#D6AE89" stroke="#121212" stroke-width="3.5"/>
-            <path d="M160 280 Q161 260 163 244" stroke="#121212" stroke-width="3" fill="none" stroke-linecap="round"/>
-            <path d="M163 254 Q150 250 142 254 Q150 260 163 258 Z" fill="#B9D097" stroke="#121212" stroke-width="2.5"/>
-            <path d="M163 244 Q176 240 184 244 Q176 250 163 248 Z" fill="#B9D097" stroke="#121212" stroke-width="2.5"/>
-            <path d="M163 244 Q161 222 162 202" stroke="#121212" stroke-width="3" fill="none" stroke-linecap="round"/>
-            <path d="M162 222 Q145 214 134 220 Q146 228 162 226 Z" fill="#D8E6C3" stroke="#121212" stroke-width="2.5"/>
-            <path d="M162 204 Q179 197 192 202 Q179 210 162 208 Z" fill="#D8E6C3" stroke="#121212" stroke-width="2.5"/>
-            <path d="M162 202 Q162 180 164 160" stroke="#121212" stroke-width="3" fill="none" stroke-linecap="round"/>
-            <path d="M163 182 Q148 174 132 170" stroke="#121212" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-            <path d="M132 170 Q120 166 116 156 Q128 160 138 166 Z" fill="#B9D097" stroke="#121212" stroke-width="2.5"/>
-            <path d="M163 172 Q178 166 192 160" stroke="#121212" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-            <path d="M192 160 Q204 156 208 146 Q198 149 188 155 Z" fill="#B9D097" stroke="#121212" stroke-width="2.5"/>
-            <path d="M164 160 Q174 150 169 138 Q160 144 159 157 Z" fill="#D8E6C3" stroke="#121212" stroke-width="2.5"/>
-          </svg>
-          <div class="pp-caption">
-            <span class="pp-stage-pill"><span class="dot"></span><span data-progress-stage>Graine</span></span>
-            <h2 class="copy" id="garden-title" data-progress-garden-title>Ton avance commence ici.</h2>
-            <span class="meta" data-progress-garden-meta>Termine une mission pour voir le jardin bouger.</span>
+      <section class="pp-grade-panel" aria-labelledby="grade-title">
+        <div class="pp-grade-panel__head">
+          <div>
+            <span class="pp-kicker">Moyennes scolaires</span>
+            <h2 id="grade-title">Ta courbe de résultats</h2>
+            <p>
+              Le point de départ reste visible, puis chaque nouvelle moyenne montre si le travail t'a rapproché de ton objectif.
+            </p>
+          </div>
+          <div class="pp-grade-summary" aria-label="Résumé de progression">
+            <div class="pp-grade-summary__item">
+              <span>Départ site</span>
+              <strong data-grade-start>--</strong>
+            </div>
+            <div class="pp-grade-summary__item is-current">
+              <span>Actuel</span>
+              <strong data-grade-current>--</strong>
+            </div>
+            <div class="pp-grade-summary__item">
+              <span>Évolution</span>
+              <strong data-grade-delta>--</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="pp-grade-controls" aria-label="Filtres du graphe">
+          <div class="pp-control-group">
+            <span class="pp-control-label">Matière</span>
+            <div class="pp-segmented pp-segmented--subjects" data-grade-subject-controls></div>
+          </div>
+          <div class="pp-control-group">
+            <span class="pp-control-label">Période</span>
+            <div class="pp-segmented" data-grade-period-controls></div>
+          </div>
+        </div>
+
+        <div class="pp-chart-shell" data-grade-chart-shell>
+          <svg class="pp-chart-svg" data-grade-chart role="img" aria-labelledby="grade-chart-title grade-chart-desc"></svg>
+          <div class="pp-chart-empty" data-grade-empty hidden>Aucune moyenne disponible pour cette sélection.</div>
+        </div>
+
+        <div class="pp-chart-legend" aria-label="Lecture du graphe">
+          <span><span class="pp-legend-dot pp-legend-dot--start"></span><span data-grade-start-label>Départ</span></span>
+          <span><span class="pp-legend-dot pp-legend-dot--current"></span><span data-grade-current-label>Point actuel</span></span>
+          <span class="pp-chart-legend__note" data-grade-period-note>Vue globale depuis l'arrivée sur le site.</span>
+        </div>
+
+        <p class="pp-grade-note">
+          Prototype alimenté par JSON : plus tard, les notes brutes pourront être transformées côté IA ou backend pour produire exactement ce format d'affichage.
+        </p>
+        <p class="sr-only" data-grade-live aria-live="polite"></p>
+      </section>
+
+      <section class="pp-streak-panel" aria-labelledby="streak-title">
+        <article class="pp-streak-card">
+          <div class="pp-streak-flame" data-streak-flame-slot aria-hidden="true">
+            <i class="ph-bold ph-fire"></i>
+          </div>
+          <div class="pp-streak-copy">
+            <span class="pp-kicker">Rythme récent</span>
+            <h2 id="streak-title"><span data-progress-streak>0</span> jours de suite</h2>
+            <p data-progress-streak-copy>Revenir sur un jour actif suffit à créer le premier repère.</p>
           </div>
         </article>
 
-        <aside class="pp-advance" aria-label="Suite recommandée">
-          <article class="pp-status-card is-pending" data-progress-status-card>
-            <span class="pp-status-card__label" data-progress-status-label>Mission du jour prête</span>
-            <h2 data-progress-status-title>Ouvre la mission utile maintenant.</h2>
-            <p data-progress-status-copy>
-              La progression avance avec une action terminée. Le prochain geste est court et relié à ton objectif.
-            </p>
-            <a class="pp-route" href="mission.html" data-progress-primary-route>
-              <span data-progress-primary-route-label>Ouvrir la mission</span>
-              <i class="ph-bold ph-arrow-right" aria-hidden="true"></i>
-            </a>
-          </article>
-
-          <article class="pp-proof">
-            <span class="pp-proof__icon" aria-hidden="true"><i class="ph-bold ph-check-circle"></i></span>
-            <span>
-              <span class="pp-proof__label">Ce qui compte</span>
-              <span class="pp-proof__text" data-progress-proof>Le jardin suit le travail réel : mission terminée, jours actifs, reprise demain.</span>
-            </span>
-          </article>
-        </aside>
-      </section>
-
-      <section class="pp-analytics" aria-labelledby="analytics-title">
-        <h2 class="pp-section-title" id="analytics-title">Repères secondaires</h2>
-        <div class="pp-stat-grid">
-          <article class="pp-stat pp-stat--stabilo">
-            <div>
-              <div class="label">Cette semaine</div>
-              <div class="value"><span data-progress-week-count>0</span><small>missions</small></div>
-            </div>
-            <div class="pp-stat__copy" data-progress-week-copy">Le compteur augmente quand une mission est terminée.</div>
-          </article>
-          <article class="pp-stat">
-            <div>
-              <div class="label">Rythme récent</div>
-              <div class="value"><span data-progress-streak>0</span><small>jours</small></div>
-            </div>
-            <div class="pp-stat__copy" data-progress-streak-copy">Revenir demain suffit à garder une continuité lisible.</div>
-          </article>
-          <article class="pp-stat">
-            <div>
-              <div class="label">Jours actifs</div>
-              <div class="value"><span data-progress-active-days>0</span><small>total</small></div>
-            </div>
-            <div class="pp-stat__copy">Un jour actif commence dès qu'une étape utile est cochée.</div>
-          </article>
+        <div class="pp-history" aria-labelledby="history-title">
+          <div class="pp-history__head">
+            <h2 id="history-title">7 derniers jours</h2>
+            <span class="pp-history__chip"><span class="dot"></span><span data-progress-history-chip>Rythme à construire</span></span>
+          </div>
+          <div class="pp-history__grid" data-progress-history>
+            <div class="pp-day"><span class="dow">J-6</span><span class="dom">--</span><span class="mark"></span></div>
+            <div class="pp-day"><span class="dow">J-5</span><span class="dom">--</span><span class="mark"></span></div>
+            <div class="pp-day"><span class="dow">J-4</span><span class="dom">--</span><span class="mark"></span></div>
+            <div class="pp-day"><span class="dow">J-3</span><span class="dom">--</span><span class="mark"></span></div>
+            <div class="pp-day"><span class="dow">J-2</span><span class="dom">--</span><span class="mark"></span></div>
+            <div class="pp-day"><span class="dow">J-1</span><span class="dom">--</span><span class="mark"></span></div>
+            <div class="pp-day today"><span class="dow">Auj</span><span class="dom">--</span><span class="mark"></span></div>
+          </div>
         </div>
-      </section>
-
-      <section class="pp-history" aria-labelledby="history-title">
-        <div class="pp-history__head">
-          <h2 id="history-title">7 derniers jours</h2>
-          <span class="pp-history__chip"><span class="dot"></span><span data-progress-history-chip>Rythme à construire</span></span>
-        </div>
-        <div class="pp-history__grid" data-progress-history>
-          <div class="pp-day today"><span class="dow">Auj</span><span class="dom">1</span><span class="mark"></span></div>
-          <div class="pp-day"><span class="dow">J-6</span><span class="dom">2</span><span class="mark"></span></div>
-          <div class="pp-day"><span class="dow">J-5</span><span class="dom">3</span><span class="mark"></span></div>
-          <div class="pp-day"><span class="dow">J-4</span><span class="dom">4</span><span class="mark"></span></div>
-          <div class="pp-day"><span class="dow">J-3</span><span class="dom">5</span><span class="mark"></span></div>
-          <div class="pp-day"><span class="dow">J-2</span><span class="dom">6</span><span class="mark"></span></div>
-          <div class="pp-day"><span class="dow">J-1</span><span class="dom">7</span><span class="mark"></span></div>
-        </div>
-        <p class="pp-history__note">La plante suit les missions et les retours, sans sanction pour un jour plus léger.</p>
       </section>
     </main>
   </div>
-</div>
-
-<div class="pp-drawer" data-progress-details hidden>
-  <button class="pp-drawer__backdrop" type="button" data-progress-details-close aria-label="Fermer les détails"></button>
-  <aside
-    class="pp-drawer__panel"
-    id="progress-details-panel"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="progress-details-title"
-    tabindex="-1"
-  >
-    <header class="pp-drawer__head">
-      <div>
-        <h2 id="progress-details-title">Détails</h2>
-        <p class="pp-drawer__lede">Les chiffres restent en soutien. Le jardin et la prochaine action gardent la priorité.</p>
-      </div>
-      <button class="pp-drawer__close" type="button" data-progress-details-close aria-label="Fermer">
-        <i class="ph-bold ph-x" aria-hidden="true"></i>
-      </button>
-    </header>
-
-    <div class="pp-drawer__body">
-      <section class="pp-panel-block" aria-labelledby="details-subjects-title">
-        <h3 id="details-subjects-title">Matières</h3>
-        <div class="pp-progress-list">
-          <div class="pp-progress-row">
-            <div class="top"><span class="name">Maths spé</span><span class="pct">86%</span></div>
-            <div class="bar" aria-hidden="true"><div class="fill fill--86"></div></div>
-          </div>
-          <div class="pp-progress-row blue">
-            <div class="top"><span class="name">Physique-chimie</span><span class="pct">71%</span></div>
-            <div class="bar" aria-hidden="true"><div class="fill fill--71"></div></div>
-          </div>
-          <div class="pp-progress-row beige">
-            <div class="top"><span class="name">Français</span><span class="pct">62%</span></div>
-            <div class="bar" aria-hidden="true"><div class="fill fill--62"></div></div>
-          </div>
-          <div class="pp-progress-row orange">
-            <div class="top"><span class="name">Grand oral</span><span class="pct">58%</span></div>
-            <div class="bar" aria-hidden="true"><div class="fill fill--58"></div></div>
-          </div>
-        </div>
-      </section>
-
-      <section class="pp-panel-block" aria-labelledby="details-review-title">
-        <h3 id="details-review-title">À revoir demain</h3>
-        <ul class="pp-review-list">
-          <li><span class="lbl">Maths spé</span>Reprendre une erreur proprement rédigée sur <span data-daily-mission-review-title>Fonctions exponentielles</span>.</li>
-          <li><span class="lbl">Méthode</span>Écrire la première ligne de solution avant de regarder la correction.</li>
-          <li><span class="lbl">Objectif</span>Relier la mission au contrôle et au dossier, en une phrase simple.</li>
-        </ul>
-      </section>
-
-      <section class="pp-panel-block" aria-labelledby="details-note-title">
-        <h3 id="details-note-title">Lecture calme</h3>
-        <div class="pp-note">
-          <span class="pp-note__label">Pourquoi revenir demain</span>
-          <p data-progress-detail-note>Une reprise courte garde le chapitre en mémoire. Le but est de savoir quoi faire, pas de remplir un tableau.</p>
-        </div>
-        <a class="pp-panel-link" href="objectif.html">
-          Voir l'impact objectif
-          <i class="ph-bold ph-arrow-right" aria-hidden="true"></i>
-        </a>
-      </section>
-    </div>
-  </aside>
 </div>
 
 <nav class="mobile-tabs" aria-label="Navigation principale">
@@ -298,6 +204,91 @@
   </a>
 </nav>
 
+<script type="application/json" id="progress-grade-data">
+{
+  "defaultSubjectId": "overall",
+  "subjects": [
+    {
+      "id": "overall",
+      "label": "Moyenne générale",
+      "points": [
+        { "label": "Départ", "term": "t1", "value": 11.4 },
+        { "label": "Oct.", "term": "t1", "value": 11.8 },
+        { "label": "Nov.", "term": "t1", "value": 12.1 },
+        { "label": "Jan.", "term": "t2", "value": 13.2 },
+        { "label": "Mars", "term": "t2", "value": 14.0 },
+        { "label": "Avr.", "term": "t3", "value": 14.4 },
+        { "label": "Mai", "term": "t3", "value": 14.8 }
+      ]
+    },
+    {
+      "id": "maths-spe",
+      "label": "Maths spé",
+      "points": [
+        { "label": "Départ", "term": "t1", "value": 9.8 },
+        { "label": "Oct.", "term": "t1", "value": 10.6 },
+        { "label": "Nov.", "term": "t1", "value": 11.2 },
+        { "label": "Jan.", "term": "t2", "value": 12.4 },
+        { "label": "Mars", "term": "t2", "value": 13.1 },
+        { "label": "Avr.", "term": "t3", "value": 14.0 },
+        { "label": "Mai", "term": "t3", "value": 14.6 }
+      ]
+    },
+    {
+      "id": "physique-chimie",
+      "label": "Physique-chimie",
+      "points": [
+        { "label": "Départ", "term": "t1", "value": 12.2 },
+        { "label": "Oct.", "term": "t1", "value": 12.4 },
+        { "label": "Nov.", "term": "t1", "value": 12.9 },
+        { "label": "Jan.", "term": "t2", "value": 13.5 },
+        { "label": "Mars", "term": "t2", "value": 14.1 },
+        { "label": "Avr.", "term": "t3", "value": 14.3 },
+        { "label": "Mai", "term": "t3", "value": 14.7 }
+      ]
+    },
+    {
+      "id": "svt",
+      "label": "SVT",
+      "points": [
+        { "label": "Départ", "term": "t1", "value": 13.1 },
+        { "label": "Oct.", "term": "t1", "value": 13.0 },
+        { "label": "Nov.", "term": "t1", "value": 13.6 },
+        { "label": "Jan.", "term": "t2", "value": 14.0 },
+        { "label": "Mars", "term": "t2", "value": 14.5 },
+        { "label": "Avr.", "term": "t3", "value": 14.7 },
+        { "label": "Mai", "term": "t3", "value": 15.0 }
+      ]
+    },
+    {
+      "id": "francais",
+      "label": "Français",
+      "points": [
+        { "label": "Départ", "term": "t1", "value": 10.9 },
+        { "label": "Oct.", "term": "t1", "value": 11.3 },
+        { "label": "Nov.", "term": "t1", "value": 11.9 },
+        { "label": "Jan.", "term": "t2", "value": 12.4 },
+        { "label": "Mars", "term": "t2", "value": 12.8 },
+        { "label": "Avr.", "term": "t3", "value": 13.2 },
+        { "label": "Mai", "term": "t3", "value": 13.5 }
+      ]
+    },
+    {
+      "id": "hggsp",
+      "label": "HGGSP",
+      "points": [
+        { "label": "Départ", "term": "t1", "value": 12.0 },
+        { "label": "Oct.", "term": "t1", "value": 12.2 },
+        { "label": "Nov.", "term": "t1", "value": 12.6 },
+        { "label": "Jan.", "term": "t2", "value": 13.0 },
+        { "label": "Mars", "term": "t2", "value": 13.7 },
+        { "label": "Avr.", "term": "t3", "value": 13.9 },
+        { "label": "Mai", "term": "t3", "value": 14.2 }
+      ]
+    }
+  ]
+}
+</script>
 <script src="scripts/model.js"></script>
 <script src="scripts/state.js"></script>
 <script src="scripts/dom.js"></script>
@@ -310,19 +301,26 @@
 (function () {
   'use strict';
 
-  var drawer = document.querySelector('[data-progress-details]');
-  var drawerPanel = document.getElementById('progress-details-panel');
-  var openButton = document.querySelector('[data-progress-details-open]');
-  var closeButtons = document.querySelectorAll('[data-progress-details-close]');
-  var previouslyFocused = null;
+  var SVG_NS = 'http://www.w3.org/2000/svg';
+  var PERIODS = [
+    { id: 'global', label: 'Global' },
+    { id: 't1', label: 'Trimestre 1' },
+    { id: 't2', label: 'Trimestre 2' },
+    { id: 't3', label: 'Trimestre 3' },
+  ];
 
-  var stageLabels = {
-    seed: 'Graine',
-    sprout: 'Pousse',
-    stem: 'Tige',
-    plant: 'Plante',
-    bloom: 'Floraison',
-  };
+  var chartShell = document.querySelector('[data-grade-chart-shell]');
+  var chartSvg = document.querySelector('[data-grade-chart]');
+  var emptyState = document.querySelector('[data-grade-empty]');
+  var subjectControls = document.querySelector('[data-grade-subject-controls]');
+  var periodControls = document.querySelector('[data-grade-period-controls]');
+  var gradeData = normalizeGradeData(loadGradeData());
+  var activeSubjectId = gradeData.defaultSubjectId;
+  var activePeriod = 'global';
+
+  function appState() {
+    return window.OutilPrepa || null;
+  }
 
   function setText(selector, value) {
     document.querySelectorAll(selector).forEach(function (element) {
@@ -339,17 +337,306 @@
     return Number.isFinite(number) ? number : 0;
   }
 
-  function appState() {
-    return window.OutilPrepa || null;
+  function loadGradeData() {
+    var app = appState();
+    if (app && app.state && app.state.gradeProgress) return app.state.gradeProgress;
+
+    var node = document.getElementById('progress-grade-data');
+    if (!node) return {};
+
+    try {
+      return JSON.parse(node.textContent || '{}');
+    } catch (error) {
+      return {};
+    }
   }
 
-  function mission() {
-    var app = appState();
-    if (app && app.mission) return app.mission;
-    if (window.OutilPrepaModel && window.OutilPrepaModel.DEFAULT_MISSION) {
-      return window.OutilPrepaModel.DEFAULT_MISSION;
+  function normalizeGradeData(raw) {
+    var subjects = Array.isArray(raw.subjects) ? raw.subjects : [];
+    var cleanSubjects = subjects.map(function (subject, subjectIndex) {
+      var id = subject.id || 'subject-' + subjectIndex;
+      var points = Array.isArray(subject.points) ? subject.points : [];
+      return {
+        id: id,
+        label: subject.label || id,
+        points: points
+          .map(function (point) {
+            return {
+              label: point.label || '',
+              term: point.term || 'global',
+              value: Number(point.value),
+            };
+          })
+          .filter(function (point) {
+            return Number.isFinite(point.value);
+          }),
+      };
+    }).filter(function (subject) {
+      return subject.points.length > 0;
+    });
+
+    var defaultId = raw.defaultSubjectId && cleanSubjects.some(function (subject) {
+      return subject.id === raw.defaultSubjectId;
+    })
+      ? raw.defaultSubjectId
+      : (cleanSubjects[0] ? cleanSubjects[0].id : null);
+
+    return {
+      defaultSubjectId: defaultId,
+      subjects: cleanSubjects,
+    };
+  }
+
+  function subjectById(id) {
+    return gradeData.subjects.find(function (subject) {
+      return subject.id === id;
+    }) || gradeData.subjects[0] || null;
+  }
+
+  function formatGrade(value) {
+    if (!Number.isFinite(value)) return '--';
+    return value.toFixed(1).replace('.', ',') + '/20';
+  }
+
+  function formatDelta(value) {
+    if (!Number.isFinite(value)) return '--';
+    var sign = value > 0 ? '+' : '';
+    return sign + value.toFixed(1).replace('.', ',') + ' pts';
+  }
+
+  function periodLabel(id) {
+    var period = PERIODS.find(function (item) {
+      return item.id === id;
+    });
+    return period ? period.label : 'Global';
+  }
+
+  function selectedPoints(subject) {
+    if (!subject) return [];
+    if (activePeriod === 'global') return subject.points.slice();
+
+    var start = subject.points[0];
+    var termPoints = subject.points.filter(function (point) {
+      return point.term === activePeriod;
+    });
+
+    if (!termPoints.length) return start ? [start] : [];
+    if (termPoints[0] === start) return termPoints.slice();
+    return [start].concat(termPoints);
+  }
+
+  function createSvgElement(name, attributes) {
+    var element = document.createElementNS(SVG_NS, name);
+    Object.keys(attributes || {}).forEach(function (key) {
+      element.setAttribute(key, attributes[key]);
+    });
+    return element;
+  }
+
+  function appendSvg(parent, name, attributes, text) {
+    var element = createSvgElement(name, attributes);
+    if (typeof text === 'string') element.textContent = text;
+    parent.appendChild(element);
+    return element;
+  }
+
+  function renderControls() {
+    if (subjectControls) {
+      subjectControls.innerHTML = '';
+      gradeData.subjects.forEach(function (subject) {
+        var button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'pp-chip-button';
+        button.dataset.subjectId = subject.id;
+        button.setAttribute('aria-pressed', subject.id === activeSubjectId ? 'true' : 'false');
+        button.textContent = subject.label;
+        if (subject.id === activeSubjectId) button.classList.add('is-active');
+        subjectControls.appendChild(button);
+      });
     }
-    return {};
+
+    if (periodControls) {
+      periodControls.innerHTML = '';
+      PERIODS.forEach(function (period) {
+        var button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'pp-chip-button';
+        button.dataset.periodId = period.id;
+        button.setAttribute('aria-pressed', period.id === activePeriod ? 'true' : 'false');
+        button.textContent = period.label;
+        if (period.id === activePeriod) button.classList.add('is-active');
+        periodControls.appendChild(button);
+      });
+    }
+  }
+
+  function refreshControlState() {
+    document.querySelectorAll('[data-subject-id]').forEach(function (button) {
+      var active = button.dataset.subjectId === activeSubjectId;
+      button.classList.toggle('is-active', active);
+      button.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+    document.querySelectorAll('[data-period-id]').forEach(function (button) {
+      var active = button.dataset.periodId === activePeriod;
+      button.classList.toggle('is-active', active);
+      button.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+  }
+
+  function renderGradeChart() {
+    var subject = subjectById(activeSubjectId);
+    var points = selectedPoints(subject);
+
+    refreshControlState();
+    if (!chartSvg || !chartShell || !subject || !points.length) {
+      if (chartSvg) chartSvg.innerHTML = '';
+      if (emptyState) emptyState.hidden = false;
+      return;
+    }
+    if (emptyState) emptyState.hidden = true;
+
+    var startPoint = subject.points[0];
+    var currentPoint = points[points.length - 1];
+    var delta = currentPoint.value - startPoint.value;
+    var shellStyle = window.getComputedStyle(chartShell);
+    var shellPaddingX = parseFloat(shellStyle.paddingLeft) + parseFloat(shellStyle.paddingRight);
+    var shellPaddingY = parseFloat(shellStyle.paddingTop) + parseFloat(shellStyle.paddingBottom);
+    var shellRect = chartShell.getBoundingClientRect();
+    var width = Math.max(300, Math.min(980, Math.round((shellRect.width || 760) - shellPaddingX)));
+    var height = Math.max(118, Math.round((shellRect.height || 240) - shellPaddingY));
+    var compactChart = height < 190;
+    var margin = compactChart
+      ? { top: 24, right: 18, bottom: 34, left: 30 }
+      : { top: 34, right: 32, bottom: 46, left: 38 };
+    var plotWidth = width - margin.left - margin.right;
+    var plotHeight = height - margin.top - margin.bottom;
+    var baselineY = margin.top + plotHeight;
+    var maxGrade = 20;
+    var minGrade = 0;
+
+    function x(index) {
+      if (points.length === 1) return margin.left + plotWidth / 2;
+      return margin.left + (plotWidth * index / (points.length - 1));
+    }
+
+    function y(value) {
+      return margin.top + ((maxGrade - value) / (maxGrade - minGrade)) * plotHeight;
+    }
+
+    chartSvg.innerHTML = '';
+    chartSvg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
+    chartSvg.setAttribute('width', String(width));
+    chartSvg.setAttribute('height', String(height));
+
+    appendSvg(chartSvg, 'title', { id: 'grade-chart-title' }, subject.label + ' - ' + periodLabel(activePeriod));
+    appendSvg(chartSvg, 'desc', { id: 'grade-chart-desc' }, 'Moyenne de départ ' + formatGrade(startPoint.value) + ', point actuel ' + formatGrade(currentPoint.value) + ', évolution ' + formatDelta(delta) + '.');
+
+    var gridGroup = appendSvg(chartSvg, 'g', { class: 'pp-chart-grid' });
+    [0, 5, 10, 15, 20].forEach(function (tick) {
+      var tickY = y(tick);
+      appendSvg(gridGroup, 'line', {
+        x1: margin.left,
+        y1: tickY.toFixed(2),
+        x2: (width - margin.right),
+        y2: tickY.toFixed(2),
+      });
+      appendSvg(gridGroup, 'text', {
+        x: 8,
+        y: (tickY + 4).toFixed(2),
+      }, String(tick));
+    });
+
+    appendSvg(chartSvg, 'line', {
+      class: 'pp-chart-axis',
+      x1: margin.left,
+      y1: baselineY,
+      x2: width - margin.right,
+      y2: baselineY,
+    });
+
+    var coordinates = points.map(function (point, index) {
+      return {
+        x: x(index),
+        y: y(Math.max(minGrade, Math.min(maxGrade, point.value))),
+        point: point,
+      };
+    });
+
+    if (coordinates.length > 1) {
+      var lineD = coordinates.map(function (coord, index) {
+        return (index === 0 ? 'M ' : 'L ') + coord.x.toFixed(2) + ' ' + coord.y.toFixed(2);
+      }).join(' ');
+      var areaD = lineD + ' L ' + coordinates[coordinates.length - 1].x.toFixed(2) + ' ' + baselineY.toFixed(2) + ' L ' + coordinates[0].x.toFixed(2) + ' ' + baselineY.toFixed(2) + ' Z';
+      appendSvg(chartSvg, 'path', { class: 'pp-chart-area', d: areaD });
+      appendSvg(chartSvg, 'path', { class: 'pp-chart-line', d: lineD });
+    }
+
+    coordinates.forEach(function (coord, index) {
+      var isStart = index === 0;
+      var isCurrent = index === coordinates.length - 1;
+      var pointClass = 'pp-chart-point' + (isStart ? ' is-start' : '') + (isCurrent ? ' is-current' : '');
+
+      appendSvg(chartSvg, 'line', {
+        class: 'pp-chart-point-guide',
+        x1: coord.x.toFixed(2),
+        y1: coord.y.toFixed(2),
+        x2: coord.x.toFixed(2),
+        y2: baselineY.toFixed(2),
+      });
+      appendSvg(chartSvg, 'circle', {
+        class: pointClass,
+        cx: coord.x.toFixed(2),
+        cy: coord.y.toFixed(2),
+        r: isCurrent ? 7 : 5,
+      });
+      appendSvg(chartSvg, 'text', {
+        class: 'pp-chart-x-label',
+        x: coord.x.toFixed(2),
+        y: height - 34,
+        'text-anchor': 'middle',
+      }, coord.point.label || '');
+
+      if (isStart || isCurrent) {
+        appendSvg(chartSvg, 'text', {
+          class: 'pp-chart-value-label',
+          x: coord.x.toFixed(2),
+          y: (coord.y - 14).toFixed(2),
+          'text-anchor': isCurrent && !isStart ? 'end' : (isStart && !isCurrent ? 'start' : 'middle'),
+        }, (isStart ? 'Départ ' : 'Actuel ') + formatGrade(coord.point.value));
+      }
+    });
+
+    setText('[data-grade-start]', formatGrade(startPoint.value));
+    setText('[data-grade-current]', formatGrade(currentPoint.value));
+    setText('[data-grade-delta]', formatDelta(delta));
+    setText('[data-grade-start-label]', 'Départ : ' + formatGrade(startPoint.value));
+    setText('[data-grade-current-label]', 'Actuel : ' + formatGrade(currentPoint.value));
+    setText('[data-grade-period-note]', activePeriod === 'global'
+      ? 'Vue globale depuis l\'arrivée sur le site.'
+      : periodLabel(activePeriod) + ' avec le départ site conservé.');
+    setText('[data-grade-live]', subject.label + ', ' + periodLabel(activePeriod) + ', ' + formatDelta(delta) + ' depuis le départ.');
+  }
+
+  function todayISO() {
+    var app = appState();
+    if (app && typeof app.today === 'function') return app.today();
+    return new Date().toISOString().slice(0, 10);
+  }
+
+  function isoOffset(baseIso, offset) {
+    var date = new Date(baseIso + 'T00:00:00');
+    date.setDate(date.getDate() + offset);
+    return date.toISOString().slice(0, 10);
+  }
+
+  function fallbackHistory(days) {
+    var out = [];
+    var today = todayISO();
+    for (var offset = days - 1; offset >= 0; offset--) {
+      var iso = isoOffset(today, -offset);
+      out.push({ date: iso, active: false, missionCompleted: false });
+    }
+    return out;
   }
 
   function formatDayName(iso) {
@@ -357,20 +644,30 @@
     return label.replace('.', '');
   }
 
+  function computeStreakFromHistory(history) {
+    var streak = 0;
+    for (var i = history.length - 1; i >= 0; i--) {
+      if (!history[i].active) break;
+      streak++;
+    }
+    return streak;
+  }
+
   function renderHistory(history) {
     var container = document.querySelector('[data-progress-history]');
     if (!container || !Array.isArray(history)) return;
 
     container.innerHTML = '';
-    var today = appState() && typeof appState().today === 'function' ? appState().today() : '';
+    var today = todayISO();
 
     history.forEach(function (entry) {
       var day = document.createElement('div');
       day.className = 'pp-day' + (entry.active ? ' active' : '') + (entry.date === today ? ' today' : '');
+      day.setAttribute('aria-label', formatDayName(entry.date) + ' ' + Number(entry.date.slice(-2)) + (entry.active ? ', jour actif' : ', pas encore actif'));
 
       var dow = document.createElement('span');
       dow.className = 'dow';
-      dow.textContent = formatDayName(entry.date);
+      dow.textContent = entry.date === today ? 'Auj' : formatDayName(entry.date);
 
       var dom = document.createElement('span');
       dom.className = 'dom';
@@ -378,6 +675,7 @@
 
       var mark = document.createElement('span');
       mark.className = 'mark';
+      mark.setAttribute('aria-hidden', 'true');
 
       day.appendChild(dow);
       day.appendChild(dom);
@@ -386,135 +684,70 @@
     });
   }
 
-  function renderProgression() {
+  function renderStreak() {
     var app = appState();
-    var currentMission = mission();
-    var completedToday = !!(app && typeof app.missionCompletedToday === 'function' && app.missionCompletedToday());
-    var weekCount = app && typeof app.weekMissionCount === 'function' ? safeNumber(app.weekMissionCount()) : 0;
-    var streak = app && typeof app.streakDays === 'function' ? safeNumber(app.streakDays()) : 0;
-    var activeDays = app && typeof app.activeDaysCount === 'function' ? safeNumber(app.activeDaysCount()) : 0;
-    var stage = app && typeof app.plantStage === 'function' ? app.plantStage() : 'seed';
-    var stageLabel = stageLabels[stage] || stageLabels.seed;
-    var missionTitle = currentMission.title || 'Mission du jour';
-    var subject = currentMission.subjectLabel || 'Mission';
-    var duration = currentMission.durationMinutes ? String(currentMission.durationMinutes) + ' min' : 'mission courte';
+    var history = app && typeof app.history === 'function'
+      ? app.history(7)
+      : fallbackHistory(7);
+    var streak = app && typeof app.streakDays === 'function'
+      ? safeNumber(app.streakDays())
+      : computeStreakFromHistory(history);
 
-    document.querySelectorAll('[data-progress-plant]').forEach(function (plant) {
-      plant.setAttribute('data-stage', stage);
-    });
-
-    setText('[data-progress-stage]', stageLabel);
-    setText('[data-progress-week-count]', String(weekCount));
     setText('[data-progress-streak]', String(streak));
-    setText('[data-progress-active-days]', String(activeDays));
     setText('[data-progress-history-chip]', streak > 0 ? plural(streak, 'jour', 'jours') + ' de suite' : 'Rythme à construire');
-    setText('[data-progress-week-copy]', weekCount > 0 ? plural(weekCount, 'mission') + ' terminée cette semaine.' : 'Le compteur augmente quand une mission est terminée.');
-    setText('[data-progress-streak-copy]', streak > 0 ? 'Un retour régulier garde la suite facile à reprendre.' : 'Revenir demain suffit à créer le premier repère.');
-
-    if (completedToday) {
-      document.querySelectorAll('[data-progress-status-card]').forEach(function (card) {
-        card.classList.remove('is-pending');
-      });
-      setText('[data-progress-subtitle]', "Mission terminée aujourd'hui. Ton avance est visible, puis la suite reste simple à retrouver.");
-      setText('[data-progress-stamp]', 'Aujourd\'hui · mission enregistrée');
-      setText('[data-progress-garden-title]', 'Ton avance a pris racine.');
-      setText('[data-progress-garden-meta]', subject + ' · ' + missionTitle);
-      setText('[data-progress-status-label]', 'Focus terminé');
-      setText('[data-progress-status-title]', 'La mission est ajoutée à ton avance.');
-      setText('[data-progress-status-copy]', 'Tu arrives ici depuis le focus : la session est bien prise en compte. La suite se lit dans le cockpit, sans repartir de zéro.');
-      setText('[data-progress-primary-route-label]', 'Voir la suite du jour');
-      setText('[data-progress-proof]', 'Mission terminée : le jardin, les jours actifs et le compteur semaine se mettent à jour ensemble.');
-      setText('[data-progress-detail-note]', 'Demain, le cockpit reprendra cette mission comme repère et proposera le prochain geste utile.');
-      document.querySelectorAll('[data-progress-primary-route]').forEach(function (link) {
-        link.href = 'index.html';
-      });
-    } else {
-      document.querySelectorAll('[data-progress-status-card]').forEach(function (card) {
-        card.classList.add('is-pending');
-      });
-      setText('[data-progress-subtitle]', 'La plante montre ce qui avance vraiment : des missions terminées et un retour régulier.');
-      setText('[data-progress-stamp]', activeDays > 0 ? plural(activeDays, 'jour actif', 'jours actifs') : 'Départ · une mission lance la pousse');
-      setText('[data-progress-garden-title]', activeDays > 0 ? 'Ton avance reste visible.' : 'Ton avance commence ici.');
-      setText('[data-progress-garden-meta]', activeDays > 0 ? plural(activeDays, 'jour actif', 'jours actifs') + ' enregistrés' : 'Termine une mission pour voir le jardin bouger.');
-      setText('[data-progress-status-label]', 'Mission du jour prête');
-      setText('[data-progress-status-title]', subject + ' · ' + missionTitle);
-      setText('[data-progress-status-copy]', 'Prochaine action : ' + duration + '. Elle compte pour ton objectif et elle suffit à faire avancer le jardin aujourd\'hui.');
-      setText('[data-progress-primary-route-label]', 'Ouvrir la mission');
-      setText('[data-progress-proof]', 'Le jardin suit le travail réel : mission terminée, jours actifs, reprise demain.');
-      setText('[data-progress-detail-note]', 'Une reprise courte garde le chapitre en mémoire. Le but est de savoir quoi faire, pas de remplir un tableau.');
-      document.querySelectorAll('[data-progress-primary-route]').forEach(function (link) {
-        link.href = 'mission.html';
-      });
-    }
-
-    if (app && typeof app.history === 'function') {
-      renderHistory(app.history(7));
-    }
+    setText('[data-progress-streak-copy]', streak > 0
+      ? 'Le streak reste simple : un jour actif, puis le suivant.'
+      : 'Revenir sur un jour actif suffit à créer le premier repère.');
+    renderHistory(history);
   }
 
-  function focusableInsidePanel() {
-    if (!drawerPanel) return [];
-    return Array.prototype.slice.call(drawerPanel.querySelectorAll(
-      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
-    ));
+  function rerenderGradesFromCurrentData() {
+    gradeData = normalizeGradeData(loadGradeData());
+    if (!gradeData.subjects.length) {
+      activeSubjectId = null;
+    } else if (!subjectById(activeSubjectId)) {
+      activeSubjectId = gradeData.defaultSubjectId;
+    }
+    renderControls();
+    renderGradeChart();
   }
 
-  function openDrawer() {
-    if (!drawer || !drawerPanel || !openButton) return;
-    previouslyFocused = document.activeElement;
-    drawer.removeAttribute('hidden');
-    document.body.classList.add('has-progress-details-open');
-    openButton.setAttribute('aria-expanded', 'true');
-    window.requestAnimationFrame(function () {
-      drawer.classList.add('is-open');
-      drawerPanel.focus();
+  if (subjectControls) {
+    subjectControls.addEventListener('click', function (event) {
+      var button = event.target.closest('[data-subject-id]');
+      if (!button) return;
+      activeSubjectId = button.dataset.subjectId;
+      renderGradeChart();
     });
   }
 
-  function closeDrawer() {
-    if (!drawer || !openButton || drawer.hasAttribute('hidden')) return;
-    drawer.classList.remove('is-open');
-    document.body.classList.remove('has-progress-details-open');
-    openButton.setAttribute('aria-expanded', 'false');
-    window.setTimeout(function () {
-      drawer.setAttribute('hidden', '');
-      if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
-        previouslyFocused.focus();
-      }
-    }, 220);
+  if (periodControls) {
+    periodControls.addEventListener('click', function (event) {
+      var button = event.target.closest('[data-period-id]');
+      if (!button) return;
+      activePeriod = button.dataset.periodId;
+      renderGradeChart();
+    });
   }
 
-  function trapFocus(event) {
-    if (!drawer || drawer.hasAttribute('hidden') || event.key !== 'Tab') return;
-    var focusables = focusableInsidePanel();
-    if (!focusables.length) return;
-    var first = focusables[0];
-    var last = focusables[focusables.length - 1];
-
-    if (!drawerPanel.contains(document.activeElement) || document.activeElement === drawerPanel) {
-      event.preventDefault();
-      (event.shiftKey ? last : first).focus();
-    } else if (event.shiftKey && document.activeElement === first) {
-      event.preventDefault();
-      last.focus();
-    } else if (!event.shiftKey && document.activeElement === last) {
-      event.preventDefault();
-      first.focus();
-    }
+  if (window.ResizeObserver && chartShell) {
+    var resizeObserver = new ResizeObserver(function () {
+      window.requestAnimationFrame(renderGradeChart);
+    });
+    resizeObserver.observe(chartShell);
+  } else {
+    window.addEventListener('resize', renderGradeChart);
   }
 
-  if (openButton) openButton.addEventListener('click', openDrawer);
-  closeButtons.forEach(function (button) {
-    button.addEventListener('click', closeDrawer);
-  });
-  document.addEventListener('keydown', function (event) {
-    if (event.key === 'Escape') closeDrawer();
-    trapFocus(event);
-  });
+  renderControls();
+  renderGradeChart();
+  renderStreak();
 
-  renderProgression();
   if (appState() && typeof appState().subscribe === 'function') {
-    appState().subscribe(renderProgression);
+    appState().subscribe(function () {
+      rerenderGradesFromCurrentData();
+      renderStreak();
+    });
   }
 }());
 </script>

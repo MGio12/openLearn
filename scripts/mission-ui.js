@@ -86,7 +86,7 @@
     setText('[data-daily-mission-page-reason]', mission.missionPageReason || mission.reason);
     setText('[data-daily-mission-duration]', duration);
     setText('[data-daily-mission-focus-duration]', focusDuration);
-    setText('[data-daily-mission-duration-cta]', 'Commencer la mission · ' + duration);
+    setText('[data-daily-mission-duration-cta]', 'Voir pourquoi cette mission compte');
     setText('[data-daily-mission-focus-cta]', 'Commencer le focus · ' + focusDuration);
     setText('[data-daily-mission-focus-lede]', mission.focusIntro || mission.reason);
     setText('[data-daily-mission-done-summary]', mission.completionSummary || '');

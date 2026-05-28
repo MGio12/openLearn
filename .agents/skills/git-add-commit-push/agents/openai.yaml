@@ -1,0 +1,4 @@
+interface:
+  display_name: "Git Add Commit Push"
+  short_description: "Stage, commit, and push repository changes to the remote"
+  default_prompt: "Use $git-add-commit-push to add all repo changes, create a commit, and push it to the remote branch."

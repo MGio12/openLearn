@@ -12,7 +12,6 @@ const APP_SHELL_PAGES = new Set([
   'index.html',
   'planning.html',
   'progression.html',
-  'mission.html',
   'objectif.html',
   'fiches.html',
   'controles.html',
@@ -141,6 +140,16 @@ async function assertH1Visible(page, label) {
   assert(await h1.isVisible(), `${label}: h1 must be visible`);
 }
 
+async function assertPageHeadingContract(page, pagePath, label) {
+  if (pagePath === 'onboarding.html') {
+    assert(await page.locator('#root').count(), `${label}: onboarding root must exist`);
+    assert(/Diagnostic/i.test(await page.title()), `${label}: onboarding title must describe the diagnostic`);
+    return;
+  }
+
+  await assertH1Visible(page, label);
+}
+
 async function assertLocalLinksExist(page, pagePath, label) {
   const hrefs = await page.locator('a[href]').evaluateAll((links) => links.map((link) => link.getAttribute('href')));
   const missing = [];
@@ -176,7 +185,7 @@ async function assertAppShellNavigation(page, pagePath, viewport, label) {
   assert(await sidebarContent.count(), `${label}: sidebar must expose Contenu`);
 
   const sidebarText = await page.locator('.sidebar').first().textContent();
-  assert(!/Fiches|Contrôles|Controles/.test(sidebarText || ''), `${label}: sidebar must not expose Fiches or Contrôles`);
+  assert(!/Fiches|Contrôles|Controles|Focus/.test(sidebarText || ''), `${label}: sidebar must not expose Fiches, Contrôles, or Focus`);
 
   if (viewport.label === 'desktop') {
     assert(await sidebarContent.isVisible(), `${label}: desktop sidebar Contenu link must be visible`);
@@ -246,7 +255,7 @@ async function checkPage(browser, baseUrl, pagePath, viewport) {
 
   try {
     await page.goto(pageUrl(baseUrl, pagePath), { waitUntil: 'networkidle' });
-    await assertH1Visible(page, label);
+    await assertPageHeadingContract(page, pagePath, label);
     await assertNoHorizontalOverflow(page, label);
     await assertLocalLinksExist(page, pagePath, label);
     await assertImagesLoaded(page, label);

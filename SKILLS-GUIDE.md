@@ -19,5 +19,11 @@ Référence à charger uniquement quand pertinent. L'essentiel (GSD, `/simplify`
 | `/canary` | Surveillance post-déploiement. |
 | `/health` | Score global qualité code. |
 
+## Skills projet locaux
+
+| Skill | Quand |
+|---|---|
+| `$git-add-commit-push` | Faire `git add -A`, créer un commit unique, puis pousser sur le remote. Lancer en `--dry-run` si le diff est large ou surprenant. Ne pas embarquer secrets, `.env`, gros artefacts, ou travaux non liés sans demande explicite. |
+
 ## Mise à jour
 Si une règle bloque ou si un meilleur workflow émerge, mettre à jour ici — pas dans la mémoire Claude (qui ne traverse pas les conversations).

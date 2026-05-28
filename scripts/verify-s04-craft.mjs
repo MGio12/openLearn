@@ -8,7 +8,7 @@ const ROOT = join(__dirname, '..');
 
 const FILES = {
   'index.html': join(ROOT, 'index.html'),
-  'mission.html': join(ROOT, 'mission.html'),
+  'objectif.html': join(ROOT, 'objectif.html'),
   'checkout.html': join(ROOT, 'checkout.html'),
   'merci.html': join(ROOT, 'merci.html'),
   'styles.css': join(ROOT, 'styles.css'),
@@ -23,10 +23,10 @@ const PAGES = [
     ctaSelectors: ['.ap-mission__cta'],
   },
   {
-    file: 'mission.html',
-    label: 'mission',
-    requiredVisibleSelectors: ['.mp-hero', '.mp-steps', '.routine-continuation'],
-    ctaSelectors: ['.mp-cta', '.routine-continuation .route'],
+    file: 'objectif.html',
+    label: 'objectif',
+    requiredVisibleSelectors: ['.op-decision', '.op-heatmap', '.op-strategy'],
+    ctaSelectors: ['.op-cta', '.op-prio', '.op-strategy__cta'],
   },
   {
     file: 'checkout.html',

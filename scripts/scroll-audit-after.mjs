@@ -17,11 +17,9 @@ const VIEWPORTS = [
 ];
 
 const PAGES = [
-  { file: 'index.html', primaryAction: /Commencer la mission/ },
-  { file: 'mission.html', primaryAction: /Commencer le focus/ },
+  { file: 'index.html', primaryAction: /Voir pourquoi cette mission compte/ },
   { file: 'checkout.html', primaryAction: /Garder le plan/ },
   { file: 'onboarding.html', primaryAction: null },
-  { file: 'focus.html', primaryAction: null },
   { file: 'progression.html', primaryAction: /Détails par matière/ },
   { file: 'objectif.html', primaryAction: /Planifier ces leviers/ },
   { file: 'merci.html', primaryAction: /Ouvrir mon cockpit/ },
