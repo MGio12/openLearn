@@ -11,8 +11,7 @@
   var END_HOUR = 20;
   var START_MINUTES = START_HOUR * 60;
   var END_MINUTES = END_HOUR * 60;
-  var BOARD_HEIGHT = 900;
-  var MINUTE_HEIGHT = BOARD_HEIGHT / (END_MINUTES - START_MINUTES);
+  var TOTAL_MINUTES = END_MINUTES - START_MINUTES;
 
   var DAYS = [
     { id: 'mon', short: 'Lun.', label: 'Lundi' },
@@ -36,12 +35,6 @@
     color: '#E7DECF',
     icon: 'ph-person-simple-run',
   };
-
-  var assistantExamples = [
-    'Ajoute 30 min de maths avant le controle de vendredi.',
-    'Deplace le travail de physique mardi si je finis a 18h.',
-    'Garde le mercredi leger, j ai deja atelier code.',
-  ];
 
   var board = document.querySelector('[data-planning-board]');
   var mobileAgenda = document.querySelector('[data-mobile-agenda]');
@@ -98,9 +91,14 @@
     var end = parseTime(item.end);
     var clampedStart = clamp(start, START_MINUTES, END_MINUTES);
     var clampedEnd = clamp(Math.max(end, start + 15), START_MINUTES, END_MINUTES);
+    if (clampedEnd <= clampedStart) {
+      clampedEnd = clamp(clampedStart + 15, START_MINUTES, END_MINUTES);
+    }
+
     return {
-      startOffset: clampedStart - START_MINUTES,
-      duration: Math.max(15, clampedEnd - clampedStart),
+      startPercent: ((clampedStart - START_MINUTES) / TOTAL_MINUTES) * 100,
+      durationPercent: ((clampedEnd - clampedStart) / TOTAL_MINUTES) * 100,
+      durationMinutes: Math.max(0, clampedEnd - clampedStart),
     };
   }
 
@@ -125,6 +123,24 @@
     }
     if (item.location) bits.push(item.location);
     return bits.join(' - ');
+  }
+
+  function desktopEventTitle(schedule, item) {
+    var subject = subjectFor(schedule, item);
+    if (item.kind === 'course') return subject.label || item.title || 'Cours';
+    if (item.kind === 'recommended_work') return 'Travail · ' + (subject.label || item.title || 'matiere');
+    if (item.kind === 'activity') return item.title || 'Activite';
+    if (item.kind === 'break') return 'Pause';
+    return item.title || kindLabel(item.kind);
+  }
+
+  function eventAriaLabel(schedule, item) {
+    return [
+      formatRange(item),
+      kindLabel(item.kind),
+      item.title,
+      eventMeta(schedule, item),
+    ].filter(Boolean).join(' - ');
   }
 
   function renderLegend(schedule) {
@@ -156,23 +172,18 @@
 
     event.dataset.scheduleItemId = item.id;
     event.dataset.scheduleSource = item.source || 'student';
-    event.style.top = (bounds.startOffset * MINUTE_HEIGHT) + 'px';
-    event.style.height = Math.max(40, (bounds.duration * MINUTE_HEIGHT) - 5) + 'px';
+    event.style.top = bounds.startPercent.toFixed(4) + '%';
+    event.style.height = 'max(24px, calc(' + bounds.durationPercent.toFixed(4) + '% - 4px))';
     event.style.setProperty('--subject-color', subject.color || ACTIVITY_SUBJECT.color);
-    event.setAttribute('aria-label', formatRange(item) + ' ' + item.title);
+    event.setAttribute('aria-label', eventAriaLabel(schedule, item));
 
-    event.appendChild(createElement('span', 'schedule-event__time', formatRange(item)));
-    event.appendChild(createElement('span', 'schedule-event__kind', kindLabel(item.kind)));
-    event.appendChild(createElement('strong', 'schedule-event__title', item.title));
-    event.appendChild(createElement('span', 'schedule-event__meta', eventMeta(schedule, item)));
+    event.appendChild(createElement('strong', 'schedule-event__title', desktopEventTitle(schedule, item)));
     return event;
   }
 
   function renderBoard(schedule) {
     if (!board) return;
     board.textContent = '';
-    board.style.setProperty('--board-height', BOARD_HEIGHT + 'px');
-    board.style.setProperty('--hour-height', (60 * MINUTE_HEIGHT) + 'px');
 
     var head = createElement('div', 'planning-board__head');
     head.appendChild(createElement('div', 'planning-board__corner'));
@@ -187,8 +198,11 @@
     var body = createElement('div', 'planning-board__body');
     var timeRail = createElement('div', 'planning-time-rail');
     for (var hour = START_HOUR; hour <= END_HOUR; hour++) {
-      var label = createElement('span', 'planning-time-label', String(hour).padStart(2, '0') + ':00');
-      label.style.top = ((hour * 60 - START_MINUTES) * MINUTE_HEIGHT) + 'px';
+      var labelClass = 'planning-time-label';
+      if (hour === START_HOUR) labelClass += ' planning-time-label--start';
+      if (hour === END_HOUR) labelClass += ' planning-time-label--end';
+      var label = createElement('span', labelClass, String(hour).padStart(2, '0') + ':00');
+      label.style.top = (((hour * 60 - START_MINUTES) / TOTAL_MINUTES) * 100).toFixed(4) + '%';
       timeRail.appendChild(label);
     }
     body.appendChild(timeRail);
@@ -244,25 +258,62 @@
     });
   }
 
-  function renderAssistant() {
-    if (!assistant || assistant.dataset.rendered === 'true') return;
-    assistant.dataset.rendered = 'true';
+  function recommendedWorkItems(schedule) {
+    return (schedule.items || [])
+      .filter(function (item) { return item && item.kind === 'recommended_work'; })
+      .slice()
+      .sort(function (a, b) {
+        var dayA = DAYS.findIndex(function (day) { return day.id === a.day; });
+        var dayB = DAYS.findIndex(function (day) { return day.id === b.day; });
+        if (dayA !== dayB) return dayA - dayB;
+        return parseTime(a.start) - parseTime(b.start);
+      });
+  }
+
+  function formatDuration(minutes) {
+    var hours = Math.floor(minutes / 60);
+    var rest = minutes % 60;
+    if (!hours) return rest + ' min';
+    if (!rest) return hours + ' h';
+    return hours + ' h ' + String(rest).padStart(2, '0');
+  }
+
+  function nextRecommendedLabel(schedule, item) {
+    if (!item) return 'Aucun ajout conseille';
+    var subject = subjectFor(schedule, item);
+    var day = DAYS.find(function (candidate) { return candidate.id === item.day; });
+    return (day ? day.short : 'Jour') + ' ' + (item.start || '') + ' · ' + (subject.label || item.title || 'matiere');
+  }
+
+  function renderAssistant(schedule) {
+    if (!assistant) return;
+    assistant.textContent = '';
+
+    var recommendedItems = recommendedWorkItems(schedule);
+    var totalMinutes = recommendedItems.reduce(function (sum, item) {
+      return sum + eventBounds(item).durationMinutes;
+    }, 0);
+    var nextItem = recommendedItems[0] || null;
 
     var head = createElement('div', 'planning-assistant__head');
     var icon = createElement('span', 'planning-assistant__icon');
     var iconGlyph = createElement('i', 'ph-bold ph-calendar-blank');
     var titleWrap = createElement('div');
     var title = createElement('h2', '', 'Assistant planning');
-    var tag = createElement('span', 'planning-assistant__tag', 'pret pour agent IA');
-    var form = createElement('div', 'assistant-input');
-    var label = createElement('label', '', 'Demande');
-    var textarea = createElement('textarea');
-    var button = createElement('button', '', 'Analyser bientot');
-    var examples = createElement('div', 'assistant-examples');
+    var tag = createElement('span', 'planning-assistant__tag', 'repere utile');
+    var summary = createElement(
+      'p',
+      'assistant-summary',
+      'Objectif Lycee ajoute les creneaux utiles, sans recopier Pronote.'
+    );
+    var stats = createElement('div', 'assistant-stats');
+    var countStat = createElement('div', 'assistant-stat');
+    var durationStat = createElement('div', 'assistant-stat');
+    var next = createElement('div', 'assistant-next');
     var footnote = createElement(
       'p',
       'assistant-footnote',
-      'Dans cette version, la zone prepare les demandes. Aucune sauvegarde distante ni generation IA n est lancee.'
+      'Les details restent dans chaque creneau mobile et dans les libelles accessibles.'
     );
 
     title.id = 'planning-assistant-title';
@@ -273,24 +324,19 @@
     head.appendChild(icon);
     head.appendChild(titleWrap);
 
-    textarea.id = 'planning-assistant-request';
-    textarea.placeholder = assistantExamples[0];
-    textarea.setAttribute('spellcheck', 'true');
-    label.setAttribute('for', textarea.id);
-    button.type = 'button';
-    button.disabled = true;
-
-    form.appendChild(label);
-    form.appendChild(textarea);
-    form.appendChild(button);
-
-    assistantExamples.forEach(function (example) {
-      examples.appendChild(createElement('div', 'assistant-example', example));
-    });
+    countStat.appendChild(createElement('strong', '', String(recommendedItems.length)));
+    countStat.appendChild(createElement('span', '', recommendedItems.length > 1 ? 'creneaux utiles' : 'creneau utile'));
+    durationStat.appendChild(createElement('strong', '', formatDuration(totalMinutes)));
+    durationStat.appendChild(createElement('span', '', 'travail ajoute'));
+    stats.appendChild(countStat);
+    stats.appendChild(durationStat);
+    next.appendChild(createElement('span', '', 'Prochain ajout'));
+    next.appendChild(createElement('strong', '', nextRecommendedLabel(schedule, nextItem)));
 
     assistant.appendChild(head);
-    assistant.appendChild(form);
-    assistant.appendChild(examples);
+    assistant.appendChild(summary);
+    assistant.appendChild(stats);
+    assistant.appendChild(next);
     assistant.appendChild(footnote);
   }
 
@@ -302,7 +348,7 @@
     renderLegend(schedule);
     renderBoard(schedule);
     renderMobileAgenda(schedule);
-    renderAssistant();
+    renderAssistant(schedule);
   }
 
   render();

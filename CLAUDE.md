@@ -76,6 +76,7 @@ Objectif : ne pas tout relire. Charge seulement les fichiers utiles au travail e
 | Travailler la promesse, paywall, pricing, parent/élève | `docs/mission-valeur-monetisation.md` + `docs/version-lycee-priorites.md` | Positionnement produit, funnel, valeur élève/parent, priorités lycée. |
 | Prioriser le prochain sprint | `TODO.md` + `docs/version-lycee-priorites.md` | Roadmap active et priorités produit lycée. |
 | Modifier le parcours site/app | `WORKFLOW.md` + `TODO.md` | Boucle dashboard → objectif → planning/progression → checkout, avec "mission du jour" comme concept produit et non comme page dédiée. |
+| Adapter une page app en écran sans scroll | `docs/regles-layout-no-scroll.md` + page HTML/CSS ciblée | Règle à appliquer au cas par cas pour les interfaces cockpit qui doivent tenir dans le viewport desktop, avec responsive mobile dédié. |
 | Toucher au flow d'onboarding | `onboarding.html` + `onboarding/state.jsx` (manifeste écrans, choix, moteur mission) + `onboarding/onboarding.css` | React précompilé avec `npm run build:onboarding`, state machine 15 écrans, persistance localStorage. Voir bullet "Exception onboarding" plus haut. |
 | Reprendre une décision produit majeure | `docs/superpowers/specs/2026-05-14-vision-produit.md` + `docs/superpowers/specs/2026-05-14-objectif-lycee-dashboard-design.md` | Vision et design dashboard déjà validés. |
 | Chercher la méthode de dev solo | `docs/vibe-coding-methode.md` + `SKILLS-GUIDE.md` | Méthode de travail, skills, revues, itérations. |
