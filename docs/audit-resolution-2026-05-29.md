@@ -4,6 +4,7 @@ Cette matrice ferme le rapport `AUDIT-PARALLELE-OBJECTIF-LYCEE-2026-05-29.md` da
 
 - `fixed-v1` : déjà couvert par la première tranche d'audit avant cette passe.
 - `fixed-v2` : corrigé dans cette passe.
+- `prepared-v3` : dette préparée par un contrat vérifié, sans activer encore le backend final.
 - `not-useful` : faux positif, déjà couvert autrement, ou contraire aux règles projet.
 - `accepted-debt` : dette réelle mais volontairement reportée hors de cette passe.
 
@@ -13,6 +14,7 @@ Cette matrice ferme le rapport `AUDIT-PARALLELE-OBJECTIF-LYCEE-2026-05-29.md` da
 - Parcours : `npm run verify:s01`, `npm run verify:s02`, `npm run verify:s03`, `npm run verify:s04`, `npm run verify:s05`.
 - Onboarding : `npm run build:onboarding`, `npm run verify:onboarding`.
 - Cours et responsive : `npm run verify:course-sidebar`, `npm run verify:redesign`, `npm run verify:cwv`.
+- IA cours pilote : `npm run verify:course-agent`, `npm run verify:unsafe-html`.
 - Global : `npm run validate:json`, `npm run verify:agent-map`, `npm run verify`, `git diff --check`.
 
 ## Matrice
@@ -43,8 +45,8 @@ Cette matrice ferme le rapport `AUDIT-PARALLELE-OBJECTIF-LYCEE-2026-05-29.md` da
 | 2B-002 | fixed-v1 | Les révélations de cours utilisent des écritures DOM contrôlées ; pas d'entrée utilisateur rendue en HTML. | `npm run verify:unsafe-html`, `npm run verify:course-sidebar` |
 | 2B-003 | not-useful | DOMPurify n'est pas ajouté : pas de HTML utilisateur accepté aujourd'hui et pas de nouvelle dépendance sans besoin. | Revue code + `npm run verify:unsafe-html` |
 | 2B-004 | not-useful | Pas de nouveau contrat IA utilisateur dans cette passe ; la règle courante reste `textContent`, pas HTML riche. | `npm run verify:unsafe-html` |
-| 2B-005 | accepted-debt | Le filtrage KaTeX d'entrées utilisateur appartient à la future tranche IA, absente du produit actuel. | Non applicable aujourd'hui |
-| 2B-006 | accepted-debt | Les futurs champs IA seront traités dans une tranche dédiée ; aucun champ IA actif ne rend du HTML utilisateur. | Non applicable aujourd'hui |
+| 2B-005 | prepared-v3 | Le pilote IA de cours borne la réponse élève, ne rend pas de KaTeX dynamique depuis l'entrée utilisateur, et garde les formules en contenu statique du cours. | `npm run verify:course-agent`, `npm run verify:unsafe-html` |
+| 2B-006 | prepared-v3 | Les futurs champs IA ont maintenant un contrat DOM/manifeste vérifié ; le tiroir rend le feedback mock avec `textContent` et sans secret frontend. | `npm run verify:course-agent`, `npm run verify:unsafe-html` |
 | 2B-007 | fixed-v1 | Le bundle généré reste ignoré ; la source JSX est scannée et porte le commentaire d'autorisation. | `npm run verify:unsafe-html` |
 | 2B-008 | fixed-v2 | La validation parent est fermée par whitelist et usage `textContent`; `cleanString()` n'est pas présenté comme sanitizer HTML général. | `npm run verify:parent-share` |
 | 2C-001 | fixed-v1 | `verify:unsafe-html` scanne les sources `.jsx` et ignore seulement le bundle généré. | `npm run verify:unsafe-html` |
@@ -101,5 +103,5 @@ Cette matrice ferme le rapport `AUDIT-PARALLELE-OBJECTIF-LYCEE-2026-05-29.md` da
 ## Dette acceptée à reprendre plus tard
 
 - Split logique fin du modèle métier (`1A-003`) seulement si les responsabilités deviennent modifiées séparément.
-- Contrats de futurs blocs IA utilisateur (`2B-005`, `2B-006`) au moment où le produit accepte vraiment des réponses élève traitées par IA.
+- Backend IA réel et prompts serveur seulement au moment où le produit accepte vraiment des réponses élève traitées par IA.
 - Mutualisation des helpers Playwright et parallélisation CI (`4A-005`, `4B-007`) si le temps de `npm run verify` devient bloquant.

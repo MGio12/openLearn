@@ -96,12 +96,14 @@ Fichiers proprietaires :
 Contrat DOM/data principal :
 
 - Une page de cours utilise `body.has-course-sidebar`, `data-course-layout`, `data-course-sidebar`, `data-sidebar-toggle`, et `data-section-link`.
+- Le tiroir IA de cours est partage par `prototypes/cours/maths-specialite/cours.js` et `cours.css`. Un chapitre pilote expose `script[type="application/json"][data-course-agent-contexts]`, et chaque bouton `button[data-course-agent-open="<contextId>"]` doit pointer vers un contexte existant. Le pilote `second-degre` ajoute aussi un bloc haut de page `[data-course-agent-entry]`, trois liens `[data-course-agent-jump]` et des marqueurs `.toc-agent-badge` dans la sidebar pour rendre les boutons IA trouvables sans les deplacer.
 - Les formules exactes restent en KaTeX. Les courbes, graphes et constructions exactes passent par JSXGraph, Desmos, GeoGebra, ou des points calcules depuis une vraie fonction.
 - Les corrections et aides doivent etre revelables, et chaque notion importante doit demander une production eleve.
 
 Commandes de verification :
 
 - `npm run verify:course-sidebar` verifie tous les prototypes `prototypes/cours/maths-specialite/*/index.html`.
+- `npm run verify:course-agent` verifie le pilote IA `second-degre` : manifeste, boutons, liens de decouvrabilite, marqueurs sidebar, tiroir desktop/mobile, focus, feedback texte et absence d'overflow.
 - `node scripts/verify-course-sidebar.mjs prototypes/cours/maths-specialite/second-degre/index.html`
 - `git diff --check`
 
@@ -110,6 +112,7 @@ Pieges connus :
 - Ne pas remplacer les PDF valides par une lecon generique. Maths91 sert de colonne vertebrale, Maths-et-tiques complete l'intuition.
 - Ne jamais dessiner une courbe, un axe, une tangente ou un graphe approximatif en SVG, Canvas, CSS ou HTML decoratif.
 - Ne jamais mettre une formule KaTeX importante dans un conteneur etroit ou avec scroll horizontal.
+- Ne jamais exposer de cle DeepSeek, endpoint prive ou secret dans le frontend ; le tiroir IA actuel est un mock de preparation et rend le feedback avec `textContent`.
 
 Ne pas refactorer sans raison :
 
@@ -142,6 +145,7 @@ Commandes de verification :
 - `npm run verify:agent-map`
 - `npm run verify:analytics`
 - `npm run verify:redesign`
+- `npm run verify:course-agent`
 - `npm run verify`
 - `git diff --check`
 

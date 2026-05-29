@@ -26,6 +26,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   initCourseSidebar();
   initReadingProgress();
   initLazyCourseGraphs();
+  initCourseAgent();
   revealCourseWhenFontsAreReady();
 });
 
@@ -247,6 +248,289 @@ function initReadingProgress() {
   window.addEventListener('scroll', scheduleProgressUpdate, { passive: true });
   window.addEventListener('resize', scheduleProgressUpdate);
   updateScrollProgress();
+}
+
+const COURSE_AGENT_INPUT_MAX_LENGTH = 800;
+
+function initCourseAgent() {
+  const manifestScript = document.querySelector('script[type="application/json"][data-course-agent-contexts]');
+  const triggers = Array.from(document.querySelectorAll('[data-course-agent-open]'));
+
+  if (!manifestScript || !triggers.length) return;
+
+  let manifest = null;
+  try {
+    manifest = JSON.parse(manifestScript.textContent || '{}');
+  } catch (error) {
+    console.warn('Manifeste du tiroir IA illisible.');
+    return;
+  }
+
+  const contexts = new Map((manifest.contexts || []).map((context) => [context.id, context]));
+  if (!contexts.size) return;
+
+  const drawer = createCourseAgentDrawer();
+  document.body.appendChild(drawer.root);
+
+  let activeContext = null;
+  let activeTrigger = null;
+
+  const closeDrawer = () => {
+    if (drawer.root.dataset.open !== 'true') return;
+
+    drawer.root.dataset.open = 'false';
+    drawer.root.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('is-course-agent-open');
+
+    const triggerToFocus = activeTrigger;
+    activeContext = null;
+    activeTrigger = null;
+
+    if (triggerToFocus && document.contains(triggerToFocus)) {
+      window.requestAnimationFrame(() => {
+        triggerToFocus.focus({ preventScroll: true });
+      });
+    }
+  };
+
+  const updateCount = () => {
+    if (drawer.input.value.length > COURSE_AGENT_INPUT_MAX_LENGTH) {
+      drawer.input.value = drawer.input.value.slice(0, COURSE_AGENT_INPUT_MAX_LENGTH);
+    }
+    drawer.count.textContent = `${drawer.input.value.length}/${COURSE_AGENT_INPUT_MAX_LENGTH}`;
+  };
+
+  const openDrawer = (context, trigger) => {
+    activeContext = context;
+    activeTrigger = trigger;
+
+    const section = document.getElementById(context.sectionId);
+    const sectionTitle = section?.querySelector('h2')?.textContent?.trim() || context.sectionId;
+
+    drawer.title.textContent = manifest.courseTitle || 'Cours';
+    drawer.section.textContent = `${sectionTitle} · ${context.entryLabel}`;
+    drawer.task.textContent = context.studentTask;
+    drawer.context.textContent = context.minimalContext;
+    drawer.goal.textContent = context.feedbackGoal;
+    drawer.input.value = '';
+    drawer.feedback.textContent = 'Écris une réponse, puis prépare le retour contextualisé.';
+    updateCount();
+
+    drawer.root.dataset.open = 'true';
+    drawer.root.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('is-course-agent-open');
+
+    window.requestAnimationFrame(() => {
+      drawer.input.focus({ preventScroll: true });
+    });
+  };
+
+  const submitAnswer = () => {
+    if (!activeContext) return;
+
+    const answer = drawer.input.value.trim();
+    if (!answer) {
+      drawer.feedback.textContent = 'Écris une réponse avant de demander un retour.';
+      drawer.input.focus({ preventScroll: true });
+      return;
+    }
+
+    drawer.feedback.textContent = [
+      `Mode préparation : ta réponse sera envoyée avec le contexte "${activeContext.id}".`,
+      `Objectif du retour : ${activeContext.feedbackGoal}`,
+      'Aucun appel IA réel n’est effectué dans cette tranche.',
+    ].join(' ');
+  };
+
+  for (const trigger of triggers) {
+    const context = contexts.get(trigger.dataset.courseAgentOpen);
+    if (!context) continue;
+
+    trigger.setAttribute('aria-haspopup', 'dialog');
+    trigger.setAttribute('aria-controls', drawer.root.id);
+    trigger.addEventListener('click', () => openDrawer(context, trigger));
+  }
+
+  drawer.input.addEventListener('input', updateCount);
+  drawer.submit.addEventListener('click', submitAnswer);
+  drawer.closeButtons.forEach((button) => button.addEventListener('click', closeDrawer));
+  drawer.backdrop.addEventListener('click', closeDrawer);
+  drawer.root.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeDrawer();
+      return;
+    }
+
+    if (event.key === 'Tab') {
+      trapCourseAgentFocus(event, drawer.root);
+    }
+  });
+}
+
+function createCourseAgentDrawer() {
+  const root = document.createElement('div');
+  root.className = 'course-agent';
+  root.id = 'course-agent-drawer';
+  root.dataset.courseAgentDrawer = '';
+  root.dataset.open = 'false';
+  root.setAttribute('aria-hidden', 'true');
+
+  const backdrop = document.createElement('button');
+  backdrop.className = 'course-agent__backdrop';
+  backdrop.type = 'button';
+  backdrop.tabIndex = -1;
+  backdrop.setAttribute('aria-label', 'Fermer le tiroir IA');
+  root.appendChild(backdrop);
+
+  const panel = document.createElement('section');
+  panel.className = 'course-agent__panel';
+  panel.setAttribute('role', 'dialog');
+  panel.setAttribute('aria-modal', 'true');
+  panel.setAttribute('aria-labelledby', 'course-agent-title');
+  panel.setAttribute('aria-describedby', 'course-agent-task');
+  root.appendChild(panel);
+
+  const header = document.createElement('div');
+  header.className = 'course-agent__header';
+  panel.appendChild(header);
+
+  const headerText = document.createElement('div');
+  headerText.className = 'course-agent__header-text';
+  header.appendChild(headerText);
+
+  const section = document.createElement('p');
+  section.className = 'course-agent__section';
+  section.dataset.courseAgentSection = '';
+  headerText.appendChild(section);
+
+  const title = document.createElement('h2');
+  title.id = 'course-agent-title';
+  headerText.appendChild(title);
+
+  const close = document.createElement('button');
+  close.className = 'course-agent__icon-button';
+  close.type = 'button';
+  close.dataset.courseAgentClose = '';
+  close.setAttribute('aria-label', 'Fermer le tiroir IA');
+  close.textContent = '×';
+  header.appendChild(close);
+
+  const task = document.createElement('p');
+  task.className = 'course-agent__task';
+  task.id = 'course-agent-task';
+  task.dataset.courseAgentTask = '';
+  panel.appendChild(task);
+
+  const contextGrid = document.createElement('div');
+  contextGrid.className = 'course-agent__context-grid';
+  panel.appendChild(contextGrid);
+
+  const contextBlock = createCourseAgentInfoBlock('Contexte envoyé');
+  contextBlock.value.dataset.courseAgentContext = '';
+  contextGrid.appendChild(contextBlock.root);
+
+  const goalBlock = createCourseAgentInfoBlock('But du retour');
+  goalBlock.value.dataset.courseAgentGoal = '';
+  contextGrid.appendChild(goalBlock.root);
+
+  const label = document.createElement('label');
+  label.className = 'course-agent__label';
+  label.setAttribute('for', 'course-agent-input');
+  label.textContent = 'Ta réponse';
+  panel.appendChild(label);
+
+  const input = document.createElement('textarea');
+  input.id = 'course-agent-input';
+  input.className = 'course-agent__input';
+  input.dataset.courseAgentInput = '';
+  input.maxLength = COURSE_AGENT_INPUT_MAX_LENGTH;
+  input.rows = 5;
+  input.placeholder = 'Écris ton raisonnement, pas seulement le résultat.';
+  panel.appendChild(input);
+
+  const meta = document.createElement('div');
+  meta.className = 'course-agent__meta';
+  panel.appendChild(meta);
+
+  const count = document.createElement('span');
+  count.className = 'course-agent__count';
+  count.textContent = `0/${COURSE_AGENT_INPUT_MAX_LENGTH}`;
+  meta.appendChild(count);
+
+  const feedback = document.createElement('p');
+  feedback.className = 'course-agent__feedback';
+  feedback.dataset.courseAgentFeedback = '';
+  feedback.setAttribute('role', 'status');
+  feedback.setAttribute('aria-live', 'polite');
+  panel.appendChild(feedback);
+
+  const actions = document.createElement('div');
+  actions.className = 'course-agent__actions';
+  panel.appendChild(actions);
+
+  const closeSecondary = document.createElement('button');
+  closeSecondary.className = 'course-agent__button course-agent__button--secondary';
+  closeSecondary.type = 'button';
+  closeSecondary.dataset.courseAgentClose = '';
+  closeSecondary.textContent = 'Fermer';
+  actions.appendChild(closeSecondary);
+
+  const submit = document.createElement('button');
+  submit.className = 'course-agent__button course-agent__button--primary';
+  submit.type = 'button';
+  submit.dataset.courseAgentSubmit = '';
+  submit.textContent = 'Préparer le retour';
+  actions.appendChild(submit);
+
+  return {
+    root,
+    backdrop,
+    title,
+    section,
+    task,
+    context: contextBlock.value,
+    goal: goalBlock.value,
+    input,
+    count,
+    feedback,
+    submit,
+    closeButtons: [close, closeSecondary],
+  };
+}
+
+function createCourseAgentInfoBlock(labelText) {
+  const root = document.createElement('div');
+  root.className = 'course-agent__info';
+
+  const label = document.createElement('p');
+  label.className = 'course-agent__info-label';
+  label.textContent = labelText;
+  root.appendChild(label);
+
+  const value = document.createElement('p');
+  value.className = 'course-agent__info-value';
+  root.appendChild(value);
+
+  return { root, value };
+}
+
+function trapCourseAgentFocus(event, drawer) {
+  const focusable = Array.from(drawer.querySelectorAll('button:not([disabled]), textarea:not([disabled])'))
+    .filter((element) => element.tabIndex >= 0 && (element.offsetWidth > 0 || element.offsetHeight > 0));
+
+  if (!focusable.length) return;
+
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+
+  if (event.shiftKey && document.activeElement === first) {
+    event.preventDefault();
+    last.focus();
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault();
+    first.focus();
+  }
 }
 
 const JSXGRAPH_CSS_URL = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css';

@@ -94,6 +94,7 @@ prototypes/cours/maths-specialite/<chapitre>/
 - boutons de révélation/correction ;
 - sidebar de cours ;
 - progression de lecture ;
+- tiroir IA de cours ouvert par `button[data-course-agent-open="<contextId>"]` et alimenté par `script[type="application/json"][data-course-agent-contexts]` ;
 - loader JSXGraph ;
 - helpers de graphe seulement après duplication réelle.
 
@@ -113,10 +114,12 @@ Garde-fous principaux :
 - `npm run verify:localstorage`
 - `npm run verify:server-security`
 - `npm run verify:course-sidebar`
+- `npm run verify:course-agent`
 - `npm run verify:redesign`
 - `node scripts/verify-course-sidebar.mjs <page-de-cours>`
 - `git diff --check`
 
-`npm run verify` inclut `validate:json`, `verify:agent-map`, `verify:unsafe-html`, `verify:localstorage`, `verify:server-security`, `verify:parent-share`, `verify:onboarding`, `verify:analytics`, `verify:s01` à `verify:s05`, `verify:course-sidebar`, `verify:redesign` et `verify:cwv`. `verify:agent-map` contrôle que la carte `docs/agent-codebase-map.md` garde 5 zones maximum, que les commandes `npm run ...` documentées existent dans `package.json`, que les chemins critiques référencés existent encore, et que `CLAUDE.md` pointe vers la carte. `verify:unsafe-html` scanne les sources HTML/JS/JSX et refuse `insertAdjacentHTML`, `dangerouslySetInnerHTML` ou un `innerHTML` non vide sans commentaire proche `unsafe-html-allow`. Le bundle généré `onboarding/onboarding.bundle.js` est exclu : l'autorisation doit vivre dans la source JSX. `verify:localstorage` refuse toute clé non documentée, sauf lecture/migration de l'ancienne clé checkout. `verify:server-security` lance `_server.cjs` sur une racine temporaire et contrôle `SITE_ROOT`, le rejet de traversal et les messages d'erreur sans fuite de chemin.
+`npm run verify` inclut `validate:json`, `verify:agent-map`, `verify:unsafe-html`, `verify:localstorage`, `verify:server-security`, `verify:parent-share`, `verify:onboarding`, `verify:analytics`, `verify:s01` à `verify:s05`, `verify:course-sidebar`, `verify:course-agent`, `verify:redesign` et `verify:cwv`. `verify:agent-map` contrôle que la carte `docs/agent-codebase-map.md` garde 5 zones maximum, que les commandes `npm run ...` documentées existent dans `package.json`, que les chemins critiques référencés existent encore, et que `CLAUDE.md` pointe vers la carte. `verify:unsafe-html` scanne les sources HTML/JS/JSX et refuse `insertAdjacentHTML`, `dangerouslySetInnerHTML` ou un `innerHTML` non vide sans commentaire proche `unsafe-html-allow`. Le bundle généré `onboarding/onboarding.bundle.js` est exclu : l'autorisation doit vivre dans la source JSX. `verify:localstorage` refuse toute clé non documentée, sauf lecture/migration de l'ancienne clé checkout. `verify:server-security` lance `_server.cjs` sur une racine temporaire et contrôle `SITE_ROOT`, le rejet de traversal et les messages d'erreur sans fuite de chemin.
 
 Pour un chapitre de cours, ne pas appeler une page finie tant que les notes de sources/génération existent, que KaTeX ne déborde pas, que les corrections se révèlent, que les graphes exacts éventuels sont visibles, et que la sidebar passe en ouvert/replié/hover/focus/mobile.
+Le pilote IA de cours est vérifié par `npm run verify:course-agent` : manifeste JSON valide, boutons reliés à des contextes existants, tiroir desktop/mobile, focus textarea, refus d'envoi vide, feedback texte sans HTML utilisateur, fermeture et absence d'overflow.

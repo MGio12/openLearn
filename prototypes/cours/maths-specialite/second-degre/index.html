@@ -43,15 +43,15 @@
     </div>
 
     <nav class="toc-links" aria-label="Sections du chapitre">
-      <a href="#diagnostic" data-section-link><span class="toc-index">00</span><span class="toc-label">Diagnostic</span></a>
+      <a href="#diagnostic" data-section-link><span class="toc-index">00</span><span class="toc-label">Diagnostic</span><span class="toc-agent-badge" aria-label="Feedback IA disponible">IA</span></a>
       <a href="#formes" data-section-link><span class="toc-index">01</span><span class="toc-label">Formes</span></a>
       <a href="#discriminant" data-section-link><span class="toc-index">02</span><span class="toc-label">Discriminant</span></a>
       <a href="#sommet" data-section-link><span class="toc-index">03</span><span class="toc-label">Sommet</span></a>
       <a href="#signe" data-section-link><span class="toc-index">04</span><span class="toc-label">Signe</span></a>
       <a href="#somme-produit" data-section-link><span class="toc-index">05</span><span class="toc-label">Somme·produit</span></a>
       <a href="#position-relative" data-section-link><span class="toc-index">06</span><span class="toc-label">Position</span></a>
-      <a href="#choix-methode" data-section-link><span class="toc-index">07</span><span class="toc-label">Choisir</span></a>
-      <a href="#redaction" data-section-link><span class="toc-index">08</span><span class="toc-label">Rédiger</span></a>
+      <a href="#choix-methode" data-section-link><span class="toc-index">07</span><span class="toc-label">Choisir</span><span class="toc-agent-badge" aria-label="Feedback IA disponible">IA</span></a>
+      <a href="#redaction" data-section-link><span class="toc-index">08</span><span class="toc-label">Rédiger</span><span class="toc-agent-badge" aria-label="Feedback IA disponible">IA</span></a>
       <a href="#pieges" data-section-link><span class="toc-index">P</span><span class="toc-label">Pièges</span></a>
       <a href="#guides" data-section-link><span class="toc-index">G</span><span class="toc-label">Guidé</span></a>
       <a href="#controle" data-section-link><span class="toc-index">C</span><span class="toc-label">Contrôle</span></a>
@@ -131,6 +131,17 @@
           <em>→</em>
           <span>Exercices</span>
         </div>
+        <div class="course-agent-entry" data-course-agent-entry>
+          <div class="course-agent-entry__copy">
+            <p class="course-agent-entry__title">Feedback IA disponible</p>
+            <p>Trois moments corrigent une production écrite : diagnostic, choix de méthode, rédaction.</p>
+          </div>
+          <div class="course-agent-entry__links" aria-label="Accès directs aux feedbacks IA">
+            <a href="#diagnostic" data-course-agent-jump="diagnostic">Diagnostic</a>
+            <a href="#choix-methode" data-course-agent-jump="choix-methode">Choix de méthode</a>
+            <a href="#redaction" data-course-agent-jump="redaction">Rédaction</a>
+          </div>
+        </div>
       </section>
 
       <!-- ========== 00 · DIAGNOSTIC ========== -->
@@ -184,6 +195,10 @@
             discriminant, factorisation et tableau de signes. C'est ce choix qui transforme un cours lu en copie réussie.
           </p>
         </div>
+
+        <button class="course-agent-trigger" type="button" data-course-agent-open="diagnostic-coefficients">
+          Faire diagnostiquer ma réponse
+        </button>
       </section>
 
       <!-- ========== 01 · FORMES ========== -->
@@ -1010,6 +1025,10 @@
           Voici quelques énoncés mélangés. Avant chaque exercice, demande-toi&nbsp;: «&nbsp;quelle est la question réelle, et quelle forme me la donne le plus vite&nbsp;?&nbsp;»
         </p>
 
+        <button class="course-agent-trigger" type="button" data-course-agent-open="choix-methode-inequation">
+          Tester mon choix de méthode
+        </button>
+
         <div class="check-card">
           <p class="check-card__label"><span class="marker">?</span>Choisis sans calculer</p>
           <p>«&nbsp;Déterminer la quantité qui maximise \(B(x)=-0{,}1x^2+77x-1500\).&nbsp;» Quelle méthode démarre le mieux&nbsp;?</p>
@@ -1131,6 +1150,10 @@
             le correcteur peut soupçonner que tu as deviné. Deux mots de plus suffisent souvent à sécuriser le point.
           </p>
         </div>
+
+        <button class="course-agent-trigger" type="button" data-course-agent-open="redaction-inequation">
+          Vérifier ma rédaction
+        </button>
       </section>
 
       <!-- ========== P · PIEGES ========== -->
@@ -1485,6 +1508,57 @@
 
     </article>
   </main>
+
+  <script type="application/json" data-course-agent-contexts>
+{
+  "courseId": "maths-specialite-premiere-second-degre",
+  "courseTitle": "Second degré",
+  "contexts": [
+    {
+      "id": "diagnostic-coefficients",
+      "sectionId": "diagnostic",
+      "entryLabel": "Diagnostic - coefficients",
+      "studentTask": "Dans f(x)=2x^2-3x+1, écris les valeurs de a, b et c, puis explique le piège de signe à surveiller.",
+      "minimalContext": "Un trinôme du second degré s'écrit f(x)=ax^2+bx+c avec a non nul. Les coefficients se lisent avec leur signe dans la forme développée.",
+      "expectedAnswer": "a=2, b=-3 et c=1. Le piège est de garder le signe moins de b dans tous les calculs, notamment dans le discriminant.",
+      "commonMistakes": [
+        "Lire b=3 au lieu de b=-3.",
+        "Oublier que le signe de a indique l'ouverture de la parabole.",
+        "Répondre seulement les nombres sans expliquer le piège de signe."
+      ],
+      "feedbackGoal": "Repérer si l'élève sait lire les coefficients avec leurs signes et verbaliser le piège avant de calculer Delta."
+    },
+    {
+      "id": "choix-methode-inequation",
+      "sectionId": "choix-methode",
+      "entryLabel": "Choisir - inéquation",
+      "studentTask": "Pour résoudre x^2-2x-15<0, indique la méthode à choisir avant de calculer et justifie pourquoi.",
+      "minimalContext": "Pour une inéquation du second degré, on trouve d'abord les racines puis on utilise la règle du signe du trinôme : signe de a sauf entre les racines.",
+      "expectedAnswer": "Il faut trouver les racines, ici par discriminant ou factorisation si elle est vue, puis dresser le signe. Comme l'inéquation demande un signe, le résultat attendu est un intervalle.",
+      "commonMistakes": [
+        "Calculer seulement les racines et oublier le tableau de signes.",
+        "Utiliser la forme canonique alors que l'énoncé demande où l'expression est négative.",
+        "Oublier que les bornes sont exclues pour une inégalité stricte."
+      ],
+      "feedbackGoal": "Vérifier que l'élève choisit racines puis signe, et non un calcul de sommet ou une réponse limitée aux zéros."
+    },
+    {
+      "id": "redaction-inequation",
+      "sectionId": "redaction",
+      "entryLabel": "Rédiger - inéquation",
+      "studentTask": "Rédige la résolution de l'inéquation -x^2+6x-5>=0 comme sur une copie de contrôle, avec justification de l'intervalle final.",
+      "minimalContext": "La rédaction attendue identifie a, b, c, calcule Delta, donne les racines, justifie le signe avec a, puis conclut avec l'ensemble des solutions.",
+      "expectedAnswer": "a=-1, b=6, c=-5. Delta=16, racines 1 et 5. Comme a<0, le trinôme est positif entre les racines. L'inégalité large donne S=[1;5].",
+      "commonMistakes": [
+        "Écrire seulement Delta=16 et S=[1;5] sans justification.",
+        "Oublier de dire que a<0 rend le trinôme positif entre les racines.",
+        "Mettre des crochets ouverts alors que l'inégalité est large."
+      ],
+      "feedbackGoal": "Diagnostiquer la qualité de rédaction : traces de calcul, justification du signe, crochets et phrase finale."
+    }
+  ]
+}
+  </script>
 
   <!-- ============================================================
        JSXGraph boards — exact curves for the chapter

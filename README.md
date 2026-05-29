@@ -26,6 +26,8 @@ Puis ouvrir `http://localhost:4173`.
 - `lien/` : sources de reference, notamment les PDFs de Premiere specialite maths.
 - `scripts/` : verifications, captures et outils de support.
 
+Pilote IA de cours : le tiroir IA v1 est disponible uniquement sur `prototypes/cours/maths-specialite/second-degre/index.html`. Les autres chapitres peuvent partager le CSS/JS, mais ne doivent pas etre presentes comme pilotes IA tant qu'ils n'exposent pas le manifeste et les boutons dedies.
+
 Note externe : `docs/monetisation-app-posture-mouvement-ergonomie.md` contient un plan autonome pour une app posture, mouvement et ergonomie. Il n'appartient pas au produit ObjectifLycee, mais reste versionne ici comme document strategique separe.
 
 ## Regles pour les agents
@@ -74,6 +76,7 @@ Verification specifique des pages de cours :
 
 ```bash
 npm run verify:course-sidebar
+npm run verify:course-agent
 ```
 
 Avant de considerer un cours termine, verifier aussi :
@@ -83,6 +86,7 @@ Avant de considerer un cours termine, verifier aussi :
 - boutons de correction fonctionnels ;
 - graphes exacts visibles et non vides quand le chapitre en utilise ;
 - sidebar ouverte, fermee, hover/focus, desktop et mobile ;
+- pour le pilote IA second degre : manifeste, boutons pedagogiques, acces directs depuis le haut de page, marqueurs sidebar, focus du tiroir et feedback texte ;
 - aucun chevauchement de texte ni overflow global ;
 - `git diff --check`.
 

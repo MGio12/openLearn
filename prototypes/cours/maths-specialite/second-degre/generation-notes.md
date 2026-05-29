@@ -44,11 +44,12 @@ Voir `source-map.md` pour le détail des notions, méthodes, exemples, exercices
 - Les exercices ont été resserrés et parfois modifiés pour servir la progression du prototype.
 - Les corrections sont écrites pour faire apparaître les décisions de méthode et les erreurs de rédaction, pas seulement le résultat.
 - Les courbes ajoutées sont des graphes exacts JSXGraph, jamais des tracés à la main.
+- Les trois points d'entrée IA restent placés après une production élève : diagnostic de coefficients, choix de méthode, puis rédaction d'inéquation. Le bloc "Feedback IA disponible" en haut de page et les marqueurs `IA` de la sidebar servent seulement à les rendre trouvables sans casser la progression.
 - Le bloc produit/paywall visible a été retiré du cours élève pour garder une progression mathématique continue ; l'idée reste seulement une note produit à traiter hors contenu pédagogique.
 
 ## Limites connues
 
 - Pas de scoring automatique : l'élève utilise les corrections masquées comme auto-évaluation.
-- Pas d'IA de correction de rédaction.
+- Pas d'appel IA réel : le tiroir partagé reste un mock sécurisé de préparation du feedback.
 - Pas d'intégration au parcours principal du site.
 - Les droits de republication des exercices doivent être vérifiés avant mise en ligne publique.
