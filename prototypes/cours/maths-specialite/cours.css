@@ -483,13 +483,16 @@ body.has-course-sidebar:not(.is-course-ready) {
   padding: 56px var(--gutter) 96px;
   padding-left: calc(var(--course-sidebar-space) + var(--gutter));
   transition: none;
+  max-width: 100%;
 }
 .course-lesson {
-  max-width: var(--content-max);
+  width: min(100%, var(--content-max));
+  max-width: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 80px;
+  min-width: 0;
 }
 
 /* ============================================================
@@ -497,6 +500,8 @@ body.has-course-sidebar:not(.is-course-ready) {
    ============================================================ */
 .chapter-section {
   position: relative;
+  max-width: 100%;
+  min-width: 0;
   scroll-margin-top: 32px;
   padding-top: 8px;
 }
@@ -619,6 +624,8 @@ body.has-course-sidebar:not(.is-course-ready) {
    ============================================================ */
 .formula-card {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   padding: 22px 26px;
   background: var(--ink);
   color: var(--panel);
@@ -631,10 +638,16 @@ body.has-course-sidebar:not(.is-course-ready) {
   box-shadow: var(--sh-accent);
 }
 .formula-card .katex-display {
+  max-width: 100%;
   overflow-x: visible;
   overflow-y: visible;
   padding: 4px 0;
   margin: 0;
+}
+.katex-display {
+  max-width: 100%;
+  overflow-x: visible;
+  overflow-y: visible;
 }
 .formula-card .katex-display + .katex-display {
   margin-top: 0.6em;
@@ -729,6 +742,8 @@ body.has-course-sidebar:not(.is-course-ready) {
    CHECK CARD — auto-evaluation, more subtle
    ============================================================ */
 .check-card {
+  max-width: 100%;
+  min-width: 0;
   padding: 20px 22px;
   background: var(--panel);
   border: 2px dashed var(--ink);

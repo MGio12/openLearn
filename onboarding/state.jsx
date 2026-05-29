@@ -441,6 +441,7 @@ function addDays(d, n) {
 // PERSIST
 // ----------------------------------------------------------------
 const LS_KEY = "objectif-lycee-onboarding-v3";
+const MAX_STORAGE_BYTES = 512 * 1024;
 let storageWarningShown = false;
 
 function reportStorageIssue(action, error) {
@@ -475,7 +476,14 @@ function loadState() {
   }
 }
 function saveState(s) {
-  try { localStorage.setItem(LS_KEY, JSON.stringify(s)); }
+  try {
+    const serialized = JSON.stringify(s);
+    if (serialized.length > MAX_STORAGE_BYTES) {
+      reportStorageIssue("write-size", new Error("payload exceeds 512 KiB"));
+      return;
+    }
+    localStorage.setItem(LS_KEY, serialized);
+  }
   catch (error) { reportStorageIssue("write", error); }
 }
 

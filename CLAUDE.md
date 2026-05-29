@@ -68,6 +68,7 @@ Objectif : ne pas tout relire. Charge seulement les fichiers utiles au travail e
 
 | Scénario | Lire en priorité | Pourquoi |
 |---|---|---|
+| Comprendre une zone code avant modification | `docs/agent-codebase-map.md` + doc métier du scénario ciblé | Carte courte : fichiers propriétaires, contrats DOM/data, commandes de vérification, pièges connus et fichiers à ne pas refactorer sans raison. Toute nouvelle zone partagée doit y ajouter un petit contrat. |
 | Créer ou modifier un cours de maths | `docs/regles-creation-cours-maths.md` → `docs/techniques-apprentissage-maths.md` → `docs/superpowers/specs/2026-05-19-structure-contenu-maths-premiere.md` → sources du chapitre dans `lien/premiere/math.md` | Règles qualité/rétention/monétisation, techniques d'apprentissage, structure de chapitre validée, puis PDFs de référence. |
 | Générer un cours depuis des PDF | `docs/pipeline-cours-ia.md` → `lien/premiere/math.md` → les fichiers de règles maths ci-dessus | Workflow PDF → extraction → page HTML+KaTeX, avec contraintes pédagogiques et sources validées. |
 | Choisir les sources PDF Première maths | `lien/premiere/math.md` | Liens validés vers cours et TD Maths91/Maths-et-tiques. |

@@ -12,7 +12,8 @@ const FILES = {
   'checkout.html': join(ROOT, 'checkout.html'),
   'merci.html': join(ROOT, 'merci.html'),
   'styles.css': join(ROOT, 'styles.css'),
-  'scripts/checkout.js': join(ROOT, 'scripts', 'checkout.js'),
+  'assets/js/pages/checkout.js': join(ROOT, 'assets', 'js', 'pages', 'checkout.js'),
+  'assets/js/domain/pricing.js': join(ROOT, 'assets', 'js', 'domain', 'pricing.js'),
 };
 
 const CORE_PAGES = ['index.html', 'objectif.html', 'checkout.html', 'merci.html'];
@@ -145,7 +146,7 @@ async function assertDashboardPrimaryObjectifRoute(browser, viewport) {
     await gotoLocalPage(page, 'index.html');
     const objectifCta = await visibleAnchorIn(
       page,
-      '[data-contract="daily-mission"], [data-testid="daily-mission"], .daily-mission',
+      '[data-daily-mission-container], [data-testid="daily-mission"], .daily-mission',
       'objectif.html',
       `${viewport.label} index.html: dashboard primary Objectif CTA must be visible in the daily mission block`,
     );

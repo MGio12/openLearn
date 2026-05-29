@@ -7,7 +7,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const CHECKOUT_PATH = join(ROOT, 'checkout.html');
 const MERCI_PATH = join(ROOT, 'merci.html');
-const CHECKOUT_JS_PATH = join(ROOT, 'scripts', 'checkout.js');
+const CHECKOUT_JS_PATH = join(ROOT, 'assets', 'js', 'pages', 'checkout.js');
+const PRICING_JS_PATH = join(ROOT, 'assets', 'js', 'domain', 'pricing.js');
 const CHECKOUT_URL = pathToFileURL(CHECKOUT_PATH).href;
 
 const VIEWPORTS = [
@@ -15,7 +16,7 @@ const VIEWPORTS = [
   { label: 'mobile', width: 390, height: 844 },
 ];
 
-const REQUIRED_FILES = [CHECKOUT_PATH, MERCI_PATH, CHECKOUT_JS_PATH];
+const REQUIRED_FILES = [CHECKOUT_PATH, MERCI_PATH, CHECKOUT_JS_PATH, PRICING_JS_PATH];
 const STRIPE_PAYMENT_LINK_PATTERN = /^https:\/\/(buy|checkout)\.stripe\.com\/.+/i;
 const SECRET_PATTERNS = [/sk_live/i, /sk_test/i, /rk_live/i, /rk_test/i];
 
@@ -75,6 +76,30 @@ function assertStaticHonestyCopy() {
       );
     }
   }
+}
+
+function assertCheckoutButtonsStartNeedsConfig() {
+  const source = readProjectFile(CHECKOUT_PATH);
+  const buttons = source.match(/<a\b[^>]*\bdata-checkout-button\b[^>]*>/gi) || [];
+  assert(buttons.length > 0, 'checkout.html: expected at least one static [data-checkout-button] link');
+
+  buttons.forEach((button, index) => {
+    assert(
+      /\bdata-checkout-state=["']needs-config["']/.test(button),
+      `checkout.html: static [data-checkout-button] #${index + 1} must start with data-checkout-state="needs-config" before JS marks it ready`,
+    );
+  });
+}
+
+function assertCheckoutStaticWiring() {
+  const source = readProjectFile(CHECKOUT_PATH);
+  assert(source.includes('assets/js/domain/pricing.js'), 'checkout.html: must load pricing.js before checkout page script');
+  assert(source.includes('assets/js/pages/checkout.js'), 'checkout.html: must load assets/js/pages/checkout.js');
+  assert(!source.includes('scripts/checkout.js'), 'checkout.html: must not load legacy scripts/checkout.js');
+  assert(
+    source.indexOf('assets/js/domain/pricing.js') < source.indexOf('assets/js/pages/checkout.js'),
+    'checkout.html: pricing.js must load before checkout.js',
+  );
 }
 
 async function collectConsoleErrors(page) {
@@ -158,6 +183,27 @@ async function assertCheckoutButtonsReady(page, expectedUrl, viewportLabel) {
   }
 }
 
+async function assertMobileStickyCta(page, expectedUrl, viewportLabel) {
+  if (viewportLabel !== 'mobile') return;
+
+  const sticky = page.locator('.sticky-cta[data-checkout-button]').first();
+  await expectVisible(sticky, `${viewportLabel} checkout.html: sticky checkout CTA must be visible`);
+
+  const href = await sticky.getAttribute('href');
+  const state = await sticky.getAttribute('data-checkout-state');
+  assert(href === expectedUrl, `${viewportLabel} checkout.html: sticky CTA href must match Payment Link. Expected ${expectedUrl}, got ${href}`);
+  assert(state === 'ready', `${viewportLabel} checkout.html: sticky CTA must be ready, got ${state}`);
+
+  const hit = await sticky.evaluate((element) => {
+    const box = element.getBoundingClientRect();
+    const x = box.left + box.width / 2;
+    const y = box.top + box.height / 2;
+    const topElement = document.elementFromPoint(x, y);
+    return Boolean(topElement && (topElement === element || topElement.closest('.sticky-cta') === element));
+  });
+  assert(hit, `${viewportLabel} checkout.html: sticky CTA must be the top clickable element at its center`);
+}
+
 async function assertTrustCopy(page, viewportLabel) {
   const text = await visibleText(page);
   const trustChecks = [
@@ -183,6 +229,7 @@ async function assertValidCheckoutViewport(browser, viewport) {
     await assertPlanOffers(page, viewport.label);
     await assertTrustCopy(page, viewport.label);
     await assertCheckoutButtonsReady(page, expectedUrl, viewport.label);
+    await assertMobileStickyCta(page, expectedUrl, viewport.label);
     await assertNoHorizontalOverflow(page, viewport.label);
     assert(consoleErrors.length === 0, `${viewport.label} checkout.html: page must not emit console/page errors: ${consoleErrors.join(' | ')}`);
   } finally {
@@ -229,6 +276,8 @@ async function assertInvalidPaymentLinkFallback(browser) {
 assertRequiredFilesExist();
 assertNoStripeSecrets();
 assertStaticHonestyCopy();
+assertCheckoutButtonsStartNeedsConfig();
+assertCheckoutStaticWiring();
 
 let browser;
 try {

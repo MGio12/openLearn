@@ -1,12 +1,14 @@
 import { chromium } from 'playwright';
-import { existsSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 import { dirname, join } from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
+import vm from 'vm';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const INDEX_PATH = join(ROOT, 'index.html');
 const INDEX_URL = pathToFileURL(INDEX_PATH).href;
+const STATE_PATH = join(ROOT, 'assets', 'js', 'state', 'store.js');
 
 function fail(message) {
   throw new Error(message);
@@ -43,7 +45,7 @@ async function findMissionBlock(page) {
 
   const candidates = [
     today.locator('[data-testid="daily-mission"]'),
-    today.locator('[data-contract="daily-mission"]'),
+    today.locator('[data-daily-mission-container]'),
     today.locator('.daily-mission'),
     today.locator('.mission-du-jour'),
     today.locator('section, article, .card, div').filter({ hasText: /Mission du jour/i }),
@@ -78,7 +80,7 @@ async function assertStaticContract(page) {
   assert(await stats.count(), 'stats block must exist so mission-first ordering can be verified');
 
   const order = await today.evaluate((root) => {
-    const mission = root.querySelector('[data-testid="daily-mission"], [data-contract="daily-mission"], .daily-mission, .mission-du-jour')
+    const mission = root.querySelector('[data-testid="daily-mission"], [data-daily-mission-container], .daily-mission, .mission-du-jour')
       || Array.from(root.querySelectorAll('section, article, .card, div')).find((element) => /Mission du jour/i.test(element.textContent || ''));
     const statsElement = root.querySelector('.stats');
     if (!mission || !statsElement) return null;
@@ -98,6 +100,11 @@ async function assertStaticContract(page) {
   });
   assert(actionCount >= 2 && actionCount <= 3, 'daily mission block must list 2–3 action items');
 
+  const missingMissionIndexes = await missionBlock.evaluate((block) => Array.from(block.querySelectorAll('[data-mission-action]'))
+    .filter((element) => !element.hasAttribute('data-mission-step') && !element.hasAttribute('data-mission-index'))
+    .length);
+  assert(missingMissionIndexes === 0, 'each [data-mission-action] must declare data-mission-step or data-mission-index');
+
   const blockText = normalizeText(await missionBlock.textContent());
   assert(/(dur[ée]e\s+totale|total\s*:|total\s+\d|\d+\s*(min|mn|h))|\d+h\d{0,2}/i.test(blockText), 'daily mission block must show total duration');
 
@@ -110,6 +117,23 @@ async function assertStaticContract(page) {
   return { missionBlock, heading, primaryLink, supportLink };
 }
 
+async function assertLockableMissionCta(page) {
+  const cta = page.locator('[data-lockable-mission-cta]').first();
+  await expectVisible(cta, 'daily mission block must expose [data-lockable-mission-cta]');
+  assert(await cta.getAttribute('href') === 'objectif.html', 'unlocked mission CTA must target objectif.html');
+  assert(await cta.getAttribute('data-lock-state') === 'unlocked', 'unlocked mission CTA must declare data-lock-state="unlocked"');
+
+  await page.evaluate(() => {
+    window.OutilPrepa.state.totalMissionsCompleted = 999;
+    window.OutilPrepaMissionUI.render();
+  });
+
+  assert(await cta.getAttribute('href') === 'checkout.html', 'locked mission CTA must target data-locked-href checkout.html');
+  assert(await cta.getAttribute('data-lock-state') === 'locked', 'locked mission CTA must declare data-lock-state="locked"');
+  const label = normalizeText(await cta.locator('[data-gated-label]').textContent());
+  assert(/Activer le plan/i.test(label), `locked mission CTA label must be updated with textContent, got "${label}"`);
+}
+
 async function assertDesktop(page) {
   await page.setViewportSize({ width: 1440, height: 900 });
   const consoleErrors = await collectConsoleErrors(page);
@@ -117,6 +141,7 @@ async function assertDesktop(page) {
   const { heading, primaryLink } = await assertStaticContract(page);
   await assertInViewport(page, heading, 'desktop mission heading must be visible above the fold');
   await assertInViewport(page, primaryLink, 'desktop primary mission CTA must be visible above the fold');
+  await assertLockableMissionCta(page);
   assert(consoleErrors.length === 0, `dashboard must not emit page console errors: ${consoleErrors.join(' | ')}`);
 }
 
@@ -160,6 +185,33 @@ async function assertNavigation(page) {
 if (!existsSync(INDEX_PATH)) {
   fail(`index.html target does not exist at ${INDEX_PATH}`);
 }
+
+function assertStateModelGuard() {
+  assert(existsSync(STATE_PATH), `store.js target does not exist at ${STATE_PATH}`);
+
+  try {
+    vm.runInNewContext(readFileSync(STATE_PATH, 'utf8'), {
+      window: {},
+      localStorage: {
+        getItem() { return null; },
+        setItem() {},
+      },
+      Set,
+      Date,
+      JSON,
+    }, { filename: STATE_PATH });
+  } catch (error) {
+    assert(
+      /OutilPrepaModel/.test(error.message) && /todayISO/.test(error.message),
+      `assets/js/state/store.js: missing model guard must mention OutilPrepaModel.todayISO, got "${error.message}"`,
+    );
+    return;
+  }
+
+  fail('assets/js/state/store.js must throw a clear OutilPrepaModel.todayISO error when the model is missing');
+}
+
+assertStateModelGuard();
 
 const browser = await chromium.launch();
 try {

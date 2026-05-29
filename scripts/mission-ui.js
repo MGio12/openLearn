@@ -1,7 +1,7 @@
 /* ============================================================
    OUTIL PREPA - Rendu mission du jour
    ------------------------------------------------------------
-   Lit la mission depuis scripts/model.js / scripts/state.js et
+   Lit la mission depuis assets/js/domain/model.js / assets/js/state/store.js et
    hydrate les fragments HTML qui affichent la mission courante.
    ============================================================ */
 (function (root) {
@@ -236,6 +236,23 @@
     container.setAttribute('data-daily-mission-rendered', 'true');
   }
 
+  function renderLockableMissionCtas() {
+    var locked = !!(root.OutilPrepa && typeof root.OutilPrepa.isLocked === 'function' && root.OutilPrepa.isLocked());
+    document.querySelectorAll('[data-lockable-mission-cta]').forEach(function (link) {
+      var unlockedHref = link.getAttribute('data-unlocked-href') || 'objectif.html';
+      var lockedHref = link.getAttribute('data-locked-href') || 'checkout.html';
+      var label = link.querySelector('[data-gated-label]');
+
+      link.setAttribute('href', locked ? lockedHref : unlockedHref);
+      link.setAttribute('data-lock-state', locked ? 'locked' : 'unlocked');
+      if (label) {
+        label.textContent = locked
+          ? 'Activer le plan pour garder les missions'
+          : 'Voir pourquoi cette mission compte';
+      }
+    });
+  }
+
   function toObjectiveTopic(mission) {
     var source = mission.objectiveTopic || {};
     return {
@@ -255,6 +272,7 @@
     renderChecklist(mission);
     renderFocusSubtasks(mission);
     renderResources(mission);
+    renderLockableMissionCtas();
   }
 
   root.OutilPrepaMissionUI = {

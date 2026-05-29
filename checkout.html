@@ -54,6 +54,7 @@
             data-checkout-button
             data-checkout-plan="essential"
             data-checkout-billing="trimester"
+            data-checkout-state="needs-config"
           >
             <span>Continuer avec Essentiel</span>
             <i class="ph-bold ph-arrow-right" aria-hidden="true"></i>
@@ -97,7 +98,7 @@
             <h2>Plan quotidien</h2>
             <p>Une mission utile chaque jour, ajustée après ton travail.</p>
           </div>
-          <span class="mission-card__price">dès 7,62 €/semaine</span>
+          <span class="mission-card__price">dès <span data-pricing-plan="essential" data-pricing-field="price">7,62 €</span><span data-pricing-plan="essential" data-pricing-field="period">/semaine</span></span>
         </article>
       </aside>
     </section>
@@ -114,13 +115,14 @@
           <div class="plan-card__top">
             <p class="plan-card__label">Essentiel</p>
             <div class="plan-card__price">
-              <span>7,62 €</span>
-              <small>/semaine</small>
+              <span data-pricing-plan="essential" data-pricing-field="price">7,62 €</span>
+              <small data-pricing-plan="essential" data-pricing-field="period">/semaine</small>
             </div>
           </div>
 
           <p class="plan-card__summary">
-            99 € / trimestre pour garder une mission utile chaque jour, avec la raison de ce choix et une progression lisible.
+            <span data-pricing-plan="essential" data-pricing-field="billing">Facturé 99 € / trimestre — soit 7,62 €/semaine pour l’accès site + IA master.</span>
+            Tu gardes une mission utile chaque jour, avec la raison de ce choix et une progression lisible.
           </p>
 
           <ul class="offer-list" aria-label="Ce qui est inclus dans Essentiel">
@@ -136,6 +138,7 @@
             data-checkout-button
             data-checkout-plan="essential"
             data-checkout-billing="trimester"
+            data-checkout-state="needs-config"
           >
             <span>Choisir Essentiel</span>
             <i class="ph-bold ph-arrow-right" aria-hidden="true"></i>
@@ -146,13 +149,14 @@
           <div class="plan-card__top">
             <p class="plan-card__label">IA plus</p>
             <div class="plan-card__price">
-              <span>15,31 €</span>
-              <small>/semaine</small>
+              <span data-pricing-plan="ia-plus" data-pricing-field="price">15,31 €</span>
+              <small data-pricing-plan="ia-plus" data-pricing-field="period">/semaine</small>
             </div>
           </div>
 
           <p class="plan-card__summary">
-            199 € / trimestre pour ajouter plus de guidage, plus de reprises de méthode et une lecture plus fine des priorités.
+            <span data-pricing-plan="ia-plus" data-pricing-field="billing">Ainsi 199 € pour le trimestre entier.</span>
+            La formule ajoute plus de guidage, plus de reprises de méthode et une lecture plus fine des priorités.
           </p>
 
           <ul class="offer-list" aria-label="Ce qui est inclus dans IA plus">
@@ -168,6 +172,7 @@
             data-checkout-button
             data-checkout-plan="ia-plus"
             data-checkout-billing="trimester"
+            data-checkout-state="needs-config"
           >
             <span>Choisir IA plus</span>
             <i class="ph-bold ph-arrow-right" aria-hidden="true"></i>
@@ -221,7 +226,7 @@
           <h2 id="parent-title">Un cadre régulier, sans transformer le soir en pilotage.</h2>
         </div>
         <ul class="parent-list">
-          <li><strong>Budget lisible :</strong> essai gratuit 3 jours, puis 99 € / trimestre ou 199 € / trimestre selon l'accompagnement choisi.</li>
+          <li><strong>Budget lisible :</strong> essai gratuit 3 jours, puis <span data-pricing-plan="essential" data-pricing-field="total">99 € / trimestre</span> ou <span data-pricing-plan="ia-plus" data-pricing-field="total">199 € / trimestre</span> selon l'accompagnement choisi.</li>
           <li><strong>Travail concret :</strong> l'élève voit l'action du jour et la raison de cette action.</li>
           <li><strong>Pas de fausse promesse :</strong> cette page ne vend ni compte parent, ni synchronisation, ni gestion de facture interne.</li>
         </ul>
@@ -246,7 +251,7 @@
           </details>
           <details class="faq-item">
             <summary>Pourquoi un prix au trimestre ?</summary>
-            <p>Parce que la progression se voit sur plusieurs semaines : 99 € / trimestre pour Essentiel, 199 € / trimestre pour IA plus.</p>
+            <p>Parce que la progression se voit sur plusieurs semaines : <span data-pricing-plan="essential" data-pricing-field="total">99 € / trimestre</span> pour Essentiel, <span data-pricing-plan="ia-plus" data-pricing-field="total">199 € / trimestre</span> pour IA plus.</p>
           </details>
           <details class="faq-item">
             <summary>Un parent peut-il payer ?</summary>
@@ -283,14 +288,15 @@
     data-checkout-button
     data-checkout-plan="essential"
     data-checkout-billing="trimester"
+    data-checkout-state="needs-config"
     aria-label="Continuer le plan quotidien avec la formule Essentiel"
   >
-    <span class="sticky-cta__price">7,62 € <small>/semaine</small></span>
+    <span class="sticky-cta__price"><span data-pricing-plan="essential" data-pricing-field="price">7,62 €</span> <small data-pricing-plan="essential" data-pricing-field="period">/semaine</small></span>
     <span class="sticky-cta__btn">Continuer <i class="ph-bold ph-arrow-right" aria-hidden="true"></i></span>
   </a>
 
   <script src="scripts/analytics.js"></script>
+  <script src="assets/js/domain/pricing.js"></script>
   <script src="assets/js/pages/checkout.js"></script>
-  <script src="scripts/checkout.js" defer></script>
 </body>
 </html>

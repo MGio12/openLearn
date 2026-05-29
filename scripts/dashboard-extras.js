@@ -60,7 +60,7 @@
 
   function wireWhyPanel() {
     var toggle = document.querySelector('[data-why-toggle]');
-    var mission = document.querySelector('[data-contract="daily-mission"], [data-testid="daily-mission"]');
+    var mission = document.querySelector('[data-daily-mission-container], [data-testid="daily-mission"]');
     var panel = document.getElementById('ap-why-panel');
     var overlay = document.querySelector('[data-why-overlay]');
     var svg = document.querySelector('[data-why-lines]');

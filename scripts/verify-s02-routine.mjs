@@ -64,7 +64,7 @@ async function findMissionBlock(page) {
 
   const candidates = [
     today.locator('[data-testid="daily-mission"]'),
-    today.locator('[data-contract="daily-mission"]'),
+    today.locator('[data-daily-mission-container]'),
     today.locator('.daily-mission'),
     today.locator('.mission-du-jour'),
     today.locator('section, article, .card, div').filter({ hasText: /Mission du jour/i }),

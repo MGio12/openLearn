@@ -1,5 +1,5 @@
 # State browser
 
-Le store historique reste exposé par `scripts/state.js` pour ne pas casser les pages existantes.
+Le store actif vit dans `assets/js/state/store.js` et reste exposé via `window.OutilPrepa`.
 
-Quand il faudra le déplacer, garder un wrapper compatible `scripts/state.js` ou mettre à jour toutes les pages dans le même diff. Le store ne doit pas contenir de sélection DOM : les comportements visuels vivent dans `assets/js/ui/` ou `assets/js/pages/`.
+Les pages doivent charger `assets/js/domain/model.js` avant `assets/js/state/store.js`. Le store ne doit pas contenir de sélection DOM : les comportements visuels vivent dans `assets/js/ui/` ou `assets/js/pages/`.

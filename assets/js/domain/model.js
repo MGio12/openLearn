@@ -8,6 +8,7 @@
 (function (root) {
   'use strict';
 
+  // Schema version 1 is persisted by assets/js/state/store.js in localStorage key "outilPrepa:v1".
   var SCHEMA_VERSION = 1;
 
   var DEFAULT_PROFILE = {

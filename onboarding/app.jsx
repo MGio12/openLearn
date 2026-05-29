@@ -136,7 +136,6 @@ function App() {
       case "social":
         return <SocialScreen profile={profile} onNext={goNext} tweaks={t} />;
       case "recap":
-        if (!t.showCommitmentRecap) { goNext(); return null; }
         return <RecapScreen profile={profile} mission={mission || computeMission(profile)} onNext={goNext} tweaks={t} />;
       case "paywall":
         return <PaywallScreen profile={profile} mission={mission || computeMission(profile)} tweaks={t} onActivate={onActivate} onReviewMission={onReviewMission} />;

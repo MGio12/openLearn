@@ -17,8 +17,8 @@ Etape 1 — Source
   Historique local: missions vues, lancees, terminees
 
 Etape 2 — Normalisation
-  scripts/model.js garde le modele central
-  scripts/state.js persiste l'etat local
+  assets/js/domain/model.js garde le modele central
+  assets/js/state/store.js persiste l'etat local
   scripts/mission-ui.js expose la mission du jour aux pages
 
 Etape 3 — Scoring

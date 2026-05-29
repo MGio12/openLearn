@@ -66,7 +66,7 @@
 
   function cleanString(value, maxLength) {
     if (typeof value !== "string") return undefined;
-    var cleaned = value.replace(/\s+/g, " ").trim();
+    var cleaned = value.replace(/[<>]/g, "").replace(/\s+/g, " ").trim();
     if (!cleaned) return undefined;
     return cleaned.slice(0, maxLength).trim();
   }
@@ -169,6 +169,7 @@
   }
 
   function base64UrlEncode(value) {
+    if (typeof value !== "string") throw new TypeError("base64UrlEncode expects a string");
     return root.btoa(binaryFromUtf8(value))
       .replace(/\+/g, "-")
       .replace(/\//g, "_")
@@ -233,7 +234,7 @@
     normalized.objectif = cleanString(normalized.objectif, 60);
     normalized.blocage = cleanString(normalized.blocage, 70);
     normalized.premiereEcheance = cleanString(normalized.premiereEcheance, 60);
-    return normalized;
+    return normalizePayload(normalized);
   }
 
   function createParentUrl(payload, baseUrl) {

@@ -4,7 +4,7 @@
    Persiste les missions terminées, les jours actifs, le compteur
    de missions offertes restantes. Exposé via window.OutilPrepa.
 
-   Shape stockee (key: outilPrepa:v1) :
+   Shape stockee (localStorage key: outilPrepa:v1, schemaVersion: 1) :
    {
      profile: {},
      objective: {},
@@ -31,7 +31,14 @@
   'use strict';
 
   var KEY = 'outilPrepa:v1';
+  var MAX_STORAGE_BYTES = 512 * 1024;
+  var storageWarningShown = false;
   var Model = window.OutilPrepaModel || null;
+
+  if (!Model || typeof Model.todayISO !== 'function') {
+    throw new Error('assets/js/state/store.js requires window.OutilPrepaModel.todayISO before loading.');
+  }
+
   var FREE_LIMIT = Model && Model.DEFAULT_SUBSCRIPTION_STATE
     ? Model.DEFAULT_SUBSCRIPTION_STATE.freeMissionLimit
     : 3;
@@ -216,7 +223,22 @@
 
   function persist() {
     syncSubscriptionState();
-    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+    try {
+      var serialized = JSON.stringify(state);
+      if (serialized.length > MAX_STORAGE_BYTES) {
+        if (!storageWarningShown && window.console && typeof window.console.warn === 'function') {
+          storageWarningShown = true;
+          window.console.warn('OutilPrepa localStorage write skipped: state payload is too large.');
+        }
+        return;
+      }
+      localStorage.setItem(KEY, serialized);
+    } catch (e) {
+      if (!storageWarningShown && window.console && typeof window.console.warn === 'function') {
+        storageWarningShown = true;
+        window.console.warn('OutilPrepa localStorage write failed', e);
+      }
+    }
   }
 
   var listeners = [];

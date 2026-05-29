@@ -35,5 +35,5 @@ const result = await transform(sources.join('\n'), {
   sourcemap: false,
 });
 
-await fs.writeFile(path.join(ROOT, OUT_FILE), `${banner}${result.code}\n`, 'utf8');
+await fs.writeFile(path.join(ROOT, OUT_FILE), `${banner}${result.code.trimEnd()}\n`, 'utf8');
 process.stdout.write(`Built ${OUT_FILE} from ${SOURCE_FILES.length} JSX source files.\n`);

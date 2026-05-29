@@ -192,6 +192,7 @@ function ParentShareCard({ profile, mission, tweaks, compact = false }) {
       {qrVisible && (
         <div className="ob-parent-qr" data-parent-share-qr>
           {qrSvg ? (
+            /* unsafe-html-allow: qrSvg is produced only by the vendored qrcode-generator library from parentUrl, never from user HTML. */
             <div className="ob-parent-qr-box" dangerouslySetInnerHTML={{ __html: qrSvg }} />
           ) : (
             <p>{qrError || "Génération du QR code..."}</p>

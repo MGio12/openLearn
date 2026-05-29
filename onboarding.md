@@ -14,9 +14,9 @@ Source de vérité produit pour le flow d'onboarding. Le code de référence vit
   - `screens-late.jsx` : génération, mission, social, recap, paywall, écran post-activation.
   - `app.jsx` : orchestrateur, persistance, navigation, dots de progression.
 - CSS : `onboarding/onboarding.css`. Tokens hérités de `colors_and_type.css`.
-- Pont parent : `parent.html` + `assets/js/shared/parent-share.js` + `assets/js/pages/parent.js`. Le partage QR charge localement `qrcode-generator@2.0.4` seulement quand l'élève clique sur "Afficher le QR code".
+- Pont parent : `parent.html` + `assets/js/shared/parent-share.js` + `assets/js/pages/parent.js`. Le partage QR précharge localement `qrcode-generator@2.0.4`, puis l'exécute seulement quand l'élève clique sur "Afficher le QR code".
 - Persistance : `localStorage`, clé `objectif-lycee-onboarding-v3`. Trois champs : `profile`, `screenIdx`, `mission`.
-- Tweaks runtime : objet global `window.__ONBOARDING_TWEAKS_DEFAULTS` défini en haut de `onboarding.html`. Pas de panneau debug en prod.
+- Tweaks runtime : objet global `window.__ONBOARDING_TWEAKS_DEFAULTS` défini en haut de `onboarding.html`. Pas de panneau debug en prod. Le récapitulatif d'engagement n'est plus un tweak désactivable en production.
 - Analytics : `scripts/analytics.js` doit être chargé avant le bundle onboarding pour capter les vues et complétions d'écrans React.
 
 ## Décisions verrouillées
@@ -110,6 +110,8 @@ Manifeste exact dans `onboarding/state.jsx` (`SCREENS`). Vue d'ensemble :
 | 14 | `paywall` | hard paywall avec essai 3 jours + partage parent | `trialActivated` à l'activation | décision finale |
 
 Le compteur de progression montre `n / 15` et des dots. Retour arrière possible à chaque étape avant activation.
+
+Le flow de valeur ne doit pas être court-circuité en production : mission livrée → preuve sociale → récapitulatif d'engagement → paywall. Le récapitulatif sert à montrer ce que l'élève garde ouvert avant de payer ; il n'existe plus de contournement `showCommitmentRecap` dans le code de production.
 
 ## Personnalisation et moteur mission
 
@@ -258,7 +260,6 @@ Objet `window.__ONBOARDING_TWEAKS_DEFAULTS` dans `onboarding.html` :
 | `showAnchorMath` | `true` | active le bloc ancrage cours particulier |
 | `showZeigarnikLock` | `true` | active le cadenas sur l'écran mission |
 | `showLossAversion` | `true` | active la liste barrée du paywall |
-| `showCommitmentRecap` | `true` | active l'écran recap |
 | `profilePosition` | `"left"` | côté du profil, `left` ou `right` |
 | `conversionIntensity` | `7` | non utilisé actuellement, prévu pour piloter l'agressivité globale |
 | `startAtScreen` | `1` | non utilisé actuellement |

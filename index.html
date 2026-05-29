@@ -93,7 +93,7 @@
 
 
       <!-- DOMINANT HERO -->
-      <div class="ap-mission" data-contract="daily-mission" data-testid="daily-mission">
+      <div class="ap-mission" data-daily-mission-container data-testid="daily-mission">
         <div class="ap-mission__left">
           <div class="ap-mission__eyebrow">
             <span class="pill">Mission du jour</span>
@@ -126,17 +126,17 @@
 
         <aside class="ap-steps">
           <div class="ap-steps__head">3 étapes</div>
-          <div class="ap-step" data-mission-action>
+          <div class="ap-step" data-mission-action data-mission-step="0">
             <span class="box"></span>
             <span data-daily-mission-step-title="0">Relire l'énoncé · entourer ce que tu n'as pas compris</span>
             <span class="dur" data-daily-mission-step-duration="0">5 min</span>
           </div>
-          <div class="ap-step" data-mission-action>
+          <div class="ap-step" data-mission-action data-mission-step="1">
             <span class="box"></span>
             <span data-daily-mission-step-title="1">Refaire la question 3 en rédigeant proprement</span>
             <span class="dur" data-daily-mission-step-duration="1">12 min</span>
           </div>
-          <div class="ap-step" data-mission-action>
+          <div class="ap-step" data-mission-action data-mission-step="2">
             <span class="box"></span>
             <span data-daily-mission-step-title="2">Comparer avec la correction officielle</span>
             <span class="dur" data-daily-mission-step-duration="2">8 min</span>
@@ -256,8 +256,8 @@
     <span>Objectif</span>
   </a>
 </nav>
-<script src="scripts/model.js"></script>
-<script src="scripts/state.js"></script>
+<script src="assets/js/domain/model.js"></script>
+<script src="assets/js/state/store.js"></script>
 <script src="scripts/dom.js"></script>
 <script src="scripts/user-context-ui.js"></script>
 <script src="scripts/mission-ui.js"></script>

@@ -1,5 +1,5 @@
 import { chromium } from 'playwright';
-import { existsSync, readFileSync } from 'fs';
+import { existsSync, readFileSync, readdirSync } from 'fs';
 import { dirname, isAbsolute, join, relative, resolve, sep } from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
 
@@ -8,7 +8,8 @@ const ROOT = join(__dirname, '..');
 const DEFAULT_COURSE_RELATIVE_PATH = 'prototypes/cours/maths-specialite/second-degre/index.html';
 const args = process.argv.slice(2);
 const flags = new Set(args.filter((arg) => arg.startsWith('--')));
-const targetArg = args.find((arg) => !arg.startsWith('--')) || DEFAULT_COURSE_RELATIVE_PATH;
+const targetArgs = args.filter((arg) => !arg.startsWith('--'));
+const RUN_ALL_DEFAULT = targetArgs.length === 0;
 
 function resolveTargetPath(target) {
   const resolved = isAbsolute(target) ? resolve(target) : resolve(ROOT, target);
@@ -19,13 +20,32 @@ function resolveTargetPath(target) {
   return resolved;
 }
 
-const COURSE_PATH = resolveTargetPath(targetArg);
-const COURSE_RELATIVE_PATH = relative(ROOT, COURSE_PATH).split(sep).join('/');
-const COURSE_URL = pathToFileURL(COURSE_PATH).href;
-const COURSE_DIR = dirname(COURSE_PATH);
-const GENERATION_NOTES_PATH = join(COURSE_DIR, 'generation-notes.md');
-const STRICT_SECOND_DEGRE = flags.has('--strict-second-degre') || COURSE_RELATIVE_PATH === DEFAULT_COURSE_RELATIVE_PATH;
+function listPrototypeCourseTargets() {
+  const base = join(ROOT, 'prototypes', 'cours', 'maths-specialite');
+  return readdirSync(base, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => `prototypes/cours/maths-specialite/${entry.name}/index.html`)
+    .filter((target) => existsSync(resolve(ROOT, target)))
+    .sort();
+}
+
+const COURSE_TARGETS = RUN_ALL_DEFAULT ? listPrototypeCourseTargets() : targetArgs;
+let COURSE_PATH = null;
+let COURSE_RELATIVE_PATH = '';
+let COURSE_URL = '';
+let COURSE_DIR = '';
+let GENERATION_NOTES_PATH = '';
+let STRICT_SECOND_DEGRE = false;
 const SKIP_NOTES = flags.has('--skip-notes');
+
+function configureCourseTarget(target) {
+  COURSE_PATH = resolveTargetPath(target);
+  COURSE_RELATIVE_PATH = relative(ROOT, COURSE_PATH).split(sep).join('/');
+  COURSE_URL = pathToFileURL(COURSE_PATH).href;
+  COURSE_DIR = dirname(COURSE_PATH);
+  GENERATION_NOTES_PATH = join(COURSE_DIR, 'generation-notes.md');
+  STRICT_SECOND_DEGRE = flags.has('--strict-second-degre') || COURSE_RELATIVE_PATH === DEFAULT_COURSE_RELATIVE_PATH;
+}
 
 function fail(message) {
   throw new Error(message);
@@ -214,6 +234,7 @@ async function assertGenericCourseContentContract(page) {
 
 function assertGenerationNotesContract() {
   if (SKIP_NOTES) return;
+  if (RUN_ALL_DEFAULT && !STRICT_SECOND_DEGRE) return;
   assert(existsSync(GENERATION_NOTES_PATH), `generation notes must exist at ${GENERATION_NOTES_PATH}`);
   const notes = readFileSync(GENERATION_NOTES_PATH, 'utf8');
 
@@ -350,31 +371,39 @@ async function assertSidebarMobile(page) {
   assert(metrics.toggle.disabled, 'mobile collapsed rail arrow must not be an actionable button');
 }
 
-if (!existsSync(COURSE_PATH)) {
-  fail(`course target does not exist at ${COURSE_PATH}`);
-}
-
 const browser = await chromium.launch();
 try {
-  const page = await browser.newPage();
-  const errors = await collectPageErrors(page);
+  for (const target of COURSE_TARGETS) {
+    configureCourseTarget(target);
 
-  await assertSidebarDesktop(page);
-  if (STRICT_SECOND_DEGRE) {
-    await assertCourseContentContract(page);
-  } else {
-    await assertGenericCourseContentContract(page);
+    if (!existsSync(COURSE_PATH)) {
+      fail(`course target does not exist at ${COURSE_PATH}`);
+    }
+
+    const page = await browser.newPage();
+    const errors = await collectPageErrors(page);
+
+    try {
+      await assertSidebarDesktop(page);
+      if (STRICT_SECOND_DEGRE) {
+        await assertCourseContentContract(page);
+      } else {
+        await assertGenericCourseContentContract(page);
+      }
+      assertGenerationNotesContract();
+      await assertExactCourseCurves(page, { minCount: STRICT_SECOND_DEGRE ? 5 : 0 });
+      await assertRevealButtons(page);
+      await assertNoFormulaOverflow(page);
+      await assertSidebarMobile(page);
+      await assertExactCourseCurves(page, { minCount: STRICT_SECOND_DEGRE ? 5 : 0 });
+      await assertNoFormulaOverflow(page);
+
+      assert(errors.length === 0, `course page must not emit console/page errors: ${errors.join(' | ')}`);
+      console.log(`PASS course page verification for ${COURSE_RELATIVE_PATH}: sidebar states, reveal buttons, formula overflow, notes contract, and exact curve checks are valid.`);
+    } finally {
+      await page.close();
+    }
   }
-  assertGenerationNotesContract();
-  await assertExactCourseCurves(page, { minCount: STRICT_SECOND_DEGRE ? 5 : 0 });
-  await assertRevealButtons(page);
-  await assertNoFormulaOverflow(page);
-  await assertSidebarMobile(page);
-  await assertExactCourseCurves(page, { minCount: STRICT_SECOND_DEGRE ? 5 : 0 });
-  await assertNoFormulaOverflow(page);
-
-  assert(errors.length === 0, `course page must not emit console/page errors: ${errors.join(' | ')}`);
-  console.log(`PASS course page verification for ${COURSE_RELATIVE_PATH}: sidebar states, reveal buttons, formula overflow, notes contract, and exact curve checks are valid.`);
 } finally {
   await browser.close();
 }

@@ -7,6 +7,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const ONBOARDING_PATH = join(ROOT, 'onboarding.html');
 const ONBOARDING_CSS_PATH = join(ROOT, 'onboarding', 'onboarding.css');
+const ONBOARDING_APP_PATH = join(ROOT, 'onboarding', 'app.jsx');
 const ONBOARDING_BUNDLE_PATH = join(ROOT, 'onboarding', 'onboarding.bundle.js');
 const ONBOARDING_URL = pathToFileURL(ONBOARDING_PATH).href;
 
@@ -30,13 +31,14 @@ function readProjectFile(filePath) {
 }
 
 function assertRequiredFilesExist() {
-  for (const filePath of [ONBOARDING_PATH, ONBOARDING_CSS_PATH, ONBOARDING_BUNDLE_PATH]) {
+  for (const filePath of [ONBOARDING_PATH, ONBOARDING_CSS_PATH, ONBOARDING_APP_PATH, ONBOARDING_BUNDLE_PATH]) {
     assert(existsSync(filePath), `Required onboarding file does not exist: ${filePath}`);
   }
 }
 
 function assertStaticWiring() {
   const html = readProjectFile(ONBOARDING_PATH);
+  const appSource = readProjectFile(ONBOARDING_APP_PATH);
   const bundle = readProjectFile(ONBOARDING_BUNDLE_PATH);
 
   assert(/<link\s+rel="stylesheet"\s+href="colors_and_type\.css"\s*\/?>/.test(html), 'onboarding.html: must load colors_and_type.css');
@@ -44,9 +46,12 @@ function assertStaticWiring() {
   assert(/react@18\.3\.1\/umd\/react\.production\.min\.js/.test(html), 'onboarding.html: must load React production runtime');
   assert(/react-dom@18\.3\.1\/umd\/react-dom\.production\.min\.js/.test(html), 'onboarding.html: must load ReactDOM production runtime');
   assert(/<script\s+src="onboarding\/onboarding\.bundle\.js"><\/script>/.test(html), 'onboarding.html: must load the compiled onboarding bundle');
+  assert(/<link\s+rel="preload"\s+href="assets\/js\/lib\/qrcode-generator-2\.0\.4\/qrcode\.js"\s+as="script"\s*\/?>/.test(html), 'onboarding.html: must preload the local QR code script');
 
   assert(!/text\/babel|babel\.min\.js|react\.development|react-dom\.development/i.test(html), 'onboarding.html: must not load Babel or React development runtime');
   assert(!/<script[^>]+src="onboarding\/(?:state|profile|screens-early|screens-mid|screens-late|app)\.jsx"/.test(html), 'onboarding.html: must not load JSX sources directly');
+  assert(!/showCommitmentRecap/i.test(html), 'onboarding.html: production tweaks must not expose showCommitmentRecap');
+  assert(!/showCommitmentRecap|goNext\(\);\s*return\s+null/.test(appSource), 'onboarding/app.jsx: recap screen must not be skippable by tweak');
   assert(!/FileReader|readAsDataURL|scheduleImg|data:image/i.test(bundle), 'onboarding bundle: upload preview must not persist base64 image data');
 }
 

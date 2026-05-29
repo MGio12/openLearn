@@ -40,6 +40,18 @@ Chaque bloc devrait porter, directement ou via un manifeste de donnees :
 
 Cette structure doit permettre d'envoyer a l'IA seulement le contexte utile du bloc, la reponse de l'eleve et le profil de reponse choisi. Il ne faut pas injecter tout le cours a chaque interaction.
 
+## Contrat DOM minimal v1
+
+Tant qu'il n'y a pas de backend IA stabilise, les blocs IA doivent rester simples et securises par defaut :
+
+- la reponse eleve vit dans un `textarea[data-ia-response]` avec longueur bornee cote HTML et cote JS ;
+- les commandes visibles utilisent `data-ia-submit`, `data-ia-retry` et `data-ia-reveal` selon le besoin du bloc ;
+- le feedback IA, les erreurs et les messages d'etat sont rendus avec `textContent`, jamais avec du HTML issu de l'eleve ;
+- la correction complete reste statique ou en KaTeX controle par le cours ;
+- aucun HTML utilisateur n'est accepte dans une correction, un feedback, un indice ou un historique.
+
+La v1 privilegie l'absence de HTML utilisateur plutot qu'un sanitizer externe. Si une future integration autorise un rendu riche, elle devra ajouter une limite stricte de format, un sanitizer audite et une verification dediee avant d'arriver dans les cours.
+
 ## Performance et architecture cible
 
 Les pages doivent rester statiques et rapides. Les blocs IA doivent donc etre pensés comme des ilots interactifs charges a la demande.

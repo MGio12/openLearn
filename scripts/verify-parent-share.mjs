@@ -66,6 +66,7 @@ function assertStaticWiring() {
 function runParentShare() {
   const sandbox = {
     console,
+    Date,
     TextEncoder,
     TextDecoder,
     URL,
@@ -81,6 +82,7 @@ function runParentShare() {
   sandbox.window.TextEncoder = TextEncoder;
   sandbox.window.TextDecoder = TextDecoder;
   sandbox.window.URL = URL;
+  sandbox.window.Date = Date;
   sandbox.window.btoa = sandbox.btoa;
   sandbox.window.atob = sandbox.atob;
 
@@ -109,6 +111,37 @@ function assertNoSensitivePayloadData(payload, label) {
   forbidden.forEach((needle) => {
     assert(!json.includes(needle), `${label}: payload must not include sensitive value "${needle}"`);
   });
+}
+
+function assertWhitelistedPayloadKeys(payload, label) {
+  const rootKeys = new Set([
+    'version',
+    'date',
+    'classe',
+    'objectif',
+    'matiere',
+    'blocage',
+    'niveau',
+    'mission',
+    'offre',
+    'heuresParSemaine',
+    'premiereEcheance',
+  ]);
+  const missionKeys = new Set(['action', 'duree', 'why', 'trace']);
+  const offerKeys = new Set(['trialDays', 'pricePerMonth']);
+
+  const unknownRoot = Object.keys(payload || {}).filter((key) => !rootKeys.has(key));
+  const unknownMission = Object.keys(payload?.mission || {}).filter((key) => !missionKeys.has(key));
+  const unknownOffer = Object.keys(payload?.offre || {}).filter((key) => !offerKeys.has(key));
+
+  assert(unknownRoot.length === 0, `${label}: payload contains non-whitelisted root keys: ${unknownRoot.join(', ')}`);
+  assert(unknownMission.length === 0, `${label}: mission contains non-whitelisted keys: ${unknownMission.join(', ')}`);
+  assert(unknownOffer.length === 0, `${label}: offre contains non-whitelisted keys: ${unknownOffer.join(', ')}`);
+}
+
+function assertParentPageUsesTextOnly() {
+  const parentJs = readProjectFile(FILES.parentJs);
+  assert(!/\binnerHTML\b/.test(parentJs), 'parent.js: parent payload must be displayed with textContent, not innerHTML');
 }
 
 function assertParentShareHelper() {
@@ -142,6 +175,7 @@ function assertParentShareHelper() {
   };
 
   const payload = helper.createPayload(profile, mission, { trialDays: 3, pricePerMonth: 19.99 }, new Date('2026-05-27T12:00:00Z'));
+  assertWhitelistedPayloadKeys(payload, 'parent-share.js createPayload');
   assert(payload.version === 1, 'parent-share.js: payload version must be 1');
   assert(payload.date === '2026-05-27', 'parent-share.js: payload date must be YYYY-MM-DD');
   assert(payload.classe === 'Première', 'parent-share.js: classe must be preserved');
@@ -154,12 +188,42 @@ function assertParentShareHelper() {
   assert(payload.mission.action.includes('Refaire un exercice'), 'parent-share.js: mission action must be preserved');
   assert(payload.offre.trialDays === 3, 'parent-share.js: trial days must be preserved');
   assert(payload.offre.pricePerMonth === 19.99, 'parent-share.js: monthly price must be preserved');
+  assert(!/[<>]/.test(helper.createPayload({ classe: '<img>' }, { action: '<script>alert(1)</script>' }).mission.action), 'parent-share.js: cleanString must strip angle brackets');
   assertNoSensitivePayloadData(payload, 'parent-share.js');
 
   const token = helper.encodePayload(payload);
   assert(/^[A-Za-z0-9_-]+$/.test(token), 'parent-share.js: encoded payload must be base64url');
-  assert(JSON.stringify(helper.decodePayload(token)) === JSON.stringify(payload), 'parent-share.js: decode must round-trip payload');
+  const decodedPayload = helper.decodePayload(token);
+  assertWhitelistedPayloadKeys(decodedPayload, 'parent-share.js decoded payload');
+  assert(JSON.stringify(decodedPayload) === JSON.stringify(payload), 'parent-share.js: decode must round-trip payload');
   assert(helper.decodePayload('not-a-valid-token') === null, 'parent-share.js: invalid token must return null');
+
+  const injected = Object.assign({}, payload, {
+    nom: 'Lina',
+    email: 'eleve@example.com',
+    token: 'secret',
+    checkout_url: 'https://buy.stripe.com/test_private',
+    moyenne: { current: 8.5, target: 14 },
+    effortHebdo: {
+      scheduleUpload: {
+        fileName: 'emploi-du-temps.png',
+        type: 'image/png',
+      },
+    },
+  });
+  const cleanedInjected = helper.decodePayload(helper.encodePayload(injected));
+  assertWhitelistedPayloadKeys(cleanedInjected, 'parent-share.js encoded/decoded payload');
+  assertNoSensitivePayloadData(cleanedInjected, 'parent-share.js encoded/decoded payload');
+
+  const longMission = {
+    action: 'Action longue. '.repeat(80),
+    duree: 60,
+    why: 'Justification longue. '.repeat(80),
+    trace: 'Trace longue. '.repeat(80),
+  };
+  const longPayload = helper.createPayload(profile, longMission, { trialDays: 3, pricePerMonth: 19.99 }, new Date('2026-05-27T12:00:00Z'));
+  const longParentUrl = helper.createParentUrl(longPayload, 'https://objectiflycee.fr/onboarding.html');
+  assert(longParentUrl.length < 1800, `parent-share.js: long mission parent URL must stay under 1800 chars, got ${longParentUrl.length}`);
 
   const parentUrl = helper.createParentUrl(payload, 'https://objectiflycee.fr/onboarding.html');
   assert(parentUrl.startsWith('https://objectiflycee.fr/parent.html#p='), 'parent-share.js: parent URL must target parent.html#p=');
@@ -273,6 +337,7 @@ async function assertParentShareFlow(browser, viewport, helper) {
 
 assertRequiredFilesExist();
 assertStaticWiring();
+assertParentPageUsesTextOnly();
 assertParentShareHelper();
 
 const helper = runParentShare();
