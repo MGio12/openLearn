@@ -2,6 +2,7 @@
 
 **Free. Open source. Built for every French high school student - not just the ones whose parents can pay for a tutor.**
 
+[![CI](https://github.com/MGio12/openLearn/actions/workflows/verify.yml/badge.svg)](https://github.com/MGio12/openLearn/actions/workflows/verify.yml)
 [![Open Source - MIT](https://img.shields.io/badge/open%20source-MIT-blue.svg)](LICENSE)
 [![Made for Students](https://img.shields.io/badge/made%20for-lyc%C3%A9ens-yellow.svg)]()
 [![No Paywall](https://img.shields.io/badge/paywall-none-green.svg)]()
