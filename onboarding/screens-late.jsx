@@ -1,5 +1,5 @@
 /* ============================================================
-   Screens — LATE (Generation → Paywall)
+   Screens - LATE (Generation → Paywall)
    Mis à jour pour matieres (array) et effortHebdo (object).
    ============================================================ */
 
@@ -216,7 +216,7 @@ function GenerationScreen({ profile, onDone }) {
 
   const STEPS = [
     { h: "Analyse de ton profil",   s: `${profile.classe || "Lycée"} · ${objectif}.` },
-    { h: "Priorité identifiée",     s: `${matiere} — ${blocage.toLowerCase()}.` },
+    { h: "Priorité identifiée",     s: `${matiere} - ${blocage.toLowerCase()}.` },
     { h: "Niveau calibré",          s: `${niveau} : on évite trop facile ou trop dur.` },
     { h: "Temps pris en compte",    s: `Mission calibrée sur ${tempsTxt}.` },
     { h: "Mission prête",           s: "Tu vas voir quoi faire, pourquoi, et quelle trace produire." },
@@ -284,7 +284,7 @@ function MissionScreen({ profile, mission, onNext, tweaks }) {
 
       <p className="ob-mission-diag">
         Tu as choisi <span className="stab">{matiere}</span> et tu bloques sur <span className="stab">« {blocage.toLowerCase()} »</span>.
-        Avec <span className="stab">{mission.duree} minutes</span> à investir aujourd'hui, on garde une action précise — pas un chapitre entier.
+        Avec <span className="stab">{mission.duree} minutes</span> à investir aujourd'hui, on garde une action précise - pas un chapitre entier.
       </p>
 
       <div className="ob-mission-body">
@@ -334,7 +334,7 @@ function MissionScreen({ profile, mission, onNext, tweaks }) {
 }
 
 // ----------------------------------------------------------------
-// 15. SOCIAL — stats + avis (élèves + parents)
+// 15. SOCIAL - stats + avis (élèves + parents)
 // ----------------------------------------------------------------
 function SocialScreen({ profile, onNext, tweaks }) {
   const stats = getSocialStats(profile);
@@ -360,7 +360,7 @@ function SocialScreen({ profile, onNext, tweaks }) {
               <div className="ob-stat-v2-num">{s.num}</div>
               <div className="ob-stat-v2-body">
                 <div className="ob-stat-v2-text">{s.label}</div>
-                <div className="ob-stat-v2-source">— {s.source}</div>
+                <div className="ob-stat-v2-source">- {s.source}</div>
               </div>
             </div>
           ))}
@@ -412,7 +412,7 @@ function SocialScreen({ profile, onNext, tweaks }) {
 }
 
 // ----------------------------------------------------------------
-// 16. RECAP — "Ton année en clair"
+// 16. RECAP - "Ton année en clair"
 // ----------------------------------------------------------------
 function RecapScreen({ profile, mission, onNext, tweaks }) {
   const nom = profile.nom || "Toi";
@@ -602,7 +602,7 @@ function PaywallScreen({ profile, mission, tweaks, onActivate, onReviewMission }
             </div>
             <ul className="ob-price-details">
               <li><span><b>Pas de prélèvement</b> pendant {tweaks.trialDays} jours, garanti.</span></li>
-              <li><span><b>Annulation en 1 clic</b> avant le {trialEnd.getDate()}/{(trialEnd.getMonth()+1).toString().padStart(2,"0")} — depuis ton espace.</span></li>
+              <li><span><b>Annulation en 1 clic</b> avant le {trialEnd.getDate()}/{(trialEnd.getMonth()+1).toString().padStart(2,"0")} - depuis ton espace.</span></li>
               <li><span><b>Prélèvement automatique</b> {priceStr}/mois si tu n'annules pas. Renouvelable mensuel.</span></li>
               <li><span>Paiement <b>Stripe</b>, aucune donnée bancaire stockée chez nous.</span></li>
             </ul>
@@ -631,7 +631,7 @@ function PaywallScreen({ profile, mission, tweaks, onActivate, onReviewMission }
             <div style={{ fontFamily: "var(--font-mono)", fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--ink)", marginBottom: 6 }}>
               Pas de surprise
             </div>
-            Tu paies pour <b style={{ color: "var(--ink)" }}>garder un plan quotidien personnalisé</b> — pas pour
+            Tu paies pour <b style={{ color: "var(--ink)" }}>garder un plan quotidien personnalisé</b> - pas pour
             accéder à plus de contenu. Si à l'usage tu n'utilises pas la mission du jour, annule.
           </div>
         </div>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Fonction exponentielle — cours V2</title>
+  <title>Fonction exponentielle - cours V2</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <link rel="stylesheet" href="../cours.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
@@ -80,6 +80,7 @@
       <a href="../../../..">Objectif Lycée</a>
       <span>Maths spécialité</span>
       <span>Cours</span>
+      <a href="td.html">TD corrigé</a>
     </nav>
 
     <div class="hero-grid">
@@ -123,7 +124,7 @@
   <main class="course-layout" data-course-layout>
     <article class="lesson course-lesson">
 
-      <!-- Overview band — single editorial section -->
+      <!-- Overview band - single editorial section -->
       <section class="course-overview" aria-label="Repères du chapitre">
         <div>
           <p class="course-overview__title">Fil conducteur</p>
@@ -313,7 +314,7 @@
         </div>
 
         <div class="c-callout c-callout--tip">
-          <p class="c-callout__label"><span class="dot"></span>Mémo technique — deux conditions</p>
+          <p class="c-callout__label"><span class="dot"></span>Mémo technique - deux conditions</p>
           <p>
             L'exponentielle se dérive en elle-même et démarre à \(1\).
             La phrase courte est&nbsp;: «&nbsp;même dérivée, départ \(1\)&nbsp;».
@@ -416,7 +417,7 @@
         </div>
 
         <div class="c-callout c-callout--tip">
-          <p class="c-callout__label"><span class="dot"></span>Réflexe — somme devient produit</p>
+          <p class="c-callout__label"><span class="dot"></span>Réflexe - somme devient produit</p>
           <p>
             Dans l'exposant, une somme devient un produit dehors&nbsp;: \(e^{x+y}=e^x e^y\).
             Feu rouge absolu&nbsp;: \(e^{x+y}\) ne devient jamais \(e^x+e^y\).
@@ -655,7 +656,7 @@
         </div>
 
         <div class="c-callout c-callout--tip">
-          <p class="c-callout__label"><span class="dot"></span>Mémo technique — recopie-remorque</p>
+          <p class="c-callout__label"><span class="dot"></span>Mémo technique - recopie-remorque</p>
           <p>
             Pour dériver \(e^{u(x)}\), tu recopies la remorque \(e^{u(x)}\), puis tu accroches devant le moteur \(u'(x)\).
           </p>
@@ -681,7 +682,7 @@
           </div>
         </div>
 
-        <p class="section-subtitle">Exemple — exposant affine</p>
+        <p class="section-subtitle">Exemple - exposant affine</p>
 
         <div class="worked-example">
           <p>Soit \(f(x)=e^{3x+2}\). On a \(u(x)=3x+2\) et \(u'(x)=3\).</p>
@@ -696,7 +697,7 @@
           <p>L'exposant reste identique. Seule la constante \(3\) vient multiplier devant. C'est l'erreur la plus fréquente à éviter&nbsp;: ne pas dériver l'exposant.</p>
         </div>
 
-        <p class="section-subtitle">Exemple — exposant polynomial</p>
+        <p class="section-subtitle">Exemple - exposant polynomial</p>
 
         <div class="worked-example">
           <p>Soit \(f(x)=e^{x^{2}+3x+1}\). On a \(u(x)=x^{2}+3x+1\) et \(u'(x)=2x+3\).</p>
@@ -706,7 +707,7 @@
           <p>L'exponentielle est <em>recopiée à l'identique</em>, on multiplie par la dérivée de l'exposant.</p>
         </div>
 
-        <p class="section-subtitle">Exemple — produit \(u\,e^{x}\)</p>
+        <p class="section-subtitle">Exemple - produit \(u\,e^{x}\)</p>
 
         <div class="worked-example">
           <p>Soit \(g(x)=(x-1)\,e^{x}\). On utilise \((uv)'=u'v+uv'\) avec \(u(x)=x-1\) et \(v(x)=e^{x}\).</p>
@@ -721,7 +722,7 @@
           <p>Astuce&nbsp;: on factorise par \(e^{x}\) à la fin. C'est ce qui permettra ensuite d'étudier le signe sans s'embrouiller.</p>
         </div>
 
-        <p class="section-subtitle">Exemple — quotient \(\dfrac{e^{x}}{x}\)</p>
+        <p class="section-subtitle">Exemple - quotient \(\dfrac{e^{x}}{x}\)</p>
 
         <div class="worked-example">
           <p>Soit \(h(x)=\dfrac{e^{x}}{x}\) sur \(\mathbb{R}^{*}\). Avec la formule du quotient&nbsp;:</p>
@@ -1057,7 +1058,7 @@
         </div>
 
         <div class="c-callout c-callout--tip">
-          <p class="c-callout__label"><span class="dot"></span>Réflexe — trois portes d'entrée</p>
+          <p class="c-callout__label"><span class="dot"></span>Réflexe - trois portes d'entrée</p>
           <p>
             Positivité ferme la porte à \(e^A=0\) ou \(e^A<0\). \(1=e^0\) transforme \(e^A=1\) en \(A=0\).
             Si tu vois \(e^{2x}\), pose souvent \(X=e^x\) pour retrouver un polynôme.
@@ -1067,7 +1068,7 @@
           </p>
         </div>
 
-        <p class="section-subtitle">Cas 1 — \(e^{a}=e^{b}\)</p>
+        <p class="section-subtitle">Cas 1 - \(e^{a}=e^{b}\)</p>
 
         <div class="worked-example">
           <p>Résoudre \(e^{3x}=e^{2}\).</p>
@@ -1079,7 +1080,7 @@
           <p>Conclusion&nbsp;: \(S=\left\{\tfrac{2}{3}\right\}\).</p>
         </div>
 
-        <p class="section-subtitle">Cas 2 — \(e^{A}=1\) ou \(e^{A}=e\)</p>
+        <p class="section-subtitle">Cas 2 - \(e^{A}=1\) ou \(e^{A}=e\)</p>
 
         <div class="worked-example">
           <p>Résoudre \(e^{5x+2}-1=0\).</p>
@@ -1091,7 +1092,7 @@
           <p>Conclusion&nbsp;: \(S=\left\{-\tfrac{2}{5}\right\}\).</p>
         </div>
 
-        <p class="section-subtitle">Cas 3 — \(e^{A}=k\lt0\) ou \(e^{A}=0\)</p>
+        <p class="section-subtitle">Cas 3 - \(e^{A}=k\lt0\) ou \(e^{A}=0\)</p>
 
         <div class="worked-example">
           <p>Résoudre \(e^{5x+2}+1=0\).</p>
@@ -1109,7 +1110,7 @@
           </p>
         </div>
 
-        <p class="section-subtitle">Cas 4 — équation de type \(e^{u}=e^{v}\) avec polynôme dans les exposants</p>
+        <p class="section-subtitle">Cas 4 - équation de type \(e^{u}=e^{v}\) avec polynôme dans les exposants</p>
 
         <div class="worked-example">
           <p>Résoudre \(e^{x^{2}-3}-e^{-2x}=0\).</p>
@@ -1124,7 +1125,7 @@
           <p>Conclusion&nbsp;: \(S=\{-3\,;\,1\}\). On a ramené une équation «&nbsp;avec exponentielle&nbsp;» à un second degré.</p>
         </div>
 
-        <p class="section-subtitle">Cas 5 — inéquation</p>
+        <p class="section-subtitle">Cas 5 - inéquation</p>
 
         <div class="worked-example">
           <p>Résoudre \(e^{3x+1}-e^{-x}\lt0\).</p>
@@ -1137,7 +1138,7 @@
           <p>Conclusion&nbsp;: \(S=\left]-\infty\,;\,-\tfrac{1}{4}\right[\). La croissance stricte de \(\exp\) <em>conserve</em> le sens de l'inégalité.</p>
         </div>
 
-        <p class="section-subtitle">Cas 6 — inéquation toujours vraie ou jamais vraie</p>
+        <p class="section-subtitle">Cas 6 - inéquation toujours vraie ou jamais vraie</p>
 
         <div class="worked-example">
           <p>Résoudre \(e^{3x+1}+e^{-x}\lt0\).</p>
@@ -1149,7 +1150,7 @@
           <p>Inversement&nbsp;: \(e^{5-2x}+2\ge0\) est <em>toujours</em> vrai (somme de positifs et de \(2\)). Donc \(S=\mathbb{R}\).</p>
         </div>
 
-        <p class="section-subtitle">Cas 7 — équation type «&nbsp;polynôme en \(e^{x}\)&nbsp;»</p>
+        <p class="section-subtitle">Cas 7 - équation type «&nbsp;polynôme en \(e^{x}\)&nbsp;»</p>
 
         <div class="worked-example">
           <p>Résoudre \(e^{2x}+2e^{x}=3\). On pose \(X=e^{x}\), avec la contrainte \(X>0\).</p>
@@ -1230,7 +1231,7 @@
         </div>
 
         <div class="c-callout c-callout--tip">
-          <p class="c-callout__label"><span class="dot"></span>Image mentale — départ et direction</p>
+          <p class="c-callout__label"><span class="dot"></span>Image mentale - départ et direction</p>
           <p>
             Dans \(A e^{kt}\), \(A\) est le départ car \(f(0)=A\). Le signe de \(k\) donne la direction&nbsp;: \(k>0\) monte, \(k<0\) descend.
           </p>
@@ -1298,7 +1299,7 @@
           <p>Si \(k\lt0\), alors \(f'(t)=k\,e^{kt}\lt0\)&nbsp;: \(f\) est strictement décroissante.</p>
         </div>
 
-        <p class="section-subtitle">Exemple — population de bactéries</p>
+        <p class="section-subtitle">Exemple - population de bactéries</p>
 
         <div class="worked-example">
           <p>Par suite d'une infection, le nombre de bactéries en fonction du temps (en heures) est modélisé par \(f\) telle que \(f'(t)=0{,}14\,f(t)\) et \(f(0)=50\,000\).</p>
@@ -1328,7 +1329,7 @@
           <p>L'organisme passe d'environ \(76\,000\) bactéries à \(108\,000\) en \(2\)h\(30\)&nbsp;: la croissance s'accélère avec le temps, ce qui est la signature d'une croissance exponentielle.</p>
         </div>
 
-        <p class="section-subtitle">Exemple — décroissance radioactive</p>
+        <p class="section-subtitle">Exemple - décroissance radioactive</p>
 
         <div class="worked-example">
           <p>La masse d'un échantillon radioactif suit la loi \(m(t)=m_{0}\,e^{-\lambda t}\), avec \(\lambda>0\) appelé <em>constante de désintégration</em>.</p>
@@ -1542,7 +1543,7 @@
         </p>
 
         <div class="c-callout c-callout--warn">
-          <p class="c-callout__label"><span class="dot"></span>Piège 1 — \(e^{x}\) confondu avec \(x^{e}\)</p>
+          <p class="c-callout__label"><span class="dot"></span>Piège 1 - \(e^{x}\) confondu avec \(x^{e}\)</p>
           <p>
             \(e^{x}\) est une <em>puissance variable</em> du nombre \(e\). \(x^{e}\) est une <em>puissance constante</em> de \(x\),
             qui n'est même pas définie pour tout \(x\). Les deux fonctions n'ont rien en commun&nbsp;: \(\exp\) est définie sur \(\mathbb{R}\),
@@ -1551,7 +1552,7 @@
         </div>
 
         <div class="c-callout c-callout--warn">
-          <p class="c-callout__label"><span class="dot"></span>Piège 2 — \(e^{x+y}=e^{x}+e^{y}\)</p>
+          <p class="c-callout__label"><span class="dot"></span>Piège 2 - \(e^{x+y}=e^{x}+e^{y}\)</p>
           <p>
             <strong>FAUX.</strong> L'exponentielle transforme la somme en <em>produit</em>&nbsp;: \(e^{x+y}=e^{x}\,e^{y}\).
             Pour vérifier&nbsp;: \(e^{1+1}=e^{2}\approx7{,}39\), tandis que \(e^{1}+e^{1}\approx5{,}44\). Les deux ne sont pas égaux.
@@ -1559,7 +1560,7 @@
         </div>
 
         <div class="c-callout c-callout--warn">
-          <p class="c-callout__label"><span class="dot"></span>Piège 3 — \((e^{u})'=e^{u'}\)</p>
+          <p class="c-callout__label"><span class="dot"></span>Piège 3 - \((e^{u})'=e^{u'}\)</p>
           <p>
             <strong>FAUX.</strong> La règle correcte est \((e^{u(x)})'=u'(x)\,e^{u(x)}\). L'exposant <em>reste</em>,
             et on multiplie par la dérivée de l'exposant. Penser à \((e^{3x})'=3e^{3x}\), pas \(e^{3}\).
@@ -1567,7 +1568,7 @@
         </div>
 
         <div class="c-callout c-callout--warn">
-          <p class="c-callout__label"><span class="dot"></span>Piège 4 — Le signe de \(x\) dans \(e^{x}\)</p>
+          <p class="c-callout__label"><span class="dot"></span>Piège 4 - Le signe de \(x\) dans \(e^{x}\)</p>
           <p>
             \(e^{x}>0\) <em>quel que soit le signe de \(x\)</em>. Même \(e^{-100}\) est strictement positif&nbsp;: il est très petit,
             mais positif. Ne jamais écrire \(e^{x}\lt0\) ni \(e^{x}=0\).
@@ -1575,7 +1576,7 @@
         </div>
 
         <div class="c-callout c-callout--warn">
-          <p class="c-callout__label"><span class="dot"></span>Piège 5 — Oublier la stricte croissance comme justification</p>
+          <p class="c-callout__label"><span class="dot"></span>Piège 5 - Oublier la stricte croissance comme justification</p>
           <p>
             Quand tu passes de \(e^{A}=e^{B}\) à \(A=B\), le correcteur attend la phrase&nbsp;: «&nbsp;\(\exp\) étant strictement
             croissante sur \(\mathbb{R}\)&nbsp;». Sans elle, le passage n'est pas justifié, même si la suite est juste.
@@ -1609,7 +1610,7 @@
 
         <div class="exercise">
           <div class="exercise-header">
-            <h3>Guidé 1 — Simplifier des expressions</h3>
+            <h3>Guidé 1 - Simplifier des expressions</h3>
             <span class="difficulty" aria-label="Niveau comprendre">Comprendre</span>
           </div>
           <p>Simplifier les écritures&nbsp;:</p>
@@ -1629,7 +1630,7 @@
 
         <div class="exercise">
           <div class="exercise-header">
-            <h3>Guidé 2 — Dérivée d'un produit avec \(e^{x}\)</h3>
+            <h3>Guidé 2 - Dérivée d'un produit avec \(e^{x}\)</h3>
             <span class="difficulty" aria-label="Niveau savoir refaire">Savoir refaire</span>
           </div>
           <p>Soit \(f(x)=(2x+1)e^{x}\). Calculer \(f'(x)\) et en déduire le sens de variation de \(f\) sur \(\mathbb{R}\).</p>
@@ -1653,7 +1654,7 @@
 
         <div class="exercise">
           <div class="exercise-header">
-            <h3>Guidé 3 — Étudier \(g(x)=e^{x}-x\)</h3>
+            <h3>Guidé 3 - Étudier \(g(x)=e^{x}-x\)</h3>
             <span class="difficulty" aria-label="Niveau savoir refaire">Savoir refaire</span>
           </div>
           <p>Soit \(g(x)=e^{x}-x\). Étudier le sens de variations de \(g\), puis déterminer l'équation de la tangente \(T_{1}\) à la courbe de \(g\) au point d'abscisse \(1\).</p>
@@ -1678,7 +1679,7 @@
 
         <div class="exercise">
           <div class="exercise-header">
-            <h3>Guidé 4 — Résoudre une équation</h3>
+            <h3>Guidé 4 - Résoudre une équation</h3>
             <span class="difficulty" aria-label="Niveau savoir refaire">Savoir refaire</span>
           </div>
           <p>Résoudre dans \(\mathbb{R}\) l'équation \(e^{x^{2}-3}=e^{-2x}\).</p>
@@ -1701,7 +1702,7 @@
 
         <div class="exercise">
           <div class="exercise-header">
-            <h3>Guidé 5 — Variations de \(g(x)=e^{2x}-2x+1\)</h3>
+            <h3>Guidé 5 - Variations de \(g(x)=e^{2x}-2x+1\)</h3>
             <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
           </div>
           <p>Étudier les variations de \(g\) sur \(\mathbb{R}\).</p>
@@ -1737,7 +1738,7 @@
 
         <div class="exercise">
           <div class="exercise-header">
-            <h3>Contrôle 1 — Étude complète de \(f(x)=(x+1)e^{x}\)</h3>
+            <h3>Contrôle 1 - Étude complète de \(f(x)=(x+1)e^{x}\)</h3>
             <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
           </div>
           <p>Soit \(f\) la fonction définie sur \(\mathbb{R}\) par \(f(x)=(x+1)e^{x}\).</p>
@@ -1756,7 +1757,7 @@
 
         <div class="exercise">
           <div class="exercise-header">
-            <h3>Contrôle 2 — Étude de \(f(x)=e^{-x^{2}}\)</h3>
+            <h3>Contrôle 2 - Étude de \(f(x)=e^{-x^{2}}\)</h3>
             <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
           </div>
           <p>Soit \(f\) la fonction définie sur \(\mathbb{R}\) par \(f(x)=e^{-x^{2}}\).</p>
@@ -1778,7 +1779,7 @@
 
         <div class="exercise">
           <div class="exercise-header">
-            <h3>Contrôle 3 — Bactéries</h3>
+            <h3>Contrôle 3 - Bactéries</h3>
             <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
           </div>
           <p>Par suite d'une infection, le nombre de bactéries dans un organisme est modélisé sur \([0\,;\,10]\) (en heures) par \(f(t)=50\,000\,e^{0{,}14\,t}\).</p>
@@ -1799,7 +1800,7 @@
 
         <div class="exercise">
           <div class="exercise-header">
-            <h3>Contrôle 4 — Inéquation</h3>
+            <h3>Contrôle 4 - Inéquation</h3>
             <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
           </div>
           <p>Résoudre dans \(\mathbb{R}\) l'inéquation \(e^{x^{2}-1}\le e^{3-x}\).</p>
@@ -1843,7 +1844,7 @@
 
         <div class="exercise">
           <div class="exercise-header">
-            <h3>20/20 — Étude complète d'une fonction quotient</h3>
+            <h3>20/20 - Étude complète d'une fonction quotient</h3>
             <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
           </div>
           <p>Soit \(h\) la fonction définie par \(h(x)=\dfrac{2e^{x}+3}{e^{x}-1}\).</p>
@@ -1887,7 +1888,7 @@
 
         <div class="exercise">
           <div class="exercise-header">
-            <h3>20/20 — Polynôme en \(e^{x}\)</h3>
+            <h3>20/20 - Polynôme en \(e^{x}\)</h3>
             <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
           </div>
           <p>Résoudre dans \(\mathbb{R}\) l'équation \(e^{2x}-5e^{x}+6=0\).</p>
@@ -1911,7 +1912,7 @@
 
         <div class="exercise">
           <div class="exercise-header">
-            <h3>20/20 — Modèle bactérien (suite et exponentielle)</h3>
+            <h3>20/20 - Modèle bactérien (suite et exponentielle)</h3>
             <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
           </div>
           <p>Soit \(u_{n}=2\,e^{3n-1}\) pour \(n\in\mathbb{N}\).</p>
@@ -1930,7 +1931,7 @@
 
         <div class="exercise">
           <div class="exercise-header">
-            <h3>20/20 — Tangente paramétrée</h3>
+            <h3>20/20 - Tangente paramétrée</h3>
             <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
           </div>
           <p>Soit \(a\) un réel. Déterminer l'équation de la tangente \(T_{a}\) à la courbe de \(\exp\) au point d'abscisse \(a\). Pour quelle valeur de \(a\) cette tangente passe-t-elle par l'origine&nbsp;?</p>
@@ -2010,7 +2011,7 @@
   </main>
 
   <!-- ============================================================
-       JSXGRAPH BOARDS — chapter-specific
+       JSXGRAPH BOARDS - chapter-specific
        ============================================================ -->
   <script>
   (function () {

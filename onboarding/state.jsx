@@ -1,5 +1,17 @@
 /* ============================================================
-   Onboarding — state, screen definitions, mission engine
+   AGENT HEADER
+   Role: manifeste d'ecrans, choix, persistance et moteur mission onboarding.
+   Loaded by: scripts/build-onboarding.mjs dans onboarding/onboarding.bundle.js.
+   Reads/writes: helpers loadState/saveState utilisent localStorage
+   objectif-lycee-onboarding-v3.
+   Public contract: SCREENS, TOTAL_STEPS, CLASSE_CHOICES,
+   OBJECTIF_CHOICES, MATIERE_CHOICES, BLOCAGE_CHOICES,
+   NIVEAU_CHOICES, ECHEANCES_ALL, CHOICES_BY_KEY,
+   computeMission, getSocialStats, getTestimonials, loadState, saveState.
+   Verify: npm run build:onboarding ; npm run verify:onboarding.
+   Read next: `docs/agent-codebase-map.md` Zone 2, `onboarding.md`.
+
+   Onboarding - state, screen definitions, mission engine
    · 9 étapes calibrage (au lieu de 10)
    · Échéances multi-select + filtrées par classe
    · Matières multi-select
@@ -14,11 +26,11 @@
 const { useState, useEffect, useRef, useMemo, useCallback } = React;
 
 // ----------------------------------------------------------------
-// SCREEN MANIFEST — 14 écrans au total
+// SCREEN MANIFEST - 15 écrans au total
 // Calibrage = 9 questions diagnostiques numérotées
 // ----------------------------------------------------------------
 const SCREENS = [
-  { id: "intro",       type: "intro" },                            // 0  — pas numéroté
+  { id: "intro",       type: "intro" },                            // 0  - pas numéroté
   { id: "classe",      type: "question", key: "classe",      step: 1 },
   { id: "objectif",    type: "question", key: "objectif",    step: 2 },
   { id: "moyenne",     type: "moyenne",  key: "moyenne",     step: 3 },
@@ -38,7 +50,7 @@ const SCREENS = [
 const TOTAL_STEPS = SCREENS.filter(s => s.step).length; // 9
 
 // ----------------------------------------------------------------
-// CHOICES — chaque choix porte un emoji qui apparaît dans le profil
+// CHOICES - chaque choix porte un emoji qui apparaît dans le profil
 // ----------------------------------------------------------------
 const CLASSE_CHOICES = [
   { v: "Seconde",   label: "Seconde",   sub: "Je veux prendre de bonnes habitudes tôt.",        emoji: "🎒" },
@@ -85,7 +97,7 @@ const NIVEAU_CHOICES = [
   { v: "Autre",      label: "Autre",      sub: "Je précise mon niveau.",                       emoji: "✍️", other: true },
 ];
 
-// ÉCHÉANCES — déclinées par classe, contexte psy adapté
+// ÉCHÉANCES - déclinées par classe, contexte psy adapté
 const ECHEANCES_ALL = [
   // Universal
   { v: "controle-7",   label: "Contrôle cette semaine",   emoji: "⏰", days: 7,  classes: ["Seconde","Première","Terminale"], psy: "imminent" },
@@ -114,12 +126,12 @@ const ECHEANCES_ALL = [
 const ECHEANCE_PSY = {
   imminent:        "C'est imminent. À partir de maintenant, chaque mission compte double.",
   near:            "On a juste le temps de poser un plan. Une mission par jour fait l'écart.",
-  medium:          "Tu prends de l'avance — c'est exactement le bon timing.",
+  medium:          "Tu prends de l'avance - c'est exactement le bon timing.",
   spe:             "Le bon choix de spé maintenant te suit jusqu'au bac. On t'aide à y voir clair.",
   passage:         "Le bon dossier de Seconde, c'est ce qui ouvre les portes en Première. On le construit ensemble.",
   blanc:           "Le bac blanc est ton meilleur indicateur. Mieux vaut le préparer que le subir.",
   "blanc-T":       "Le bac blanc, c'est ton dernier vrai signal avant juin. On le prend au sérieux.",
-  eaf:             "Le bac de français se joue maintenant — pas en juin. Anticiper, c'est gagner.",
+  eaf:             "Le bac de français se joue maintenant - pas en juin. Anticiper, c'est gagner.",
   "spec-anticipee":"Cette épreuve compte déjà dans ton dossier Parcoursup. Elle mérite un vrai plan.",
   "grand-oral":    "20 minutes qui pèsent 10 % du bac. Avec de la méthode, c'est jouable.",
   bac:             "Six mois, c'est court. Mais c'est largement suffisant si on cible bien.",
@@ -145,7 +157,7 @@ const CHOICES_BY_KEY = {
 };
 
 // ----------------------------------------------------------------
-// PROFILE LINES — what the side panel shows.
+// PROFILE LINES - what the side panel shows.
 // emoji is computed from the answer's choice.
 // ----------------------------------------------------------------
 const PROFILE_LINES = [
@@ -201,7 +213,7 @@ function choiceEmoji(key, value) {
 }
 
 // ----------------------------------------------------------------
-// MISSION ENGINE — duration derived from effortHebdo
+// MISSION ENGINE - duration derived from effortHebdo
 // ----------------------------------------------------------------
 function computeMission(profile) {
   const matieres = Array.isArray(profile.matieres) ? profile.matieres : [];
@@ -316,11 +328,11 @@ function computeMission(profile) {
     "go":           "Pas de diagnostic figé : on lance une mission rentable maintenant et on affinera dès demain.",
     "method-gap":   "Elle attaque ton blocage : nommer la méthode AVANT le calcul change la qualité de la réponse.",
     "start":        "Elle réduit l'angoisse de la page blanche : une première action minuscule mais finie.",
-    "small-errors": "Elle force la relecture explicite — les erreurs bêtes ne tiennent pas face à une vérification ciblée.",
+    "small-errors": "Elle force la relecture explicite - les erreurs bêtes ne tiennent pas face à une vérification ciblée.",
     "method":       "Elle te fait écrire la méthode AVANT le résultat. C'est ce qui distingue une bonne copie d'une copie ratée.",
     "late":         "Elle ne demande pas de tout rattraper. Elle reprend la première zone rentable proprement.",
     "focus":        "Elle est calibrée pour ton temps réel : un périmètre court, une fin claire, rien à débordant.",
-    "combo":        "On cible le plus rentable d'abord — pas tout en même temps. Une mission claire, pas un menu.",
+    "combo":        "On cible le plus rentable d'abord - pas tout en même temps. Une mission claire, pas un menu.",
   };
   const why = WHY[b] || "Elle attaque ton blocage sans te demander de refaire tout le chapitre.";
 
@@ -334,7 +346,7 @@ function computeMission(profile) {
 }
 
 // ----------------------------------------------------------------
-// SOCIAL PROOF — focus on normalisation de la continuation
+// SOCIAL PROOF - focus on normalisation de la continuation
 // ----------------------------------------------------------------
 function getSocialStats(profile) {
   const classe = profile.classe || "Première";
@@ -365,7 +377,7 @@ function getSocialStats(profile) {
 }
 
 // ----------------------------------------------------------------
-// TESTIMONIALS — mix élèves + parents, adapté au blocage
+// TESTIMONIALS - mix élèves + parents, adapté au blocage
 // (placeholders honnêtes, à remplacer par vrais retours utilisateurs)
 // ----------------------------------------------------------------
 function getTestimonials(profile) {
@@ -388,7 +400,7 @@ function getTestimonials(profile) {
   };
 
   const parentSophie = {
-    quote: "Ma fille s'y met sans qu'on ait à le lui demander. Pour nous, c'est ça la vraie différence — la fin du conflit du soir, pas juste une note qui monte.",
+    quote: "Ma fille s'y met sans qu'on ait à le lui demander. Pour nous, c'est ça la vraie différence - la fin du conflit du soir, pas juste une note qui monte.",
     name: "Sophie L.", meta: "Maman de Léa, Première",
     stars: 5, initials: "SL", color: "is-green", parent: true,
   };
@@ -420,7 +432,7 @@ const ADVICE_BY_BLOCAGE = {
   "method":       "Une bonne réponse ne montre pas seulement le résultat. Elle montre pourquoi tu as choisi cette étape.",
   "late":         "En retard, tu n'as pas besoin de tout ouvrir. Tu as besoin d'une première zone rentable à reprendre proprement.",
   "focus":        "Une session courte avec une trace précise vaut mieux qu'une heure ouverte sans fin claire.",
-  "combo":        "Plusieurs blocages à la fois, c'est normal. On en cible UN à la fois — celui qui débloque le plus d'autres.",
+  "combo":        "Plusieurs blocages à la fois, c'est normal. On en cible UN à la fois - celui qui débloque le plus d'autres.",
 };
 
 // ----------------------------------------------------------------

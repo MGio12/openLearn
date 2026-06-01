@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TD Fonctions trigonométriques - Maths spécialité Première</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="../cours.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="../cours.js"></script>
+</head>
+<body class="has-course-sidebar">
+
+  <div class="progress-bar" aria-hidden="true">
+    <div class="progress-bar__fill" data-progress-fill></div>
+  </div>
+
+  <div class="section-bar" data-section-bar aria-hidden="true">
+    <span class="section-bar__chip" data-section-bar-chip>00</span>
+    <span class="section-bar__title" data-section-bar-title>TD Fonctions trigonométriques</span>
+    <span class="section-bar__total" data-section-bar-total>1/9</span>
+  </div>
+
+  <aside class="toc course-sidebar" aria-label="Plan du TD" data-course-sidebar>
+    <div class="sidebar-head">
+      <div>
+        <p class="toc-title">Plan</p>
+        <p class="sidebar-subtitle">TD Fonctions trigonométriques</p>
+      </div>
+      <button class="sidebar-toggle" type="button" aria-label="Replier le plan" aria-expanded="true" data-sidebar-toggle><span aria-hidden="true">‹</span></button>
+    </div>
+
+    <nav class="toc-links" aria-label="Sections du TD">
+      <a href="#objectifs" data-section-link><span class="toc-index">00</span><span class="toc-label">Objectifs</span></a>
+      <a href="#automatismes" data-section-link><span class="toc-index">A</span><span class="toc-label">Automatismes</span></a>
+      <a href="#methodes-guidees" data-section-link><span class="toc-index">G</span><span class="toc-label">Guidé</span></a>
+      <a href="#pieges" data-section-link><span class="toc-index">P</span><span class="toc-label">Pièges</span></a>
+      <a href="#choix" data-section-link><span class="toc-index">M</span><span class="toc-label">Choisir</span></a>
+      <a href="#controle" data-section-link><span class="toc-index">C</span><span class="toc-label">Contrôle</span></a>
+      <a href="#vingt-sur-vingt" data-section-link><span class="toc-index">20</span><span class="toc-label">20/20</span></a>
+      <a href="#revision" data-section-link><span class="toc-index">R</span><span class="toc-label">Révision</span></a>
+      <a href="#sources" data-section-link><span class="toc-index">S</span><span class="toc-label">Sources</span></a>
+    </nav>
+
+    <p class="sidebar-foot">Maths spé · TD</p>
+  </aside>
+
+  <header class="course-hero">
+    <nav class="topline" aria-label="Fil d'Ariane">
+      <a href="../../../..">Objectif Lycée</a>
+      <span>Maths spécialité</span>
+      <a href="index.html">Cours</a>
+      <span>TD corrigé</span>
+    </nav>
+
+    <div class="hero-grid">
+      <div>
+        <p class="hero-eyebrow"><span class="num">06</span> TD séparé</p>
+        <h1>Fonctions trigonométriques</h1>
+        <p class="hero-lead">40 exercices pour lire sinus et cosinus comme des fonctions : parité, période, variations, équations et courbes.</p>
+      </div>
+
+      <aside class="hero-side" aria-label="Organisation du TD">
+        <p class="hero-side__label">Objectif</p>
+        <h2>40 exercices, corrigés masqués</h2>
+        <div class="hero-side__steps">
+          <div class="hero-side__step"><span class="verb">Définir</span><span class="obj">à produire avant correction</span></div>
+          <div class="hero-side__step"><span class="verb">Réduire</span><span class="obj">à produire avant correction</span></div>
+          <div class="hero-side__step"><span class="verb">Varier</span><span class="obj">à produire avant correction</span></div>
+          <div class="hero-side__step"><span class="verb">Résoudre</span><span class="obj">à produire avant correction</span></div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main class="course-layout" data-course-layout>
+    <article class="lesson course-lesson">
+
+      <section class="course-overview" aria-label="Repères du TD">
+        <div>
+          <p class="course-overview__title">TD d’entraînement</p>
+          <h3>Une page séparée pour travailler sans relire tout le cours</h3>
+          <p class="course-overview__lead">Chaque exercice indique la compétence entraînée, puis cache une réponse ou une correction. Les corrections détaillées montrent aussi la rédaction attendue et les erreurs qui coûtent des points.</p>
+        </div>
+        <div class="overview-flow">
+          <span>Automatismes</span>
+          <em>→</em>
+          <span>Méthodes</span>
+          <em>→</em>
+          <span>Contrôle</span>
+          <em>→</em>
+          <span>20/20</span>
+        </div>
+      </section>
+
+      <section id="objectifs" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">00</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Avant de commencer</p>
+            <h2>Ce TD reprend les points qui tombent vraiment</h2>
+          </div>
+        </div>
+        <p>Travaille dans l’ordre. Si un automatisme bloque, ouvre le corrigé, refais l’exercice sans regarder, puis seulement passe à la suite.</p>
+        <div class="diagnostic-grid">
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">1</span>Compétence</p>
+            <p>fonctions \(x\mapsto \cos x\) et \(x\mapsto \sin x\)</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">2</span>Compétence</p>
+            <p>parité et périodicité</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">3</span>Compétence</p>
+            <p>variations sur des intervalles de référence</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">4</span>Compétence</p>
+            <p>lecture de courbes déterministes dans le cours</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">5</span>Compétence</p>
+            <p>équations \(\cos x=r\) et \(\sin x=r\)</p>
+          </div>
+        </div>
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Pièges surveillés</p>
+          <p>confondre valeur d’angle et valeur de fonction ; oublier la période \(2\pi\) ; mal utiliser la parité de sinus ; résoudre une équation hors de l’intervalle demandé.</p>
+        </div>
+      </section>
+
+      <section id="automatismes" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">A</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Automatismes</h2>
+          </div>
+        </div>
+        <p>10 exercices courts pour sécuriser les gestes de base.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 1 · Image cosinus</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : évaluer une fonction.</p>
+            <p>Calculer \(f(\pi)\) pour \(f(x)=\cos x\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-01">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-01" class="answer" hidden>
+              <p>\(f(\pi)=-1\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 2 · Image sinus</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : évaluer une fonction.</p>
+            <p>Calculer \(g(\frac{\pi}{2})\) pour \(g(x)=\sin x\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-02">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-02" class="answer" hidden>
+              <p>\(g(\frac{\pi}{2})=1\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 3 · Parité cosinus</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : connaître la parité.</p>
+            <p>La fonction cosinus est-elle paire ou impaire ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-03">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-03" class="answer" hidden>
+              <p>Elle est paire : \(\cos(-x)=\cos x\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 4 · Parité sinus</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : connaître la parité.</p>
+            <p>La fonction sinus est-elle paire ou impaire ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-04">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-04" class="answer" hidden>
+              <p>Elle est impaire : \(\sin(-x)=-\sin x\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 5 · Période</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : connaître la période.</p>
+            <p>Quelle est la période de \(\sin\) et \(\cos\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-05">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-05" class="answer" hidden>
+              <p>La période est \(2\pi\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 6 · Bornes</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : connaître l’encadrement.</p>
+            <p>Pour tout réel \(x\), encadrer \(\cos x\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-06">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-06" class="answer" hidden>
+              <p>\(-1\le\cos x\le1\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 7 · Valeur périodique</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : utiliser la période.</p>
+            <p>Calculer \(\cos(\frac{\pi}{3}+2\pi)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-07">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-07" class="answer" hidden>
+              <p>C’est \(\cos(\frac{\pi}{3})=\frac12\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 8 · Sinus négatif</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : utiliser l’imparité.</p>
+            <p>Calculer \(\sin(-\frac{\pi}{6})\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-08">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-08" class="answer" hidden>
+              <p>\(-\frac12\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 9 · Variation cosinus</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : intervalle de référence.</p>
+            <p>Sur \([0;\pi]\), la fonction cosinus est-elle croissante ou décroissante ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-09">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-09" class="answer" hidden>
+              <p>Elle est décroissante.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 10 · Variation sinus</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : intervalle de référence.</p>
+            <p>Sur \([-\frac{\pi}{2};\frac{\pi}{2}]\), la fonction sinus est-elle croissante ou décroissante ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-10">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-10" class="answer" hidden>
+              <p>Elle est croissante.</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="methodes-guidees" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">G</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Méthodes guidées</h2>
+          </div>
+        </div>
+        <p>8 exercices où l’aide disparaît progressivement.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 11 · Réduire une image</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : périodicité.</p>
+            <p>Calculer \(\sin(\frac{13\pi}{6})\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-11">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-11" class="answer" hidden>
+              <p>\(\frac{13\pi}{6}=2\pi+\frac{\pi}{6}\), donc la valeur est \(\frac12\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 12 · Parité puis valeur</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : combiner deux propriétés.</p>
+            <p>Calculer \(\cos(-\frac{5\pi}{3})\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-12">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-12" class="answer" hidden>
+              <p>\(\cos(-\frac{5\pi}{3})=\cos(\frac{5\pi}{3})=\frac12\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 13 · Équation cosinus</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : résoudre sur un intervalle.</p>
+            <p>Résoudre \(\cos x=0\) sur \([-\pi;\pi]\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-13">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-13" class="answer" hidden>
+              <p>\(x=-\frac{\pi}{2}\) ou \(x=\frac{\pi}{2}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 14 · Équation sinus</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : résoudre sur un intervalle.</p>
+            <p>Résoudre \(\sin x=1\) sur \([0;2\pi[\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-14">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-14" class="answer" hidden>
+              <p>\(x=\frac{\pi}{2}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 15 · Comparer deux images</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : utiliser variation.</p>
+            <p>Sans calculatrice, comparer \(\cos(\frac{\pi}{5})\) et \(\cos(\frac{\pi}{4})\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-15">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-15" class="answer" hidden>
+              <p>Sur \([0;\pi]\), \(\cos\) décroît. Comme \(\frac{\pi}{5}<\frac{\pi}{4}\), on a \(\cos(\frac{\pi}{5})>\cos(\frac{\pi}{4})\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 16 · Signe</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : lire sur le cercle.</p>
+            <p>Donner le signe de \(\sin x\) sur \([-\pi;0]\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-16">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-16" class="answer" hidden>
+              <p>\(\sin x\le0\) sur \([-\pi;0]\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 17 · Période modifiée</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : fonction composée simple.</p>
+            <p>Quelle est la période de \(x\mapsto\cos(2x)\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-17">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-17" class="answer" hidden>
+              <p>La période est \(\pi\), car \(2(x+\pi)=2x+2\pi\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 18 · Rédaction notée</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : résoudre avec intervalle.</p>
+            <p>Rédiger la résolution de \(\cos x=-\frac12\) sur \([-\pi;\pi]\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-18">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-18" class="answer" hidden>
+              <p>On cherche les angles de l’intervalle \([-\pi;\pi]\) dont le cosinus vaut \(-\frac12\).</p><p>Sur un tour, les angles de référence sont \(\frac{2\pi}{3}\) et \(\frac{4\pi}{3}\). Dans l’intervalle demandé, \(\frac{4\pi}{3}\) est remplacé par \(-\frac{2\pi}{3}\).</p><p>Donc \(S=\left\{-\frac{2\pi}{3};\frac{2\pi}{3}\right\}\).</p><p>Erreur qui coûte des points : donner une solution hors de l’intervalle demandé.</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="pieges" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">P</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Pièges classiques</h2>
+          </div>
+        </div>
+        <p>6 exercices pour repérer les erreurs qui coûtent des points.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 19 · Parité inversée</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : ne pas confondre sin et cos.</p>
+            <p>Corriger : \(\sin(-x)=\sin x\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-19">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-19" class="answer" hidden>
+              <p>Faux. \(\sin(-x)=-\sin x\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 20 · Période oubliée</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : familles de solutions.</p>
+            <p>Dans \(\mathbb{R}\), résoudre \(\cos x=1\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-20">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-20" class="answer" hidden>
+              <p>\(x=2k\pi\), avec \(k\in\mathbb{Z}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 21 · Amplitude</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : valeur impossible.</p>
+            <p>L’équation \(\sin x=1{,}4\) a-t-elle une solution ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-21">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-21" class="answer" hidden>
+              <p>Non, car \(\sin x\in[-1;1]\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 22 · Variation locale</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : ne pas généraliser.</p>
+            <p>La fonction cosinus est-elle décroissante sur tout \(\mathbb{R}\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-22">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-22" class="answer" hidden>
+              <p>Non. Elle est périodique ; ses variations changent selon les intervalles.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 23 · Intervalle</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : borne exclue.</p>
+            <p>Résoudre \(\sin x=0\) sur \([0;2\pi[\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-23">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-23" class="answer" hidden>
+              <p>\(x=0\) ou \(x=\pi\). \(2\pi\) est exclu.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 24 · Signe de cos</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : quadrant.</p>
+            <p>Donner le signe de \(\cos x\) sur \(]\frac{\pi}{2};\frac{3\pi}{2}[\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-24">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-24" class="answer" hidden>
+              <p>\(\cos x<0\) sur cet intervalle.</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="choix" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">M</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Choisir la méthode</h2>
+          </div>
+        </div>
+        <p>5 exercices où il faut décider avant de calculer.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 25 · Choix 1</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : périodicité.</p>
+            <p>Pour calculer \(\sin(\frac{25\pi}{6})\), que faire avant de lire la valeur ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-25">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-25" class="answer" hidden>
+              <p>Réduire modulo \(2\pi\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 26 · Choix 2</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : parité.</p>
+            <p>Pour calculer \(\cos(-a)\), quelle propriété utiliser ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-26">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-26" class="answer" hidden>
+              <p>La parité du cosinus : \(\cos(-a)=\cos a\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 27 · Choix 3</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : variation.</p>
+            <p>Pour comparer deux cosinus d’angles dans \([0;\pi]\), quelle idée utiliser ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-27">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-27" class="answer" hidden>
+              <p>La décroissance de \(\cos\) sur \([0;\pi]\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 28 · Choix 4</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : équation.</p>
+            <p>Pour résoudre \(\sin x=r\), quel support mental est le plus sûr ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-28">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-28" class="answer" hidden>
+              <p>Le cercle trigonométrique et l’intervalle demandé.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 29 · Choix 5</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : fonction composée.</p>
+            <p>Pour trouver la période de \(\sin(3x)\), que comparer ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-29">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-29" class="answer" hidden>
+              <p>On cherche \(T\) tel que \(3(x+T)=3x+2\pi\), donc \(T=\frac{2\pi}{3}\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="controle" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">C</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Niveau contrôle</h2>
+          </div>
+        </div>
+        <p>6 exercices à faire sans aide visible.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 30 · Contrôle 1</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : image.</p>
+            <p>Calculer \(\cos(-\frac{2\pi}{3})\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-30">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-30" class="answer" hidden>
+              <p>\(-\frac12\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 31 · Contrôle 2</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : image.</p>
+            <p>Calculer \(\sin(\frac{7\pi}{6})\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-31">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-31" class="answer" hidden>
+              <p>\(-\frac12\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 32 · Contrôle 3</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : équation.</p>
+            <p>Résoudre \(\sin x=-1\) sur \([0;2\pi[\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-32">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-32" class="answer" hidden>
+              <p>\(x=\frac{3\pi}{2}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 33 · Contrôle 4</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : équation.</p>
+            <p>Résoudre \(\cos x=\frac{\sqrt2}{2}\) sur \([-\pi;\pi]\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-33">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-33" class="answer" hidden>
+              <p>\(x=-\frac{\pi}{4}\) ou \(x=\frac{\pi}{4}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 34 · Contrôle 5</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : période.</p>
+            <p>Donner une période de \(x\mapsto\sin(4x)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-34">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-34" class="answer" hidden>
+              <p>\(\frac{\pi}{2}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 35 · Contrôle 6</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : variation.</p>
+            <p>Comparer \(\sin(\frac{\pi}{6})\) et \(\sin(\frac{\pi}{3})\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-35">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-35" class="answer" hidden>
+              <p>Sur \([-\frac{\pi}{2};\frac{\pi}{2}]\), \(\sin\) croît, donc \(\sin(\frac{\pi}{6})<\sin(\frac{\pi}{3})\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="vingt-sur-vingt" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">20</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Cap 20/20</h2>
+          </div>
+        </div>
+        <p>3 exercices plus longs, seulement après les blocs précédents.</p>
+        <div class="c-gate">
+          <p class="c-gate__label">Porte d’entrée</p>
+          <p class="c-gate__title">Avant ce bloc</p>
+          <p>Réussis au moins deux exercices de niveau contrôle sans regarder le corrigé. Le cap 20/20 n’est pas un raccourci : il combine les réflexes précédents.</p>
+        </div>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 36 · 20/20 1</h3>
+              <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : équation transformée.</p>
+            <p>Résoudre \(2\cos x+1=0\) sur \([0;2\pi[\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-36">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-36" class="answer" hidden>
+              <p>\(\cos x=-\frac12\), donc \(x=\frac{2\pi}{3}\) ou \(x=\frac{4\pi}{3}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 37 · 20/20 2</h3>
+              <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : période et équation.</p>
+            <p>Résoudre \(\sin(2x)=0\) sur \([0;2\pi[\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-37">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-37" class="answer" hidden>
+              <p>\(2x=k\pi\), donc \(x=\frac{k\pi}{2}\). Dans l’intervalle : \(0,\frac{\pi}{2},\pi,\frac{3\pi}{2}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 38 · 20/20 3</h3>
+              <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : variation composée.</p>
+            <p>Sur \([0;\frac{\pi}{2}]\), comparer \(\cos(2x)\) au début et à la fin de l’intervalle.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-38">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-38" class="answer" hidden>
+              <p>Quand \(x\) va de \(0\) à \(\frac{\pi}{2}\), \(2x\) va de \(0\) à \(\pi\). \(\cos(2x)\) décroît de \(1\) à \(-1\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="revision" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">R</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Révision mélangée</h2>
+          </div>
+        </div>
+        <p>2 exercices qui mélangent ce chapitre avec un autre réflexe.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 39 · Révision dérivation</h3>
+              <span class="difficulty" aria-label="Niveau Révision">Révision</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : dériver sin/cos plus tard.</p>
+            <p>Si \(f(x)=\cos x\), quelle variation observes-tu sur \([0;\pi]\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-39">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-39" class="answer" hidden>
+              <p>Elle décroît, ce qui correspondra plus tard à une dérivée négative sur cet intervalle.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 40 · Révision trigonométrie</h3>
+              <span class="difficulty" aria-label="Niveau Révision">Révision</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : valeurs remarquables.</p>
+            <p>Donner les deux angles de \([0;2\pi[\) dont le sinus vaut \(\frac{\sqrt3}{2}\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-fonctions-trigonometriques-40">Voir le corrigé</button>
+            <div id="td-fonctions-trigonometriques-40" class="answer" hidden>
+              <p>\(\frac{\pi}{3}\) et \(\frac{2\pi}{3}\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="sources" class="chapter-section recap-section">
+        <div class="section-marker">
+          <div class="section-marker__num">S</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Traçabilité</p>
+            <h2>Sources d’inspiration et adaptation</h2>
+          </div>
+        </div>
+        <p>Les exercices sont des variantes reformulées et recalculées à partir des sources validées. Les corrigés sont écrits pour le web : aide masquée, choix de méthode, rédaction et erreurs fréquentes.</p>
+        <div class="revision-grid">
+          <div class="revision-card"><p class="box-title">Source</p><p>Maths91, cours et exercices Fonctions trigonométriques</p></div>
+          <div class="revision-card"><p class="box-title">Source</p><p>Jean-Yves Baudot, parité et périodicité</p></div>
+          <div class="revision-card"><p class="box-title">Source</p><p>Annales2Maths, fonctions trigonométriques</p></div>
+        </div>
+      </section>
+    </article>
+  </main>
+</body>
+</html>

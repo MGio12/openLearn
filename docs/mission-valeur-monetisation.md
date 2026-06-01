@@ -1,4 +1,4 @@
-# Objectif Lycee — Mission du site, valeur et monetisation
+# Objectif Lycee - Mission du site et valeur produit
 
 **Date :** 2026-05-16  
 **Statut :** document strategique operationnel
@@ -11,8 +11,8 @@ Apres lecture, il doit pouvoir decider quoi ameliorer en priorite pour augmenter
 
 - la valeur percue par l'etudiant ;
 - la retention quotidienne ;
-- la conversion vers l'abonnement ;
-- la coherence entre la promesse produit, l'UX et le paiement.
+- l'engagement dans la boucle produit ;
+- la coherence entre la promesse produit et l'UX.
 
 ## Diagnostic rapide
 
@@ -184,13 +184,13 @@ Ce qui doit etre payant :
 - rappels et ajustements de planning ;
 - mode bac blanc ou sprint Parcoursup 8 semaines.
 
-La phrase de vente doit rester simple :
+La promesse doit rester simple :
 
-> Gratuit : comprendre quoi travailler. Payant : avoir le plan quotidien personnalise qui te le fait tenir.
+> Gratuit et open source : un cadre de travail quotidien pour tous les lyceens, quelle que soit leur situation.
 
-## Funnel recommande
+## Parcours recommande
 
-Le funnel le plus fort pour ce produit :
+Le parcours le plus fort pour ce produit :
 
 1. Landing : "travaille ce qui rapporte, pas au hasard".
 2. Onboarding court : objectif, filiere, rythme, priorites.
@@ -198,53 +198,24 @@ Le funnel le plus fort pour ce produit :
 4. Action guidee courte ou preview actionnable.
 5. Progression visible : le graphe ou le streak donne un premier signe lisible.
 6. Email pour sauvegarder.
-7. Offre : 10 euros par mois pour garder le plan quotidien personnalise.
+7. Retour le lendemain : l'app propose la prochaine mission.
 
 Le paiement doit arriver apres une preuve de valeur, pas avant. L'utilisateur doit avoir pense : "ok, ca m'a vraiment dit quoi faire".
 
-## Decision commerciale a prendre
+## Modele open source
 
-Il faut choisir entre deux modeles et supprimer l'autre des textes :
+ObjectifLycee est gratuit et open source (licence MIT). Pas d'abonnement, pas de paywall.
 
-### Option recommandee : 3 missions gratuites puis abonnement
+Pourquoi ce modele :
 
-Pourquoi c'est le meilleur compromis :
+- acces egal pour tous les lyceens, quelle que soit la situation familiale ;
+- transparence totale : le code est lisible, auditable et forkable ;
+- contribution communautaire : les lyceens eux-memes peuvent ameliorer le produit ;
+- mission alignee avec la valeur : si l'outil aide vraiment, il doit etre accessible a tous.
 
-- pas de friction carte bancaire ;
-- l'utilisateur ressent la boucle avant de payer ;
-- le cout produit reste bas ;
-- le message commercial reste honnete ;
-- parfait pour tester l'acquisition organique.
+L'engagement est simple :
 
-Message possible :
-
-> Tes 3 premieres missions sont offertes. Si le cockpit t'aide vraiment a travailler plus juste, tu gardes le plan personnalise pour 10 euros par mois.
-
-### Option alternative : essai 14 jours sans carte
-
-Bon pour reduire la peur, mais moins direct. Il faut ensuite convertir un utilisateur qui n'a pas pris de decision d'achat.
-
-### Option a eviter maintenant : paiement direct sans essai
-
-Le checkout direct peut marcher avec une audience chaude, mais il demande beaucoup de confiance. Pour un produit jeune, il convertira moins bien qu'un moment de valeur gratuit.
-
-## Pricing
-
-Le prix actuel de 10 euros par mois est coherent avec le positionnement :
-
-- assez bas pour un etudiant ;
-- assez simple pour acheter sans comparaison complexe ;
-- assez eleve pour valider une vraie valeur ;
-- compatible avec un fondateur solo.
-
-Ne pas creer plusieurs plans maintenant. Un seul plan est preferable.
-
-Plan futur possible, apres traction :
-
-- mensuel : 10 euros ;
-- annuel : 89 euros ;
-- sprint Parcoursup 8 semaines : prix fixe separe, seulement si la demande apparait ;
-- marketplace tuteurs : plus tard, uniquement apres retention produit.
+> ObjectifLycee sera toujours gratuit. Le code sera toujours ouvert.
 
 ## Points de conversion a ameliorer
 
@@ -277,19 +248,19 @@ Le moment ou la progression devient visible est un tres bon endroit pour convert
 
 ## Roadmap prioritaire
 
-### Priorite 1 — Aligner le funnel
+### Priorite 1 - Aligner le funnel
 
 Choisir une logique unique : 3 missions gratuites, essai gratuit, ou paiement direct. La recommandation est 3 missions gratuites puis abonnement.
 
 Mettre a jour tous les textes pour eviter les contradictions entre onboarding, checkout et retour paiement.
 
-### Priorite 2 — Refaire Progression autour du graphe de moyennes
+### Priorite 2 - Refaire Progression autour du graphe de moyennes
 
 Remplacer la priorite visuelle "maitrise par matiere" ou "jardin" par une progression scolaire lisible : moyenne generale, matieres, periodes, depart, actuel, evolution.
 
 Critere de succes : l'utilisateur comprend en trois secondes si ses resultats avancent et sur quelle matiere regarder.
 
-### Priorite 3 — Persister l'activite et les resultats
+### Priorite 3 - Persister l'activite et les resultats
 
 Meme en local, il faut que cocher une mission ait un effet durable :
 
@@ -300,7 +271,7 @@ Meme en local, il faut que cocher une mission ait un effet durable :
 
 Sans persistance, la boucle emotionnelle est faible.
 
-### Priorite 4 — Relier Objectif aux missions
+### Priorite 4 - Relier Objectif aux missions
 
 Chaque mission doit pouvoir dire pourquoi elle existe :
 
@@ -312,11 +283,11 @@ Chaque mission doit pouvoir dire pourquoi elle existe :
 
 Cette preuve justifie l'abonnement.
 
-### Priorite 5 — Ameliorer les captures produit sur la landing
+### Priorite 5 - Ameliorer les captures produit sur la landing
 
 La landing doit montrer le vrai cockpit et la vraie mission du jour. Le produit est plus vendeur que des promesses abstraites.
 
-### Priorite 6 — Ajouter le contenu organique
+### Priorite 6 - Ajouter le contenu organique
 
 Le blog methode doit servir l'acquisition, mais rester leger :
 

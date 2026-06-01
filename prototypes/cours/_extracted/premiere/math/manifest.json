@@ -63,7 +63,7 @@
     "https://www.mathgm.fr/images/documents/premiere/cours_exercices/Parcours_second_degre.pdf": {
       "chapter": "01-second-degre",
       "role": "td",
-      "label": "Parcours d'exercices Second degré — mathgm.fr",
+      "label": "Parcours d'exercices Second degré - mathgm.fr",
       "source_url": "https://www.mathgm.fr/images/documents/premiere/cours_exercices/Parcours_second_degre.pdf",
       "extractor": "crawl4ai-pdf",
       "raw_path": "prototypes/cours/_extracted/premiere/math/01-second-degre/mathgm-parcours-second-degre.raw.md",
@@ -78,7 +78,7 @@
     "https://xymaths.fr/Lycee/1S/Cours-1S/Cours-2nd-degre.php": {
       "chapter": "01-second-degre",
       "role": "cours",
-      "label": "Cours Second degré — xymaths (Pierre Lux)",
+      "label": "Cours Second degré - xymaths (Pierre Lux)",
       "source_url": "https://xymaths.fr/Lycee/1S/Cours-1S/Cours-2nd-degre.php",
       "extractor": "crawl4ai-html",
       "raw_path": "prototypes/cours/_extracted/premiere/math/01-second-degre/xymaths-cours-2nd-degre.raw.md",
@@ -393,7 +393,7 @@
     "https://chingmath.fr/1re/trigonometrie": {
       "chapter": "02-trigonometrie",
       "role": "td",
-      "label": "Trigonométrie — 26 exercices corrigés Ching@Math",
+      "label": "Trigonométrie - 26 exercices corrigés Ching@Math",
       "source_url": "https://chingmath.fr/1re/trigonometrie",
       "extractor": "crawl4ai-html",
       "raw_path": "prototypes/cours/_extracted/premiere/math/02-trigonometrie/chingmath-trigonometrie.raw.md",
@@ -408,7 +408,7 @@
     "https://www.parfenoff.org/pdf/1re_Spe/geometrie/1re_spe_Trigonometrie.pdf": {
       "chapter": "02-trigonometrie",
       "role": "cours",
-      "label": "Trigonométrie 1re Spé — parfenoff.org",
+      "label": "Trigonométrie 1re Spé - parfenoff.org",
       "source_url": "https://www.parfenoff.org/pdf/1re_Spe/geometrie/1re_spe_Trigonometrie.pdf",
       "extractor": "crawl4ai-pdf",
       "raw_path": "prototypes/cours/_extracted/premiere/math/02-trigonometrie/parfenoff-1re-spe-trigonometrie.raw.md",
@@ -423,7 +423,7 @@
     "https://www.meilleurenmaths.com/images/misyl/premiereS/premiere-s-produit-scalaire-fiche1.pdf": {
       "chapter": "03-produit-scalaire",
       "role": "td",
-      "label": "Fiche 1 Produit scalaire — meilleurenmaths.com",
+      "label": "Fiche 1 Produit scalaire - meilleurenmaths.com",
       "source_url": "https://www.meilleurenmaths.com/images/misyl/premiereS/premiere-s-produit-scalaire-fiche1.pdf",
       "extractor": "crawl4ai-pdf",
       "raw_path": "prototypes/cours/_extracted/premiere/math/03-produit-scalaire/meilleurenmaths-premiere-s-produit-scalaire-fiche1.raw.md",
@@ -438,7 +438,7 @@
     "https://mathsguyon.fr/wp-content/uploads/2020/03/cours-produit-scalaire_2020_trou.pdf": {
       "chapter": "03-produit-scalaire",
       "role": "cours",
-      "label": "Cours Produit scalaire — Lycée Bellevue (mathsguyon.fr)",
+      "label": "Cours Produit scalaire - Lycée Bellevue (mathsguyon.fr)",
       "source_url": "https://mathsguyon.fr/wp-content/uploads/2020/03/cours-produit-scalaire_2020_trou.pdf",
       "extractor": "crawl4ai-pdf",
       "raw_path": "prototypes/cours/_extracted/premiere/math/03-produit-scalaire/mathsguyon-cours-produit-scalaire-2020-trou.raw.md",
@@ -453,7 +453,7 @@
     "https://chingmath.fr/1re/fonction-derivee": {
       "chapter": "04-derivation",
       "role": "td",
-      "label": "Fonctions dérivées — 89 exercices corrigés Ching@Math",
+      "label": "Fonctions dérivées - 89 exercices corrigés Ching@Math",
       "source_url": "https://chingmath.fr/1re/fonction-derivee",
       "extractor": "crawl4ai-html",
       "raw_path": "prototypes/cours/_extracted/premiere/math/04-derivation/chingmath-fonction-derivee.raw.md",
@@ -468,7 +468,7 @@
     "https://www.lyceedadultes.fr/sitepedagogique/documents/math/math1spe/04_fonction_derivee/04_cours_fonction_derivee.pdf": {
       "chapter": "04-derivation",
       "role": "cours",
-      "label": "Cours Fonction dérivée — Lycée d'Adultes de Paris",
+      "label": "Cours Fonction dérivée - Lycée d'Adultes de Paris",
       "source_url": "https://www.lyceedadultes.fr/sitepedagogique/documents/math/math1spe/04_fonction_derivee/04_cours_fonction_derivee.pdf",
       "extractor": "crawl4ai-pdf",
       "raw_path": "prototypes/cours/_extracted/premiere/math/04-derivation/lyceedadultes-04-cours-fonction-derivee.raw.md",
@@ -483,7 +483,7 @@
     "https://www.mathgm.fr/images/documents/premiere/cours_exercices/Parcours_ProbaCond.pdf": {
       "chapter": "05-probabilites-conditionnelles",
       "role": "td",
-      "label": "Parcours d'exercices Probabilités conditionnelles — mathgm.fr",
+      "label": "Parcours d'exercices Probabilités conditionnelles - mathgm.fr",
       "source_url": "https://www.mathgm.fr/images/documents/premiere/cours_exercices/Parcours_ProbaCond.pdf",
       "extractor": "crawl4ai-pdf",
       "raw_path": "prototypes/cours/_extracted/premiere/math/05-probabilites-conditionnelles/mathgm-parcours-probacond.raw.md",
@@ -498,7 +498,7 @@
     "https://www.annales2maths.com/1ere-cours-probabilites-conditionnelles/": {
       "chapter": "05-probabilites-conditionnelles",
       "role": "cours",
-      "label": "Cours Probabilités conditionnelles — annales2maths",
+      "label": "Cours Probabilités conditionnelles - annales2maths",
       "source_url": "https://www.annales2maths.com/1ere-cours-probabilites-conditionnelles/",
       "extractor": "crawl4ai-html",
       "raw_path": "prototypes/cours/_extracted/premiere/math/05-probabilites-conditionnelles/annales2maths-1ere-cours-probabilites-conditionnelles.raw.md",
@@ -513,7 +513,7 @@
     "https://www.jybaudot.fr/Trigo/exparite.html": {
       "chapter": "06-fonctions-trigonometriques",
       "role": "td",
-      "label": "Parité et périodicité des fonctions trigonométriques — Jean-Yves Baudot",
+      "label": "Parité et périodicité des fonctions trigonométriques - Jean-Yves Baudot",
       "source_url": "https://www.jybaudot.fr/Trigo/exparite.html",
       "extractor": "crawl4ai-html",
       "raw_path": "prototypes/cours/_extracted/premiere/math/06-fonctions-trigonometriques/jybaudot-exparite.raw.md",
@@ -528,7 +528,7 @@
     "https://www.annales2maths.com/1ere-cours-fonctions-trigonometriques/": {
       "chapter": "06-fonctions-trigonometriques",
       "role": "cours",
-      "label": "Cours Fonctions trigonométriques — annales2maths",
+      "label": "Cours Fonctions trigonométriques - annales2maths",
       "source_url": "https://www.annales2maths.com/1ere-cours-fonctions-trigonometriques/",
       "extractor": "crawl4ai-html",
       "raw_path": "prototypes/cours/_extracted/premiere/math/06-fonctions-trigonometriques/annales2maths-1ere-cours-fonctions-trigonometriques.raw.md",
@@ -543,7 +543,7 @@
     "https://www.mathoutils.fr/cours-et-exercices/cours-et-exercices-1e-generale/suites-numeriques-exercices-corriges/": {
       "chapter": "07-suites",
       "role": "td",
-      "label": "Suites numériques — exercices corrigés mathoutils.fr",
+      "label": "Suites numériques - exercices corrigés mathoutils.fr",
       "source_url": "https://www.mathoutils.fr/cours-et-exercices/cours-et-exercices-1e-generale/suites-numeriques-exercices-corriges/",
       "extractor": "crawl4ai-html",
       "raw_path": "prototypes/cours/_extracted/premiere/math/07-suites/mathoutils-suites-numeriques-exercices-corriges.raw.md",
@@ -558,7 +558,7 @@
     "https://xymaths.fr/Lycee/premiere-generale-specialite-mathematiques/Cours/Cours-Suites.php": {
       "chapter": "07-suites",
       "role": "cours",
-      "label": "Cours Suites — xymaths (Pierre Lux)",
+      "label": "Cours Suites - xymaths (Pierre Lux)",
       "source_url": "https://xymaths.fr/Lycee/premiere-generale-specialite-mathematiques/Cours/Cours-Suites.php",
       "extractor": "crawl4ai-html",
       "raw_path": "prototypes/cours/_extracted/premiere/math/07-suites/xymaths-cours-suites.raw.md",
@@ -573,7 +573,7 @@
     "https://tableauxmaths.fr/spip/IMG/pdf/corr_exos_expo.pdf": {
       "chapter": "08-exponentielle",
       "role": "td",
-      "label": "Exercices corrigés Fonction exponentielle — tableauxmaths.fr",
+      "label": "Exercices corrigés Fonction exponentielle - tableauxmaths.fr",
       "source_url": "https://tableauxmaths.fr/spip/IMG/pdf/corr_exos_expo.pdf",
       "extractor": "crawl4ai-pdf",
       "raw_path": "prototypes/cours/_extracted/premiere/math/08-exponentielle/tableauxmaths-corr-exos-expo.raw.md",
@@ -588,7 +588,7 @@
     "https://www.lyceedadultes.fr/sitepedagogique/documents/math/math1spe/05_fonction_exponentielle/05_Cours_fonction_exponentielle.pdf": {
       "chapter": "08-exponentielle",
       "role": "cours",
-      "label": "Cours Fonction exponentielle — Lycée d'Adultes de Paris",
+      "label": "Cours Fonction exponentielle - Lycée d'Adultes de Paris",
       "source_url": "https://www.lyceedadultes.fr/sitepedagogique/documents/math/math1spe/05_fonction_exponentielle/05_Cours_fonction_exponentielle.pdf",
       "extractor": "crawl4ai-pdf",
       "raw_path": "prototypes/cours/_extracted/premiere/math/08-exponentielle/lyceedadultes-05-cours-fonction-exponentielle.raw.md",
@@ -603,7 +603,7 @@
     "https://www.vdouine.net/docmaths/1e/1echap4act.pdf": {
       "chapter": "09-variables-aleatoires",
       "role": "td",
-      "label": "Activités Variables aléatoires réelles — vdouine.net",
+      "label": "Activités Variables aléatoires réelles - vdouine.net",
       "source_url": "https://www.vdouine.net/docmaths/1e/1echap4act.pdf",
       "extractor": "crawl4ai-pdf",
       "raw_path": "prototypes/cours/_extracted/premiere/math/09-variables-aleatoires/vdouine-1echap4act.raw.md",
@@ -618,7 +618,7 @@
     "https://mathsguyon.fr/wp-content/uploads/2024/03/Cours_variable_aleatoire_2024.pdf": {
       "chapter": "09-variables-aleatoires",
       "role": "cours",
-      "label": "Cours Variables aléatoires — Lycée Bellevue (mathsguyon.fr)",
+      "label": "Cours Variables aléatoires - Lycée Bellevue (mathsguyon.fr)",
       "source_url": "https://mathsguyon.fr/wp-content/uploads/2024/03/Cours_variable_aleatoire_2024.pdf",
       "extractor": "crawl4ai-pdf",
       "raw_path": "prototypes/cours/_extracted/premiere/math/09-variables-aleatoires/mathsguyon-cours-variable-aleatoire-2024.raw.md",
@@ -633,7 +633,7 @@
     "https://chingmath.fr/1re/equation-cartesienne": {
       "chapter": "10-geometrie-reperee",
       "role": "td",
-      "label": "Équation cartésienne — 52 exercices corrigés Ching@Math",
+      "label": "Équation cartésienne - 52 exercices corrigés Ching@Math",
       "source_url": "https://chingmath.fr/1re/equation-cartesienne",
       "extractor": "crawl4ai-html",
       "raw_path": "prototypes/cours/_extracted/premiere/math/10-geometrie-reperee/chingmath-equation-cartesienne.raw.md",
@@ -648,7 +648,7 @@
     "https://www.maths-et-tiques.fr/telech/19RepM.pdf": {
       "chapter": "10-geometrie-reperee",
       "role": "cours",
-      "label": "Géométrie repérée — Yvan Monka (Maths-et-tiques)",
+      "label": "Géométrie repérée - Yvan Monka (Maths-et-tiques)",
       "source_url": "https://www.maths-et-tiques.fr/telech/19RepM.pdf",
       "extractor": "crawl4ai-pdf",
       "raw_path": "prototypes/cours/_extracted/premiere/math/10-geometrie-reperee/mathsettiques-19repm.raw.md",

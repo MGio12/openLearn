@@ -1,0 +1,64 @@
+import CourseShell from '../../../courses/components/CourseShell.astro';
+import TDExerciseGroup from '../../../courses/components/TDExerciseGroup.astro';
+import { sourceCards, tdGroups, tdHeroSteps, tdSections } from '../../../courses/data/second-degre.js';
+
+<CourseShell
+  title="Second degré"
+  documentTitle="TD Second degré - Maths spécialité Première"
+  kind="TD"
+  eyebrow="01 TD séparé"
+  lead="40 exercices pour choisir la bonne forme, résoudre, étudier le signe et rédiger sans perdre les cas limites."
+  sections={tdSections}
+  heroSteps={tdHeroSteps}
+  flow={['Automatismes', 'Méthodes', 'Contrôle', '20/20']}
+  overviewTitle="TD d’entraînement"
+  overviewHeading="Une page séparée pour travailler sans relire tout le cours"
+  overviewLead="Chaque exercice indique la compétence entraînée, puis cache une réponse ou une correction. Les corrections détaillées montrent aussi la rédaction attendue."
+  alternateHref="/cours/second-degre/"
+  alternateLabel="Cours"
+  sidebarLabel="Plan du TD"
+  sidebarFoot="Maths spé · TD"
+>
+
+<section id="objectifs" className="chapter-section">
+  <div className="section-marker">
+    <div className="section-marker__num">00</div>
+    <div className="section-marker__meta">
+      <p className="section-marker__kicker">Avant de commencer</p>
+      <h2>Ce TD reprend les points qui tombent vraiment</h2>
+    </div>
+  </div>
+
+  <p>Travaille dans l’ordre. Si un automatisme bloque, ouvre le corrigé, refais l’exercice sans regarder, puis seulement passe à la suite.</p>
+
+  <div className="diagnostic-grid">
+    <div className="check-card"><p className="check-card__label"><span className="marker">1</span>Compétence</p><p>formes développée, factorisée et canonique</p></div>
+    <div className="check-card"><p className="check-card__label"><span className="marker">2</span>Compétence</p><p>discriminant, racines, racine double</p></div>
+    <div className="check-card"><p className="check-card__label"><span className="marker">3</span>Compétence</p><p>signe d’un trinôme et inéquations</p></div>
+    <div className="check-card"><p className="check-card__label"><span className="marker">4</span>Compétence</p><p>sommet, axe de symétrie, position relative</p></div>
+    <div className="check-card"><p className="check-card__label"><span className="marker">5</span>Compétence</p><p>somme et produit des racines</p></div>
+  </div>
+
+  <div className="c-callout c-callout--warn">
+    <p className="c-callout__label"><span className="dot"></span>Pièges surveillés</p>
+    <p>oublier le signe de \(b\) ; utiliser le discriminant alors qu’une factorisation immédiate existe ; inverser le signe du trinôme quand \(a&lt;0\) ; confondre racine double et deux solutions.</p>
+  </div>
+</section>
+
+<TDExerciseGroup groups={tdGroups} />
+
+<section id="sources" className="chapter-section recap-section">
+  <div className="section-marker">
+    <div className="section-marker__num">S</div>
+    <div className="section-marker__meta">
+      <p className="section-marker__kicker">Traçabilité</p>
+      <h2>Sources d’inspiration et adaptation</h2>
+    </div>
+  </div>
+  <p>Les exercices sont des variantes reformulées et recalculées à partir des sources validées. Les corrigés sont écrits pour le web : aide masquée, choix de méthode, rédaction et erreurs fréquentes.</p>
+  <div className="revision-grid">
+    {sourceCards.map((source) => <div className="revision-card"><p className="box-title">Source</p><p>{source}</p></div>)}
+  </div>
+</section>
+
+</CourseShell>

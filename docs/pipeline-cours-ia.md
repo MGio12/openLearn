@@ -1,17 +1,18 @@
-# Pipeline cours IA — prototype
+# Pipeline cours IA - prototype
 
-Objectif : transformer 2 à 5 PDFs autorisés sur un même chapitre en un cours web clair, exigeant et rassurant, avec formules LaTeX, visualisations utiles, questions de compréhension et TD corrigé.
+Objectif : transformer 2 à 5 PDFs autorisés sur un même chapitre en un cours web clair, exigeant et rassurant, avec formules LaTeX, visualisations utiles, questions de compréhension et TD corrigé séparé.
 
 Le premier prototype cible le chapitre **Dérivation** en maths spécialité lycée. Il reste isolé du site public pour permettre une itération rapide.
 
 ## Principe général
 
-Le format final n'est pas un PDF ni un Markdown : c'est une page **HTML + KaTeX**.
+Le format final n'est pas un PDF ni un Markdown brut : c'est une page web pédagogique, structurée, interactive et vérifiable. Le choix des technologies est fixé dans [`docs/stack-cours-td-web.md`](stack-cours-td-web.md).
 
-- HTML pour la mise en page pédagogique, les couleurs, les encadrés, les questions et les corrigés masqués.
-- KaTeX pour rendre proprement les formules LaTeX dans le navigateur.
-- CSS partagé par matière pour garder une identité commune entre chapitres.
-- JS léger pour les interactions simples.
+- Dans le prototype actuel : HTML/CSS/JS vanilla, KaTeX, CSS partagé par matière et JS léger.
+- En cible durable : Astro + MDX pour structurer les cours et TD, avec des composants pédagogiques maison.
+- KaTeX reste le rendu mathématique par défaut ; MathJax est réservé aux besoins d'accessibilité mathématique avancée.
+- JSXGraph est le choix par défaut pour les graphes exacts ; Desmos ou GeoGebra sont réservés aux cas qui dépassent JSXGraph.
+- Le moteur TD maison suffit pour les corrigés masqués ; Numbas ou STACK sont à envisager seulement pour l'auto-correction avancée.
 
 ## Workflow agent orchestrateur
 
@@ -21,6 +22,8 @@ Le format final n'est pas un PDF ni un Markdown : c'est une page **HTML + KaTeX*
    Maths91 est la colonne vertébrale par défaut : cours, définitions, propriétés, exercices.
    Maths-et-tiques sert de complément quand il apporte une intuition, une méthode plus lisible ou un exemple utile.
    La logique de génération est : partir du travail d'expert, en extraire le plan, reprendre presque toute la substance mathématique, puis améliorer la clarté, l'interactivité et la progression. Ne pas reconstruire un chapitre générique depuis la mémoire de l'agent.
+
+   Avant de choisir un outil, lire aussi [`docs/stack-cours-td-web.md`](stack-cours-td-web.md). Cette doc dit quand rester en KaTeX/JSXGraph, quand utiliser Desmos ou GeoGebra, et quand envisager Numbas ou STACK pour les TD.
 
 1. Placer les PDFs autorisés dans un dossier d'entrée, par exemple :
 
@@ -46,7 +49,7 @@ Le format final n'est pas un PDF ni un Markdown : c'est une page **HTML + KaTeX*
    - les erreurs fréquentes ;
    - les exemples gradués ;
    - les questions de compréhension ;
-   - un TD progressif ;
+   - un TD progressif, de préférence dans `td.html` quand il dépasse quelques exercices ;
    - un corrigé détaillé ;
    - les graphes exacts nécessaires ;
    - les éléments du PDF exclus de cette version et la raison.
@@ -65,9 +68,12 @@ Le format final n'est pas un PDF ni un Markdown : c'est une page **HTML + KaTeX*
 6. Le dossier de sortie contient :
 
    - `index.html`
+   - `td.html` si le chapitre possède une page d'entraînement séparée ;
    - `images/`
    - `sources.md`
+   - `source-map.md`
    - `generation-notes.md`
+   - `verification-notes.md`
 
    Le dossier de matière contient les assets partagés :
 
@@ -88,9 +94,28 @@ Les règles de création, de rétention et de monétisation des cours sont dans 
 - Les points majeurs à retenir sont visuellement marqués.
 - Les zones à visualiser sont séparées des théorèmes et méthodes.
 - Les questions arrivent au fil du cours, pas seulement à la fin.
-- Le TD doit aller du calcul direct vers le raisonnement.
+- Le TD doit aller du calcul direct vers le raisonnement. Pour les chapitres Première spécialité, la convention actuelle est une page `td.html` séparée avec automatismes, méthodes guidées, pièges, choix de méthode, niveau contrôle, cap 20/20 et révision mélangée.
 - Les corrections doivent expliquer le choix de méthode, pas seulement donner le résultat.
 - Toute information incertaine issue des sources doit être signalée dans `generation-notes.md`.
+
+## TD Première spécialité
+
+Les dix chapitres Première spécialité peuvent être régénérés avec :
+
+```bash
+node scripts/generate-maths-specialite-td.mjs
+```
+
+Le générateur produit environ 40 exercices par chapitre, met à jour `td.html`, les notes de chapitre (`source-map.md`, `sources.md`, `generation-notes.md`, `verification-notes.md`), ajoute le lien `TD corrigé` dans chaque `index.html`, et fait pointer les boutons `Exos` de `contenu.html` vers la page TD séparée.
+
+Après génération, vérifier au minimum :
+
+```bash
+npm run verify:course-sidebar
+npm run verify:redesign
+npm run verify:cwv
+git diff --check
+```
 
 ## Extension v1.1
 

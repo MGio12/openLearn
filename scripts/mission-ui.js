@@ -66,7 +66,7 @@
 
   function setDocumentTitle(mission) {
     var titleTarget = document.querySelector('[data-daily-mission-document-title]');
-    if (titleTarget) document.title = 'Objectif Lycée — Mission · ' + mission.title;
+    if (titleTarget) document.title = 'Objectif Lycée - Mission · ' + mission.title;
   }
 
   function renderTextTargets(mission) {
@@ -102,7 +102,7 @@
     setText('[data-daily-mission-difficulty]', difficultyLabel(mission.difficultyLevel));
     setText('[data-daily-mission-step-count]', plural(stepCount, 'étape'));
     setText('[data-daily-mission-step-done-count]', plural(completed, 'terminée'));
-    setText('[data-daily-mission-reminder-title]', mission.title + ' — ' + duration);
+    setText('[data-daily-mission-reminder-title]', mission.title + ' - ' + duration);
     setText('[data-daily-mission-recommendation]', mission.recommendation || '');
 
     document.querySelectorAll('[data-daily-mission-step-title]').forEach(function (element) {

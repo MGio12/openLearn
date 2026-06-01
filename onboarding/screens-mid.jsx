@@ -1,9 +1,9 @@
 /* ============================================================
-   Screens — MID (Blocage → Nom)
+   Screens - MID (Blocage → Nom)
    ============================================================ */
 
 // ----------------------------------------------------------------
-// 7. BLOCAGE — simplifié + friction-reducer en premier
+// 7. BLOCAGE - simplifié + friction-reducer en premier
 // ----------------------------------------------------------------
 function BlocageScreen({ value, onAnswer, profile }) {
   return (
@@ -20,7 +20,7 @@ function BlocageScreen({ value, onAnswer, profile }) {
 }
 
 // ----------------------------------------------------------------
-// 8. NIVEAU — réduit à 4 choix
+// 8. NIVEAU - réduit à 4 choix
 // ----------------------------------------------------------------
 function NiveauScreen({ value, onAnswer, profile }) {
   const matieres = Array.isArray(profile.matieres) ? profile.matieres : [];
@@ -43,7 +43,7 @@ function NiveauScreen({ value, onAnswer, profile }) {
 }
 
 // ----------------------------------------------------------------
-// 9. EFFORT — temps × intensité = résultat
+// 9. EFFORT - temps × intensité = résultat
 // ----------------------------------------------------------------
 function EffortScreen({ value, onAnswer, profile }) {
   const initial = value?.hours ?? value ?? 4;
@@ -228,7 +228,7 @@ function EffortScreen({ value, onAnswer, profile }) {
 }
 
 // ----------------------------------------------------------------
-// 10. NOM — "Comment l'IA doit-elle s'adresser à toi ?"
+// 10. NOM - "Comment l'IA doit-elle s'adresser à toi ?"
 // ----------------------------------------------------------------
 function NomScreen({ value, onAnswer }) {
   const [name, setName] = React.useState(value || "");
@@ -266,7 +266,7 @@ function NomScreen({ value, onAnswer }) {
           Continuer <span className="ob-arrow">→</span>
         </button>
         <button className="ob-btn ob-btn--ghost" onClick={() => onAnswer("Toi")}>
-          Rester anonyme — m'appeler « Toi »
+          Rester anonyme - m'appeler « Toi »
         </button>
       </div>
     </div>

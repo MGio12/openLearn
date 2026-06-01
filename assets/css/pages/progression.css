@@ -21,7 +21,6 @@ body {
   --pp-card-shadow: clamp(4px, .4vw, 5px);
   --pp-layout-gap: clamp(10px, 1.1vw, 18px);
   --pp-card-gap: clamp(10px, 1vw, 16px);
-  --pp-chart-shell-height: clamp(215px, 27dvh, 260px);
 }
 
 .progression-page .app {
@@ -314,101 +313,69 @@ body {
 .pp-chart-shell {
   position: relative;
   min-width: 0;
-  flex: 0 0 var(--pp-chart-shell-height);
-  height: var(--pp-chart-shell-height);
+  flex: 1 1 0%;
+  height: auto;
   min-height: 0;
   margin-top: 0;
   padding: clamp(9px, .95vw, 12px);
+  display: flex;
   background: #FFFDF8;
   border: 2.5px solid var(--ink);
   border-radius: clamp(12px, 1.1vw, 14px);
+  overflow: hidden;
 }
 
-.pp-chart-svg {
+.pp-chart-board {
   display: block;
+  flex: 1 1 100%;
   width: 100%;
-  max-width: 100%;
   height: 100%;
+  max-width: 100%;
   min-height: 0;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  touch-action: pan-y;
 }
 
 .pp-chart-empty {
-  min-height: 240px;
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 8%;
+  background: #FFFDF8;
   color: var(--ink-soft);
   font-family: var(--font-body);
   font-size: 14px;
+  line-height: 1.35;
   text-align: center;
 }
 
-.pp-chart-grid line {
-  stroke: rgba(18, 18, 18, .12);
-  stroke-width: 1;
-}
-
-.pp-chart-grid text {
-  fill: var(--ink-mute);
-  font-family: var(--font-mono);
-  font-size: 12px;
-}
-
-.pp-chart-axis {
-  stroke: var(--ink);
-  stroke-width: 2;
-  stroke-linecap: round;
-}
-
-.pp-chart-area {
-  fill: rgba(199, 217, 215, .46);
-}
-
-.pp-chart-line {
-  fill: none;
-  stroke: var(--ink);
-  stroke-width: 4;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.pp-chart-point-guide {
-  stroke: rgba(18, 18, 18, .08);
-  stroke-width: 1;
-  stroke-dasharray: 5 7;
-}
-
-.pp-chart-point {
-  fill: #FFFDF8;
-  stroke: var(--ink);
-  stroke-width: 3;
-}
-
-.pp-chart-point.is-start {
-  fill: var(--blue);
-}
-
-.pp-chart-point.is-current {
-  fill: var(--stabilo);
-  stroke-width: 4;
-}
-
-.pp-chart-x-label,
-.pp-chart-value-label {
+.pp-chart-board .JXGtext {
   font-family: var(--font-body);
   letter-spacing: 0;
+  pointer-events: none;
+  user-select: none;
 }
 
-.pp-chart-x-label {
-  fill: var(--ink-soft);
+.pp-chart-y-text,
+.pp-chart-x-text {
+  color: var(--ink-mute);
+  font-family: var(--font-body);
   font-size: 12px;
   font-weight: 800;
+  line-height: 1;
 }
 
-.pp-chart-value-label {
-  fill: var(--ink);
+.pp-chart-value-text {
+  color: var(--ink);
+  font-family: var(--font-body);
   font-size: 13px;
   font-weight: 900;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .pp-chart-legend {
@@ -672,10 +639,6 @@ body {
 }
 
 @media (max-width: 760px) {
-  .progression-page {
-    --pp-chart-shell-height: 165px;
-  }
-
   .pp-head {
     align-items: flex-start;
     flex-direction: column;
@@ -698,7 +661,6 @@ body {
     --pp-view-pad-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
     --pp-panel-pad-y: 12px;
     --pp-panel-pad-x: 14px;
-    --pp-chart-shell-height: 138px;
     --pp-card-gap: 9px;
   }
 
@@ -862,10 +824,6 @@ body {
 }
 
 @media (max-width: 380px) {
-  .progression-page {
-    --pp-chart-shell-height: 118px;
-  }
-
   .pp-head h1 {
     font-size: 28px;
   }

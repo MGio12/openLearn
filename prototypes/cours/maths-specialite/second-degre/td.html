@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TD Second degré - Maths spécialité Première</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="../cours.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="../cours.js"></script>
+</head>
+<body class="has-course-sidebar">
+
+  <div class="progress-bar" aria-hidden="true">
+    <div class="progress-bar__fill" data-progress-fill></div>
+  </div>
+
+  <div class="section-bar" data-section-bar aria-hidden="true">
+    <span class="section-bar__chip" data-section-bar-chip>00</span>
+    <span class="section-bar__title" data-section-bar-title>TD Second degré</span>
+    <span class="section-bar__total" data-section-bar-total>1/9</span>
+  </div>
+
+  <aside class="toc course-sidebar" aria-label="Plan du TD" data-course-sidebar>
+    <div class="sidebar-head">
+      <div>
+        <p class="toc-title">Plan</p>
+        <p class="sidebar-subtitle">TD Second degré</p>
+      </div>
+      <button class="sidebar-toggle" type="button" aria-label="Replier le plan" aria-expanded="true" data-sidebar-toggle><span aria-hidden="true">‹</span></button>
+    </div>
+
+    <nav class="toc-links" aria-label="Sections du TD">
+      <a href="#objectifs" data-section-link><span class="toc-index">00</span><span class="toc-label">Objectifs</span></a>
+      <a href="#automatismes" data-section-link><span class="toc-index">A</span><span class="toc-label">Automatismes</span></a>
+      <a href="#methodes-guidees" data-section-link><span class="toc-index">G</span><span class="toc-label">Guidé</span></a>
+      <a href="#pieges" data-section-link><span class="toc-index">P</span><span class="toc-label">Pièges</span></a>
+      <a href="#choix" data-section-link><span class="toc-index">M</span><span class="toc-label">Choisir</span></a>
+      <a href="#controle" data-section-link><span class="toc-index">C</span><span class="toc-label">Contrôle</span></a>
+      <a href="#vingt-sur-vingt" data-section-link><span class="toc-index">20</span><span class="toc-label">20/20</span></a>
+      <a href="#revision" data-section-link><span class="toc-index">R</span><span class="toc-label">Révision</span></a>
+      <a href="#sources" data-section-link><span class="toc-index">S</span><span class="toc-label">Sources</span></a>
+    </nav>
+
+    <p class="sidebar-foot">Maths spé · TD</p>
+  </aside>
+
+  <header class="course-hero">
+    <nav class="topline" aria-label="Fil d'Ariane">
+      <a href="../../../..">Objectif Lycée</a>
+      <span>Maths spécialité</span>
+      <a href="index.html">Cours</a>
+      <span>TD corrigé</span>
+    </nav>
+
+    <div class="hero-grid">
+      <div>
+        <p class="hero-eyebrow"><span class="num">01</span> TD séparé</p>
+        <h1>Second degré</h1>
+        <p class="hero-lead">40 exercices pour choisir la bonne forme, résoudre, étudier le signe et rédiger sans perdre les cas limites.</p>
+      </div>
+
+      <aside class="hero-side" aria-label="Organisation du TD">
+        <p class="hero-side__label">Objectif</p>
+        <h2>40 exercices, corrigés masqués</h2>
+        <div class="hero-side__steps">
+          <div class="hero-side__step"><span class="verb">Forme</span><span class="obj">à produire avant correction</span></div>
+          <div class="hero-side__step"><span class="verb">Racines</span><span class="obj">à produire avant correction</span></div>
+          <div class="hero-side__step"><span class="verb">Signe</span><span class="obj">à produire avant correction</span></div>
+          <div class="hero-side__step"><span class="verb">Rédaction</span><span class="obj">à produire avant correction</span></div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main class="course-layout" data-course-layout>
+    <article class="lesson course-lesson">
+
+      <section class="course-overview" aria-label="Repères du TD">
+        <div>
+          <p class="course-overview__title">TD d’entraînement</p>
+          <h3>Une page séparée pour travailler sans relire tout le cours</h3>
+          <p class="course-overview__lead">Chaque exercice indique la compétence entraînée, puis cache une réponse ou une correction. Les corrections détaillées montrent aussi la rédaction attendue et les erreurs qui coûtent des points.</p>
+        </div>
+        <div class="overview-flow">
+          <span>Automatismes</span>
+          <em>→</em>
+          <span>Méthodes</span>
+          <em>→</em>
+          <span>Contrôle</span>
+          <em>→</em>
+          <span>20/20</span>
+        </div>
+      </section>
+
+      <section id="objectifs" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">00</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Avant de commencer</p>
+            <h2>Ce TD reprend les points qui tombent vraiment</h2>
+          </div>
+        </div>
+        <p>Travaille dans l’ordre. Si un automatisme bloque, ouvre le corrigé, refais l’exercice sans regarder, puis seulement passe à la suite.</p>
+        <div class="diagnostic-grid">
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">1</span>Compétence</p>
+            <p>forme développée, factorisée et canonique</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">2</span>Compétence</p>
+            <p>discriminant, racines, racine double</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">3</span>Compétence</p>
+            <p>signe d’un trinôme et inéquations</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">4</span>Compétence</p>
+            <p>sommet, axe de symétrie, position relative</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">5</span>Compétence</p>
+            <p>somme et produit des racines</p>
+          </div>
+        </div>
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Pièges surveillés</p>
+          <p>oublier le signe de \(b\) ; utiliser le discriminant alors qu’une factorisation immédiate existe ; inverser le signe du trinôme quand \(a<0\) ; confondre racine double et deux solutions.</p>
+        </div>
+      </section>
+
+      <section id="automatismes" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">A</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Automatismes</h2>
+          </div>
+        </div>
+        <p>10 exercices courts pour sécuriser les gestes de base.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 1 · Repérer les coefficients</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : identifier \(a\), \(b\), \(c\).</p>
+            <p>Dans \(f(x)=-3x^2+5x-7\), donner \(a\), \(b\) et \(c\).</p>
+            <p class="hint-line">Le signe appartient au coefficient.</p>
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-01">Voir le corrigé</button>
+            <div id="td-second-degre-01" class="answer" hidden>
+              <p>\(a=-3\), \(b=5\), \(c=-7\). Le coefficient \(a\) est celui de \(x^2\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 2 · Calculer une image</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : évaluer un trinôme.</p>
+            <p>Pour \(f(x)=2x^2-4x+1\), calculer \(f(3)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-02">Voir le corrigé</button>
+            <div id="td-second-degre-02" class="answer" hidden>
+              <p>\(f(3)=2\times9-12+1=7\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 3 · Produit nul</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : résoudre une équation factorisée.</p>
+            <p>Résoudre \((x-5)(2x+3)=0\).</p>
+            <p class="hint-line">Un produit est nul si au moins un facteur est nul.</p>
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-03">Voir le corrigé</button>
+            <div id="td-second-degre-03" class="answer" hidden>
+              <p>\(x=5\) ou \(x=-\frac{3}{2}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 4 · Discriminant direct</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : calculer \(\Delta\).</p>
+            <p>Calculer le discriminant de \(x^2-6x+5\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-04">Voir le corrigé</button>
+            <div id="td-second-degre-04" class="answer" hidden>
+              <p>\(\Delta=(-6)^2-4\times1\times5=16\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 5 · Deux racines</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : appliquer la formule des racines.</p>
+            <p>Résoudre \(x^2-6x+5=0\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-05">Voir le corrigé</button>
+            <div id="td-second-degre-05" class="answer" hidden>
+              <p>Comme \(\Delta=16\), les racines sont \(1\) et \(5\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 6 · Racine double</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : reconnaître \(\Delta=0\).</p>
+            <p>Résoudre \(4x^2-12x+9=0\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-06">Voir le corrigé</button>
+            <div id="td-second-degre-06" class="answer" hidden>
+              <p>\(\Delta=0\), donc l’unique solution est \(x=\frac{12}{8}=\frac{3}{2}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 7 · Sommet en forme canonique</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : lire \((\alpha;\beta)\).</p>
+            <p>Donner le sommet de \(f(x)=-2(x-1)^2+7\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-07">Voir le corrigé</button>
+            <div id="td-second-degre-07" class="answer" hidden>
+              <p>Le sommet est \(S(1;7)\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 8 · Axe de symétrie</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : lire l’axe.</p>
+            <p>Pour \(f(x)=3(x+4)^2-2\), donner l’axe de symétrie.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-08">Voir le corrigé</button>
+            <div id="td-second-degre-08" class="answer" hidden>
+              <p>L’axe est la droite \(x=-4\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 9 · Signe à partir des racines</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : utiliser le signe de \(a\).</p>
+            <p>Un trinôme a pour racines \(-2\) et \(4\), avec \(a>0\). Où est-il négatif ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-09">Voir le corrigé</button>
+            <div id="td-second-degre-09" class="answer" hidden>
+              <p>Il est négatif sur \(]-2;4[\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 10 · Somme et produit</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : contrôler deux racines.</p>
+            <p>Pour \(x^2-7x+10\), donner la somme et le produit des racines.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-10">Voir le corrigé</button>
+            <div id="td-second-degre-10" class="answer" hidden>
+              <p>La somme vaut \(7\) et le produit vaut \(10\), donc les racines sont \(2\) et \(5\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="methodes-guidees" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">G</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Méthodes guidées</h2>
+          </div>
+        </div>
+        <p>8 exercices où l’aide disparaît progressivement.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 11 · Résolution guidée</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : résoudre avec le discriminant.</p>
+            <p>Résoudre \(2x^2-5x-3=0\) en écrivant les trois étapes : coefficients, discriminant, racines.</p>
+            <p class="hint-line">Commence par (a=2), (b=-5), (c=-3).</p>
+            <p class="exercise-source">Inspiration adaptée : Maths91, équations du second degré</p>
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-11">Voir le corrigé</button>
+            <div id="td-second-degre-11" class="answer" hidden>
+              <p>On a \(a=2\), \(b=-5\), \(c=-3\).</p><p>\(\Delta=(-5)^2-4\times2\times(-3)=49\).</p><p>Donc \(x_1=\frac{5-7}{4}=-\frac{1}{2}\) et \(x_2=\frac{5+7}{4}=3\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 12 · Passer en forme canonique</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : compléter le carré.</p>
+            <p>Écrire \(x^2-8x+11\) sous forme canonique.</p>
+            <p class="hint-line">Compare avec (x^2-8x+16).</p>
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-12">Voir le corrigé</button>
+            <div id="td-second-degre-12" class="answer" hidden>
+              <p>\(x^2-8x+11=(x-4)^2-5\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 13 · Étudier un signe</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : dresser un tableau de signe.</p>
+            <p>Résoudre \(x^2-3x-10\leq0\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-13">Voir le corrigé</button>
+            <div id="td-second-degre-13" class="answer" hidden>
+              <p>Les racines sont \(-2\) et \(5\). Comme \(a>0\), la solution est \([-2;5]\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 14 · Position relative</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : ramener à un trinôme.</p>
+            <p>Comparer \(f(x)=x^2+2x+1\) et \(g(x)=3x+5\). Pour quels \(x\) a-t-on \(f(x)\ge g(x)\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-14">Voir le corrigé</button>
+            <div id="td-second-degre-14" class="answer" hidden>
+              <p>On résout \(x^2-x-4\ge0\). Les solutions sont \(x\le\frac{1-\sqrt{17}}{2}\) ou \(x\ge\frac{1+\sqrt{17}}{2}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 15 · Sommet et extremum</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : lire la forme canonique.</p>
+            <p>Pour \(f(x)=-3(x+2)^2+12\), donner le maximum et l’abscisse où il est atteint.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-15">Voir le corrigé</button>
+            <div id="td-second-degre-15" class="answer" hidden>
+              <p>Le maximum vaut \(12\), atteint pour \(x=-2\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 16 · Factorisation connue</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : éviter un calcul inutile.</p>
+            <p>Factoriser \(x^2+x-12\), puis résoudre \(x^2+x-12=0\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-16">Voir le corrigé</button>
+            <div id="td-second-degre-16" class="answer" hidden>
+              <p>\(x^2+x-12=(x+4)(x-3)\), donc \(x=-4\) ou \(x=3\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 17 · Paramètre simple</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : imposer une racine.</p>
+            <p>Déterminer \(m\) pour que \(2\) soit racine de \(x^2+mx-6\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-17">Voir le corrigé</button>
+            <div id="td-second-degre-17" class="answer" hidden>
+              <p>On impose \(4+2m-6=0\), donc \(m=1\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 18 · Rédaction notée</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : écrire une solution complète.</p>
+            <p>Rédiger proprement la résolution de \(3x^2+2x-1=0\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-18">Voir le corrigé</button>
+            <div id="td-second-degre-18" class="answer" hidden>
+              <p>Copie propre : \(a=3\), \(b=2\), \(c=-1\). On calcule \(\Delta=2^2-4\times3\times(-1)=16\). Comme \(\Delta>0\), l’équation admet deux solutions.</p><p>\(x_1=\frac{-2-4}{6}=-1\) et \(x_2=\frac{-2+4}{6}=\frac{1}{3}\).</p><p>Erreur qui coûte des points : écrire seulement les deux nombres sans préciser le discriminant ni la conclusion.</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="pieges" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">P</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Pièges classiques</h2>
+          </div>
+        </div>
+        <p>6 exercices pour repérer les erreurs qui coûtent des points.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 19 · Signe de \(b\)</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : éviter une erreur de discriminant.</p>
+            <p>Un élève calcule \(\Delta=5^2-4\times2\times3\) pour \(2x^2-5x+3\). Est-ce correct ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-19">Voir le corrigé</button>
+            <div id="td-second-degre-19" class="answer" hidden>
+              <p>Non, ici \(b=-5\). Il faut écrire \(\Delta=(-5)^2-4\times2\times3=1\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 20 · Racine double</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : ne pas inventer deux solutions.</p>
+            <p>Combien de solutions a \(9x^2-6x+1=0\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-20">Voir le corrigé</button>
+            <div id="td-second-degre-20" class="answer" hidden>
+              <p>Une seule : \(x=\frac{1}{3}\), car \(\Delta=0\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 21 · Inégalité stricte</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : traiter les bornes.</p>
+            <p>Résoudre \((x-1)(x+2)<0\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-21">Voir le corrigé</button>
+            <div id="td-second-degre-21" class="answer" hidden>
+              <p>La solution est \(]-2;1[\). Les bornes sont exclues car l’inégalité est stricte.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 22 · Signe de \(a<0\)</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : inverser le tableau correctement.</p>
+            <p>Un trinôme de coefficient directeur \(a<0\) a pour racines \(1\) et \(6\). Où est-il positif ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-22">Voir le corrigé</button>
+            <div id="td-second-degre-22" class="answer" hidden>
+              <p>Il est positif entre les racines : \(]1;6[\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 23 · Forme canonique</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : ne pas changer le signe de \(\alpha\).</p>
+            <p>Dans \(f(x)=2(x+3)^2-8\), un élève annonce \(S(3;-8)\). Corriger.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-23">Voir le corrigé</button>
+            <div id="td-second-degre-23" class="answer" hidden>
+              <p>Le sommet est \(S(-3;-8)\), car \(x+3=x-(-3)\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 24 · Méthode trop lourde</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : repérer une factorisation.</p>
+            <p>Pourquoi le discriminant n’est pas le meilleur départ pour \(x^2-9=0\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-24">Voir le corrigé</button>
+            <div id="td-second-degre-24" class="answer" hidden>
+              <p>Parce que \(x^2-9=(x-3)(x+3)\). Les solutions se lisent directement : \(-3\) et \(3\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="choix" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">M</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Choisir la méthode</h2>
+          </div>
+        </div>
+        <p>5 exercices où il faut décider avant de calculer.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 25 · Forme utile 1</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : choisir avant de calculer.</p>
+            <p>Pour trouver le sommet de \(f(x)=5(x-2)^2-11\), quelle forme utilises-tu ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-25">Voir le corrigé</button>
+            <div id="td-second-degre-25" class="answer" hidden>
+              <p>La forme canonique, car elle donne directement \(S(2;-11)\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 26 · Forme utile 2</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : choisir entre factoriser et discriminer.</p>
+            <p>Pour résoudre \(x^2-4x=0\), factorisation ou discriminant ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-26">Voir le corrigé</button>
+            <div id="td-second-degre-26" class="answer" hidden>
+              <p>Factorisation : \(x(x-4)=0\), donc \(x=0\) ou \(x=4\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 27 · Inéquation</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : choisir tableau de signe.</p>
+            <p>Pour résoudre \(2x^2-8x+6>0\), quelle méthode déclenches-tu ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-27">Voir le corrigé</button>
+            <div id="td-second-degre-27" class="answer" hidden>
+              <p>Racines puis tableau de signe, car on demande un intervalle de valeurs de \(x\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 28 · Position de courbes</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : ramener à une différence.</p>
+            <p>Pour comparer deux courbes \(f\) et \(g\), quel objet étudies-tu ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-28">Voir le corrigé</button>
+            <div id="td-second-degre-28" class="answer" hidden>
+              <p>On étudie le signe de \(f(x)-g(x)\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 29 · Racines mentalement</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : utiliser somme-produit.</p>
+            <p>Pour \(x^2-9x+20\), quelle méthode rapide peut remplacer le discriminant ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-29">Voir le corrigé</button>
+            <div id="td-second-degre-29" class="answer" hidden>
+              <p>Somme-produit : \(4+5=9\) et \(4\times5=20\), donc racines \(4\) et \(5\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="controle" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">C</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Niveau contrôle</h2>
+          </div>
+        </div>
+        <p>6 exercices à faire sans aide visible.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 30 · Contrôle 1</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : résoudre et conclure.</p>
+            <p>Résoudre \(4x^2-4x-3=0\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-30">Voir le corrigé</button>
+            <div id="td-second-degre-30" class="answer" hidden>
+              <p>\(\Delta=64\), donc \(x=-\frac{1}{2}\) ou \(x=\frac{3}{2}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 31 · Contrôle 2</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : signe du trinôme.</p>
+            <p>Résoudre \(-x^2+5x-6\ge0\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-31">Voir le corrigé</button>
+            <div id="td-second-degre-31" class="answer" hidden>
+              <p>Les racines sont \(2\) et \(3\). Comme \(a<0\), la solution est \([2;3]\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 32 · Contrôle 3</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : forme canonique.</p>
+            <p>Mettre \(2x^2+12x+13\) sous forme canonique et donner le minimum.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-32">Voir le corrigé</button>
+            <div id="td-second-degre-32" class="answer" hidden>
+              <p>\(2x^2+12x+13=2(x+3)^2-5\). Le minimum vaut \(-5\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 33 · Contrôle 4</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : position relative.</p>
+            <p>Résoudre \(x^2+1<2x+4\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-33">Voir le corrigé</button>
+            <div id="td-second-degre-33" class="answer" hidden>
+              <p>On obtient \(x^2-2x-3<0\), donc \(-1<x<3\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 34 · Contrôle 5</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : paramètre.</p>
+            <p>Déterminer \(m\) pour que \(x^2+mx+9\) ait une racine double.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-34">Voir le corrigé</button>
+            <div id="td-second-degre-34" class="answer" hidden>
+              <p>Il faut \(\Delta=m^2-36=0\), donc \(m=-6\) ou \(m=6\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 35 · Contrôle 6</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : rédaction complète.</p>
+            <p>Étudier le signe de \(3x^2-12x+9\) sur \(\mathbb{R}\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-35">Voir le corrigé</button>
+            <div id="td-second-degre-35" class="answer" hidden>
+              <p>\(3x^2-12x+9=3(x-1)(x-3)\). Le signe est positif sur \(]-\infty;1]\cup[3;+\infty[\) et négatif sur \([1;3]\) avec zéros en \(1\) et \(3\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="vingt-sur-vingt" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">20</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Cap 20/20</h2>
+          </div>
+        </div>
+        <p>3 exercices plus longs, seulement après les blocs précédents.</p>
+        <div class="c-gate">
+          <p class="c-gate__label">Porte d’entrée</p>
+          <p class="c-gate__title">Avant ce bloc</p>
+          <p>Réussis au moins deux exercices de niveau contrôle sans regarder le corrigé. Le cap 20/20 n’est pas un raccourci : il combine les réflexes précédents.</p>
+        </div>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 36 · 20/20 1</h3>
+              <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : enchaîner sommet et signe.</p>
+            <p>Soit \(f(x)=-2x^2+8x-5\). Donner son maximum, puis résoudre \(f(x)\ge1\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-36">Voir le corrigé</button>
+            <div id="td-second-degre-36" class="answer" hidden>
+              <p>\(f(x)=-2(x-2)^2+3\), maximum \(3\). L’inéquation donne \((x-2)^2\le1\), donc \(x\in[1;3]\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 37 · 20/20 2</h3>
+              <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : deux courbes et paramètre.</p>
+            <p>Pour quelles valeurs de \(m\) l’équation \(x^2-4x+m=0\) admet-elle deux solutions distinctes ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-37">Voir le corrigé</button>
+            <div id="td-second-degre-37" class="answer" hidden>
+              <p>\(\Delta=16-4m\). Deux solutions distinctes si \(\Delta>0\), donc \(m<4\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 38 · 20/20 3</h3>
+              <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : problème d’aire.</p>
+            <p>Un rectangle a pour périmètre \(20\) et pour largeur \(x\). Écrire son aire, puis trouver la largeur qui donne l’aire maximale.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-38">Voir le corrigé</button>
+            <div id="td-second-degre-38" class="answer" hidden>
+              <p>La longueur vaut \(10-x\). L’aire est \(A(x)=x(10-x)=-x^2+10x\). Son maximum est atteint pour \(x=5\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="revision" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">R</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Révision mélangée</h2>
+          </div>
+        </div>
+        <p>2 exercices qui mélangent ce chapitre avec un autre réflexe.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 39 · Révision dérivation</h3>
+              <span class="difficulty" aria-label="Niveau Révision">Révision</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : relier sommet et dérivée.</p>
+            <p>Pour \(f(x)=x^2-6x+8\), calculer \(f'(x)\) puis retrouver l’abscisse du sommet.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-39">Voir le corrigé</button>
+            <div id="td-second-degre-39" class="answer" hidden>
+              <p>\(f'(x)=2x-6\). Elle s’annule en \(x=3\), l’abscisse du sommet.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 40 · Révision suites</h3>
+              <span class="difficulty" aria-label="Niveau Révision">Révision</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : modéliser une suite quadratique.</p>
+            <p>On pose \(u_n=n^2-5n+4\). Résoudre \(u_n=0\) pour \(n\in\mathbb{N}\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-second-degre-40">Voir le corrigé</button>
+            <div id="td-second-degre-40" class="answer" hidden>
+              <p>\(n^2-5n+4=(n-1)(n-4)\). Donc \(n=1\) ou \(n=4\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="sources" class="chapter-section recap-section">
+        <div class="section-marker">
+          <div class="section-marker__num">S</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Traçabilité</p>
+            <h2>Sources d’inspiration et adaptation</h2>
+          </div>
+        </div>
+        <p>Les exercices sont des variantes reformulées et recalculées à partir des sources validées. Les corrigés sont écrits pour le web : aide masquée, choix de méthode, rédaction et erreurs fréquentes.</p>
+        <div class="revision-grid">
+          <div class="revision-card"><p class="box-title">Source</p><p>Maths91, cours et fiche d’exercices Second degré</p></div>
+          <div class="revision-card"><p class="box-title">Source</p><p>Maths-et-tiques, Second degré parties 1 et 2</p></div>
+          <div class="revision-card"><p class="box-title">Source</p><p>XyMaths, cours Second degré</p></div>
+          <div class="revision-card"><p class="box-title">Source</p><p>MathGM, parcours Second degré</p></div>
+        </div>
+      </section>
+    </article>
+  </main>
+</body>
+</html>

@@ -40,15 +40,19 @@
     </div>
     <div class="sb-group">
       <div class="head">Compte</div>
-      <a href="abonnement.html" class="sb-item"><span class="ic"><i class="ph-bold ph-credit-card" aria-hidden="true"></i></span>Abonnement</a>
+      <a href="openSource.html" class="sb-item"><span class="ic"><i class="ph-bold ph-code" aria-hidden="true"></i></span>Open source</a>
       <a href="parametres.html" class="sb-item"><span class="ic"><i class="ph-bold ph-gear" aria-hidden="true"></i></span>Parametres</a>
     </div>
     <div class="sb-bottom">
-      <a class="sb-about" href="apropos.html" aria-label="A propos d'Objectif Lycee">
+            <div class="sidebar-os-badge" aria-label="Projet open source sous licence MIT">
+        <i class="ph-bold ph-code" aria-hidden="true"></i>
+        Open source · MIT
+      </div>
+<a class="sb-about" href="apropos.html" aria-label="A propos d'Objectif Lycee">
         <span class="sb-about__icon" aria-hidden="true"><i class="ph-bold ph-info"></i></span>
         <span class="sb-about__label">A propos</span>
       </a>
-      <div class="sb-profile"><div class="av">OP</div><div class="who"><span class="nm">Profil demo</span><span class="role">Lycee</span></div></div>
+      <div class="sb-profile"><div class="av" data-user-initials>OP</div><div class="who"><span class="nm" data-user-full-name>Profil demo</span><span class="role" data-user-role>Lycee</span></div></div>
     </div>
   </aside>
 
@@ -60,6 +64,16 @@
           Semaine type &middot; 08:00-20:00 &middot; <span data-schedule-meta>Europe/Paris - v1</span>
         </p>
       </header>
+
+      <aside class="local-account-prompt" data-local-account-prompt hidden>
+        <div>
+          <strong>Compte local non cree</strong>
+          <span>Cree ton profil local pour retrouver la meme mission, le meme objectif et la meme progression sur ces pages.</span>
+        </div>
+        <div class="local-account-prompt__actions">
+          <a href="onboarding.html">Creer ou reprendre</a>
+        </div>
+      </aside>
 
       <div class="planning-shell">
         <main class="planning-main" aria-labelledby="planning-week-title">
@@ -94,6 +108,8 @@
 
 <script src="assets/js/domain/model.js"></script>
 <script src="assets/js/state/store.js"></script>
+<script src="scripts/dom.js"></script>
+<script src="scripts/user-context-ui.js"></script>
 <script src="assets/js/pages/planning.js"></script>
 </body>
 </html>

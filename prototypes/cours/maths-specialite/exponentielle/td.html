@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TD Exponentielle - Maths spécialité Première</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="../cours.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="../cours.js"></script>
+</head>
+<body class="has-course-sidebar">
+
+  <div class="progress-bar" aria-hidden="true">
+    <div class="progress-bar__fill" data-progress-fill></div>
+  </div>
+
+  <div class="section-bar" data-section-bar aria-hidden="true">
+    <span class="section-bar__chip" data-section-bar-chip>00</span>
+    <span class="section-bar__title" data-section-bar-title>TD Exponentielle</span>
+    <span class="section-bar__total" data-section-bar-total>1/9</span>
+  </div>
+
+  <aside class="toc course-sidebar" aria-label="Plan du TD" data-course-sidebar>
+    <div class="sidebar-head">
+      <div>
+        <p class="toc-title">Plan</p>
+        <p class="sidebar-subtitle">TD Exponentielle</p>
+      </div>
+      <button class="sidebar-toggle" type="button" aria-label="Replier le plan" aria-expanded="true" data-sidebar-toggle><span aria-hidden="true">‹</span></button>
+    </div>
+
+    <nav class="toc-links" aria-label="Sections du TD">
+      <a href="#objectifs" data-section-link><span class="toc-index">00</span><span class="toc-label">Objectifs</span></a>
+      <a href="#automatismes" data-section-link><span class="toc-index">A</span><span class="toc-label">Automatismes</span></a>
+      <a href="#methodes-guidees" data-section-link><span class="toc-index">G</span><span class="toc-label">Guidé</span></a>
+      <a href="#pieges" data-section-link><span class="toc-index">P</span><span class="toc-label">Pièges</span></a>
+      <a href="#choix" data-section-link><span class="toc-index">M</span><span class="toc-label">Choisir</span></a>
+      <a href="#controle" data-section-link><span class="toc-index">C</span><span class="toc-label">Contrôle</span></a>
+      <a href="#vingt-sur-vingt" data-section-link><span class="toc-index">20</span><span class="toc-label">20/20</span></a>
+      <a href="#revision" data-section-link><span class="toc-index">R</span><span class="toc-label">Révision</span></a>
+      <a href="#sources" data-section-link><span class="toc-index">S</span><span class="toc-label">Sources</span></a>
+    </nav>
+
+    <p class="sidebar-foot">Maths spé · TD</p>
+  </aside>
+
+  <header class="course-hero">
+    <nav class="topline" aria-label="Fil d'Ariane">
+      <a href="../../../..">Objectif Lycée</a>
+      <span>Maths spécialité</span>
+      <a href="index.html">Cours</a>
+      <span>TD corrigé</span>
+    </nav>
+
+    <div class="hero-grid">
+      <div>
+        <p class="hero-eyebrow"><span class="num">08</span> TD séparé</p>
+        <h1>Exponentielle</h1>
+        <p class="hero-lead">40 exercices pour manipuler (e^x), ses propriétés, sa dérivée, ses variations et les modèles exponentiels.</p>
+      </div>
+
+      <aside class="hero-side" aria-label="Organisation du TD">
+        <p class="hero-side__label">Objectif</p>
+        <h2>40 exercices, corrigés masqués</h2>
+        <div class="hero-side__steps">
+          <div class="hero-side__step"><span class="verb">Définition</span><span class="obj">à produire avant correction</span></div>
+          <div class="hero-side__step"><span class="verb">Propriétés</span><span class="obj">à produire avant correction</span></div>
+          <div class="hero-side__step"><span class="verb">Dérivée</span><span class="obj">à produire avant correction</span></div>
+          <div class="hero-side__step"><span class="verb">Modèles</span><span class="obj">à produire avant correction</span></div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main class="course-layout" data-course-layout>
+    <article class="lesson course-lesson">
+
+      <section class="course-overview" aria-label="Repères du TD">
+        <div>
+          <p class="course-overview__title">TD d’entraînement</p>
+          <h3>Une page séparée pour travailler sans relire tout le cours</h3>
+          <p class="course-overview__lead">Chaque exercice indique la compétence entraînée, puis cache une réponse ou une correction. Les corrections détaillées montrent aussi la rédaction attendue et les erreurs qui coûtent des points.</p>
+        </div>
+        <div class="overview-flow">
+          <span>Automatismes</span>
+          <em>→</em>
+          <span>Méthodes</span>
+          <em>→</em>
+          <span>Contrôle</span>
+          <em>→</em>
+          <span>20/20</span>
+        </div>
+      </section>
+
+      <section id="objectifs" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">00</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Avant de commencer</p>
+            <h2>Ce TD reprend les points qui tombent vraiment</h2>
+          </div>
+        </div>
+        <p>Travaille dans l’ordre. Si un automatisme bloque, ouvre le corrigé, refais l’exercice sans regarder, puis seulement passe à la suite.</p>
+        <div class="diagnostic-grid">
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">1</span>Compétence</p>
+            <p>fonction exponentielle définie par \(f'=f\) et \(f(0)=1\)</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">2</span>Compétence</p>
+            <p>relation fonctionnelle et règles de calcul</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">3</span>Compétence</p>
+            <p>dérivée de (e^x) et de (e^{ax+b})</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">4</span>Compétence</p>
+            <p>signe, variations, équations et inéquations</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">5</span>Compétence</p>
+            <p>modèles de croissance et décroissance</p>
+          </div>
+        </div>
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Pièges surveillés</p>
+          <p>écrire (e^{a+b}=e^a+e^b) ; oublier que (e^x>0) ; résoudre (e^u=e^v) sans utiliser la stricte croissance ; utiliser le logarithme avant qu’il ne soit disponible en Première.</p>
+        </div>
+      </section>
+
+      <section id="automatismes" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">A</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Automatismes</h2>
+          </div>
+        </div>
+        <p>10 exercices courts pour sécuriser les gestes de base.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 1 · Valeur en 0</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : connaître (e^0).</p>
+            <p>Calculer \(e^0\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-01">Voir le corrigé</button>
+            <div id="td-exponentielle-01" class="answer" hidden>
+              <p>\(e^0=1\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 2 · Produit</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : propriété algébrique.</p>
+            <p>Simplifier \(e^3\times e^5\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-02">Voir le corrigé</button>
+            <div id="td-exponentielle-02" class="answer" hidden>
+              <p>\(e^8\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 3 · Quotient</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : propriété algébrique.</p>
+            <p>Simplifier \(\frac{e^7}{e^2}\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-03">Voir le corrigé</button>
+            <div id="td-exponentielle-03" class="answer" hidden>
+              <p>\(e^5\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 4 · Puissance</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : propriété algébrique.</p>
+            <p>Simplifier \((e^4)^3\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-04">Voir le corrigé</button>
+            <div id="td-exponentielle-04" class="answer" hidden>
+              <p>\(e^{12}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 5 · Inverse</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : exposant négatif.</p>
+            <p>Écrire \(\frac1{e^x}\) sous forme exponentielle.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-05">Voir le corrigé</button>
+            <div id="td-exponentielle-05" class="answer" hidden>
+              <p>\(e^{-x}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 6 · Signe</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : positivité.</p>
+            <p>Quel est le signe de \(e^x\) pour tout réel \(x\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-06">Voir le corrigé</button>
+            <div id="td-exponentielle-06" class="answer" hidden>
+              <p>\(e^x>0\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 7 · Dérivée</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : dériver (e^x).</p>
+            <p>Dériver \(f(x)=e^x\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-07">Voir le corrigé</button>
+            <div id="td-exponentielle-07" class="answer" hidden>
+              <p>\(f'(x)=e^x\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 8 · Dérivée composée</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : dériver (e^{ax+b}).</p>
+            <p>Dériver \(f(x)=e^{3x-1}\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-08">Voir le corrigé</button>
+            <div id="td-exponentielle-08" class="answer" hidden>
+              <p>\(f'(x)=3e^{3x-1}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 9 · Équation même base</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : injectivité.</p>
+            <p>Résoudre \(e^{2x}=e^6\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-09">Voir le corrigé</button>
+            <div id="td-exponentielle-09" class="answer" hidden>
+              <p>\(2x=6\), donc \(x=3\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 10 · Variation</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : croissance.</p>
+            <p>La fonction exponentielle est-elle croissante ou décroissante sur \(\mathbb{R}\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-10">Voir le corrigé</button>
+            <div id="td-exponentielle-10" class="answer" hidden>
+              <p>Elle est strictement croissante.</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="methodes-guidees" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">G</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Méthodes guidées</h2>
+          </div>
+        </div>
+        <p>8 exercices où l’aide disparaît progressivement.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 11 · Simplification guidée</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : regrouper les exposants.</p>
+            <p>Simplifier \(e^{x+2}\times e^{3-x}\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-11">Voir le corrigé</button>
+            <div id="td-exponentielle-11" class="answer" hidden>
+              <p>\(e^{x+2+3-x}=e^5\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 12 · Quotient guidé</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : soustraire les exposants.</p>
+            <p>Simplifier \(\frac{e^{2x+1}}{e^{x-4}}\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-12">Voir le corrigé</button>
+            <div id="td-exponentielle-12" class="answer" hidden>
+              <p>\(e^{x+5}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 13 · Équation</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : utiliser la croissance.</p>
+            <p>Résoudre \(e^{4x-1}=e^{2x+5}\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-13">Voir le corrigé</button>
+            <div id="td-exponentielle-13" class="answer" hidden>
+              <p>\(4x-1=2x+5\), donc \(x=3\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 14 · Inéquation</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : conserver le sens.</p>
+            <p>Résoudre \(e^{3x+2}\le e^8\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-14">Voir le corrigé</button>
+            <div id="td-exponentielle-14" class="answer" hidden>
+              <p>Comme exp est croissante, \(3x+2\le8\), donc \(x\le2\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 15 · Dérivée produit</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : dériver (xe^x).</p>
+            <p>Dériver \(f(x)=xe^x\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-15">Voir le corrigé</button>
+            <div id="td-exponentielle-15" class="answer" hidden>
+              <p>\(f'(x)=e^x+xe^x=(x+1)e^x\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 16 · Variation</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : signe avec (e^x>0).</p>
+            <p>Étudier les variations de \(f(x)=(x-2)e^x\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-16">Voir le corrigé</button>
+            <div id="td-exponentielle-16" class="answer" hidden>
+              <p>\(f'(x)=e^x+(x-2)e^x=(x-1)e^x\). Comme \(e^x>0\), le signe vient de \(x-1\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 17 · Modèle</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : coefficient multiplicateur.</p>
+            <p>Une quantité vaut \(500e^{0{,}03t}\). Calculer sa valeur à \(t=0\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-17">Voir le corrigé</button>
+            <div id="td-exponentielle-17" class="answer" hidden>
+              <p>Elle vaut \(500\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 18 · Rédaction notée</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : variation exponentielle.</p>
+            <p>Rédiger l’étude de variations de \(f(x)=(2x+1)e^x\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-18">Voir le corrigé</button>
+            <div id="td-exponentielle-18" class="answer" hidden>
+              <p>On dérive avec la formule du produit : \(f'(x)=2e^x+(2x+1)e^x=(2x+3)e^x\).</p><p>Comme \(e^x>0\) pour tout réel \(x\), le signe de \(f'(x)\) est celui de \(2x+3\).</p><p>Donc \(f\) est décroissante sur \(]-\infty;-\frac32]\), puis croissante sur \([-\frac32;+\infty[\).</p><p>Erreur qui coûte des points : étudier le signe de \(e^x\) comme s’il pouvait être négatif.</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="pieges" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">P</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Pièges classiques</h2>
+          </div>
+        </div>
+        <p>6 exercices pour repérer les erreurs qui coûtent des points.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 19 · Somme fausse</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : propriété algébrique.</p>
+            <p>Corriger : \(e^{a+b}=e^a+e^b\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-19">Voir le corrigé</button>
+            <div id="td-exponentielle-19" class="answer" hidden>
+              <p>Faux. \(e^{a+b}=e^a\times e^b\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 20 · Zéro impossible</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : positivité.</p>
+            <p>Résoudre \(e^x=0\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-20">Voir le corrigé</button>
+            <div id="td-exponentielle-20" class="answer" hidden>
+              <p>Aucune solution, car \(e^x>0\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 21 · Inéquation négative</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : positivité.</p>
+            <p>Résoudre \(e^{2x+1}<0\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-21">Voir le corrigé</button>
+            <div id="td-exponentielle-21" class="answer" hidden>
+              <p>Aucune solution.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 22 · Dérivée composée</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : coefficient oublié.</p>
+            <p>Corriger : \((e^{5x})'=e^{5x}\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-22">Voir le corrigé</button>
+            <div id="td-exponentielle-22" class="answer" hidden>
+              <p>Il manque le coefficient \(5\). La dérivée est \(5e^{5x}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 23 · Quotient</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : soustraction des exposants.</p>
+            <p>Simplifier correctement \(\frac{e^{x}}{e^{-2x}}\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-23">Voir le corrigé</button>
+            <div id="td-exponentielle-23" class="answer" hidden>
+              <p>\(e^{x-(-2x)}=e^{3x}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 24 · Première sans ln</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : méthode attendue.</p>
+            <p>En Première, comment traite-t-on souvent \(e^x=4\) si \(\ln\) n’est pas encore introduit ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-24">Voir le corrigé</button>
+            <div id="td-exponentielle-24" class="answer" hidden>
+              <p>Par lecture graphique ou calculatrice. On ne force pas une notation non étudiée.</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="choix" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">M</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Choisir la méthode</h2>
+          </div>
+        </div>
+        <p>5 exercices où il faut décider avant de calculer.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 25 · Choix 1</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : simplifier.</p>
+            <p>Devant \(e^{x+1}e^{2-x}\), quelle propriété déclencher ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-25">Voir le corrigé</button>
+            <div id="td-exponentielle-25" class="answer" hidden>
+              <p>Le produit : on additionne les exposants.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 26 · Choix 2</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : équation même base.</p>
+            <p>Devant \(e^{u(x)}=e^{v(x)}\), quelle idée utiliser ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-26">Voir le corrigé</button>
+            <div id="td-exponentielle-26" class="answer" hidden>
+              <p>La stricte croissance de l’exponentielle : \(u(x)=v(x)\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 27 · Choix 3</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : variation.</p>
+            <p>Pour étudier \((x+a)e^x\), quel facteur garde toujours le même signe ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-27">Voir le corrigé</button>
+            <div id="td-exponentielle-27" class="answer" hidden>
+              <p>\(e^x\), qui est strictement positif.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 28 · Choix 4</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : modèle croissant.</p>
+            <p>Dans \(Ae^{kt}\), quel signe de \(k\) donne une croissance ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-28">Voir le corrigé</button>
+            <div id="td-exponentielle-28" class="answer" hidden>
+              <p>\(k>0\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 29 · Choix 5</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : inéquation.</p>
+            <p>Dans \(e^{3x}<e^2\), faut-il changer le sens de l’inégalité ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-29">Voir le corrigé</button>
+            <div id="td-exponentielle-29" class="answer" hidden>
+              <p>Non, l’exponentielle est strictement croissante.</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="controle" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">C</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Niveau contrôle</h2>
+          </div>
+        </div>
+        <p>6 exercices à faire sans aide visible.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 30 · Contrôle 1</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : simplifier.</p>
+            <p>Simplifier \(e^{2x-3}e^{-x+4}\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-30">Voir le corrigé</button>
+            <div id="td-exponentielle-30" class="answer" hidden>
+              <p>\(e^{x+1}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 31 · Contrôle 2</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : quotient.</p>
+            <p>Simplifier \(\frac{e^{5x}}{e^{2x+1}}\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-31">Voir le corrigé</button>
+            <div id="td-exponentielle-31" class="answer" hidden>
+              <p>\(e^{3x-1}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 32 · Contrôle 3</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : dérivée.</p>
+            <p>Dériver \(f(x)=e^{-2x+7}\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-32">Voir le corrigé</button>
+            <div id="td-exponentielle-32" class="answer" hidden>
+              <p>\(f'(x)=-2e^{-2x+7}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 33 · Contrôle 4</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : équation.</p>
+            <p>Résoudre \(e^{x^2}=e^9\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-33">Voir le corrigé</button>
+            <div id="td-exponentielle-33" class="answer" hidden>
+              <p>\(x^2=9\), donc \(x=-3\) ou \(x=3\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 34 · Contrôle 5</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : inéquation.</p>
+            <p>Résoudre \(e^{1-4x}\ge e^{-3}\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-34">Voir le corrigé</button>
+            <div id="td-exponentielle-34" class="answer" hidden>
+              <p>\(1-4x\ge-3\), donc \(x\le1\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 35 · Contrôle 6</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : variation.</p>
+            <p>Étudier les variations de \(f(x)=(x+4)e^x\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-35">Voir le corrigé</button>
+            <div id="td-exponentielle-35" class="answer" hidden>
+              <p>\(f'(x)=(x+5)e^x\). Donc \(f\) décroît sur \(]-\infty;-5]\), puis croît.</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="vingt-sur-vingt" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">20</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Cap 20/20</h2>
+          </div>
+        </div>
+        <p>3 exercices plus longs, seulement après les blocs précédents.</p>
+        <div class="c-gate">
+          <p class="c-gate__label">Porte d’entrée</p>
+          <p class="c-gate__title">Avant ce bloc</p>
+          <p>Réussis au moins deux exercices de niveau contrôle sans regarder le corrigé. Le cap 20/20 n’est pas un raccourci : il combine les réflexes précédents.</p>
+        </div>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 36 · 20/20 1</h3>
+              <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : équation avec substitution.</p>
+            <p>Résoudre \(e^{2x}-3e^x+2=0\) en posant \(X=e^x\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-36">Voir le corrigé</button>
+            <div id="td-exponentielle-36" class="answer" hidden>
+              <p>\(X^2-3X+2=0\), donc \(X=1\) ou \(X=2\). Ainsi \(e^x=1\) donne \(x=0\) ; \(e^x=2\) se lit/calculatrice en Première.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 37 · 20/20 2</h3>
+              <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : tangente.</p>
+            <p>Donner l’équation de la tangente à \(e^x\) en \(0\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-37">Voir le corrigé</button>
+            <div id="td-exponentielle-37" class="answer" hidden>
+              <p>\(f(0)=1\), \(f'(0)=1\). Tangente : \(y=x+1\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 38 · 20/20 3</h3>
+              <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : modèle décroissant.</p>
+            <p>Une quantité vaut \(80e^{-0{,}2t}\). Est-elle croissante ou décroissante ? Donner la valeur initiale.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-38">Voir le corrigé</button>
+            <div id="td-exponentielle-38" class="answer" hidden>
+              <p>Elle est décroissante car \(-0{,}2<0\). La valeur initiale est \(80\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="revision" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">R</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Révision mélangée</h2>
+          </div>
+        </div>
+        <p>2 exercices qui mélangent ce chapitre avec un autre réflexe.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 39 · Révision suites</h3>
+              <span class="difficulty" aria-label="Niveau Révision">Révision</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : suite géométrique.</p>
+            <p>Montrer que \(u_n=e^{0{,}2n}\) est géométrique.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-39">Voir le corrigé</button>
+            <div id="td-exponentielle-39" class="answer" hidden>
+              <p>\(\frac{u_{n+1}}{u_n}=e^{0{,}2}\), constante.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 40 · Révision dérivation</h3>
+              <span class="difficulty" aria-label="Niveau Révision">Révision</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : produit.</p>
+            <p>Dériver \(f(x)=x^2e^x\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-exponentielle-40">Voir le corrigé</button>
+            <div id="td-exponentielle-40" class="answer" hidden>
+              <p>\(f'(x)=2xe^x+x^2e^x=(x^2+2x)e^x\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="sources" class="chapter-section recap-section">
+        <div class="section-marker">
+          <div class="section-marker__num">S</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Traçabilité</p>
+            <h2>Sources d’inspiration et adaptation</h2>
+          </div>
+        </div>
+        <p>Les exercices sont des variantes reformulées et recalculées à partir des sources validées. Les corrigés sont écrits pour le web : aide masquée, choix de méthode, rédaction et erreurs fréquentes.</p>
+        <div class="revision-grid">
+          <div class="revision-card"><p class="box-title">Source</p><p>Maths91, cours et exercices Fonction exponentielle</p></div>
+          <div class="revision-card"><p class="box-title">Source</p><p>Maths-et-tiques, Fonction exponentielle</p></div>
+          <div class="revision-card"><p class="box-title">Source</p><p>TableauxMaths, exercices corrigés exponentielle</p></div>
+          <div class="revision-card"><p class="box-title">Source</p><p>Lycée d’Adultes de Paris, cours exponentielle</p></div>
+        </div>
+      </section>
+    </article>
+  </main>
+</body>
+</html>

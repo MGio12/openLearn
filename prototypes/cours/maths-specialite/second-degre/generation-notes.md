@@ -1,55 +1,54 @@
-# Notes de génération — Second degré
+# Notes de génération - TD Second degré
 
-## État
+## Décision
 
-Prototype réel de cours HTML + KaTeX construit depuis quatre PDF sources : deux Maths91 et deux Maths-et-tiques. Le chapitre reste isolé dans `prototypes/cours/` pour itération.
+Création d’une page `td.html` séparée pour le chapitre, avec 40 exercices corrigés et un lien visible depuis `index.html`.
 
-## Intentions pédagogiques
+Ajout d'un pilote Astro + MDX isolé pour le même chapitre :
 
-- Baisser la difficulté d'entrée avec un diagnostic court et une intuition visuelle de la parabole.
-- Faire produire l'élève à chaque étape : question immédiate, étape manquante, exercice guidé, exercice seul, choix de méthode, rédaction.
-- Mettre le choix de méthode au centre : forme canonique pour le sommet, discriminant pour les racines, tableau de signes pour les inéquations, forme factorisée quand elle est déjà disponible.
-- Montrer une rédaction de contrôle qui explicite les points qui rapportent.
-- Préparer les exercices `20/20` par une porte simple au lieu d'en faire un raccourci décoratif.
-- Signaler un point de paywall possible après une première valeur ressentie, sans bloquer le prototype.
+- `src/pages/cours/second-degre/index.mdx` ;
+- `src/pages/cours/second-degre/td.mdx` ;
+- composants dans `src/courses/components/` ;
+- données partagées dans `src/courses/data/second-degre.js`.
 
-## Sources exploitées
+Le pilote ne remplace pas les prototypes HTML et ne modifie pas le parcours public.
 
-- Maths91 cours : architecture complète, théorème du discriminant, signe du trinôme, exemples rédigés.
-- Maths91 exercices : banque d'exercices pour les blocs contrôle et 20/20.
-- Maths-et-tiques partie 1 : intuition forme canonique, sommet, variations, parabole.
-- Maths-et-tiques partie 2 : discriminant, racines, factorisation, signe et inéquations.
+## Structure pédagogique
+
+- 10 automatismes.
+- 8 méthodes guidées.
+- 6 pièges.
+- 5 exercices de choix de méthode.
+- 6 exercices niveau contrôle.
+- 3 exercices cap 20/20, précédés d’une porte d’entrée.
+- 2 exercices de révision mélangée.
 
 ## Carte de couverture V2
 
-Voir `source-map.md` pour le détail des notions, méthodes, exemples, exercices, pièges, graphes exacts et éléments exclus.
+- forme développée, factorisée et canonique
+- discriminant, racines, racine double
+- signe d’un trinôme et inéquations
+- sommet, axe de symétrie, position relative
+- somme et produit des racines
 
-### Notions reprises
+## Rôles des sources
 
-- Fonction polynôme du second degré définie sur \(\mathbb{R}\) par \(ax^2+bx+c\), avec \(a\ne0\).
-- Vocabulaire de trinôme, racine, sommet, axe de symétrie, minimum, maximum.
-- Trois formes : développée, canonique, factorisée.
-- Équations simples du second degré avant discriminant.
-- Discriminant, racines, factorisation, somme-produit, signe du trinôme et position relative.
+- Maths91 sert de colonne vertébrale pour la couverture du programme, les méthodes et les exercices de contrôle.
+- Maths-et-tiques sert de complément pour l’intuition, les explications alternatives et les exemples utiles quand la source existe pour le chapitre.
+- Les autres sources listées dans `sources.md` inspirent des variations d’énoncés et des pièges, sans recopie brute.
 
-### Éléments volontairement exclus de cette version
+## Garde-fous appliqués
 
-- Démonstration complète des formules du discriminant depuis la forme canonique : trop lourde pour cette page V2, à réserver à une extension ou un bloc avancé.
-- Représentation graphique manuelle point par point : remplacée par des graphes exacts JSXGraph.
-- Exercices trop proches des PDFs en grande quantité : la page garde des types représentatifs et doit vérifier les droits avant publication publique.
-- Scoring automatique et correction IA de rédaction : hors prototype actuel.
+- Corrigés masqués avec `data-reveal`.
+- Une réponse pour chaque exercice.
+- Corrections détaillées sur les exercices structurants.
+- Pas de courbe ou schéma mathématique approximatif.
+- Sources citées au niveau de la page et dans `sources.md`.
+- Astro + MDX vérifié séparément par `npm run build:courses` et `npm run verify:courses-astro`.
+- Graphes exacts du pilote Astro rendus par JSXGraph via le composant `ExactGraph`.
 
-## Adaptations
+## Éléments volontairement exclus
 
-- Les exercices ont été resserrés et parfois modifiés pour servir la progression du prototype.
-- Les corrections sont écrites pour faire apparaître les décisions de méthode et les erreurs de rédaction, pas seulement le résultat.
-- Les courbes ajoutées sont des graphes exacts JSXGraph, jamais des tracés à la main.
-- Les trois points d'entrée IA restent placés après une production élève : diagnostic de coefficients, choix de méthode, puis rédaction d'inéquation. Le bloc "Feedback IA disponible" en haut de page et les marqueurs `IA` de la sidebar servent seulement à les rendre trouvables sans casser la progression.
-- Le bloc produit/paywall visible a été retiré du cours élève pour garder une progression mathématique continue ; l'idée reste seulement une note produit à traiter hors contenu pédagogique.
-
-## Limites connues
-
-- Pas de scoring automatique : l'élève utilise les corrections masquées comme auto-évaluation.
-- Pas d'appel IA réel : le tiroir partagé reste un mock sécurisé de préparation du feedback.
-- Pas d'intégration au parcours principal du site.
-- Les droits de republication des exercices doivent être vérifiés avant mise en ligne publique.
+- Recopie brute d’énoncés PDF.
+- Exercices sans réponse.
+- Graphes approximatifs dessinés à la main.

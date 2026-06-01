@@ -1,4 +1,17 @@
 /* ============================================================
+   AGENT HEADER
+   Role: cablage Payment Links Stripe, etat des CTA et formulaire
+   de config; hydrate data-pricing-* seulement si OPPricing est charge.
+   Loaded by: checkout.html apres le HTML des offres.
+   Reads/writes: lit OP_STRIPE_CHECKOUT_URL(S), meta/body
+   data-stripe-*, localStorage; ecrit outilPrepa:stripe.checkoutUrl
+   apres config valide; migre puis supprime op.stripe.checkoutUrl.
+   Public contract: data-checkout-button, data-checkout-plan,
+   data-checkout-billing, data-checkout-state, data-payment-status,
+   window.OP_UPDATE_CHECKOUT_BUTTONS, op:checkout-options-changed.
+   Verify: npm run verify:s03 ; npm run verify:localstorage.
+   Read next: `docs/agent-codebase-map.md` Zone 1 et Zone 5.
+
    OBJECTIF LYCEE - Page checkout
    ------------------------------------------------------------
    Hydrate les prix visibles, synchronise l'etat UI des CTA et

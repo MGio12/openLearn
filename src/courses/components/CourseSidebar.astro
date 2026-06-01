@@ -1,0 +1,33 @@
+---
+const { sections = [], subtitle = 'Second degré', label = 'Plan du cours', foot = 'Maths spé · Lycée' } = Astro.props;
+---
+
+<aside class="toc course-sidebar" aria-label={label} data-course-sidebar>
+  <div class="sidebar-head">
+    <div>
+      <p class="toc-title">Plan</p>
+      <p class="sidebar-subtitle">{subtitle}</p>
+    </div>
+    <button
+      class="sidebar-toggle"
+      type="button"
+      aria-label="Replier le plan"
+      aria-expanded="true"
+      data-sidebar-toggle
+    >
+      <span aria-hidden="true">‹</span>
+    </button>
+  </div>
+
+  <nav class="toc-links" aria-label={label}>
+    {sections.map((section) => (
+      <a href={`#${section.id}`} data-section-link>
+        <span class="toc-index">{section.marker}</span>
+        <span class="toc-label">{section.label}</span>
+        {section.agent && <span class="toc-agent-badge" aria-label="Feedback IA disponible">IA</span>}
+      </a>
+    ))}
+  </nav>
+
+  <p class="sidebar-foot">{foot}</p>
+</aside>

@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TD Variables aléatoires - Maths spécialité Première</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="../cours.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="../cours.js"></script>
+</head>
+<body class="has-course-sidebar">
+
+  <div class="progress-bar" aria-hidden="true">
+    <div class="progress-bar__fill" data-progress-fill></div>
+  </div>
+
+  <div class="section-bar" data-section-bar aria-hidden="true">
+    <span class="section-bar__chip" data-section-bar-chip>00</span>
+    <span class="section-bar__title" data-section-bar-title>TD Variables aléatoires</span>
+    <span class="section-bar__total" data-section-bar-total>1/9</span>
+  </div>
+
+  <aside class="toc course-sidebar" aria-label="Plan du TD" data-course-sidebar>
+    <div class="sidebar-head">
+      <div>
+        <p class="toc-title">Plan</p>
+        <p class="sidebar-subtitle">TD Variables aléatoires</p>
+      </div>
+      <button class="sidebar-toggle" type="button" aria-label="Replier le plan" aria-expanded="true" data-sidebar-toggle><span aria-hidden="true">‹</span></button>
+    </div>
+
+    <nav class="toc-links" aria-label="Sections du TD">
+      <a href="#objectifs" data-section-link><span class="toc-index">00</span><span class="toc-label">Objectifs</span></a>
+      <a href="#automatismes" data-section-link><span class="toc-index">A</span><span class="toc-label">Automatismes</span></a>
+      <a href="#methodes-guidees" data-section-link><span class="toc-index">G</span><span class="toc-label">Guidé</span></a>
+      <a href="#pieges" data-section-link><span class="toc-index">P</span><span class="toc-label">Pièges</span></a>
+      <a href="#choix" data-section-link><span class="toc-index">M</span><span class="toc-label">Choisir</span></a>
+      <a href="#controle" data-section-link><span class="toc-index">C</span><span class="toc-label">Contrôle</span></a>
+      <a href="#vingt-sur-vingt" data-section-link><span class="toc-index">20</span><span class="toc-label">20/20</span></a>
+      <a href="#revision" data-section-link><span class="toc-index">R</span><span class="toc-label">Révision</span></a>
+      <a href="#sources" data-section-link><span class="toc-index">S</span><span class="toc-label">Sources</span></a>
+    </nav>
+
+    <p class="sidebar-foot">Maths spé · TD</p>
+  </aside>
+
+  <header class="course-hero">
+    <nav class="topline" aria-label="Fil d'Ariane">
+      <a href="../../../..">Objectif Lycée</a>
+      <span>Maths spécialité</span>
+      <a href="index.html">Cours</a>
+      <span>TD corrigé</span>
+    </nav>
+
+    <div class="hero-grid">
+      <div>
+        <p class="hero-eyebrow"><span class="num">09</span> TD séparé</p>
+        <h1>Variables aléatoires</h1>
+        <p class="hero-lead">40 exercices pour construire une loi, calculer espérance, variance, écart-type et interpréter les jeux.</p>
+      </div>
+
+      <aside class="hero-side" aria-label="Organisation du TD">
+        <p class="hero-side__label">Objectif</p>
+        <h2>40 exercices, corrigés masqués</h2>
+        <div class="hero-side__steps">
+          <div class="hero-side__step"><span class="verb">Issues</span><span class="obj">à produire avant correction</span></div>
+          <div class="hero-side__step"><span class="verb">Loi</span><span class="obj">à produire avant correction</span></div>
+          <div class="hero-side__step"><span class="verb">Espérance</span><span class="obj">à produire avant correction</span></div>
+          <div class="hero-side__step"><span class="verb">Dispersion</span><span class="obj">à produire avant correction</span></div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main class="course-layout" data-course-layout>
+    <article class="lesson course-lesson">
+
+      <section class="course-overview" aria-label="Repères du TD">
+        <div>
+          <p class="course-overview__title">TD d’entraînement</p>
+          <h3>Une page séparée pour travailler sans relire tout le cours</h3>
+          <p class="course-overview__lead">Chaque exercice indique la compétence entraînée, puis cache une réponse ou une correction. Les corrections détaillées montrent aussi la rédaction attendue et les erreurs qui coûtent des points.</p>
+        </div>
+        <div class="overview-flow">
+          <span>Automatismes</span>
+          <em>→</em>
+          <span>Méthodes</span>
+          <em>→</em>
+          <span>Contrôle</span>
+          <em>→</em>
+          <span>20/20</span>
+        </div>
+      </section>
+
+      <section id="objectifs" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">00</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Avant de commencer</p>
+            <h2>Ce TD reprend les points qui tombent vraiment</h2>
+          </div>
+        </div>
+        <p>Travaille dans l’ordre. Si un automatisme bloque, ouvre le corrigé, refais l’exercice sans regarder, puis seulement passe à la suite.</p>
+        <div class="diagnostic-grid">
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">1</span>Compétence</p>
+            <p>univers et variable aléatoire</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">2</span>Compétence</p>
+            <p>loi de probabilité</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">3</span>Compétence</p>
+            <p>espérance et interprétation</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">4</span>Compétence</p>
+            <p>variance et écart-type</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">5</span>Compétence</p>
+            <p>jeux équitables et transformations \(aX+b\)</p>
+          </div>
+        </div>
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Pièges surveillés</p>
+          <p>oublier que les probabilités d’une loi somment à 1 ; confondre valeur de la variable et issue ; interpréter l’espérance comme un gain certain ; oublier les carrés dans la variance.</p>
+        </div>
+      </section>
+
+      <section id="automatismes" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">A</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Automatismes</h2>
+          </div>
+        </div>
+        <p>10 exercices courts pour sécuriser les gestes de base.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 1 · Somme des probabilités</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : contrôler une loi.</p>
+            <p>Une loi donne \(0{,}2\), \(0{,}5\), \(0{,}3\). Est-elle valide ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-01">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-01" class="answer" hidden>
+              <p>Oui, la somme vaut \(1\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 2 · Probabilité manquante</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : compléter une loi.</p>
+            <p>Une variable prend trois valeurs avec probabilités \(0{,}25\), \(0{,}15\), \(p\). Trouver \(p\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-02">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-02" class="answer" hidden>
+              <p>\(p=0{,}60\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 3 · Espérance 1</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : calculer une moyenne pondérée.</p>
+            <p>\(X\) vaut \(0\) avec probabilité \(0{,}7\) et \(10\) avec probabilité \(0{,}3\). Calculer \(E(X)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-03">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-03" class="answer" hidden>
+              <p>\(E(X)=3\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 4 · Espérance 2</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : moyenne pondérée.</p>
+            <p>\(X\) vaut \(-2\), \(1\), \(4\) avec probabilités \(0{,}2\), \(0{,}5\), \(0{,}3\). Calculer \(E(X)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-04">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-04" class="answer" hidden>
+              <p>\(-0{,}4+0{,}5+1{,}2=1{,}3\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 5 · Variance formule</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : connaître la formule.</p>
+            <p>Quelle formule utilise \(E(X^2)\) pour calculer la variance ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-05">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-05" class="answer" hidden>
+              <p>\(V(X)=E(X^2)-E(X)^2\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 6 · Écart-type</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : racine de variance.</p>
+            <p>Si \(V(X)=9\), que vaut \(\sigma(X)\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-06">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-06" class="answer" hidden>
+              <p>\(\sigma(X)=3\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 7 · Transformation</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : linéarité de l’espérance.</p>
+            <p>Si \(E(X)=4\), calculer \(E(2X+3)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-07">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-07" class="answer" hidden>
+              <p>\(2\times4+3=11\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 8 · Jeu équitable</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : interpréter espérance.</p>
+            <p>Un jeu est équitable si l’espérance du gain algébrique vaut combien ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-08">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-08" class="answer" hidden>
+              <p>Elle vaut \(0\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 9 · Issue ou valeur</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : vocabulaire.</p>
+            <p>Une variable \(X\) peut-elle prendre la même valeur pour plusieurs issues ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-09">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-09" class="answer" hidden>
+              <p>Oui. Une variable aléatoire associe un nombre à chaque issue.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 10 · Probabilité événement</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : additionner des valeurs.</p>
+            <p>Si \(P(X=1)=0{,}2\) et \(P(X=2)=0{,}4\), calculer \(P(X\le2)\) si aucune autre valeur n’est \(\le2\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-10">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-10" class="answer" hidden>
+              <p>\(0{,}6\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="methodes-guidees" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">G</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Méthodes guidées</h2>
+          </div>
+        </div>
+        <p>8 exercices où l’aide disparaît progressivement.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 11 · Dé équilibré</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : construire une loi.</p>
+            <p>On lance un dé. \(X=1\) si le résultat est pair, \(X=-1\) sinon. Donner la loi de \(X\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-11">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-11" class="answer" hidden>
+              <p>\(P(X=1)=\frac12\), \(P(X=-1)=\frac12\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 12 · Espérance de loi</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : calculer proprement.</p>
+            <p>\(X\) vaut \(0,2,5\) avec probabilités \(0{,}4,0{,}4,0{,}2\). Calculer \(E(X)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-12">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-12" class="answer" hidden>
+              <p>\(E(X)=0+0{,}8+1=1{,}8\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 13 · Variance</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : passer par \(E(X^2)\).</p>
+            <p>Pour la loi précédente, calculer \(E(X^2)\), puis \(V(X)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-13">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-13" class="answer" hidden>
+              <p>\(E(X^2)=0+4\times0{,}4+25\times0{,}2=6{,}6\). \(V(X)=6{,}6-1{,}8^2=3{,}36\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 14 · Gain algébrique</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : tenir compte de la mise.</p>
+            <p>Un ticket coûte \(2\) euros. On gagne \(10\) euros avec probabilité \(0{,}1\), sinon rien. Calculer l’espérance du gain net.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-14">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-14" class="answer" hidden>
+              <p>Gain net : \(8\) avec proba \(0{,}1\), \(-2\) avec proba \(0{,}9\). Espérance \(0{,}8-1{,}8=-1\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 15 · Mise équitable</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : chercher un paramètre.</p>
+            <p>Un jeu rapporte \(12\) euros avec probabilité \(\frac14\), sinon \(0\). Quelle mise rend le jeu équitable ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-15">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-15" class="answer" hidden>
+              <p>Le gain moyen brut vaut \(3\). La mise équitable est \(3\) euros.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 16 · Événement</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : additionner les bonnes probabilités.</p>
+            <p>\(X\) prend \(-3,0,2,5\) avec probabilités \(0{,}1,0{,}2,0{,}4,0{,}3\). Calculer \(P(X>0)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-16">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-16" class="answer" hidden>
+              <p>\(0{,}4+0{,}3=0{,}7\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 17 · Transformation variance</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : utiliser \(V(aX+b)\).</p>
+            <p>Si \(V(X)=4\), calculer \(V(3X-1)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-17">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-17" class="answer" hidden>
+              <p>\(V(3X-1)=3^2V(X)=36\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 18 · Rédaction notée</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : loi et espérance.</p>
+            <p>Un sac contient 2 boules rouges et 3 bleues. On tire une boule. \(X=4\) si rouge, \(X=-1\) si bleue. Rédiger la loi et l’espérance.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-18">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-18" class="answer" hidden>
+              <p>Il y a \(5\) boules au total. Donc \(P(X=4)=\frac25\) et \(P(X=-1)=\frac35\).</p><p>L’espérance vaut \(E(X)=4\times\frac25+(-1)\times\frac35=\frac85-\frac35=1\).</p><p>Interprétation : sur un grand nombre de tirages, le gain moyen serait de \(1\) unité par tirage.</p><p>Erreur qui coûte des points : donner les couleurs sans construire la loi de \(X\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="pieges" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">P</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Pièges classiques</h2>
+          </div>
+        </div>
+        <p>6 exercices pour repérer les erreurs qui coûtent des points.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 19 · Somme différente de 1</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : contrôler la loi.</p>
+            <p>Une loi propose \(0{,}4\), \(0{,}4\), \(0{,}4\). Pourquoi est-ce impossible ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-19">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-19" class="answer" hidden>
+              <p>La somme vaut \(1{,}2\), pas \(1\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 20 · Espérance certaine</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : interprétation.</p>
+            <p>Si \(E(X)=3\), gagne-t-on forcément \(3\) à chaque partie ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-20">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-20" class="answer" hidden>
+              <p>Non. C’est une moyenne théorique sur beaucoup de parties.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 21 · Variance sans carrés</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : formule.</p>
+            <p>Pourquoi ne calcule-t-on pas la variance avec \(E(X)-E(X)^2\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-21">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-21" class="answer" hidden>
+              <p>Il faut \(E(X^2)-E(X)^2\), donc les valeurs de \(X\) doivent être mises au carré avant moyenne.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 22 · Gain brut/net</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : mise.</p>
+            <p>Un jeu rapporte \(20\) euros mais coûte \(5\). Quel gain net si on gagne ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-22">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-22" class="answer" hidden>
+              <p>\(15\) euros.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 23 · Écart-type négatif</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : racine positive.</p>
+            <p>L’écart-type peut-il être négatif ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-23">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-23" class="answer" hidden>
+              <p>Non, c’est la racine carrée de la variance.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 24 · Valeurs répétées</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : regrouper les issues.</p>
+            <p>Si deux issues donnent \(X=2\), que faire dans la loi ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-24">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-24" class="answer" hidden>
+              <p>On additionne leurs probabilités pour obtenir \(P(X=2)\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="choix" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">M</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Choisir la méthode</h2>
+          </div>
+        </div>
+        <p>5 exercices où il faut décider avant de calculer.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 25 · Choix 1</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : loi ou espérance.</p>
+            <p>Avant de calculer \(E(X)\), quel objet faut-il établir ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-25">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-25" class="answer" hidden>
+              <p>La loi de probabilité de \(X\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 26 · Choix 2</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : variance.</p>
+            <p>Pour calculer une dispersion, quelle quantité intermédiaire est souvent utile ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-26">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-26" class="answer" hidden>
+              <p>\(E(X^2)\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 27 · Choix 3</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : jeu.</p>
+            <p>Dans un jeu payant, pourquoi travailler avec le gain net ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-27">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-27" class="answer" hidden>
+              <p>Parce que la mise doit être soustraite du gain brut.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 28 · Choix 4</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : événement.</p>
+            <p>Pour calculer \(P(X\ge a)\), que faut-il repérer dans la loi ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-28">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-28" class="answer" hidden>
+              <p>Toutes les valeurs de \(X\) qui vérifient l’inégalité, puis additionner leurs probabilités.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 29 · Choix 5</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : équitable.</p>
+            <p>Pour rendre un jeu équitable, quelle équation poser ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-29">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-29" class="answer" hidden>
+              <p>Espérance du gain net \(=0\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="controle" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">C</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Niveau contrôle</h2>
+          </div>
+        </div>
+        <p>6 exercices à faire sans aide visible.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 30 · Contrôle 1</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : compléter une loi.</p>
+            <p>\(X\) prend \(1,2,3\) avec probabilités \(0{,}2,p,0{,}5\). Trouver \(p\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-30">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-30" class="answer" hidden>
+              <p>\(p=0{,}3\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 31 · Contrôle 2</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : espérance.</p>
+            <p>Calculer \(E(X)\) pour \(X=-1,2,6\) de probabilités \(0{,}25,0{,}5,0{,}25\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-31">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-31" class="answer" hidden>
+              <p>\(-0{,}25+1+1{,}5=2{,}25\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 32 · Contrôle 3</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : variance.</p>
+            <p>Avec la loi du contrôle 2, calculer \(E(X^2)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-32">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-32" class="answer" hidden>
+              <p>\(1\times0{,}25+4\times0{,}5+36\times0{,}25=11{,}25\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 33 · Contrôle 4</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : variance suite.</p>
+            <p>Avec \(E(X)=2{,}25\) et \(E(X^2)=11{,}25\), calculer \(V(X)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-33">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-33" class="answer" hidden>
+              <p>\(V(X)=11{,}25-2{,}25^2=6{,}1875\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 34 · Contrôle 5</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : jeu équitable.</p>
+            <p>On gagne \(9\) euros avec probabilité \(\frac13\), sinon \(0\). Mise équitable ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-34">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-34" class="answer" hidden>
+              <p>Gain brut moyen \(=3\). Mise équitable \(=3\) euros.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 35 · Contrôle 6</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : événement.</p>
+            <p>\(X\) vaut \(0,1,4,10\) avec probabilités \(0{,}1,0{,}2,0{,}5,0{,}2\). Calculer \(P(X\ge4)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-35">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-35" class="answer" hidden>
+              <p>\(0{,}5+0{,}2=0{,}7\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="vingt-sur-vingt" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">20</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Cap 20/20</h2>
+          </div>
+        </div>
+        <p>3 exercices plus longs, seulement après les blocs précédents.</p>
+        <div class="c-gate">
+          <p class="c-gate__label">Porte d’entrée</p>
+          <p class="c-gate__title">Avant ce bloc</p>
+          <p>Réussis au moins deux exercices de niveau contrôle sans regarder le corrigé. Le cap 20/20 n’est pas un raccourci : il combine les réflexes précédents.</p>
+        </div>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 36 · 20/20 1</h3>
+              <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : mise inconnue.</p>
+            <p>Un jeu donne \(20\) euros avec probabilité \(0{,}2\), \(5\) euros avec probabilité \(0{,}3\), rien sinon. Quelle mise rend le jeu équitable ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-36">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-36" class="answer" hidden>
+              <p>Gain brut moyen \(=20\times0{,}2+5\times0{,}3=5{,}5\). Mise équitable : \(5{,}50\) euros.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 37 · 20/20 2</h3>
+              <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : transformation.</p>
+            <p>Si \(E(X)=3\) et \(V(X)=2\), calculer \(E(5-2X)\) et \(V(5-2X)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-37">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-37" class="answer" hidden>
+              <p>\(E(5-2X)=5-6=-1\). \(V(5-2X)=4V(X)=8\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 38 · 20/20 3</h3>
+              <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : loi de somme simple.</p>
+            <p>On lance deux pièces équilibrées. \(X\) est le nombre de piles. Donner la loi et l’espérance.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-38">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-38" class="answer" hidden>
+              <p>\(P(X=0)=\frac14\), \(P(X=1)=\frac12\), \(P(X=2)=\frac14\). \(E(X)=1\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="revision" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">R</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Révision mélangée</h2>
+          </div>
+        </div>
+        <p>2 exercices qui mélangent ce chapitre avec un autre réflexe.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 39 · Révision probabilités</h3>
+              <span class="difficulty" aria-label="Niveau Révision">Révision</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : conditionnelle.</p>
+            <p>Dans une urne, \(P(R)=0{,}4\). Si \(X=5\) quand \(R\) arrive et \(0\) sinon, calculer \(E(X)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-39">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-39" class="answer" hidden>
+              <p>\(5\times0{,}4=2\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 40 · Révision suites</h3>
+              <span class="difficulty" aria-label="Niveau Révision">Révision</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : moyenne répétée.</p>
+            <p>Si un gain moyen vaut \(1{,}2\) euros par partie, quel gain moyen sur \(50\) parties ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-variables-aleatoires-40">Voir le corrigé</button>
+            <div id="td-variables-aleatoires-40" class="answer" hidden>
+              <p>En moyenne \(50\times1{,}2=60\) euros.</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="sources" class="chapter-section recap-section">
+        <div class="section-marker">
+          <div class="section-marker__num">S</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Traçabilité</p>
+            <h2>Sources d’inspiration et adaptation</h2>
+          </div>
+        </div>
+        <p>Les exercices sont des variantes reformulées et recalculées à partir des sources validées. Les corrigés sont écrits pour le web : aide masquée, choix de méthode, rédaction et erreurs fréquentes.</p>
+        <div class="revision-grid">
+          <div class="revision-card"><p class="box-title">Source</p><p>Maths91, cours Variable aléatoire</p></div>
+          <div class="revision-card"><p class="box-title">Source</p><p>MathsGuyon, cours Variable aléatoire</p></div>
+          <div class="revision-card"><p class="box-title">Source</p><p>VDouine, activités Variables aléatoires réelles</p></div>
+        </div>
+      </section>
+    </article>
+  </main>
+</body>
+</html>

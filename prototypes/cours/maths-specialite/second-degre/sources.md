@@ -1,31 +1,12 @@
-# Sources du prototype — Second degré
+# Sources - TD Second degré
 
-Corpus extrait le 19 mai 2026 avec `scripts/course-extract-text.mjs`.
+Sources validées consultées via `lien/premiere/math.md` et les extractions locales de `prototypes/cours/_extracted/premiere/math/`.
 
-## PDFs utilisés
+- Maths91, cours et fiche d’exercices Second degré
+- Maths-et-tiques, Second degré parties 1 et 2
+- XyMaths, cours Second degré
+- MathGM, parcours Second degré
 
-- Maths91 — `1S-01-SECOND_DEGRE-cours.pdf`  
-  URL : http://www.maths91.fr/cours1spemaths/1S-01-SECOND_DEGRE-cours.pdf  
-  Utilisation : structure complète du chapitre, formes du trinôme, discriminant, signe, inéquations.
+## Règle d’adaptation
 
-- Maths91 — `1S-01-SECOND_DEGRE_fiches_d_exercices.pdf`  
-  URL : http://www.maths91.fr/cours1spemaths/1S-01-SECOND_DEGRE_fiches_d_exercices.pdf  
-  Utilisation : sélection de types d'exercices, notamment meilleure forme, bénéfice, domaines, paramètres.
-
-- Maths-et-tiques — `19SecdegP1M.pdf`  
-  URL : https://www.maths-et-tiques.fr/telech/19SecdegP1M.pdf  
-  Utilisation : progression forme canonique, variations, sommet, axe de symétrie, représentation graphique.
-
-- Maths-et-tiques — `19SecdegP2M.pdf`  
-  URL : https://www.maths-et-tiques.fr/telech/19SecdegP2M.pdf  
-  Utilisation : discriminant, racines, factorisation, signe du trinôme, inéquations, position relative de courbes.
-
-## Fichiers locaux
-
-- Sources PDF : `prototypes/cours/_sources/maths-specialite/second-degre/`
-- Textes extraits : `prototypes/cours/_extracted/maths-specialite/second-degre/`
-- Manifest d'extraction : `prototypes/cours/_extracted/maths-specialite/second-degre/manifest.json`
-
-## Usage
-
-Le prototype synthétise les notions et adapte les exercices pour tester le format pédagogique. Il ne reproduit pas les PDF comme support public autonome. Avant publication, vérifier les droits exacts d'utilisation et remplacer les exercices trop proches si nécessaire.
+Les exercices du TD ne recopient pas les PDFs. Ils conservent la progression, les méthodes et les pièges des sources, mais les nombres, formulations et corrections sont adaptés pour une page web interactive avec réponses masquées.

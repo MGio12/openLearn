@@ -1,5 +1,5 @@
 /* ============================================================
-   OUTIL PREPA — Colors & Type
+   OUTIL PREPA - Colors & Type
    ------------------------------------------------------------
    A premium cockpit for ambitious students.
    Warm paper, strong black borders, offset hard shadows,
@@ -67,25 +67,25 @@
    on the critical path. */
 
 :root {
-  /* ===== COLOR TOKENS — RAW ===== */
+  /* ===== COLOR TOKENS - RAW ===== */
 
-  /* Paper backgrounds — warm, never pure white */
+  /* Paper backgrounds - warm, never pure white */
   --paper:          #F6F2EB;   /* main warm paper */
   --paper-2:        #EFE7DC;   /* secondary surface, hover, panels */
   --paper-3:        #E7DECF;   /* deeper notch / divider rests */
 
-  /* Ink — text colors, never pure black */
+  /* Ink - text colors, never pure black */
   --ink:            #121212;   /* primary text + borders */
   --ink-2:          #2A2724;   /* heavy body, headlines on paper-2 */
-  --ink-soft:       #5F5B57;   /* secondary text — warm gray */
+  --ink-soft:       #5F5B57;   /* secondary text - warm gray */
   --ink-mute:       #8B857D;   /* tertiary / placeholders */
 
-  /* Primary brand — stabilo premium */
+  /* Primary brand - stabilo premium */
   --stabilo:        #F4D35E;   /* primary CTA fill */
   --stabilo-2:      #F1C53A;   /* pressed / deeper highlight */
   --stabilo-wash:   #FBEAB0;   /* very faint stabilo for backgrounds */
 
-  /* Data palette — soft academic */
+  /* Data palette - soft academic */
   --blue:           #C7D9D7;   /* analytics, dashboards, graphs */
   --blue-2:         #A8C2C0;   /* blue accent / pressed */
   --green:          #D8E6C3;   /* validation, progression, streaks */
@@ -94,7 +94,7 @@
   --orange-2:       #E08A45;   /* orange accent / pressed */
   --beige:          #E8C7A9;   /* notes, secondary content */
   --beige-2:        #D6AE89;   /* beige accent / pressed */
-  --red:            #D96C5F;   /* controlled red — alerts only */
+  --red:            #D96C5F;   /* controlled red - alerts only */
   --red-2:          #BE5347;   /* red pressed */
 
   /* ===== SEMANTIC ROLES ===== */
@@ -124,14 +124,14 @@
   --font-hand:      'Caveat', 'Comic Sans MS', cursive;
   --font-mono:      'JetBrains Mono', 'Menlo', monospace;
 
-  /* Type scale — landing */
+  /* Type scale - landing */
   --t-display:      clamp(56px, 7vw, 96px);   /* H1 hero */
   --t-h1:           clamp(44px, 5vw, 64px);   /* H2 section */
   --t-h2:           clamp(28px, 3vw, 40px);   /* H3 sub */
   --t-h3:           22px;
   --t-eyebrow:      13px;
 
-  /* Type scale — dashboard / app */
+  /* Type scale - dashboard / app */
   --t-app-title:    24px;
   --t-app-section:  20px;
   --t-body:         16px;
@@ -158,12 +158,12 @@
   --r-4:   22px;    /* hero blocks */
   --r-pill: 999px;
 
-  /* ===== BORDERS — desktop 3px, mobile 2px ===== */
+  /* ===== BORDERS - desktop 3px, mobile 2px ===== */
   --b:     3px;
   --b-mob: 2px;
   --b-thin: 1.5px;
 
-  /* ===== SHADOWS — hard offset, NEVER blurred ===== */
+  /* ===== SHADOWS - hard offset, NEVER blurred ===== */
   --sh-1:  3px 3px 0 #121212;
   --sh-2:  6px 6px 0 #121212;
   --sh-3:  10px 10px 0 #121212;
@@ -207,7 +207,7 @@ html, body {
   text-rendering: optimizeLegibility;
 }
 
-/* Subtle paper-grid utility — apply as a class on the page bg */
+/* Subtle paper-grid utility - apply as a class on the page bg */
 .bg-paper {
   background-color: var(--paper);
   background-image:
@@ -289,7 +289,7 @@ code, .mono {
   font-family: var(--font-hand);
   font-weight: 600;
   color: var(--fg-1);
-  /* Use sparingly — annotations, onboarding only. */
+  /* Use sparingly - annotations, onboarding only. */
 }
 
 .serif-display {

@@ -1,5 +1,5 @@
 /* ============================================================
-   OBJECTIF LYCÉE — Dashboard extras
+   OBJECTIF LYCÉE - Dashboard extras
    ------------------------------------------------------------
    Hydrate le rituel d'entrée du dashboard :
    - Bandeau "Hier" : lit OutilPrepa.yesterdayEntry(), fallback démo
@@ -53,7 +53,7 @@
     var done = !!entry.missionCompleted;
     textEl.textContent = done
       ? 'Hier · ' + entry.missionTitle + ' terminé'
-      : 'Hier · ' + entry.missionTitle + ' — étapes en cours';
+      : 'Hier · ' + entry.missionTitle + ' - étapes en cours';
     banner.setAttribute('data-completed', String(done));
     banner.removeAttribute('hidden');
   }

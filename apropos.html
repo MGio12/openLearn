@@ -26,12 +26,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Objectif Lycée - À propos</title>
-  <meta name="description" content="Max, étudiant en prépa scientifique passé par un collège ZEP, raconte pourquoi il construit Objectif Lycée avec des profs de lycée. Un coach IA par matière pour les lycéens qui n'ont pas accès à un prof particulier.">
+  <meta name="description" content="Max, étudiant en prépa scientifique passé par un collège ZEP, explique pourquoi il construit Objectif Lycée : un cadre de travail clair pour les lycéens, lisible par les parents.">
   <meta name="theme-color" content="#F4D35E">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='6' width='52' height='52' rx='12' fill='%23F4D35E' stroke='%23121212' stroke-width='5' transform='rotate(-6 32 32)'/%3E%3Ctext x='32' y='44' font-family='Arial Black, Impact, sans-serif' font-size='34' font-weight='900' text-anchor='middle' fill='%23121212' transform='rotate(-6 32 32)'%3EO%3C/text%3E%3C/svg%3E">
 
   <meta property="og:title" content="Objectif Lycée - À propos">
-  <meta property="og:description" content="Pourquoi un élève de prépa construit un outil pour les lycéens qui n'ont pas accès à un cours particulier. Histoire, citations, sources.">
+  <meta property="og:description" content="Un lycéen sait quoi travailler aujourd'hui. Un parent voit une preuve d'avance sans devoir piloter chaque soir.">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="fr_FR">
 
@@ -41,6 +41,20 @@
     /* ============================================================
        APROPOS - style inline self-contained
        ============================================================ */
+    @font-face {
+      font-family: 'Plus Jakarta Sans';
+      src: url('fonts/PlusJakartaSans-VariableFont_wght.ttf') format('truetype-variations');
+      font-weight: 200 800;
+      font-style: normal;
+      font-display: block;
+    }
+    @font-face {
+      font-family: 'Plus Jakarta Sans';
+      src: url('fonts/PlusJakartaSans-Italic-VariableFont_wght.ttf') format('truetype-variations');
+      font-weight: 200 800;
+      font-style: italic;
+      font-display: block;
+    }
     * { box-sizing: border-box; }
     html, body { margin: 0; padding: 0; }
     body {
@@ -63,6 +77,30 @@
     }
     sup a { text-decoration: none; font-weight: 800; padding: 0 1px; }
     sup a:hover { text-decoration: underline; }
+    .text-mark {
+      padding: 0 .14em;
+      background-image: linear-gradient(transparent 56%, var(--stabilo) 56%, var(--stabilo) 93%, transparent 93%);
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+      font-weight: 900;
+      color: var(--ink);
+    }
+    .text-under {
+      font-weight: 900;
+      color: var(--ink);
+      text-decoration-line: underline;
+      text-decoration-thickness: .17em;
+      text-decoration-color: var(--blue-2);
+      text-underline-offset: .15em;
+    }
+    .text-warm {
+      font-weight: 900;
+      color: var(--red-2);
+    }
+    .text-proof {
+      font-weight: 900;
+      color: var(--ink);
+    }
 
     .wrap { max-width: 1100px; margin: 0 auto; padding: 0 clamp(18px, 4vw, 40px); }
     .skip-link {
@@ -202,13 +240,11 @@
     /* ----- SECTION ----- */
     section { padding: clamp(32px, 5vw, 64px) 0; }
     .defer-section {
-      content-visibility: auto;
-      contain-intrinsic-size: auto 640px;
+      content-visibility: visible;
     }
     .quotes-stack,
     .stat-row {
-      content-visibility: auto;
-      contain-intrinsic-size: auto 360px;
+      content-visibility: visible;
     }
     .section-kicker {
       display: inline-flex;
@@ -242,27 +278,30 @@
       color: var(--ink-2);
     }
 
-    /* ----- 3 CARTES "CE QU'ON EST" ----- */
-    .cards-3 {
+    /* ----- CARTES "POUR QUI" ----- */
+    .audience-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, .95fr) minmax(0, .95fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 18px;
     }
-    .card {
+    .audience-card {
       background: var(--bg-panel, #FFFDF8);
       border: 3px solid var(--ink);
       border-radius: 14px;
       box-shadow: 6px 6px 0 var(--ink);
       padding: 22px 22px 24px;
     }
-    .card h3 {
+    .audience-card--student { background: var(--stabilo-wash); }
+    .audience-card--parent { background: #F2F7F1; }
+    .audience-card h3 {
       margin: 0 0 8px;
       font-family: var(--font-display);
       font-size: 18px;
       letter-spacing: -.005em;
     }
-    .card p { margin: 0; font-size: 15px; line-height: 1.55; color: var(--ink-2); }
-    @media (max-width: 860px) { .cards-3 { grid-template-columns: 1fr; } }
+    .audience-card p { margin: 0; font-size: 15px; line-height: 1.55; color: var(--ink-2); }
+    .audience-card p + p { margin-top: 12px; }
+    @media (max-width: 860px) { .audience-grid { grid-template-columns: 1fr; } }
 
     /* ----- CARTES CITATION ----- */
     .quote-card {
@@ -473,8 +512,7 @@
     .sito {
       padding: 32px 0 16px;
       border-top: 1.5px solid rgba(18, 18, 18, .15);
-      content-visibility: auto;
-      contain-intrinsic-size: auto 360px;
+      content-visibility: visible;
     }
     .sito h3 {
       margin: 0 0 14px;
@@ -546,8 +584,8 @@
   </a>
   <nav class="nav-right" aria-label="Navigation principale">
     <a class="nav-link" href="#histoire" data-hide-sm>Histoire</a>
-    <a class="nav-link" href="checkout.html" data-hide-sm>Offres</a>
-    <a class="nav-pill" href="onboarding.html"><span class="dot"></span> Essai gratuit 3 jours</a>
+    <a class="nav-link" href="checkout.html" data-hide-sm>Open source</a>
+    <a class="nav-pill" href="onboarding.html"><span class="dot"></span> Accéder gratuitement</a>
   </nav>
 </header>
 
@@ -555,15 +593,15 @@
 
   <!-- ============================================================ HERO -->
   <section class="hero">
-    <span class="hero-eyebrow">Pour les lycéens, lisible par les parents</span>
-    <h1>L'IA peut creuser <span class="hl">l'écart</span>. On veut en faire un cadre de travail juste.</h1>
+    <span class="hero-eyebrow">Une page, deux lecteurs</span>
+    <h1>L'IA peut creuser <span class="hl">l'écart</span>. Objectif Lycée la remet dans un cadre clair.</h1>
     <p class="lead">
-      Je m'appelle Max, je suis en prépa scientifique. J'ai créé Objectif Lycée pour donner aux lycéens qui n'ont pas accès à un prof particulier un coach disponible quand ils travaillent. Les profs de lycée gardent le fond scolaire, l'IA aide à choisir la prochaine mission, et le parent voit une preuve simple sans devoir piloter chaque soir.
+      Je m'appelle Max, je suis en prépa scientifique. J'ai créé Objectif Lycée pour un moment très précis : <span class="text-under">le soir, quand un lycéen ouvre ses cahiers et ne sait pas par où commencer</span>. Le fond reste scolaire, relu avec des profs. L'IA sert à transformer l'objectif, le temps disponible et les contrôles à venir en <strong>mission courte</strong>. L'élève garde la main. Le parent voit une trace claire, sans refaire le prof à 21 h.
     </p>
     <div class="hero-proof" aria-label="Repères de confiance">
-      <span>Fond scolaire relu avec des profs</span>
-      <span>Objectif du soir en 25 minutes</span>
-      <span>Parent informé, élève autonome</span>
+      <span>Mission du soir, pas catalogue de fiches</span>
+      <span>Cadre relu avec des profs de lycée</span>
+      <span>Preuve lisible pour le parent</span>
     </div>
     <div class="hero-cta">
       <a class="btn" href="onboarding.html">Trouver ma mission</a>
@@ -571,22 +609,20 @@
     </div>
   </section>
 
-  <!-- ============================================================ CE QU'ON EST -->
+  <!-- ============================================================ POUR QUI -->
   <section class="content-section">
-    <span class="section-kicker">Ce qu'on est</span>
-    <h2 class="section-title">Trois choix qui rassurent sans reprendre la main à l'élève.</h2>
-    <div class="cards-3">
-      <article class="card">
-        <h3>Sans jugement.</h3>
-        <p>Tu peux poser la question que tu n'oses pas demander en classe. L'IA répond comme un tuteur patient qui veut comprendre le blocage, pas comme un prof qui s'impatiente. Tu choisis son ton : encourageant, direct, exigeant.</p>
+    <span class="section-kicker">Pour qui</span>
+    <h2 class="section-title">L'élève a besoin d'un prochain geste. Le parent a besoin d'une preuve.</h2>
+    <div class="audience-grid">
+      <article class="audience-card audience-card--student">
+        <h3>Pour le lycéen.</h3>
+        <p><span class="text-mark">Tu ouvres Objectif Lycée, tu sais quoi travailler aujourd'hui.</span> Pas une pile de fiches. Pas un tableau qui te juge. Une mission courte, expliquée, avec la raison : contrôle proche, chapitre rentable, dossier à consolider.</p>
+        <p>Et quand tu bloques, tu peux poser la question que tu gardes d'habitude pour toi. Le ton peut être <strong>calme</strong>, <strong>direct</strong> ou <strong>exigeant</strong>. L'important, c'est que tu comprennes la prochaine étape et que tu la fasses.</p>
       </article>
-      <article class="card">
-        <h3>Le parent voit ce qui compte.</h3>
-        <p>Un espace clair pour le parent : dates de contrôle, missions faites, chapitres à consolider. Il sait quand intervenir et quand laisser tranquille, sans transformer le soir en surveillance.</p>
-      </article>
-      <article class="card">
-        <h3>Une méthode, pas une bibliothèque.</h3>
-        <p>Tu n'as pas besoin de plus de fiches. Tu as besoin de savoir quoi faire ce soir, pendant 25 minutes, sur ce qui pèse vraiment pour ta moyenne ou ton dossier. C'est ça qu'on te donne.</p>
+      <article class="audience-card audience-card--parent">
+        <h3>Pour le parent.</h3>
+        <p>Vous n'avez pas besoin d'un énième espace rempli de statistiques. Vous avez besoin de savoir si votre enfant travaille <span class="text-proof">au bon endroit</span>, si le rythme tient, et s'il faut intervenir ou laisser respirer.</p>
+        <p>Objectif Lycée montre les dates de contrôle, les missions faites et les chapitres à consolider. Le but est simple : <em>moins de surveillance le soir</em>, plus de cadre, et une preuve compréhensible sans ouvrir le cahier de maths.</p>
       </article>
     </div>
   </section>
@@ -594,15 +630,15 @@
   <!-- ============================================================ IA & CHANCES -->
   <section class="content-section">
     <span class="section-kicker">Pourquoi maintenant</span>
-    <h2 class="section-title">Cette fois, l'inégalité peut baisser.</h2>
+    <h2 class="section-title">Le soutien scolaire ne devrait pas dépendre du portefeuille.</h2>
     <p class="section-lead">
-      Un cours particulier au lycée coûte 30 à 45 € de l'heure<sup><a href="#sito-1">1</a></sup>. Ce que tu paies, ce n'est pas la matière. C'est un humain qui n'a que toi en tête sur ce créneau, qui s'adapte à ton humeur, à tes blocages, à ton emploi du temps. Un prof particulier, c'est un coach qui n'a rien d'autre dans sa vie à ce moment-là.
+      Un cours particulier au lycée coûte souvent 30 à 45 € de l'heure<sup><a href="#sito-1">1</a></sup>. À ce prix-là, une famille n'achète pas seulement une explication de cours. Elle achète une attention individuelle : quelqu'un repère le blocage, ralentit quand il faut, remet l'élève au travail quand il se disperse.
     </p>
     <p class="section-lead">
-      Nous, on ne remplace pas ça. On fait autre chose : un agent IA par matière, avec un ton que tu règles, disponible quand tu travailles. Ce que tu paies chez nous, c'est le coût réel des requêtes vers les meilleurs modèles, plus une petite marge pour qu'on continue à construire. Pas une heure d'humain. Plus d'heures, plus souvent, sur les questions que tu n'oses pas poser ailleurs.
+      Objectif Lycée ne prétend pas remplacer un bon prof particulier. On fait un autre travail : rendre cette attention plus accessible, plus fréquente, au moment où l'élève travaille vraiment. <span class="text-warm">Pas une heure d'humain vendue comme un luxe.</span> Un cadre quotidien, par matière, avec des réponses adaptées et une mission qui évite de travailler au hasard.
     </p>
     <p class="section-lead">
-      Et soyons honnêtes : ce qui fait vraiment progresser, ce n'est pas le volume de cours. C'est la façon d'aborder les choses, et le fait de ne pas être dégoûté de l'école. J'ai vu beaucoup plus de gens arrêter par épuisement mental que par vraie difficulté. On veut t'aider à te donner des chances petit à petit, pas à en faire trop pendant deux semaines.
+      La vraie difficulté n'est pas toujours le niveau. Souvent, c'est l'usure : trop de choses à revoir, pas d'ordre clair, puis la sensation d'être en retard partout. On veut attaquer ça proprement : une mission, une raison, une trace. <strong>Régulier avant héroïque.</strong>
     </p>
 
     <div class="quotes-stack">
@@ -627,27 +663,78 @@
     <div class="stat-row">
       <div class="stat">
         <div class="num">+2 écarts-types<sup><a href="#sito-4">4</a></sup></div>
-        <p>Effet d'un tuteur 1-pour-1 vs cours classique (Bloom, 1984). C'est l'ordre de grandeur que l'IA bien utilisée commence à approcher.</p>
+        <p>Effet observé dans le problème de Bloom pour le tutorat 1-pour-1. La leçon à retenir : l'aide personnalisée change beaucoup de choses quand elle arrive au bon moment.</p>
       </div>
       <div class="stat">
-        <div class="num">30 à 45 € / h<sup><a href="#sito-1">1</a></sup></div>
-        <p>Tarif moyen d'un cours particulier au lycée en France, surtout en sciences. Notre abonnement annuel pèse moins qu'une heure de prof par semaine.</p>
+        <div class="num">Open source<sup><a href="#sito-1">1</a></sup></div>
+        <p>Tarif courant d'un cours particulier au lycée en France : 30 à 45 € / h. ObjectifLycée est gratuit et open source pour que chaque lycéen y ait accès, indépendamment de son budget.</p>
       </div>
     </div>
+  </section>
+
+  <!-- ============================================================ OPEN SOURCE & FUTUR -->
+  <section class="content-section defer-section">
+    <span class="section-kicker">L'avenir</span>
+    <h2 class="section-title">L'économie tech mondiale tourne sur de l'open source. Et ça commence ici.</h2>
+    <p class="section-lead">
+      Linux fait tourner 96 % des serveurs dans le monde. Android — 3,6 milliards d'appareils — est open source.
+      React, le framework qui construit la moitié d'internet, a été ouvert par Meta. VS Code, l'éditeur de code utilisé par 73 % des développeurs, vient de Microsoft open source.
+      Git, l'outil qui gère le code de toutes ces entreprises, a été créé par Linus Torvalds — le même qui a fait Linux à 21 ans dans sa chambre d'étudiant à Helsinki.
+    </p>
+    <p class="section-lead">
+      Aux États-Unis, une contribution GitHub compte autant qu'un diplôme dans un premier entretien tech.
+      Les ingénieurs de Google, Meta, OpenAI, Stripe, Airbnb viennent de partout dans le monde — ce qu'ils ont en commun, c'est un profil GitHub avec de vraies contributions, pas un CV Word.
+      <strong>C'est la méritocratie la plus internationale qui existe.</strong>
+    </p>
+
+    <div class="quotes-stack" style="margin-top: 32px; margin-bottom: 32px;">
+      <div class="quote-card">
+        <div class="quote-avatar" aria-hidden="true">LT</div>
+        <div class="quote-body">
+          <blockquote>« Talk is cheap. Show me the code. »</blockquote>
+          <p class="quote-attrib"><strong>Linus Torvalds</strong> — créateur de Linux et de Git, les deux infrastructures sur lesquelles tourne l'économie numérique mondiale.</p>
+        </div>
+      </div>
+      <div class="quote-card">
+        <div class="quote-avatar" aria-hidden="true">PG</div>
+        <div class="quote-body">
+          <blockquote>« The way to get startup ideas is to notice problems that you yourself have. »</blockquote>
+          <p class="quote-attrib"><strong>Paul Graham</strong> — cofondateur de Y Combinator, l'incubateur derrière Airbnb, Stripe, Dropbox, OpenAI. Ses batchs recrutent des hackers qui ont construit quelque chose de réel, pas seulement des diplômés.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat">
+        <div class="num">96 %</div>
+        <p>des 500 plus grandes entreprises mondiales utilisent Linux en production. L'open source n'est pas un hobby de développeurs — c'est l'infrastructure de l'économie mondiale.</p>
+      </div>
+      <div class="stat">
+        <div class="num">100M+</div>
+        <p>développeurs sur GitHub en 2024. C'est la plus grande bibliothèque de code publique de l'histoire humaine — et tu peux y contribuer depuis le lycée.</p>
+      </div>
+    </div>
+
+    <p class="section-lead" style="margin-top: 24px;">
+      ObjectifLycée est open source parce que c'est la meilleure façon de préparer les lycéens français à ce monde.
+      Pas en leur parlant de Silicon Valley, mais en leur donnant un vrai projet open source à lire, à forker, à améliorer —
+      avec l'IA comme partenaire de code, comme les meilleurs ingénieurs du monde travaillent aujourd'hui.
+      <strong>La prochaine génération de contributeurs open source est au lycée en ce moment.</strong>
+    </p>
   </section>
 
   <!-- ============================================================ MÉTHODE -->
   <section class="content-section defer-section">
     <span class="section-kicker">Méthode</span>
-    <h2 class="section-title">À terme, tu travailles tout seul.</h2>
+    <h2 class="section-title">Le bon résultat, c'est que tu finisses par travailler sans nous.</h2>
     <div class="method-block">
       <p>
-        Le but, ce n'est pas que tu reviennes chez nous tous les ans. Le but, c'est qu'à la fin du lycée tu saches gérer un programme, prioriser un chapitre, t'attaquer à un exo difficile sans paniquer. Si dans deux ans tu nous quittes et que tu cartonnes ta prépa, ton DUT ou ta licence sans nous, on a gagné. C'est notre vraie métrique.
+        Le but n'est pas de te rendre dépendant d'un outil. Le but, c'est qu'à la fin du lycée tu saches lire un programme, prioriser un chapitre, préparer un contrôle, reprendre un exercice difficile sans paniquer. Si tu nous quittes parce que tu sais enfin organiser ton travail, <strong>on a réussi</strong>.
       </p>
       <p>
-        Et oui, c'est aussi une question de mentalité. On peut donner la meilleure méthode du monde - si tu ne mets pas les heures, rien ne sort. Autant le dire honnêtement.
+        Et oui, il faut toujours mettre les heures. Une mission claire ne remplace pas l'effort ; elle évite de le gaspiller. C'est moins spectaculaire qu'une promesse de miracle, mais c'est beaucoup plus utile un mercredi soir avant un contrôle.
       </p>
-      <div class="real-talk">Pas de magie. Juste un truc qui transforme tes efforts en résultats.</div>
+      <div class="real-talk">Pas de magie. Un effort mieux placé, répété assez souvent.</div>
     </div>
   </section>
 
@@ -664,10 +751,10 @@
         </div>
       </div>
       <div class="story-text">
-        <p>Collège en ZEP. Je n'étais pas bon. Honnêtement, je pensais que je n'étais pas fait pour l'école - tu vois le truc, le mec qui se résigne en 4ᵉ.</p>
-        <p>Au lycée j'ai compris quelque chose de simple : je ne travaillais pas mal, je travaillais sur les mauvaises choses. J'ai essayé des techniques basées sur la science cognitive (récupération active, espacement, feedback rapide) et j'ai utilisé l'IA comme un prof particulier disponible 24/7 pour mes questions bêtes.</p>
-        <p>Résultat : major en sciences dans ma classe, mention très bien au bac (maths + NSI), tous mes vœux Parcoursup acceptés, prépa scientifique aujourd'hui. Et surtout : pour la première fois de ma vie, j'aime étudier.</p>
-        <p>Objectif Lycée, c'est ce que j'aurais voulu trouver à 15 ans. Je le construis avec des profs de lycée pour les questions de fond, et je peux suivre les élèves jusqu'au niveau prépa parce que je viens d'y arriver. Je suis passionné par l'enseignement et l'informatique - autant que ça serve à quelqu'un.</p>
+        <p>J'ai commencé au collège en ZEP. Je n'étais pas l'élève qui avait des facilités. Pendant longtemps, j'ai surtout retenu une phrase intérieure : <em>je ne suis pas fait pour l'école</em>.</p>
+        <p>Au lycée, j'ai compris un truc moins brillant mais plus utile : je ne manquais pas seulement de travail, je travaillais souvent sur les mauvaises choses. J'ai testé la récupération active, l'espacement, le feedback rapide. J'ai aussi utilisé l'IA comme un prof particulier disponible pour les questions que je trouvais trop bêtes pour les poser.</p>
+        <p>Résultat : major en sciences dans ma classe, mention très bien au bac avec maths et NSI, tous mes vœux Parcoursup acceptés, prépa scientifique aujourd'hui. Le plus important, ce n'est pas le palmarès. C'est que pour la première fois, <span class="text-mark">j'ai aimé étudier</span>.</p>
+        <p>Objectif Lycée, c'est ce que j'aurais voulu avoir à 15 ans : un endroit qui ne me donne pas seulement du contenu, mais qui me dit quoi faire maintenant, pourquoi ça compte, et comment vérifier que j'avance. Je le construis avec des profs de lycée pour garder le fond scolaire solide, et avec mon expérience récente d'étudiant pour rester proche du vrai soir où ça bloque.</p>
         <div class="story-signature">
           Max
           <small>fondateur - étudiant en prépa scientifique</small>
@@ -676,18 +763,18 @@
     </div>
   </section>
 
-  <!-- ============================================================ CTA PAYWALL -->
+  <!-- ============================================================ CTA -->
   <section class="content-section defer-section">
     <div class="paywall">
-      <h2>Essaie. Si ça ne te sert à rien, tu pars.</h2>
+      <h2>Gratuit. Open source. Pour tous.</h2>
       <ul>
-        <li><strong>Essai gratuit 3 jours</strong> pour vérifier que le cadre aide vraiment avant le premier prélèvement.</li>
-        <li><strong>10 € par mois ensuite</strong>, uniquement si tu veux garder le plan quotidien personnalisé.</li>
-        <li><strong>Promesse simple</strong> : une mission claire, une preuve qu'elle compte, une avance visible.</li>
-        <li>La cible produit reste nette : le parent peut financer, l'élève garde son espace de travail.</li>
+        <li><strong>Accès complet et gratuit</strong> — cockpit, missions, cours et progression, sans payer.</li>
+        <li><strong>Open source sous licence MIT</strong> — le code est lisible, forkable et améliorable par n'importe qui.</li>
+        <li><strong>Ce que tu dois voir vite</strong> : une mission claire, la raison de cette mission, puis une avance visible.</li>
+        <li><strong>Côté parent</strong> : une trace lisible et un élève qui garde son espace de travail — sans dépenser en cours particuliers.</li>
       </ul>
-      <a class="btn" href="onboarding.html">Activer l'essai gratuit 3 jours</a>
-      <p class="fine">Pas de jeu sur les CGU. Pas de cases pré-cochées. Si on a déconné quelque part, écris à <a href="mailto:hello@objectiflycee.fr">hello@objectiflycee.fr</a>.</p>
+      <a class="btn" href="onboarding.html">Accéder gratuitement</a>
+      <p class="fine">Pas de carte bancaire. Pas de cases pré-cochées. Si quelque chose n'est pas clair, écris à <a href="mailto:hello@objectiflycee.fr">hello@objectiflycee.fr</a>.</p>
     </div>
   </section>
 
@@ -719,8 +806,8 @@
 
   <!-- ============================================================ FOOTER -->
   <footer class="foot">
-    <span>© Objectif Lycée - pour les lycéens qui veulent travailler juste.</span>
-    <span><a href="index.html">Accueil</a> · <a href="apropos.html">À propos</a> · <a href="checkout.html">Offres</a> · <a href="mailto:hello@objectiflycee.fr">Contact</a></span>
+    <span>© Objectif Lycée - une mission claire, une preuve, une avance.</span>
+    <span><a href="index.html">Accueil</a> · <a href="apropos.html">À propos</a> · <a href="checkout.html">Open source</a> · <a href="mailto:hello@objectiflycee.fr">Contact</a></span>
   </footer>
 
 </main>

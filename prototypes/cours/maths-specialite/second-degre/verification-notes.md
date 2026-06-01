@@ -1,24 +1,22 @@
-# Notes de vérification — Second degré
+# Notes de vérification - TD Second degré
 
-Date : 2026-05-22
+## Vérifications attendues
 
-Commande :
+- KaTeX doit se rendre sans erreur console.
+- Aucun bloc `.katex-display` ou `.formula-card` ne doit déborder horizontalement.
+- Les boutons `data-reveal` doivent masquer puis afficher les corrigés.
+- La sidebar doit fonctionner en desktop, mobile, état ouvert, état replié, hover et focus.
+- La page `td.html` est couverte par `npm run verify:course-sidebar` et `npm run verify:cwv`.
+- Le pilote Astro + MDX est couvert par `npm run build:courses` puis `npm run verify:courses-astro`.
 
-```bash
-node scripts/verify-course-sidebar.mjs prototypes/cours/maths-specialite/second-degre/index.html
-```
+## Graphes
 
-## Contrat à vérifier
+Aucun graphe exact supplémentaire dans le TD. Si un futur exercice demande une lecture de courbe, utiliser JSXGraph ou renvoyer au graphe exact du cours.
 
-- KaTeX sans erreur console.
-- Aucune formule en overflow horizontal.
-- Aucun bloc formule avec scroll horizontal.
-- Graphes JSXGraph exacts visibles et non vides.
-- Boutons de correction fonctionnels.
-- Sidebar ouverte au chargement, repliée par largeur, hover/focus fonctionnels, mobile valide.
-- Flèche du rail replié centrée et non cliquable.
-- Aucun overflow horizontal global.
+Le cours Astro contient les graphes exacts suivants, tous initialisés par JSXGraph :
 
-## Notes
-
-- Le script `verify-course-sidebar.mjs` accepte maintenant une page de cours en argument pour réutiliser ces contrôles chapitre par chapitre.
+- orientation de deux paraboles selon le signe de \(a\) ;
+- trois cas du discriminant ;
+- sommet et axe de symétrie ;
+- signe de \(x^2-2x-15\) ;
+- position relative de \(f(x)=-x^2+8x-11\) et \(g(x)=x-1\).

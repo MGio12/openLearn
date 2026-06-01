@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TD Suites - Maths spécialité Première</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="../cours.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="../cours.js"></script>
+</head>
+<body class="has-course-sidebar">
+
+  <div class="progress-bar" aria-hidden="true">
+    <div class="progress-bar__fill" data-progress-fill></div>
+  </div>
+
+  <div class="section-bar" data-section-bar aria-hidden="true">
+    <span class="section-bar__chip" data-section-bar-chip>00</span>
+    <span class="section-bar__title" data-section-bar-title>TD Suites</span>
+    <span class="section-bar__total" data-section-bar-total>1/9</span>
+  </div>
+
+  <aside class="toc course-sidebar" aria-label="Plan du TD" data-course-sidebar>
+    <div class="sidebar-head">
+      <div>
+        <p class="toc-title">Plan</p>
+        <p class="sidebar-subtitle">TD Suites</p>
+      </div>
+      <button class="sidebar-toggle" type="button" aria-label="Replier le plan" aria-expanded="true" data-sidebar-toggle><span aria-hidden="true">‹</span></button>
+    </div>
+
+    <nav class="toc-links" aria-label="Sections du TD">
+      <a href="#objectifs" data-section-link><span class="toc-index">00</span><span class="toc-label">Objectifs</span></a>
+      <a href="#automatismes" data-section-link><span class="toc-index">A</span><span class="toc-label">Automatismes</span></a>
+      <a href="#methodes-guidees" data-section-link><span class="toc-index">G</span><span class="toc-label">Guidé</span></a>
+      <a href="#pieges" data-section-link><span class="toc-index">P</span><span class="toc-label">Pièges</span></a>
+      <a href="#choix" data-section-link><span class="toc-index">M</span><span class="toc-label">Choisir</span></a>
+      <a href="#controle" data-section-link><span class="toc-index">C</span><span class="toc-label">Contrôle</span></a>
+      <a href="#vingt-sur-vingt" data-section-link><span class="toc-index">20</span><span class="toc-label">20/20</span></a>
+      <a href="#revision" data-section-link><span class="toc-index">R</span><span class="toc-label">Révision</span></a>
+      <a href="#sources" data-section-link><span class="toc-index">S</span><span class="toc-label">Sources</span></a>
+    </nav>
+
+    <p class="sidebar-foot">Maths spé · TD</p>
+  </aside>
+
+  <header class="course-hero">
+    <nav class="topline" aria-label="Fil d'Ariane">
+      <a href="../../../..">Objectif Lycée</a>
+      <span>Maths spécialité</span>
+      <a href="index.html">Cours</a>
+      <span>TD corrigé</span>
+    </nav>
+
+    <div class="hero-grid">
+      <div>
+        <p class="hero-eyebrow"><span class="num">07</span> TD séparé</p>
+        <h1>Suites</h1>
+        <p class="hero-lead">40 exercices pour distinguer explicite et récurrence, étudier les variations, reconnaître les suites arithmétiques et géométriques.</p>
+      </div>
+
+      <aside class="hero-side" aria-label="Organisation du TD">
+        <p class="hero-side__label">Objectif</p>
+        <h2>40 exercices, corrigés masqués</h2>
+        <div class="hero-side__steps">
+          <div class="hero-side__step"><span class="verb">Définir</span><span class="obj">à produire avant correction</span></div>
+          <div class="hero-side__step"><span class="verb">Calculer</span><span class="obj">à produire avant correction</span></div>
+          <div class="hero-side__step"><span class="verb">Reconnaître</span><span class="obj">à produire avant correction</span></div>
+          <div class="hero-side__step"><span class="verb">Modéliser</span><span class="obj">à produire avant correction</span></div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main class="course-layout" data-course-layout>
+    <article class="lesson course-lesson">
+
+      <section class="course-overview" aria-label="Repères du TD">
+        <div>
+          <p class="course-overview__title">TD d’entraînement</p>
+          <h3>Une page séparée pour travailler sans relire tout le cours</h3>
+          <p class="course-overview__lead">Chaque exercice indique la compétence entraînée, puis cache une réponse ou une correction. Les corrections détaillées montrent aussi la rédaction attendue et les erreurs qui coûtent des points.</p>
+        </div>
+        <div class="overview-flow">
+          <span>Automatismes</span>
+          <em>→</em>
+          <span>Méthodes</span>
+          <em>→</em>
+          <span>Contrôle</span>
+          <em>→</em>
+          <span>20/20</span>
+        </div>
+      </section>
+
+      <section id="objectifs" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">00</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Avant de commencer</p>
+            <h2>Ce TD reprend les points qui tombent vraiment</h2>
+          </div>
+        </div>
+        <p>Travaille dans l’ordre. Si un automatisme bloque, ouvre le corrigé, refais l’exercice sans regarder, puis seulement passe à la suite.</p>
+        <div class="diagnostic-grid">
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">1</span>Compétence</p>
+            <p>définition explicite et par récurrence</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">2</span>Compétence</p>
+            <p>calcul de termes</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">3</span>Compétence</p>
+            <p>variations par \(u_{n+1}-u_n\) ou quotient</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">4</span>Compétence</p>
+            <p>suites arithmétiques et géométriques</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">5</span>Compétence</p>
+            <p>modélisation et algorithmes simples</p>
+          </div>
+        </div>
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Pièges surveillés</p>
+          <p>confondre \(u_n\) et \(u_{n+1}\) ; oublier le rang initial ; tester seulement deux termes pour conclure ; confondre raison arithmétique et raison géométrique.</p>
+        </div>
+      </section>
+
+      <section id="automatismes" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">A</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Automatismes</h2>
+          </div>
+        </div>
+        <p>10 exercices courts pour sécuriser les gestes de base.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 1 · Terme explicite</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : calculer \(u_n\).</p>
+            <p>Si \(u_n=2n+3\), calculer \(u_0\), \(u_1\), \(u_5\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-01">Voir le corrigé</button>
+            <div id="td-suites-01" class="answer" hidden>
+              <p>\(u_0=3\), \(u_1=5\), \(u_5=13\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 2 · Récurrence</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : calculer les premiers termes.</p>
+            <p>\(u_0=4\), \(u_{n+1}=u_n+7\). Calculer \(u_1\), \(u_2\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-02">Voir le corrigé</button>
+            <div id="td-suites-02" class="answer" hidden>
+              <p>\(u_1=11\), \(u_2=18\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 3 · Arithmétique</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : reconnaître une addition constante.</p>
+            <p>La suite \(5,8,11,14,\ldots\) est-elle arithmétique ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-03">Voir le corrigé</button>
+            <div id="td-suites-03" class="answer" hidden>
+              <p>Oui, de raison \(3\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 4 · Géométrique</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : reconnaître une multiplication constante.</p>
+            <p>La suite \(3,6,12,24,\ldots\) est-elle géométrique ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-04">Voir le corrigé</button>
+            <div id="td-suites-04" class="answer" hidden>
+              <p>Oui, de raison \(2\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 5 · Formule arithmétique</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : utiliser \(u_n=u_0+nr\).</p>
+            <p>Suite arithmétique de premier terme \(u_0=10\), raison \(-2\). Calculer \(u_6\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-05">Voir le corrigé</button>
+            <div id="td-suites-05" class="answer" hidden>
+              <p>\(u_6=10+6(-2)=-2\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 6 · Formule géométrique</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : utiliser \(u_n=u_0q^n\).</p>
+            <p>Suite géométrique de premier terme \(u_0=5\), raison \(3\). Calculer \(u_3\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-06">Voir le corrigé</button>
+            <div id="td-suites-06" class="answer" hidden>
+              <p>\(u_3=5\times3^3=135\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 7 · Variation</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : différence positive.</p>
+            <p>Si \(u_{n+1}-u_n=4\) pour tout \(n\), la suite est-elle croissante ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-07">Voir le corrigé</button>
+            <div id="td-suites-07" class="answer" hidden>
+              <p>Oui, strictement croissante.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 8 · Rang initial</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : ne pas décaler.</p>
+            <p>Si \(u_1=7\) et \(u_{n+1}=u_n+2\), calculer \(u_3\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-08">Voir le corrigé</button>
+            <div id="td-suites-08" class="answer" hidden>
+              <p>\(u_2=9\), \(u_3=11\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 9 · Somme simple</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : additionner des termes.</p>
+            <p>Calculer \(1+2+3+4+5\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-09">Voir le corrigé</button>
+            <div id="td-suites-09" class="answer" hidden>
+              <p>\(15\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 10 · Limite intuitive</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : comportement.</p>
+            <p>La suite \(u_n=\frac{1}{n+1}\) semble-t-elle se rapprocher de \(0\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-10">Voir le corrigé</button>
+            <div id="td-suites-10" class="answer" hidden>
+              <p>Oui, les termes deviennent de plus en plus petits et positifs.</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="methodes-guidees" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">G</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Méthodes guidées</h2>
+          </div>
+        </div>
+        <p>8 exercices où l’aide disparaît progressivement.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 11 · Explicite ou récurrente</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : identifier le mode.</p>
+            <p>La formule \(u_n=3n^2-1\) est-elle explicite ou récurrente ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-11">Voir le corrigé</button>
+            <div id="td-suites-11" class="answer" hidden>
+              <p>Elle est explicite : elle donne \(u_n\) directement en fonction de \(n\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 12 · Variation par différence</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : calculer \(u_{n+1}-u_n\).</p>
+            <p>Étudier les variations de \(u_n=n^2-4n\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-12">Voir le corrigé</button>
+            <div id="td-suites-12" class="answer" hidden>
+              <p>\(u_{n+1}-u_n=2n-3\). La suite décroît jusqu’à \(n=1\), puis croît à partir de \(n=2\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 13 · Reconnaître arithmétique</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : tester la différence.</p>
+            <p>Montrer que \(u_n=5-3n\) est arithmétique et donner sa raison.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-13">Voir le corrigé</button>
+            <div id="td-suites-13" class="answer" hidden>
+              <p>\(u_{n+1}-u_n=-3\), donc la raison est \(-3\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 14 · Reconnaître géométrique</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : tester le quotient.</p>
+            <p>Montrer que \(u_n=7\times2^n\) est géométrique et donner sa raison.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-14">Voir le corrigé</button>
+            <div id="td-suites-14" class="answer" hidden>
+              <p>\(\frac{u_{n+1}}{u_n}=2\), donc la raison est \(2\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 15 · Modèle arithmétique</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : traduire une évolution additive.</p>
+            <p>Une dette de \(1200\) euros baisse de \(75\) euros par mois. Écrire \(u_n\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-15">Voir le corrigé</button>
+            <div id="td-suites-15" class="answer" hidden>
+              <p>\(u_n=1200-75n\) si \(u_0\) désigne la dette initiale.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 16 · Modèle géométrique</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : traduire un pourcentage.</p>
+            <p>Une population de \(800\) augmente de \(4\%\) par an. Écrire \(u_{n+1}\) en fonction de \(u_n\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-16">Voir le corrigé</button>
+            <div id="td-suites-16" class="answer" hidden>
+              <p>\(u_{n+1}=1{,}04u_n\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 17 · Seuil</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : chercher le premier rang.</p>
+            <p>Pour \(u_n=50+8n\), déterminer le premier \(n\) tel que \(u_n\ge100\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-17">Voir le corrigé</button>
+            <div id="td-suites-17" class="answer" hidden>
+              <p>\(50+8n\ge100\), donc \(n\ge6{,}25\). Premier entier : \(n=7\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 18 · Rédaction notée</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : prouver une suite géométrique auxiliaire.</p>
+            <p>On pose \(u_{n+1}=0{,}5u_n+3\) et \(v_n=u_n-6\). Montrer que \(v\) est géométrique.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-18">Voir le corrigé</button>
+            <div id="td-suites-18" class="answer" hidden>
+              <p>On calcule \(v_{n+1}=u_{n+1}-6=0{,}5u_n+3-6=0{,}5u_n-3\).</p><p>Or \(u_n=v_n+6\), donc \(v_{n+1}=0{,}5(v_n+6)-3=0{,}5v_n\).</p><p>Ainsi \((v_n)\) est géométrique de raison \(0{,}5\).</p><p>Erreur qui coûte des points : remplacer \(u_n\) par \(v_n\) sans utiliser \(u_n=v_n+6\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="pieges" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">P</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Pièges classiques</h2>
+          </div>
+        </div>
+        <p>6 exercices pour repérer les erreurs qui coûtent des points.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 19 · Deux termes insuffisants</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : ne pas conclure trop vite.</p>
+            <p>Pourquoi vérifier \(u_1-u_0=u_2-u_1\) ne suffit pas pour prouver qu’une suite est arithmétique ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-19">Voir le corrigé</button>
+            <div id="td-suites-19" class="answer" hidden>
+              <p>Il faut montrer que la différence est constante pour tout \(n\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 20 · Rang initial</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : ne pas décaler la formule.</p>
+            <p>Une suite géométrique a \(u_1=10\), raison \(2\). Que vaut \(u_4\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-20">Voir le corrigé</button>
+            <div id="td-suites-20" class="answer" hidden>
+              <p>\(u_4=10\times2^3=80\), pas \(10\times2^4\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 21 · Pourcentage</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : coefficient multiplicateur.</p>
+            <p>Une baisse de \(15\%\) correspond à multiplier par combien ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-21">Voir le corrigé</button>
+            <div id="td-suites-21" class="answer" hidden>
+              <p>Par \(0{,}85\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 22 · Signe du quotient</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : raison négative.</p>
+            <p>Une suite géométrique de raison \(-2\) est-elle forcément décroissante ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-22">Voir le corrigé</button>
+            <div id="td-suites-22" class="answer" hidden>
+              <p>Non, les signes alternent.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 23 · Différence ou quotient</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : choisir le bon test.</p>
+            <p>Pour \(2,6,18,54\), la différence est-elle utile ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-23">Voir le corrigé</button>
+            <div id="td-suites-23" class="answer" hidden>
+              <p>Non, il faut regarder le quotient : raison \(3\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 24 · Terme ou rang</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : vocabulaire.</p>
+            <p>Dans \(u_5=17\), que vaut le rang et que vaut le terme ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-24">Voir le corrigé</button>
+            <div id="td-suites-24" class="answer" hidden>
+              <p>Le rang est \(5\), le terme vaut \(17\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="choix" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">M</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Choisir la méthode</h2>
+          </div>
+        </div>
+        <p>5 exercices où il faut décider avant de calculer.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 25 · Choix 1</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : explicite.</p>
+            <p>Pour calculer directement \(u_{50}\), quelle forme est la plus pratique ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-25">Voir le corrigé</button>
+            <div id="td-suites-25" class="answer" hidden>
+              <p>Une formule explicite.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 26 · Choix 2</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : récurrence.</p>
+            <p>Pour modéliser “chaque mois on ajoute 12”, quelle forme naturelle ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-26">Voir le corrigé</button>
+            <div id="td-suites-26" class="answer" hidden>
+              <p>Une relation de récurrence \(u_{n+1}=u_n+12\), ou une formule explicite si besoin.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 27 · Choix 3</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : arithmétique ou géométrique.</p>
+            <p>Si une quantité augmente de \(8\%\), quelle famille de suites apparaît ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-27">Voir le corrigé</button>
+            <div id="td-suites-27" class="answer" hidden>
+              <p>Une suite géométrique.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 28 · Choix 4</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : variation.</p>
+            <p>Pour étudier les variations d’une suite explicite polynomiale, quel calcul faire ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-28">Voir le corrigé</button>
+            <div id="td-suites-28" class="answer" hidden>
+              <p>Calculer \(u_{n+1}-u_n\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 29 · Choix 5</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : seuil.</p>
+            <p>Pour trouver quand une suite dépasse une valeur, que cherche-t-on exactement ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-29">Voir le corrigé</button>
+            <div id="td-suites-29" class="answer" hidden>
+              <p>Le premier rang entier qui vérifie l’inégalité.</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="controle" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">C</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Niveau contrôle</h2>
+          </div>
+        </div>
+        <p>6 exercices à faire sans aide visible.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 30 · Contrôle 1</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : termes.</p>
+            <p>\(u_n=4n^2-1\). Calculer \(u_3\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-30">Voir le corrigé</button>
+            <div id="td-suites-30" class="answer" hidden>
+              <p>\(u_3=36-1=35\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 31 · Contrôle 2</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : arithmétique.</p>
+            <p>Suite arithmétique \(u_0=-2\), \(r=5\). Calculer \(u_{10}\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-31">Voir le corrigé</button>
+            <div id="td-suites-31" class="answer" hidden>
+              <p>\(u_{10}=-2+50=48\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 32 · Contrôle 3</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : géométrique.</p>
+            <p>Suite géométrique \(u_1=6\), \(q=3\). Calculer \(u_4\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-32">Voir le corrigé</button>
+            <div id="td-suites-32" class="answer" hidden>
+              <p>\(u_4=6\times3^3=162\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 33 · Contrôle 4</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : variation.</p>
+            <p>Étudier les variations de \(u_n=7-2n\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-33">Voir le corrigé</button>
+            <div id="td-suites-33" class="answer" hidden>
+              <p>\(u_{n+1}-u_n=-2\), donc la suite est strictement décroissante.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 34 · Contrôle 5</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : modèle.</p>
+            <p>Un abonnement coûte \(40\) euros puis augmente de \(3\) euros par mois. Donner \(u_n\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-34">Voir le corrigé</button>
+            <div id="td-suites-34" class="answer" hidden>
+              <p>\(u_n=40+3n\) si \(n=0\) est le premier mois.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 35 · Contrôle 6</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : seuil géométrique.</p>
+            <p>Une quantité \(1000\) est multipliée par \(0{,}8\) chaque année. Calculer \(u_2\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-35">Voir le corrigé</button>
+            <div id="td-suites-35" class="answer" hidden>
+              <p>\(u_2=1000\times0{,}8^2=640\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="vingt-sur-vingt" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">20</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Cap 20/20</h2>
+          </div>
+        </div>
+        <p>3 exercices plus longs, seulement après les blocs précédents.</p>
+        <div class="c-gate">
+          <p class="c-gate__label">Porte d’entrée</p>
+          <p class="c-gate__title">Avant ce bloc</p>
+          <p>Réussis au moins deux exercices de niveau contrôle sans regarder le corrigé. Le cap 20/20 n’est pas un raccourci : il combine les réflexes précédents.</p>
+        </div>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 36 · 20/20 1</h3>
+              <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : suite auxiliaire.</p>
+            <p>\(u_{n+1}=0{,}75u_n+5\). Trouver le nombre \(L\) tel que \(u_{n+1}-L=0{,}75(u_n-L)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-36">Voir le corrigé</button>
+            <div id="td-suites-36" class="answer" hidden>
+              <p>Il faut \(L=0{,}75L+5\), donc \(0{,}25L=5\) et \(L=20\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 37 · 20/20 2</h3>
+              <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : comparaison de modèles.</p>
+            <p>Comparer au bout de 5 ans : \(u_n=100+12n\) et \(v_n=100\times1{,}1^n\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-37">Voir le corrigé</button>
+            <div id="td-suites-37" class="answer" hidden>
+              <p>\(u_5=160\). \(v_5=100\times1{,}1^5\approx161{,}05\). Le modèle géométrique est légèrement plus grand.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 38 · 20/20 3</h3>
+              <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : seuil arithmético-géométrique.</p>
+            <p>On admet \(u_n=20-15\times0{,}5^n\). Trouver le premier \(n\) tel que \(u_n>18\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-38">Voir le corrigé</button>
+            <div id="td-suites-38" class="answer" hidden>
+              <p>Il faut \(15\times0{,}5^n<2\). On teste : \(n=2\), \(3{,}75\) ; \(n=3\), \(1{,}875\). Premier rang : \(3\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="revision" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">R</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Révision mélangée</h2>
+          </div>
+        </div>
+        <p>2 exercices qui mélangent ce chapitre avec un autre réflexe.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 39 · Révision exponentielle</h3>
+              <span class="difficulty" aria-label="Niveau Révision">Révision</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : lien géométrique.</p>
+            <p>Pourquoi une suite géométrique positive ressemble-t-elle à une exponentielle discrète ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-39">Voir le corrigé</button>
+            <div id="td-suites-39" class="answer" hidden>
+              <p>Parce qu’on multiplie par un même facteur à chaque pas, comme \(e^{ka}\) quand le pas est régulier.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 40 · Révision probabilités</h3>
+              <span class="difficulty" aria-label="Niveau Révision">Révision</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : arbre récurrent.</p>
+            <p>Si \(p_{n+1}=0{,}7p_n+0{,}2\) et \(p_0=0{,}4\), calculer \(p_1\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-suites-40">Voir le corrigé</button>
+            <div id="td-suites-40" class="answer" hidden>
+              <p>\(p_1=0{,}28+0{,}2=0{,}48\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="sources" class="chapter-section recap-section">
+        <div class="section-marker">
+          <div class="section-marker__num">S</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Traçabilité</p>
+            <h2>Sources d’inspiration et adaptation</h2>
+          </div>
+        </div>
+        <p>Les exercices sont des variantes reformulées et recalculées à partir des sources validées. Les corrigés sont écrits pour le web : aide masquée, choix de méthode, rédaction et erreurs fréquentes.</p>
+        <div class="revision-grid">
+          <div class="revision-card"><p class="box-title">Source</p><p>Maths91, cours et exercices Suites</p></div>
+          <div class="revision-card"><p class="box-title">Source</p><p>Maths-et-tiques, généralités et suites arithmétiques/géométriques</p></div>
+          <div class="revision-card"><p class="box-title">Source</p><p>MathOutils, exercices corrigés Suites</p></div>
+          <div class="revision-card"><p class="box-title">Source</p><p>XyMaths, cours Suites</p></div>
+        </div>
+      </section>
+    </article>
+  </main>
+</body>
+</html>

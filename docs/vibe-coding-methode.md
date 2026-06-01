@@ -1,4 +1,4 @@
-# Vibe Coding — Ordre et methode
+# Vibe Coding - Ordre et methode
 
 > Synthese des pratiques observees chez les builders solo (Pieter Levels, Marc Lou, Theo, etc.)
 
@@ -9,7 +9,7 @@
 ### 1. UI d'abord
 Construire l'interface avant toute logique.
 
-**Pourquoi :** Le visuel valide l'idee en 10 minutes. Il motive. Il force a definir ce que le produit fait *vraiment* avant d'ecrire une ligne de code metier. L'UI dicte aussi la forme des donnees — tu sais exactement ce dont tu as besoin.
+**Pourquoi :** Le visuel valide l'idee en 10 minutes. Il motive. Il force a definir ce que le produit fait *vraiment* avant d'ecrire une ligne de code metier. L'UI dicte aussi la forme des donnees - tu sais exactement ce dont tu as besoin.
 
 **Comment :** HTML/CSS statique ou v0.dev / Bolt. Pas de vraie donnee. Juste la coquille.
 
@@ -29,7 +29,7 @@ Une fois l'UI claire, definir la structure.
 ### 3. Paiement tot
 Stripe ou LemonSqueezy avant les features.
 
-**Pourquoi :** Le paiement est dur a retrofitter. Les webhooks Stripe affectent le schema de DB. Et surtout : un vrai checkout valide que les gens veulent *payer* — c'est le signal PMF le plus honnete qui soit.
+**Pourquoi :** Le paiement est dur a retrofitter. Les webhooks Stripe affectent le schema de DB. Et surtout : un vrai checkout valide que les gens veulent *payer* - c'est le signal PMF le plus honnete qui soit.
 
 **Regle :** Un seul plan d'abord. Pas de tiers compliques. Juste "ca marche ou ca marche pas".
 
@@ -72,8 +72,8 @@ Remplir la coquille avec la vraie logique.
 ## Application a Objectif Lycee
 
 On est deja dans l'ordre :
-- Phase 1 : UI statique livree (heatmap, dashboard) — **UI faite**
-- Phase 2 : donnees dynamiques — **architecture des donnees**
-- Phase 3-4 : contenu + lyceens + paiement 10EUR/mois — **dans l'ordre**
+- Phase 1 : UI statique livree (heatmap, dashboard) - **UI faite**
+- Phase 2 : donnees dynamiques - **architecture des donnees**
+- Phase 3-4 : contenu + lyceens + paiement 10EUR/mois - **dans l'ordre**
 
 Le seul ajustement possible : mettre le checkout Stripe plus tot (Phase 3 plutot que 4) pour valider que les gens paient avant de construire tout le parcours personnalise.

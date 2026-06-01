@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TD Trigonométrie - Maths spécialité Première</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="../cours.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="../cours.js"></script>
+</head>
+<body class="has-course-sidebar">
+
+  <div class="progress-bar" aria-hidden="true">
+    <div class="progress-bar__fill" data-progress-fill></div>
+  </div>
+
+  <div class="section-bar" data-section-bar aria-hidden="true">
+    <span class="section-bar__chip" data-section-bar-chip>00</span>
+    <span class="section-bar__title" data-section-bar-title>TD Trigonométrie</span>
+    <span class="section-bar__total" data-section-bar-total>1/9</span>
+  </div>
+
+  <aside class="toc course-sidebar" aria-label="Plan du TD" data-course-sidebar>
+    <div class="sidebar-head">
+      <div>
+        <p class="toc-title">Plan</p>
+        <p class="sidebar-subtitle">TD Trigonométrie</p>
+      </div>
+      <button class="sidebar-toggle" type="button" aria-label="Replier le plan" aria-expanded="true" data-sidebar-toggle><span aria-hidden="true">‹</span></button>
+    </div>
+
+    <nav class="toc-links" aria-label="Sections du TD">
+      <a href="#objectifs" data-section-link><span class="toc-index">00</span><span class="toc-label">Objectifs</span></a>
+      <a href="#automatismes" data-section-link><span class="toc-index">A</span><span class="toc-label">Automatismes</span></a>
+      <a href="#methodes-guidees" data-section-link><span class="toc-index">G</span><span class="toc-label">Guidé</span></a>
+      <a href="#pieges" data-section-link><span class="toc-index">P</span><span class="toc-label">Pièges</span></a>
+      <a href="#choix" data-section-link><span class="toc-index">M</span><span class="toc-label">Choisir</span></a>
+      <a href="#controle" data-section-link><span class="toc-index">C</span><span class="toc-label">Contrôle</span></a>
+      <a href="#vingt-sur-vingt" data-section-link><span class="toc-index">20</span><span class="toc-label">20/20</span></a>
+      <a href="#revision" data-section-link><span class="toc-index">R</span><span class="toc-label">Révision</span></a>
+      <a href="#sources" data-section-link><span class="toc-index">S</span><span class="toc-label">Sources</span></a>
+    </nav>
+
+    <p class="sidebar-foot">Maths spé · TD</p>
+  </aside>
+
+  <header class="course-hero">
+    <nav class="topline" aria-label="Fil d'Ariane">
+      <a href="../../../..">Objectif Lycée</a>
+      <span>Maths spécialité</span>
+      <a href="index.html">Cours</a>
+      <span>TD corrigé</span>
+    </nav>
+
+    <div class="hero-grid">
+      <div>
+        <p class="hero-eyebrow"><span class="num">02</span> TD séparé</p>
+        <h1>Trigonométrie</h1>
+        <p class="hero-lead">40 exercices pour fixer radians, cercle trigonométrique, valeurs exactes, formules et équations simples.</p>
+      </div>
+
+      <aside class="hero-side" aria-label="Organisation du TD">
+        <p class="hero-side__label">Objectif</p>
+        <h2>40 exercices, corrigés masqués</h2>
+        <div class="hero-side__steps">
+          <div class="hero-side__step"><span class="verb">Radian</span><span class="obj">à produire avant correction</span></div>
+          <div class="hero-side__step"><span class="verb">Cercle</span><span class="obj">à produire avant correction</span></div>
+          <div class="hero-side__step"><span class="verb">Valeurs</span><span class="obj">à produire avant correction</span></div>
+          <div class="hero-side__step"><span class="verb">Équations</span><span class="obj">à produire avant correction</span></div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main class="course-layout" data-course-layout>
+    <article class="lesson course-lesson">
+
+      <section class="course-overview" aria-label="Repères du TD">
+        <div>
+          <p class="course-overview__title">TD d’entraînement</p>
+          <h3>Une page séparée pour travailler sans relire tout le cours</h3>
+          <p class="course-overview__lead">Chaque exercice indique la compétence entraînée, puis cache une réponse ou une correction. Les corrections détaillées montrent aussi la rédaction attendue et les erreurs qui coûtent des points.</p>
+        </div>
+        <div class="overview-flow">
+          <span>Automatismes</span>
+          <em>→</em>
+          <span>Méthodes</span>
+          <em>→</em>
+          <span>Contrôle</span>
+          <em>→</em>
+          <span>20/20</span>
+        </div>
+      </section>
+
+      <section id="objectifs" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">00</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Avant de commencer</p>
+            <h2>Ce TD reprend les points qui tombent vraiment</h2>
+          </div>
+        </div>
+        <p>Travaille dans l’ordre. Si un automatisme bloque, ouvre le corrigé, refais l’exercice sans regarder, puis seulement passe à la suite.</p>
+        <div class="diagnostic-grid">
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">1</span>Compétence</p>
+            <p>mesure en radians et longueur d’arc</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">2</span>Compétence</p>
+            <p>enroulement de la droite réelle</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">3</span>Compétence</p>
+            <p>cosinus, sinus, valeurs remarquables</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">4</span>Compétence</p>
+            <p>symétries et formules de base</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">5</span>Compétence</p>
+            <p>équations \(\cos x=a\) et \(\sin x=a\)</p>
+          </div>
+        </div>
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Pièges surveillés</p>
+          <p>confondre degrés et radians ; oublier les solutions modulo \(2\pi\) ; changer le signe du sinus dans le mauvais quadrant ; utiliser une formule de fonction trigonométrique avant le cercle.</p>
+        </div>
+      </section>
+
+      <section id="automatismes" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">A</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Automatismes</h2>
+          </div>
+        </div>
+        <p>10 exercices courts pour sécuriser les gestes de base.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 1 · Conversion 1</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : convertir degrés en radians.</p>
+            <p>Convertir \(60^\circ\) en radians.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-01">Voir le corrigé</button>
+            <div id="td-trigonometrie-01" class="answer" hidden>
+              <p>\(60^\circ=\frac{\pi}{3}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 2 · Conversion 2</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : convertir radians en degrés.</p>
+            <p>Convertir \(\frac{5\pi}{6}\) en degrés.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-02">Voir le corrigé</button>
+            <div id="td-trigonometrie-02" class="answer" hidden>
+              <p>\(\frac{5\pi}{6}=150^\circ\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 3 · Longueur d’arc</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : utiliser \(L=r\theta\).</p>
+            <p>Sur un cercle de rayon \(4\), quelle est la longueur de l’arc intercepté par un angle \(\frac{\pi}{3}\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-03">Voir le corrigé</button>
+            <div id="td-trigonometrie-03" class="answer" hidden>
+              <p>\(L=4\times\frac{\pi}{3}=\frac{4\pi}{3}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 4 · Valeur exacte</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : connaître le cercle.</p>
+            <p>Donner \(\cos\left(\frac{\pi}{3}\right)\) et \(\sin\left(\frac{\pi}{3}\right)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-04">Voir le corrigé</button>
+            <div id="td-trigonometrie-04" class="answer" hidden>
+              <p>\(\cos\left(\frac{\pi}{3}\right)=\frac{1}{2}\) et \(\sin\left(\frac{\pi}{3}\right)=\frac{\sqrt3}{2}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 5 · Quadrant</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : lire le signe.</p>
+            <p>Quel est le signe de \(\cos x\) et de \(\sin x\) si \(x\in]\pi;\frac{3\pi}{2}[\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-05">Voir le corrigé</button>
+            <div id="td-trigonometrie-05" class="answer" hidden>
+              <p>Les deux sont négatifs dans le troisième quadrant.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 6 · Symétrie cosinus</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : utiliser \(\cos(-x)\).</p>
+            <p>Simplifier \(\cos(-\frac{\pi}{4})\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-06">Voir le corrigé</button>
+            <div id="td-trigonometrie-06" class="answer" hidden>
+              <p>\(\cos(-\frac{\pi}{4})=\cos(\frac{\pi}{4})=\frac{\sqrt2}{2}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 7 · Symétrie sinus</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : utiliser \(\sin(-x)\).</p>
+            <p>Simplifier \(\sin(-\frac{\pi}{6})\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-07">Voir le corrigé</button>
+            <div id="td-trigonometrie-07" class="answer" hidden>
+              <p>\(\sin(-\frac{\pi}{6})=-\frac{1}{2}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 8 · Relation fondamentale</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : appliquer \(\cos^2+\sin^2=1\).</p>
+            <p>Si \(\cos x=\frac{3}{5}\) et \(\sin x>0\), déterminer \(\sin x\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-08">Voir le corrigé</button>
+            <div id="td-trigonometrie-08" class="answer" hidden>
+              <p>\(\sin x=\frac{4}{5}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 9 · Périodicité</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : ajouter \(2\pi\).</p>
+            <p>Donner une mesure positive associée au même point que \(-\frac{\pi}{3}\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-09">Voir le corrigé</button>
+            <div id="td-trigonometrie-09" class="answer" hidden>
+              <p>\(-\frac{\pi}{3}+2\pi=\frac{5\pi}{3}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 10 · Équation immédiate</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : résoudre sur ([0;2pi[).</p>
+            <p>Résoudre \(\cos x=1\) sur \([0;2\pi[\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-10">Voir le corrigé</button>
+            <div id="td-trigonometrie-10" class="answer" hidden>
+              <p>La seule solution est \(x=0\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="methodes-guidees" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">G</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Méthodes guidées</h2>
+          </div>
+        </div>
+        <p>8 exercices où l’aide disparaît progressivement.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 11 · Placer un angle</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : réduire modulo \(2\pi\).</p>
+            <p>Réduire \(\frac{17\pi}{6}\) dans \([0;2\pi[\), puis donner le point associé.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-11">Voir le corrigé</button>
+            <div id="td-trigonometrie-11" class="answer" hidden>
+              <p>\(\frac{17\pi}{6}-2\pi=\frac{5\pi}{6}\). Le point est dans le deuxième quadrant.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 12 · Valeurs par symétrie</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : trouver cosinus et sinus.</p>
+            <p>Donner \(\cos\left(\frac{2\pi}{3}\right)\) et \(\sin\left(\frac{2\pi}{3}\right)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-12">Voir le corrigé</button>
+            <div id="td-trigonometrie-12" class="answer" hidden>
+              <p>\(\frac{2\pi}{3}=\pi-\frac{\pi}{3}\), donc \(\cos=-\frac12\) et \(\sin=\frac{\sqrt3}{2}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 13 · Trouver l’angle</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : utiliser les coordonnées.</p>
+            <p>Sur \([0;2\pi[\), quel réel a pour coordonnées \(\left(-\frac{\sqrt2}{2};\frac{\sqrt2}{2}\right)\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-13">Voir le corrigé</button>
+            <div id="td-trigonometrie-13" class="answer" hidden>
+              <p>C’est \(x=\frac{3\pi}{4}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 14 · Formule carré</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : calculer une valeur manquante.</p>
+            <p>Si \(\sin x=\frac{5}{13}\) et \(x\in[0;\frac{\pi}{2}]\), calculer \(\cos x\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-14">Voir le corrigé</button>
+            <div id="td-trigonometrie-14" class="answer" hidden>
+              <p>\(\cos x=\frac{12}{13}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 15 · Équation cosinus</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : résoudre dans un intervalle.</p>
+            <p>Résoudre \(\cos x=\frac12\) sur \([0;2\pi[\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-15">Voir le corrigé</button>
+            <div id="td-trigonometrie-15" class="answer" hidden>
+              <p>\(x=\frac{\pi}{3}\) ou \(x=\frac{5\pi}{3}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 16 · Équation sinus</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : résoudre dans un intervalle.</p>
+            <p>Résoudre \(\sin x=-\frac{\sqrt2}{2}\) sur \([0;2\pi[\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-16">Voir le corrigé</button>
+            <div id="td-trigonometrie-16" class="answer" hidden>
+              <p>\(x=\frac{5\pi}{4}\) ou \(x=\frac{7\pi}{4}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 17 · Arc et rayon</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : exploiter \(L=r\theta\).</p>
+            <p>Un arc mesure \(6\pi\) sur un cercle de rayon \(9\). Donner l’angle en radians.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-17">Voir le corrigé</button>
+            <div id="td-trigonometrie-17" class="answer" hidden>
+              <p>\(\theta=\frac{6\pi}{9}=\frac{2\pi}{3}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 18 · Rédaction notée</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : présenter les solutions modulo.</p>
+            <p>Rédiger la résolution de \(\sin x=\frac12\) dans \(\mathbb{R}\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-18">Voir le corrigé</button>
+            <div id="td-trigonometrie-18" class="answer" hidden>
+              <p>Copie propre : on sait que \(\sin x=\frac12\) pour les angles \(\frac{\pi}{6}\) et \(\frac{5\pi}{6}\) sur un tour.</p><p>Donc, dans \(\mathbb{R}\), les solutions sont \(x=\frac{\pi}{6}+2k\pi\) ou \(x=\frac{5\pi}{6}+2k\pi\), avec \(k\in\mathbb{Z}\).</p><p>Erreur qui coûte des points : oublier \(+2k\pi\) quand l’intervalle n’est pas limité.</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="pieges" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">P</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Pièges classiques</h2>
+          </div>
+        </div>
+        <p>6 exercices pour repérer les erreurs qui coûtent des points.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 19 · Degrés radians</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : ne pas mélanger les unités.</p>
+            <p>Pourquoi \(\sin(30)\neq\frac12\) dans une copie de trigonométrie en radians ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-19">Voir le corrigé</button>
+            <div id="td-trigonometrie-19" class="answer" hidden>
+              <p>Parce que \(30\) signifie \(30\) radians, pas \(30^\circ\). Il faut écrire \(\sin(\frac{\pi}{6})=\frac12\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 20 · Cosinus négatif</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : choisir le bon quadrant.</p>
+            <p>Résoudre \(\cos x=-\frac12\) sur \([0;2\pi[\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-20">Voir le corrigé</button>
+            <div id="td-trigonometrie-20" class="answer" hidden>
+              <p>\(x=\frac{2\pi}{3}\) ou \(x=\frac{4\pi}{3}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 21 · Sinus nul</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : ne pas oublier \(\pi\).</p>
+            <p>Résoudre \(\sin x=0\) sur \([0;2\pi[\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-21">Voir le corrigé</button>
+            <div id="td-trigonometrie-21" class="answer" hidden>
+              <p>\(x=0\) ou \(x=\pi\). \(2\pi\) est exclu de l’intervalle.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 22 · Période</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : éviter \(+\pi\) partout.</p>
+            <p>Un élève écrit que les solutions de \(\cos x=\frac12\) sont \(\frac{\pi}{3}+k\pi\). Corriger.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-22">Voir le corrigé</button>
+            <div id="td-trigonometrie-22" class="answer" hidden>
+              <p>C’est faux : cela ajoute aussi \(\frac{4\pi}{3}\), qui a un cosinus \(-\frac12\). Il faut deux familles modulo \(2\pi\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 23 · Carré du cosinus</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : garder deux signes possibles.</p>
+            <p>Si \(\cos^2 x=\frac14\), que peut valoir \(\cos x\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-23">Voir le corrigé</button>
+            <div id="td-trigonometrie-23" class="answer" hidden>
+              <p>\(\cos x=\frac12\) ou \(\cos x=-\frac12\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 24 · Angle associé</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : réduire avant de lire.</p>
+            <p>Réduire \(-\frac{11\pi}{6}\) dans \([0;2\pi[\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-24">Voir le corrigé</button>
+            <div id="td-trigonometrie-24" class="answer" hidden>
+              <p>On ajoute \(2\pi\) : \(-\frac{11\pi}{6}+\frac{12\pi}{6}=\frac{\pi}{6}\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="choix" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">M</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Choisir la méthode</h2>
+          </div>
+        </div>
+        <p>5 exercices où il faut décider avant de calculer.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 25 · Choix 1</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : valeur exacte ou équation.</p>
+            <p>Pour calculer \(\cos(\frac{7\pi}{6})\), utilises-tu le tableau ou une équation ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-25">Voir le corrigé</button>
+            <div id="td-trigonometrie-25" class="answer" hidden>
+              <p>Le tableau et la symétrie : \(\frac{7\pi}{6}=\pi+\frac{\pi}{6}\), donc \(\cos=-\frac{\sqrt3}{2}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 26 · Choix 2</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : réduire l’angle.</p>
+            <p>Avant de placer \(\frac{29\pi}{4}\), quel geste faut-il faire ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-26">Voir le corrigé</button>
+            <div id="td-trigonometrie-26" class="answer" hidden>
+              <p>Réduire modulo \(2\pi\). Ici \(\frac{29\pi}{4}-6\pi=\frac{5\pi}{4}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 27 · Choix 3</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : relation fondamentale.</p>
+            <p>Si l’énoncé donne \(\sin x\) et le quadrant, quelle formule déclenche-t-on pour trouver \(\cos x\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-27">Voir le corrigé</button>
+            <div id="td-trigonometrie-27" class="answer" hidden>
+              <p>\(\cos^2 x+\sin^2 x=1\), puis on choisit le signe avec le quadrant.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 28 · Choix 4</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : intervalle ou réel.</p>
+            <p>Pourquoi la résolution de \(\sin x=a\) change selon que l’on travaille sur \([0;2\pi[\) ou sur \(\mathbb{R}\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-28">Voir le corrigé</button>
+            <div id="td-trigonometrie-28" class="answer" hidden>
+              <p>Sur \([0;2\pi[\), on liste les solutions d’un tour. Sur \(\mathbb{R}\), on ajoute les familles modulo \(2\pi\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 29 · Choix 5</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : longueur d’arc.</p>
+            <p>Dans un problème avec rayon et longueur d’arc, quelle formule utiliser avant les valeurs remarquables ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-29">Voir le corrigé</button>
+            <div id="td-trigonometrie-29" class="answer" hidden>
+              <p>La formule \(L=r\theta\), car elle relie géométrie et angle en radians.</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="controle" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">C</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Niveau contrôle</h2>
+          </div>
+        </div>
+        <p>6 exercices à faire sans aide visible.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 30 · Contrôle 1</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : valeurs exactes.</p>
+            <p>Donner \(\cos(\frac{5\pi}{4})\) et \(\sin(\frac{5\pi}{4})\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-30">Voir le corrigé</button>
+            <div id="td-trigonometrie-30" class="answer" hidden>
+              <p>Les deux valent \(-\frac{\sqrt2}{2}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 31 · Contrôle 2</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : équation cosinus.</p>
+            <p>Résoudre \(\cos x=-\frac{\sqrt3}{2}\) sur \([0;2\pi[\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-31">Voir le corrigé</button>
+            <div id="td-trigonometrie-31" class="answer" hidden>
+              <p>\(x=\frac{5\pi}{6}\) ou \(x=\frac{7\pi}{6}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 32 · Contrôle 3</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : équation sinus.</p>
+            <p>Résoudre \(\sin x=\frac{\sqrt3}{2}\) sur \(\mathbb{R}\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-32">Voir le corrigé</button>
+            <div id="td-trigonometrie-32" class="answer" hidden>
+              <p>\(x=\frac{\pi}{3}+2k\pi\) ou \(x=\frac{2\pi}{3}+2k\pi\), \(k\in\mathbb{Z}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 33 · Contrôle 4</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : relation fondamentale.</p>
+            <p>Si \(\cos x=-\frac{8}{17}\) et \(x\in[\frac{\pi}{2};\pi]\), déterminer \(\sin x\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-33">Voir le corrigé</button>
+            <div id="td-trigonometrie-33" class="answer" hidden>
+              <p>\(\sin x=\frac{15}{17}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 34 · Contrôle 5</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : réduction.</p>
+            <p>Réduire \(\frac{41\pi}{6}\) dans \([0;2\pi[\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-34">Voir le corrigé</button>
+            <div id="td-trigonometrie-34" class="answer" hidden>
+              <p>\(\frac{41\pi}{6}-6\pi=\frac{5\pi}{6}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 35 · Contrôle 6</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : arc.</p>
+            <p>Un arc de rayon \(5\) correspond à un angle de \(72^\circ\). Donner sa longueur exacte.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-35">Voir le corrigé</button>
+            <div id="td-trigonometrie-35" class="answer" hidden>
+              <p>\(72^\circ=\frac{2\pi}{5}\), donc \(L=5\times\frac{2\pi}{5}=2\pi\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="vingt-sur-vingt" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">20</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Cap 20/20</h2>
+          </div>
+        </div>
+        <p>3 exercices plus longs, seulement après les blocs précédents.</p>
+        <div class="c-gate">
+          <p class="c-gate__label">Porte d’entrée</p>
+          <p class="c-gate__title">Avant ce bloc</p>
+          <p>Réussis au moins deux exercices de niveau contrôle sans regarder le corrigé. Le cap 20/20 n’est pas un raccourci : il combine les réflexes précédents.</p>
+        </div>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 36 · 20/20 1</h3>
+              <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : enchaîner quadrant et équation.</p>
+            <p>Résoudre sur \([-\pi;\pi]\) : \(2\cos^2 x-1=0\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-36">Voir le corrigé</button>
+            <div id="td-trigonometrie-36" class="answer" hidden>
+              <p>\(\cos^2 x=\frac12\), donc \(x\in\left\{-\frac{3\pi}{4};-\frac{\pi}{4};\frac{\pi}{4};\frac{3\pi}{4}\right\}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 37 · 20/20 2</h3>
+              <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : paramètre simple.</p>
+            <p>Pour quels \(x\in[0;2\pi[\) a-t-on \(\sin x=\cos x\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-37">Voir le corrigé</button>
+            <div id="td-trigonometrie-37" class="answer" hidden>
+              <p>Cela arrive pour \(x=\frac{\pi}{4}\) et \(x=\frac{5\pi}{4}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 38 · 20/20 3</h3>
+              <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : arc et enroulement.</p>
+            <p>Un point parcourt un cercle de rayon \(3\). Il avance d’une longueur \(11\pi\). Donner une mesure principale de l’angle parcouru.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-38">Voir le corrigé</button>
+            <div id="td-trigonometrie-38" class="answer" hidden>
+              <p>\(\theta=\frac{11\pi}{3}\). En retirant \(2\pi=\frac{6\pi}{3}\), on obtient \(\frac{5\pi}{3}\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="revision" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">R</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Révision mélangée</h2>
+          </div>
+        </div>
+        <p>2 exercices qui mélangent ce chapitre avec un autre réflexe.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 39 · Révision produit scalaire</h3>
+              <span class="difficulty" aria-label="Niveau Révision">Révision</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : lier angle et cosinus.</p>
+            <p>Si \(\|\vec u\|=4\), \(\|\vec v\|=5\) et l’angle vaut \(\frac{\pi}{3}\), calculer \(\vec u\cdot\vec v\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-39">Voir le corrigé</button>
+            <div id="td-trigonometrie-39" class="answer" hidden>
+              <p>\(\vec u\cdot\vec v=4\times5\times\frac12=10\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 40 · Révision fonctions</h3>
+              <span class="difficulty" aria-label="Niveau Révision">Révision</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : préparer les fonctions trigo.</p>
+            <p>Donner le signe de \(\sin x\) sur \(]0;\pi[\), puis sur \(]\pi;2\pi[\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-trigonometrie-40">Voir le corrigé</button>
+            <div id="td-trigonometrie-40" class="answer" hidden>
+              <p>Positif sur \(]0;\pi[\), négatif sur \(]\pi;2\pi[\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="sources" class="chapter-section recap-section">
+        <div class="section-marker">
+          <div class="section-marker__num">S</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Traçabilité</p>
+            <h2>Sources d’inspiration et adaptation</h2>
+          </div>
+        </div>
+        <p>Les exercices sont des variantes reformulées et recalculées à partir des sources validées. Les corrigés sont écrits pour le web : aide masquée, choix de méthode, rédaction et erreurs fréquentes.</p>
+        <div class="revision-grid">
+          <div class="revision-card"><p class="box-title">Source</p><p>Maths91, cours et exercices Trigonométrie</p></div>
+          <div class="revision-card"><p class="box-title">Source</p><p>Parfenoff, Trigonométrie 1re spécialité</p></div>
+          <div class="revision-card"><p class="box-title">Source</p><p>Ching@Math, exercices corrigés Trigonométrie</p></div>
+        </div>
+      </section>
+    </article>
+  </main>
+</body>
+</html>

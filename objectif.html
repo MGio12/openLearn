@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
   ============================================================
-  Objectif Lycée — Objectif dossier
+  Objectif Lycée - Objectif dossier
   Drop-in replacement: paths use root-level CSS/JS.
   Navigation links point to final .html pages.
   ============================================================
@@ -11,7 +11,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Objectif Lycée — Objectif dossier</title>
+  <title>Objectif Lycée - Objectif dossier</title>
   <link rel="icon" type="image/webp" href="assets/brand/trophy-logo-home.webp">
   <link rel="stylesheet" href="colors_and_type.css">
   <link rel="stylesheet" href="styles.css">
@@ -37,15 +37,19 @@
     </div>
     <div class="sb-group">
       <div class="head">Compte</div>
-      <a href="abonnement.html" class="sb-item"><span class="ic"><i class="ph-bold ph-credit-card" aria-hidden="true"></i></span>Abonnement</a>
+      <a href="openSource.html" class="sb-item"><span class="ic"><i class="ph-bold ph-code" aria-hidden="true"></i></span>Open source</a>
       <a href="parametres.html" class="sb-item"><span class="ic"><i class="ph-bold ph-gear" aria-hidden="true"></i></span>Paramètres</a>
     </div>
     <div class="sb-bottom">
-      <a class="sb-about" href="apropos.html" aria-label="À propos d'Objectif Lycée">
+            <div class="sidebar-os-badge" aria-label="Projet open source sous licence MIT">
+        <i class="ph-bold ph-code" aria-hidden="true"></i>
+        Open source · MIT
+      </div>
+<a class="sb-about" href="apropos.html" aria-label="À propos d'Objectif Lycée">
         <span class="sb-about__icon" aria-hidden="true"><i class="ph-bold ph-info"></i></span>
         <span class="sb-about__label">À propos</span>
       </a>
-      <div class="sb-profile"><div class="av">OP</div><div class="who"><span class="nm">Profil démo</span><span class="role">Lycée</span></div></div>
+      <div class="sb-profile"><div class="av" data-user-initials>OP</div><div class="who"><span class="nm" data-user-full-name>Profil démo</span><span class="role" data-user-role>Lycée</span></div></div>
     </div>
   </aside>
 
@@ -53,13 +57,24 @@
     <section class="view active">
       <div class="op-head">
         <div>
-          <h1>Objectif · Maths spé</h1>
+          <h1 data-objective-heading>Objectif · Maths spé</h1>
+          <div class="sub" data-objective-sub>Impact dossier · maths spé · Parcoursup · mise à jour aujourd'hui</div>
         </div>
         <div class="op-filter" aria-label="Aperçu des axes de travail">
           <button type="button" class="active" aria-pressed="true">Maths spé</button>
           <button type="button" aria-pressed="false">Physique-chimie</button>
         </div>
       </div>
+
+      <aside class="local-account-prompt" data-local-account-prompt hidden>
+        <div>
+          <strong>Compte local non créé</strong>
+          <span>Crée ton profil local pour retrouver la même mission, le même objectif et la même progression sur ces pages.</span>
+        </div>
+        <div class="local-account-prompt__actions">
+          <a href="onboarding.html">Créer ou reprendre</a>
+        </div>
+      </aside>
 
       <div class="op-hero">
         <article class="op-decision">
@@ -82,7 +97,7 @@
           </div>
           <div class="op-decision__actions">
             <a href="planning.html" class="op-cta op-cta--primary">Planifier cette mission <i class="ph-bold ph-arrow-right" aria-hidden="true"></i></a>
-            <a href="checkout.html" class="op-cta op-cta--ghost">Personnaliser l'abonnement</a>
+            <a href="parametres.html" class="op-cta op-cta--ghost">Personnaliser mon profil</a>
           </div>
         </article>
 
@@ -211,7 +226,7 @@
           </div>
           <div class="op-strategy__actions">
             <a href="planning.html" class="op-strategy__cta">Planifier ces leviers <i class="ph-bold ph-arrow-right" aria-hidden="true"></i></a>
-            <a href="checkout.html" class="op-strategy__cta op-strategy__cta--secondary">Voir l'abonnement <i class="ph-bold ph-arrow-right" aria-hidden="true"></i></a>
+            <a href="apropos.html" class="op-strategy__cta op-strategy__cta--secondary">En savoir plus <i class="ph-bold ph-arrow-right" aria-hidden="true"></i></a>
           </div>
         </div>
       </div>

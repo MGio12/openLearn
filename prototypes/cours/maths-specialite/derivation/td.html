@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TD Dérivation - Maths spécialité Première</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="../cours.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="../cours.js"></script>
+</head>
+<body class="has-course-sidebar">
+
+  <div class="progress-bar" aria-hidden="true">
+    <div class="progress-bar__fill" data-progress-fill></div>
+  </div>
+
+  <div class="section-bar" data-section-bar aria-hidden="true">
+    <span class="section-bar__chip" data-section-bar-chip>00</span>
+    <span class="section-bar__title" data-section-bar-title>TD Dérivation</span>
+    <span class="section-bar__total" data-section-bar-total>1/9</span>
+  </div>
+
+  <aside class="toc course-sidebar" aria-label="Plan du TD" data-course-sidebar>
+    <div class="sidebar-head">
+      <div>
+        <p class="toc-title">Plan</p>
+        <p class="sidebar-subtitle">TD Dérivation</p>
+      </div>
+      <button class="sidebar-toggle" type="button" aria-label="Replier le plan" aria-expanded="true" data-sidebar-toggle><span aria-hidden="true">‹</span></button>
+    </div>
+
+    <nav class="toc-links" aria-label="Sections du TD">
+      <a href="#objectifs" data-section-link><span class="toc-index">00</span><span class="toc-label">Objectifs</span></a>
+      <a href="#automatismes" data-section-link><span class="toc-index">A</span><span class="toc-label">Automatismes</span></a>
+      <a href="#methodes-guidees" data-section-link><span class="toc-index">G</span><span class="toc-label">Guidé</span></a>
+      <a href="#pieges" data-section-link><span class="toc-index">P</span><span class="toc-label">Pièges</span></a>
+      <a href="#choix" data-section-link><span class="toc-index">M</span><span class="toc-label">Choisir</span></a>
+      <a href="#controle" data-section-link><span class="toc-index">C</span><span class="toc-label">Contrôle</span></a>
+      <a href="#vingt-sur-vingt" data-section-link><span class="toc-index">20</span><span class="toc-label">20/20</span></a>
+      <a href="#revision" data-section-link><span class="toc-index">R</span><span class="toc-label">Révision</span></a>
+      <a href="#sources" data-section-link><span class="toc-index">S</span><span class="toc-label">Sources</span></a>
+    </nav>
+
+    <p class="sidebar-foot">Maths spé · TD</p>
+  </aside>
+
+  <header class="course-hero">
+    <nav class="topline" aria-label="Fil d'Ariane">
+      <a href="../../../..">Objectif Lycée</a>
+      <span>Maths spécialité</span>
+      <a href="index.html">Cours</a>
+      <span>TD corrigé</span>
+    </nav>
+
+    <div class="hero-grid">
+      <div>
+        <p class="hero-eyebrow"><span class="num">04</span> TD séparé</p>
+        <h1>Dérivation</h1>
+        <p class="hero-lead">40 exercices pour passer du taux moyen à la tangente, dériver proprement et justifier les variations.</p>
+      </div>
+
+      <aside class="hero-side" aria-label="Organisation du TD">
+        <p class="hero-side__label">Objectif</p>
+        <h2>40 exercices, corrigés masqués</h2>
+        <div class="hero-side__steps">
+          <div class="hero-side__step"><span class="verb">Taux</span><span class="obj">à produire avant correction</span></div>
+          <div class="hero-side__step"><span class="verb">Tangente</span><span class="obj">à produire avant correction</span></div>
+          <div class="hero-side__step"><span class="verb">Dérivée</span><span class="obj">à produire avant correction</span></div>
+          <div class="hero-side__step"><span class="verb">Variations</span><span class="obj">à produire avant correction</span></div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main class="course-layout" data-course-layout>
+    <article class="lesson course-lesson">
+
+      <section class="course-overview" aria-label="Repères du TD">
+        <div>
+          <p class="course-overview__title">TD d’entraînement</p>
+          <h3>Une page séparée pour travailler sans relire tout le cours</h3>
+          <p class="course-overview__lead">Chaque exercice indique la compétence entraînée, puis cache une réponse ou une correction. Les corrections détaillées montrent aussi la rédaction attendue et les erreurs qui coûtent des points.</p>
+        </div>
+        <div class="overview-flow">
+          <span>Automatismes</span>
+          <em>→</em>
+          <span>Méthodes</span>
+          <em>→</em>
+          <span>Contrôle</span>
+          <em>→</em>
+          <span>20/20</span>
+        </div>
+      </section>
+
+      <section id="objectifs" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">00</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Avant de commencer</p>
+            <h2>Ce TD reprend les points qui tombent vraiment</h2>
+          </div>
+        </div>
+        <p>Travaille dans l’ordre. Si un automatisme bloque, ouvre le corrigé, refais l’exercice sans regarder, puis seulement passe à la suite.</p>
+        <div class="diagnostic-grid">
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">1</span>Compétence</p>
+            <p>taux de variation et nombre dérivé</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">2</span>Compétence</p>
+            <p>équation de tangente</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">3</span>Compétence</p>
+            <p>dérivées usuelles et opérations</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">4</span>Compétence</p>
+            <p>signe de \(f'\), variations et extremums</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">5</span>Compétence</p>
+            <p>lecture graphique de \(f'\)</p>
+          </div>
+        </div>
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Pièges surveillés</p>
+          <p>confondre taux moyen et pente locale ; oublier le point dans l’équation de tangente ; déduire un extremum de \(f'=0\) sans changement de signe ; dériver un produit comme un produit des dérivées.</p>
+        </div>
+      </section>
+
+      <section id="automatismes" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">A</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Automatismes</h2>
+          </div>
+        </div>
+        <p>10 exercices courts pour sécuriser les gestes de base.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 1 · Taux moyen</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : calculer un taux.</p>
+            <p>Pour \(f(x)=x^2\), calculer le taux de variation entre \(1\) et \(3\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-01">Voir le corrigé</button>
+            <div id="td-derivation-01" class="answer" hidden>
+              <p>\(\frac{f(3)-f(1)}{3-1}=\frac{9-1}{2}=4\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 2 · Dérivée de (x^2)</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : dérivée usuelle.</p>
+            <p>Dériver \(f(x)=x^2\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-02">Voir le corrigé</button>
+            <div id="td-derivation-02" class="answer" hidden>
+              <p>\(f'(x)=2x\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 3 · Dérivée de (x^3)</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : dérivée usuelle.</p>
+            <p>Dériver \(f(x)=x^3\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-03">Voir le corrigé</button>
+            <div id="td-derivation-03" class="answer" hidden>
+              <p>\(f'(x)=3x^2\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 4 · Constante</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : dériver une constante.</p>
+            <p>Dériver \(f(x)=7\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-04">Voir le corrigé</button>
+            <div id="td-derivation-04" class="answer" hidden>
+              <p>\(f'(x)=0\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 5 · Affine</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : dériver une affine.</p>
+            <p>Dériver \(f(x)=-5x+2\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-05">Voir le corrigé</button>
+            <div id="td-derivation-05" class="answer" hidden>
+              <p>\(f'(x)=-5\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 6 · Somme</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : dériver terme à terme.</p>
+            <p>Dériver \(f(x)=3x^2-4x+9\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-06">Voir le corrigé</button>
+            <div id="td-derivation-06" class="answer" hidden>
+              <p>\(f'(x)=6x-4\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 7 · Inverse</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : dérivée usuelle.</p>
+            <p>Dériver \(f(x)=\frac{1}{x}\) sur \(]0;+\infty[\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-07">Voir le corrigé</button>
+            <div id="td-derivation-07" class="answer" hidden>
+              <p>\(f'(x)=-\frac{1}{x^2}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 8 · Racine</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : dérivée usuelle.</p>
+            <p>Dériver \(f(x)=\sqrt{x}\) sur \(]0;+\infty[\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-08">Voir le corrigé</button>
+            <div id="td-derivation-08" class="answer" hidden>
+              <p>\(f'(x)=\frac{1}{2\sqrt{x}}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 9 · Tangente immédiate</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : utiliser \(y=f'\(a\)(x-a)+f\(a\)\).</p>
+            <p>Si \(f(2)=5\) et \(f'(2)=3\), donner l’équation de la tangente en \(2\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-09">Voir le corrigé</button>
+            <div id="td-derivation-09" class="answer" hidden>
+              <p>\(y=3(x-2)+5\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 10 · Variation</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : lire le signe de \(f'\).</p>
+            <p>Si \(f'(x)<0\) sur \(I\), que fait \(f\) sur \(I\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-10">Voir le corrigé</button>
+            <div id="td-derivation-10" class="answer" hidden>
+              <p>La fonction \(f\) est décroissante sur \(I\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="methodes-guidees" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">G</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Méthodes guidées</h2>
+          </div>
+        </div>
+        <p>8 exercices où l’aide disparaît progressivement.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 11 · Nombre dérivé</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : calculer une limite simple.</p>
+            <p>Pour \(f(x)=x^2\), calculer \(f'(3)\) avec le taux \(\frac{f(3+h)-f(3)}{h}\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-11">Voir le corrigé</button>
+            <div id="td-derivation-11" class="answer" hidden>
+              <p>Le taux vaut \(6+h\), donc la limite est \(6\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 12 · Tangente</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : écrire une droite.</p>
+            <p>Pour \(f(x)=x^2-1\), écrire la tangente au point d’abscisse \(2\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-12">Voir le corrigé</button>
+            <div id="td-derivation-12" class="answer" hidden>
+              <p>\(f'(x)=2x\), donc \(f'(2)=4\) et \(f(2)=3\). Tangente : \(y=4(x-2)+3\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 13 · Produit</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : dériver un produit.</p>
+            <p>Dériver \(f(x)=(x^2+1)(3x-2)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-13">Voir le corrigé</button>
+            <div id="td-derivation-13" class="answer" hidden>
+              <p>\(f'(x)=2x(3x-2)+3(x^2+1)\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 14 · Quotient</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : dériver un quotient.</p>
+            <p>Dériver \(f(x)=\frac{x+1}{x-2}\) sur \(]2;+\infty[\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-14">Voir le corrigé</button>
+            <div id="td-derivation-14" class="answer" hidden>
+              <p>\(f'(x)=\frac{(x-2)-(x+1)}{(x-2)^2}=\frac{-3}{(x-2)^2}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 15 · Variation trinôme</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : signe de la dérivée.</p>
+            <p>Étudier les variations de \(f(x)=x^2-4x+1\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-15">Voir le corrigé</button>
+            <div id="td-derivation-15" class="answer" hidden>
+              <p>\(f'(x)=2x-4\). \(f\) décroît sur \(]-\infty;2]\), puis croît sur \([2;+\infty[\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 16 · Extremum</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : changer de signe.</p>
+            <p>Pour \(f'(x)=(x-1)(x+3)\), donner les intervalles de variation de \(f\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-16">Voir le corrigé</button>
+            <div id="td-derivation-16" class="answer" hidden>
+              <p>\(f'\) est positif sur \(]-\infty;-3]\cup[1;+\infty[\), négatif sur \([-3;1]\). Donc \(f\) croît, décroît, croît.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 17 · Dérivée composée simple</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : dériver \(u(ax+b)\).</p>
+            <p>Dériver \(f(x)=(2x-5)^3\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-17">Voir le corrigé</button>
+            <div id="td-derivation-17" class="answer" hidden>
+              <p>\(f'(x)=6(2x-5)^2\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 18 · Rédaction notée</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : étude complète.</p>
+            <p>Rédiger l’étude de variations de \(f(x)=-x^2+6x-4\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-18">Voir le corrigé</button>
+            <div id="td-derivation-18" class="answer" hidden>
+              <p>\(f'(x)=-2x+6\). On résout \(f'(x)=0\), donc \(x=3\).</p><p>Comme \(f'(x)>0\) pour \(x<3\) et \(f'(x)<0\) pour \(x>3\), \(f\) est croissante sur \(]-\infty;3]\), puis décroissante sur \([3;+\infty[\).</p><p>\(f(3)=-9+18-4=5\). Le maximum vaut \(5\), atteint en \(x=3\).</p><p>Erreur qui coûte des points : annoncer un maximum sans tableau de signe de \(f'\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="pieges" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">P</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Pièges classiques</h2>
+          </div>
+        </div>
+        <p>6 exercices pour repérer les erreurs qui coûtent des points.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 19 · Produit faux</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : ne pas multiplier les dérivées.</p>
+            <p>Corriger : \(((x^2)(x+1))'=2x\times1\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-19">Voir le corrigé</button>
+            <div id="td-derivation-19" class="answer" hidden>
+              <p>Il faut \(2x(x+1)+x^2\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 20 · Tangente incomplète</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : ne pas oublier le point.</p>
+            <p>Pourquoi \(y=f'(a)x+f(a)\) n’est pas la formule générale de la tangente ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-20">Voir le corrigé</button>
+            <div id="td-derivation-20" class="answer" hidden>
+              <p>Parce que la tangente doit passer par \((a;f(a))\). La formule sûre est \(y=f'(a)(x-a)+f(a)\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 21 · Dérivée nulle</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : ne pas conclure trop vite.</p>
+            <p>Si \(f'(2)=0\), a-t-on forcément un maximum ou un minimum en \(2\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-21">Voir le corrigé</button>
+            <div id="td-derivation-21" class="answer" hidden>
+              <p>Non. Il faut regarder le changement de signe de \(f'\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 22 · Intervalle</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : respecter le domaine.</p>
+            <p>Peut-on dériver \(f(x)=\sqrt{x}\) en \(0\) avec la formule \(\frac{1}{2\sqrt{x}}\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-22">Voir le corrigé</button>
+            <div id="td-derivation-22" class="answer" hidden>
+              <p>Non, cette formule vaut sur \(]0;+\infty[\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 23 · Quotient</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : garder le bon ordre.</p>
+            <p>Dans \(\left(\frac{u}{v}\right)'\), quel est le numérateur ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-23">Voir le corrigé</button>
+            <div id="td-derivation-23" class="answer" hidden>
+              <p>\(u'v-uv'\). L’ordre compte.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 24 · Lecture graphique</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : distinguer \(f\) et \(f'\).</p>
+            <p>Si la courbe de \(f\) monte, quel est le signe de \(f'\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-24">Voir le corrigé</button>
+            <div id="td-derivation-24" class="answer" hidden>
+              <p>\(f'\) est positif, mais \(f\) elle-même peut être positive ou négative.</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="choix" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">M</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Choisir la méthode</h2>
+          </div>
+        </div>
+        <p>5 exercices où il faut décider avant de calculer.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 25 · Choix 1</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : tangente ou variation.</p>
+            <p>L’énoncé demande une équation de tangente. Quels deux nombres faut-il chercher ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-25">Voir le corrigé</button>
+            <div id="td-derivation-25" class="answer" hidden>
+              <p>\(f(a)\) et \(f'(a)\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 26 · Choix 2</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : étude de variation.</p>
+            <p>L’énoncé demande les variations d’une fonction polynôme. Quelle méthode démarre ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-26">Voir le corrigé</button>
+            <div id="td-derivation-26" class="answer" hidden>
+              <p>Calculer \(f'\), étudier son signe, puis conclure sur \(f\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 27 · Choix 3</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : produit ou développement.</p>
+            <p>Pour dériver \((x+1)(x-4)\), développer ou utiliser la formule du produit ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-27">Voir le corrigé</button>
+            <div id="td-derivation-27" class="answer" hidden>
+              <p>Les deux marchent. Développer donne \(x^2-3x-4\), donc dérivée \(2x-3\), plus rapide ici.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 28 · Choix 4</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : quotient.</p>
+            <p>Pour \(f(x)=\frac{x^2+1}{x}\), quelle formule est naturelle ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-28">Voir le corrigé</button>
+            <div id="td-derivation-28" class="answer" hidden>
+              <p>Le quotient, ou simplifier en \(x+\frac1x\). La simplification est plus courte.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 29 · Choix 5</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : extremum.</p>
+            <p>Pour prouver un maximum, suffit-il de résoudre \(f'(x)=0\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-29">Voir le corrigé</button>
+            <div id="td-derivation-29" class="answer" hidden>
+              <p>Non, il faut montrer le changement de signe de \(f'\) ou utiliser une forme adaptée.</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="controle" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">C</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Niveau contrôle</h2>
+          </div>
+        </div>
+        <p>6 exercices à faire sans aide visible.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 30 · Contrôle 1</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : dérivée polynomiale.</p>
+            <p>Dériver \(f(x)=5x^3-2x^2+7x-1\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-30">Voir le corrigé</button>
+            <div id="td-derivation-30" class="answer" hidden>
+              <p>\(f'(x)=15x^2-4x+7\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 31 · Contrôle 2</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : tangente.</p>
+            <p>Pour \(f(x)=x^3\), donner la tangente en \(a=1\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-31">Voir le corrigé</button>
+            <div id="td-derivation-31" class="answer" hidden>
+              <p>\(f(1)=1\), \(f'(1)=3\). Tangente : \(y=3(x-1)+1\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 32 · Contrôle 3</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : variation.</p>
+            <p>Étudier les variations de \(f(x)=2x^2+8x+1\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-32">Voir le corrigé</button>
+            <div id="td-derivation-32" class="answer" hidden>
+              <p>\(f'(x)=4x+8\), nul en \(-2\). \(f\) décroît puis croît, minimum \(f(-2)=-7\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 33 · Contrôle 4</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : quotient.</p>
+            <p>Dériver \(f(x)=\frac{2x-1}{x+3}\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-33">Voir le corrigé</button>
+            <div id="td-derivation-33" class="answer" hidden>
+              <p>\(f'(x)=\frac{2(x+3)-(2x-1)}{(x+3)^2}=\frac{7}{(x+3)^2}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 34 · Contrôle 5</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : signe de dérivée.</p>
+            <p>Si \(f'(x)=-3(x-2)(x+1)\), donner les variations de \(f\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-34">Voir le corrigé</button>
+            <div id="td-derivation-34" class="answer" hidden>
+              <p>\(f'\) est négatif sur \(]-\infty;-1]\), positif sur \([-1;2]\), négatif sur \([2;+\infty[\). Donc \(f\) décroît, croît, décroît.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 35 · Contrôle 6</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : valeur de pente.</p>
+            <p>Pour \(f(x)=\frac1x\), donner la pente de la tangente au point d’abscisse \(2\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-35">Voir le corrigé</button>
+            <div id="td-derivation-35" class="answer" hidden>
+              <p>\(f'(2)=-\frac{1}{4}\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="vingt-sur-vingt" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">20</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Cap 20/20</h2>
+          </div>
+        </div>
+        <p>3 exercices plus longs, seulement après les blocs précédents.</p>
+        <div class="c-gate">
+          <p class="c-gate__label">Porte d’entrée</p>
+          <p class="c-gate__title">Avant ce bloc</p>
+          <p>Réussis au moins deux exercices de niveau contrôle sans regarder le corrigé. Le cap 20/20 n’est pas un raccourci : il combine les réflexes précédents.</p>
+        </div>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 36 · 20/20 1</h3>
+              <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : paramètre de tangente.</p>
+            <p>Déterminer \(m\) pour que la tangente à \(f(x)=x^2+mx\) en \(1\) ait pour pente \(5\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-36">Voir le corrigé</button>
+            <div id="td-derivation-36" class="answer" hidden>
+              <p>\(f'(x)=2x+m\), donc \(f'(1)=2+m=5\). Ainsi \(m=3\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 37 · 20/20 2</h3>
+              <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : variation rationnelle.</p>
+            <p>Étudier le signe de la dérivée de \(f(x)=x+\frac{4}{x}\) sur \(]0;+\infty[\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-37">Voir le corrigé</button>
+            <div id="td-derivation-37" class="answer" hidden>
+              <p>\(f'(x)=1-\frac{4}{x^2}=\frac{x^2-4}{x^2}\). Sur \(]0;+\infty[\), \(f'\) est négatif sur \(]0;2[\), nul en \(2\), positif sur \(]2;+\infty[\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 38 · 20/20 3</h3>
+              <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : optimisation.</p>
+            <p>Un rectangle a une aire \(A(x)=x(12-x)\). Utiliser la dérivée pour trouver l’aire maximale.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-38">Voir le corrigé</button>
+            <div id="td-derivation-38" class="answer" hidden>
+              <p>\(A'(x)=12-2x\), nul en \(6\). L’aire maximale vaut \(36\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="revision" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">R</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Révision mélangée</h2>
+          </div>
+        </div>
+        <p>2 exercices qui mélangent ce chapitre avec un autre réflexe.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 39 · Révision second degré</h3>
+              <span class="difficulty" aria-label="Niveau Révision">Révision</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : signe de dérivée.</p>
+            <p>Pour \(f'(x)=x^2-5x+6\), donner où \(f\) est croissante.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-39">Voir le corrigé</button>
+            <div id="td-derivation-39" class="answer" hidden>
+              <p>\(f'\ge0\) sur \(]-\infty;2]\cup[3;+\infty[\). Donc \(f\) y est croissante.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 40 · Révision exponentielle</h3>
+              <span class="difficulty" aria-label="Niveau Révision">Révision</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : préparer (e^x).</p>
+            <p>Si une fonction vérifie \(f'=f\) et \(f(0)=1\), quel nom portera-t-elle dans le chapitre suivant ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-derivation-40">Voir le corrigé</button>
+            <div id="td-derivation-40" class="answer" hidden>
+              <p>La fonction exponentielle.</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="sources" class="chapter-section recap-section">
+        <div class="section-marker">
+          <div class="section-marker__num">S</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Traçabilité</p>
+            <h2>Sources d’inspiration et adaptation</h2>
+          </div>
+        </div>
+        <p>Les exercices sont des variantes reformulées et recalculées à partir des sources validées. Les corrigés sont écrits pour le web : aide masquée, choix de méthode, rédaction et erreurs fréquentes.</p>
+        <div class="revision-grid">
+          <div class="revision-card"><p class="box-title">Source</p><p>Maths91, cours Dérivation et TD d’introduction</p></div>
+          <div class="revision-card"><p class="box-title">Source</p><p>Maths-et-tiques, dérivées usuelles et variations</p></div>
+          <div class="revision-card"><p class="box-title">Source</p><p>Ching@Math, fonctions dérivées</p></div>
+          <div class="revision-card"><p class="box-title">Source</p><p>Lycée d’Adultes de Paris, fonction dérivée</p></div>
+        </div>
+      </section>
+    </article>
+  </main>
+</body>
+</html>

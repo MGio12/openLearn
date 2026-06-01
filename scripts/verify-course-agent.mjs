@@ -6,6 +6,7 @@ import { fileURLToPath, pathToFileURL } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const DEFAULT_TARGET = 'prototypes/cours/maths-specialite/second-degre/index.html';
+const FEYNMAN_STORAGE_KEY = 'outilPrepa:feynman:v1';
 const REQUIRED_CONTEXT_FIELDS = [
   'id',
   'sectionId',
@@ -17,6 +18,7 @@ const REQUIRED_CONTEXT_FIELDS = [
   'feedbackGoal',
 ];
 const EXPECTED_AGENT_SECTIONS = ['diagnostic', 'choix-methode', 'redaction'];
+const EXPECTED_FEYNMAN_SECTION = 'feynman';
 
 function fail(message) {
   throw new Error(message);
@@ -110,6 +112,32 @@ function assertStaticManifestContract(html) {
   }
 
   return { manifest, triggerIds };
+}
+
+function assertStaticFeynmanContract(html, manifest) {
+  assert(/\bdata-feynman\b/i.test(html), 'course must include a reusable [data-feynman] block');
+  assert(/\bdata-feynman-input\b/i.test(html), 'Feynman block must include textarea[data-feynman-input]');
+  assert(/\bdata-feynman-submit\b/i.test(html), 'Feynman block must include button[data-feynman-submit]');
+  assert(/\bdata-feynman-reset\b/i.test(html), 'Feynman block must include button[data-feynman-reset]');
+  assert(/\bdata-feynman-feedback\b/i.test(html), 'Feynman block must include [data-feynman-feedback]');
+  assert(
+    /M[ée]thode Feynman|Expliquer le cours avec mes mots/i.test(html),
+    'Feynman block must expose a clear visible title or button label',
+  );
+
+  const sectionMatch = html.match(/<section\b[^>]*\bid="feynman"[^>]*>/i);
+  assert(sectionMatch, 'Feynman block must be a course section with id="feynman"');
+
+  const contextMatch = sectionMatch[0].match(/\bdata-feynman-context-id="([^"]+)"/i);
+  assert(contextMatch, 'Feynman section must declare data-feynman-context-id');
+
+  const context = manifest.contexts.find((item) => item.id === contextMatch[1]);
+  assert(context, `Feynman context ${contextMatch[1]} must exist in the course agent manifest`);
+  assert(context.sectionId === EXPECTED_FEYNMAN_SECTION, 'Feynman manifest context must target #feynman');
+  assert(
+    /second degr[ée]|trin[oô]me|discriminant|signe/i.test(context.minimalContext),
+    'Feynman context must summarize the real course notions, not a generic prompt',
+  );
 }
 
 async function collectPageErrors(page) {
@@ -256,6 +284,10 @@ async function assertDrawerViewport(page, triggerId, viewport) {
   await trigger.scrollIntoViewIfNeeded();
   await trigger.click();
   await waitForDrawerState(page, 'true');
+  await page.waitForFunction(() => {
+    const input = document.querySelector('[data-course-agent-input]');
+    return document.activeElement === input;
+  }, null, { timeout: 3000 });
 
   const metrics = await page.evaluate(() => {
     const drawer = document.querySelector('[data-course-agent-drawer]');
@@ -281,6 +313,114 @@ async function assertDrawerViewport(page, triggerId, viewport) {
   assert(metrics.panelHeight <= metrics.windowHeight * 0.74, `course agent panel must stay near the 70vh cap: ${metrics.panelHeight}px`);
 }
 
+async function assertFeynmanInteraction(page) {
+  await page.evaluate(() => {
+    localStorage.removeItem('outilPrepa:feynman:v1');
+  });
+
+  const section = page.locator('[data-feynman]').first();
+  const input = page.locator('[data-feynman-input]').first();
+  const submit = page.locator('[data-feynman-submit]').first();
+  const reset = page.locator('[data-feynman-reset]').first();
+  const feedback = page.locator('[data-feynman-feedback]').first();
+
+  assert(await section.count(), 'Feynman section must be present in the rendered course');
+  assert(await input.count(), 'Feynman textarea must be present');
+  assert(await submit.count(), 'Feynman submit button must be present');
+  assert(await reset.count(), 'Feynman reset button must be present');
+  assert(await feedback.count(), 'Feynman feedback region must be present');
+
+  await section.scrollIntoViewIfNeeded();
+  await submit.click();
+  let feedbackText = (await feedback.textContent())?.trim() || '';
+  assert(/écris|ecris|quelques lignes/i.test(feedbackText), 'empty Feynman submit must be refused with a visible message');
+
+  const htmlProbe = '<strong data-feynman-user-probe>Delta negatif donne deux racines</strong>';
+  await input.fill(htmlProbe);
+  await submit.click();
+  await page.waitForFunction(() => {
+    const region = document.querySelector('[data-feynman-feedback]');
+    return /Mode local sans IA|Mode mock|Point solide|relecture/i.test(region?.textContent || '');
+  }, null, { timeout: 3000 });
+
+  feedbackText = (await feedback.textContent())?.trim() || '';
+  assert(/Mode local sans IA|Mode mock/i.test(feedbackText), 'Feynman submit without a hosted API must show an explicit fallback or mock message');
+  assert(/relecture|prochaine tentative|corriger/i.test(feedbackText), 'Feynman fallback must give a concrete rereading instruction');
+
+  const htmlProbeCount = await page.locator('[data-feynman-user-probe]').count();
+  assert(htmlProbeCount === 0, 'Feynman answer must not be inserted as HTML');
+
+  const richEcho = await feedback.evaluate((element) => element.innerHTML.includes('<strong'));
+  assert(!richEcho, 'Feynman feedback must render as text, not student HTML');
+
+  const saved = await page.evaluate(() => {
+    const raw = localStorage.getItem('outilPrepa:feynman:v1');
+    return raw ? JSON.parse(raw) : null;
+  });
+  assert(saved && saved.courses, 'Feynman submission must create course-scoped local storage');
+  assert(
+    saved.courses['maths-specialite-premiere-second-degre']?.studentText?.includes('Delta negatif'),
+    'Feynman local storage must keep the latest attempt for this course',
+  );
+
+  await page.reload({ waitUntil: 'networkidle' });
+  await page.waitForSelector('[data-feynman-input]');
+  const restoredValue = await page.locator('[data-feynman-input]').first().inputValue();
+  assert(restoredValue.includes('Delta negatif'), 'Feynman textarea must restore the last local attempt after reload');
+
+  await page.locator('[data-feynman-reset]').first().click();
+  const clearedValue = await page.locator('[data-feynman-input]').first().inputValue();
+  assert(clearedValue === '', 'Feynman reset must clear the textarea');
+  const afterReset = await page.evaluate(() => {
+    const raw = localStorage.getItem('outilPrepa:feynman:v1');
+    return raw ? JSON.parse(raw) : null;
+  });
+  assert(
+    !afterReset?.courses?.['maths-specialite-premiere-second-degre'],
+    'Feynman reset must clear the saved attempt for this course',
+  );
+
+  const longText = Array.from({ length: 90 }, (_, index) => `Phrase ${index + 1} sur le discriminant et le signe.`).join(' ');
+  await page.locator('[data-feynman-input]').first().fill(longText);
+  await page.locator('[data-feynman-submit]').first().click();
+  await page.waitForFunction(() => {
+    const region = document.querySelector('[data-feynman-feedback]');
+    return /Mode local sans IA|Mode mock|Point solide|relecture/i.test(region?.textContent || '');
+  }, null, { timeout: 3000 });
+  assert(
+    ((await page.locator('[data-feynman-feedback]').first().textContent()) || '').length > 40,
+    'Feynman long accepted text must produce visible feedback',
+  );
+}
+
+async function assertFeynmanViewport(page, viewport) {
+  await page.setViewportSize(viewport);
+  await page.reload({ waitUntil: 'networkidle' });
+  await page.waitForSelector('[data-feynman-input]');
+
+  const metrics = await page.evaluate(() => {
+    const section = document.querySelector('[data-feynman]');
+    const input = document.querySelector('[data-feynman-input]');
+    const actions = document.querySelector('.feynman-method__actions');
+    const sectionBox = section?.getBoundingClientRect();
+    const inputBox = input?.getBoundingClientRect();
+    const actionsBox = actions?.getBoundingClientRect();
+
+    return {
+      pageOverflow: document.documentElement.scrollWidth - window.innerWidth,
+      sectionWidth: sectionBox?.width || 0,
+      inputWidth: inputBox?.width || 0,
+      actionsWidth: actionsBox?.width || 0,
+      windowWidth: window.innerWidth,
+    };
+  });
+
+  assert(metrics.pageOverflow <= 1, `Feynman block must not create horizontal overflow: ${metrics.pageOverflow}px`);
+  assert(metrics.sectionWidth <= metrics.windowWidth, `Feynman section must fit viewport width: ${metrics.sectionWidth}px`);
+  assert(metrics.inputWidth <= metrics.windowWidth, `Feynman textarea must fit viewport width: ${metrics.inputWidth}px`);
+  assert(metrics.actionsWidth <= metrics.windowWidth, `Feynman actions must fit viewport width: ${metrics.actionsWidth}px`);
+}
+
 async function waitForDrawerState(page, state) {
   await page.waitForFunction((expectedState) => {
     const drawer = document.querySelector('[data-course-agent-drawer]');
@@ -293,7 +433,8 @@ const coursePath = resolveTargetPath(target);
 assert(existsSync(coursePath), `course target does not exist at ${coursePath}`);
 
 const html = readFileSync(coursePath, 'utf8');
-const { triggerIds } = assertStaticManifestContract(html);
+const { manifest, triggerIds } = assertStaticManifestContract(html);
+assertStaticFeynmanContract(html, manifest);
 const courseUrl = pathToFileURL(coursePath).href;
 
 const browser = await chromium.launch();
@@ -308,9 +449,11 @@ try {
     await assertAgentDiscoverability(page);
     await assertDrawerInteraction(page, triggerIds[0]);
     await assertCloseButton(page, triggerIds[1]);
+    await assertFeynmanInteraction(page);
     await assertNoFormulaOverflow(page);
 
     await assertDrawerViewport(page, triggerIds[2], { width: 390, height: 844 });
+    await assertFeynmanViewport(page, { width: 390, height: 844 });
     await assertAgentDiscoverability(page);
     await assertNoFormulaOverflow(page);
 
@@ -322,4 +465,4 @@ try {
   await browser.close();
 }
 
-console.log(`PASS course agent verification for ${relative(ROOT, coursePath).split(sep).join('/')}: manifest, triggers, quick links, sidebar markers, drawer interactions, text-only feedback, and overflow checks are valid.`);
+console.log(`PASS course agent verification for ${relative(ROOT, coursePath).split(sep).join('/')}: manifest, triggers, quick links, sidebar markers, drawer interactions, Feynman method persistence/fallback, text-only feedback, and overflow checks are valid.`);

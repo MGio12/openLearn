@@ -19,6 +19,7 @@ const ALLOWED_KEYS = new Set([
   'objectif-lycee-onboarding-v3',
   'outilPrepa:onboarding',
   'outilPrepa:stripe.checkoutUrl',
+  'outilPrepa:feynman:v1',
 ]);
 
 const LEGACY_READ_ONLY_KEYS = new Set([
@@ -31,6 +32,7 @@ const KNOWN_KEY_IDENTIFIERS = {
   STORAGE_KEY: 'outilPrepa:stripe.checkoutUrl',
   CHECKOUT_STORAGE_KEY: 'outilPrepa:stripe.checkoutUrl',
   LEGACY_CHECKOUT_STORAGE_KEY: 'op.stripe.checkoutUrl',
+  FEYNMAN_STORAGE_KEY: 'outilPrepa:feynman:v1',
 };
 
 function rel(filePath) {

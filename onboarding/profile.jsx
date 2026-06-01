@@ -1,5 +1,5 @@
 /* ============================================================
-   ProfilePanel — IKEA-effect surface, with emojis per choice
+   ProfilePanel - IKEA-effect surface, with emojis per choice
    ============================================================ */
 
 const { useState: useStateP } = React;
@@ -10,8 +10,8 @@ function ProfilePanel({ profile, currentScreen, mission, justFilledKey }) {
   const isMissionReady = ["mission","social","recap","paywall"].includes(currentScreen);
 
   let sub = "Profil en construction";
-  if (isMissionReady) sub = "Profil — mission prête";
-  else if (isGenerating) sub = "Profil — synthèse en cours";
+  if (isMissionReady) sub = "Profil - mission prête";
+  else if (isGenerating) sub = "Profil - synthèse en cours";
 
   // count answered profile lines
   const filledCount = PROFILE_LINES.filter(line => {
@@ -27,7 +27,7 @@ function ProfilePanel({ profile, currentScreen, mission, justFilledKey }) {
       <div className="ob-profile-head">
         <div>
           <div className="ob-profile-title">
-            {profile.nom ? `Profil — ${profile.nom}` : "Profil"}
+            {profile.nom ? `Profil - ${profile.nom}` : "Profil"}
           </div>
           <div className="ob-profile-sub">{sub}</div>
         </div>
@@ -88,7 +88,7 @@ function ProfilePanel({ profile, currentScreen, mission, justFilledKey }) {
               </div>
               <div className={`ob-profile-line-value ${hasValue ? "" : "is-empty"}`}>
                 {hasValue && emoji && <span className="ob-profile-line-emoji" aria-hidden>{emoji}</span>}
-                <span className="ob-profile-line-text">{hasValue ? display : "—"}</span>
+                <span className="ob-profile-line-text">{hasValue ? display : "-"}</span>
               </div>
             </div>
           );
@@ -110,7 +110,7 @@ function ProfilePanel({ profile, currentScreen, mission, justFilledKey }) {
         )}
       </div>
 
-      {/* Annotation foot — handwriting */}
+      {/* Annotation foot - handwriting */}
       <div className="ob-profile-foot">
         {profileFootText(profile, currentScreen, mission)}
       </div>
@@ -136,7 +136,7 @@ function profileFootText(profile, screen, mission) {
   if (screen === "objectif")   return "Bien. On va creuser ce qui te bloque vraiment.";
   if (screen === "moyenne")    return "L'écart visé devient la boussole.";
   if (screen === "echeance")   return "Plus la date est proche, plus la mission est précise.";
-  if (screen === "matiere")    return "Plusieurs matières possibles — on cible la plus rentable d'abord.";
+  if (screen === "matiere")    return "Plusieurs matières possibles - on cible la plus rentable d'abord.";
   if (screen === "blocage")    return "Ça change tout. Deux élèves dans la même matière n'ont pas la même mission.";
   if (screen === "niveau")     return "Quel est ton profil ?";
   if (screen === "effort")     return "On respecte ton temps réel. Pas plus, pas moins.";

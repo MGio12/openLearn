@@ -208,7 +208,7 @@ async function assertTrustCopy(page, viewportLabel) {
   ];
 
   for (const check of trustChecks) {
-    assert(check.pattern.test(text), `${viewportLabel} checkout.html: missing trust copy — ${check.label}`);
+    assert(check.pattern.test(text), `${viewportLabel} checkout.html: missing trust copy - ${check.label}`);
   }
 }
 

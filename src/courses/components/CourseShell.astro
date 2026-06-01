@@ -1,0 +1,574 @@
+---
+import CourseSidebar from './CourseSidebar.astro';
+import '../styles/course.css';
+
+const {
+  title,
+  documentTitle = `${title} - Maths spécialité Première`,
+  subtitle = title,
+  kind = 'Cours',
+  eyebrow = '01 Chapitre',
+  lead,
+  sections = [],
+  heroSteps = [],
+  overviewTitle = 'Fil conducteur',
+  overviewHeading = 'Un cours web pour comprendre, produire, puis rédiger',
+  overviewLead = 'Chaque notion demande une réponse avant la correction.',
+  flow = [],
+  alternateHref,
+  alternateLabel,
+  sidebarLabel = 'Plan du cours',
+  sidebarFoot = 'Maths spé · Lycée',
+  agentContexts = null,
+} = Astro.props;
+
+const sectionTotal = sections.length || 1;
+const agentJson = agentContexts ? JSON.stringify(agentContexts, null, 2) : '';
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{documentTitle}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  </head>
+  <body class="has-course-sidebar">
+    <div class="progress-bar" aria-hidden="true">
+      <div class="progress-bar__fill" data-progress-fill></div>
+    </div>
+
+    <div class="section-bar" data-section-bar aria-hidden="true">
+      <span class="section-bar__chip" data-section-bar-chip>00</span>
+      <span class="section-bar__title" data-section-bar-title>{title}</span>
+      <span class="section-bar__total" data-section-bar-total>{`1/${sectionTotal}`}</span>
+    </div>
+
+    <CourseSidebar sections={sections} subtitle={subtitle} label={sidebarLabel} foot={sidebarFoot} />
+
+    <header class="course-hero">
+      <nav class="topline" aria-label="Fil d'Ariane">
+        <a href="/">Objectif Lycée</a>
+        <span>Maths spécialité</span>
+        <span>{kind}</span>
+        {alternateHref && alternateLabel && <a href={alternateHref}>{alternateLabel}</a>}
+      </nav>
+
+      <div class="hero-grid">
+        <div>
+          <p class="hero-eyebrow"><span class="num">01</span> {eyebrow}</p>
+          <h1>{title}</h1>
+          <p class="hero-lead">{lead}</p>
+        </div>
+
+        <aside class="hero-side" aria-label="Organisation du chapitre">
+          <p class="hero-side__label">Objectif</p>
+          <h2>{kind === 'TD' ? '40 exercices, corrigés masqués' : '4 réflexes, 1 contrôle solide'}</h2>
+          <div class="hero-side__steps">
+            {heroSteps.map((step) => (
+              <div class="hero-side__step">
+                <span class="verb">{step.verb}</span>
+                <span class="obj">{step.object}</span>
+              </div>
+            ))}
+          </div>
+        </aside>
+      </div>
+    </header>
+
+    <main class="course-layout" data-course-layout>
+      <article class="lesson course-lesson">
+        <section class="course-overview" aria-label="Repères du chapitre">
+          <div>
+            <p class="course-overview__title">{overviewTitle}</p>
+            <h3>{overviewHeading}</h3>
+            <p class="course-overview__lead">{overviewLead}</p>
+          </div>
+          <div class="overview-flow">
+            {flow.map((item, index) => (
+              <>
+                <span>{item}</span>
+                {index < flow.length - 1 && <em>→</em>}
+              </>
+            ))}
+          </div>
+          {agentContexts && (
+            <div class="course-agent-entry" data-course-agent-entry>
+              <div class="course-agent-entry__copy">
+                <p class="course-agent-entry__title">Feedback IA disponible</p>
+                <p>Trois moments demandent une production écrite : diagnostic, choix de méthode, rédaction.</p>
+              </div>
+              <div class="course-agent-entry__links" aria-label="Accès directs aux feedbacks IA">
+                <a href="#diagnostic" data-course-agent-jump="diagnostic">Diagnostic</a>
+                <a href="#choix-methode" data-course-agent-jump="choix-methode">Choix de méthode</a>
+                <a href="#redaction" data-course-agent-jump="redaction">Rédaction</a>
+              </div>
+            </div>
+          )}
+        </section>
+
+        <slot />
+      </article>
+    </main>
+
+    {agentContexts && (
+      <script type="application/json" data-course-agent-contexts set:html={agentJson}></script>
+    )}
+
+    <script is:inline>
+      window.__courseGraphInitializers = window.__courseGraphInitializers || [];
+
+      window.addEventListener('DOMContentLoaded', async () => {
+        await renderCourseMath();
+        initRevealButtons();
+        initCourseSidebar();
+        initReadingProgress();
+        initLazyCourseGraphs();
+        initCourseAgent();
+        revealCourseWhenReady();
+      });
+
+      const KATEX_RENDER_OPTIONS = {
+        delimiters: [
+          { left: '\\[', right: '\\]', display: true },
+          { left: '\\(', right: '\\)', display: false },
+        ],
+        throwOnError: false,
+      };
+
+      async function renderCourseMath() {
+        if (!window.renderMathInElement) return;
+        const roots = Array.from(document.querySelectorAll('.course-hero, .course-overview, .chapter-section'));
+        for (const root of roots.length ? roots : [document.body]) {
+          window.renderMathInElement(root, KATEX_RENDER_OPTIONS);
+          await new Promise((resolve) => window.setTimeout(resolve, 0));
+        }
+      }
+
+      function revealCourseWhenReady() {
+        const reveal = () => window.requestAnimationFrame(() => document.body.classList.add('is-course-ready'));
+        if (document.fonts?.ready) {
+          document.fonts.ready.then(reveal, reveal);
+          return;
+        }
+        reveal();
+      }
+
+      function initRevealButtons() {
+        for (const button of document.querySelectorAll('[data-reveal]')) {
+          button.dataset.closedLabel = button.textContent || 'Voir le corrigé';
+          button.setAttribute('aria-expanded', 'false');
+          button.addEventListener('click', () => {
+            const target = document.getElementById(button.dataset.reveal);
+            if (!target) return;
+            const isHidden = target.hasAttribute('hidden');
+            target.toggleAttribute('hidden', !isHidden);
+            button.setAttribute('aria-expanded', String(isHidden));
+            button.textContent = isHidden
+              ? (button.dataset.closedLabel.includes('corrigé') ? 'Masquer le corrigé' : 'Masquer la réponse')
+              : button.dataset.closedLabel;
+          });
+        }
+      }
+
+      function initCourseSidebar() {
+        const layout = document.querySelector('[data-course-layout]');
+        const sidebar = document.querySelector('[data-course-sidebar]');
+        const toggle = document.querySelector('[data-sidebar-toggle]');
+        const links = Array.from(document.querySelectorAll('[data-section-link]'));
+        const compactQuery = window.matchMedia('(max-width: 900px)');
+        if (!layout || !sidebar || !toggle) return;
+
+        const setCollapsed = (isCollapsed, options = {}) => {
+          if (isCollapsed && document.activeElement === toggle) toggle.blur();
+          layout.classList.toggle('is-sidebar-collapsed', isCollapsed);
+          layout.classList.toggle('is-sidebar-expanded', !isCollapsed);
+          document.body.classList.toggle('is-course-sidebar-collapsed', isCollapsed);
+          document.body.classList.toggle('is-course-sidebar-expanded', !isCollapsed);
+          document.body.classList.toggle('is-sidebar-hover-locked', Boolean(options.lockHover && isCollapsed));
+          if (isCollapsed) sidebar.setAttribute('tabindex', '0');
+          else sidebar.removeAttribute('tabindex');
+          toggle.disabled = isCollapsed;
+          toggle.setAttribute('aria-hidden', String(isCollapsed));
+          toggle.setAttribute('aria-expanded', String(!isCollapsed));
+        };
+
+        setCollapsed(compactQuery.matches);
+        compactQuery.addEventListener?.('change', (event) => {
+          if (event.matches) setCollapsed(true);
+        });
+        toggle.addEventListener('click', () => {
+          if (!layout.classList.contains('is-sidebar-collapsed')) setCollapsed(true, { lockHover: true });
+        });
+        sidebar.addEventListener('mouseleave', () => document.body.classList.remove('is-sidebar-hover-locked'));
+        sidebar.addEventListener('pointerdown', (event) => {
+          if (layout.classList.contains('is-sidebar-collapsed') && !event.target.closest('[data-section-link]')) {
+            event.preventDefault();
+          }
+        });
+        for (const link of links) {
+          link.addEventListener('click', () => {
+            if (compactQuery.matches) setCollapsed(true, { lockHover: true });
+          });
+        }
+
+        const sections = links.map((link) => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+        if (!('IntersectionObserver' in window) || !sections.length) return;
+        const setActiveLink = (id) => {
+          for (const link of links) link.classList.toggle('is-active', link.getAttribute('href') === `#${id}`);
+        };
+        const observer = new IntersectionObserver((entries) => {
+          const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+          if (visible) setActiveLink(visible.target.id);
+        }, { rootMargin: '-20% 0px -58% 0px', threshold: [0.08, 0.18, 0.32] });
+        sections.forEach((section) => observer.observe(section));
+        setActiveLink(sections[0].id);
+      }
+
+      function initReadingProgress() {
+        const fill = document.querySelector('[data-progress-fill]');
+        const bar = document.querySelector('[data-section-bar]');
+        const chip = document.querySelector('[data-section-bar-chip]');
+        const titleEl = document.querySelector('[data-section-bar-title]');
+        const totalEl = document.querySelector('[data-section-bar-total]');
+        const hero = document.querySelector('.course-hero');
+        const sections = Array.from(document.querySelectorAll('.chapter-section'));
+        let activeId = '';
+        let raf = 0;
+        if (totalEl && sections.length) totalEl.textContent = `1/${sections.length}`;
+
+        const setActiveSection = (section) => {
+          if (!section || section.id === activeId) return;
+          activeId = section.id;
+          const index = sections.indexOf(section);
+          const marker = section.querySelector('.section-marker__num')?.textContent?.trim() || '';
+          const title = section.querySelector('h2')?.textContent?.trim() || '';
+          if (chip) chip.textContent = marker;
+          if (titleEl) titleEl.textContent = title;
+          if (totalEl && index !== -1) totalEl.textContent = `${index + 1}/${sections.length}`;
+        };
+
+        const update = () => {
+          raf = 0;
+          const docH = document.documentElement.scrollHeight - window.innerHeight;
+          const ratio = docH > 0 ? Math.min(1, Math.max(0, window.scrollY / docH)) : 0;
+          if (fill) fill.style.transform = `scaleX(${ratio})`;
+          if (bar) bar.classList.toggle('is-visible', (hero?.getBoundingClientRect().bottom ?? 0) < 0);
+        };
+        const schedule = () => {
+          if (!raf) raf = window.requestAnimationFrame(update);
+        };
+
+        if ('IntersectionObserver' in window && sections.length) {
+          const observer = new IntersectionObserver((entries) => {
+            const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+            if (visible) setActiveSection(visible.target);
+          }, { rootMargin: '-18% 0px -58% 0px', threshold: [0.08, 0.18, 0.32] });
+          sections.forEach((section) => observer.observe(section));
+          setActiveSection(sections[0]);
+        }
+        window.addEventListener('scroll', schedule, { passive: true });
+        window.addEventListener('resize', schedule);
+        update();
+      }
+
+      const JSXGRAPH_CSS_URL = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css';
+      const JSXGRAPH_JS_URL = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+      let jsxGraphLoadPromise = null;
+
+      function loadJsxGraph() {
+        if (window.JXG) return Promise.resolve(window.JXG);
+        if (jsxGraphLoadPromise) return jsxGraphLoadPromise;
+        jsxGraphLoadPromise = new Promise((resolve, reject) => {
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = JSXGRAPH_CSS_URL;
+          document.head.appendChild(link);
+          const script = document.createElement('script');
+          script.src = JSXGRAPH_JS_URL;
+          script.async = true;
+          script.addEventListener('load', () => resolve(window.JXG), { once: true });
+          script.addEventListener('error', () => reject(new Error('JSXGraph failed to load')), { once: true });
+          document.head.appendChild(script);
+        });
+        return jsxGraphLoadPromise;
+      }
+
+      function initLazyCourseGraphs() {
+        const boards = Array.from(document.querySelectorAll('[data-exact-graph]'));
+        if (!boards.length) return;
+        const init = (element) => {
+          if (element.dataset.graphReady === 'true') return;
+          loadJsxGraph().then(() => renderExactGraph(element)).catch(() => {
+            element.textContent = 'Le graphe exact ne peut pas se charger pour le moment.';
+          });
+        };
+        if (!('IntersectionObserver' in window)) {
+          boards.forEach(init);
+          return;
+        }
+        const observer = new IntersectionObserver((entries) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            observer.unobserve(entry.target);
+            init(entry.target);
+          }
+        }, { rootMargin: '700px 0px', threshold: 0.01 });
+        boards.forEach((board) => observer.observe(board));
+      }
+
+      function renderExactGraph(el) {
+        const styles = getComputedStyle(document.documentElement);
+        const color = (name) => styles.getPropertyValue(name).trim();
+        const colors = {
+          ink: color('--ink'),
+          coral: color('--red'),
+          teal: color('--blue-2'),
+          yellow: color('--stabilo'),
+          green: color('--green-2'),
+        };
+        const board = JXG.JSXGraph.initBoard(el.id, {
+          boundingbox: JSON.parse(el.dataset.bbox || '[-6,8,6,-8]'),
+          axis: true,
+          grid: true,
+          showCopyright: false,
+          showNavigation: false,
+          pan: { enabled: false },
+          zoom: { enabled: false },
+          defaultAxes: {
+            x: { strokeColor: colors.ink, highlight: false, ticks: { drawLabels: true, label: { fontSize: 10, color: colors.ink } } },
+            y: { strokeColor: colors.ink, highlight: false, ticks: { drawLabels: true, label: { fontSize: 10, color: colors.ink } } },
+          },
+        });
+        const curve = (fn, x0, x1, strokeColor) => board.create('functiongraph', [fn, x0, x1], { strokeColor, strokeWidth: 3, highlight: false });
+        const point = (xy, name, fillColor, offset = [10, 10]) => board.create('point', xy, {
+          name,
+          fixed: true,
+          size: 4,
+          fillColor,
+          strokeColor: colors.ink,
+          label: { offset, fontSize: 12, color: colors.ink, useMathJax: false },
+          showInfobox: false,
+        });
+        const segment = (a, b, strokeColor) => board.create('segment', [a, b], { strokeColor, strokeWidth: 2, dash: 2, highlight: false, fixed: true });
+
+        if (el.dataset.graphType === 'orientation') {
+          curve((x) => 0.5 * x * x - 2, -5, 5, colors.coral);
+          curve((x) => -0.5 * x * x + 2, -5, 5, colors.teal);
+          point([0, -2], 'min', colors.coral, [10, -14]);
+          point([0, 2], 'max', colors.teal, [10, 14]);
+        }
+        if (el.dataset.graphType === 'discriminant') {
+          curve((x) => 0.6 * x * x + 1.5, -6, 6, colors.teal);
+          curve((x) => 0.6 * (x + 1) * (x + 1), -6, 6, colors.yellow);
+          curve((x) => 0.4 * (x - 2) * (x - 2) - 3, -6, 6, colors.coral);
+          point([-1, 0], 'Δ=0', colors.yellow, [-30, 14]);
+          const r = Math.sqrt(7.5);
+          point([2 - r, 0], 'x1', colors.coral, [-22, 14]);
+          point([2 + r, 0], 'x2', colors.coral, [10, 14]);
+        }
+        if (el.dataset.graphType === 'sommet') {
+          curve((x) => 2 * (x - 2) * (x - 2) - 5, -1, 6, colors.coral);
+          segment([2, -8], [2, 6], colors.ink);
+          point([2, -5], 'S(2;-5)', colors.yellow, [10, -14]);
+        }
+        if (el.dataset.graphType === 'signe') {
+          curve((x) => x * x - 2 * x - 15, -7, 9, colors.coral);
+          point([-3, 0], 'x1=-3', colors.yellow, [-30, 14]);
+          point([5, 0], 'x2=5', colors.yellow, [10, 14]);
+          point([1, -16], 'min', colors.teal, [10, -10]);
+        }
+        if (el.dataset.graphType === 'position') {
+          curve((x) => -x * x + 8 * x - 11, -1, 8, colors.coral);
+          curve((x) => x - 1, -1, 8, colors.teal);
+          point([2, 1], 'A(2;1)', colors.yellow, [-30, 14]);
+          point([5, 4], 'B(5;4)', colors.yellow, [10, 14]);
+        }
+        el.dataset.graphReady = 'true';
+      }
+
+      const COURSE_AGENT_INPUT_MAX_LENGTH = 800;
+
+      function initCourseAgent() {
+        const manifestScript = document.querySelector('script[type="application/json"][data-course-agent-contexts]');
+        const triggers = Array.from(document.querySelectorAll('[data-course-agent-open]'));
+        if (!manifestScript || !triggers.length) return;
+        let manifest = null;
+        try {
+          manifest = JSON.parse(manifestScript.textContent || '{}');
+        } catch {
+          return;
+        }
+        const contexts = new Map((manifest.contexts || []).map((context) => [context.id, context]));
+        if (!contexts.size) return;
+        const drawer = createCourseAgentDrawer();
+        document.body.appendChild(drawer.root);
+        let activeContext = null;
+        let activeTrigger = null;
+
+        const closeDrawer = () => {
+          if (drawer.root.dataset.open !== 'true') return;
+          drawer.root.dataset.open = 'false';
+          drawer.root.setAttribute('aria-hidden', 'true');
+          document.body.classList.remove('is-course-agent-open');
+          const trigger = activeTrigger;
+          activeContext = null;
+          activeTrigger = null;
+          if (trigger && document.contains(trigger)) window.requestAnimationFrame(() => trigger.focus({ preventScroll: true }));
+        };
+        const updateCount = () => {
+          if (drawer.input.value.length > COURSE_AGENT_INPUT_MAX_LENGTH) {
+            drawer.input.value = drawer.input.value.slice(0, COURSE_AGENT_INPUT_MAX_LENGTH);
+          }
+          drawer.count.textContent = `${drawer.input.value.length}/${COURSE_AGENT_INPUT_MAX_LENGTH}`;
+        };
+        const openDrawer = (context, trigger) => {
+          activeContext = context;
+          activeTrigger = trigger;
+          const section = document.getElementById(context.sectionId);
+          drawer.title.textContent = manifest.courseTitle || 'Cours';
+          drawer.section.textContent = `${section?.querySelector('h2')?.textContent?.trim() || context.sectionId} · ${context.entryLabel}`;
+          drawer.task.textContent = context.studentTask;
+          drawer.context.textContent = context.minimalContext;
+          drawer.goal.textContent = context.feedbackGoal;
+          drawer.input.value = '';
+          drawer.feedback.textContent = 'Écris une réponse, puis prépare le retour contextualisé.';
+          updateCount();
+          drawer.root.dataset.open = 'true';
+          drawer.root.setAttribute('aria-hidden', 'false');
+          document.body.classList.add('is-course-agent-open');
+          window.requestAnimationFrame(() => drawer.input.focus({ preventScroll: true }));
+        };
+        const submitAnswer = () => {
+          if (!activeContext) return;
+          if (!drawer.input.value.trim()) {
+            drawer.feedback.textContent = 'Écris une réponse avant de demander un retour.';
+            drawer.input.focus({ preventScroll: true });
+            return;
+          }
+          drawer.feedback.textContent = [
+            `Mode préparation : ta réponse sera envoyée avec le contexte "${activeContext.id}".`,
+            `Objectif du retour : ${activeContext.feedbackGoal}`,
+            'Aucun appel IA réel n’est effectué dans ce pilote local.',
+          ].join(' ');
+        };
+        for (const trigger of triggers) {
+          const context = contexts.get(trigger.dataset.courseAgentOpen);
+          if (!context) continue;
+          trigger.setAttribute('aria-haspopup', 'dialog');
+          trigger.setAttribute('aria-controls', drawer.root.id);
+          trigger.addEventListener('click', () => openDrawer(context, trigger));
+        }
+        drawer.input.addEventListener('input', updateCount);
+        drawer.submit.addEventListener('click', submitAnswer);
+        drawer.closeButtons.forEach((button) => button.addEventListener('click', closeDrawer));
+        drawer.backdrop.addEventListener('click', closeDrawer);
+        drawer.root.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape') {
+            event.preventDefault();
+            closeDrawer();
+          }
+        });
+      }
+
+      function createCourseAgentDrawer() {
+        const root = document.createElement('div');
+        root.className = 'course-agent';
+        root.id = 'course-agent-drawer';
+        root.dataset.open = 'false';
+        root.setAttribute('aria-hidden', 'true');
+        const backdrop = document.createElement('button');
+        backdrop.className = 'course-agent__backdrop';
+        backdrop.type = 'button';
+        backdrop.tabIndex = -1;
+        backdrop.setAttribute('aria-label', 'Fermer le tiroir IA');
+        root.appendChild(backdrop);
+        const panel = document.createElement('section');
+        panel.className = 'course-agent__panel';
+        panel.setAttribute('role', 'dialog');
+        panel.setAttribute('aria-modal', 'true');
+        panel.setAttribute('aria-labelledby', 'course-agent-title');
+        root.appendChild(panel);
+        const header = document.createElement('div');
+        header.className = 'course-agent__header';
+        panel.appendChild(header);
+        const headerText = document.createElement('div');
+        headerText.className = 'course-agent__header-text';
+        header.appendChild(headerText);
+        const section = document.createElement('p');
+        section.className = 'course-agent__section';
+        headerText.appendChild(section);
+        const title = document.createElement('h2');
+        title.id = 'course-agent-title';
+        headerText.appendChild(title);
+        const close = document.createElement('button');
+        close.className = 'course-agent__icon-button';
+        close.type = 'button';
+        close.setAttribute('aria-label', 'Fermer le tiroir IA');
+        close.textContent = '×';
+        header.appendChild(close);
+        const task = document.createElement('p');
+        task.className = 'course-agent__task';
+        panel.appendChild(task);
+        const contextGrid = document.createElement('div');
+        contextGrid.className = 'course-agent__context-grid';
+        panel.appendChild(contextGrid);
+        const context = createCourseAgentInfoBlock('Contexte envoyé');
+        const goal = createCourseAgentInfoBlock('But du retour');
+        contextGrid.append(context.root, goal.root);
+        const label = document.createElement('label');
+        label.className = 'course-agent__label';
+        label.setAttribute('for', 'course-agent-input');
+        label.textContent = 'Ta réponse';
+        panel.appendChild(label);
+        const input = document.createElement('textarea');
+        input.id = 'course-agent-input';
+        input.className = 'course-agent__input';
+        input.maxLength = COURSE_AGENT_INPUT_MAX_LENGTH;
+        input.rows = 5;
+        input.placeholder = 'Écris ton raisonnement, pas seulement le résultat.';
+        panel.appendChild(input);
+        const meta = document.createElement('div');
+        meta.className = 'course-agent__meta';
+        panel.appendChild(meta);
+        const count = document.createElement('span');
+        count.className = 'course-agent__count';
+        meta.appendChild(count);
+        const feedback = document.createElement('p');
+        feedback.className = 'course-agent__feedback';
+        feedback.setAttribute('role', 'status');
+        feedback.setAttribute('aria-live', 'polite');
+        panel.appendChild(feedback);
+        const actions = document.createElement('div');
+        actions.className = 'course-agent__actions';
+        panel.appendChild(actions);
+        const closeSecondary = document.createElement('button');
+        closeSecondary.className = 'course-agent__button course-agent__button--secondary';
+        closeSecondary.type = 'button';
+        closeSecondary.textContent = 'Fermer';
+        actions.appendChild(closeSecondary);
+        const submit = document.createElement('button');
+        submit.className = 'course-agent__button course-agent__button--primary';
+        submit.type = 'button';
+        submit.textContent = 'Préparer le retour';
+        actions.appendChild(submit);
+        return { root, backdrop, title, section, task, context: context.value, goal: goal.value, input, count, feedback, submit, closeButtons: [close, closeSecondary] };
+      }
+
+      function createCourseAgentInfoBlock(labelText) {
+        const root = document.createElement('div');
+        root.className = 'course-agent__info';
+        const label = document.createElement('p');
+        label.className = 'course-agent__info-label';
+        label.textContent = labelText;
+        const value = document.createElement('p');
+        value.className = 'course-agent__info-value';
+        root.append(label, value);
+        return { root, value };
+      }
+    </script>
+  </body>
+</html>

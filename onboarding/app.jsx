@@ -1,5 +1,17 @@
 /* ============================================================
-   App — orchestrator (Tweaks panel removed, defaults hardcoded)
+   AGENT HEADER
+   Role: orchestrateur React du diagnostic, analytics et activation essai.
+   Loaded by: scripts/build-onboarding.mjs dans onboarding/onboarding.bundle.js.
+   Reads/writes: lit window.__ONBOARDING_TWEAKS_DEFAULTS, persiste le
+   brouillon via saveState, puis onActivate synchronise outilPrepa:v1
+   via window.OutilPrepa.applyOnboarding; resetAll supprime le brouillon
+   onboarding et reset le compte local.
+   Public contract: composant App, evenements OLAnalytics
+   onboarding_screen_viewed/completed, synchronisation compte local.
+   Verify: npm run build:onboarding ; npm run verify:onboarding ; npm run verify:local-account.
+   Read next: `docs/agent-codebase-map.md` Zone 2, `onboarding/state.jsx`.
+
+   App - orchestrator (Tweaks panel removed, defaults hardcoded)
    ============================================================ */
 
 const { useState: useStateA, useEffect: useEffectA, useMemo: useMemoA, useCallback: useCallbackA } = React;
@@ -87,6 +99,9 @@ function App() {
     if (!window.confirm("Recommencer le diagnostic ?")) return;
     try { localStorage.removeItem(LS_KEY); }
     catch (error) { reportStorageIssue("remove", error); }
+    if (window.OutilPrepa && typeof window.OutilPrepa.resetLocalAccount === "function") {
+      window.OutilPrepa.resetLocalAccount();
+    }
     setProfile({});
     setMission(null);
     setScreenIdx(0);
@@ -96,8 +111,17 @@ function App() {
   const today = new Date();
   const trialEnd = addDays(today, t.trialDays || 3);
   const onActivate = () => {
+    const nextMission = mission || computeMission(profile);
     setActivated(true);
-    saveState({ profile, screenIdx, mission, trialActivated: trialEnd.toISOString() });
+    saveState({ profile, screenIdx, mission: nextMission, trialActivated: trialEnd.toISOString() });
+    if (window.OutilPrepa && typeof window.OutilPrepa.applyOnboarding === "function") {
+      window.OutilPrepa.applyOnboarding({
+        ...profile,
+        mission: nextMission,
+        source: "onboarding",
+        completedAt: new Date().toISOString(),
+      });
+    }
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
   const onReviewMission = () => {

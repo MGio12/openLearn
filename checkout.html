@@ -1,22 +1,22 @@
 <!doctype html>
 <!--
   ============================================================
-  CHECKOUT V2 — structure de vente optimisée pour deux offres IA
+  CHECKOUT V2 - structure de vente optimisée pour deux offres IA
   ------------------------------------------------------------
   Stratégie page (chaque section a un job conversion précis) :
 
-  1. NAV          — seed de confiance (pill "paiement sécurisé")
-  2. HERO         — promesse (choisis ton niveau d'accompagnement IA)
-  3. OFFERS       — pill Semaine/Trimestre + 2 cards. Essentiel
+  1. NAV          - seed de confiance (pill "paiement sécurisé")
+  2. HERO         - promesse (choisis ton niveau d'accompagnement IA)
+  3. OFFERS       - pill Semaine/Trimestre + 2 cards. Essentiel
                     (site + IA master) vs Excellence IA (IA doctorant + mindset).
-  4. TRUST BAND   — sécurité carte + données protégées
-  5. CANCEL DEMO  — APERÇU INTERACTIF du futur écran "Mon abo"
+  4. TRUST BAND   - sécurité carte + données protégées
+  5. CANCEL DEMO  - APERÇU INTERACTIF du futur écran "Mon abo"
                     avec un bouton "Se désabonner" grisé mais
                     cliquable, qui montre la facilité d'opt-out.
                     C'est LE différenciateur de cette page.
-  6. FEATURES     — 4 outils concrets, pas de promesse vague
-  7. FAQ STRIP    — réponses parents, paiement, suivi et demandes produit
-  8. FOOT         — fermeture légale
+  6. FEATURES     - 4 outils concrets, pas de promesse vague
+  7. FAQ STRIP    - réponses parents, paiement, suivi et demandes produit
+  8. FOOT         - fermeture légale
 
   Bouton sticky mobile : ancre l'offre recommandée.
 
@@ -28,13 +28,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Objectif Lycée — Choisis ton niveau d'accompagnement IA</title>
-  <meta name="description" content="Deux offres pour garder le cockpit lycée : accès au site avec IA niveau master, ou accompagnement IA renforcé qualité doctorant avec conseils mindset. Paiement sécurisé, résiliable simplement.">
+  <title>Objectif Lycée - Accès gratuit — open source</title>
+  <meta name="description" content="ObjectifLycée est gratuit et open source. Cockpit de révision, missions quotidiennes, cours de maths interactifs et IA pédagogique — sans abonnement ni paiement.">
   <meta name="theme-color" content="#F4D35E">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='6' width='52' height='52' rx='12' fill='%23F4D35E' stroke='%23121212' stroke-width='5' transform='rotate(-6 32 32)'/%3E%3Ctext x='32' y='44' font-family='Arial Black, Impact, sans-serif' font-size='34' font-weight='900' text-anchor='middle' fill='%23121212' transform='rotate(-6 32 32)'%3EO%3C/text%3E%3C/svg%3E">
 
-  <meta property="og:title" content="Objectif Lycée — deux niveaux d'accompagnement IA">
-  <meta property="og:description" content="Garde le cockpit lycée avec IA niveau master, ou passe en Excellence IA pour plus d'usage, une qualité doctorant et des conseils mindset.">
+  <meta property="og:title" content="Objectif Lycée - gratuit et open source">
+  <meta property="og:description" content="Cockpit de travail, missions quotidiennes, cours de maths interactifs — gratuit et open source pour tous les lycéens.">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="fr_FR">
 
@@ -49,7 +49,7 @@
 
   <style>
     /* ============================================================
-       CHECKOUT V2 — styles inline, self-contained
+       CHECKOUT V2 - styles inline, self-contained
        Hérite des tokens de colors_and_type.css
        ============================================================ */
 
@@ -71,7 +71,7 @@
     .wrap { max-width: 1180px; margin: 0 auto; padding: 0 clamp(18px, 4vw, 40px); }
 
     /* ============================================================
-       NAV — trust seed
+       NAV - trust seed
        ============================================================ */
     .nav {
       position: sticky; top: 0; z-index: 50;
@@ -122,7 +122,7 @@
     }
 
     /* ============================================================
-       HERO — promesse en haut + offres compactes
+       HERO - promesse en haut + offres compactes
        ============================================================ */
     .hero {
       display: flex;
@@ -154,7 +154,7 @@
       -webkit-box-decoration-break: clone;
     }
     /* ============================================================
-       OFFER CLUSTER — deux offres IA graduées
+       OFFER CLUSTER - deux offres IA graduées
        ============================================================ */
     .offers {
       display: flex; flex-direction: column;
@@ -225,7 +225,7 @@
       align-items: stretch;
     }
 
-    /* Cartes d'offre — pleine largeur, contenu statique */
+    /* Cartes d'offre - pleine largeur, contenu statique */
     .offer-card {
       position: relative;
       padding: 11px 13px 12px;
@@ -563,7 +563,7 @@
     .cta:hover .arrow { transform: translateX(3px); }
 
     /* ============================================================
-       TRUST BAND — carte + données protégées
+       TRUST BAND - carte + données protégées
        ============================================================ */
     .trust-band {
       background: var(--ink); color: var(--paper);
@@ -673,7 +673,7 @@
       line-height: 1.5;
     }
 
-    /* Founder note — signed honesty */
+    /* Founder note - signed honesty */
     .trust-note {
       background: var(--stabilo-wash);
       border: 2.5px solid var(--ink);
@@ -708,7 +708,7 @@
     }
 
     /* ============================================================
-       CANCEL DEMO — la pièce maîtresse
+       CANCEL DEMO - la pièce maîtresse
        Aperçu interactif du futur écran "Mon abonnement"
        ============================================================ */
     .cancel-section {
@@ -865,7 +865,7 @@
     .cp-action:hover .cp-action__arrow {
       color: var(--ink);
     }
-    /* The actual cancel button — grisé mais visible */
+    /* The actual cancel button - grisé mais visible */
     .cp-action--cancel {
       background: #F2EDE3;
       border-color: rgba(18, 18, 18, 0.22);
@@ -955,7 +955,7 @@
     .cancel-section__caption strong { font-weight: 800; }
 
     /* ============================================================
-       FEATURES — progression en 4 étapes
+       FEATURES - progression en 4 étapes
        ============================================================ */
     .features {
       padding: clamp(56px, 6vw, 88px) 0;
@@ -1132,7 +1132,7 @@
     }
 
     /* ============================================================
-       FAQ STRIP — last-mile objections
+       FAQ STRIP - last-mile objections
        ============================================================ */
     .faq {
       padding: clamp(40px, 5vw, 72px) 0;
@@ -1320,7 +1320,7 @@
 <body data-stripe-checkout-url="">
 
   <!-- ============================================================
-       1. NAV — seed de confiance
+       1. NAV - seed de confiance
        ============================================================ -->
   <nav class="nav" aria-label="Navigation principale">
     <a class="brand" href="index.html">
@@ -1331,8 +1331,8 @@
     </a>
     <div class="nav-right">
       <a class="nav-link" href="apropos.html">À propos</a>
-      <a class="nav-link" href="#se-desabonner">Se désabonner</a>
-      <span class="nav-pill"><span class="dot"></span> Paiement sécurisé</span>
+      <a class="nav-link" href="apropos.html">À propos</a>
+      <span class="nav-pill"><span class="dot"></span> Open source · Gratuit</span>
     </div>
   </nav>
 
@@ -1346,12 +1346,12 @@
     <section class="wrap hero" data-screen-label="01 Hero offres">
 
       <div class="hero__copy">
-        <h1>Choisis ton <span class="hl">niveau</span> <span class="hl">d'accompagnement.</span></h1>
+        <h1>Accède <span class="hl">gratuitement.</span> <span class="hl">Open source.</span></h1>
       </div>
 
       <div class="offers">
 
-        <div class="offer-toggle" role="radiogroup" aria-label="Choisis le rythme de facturation">
+        <div class="offer-toggle" role="radiogroup" aria-label="Choisis ton niveau d'accompagnement">
           <button
             type="button"
             class="toggle-opt"
@@ -1359,7 +1359,7 @@
             role="radio"
             aria-checked="false"
           >
-            <span class="toggle-opt__label">Semaine</span>
+            <span class="toggle-opt__label">Essentiel</span>
           </button>
           <span class="toggle-divider" aria-hidden="true"></span>
           <button
@@ -1369,8 +1369,8 @@
             role="radio"
             aria-checked="true"
           >
-            <span class="toggle-opt__label">Trimestre</span>
-            <span class="toggle-opt__badge">jusqu'à -41%</span>
+            <span class="toggle-opt__label">Excellence IA</span>
+            <span class="toggle-opt__badge">open source</span>
           </button>
         </div>
 
@@ -1388,10 +1388,10 @@
               Le cadre complet pour comprendre, t'entraîner et garder le rythme.
             </p>
             <div class="offer-card__price">
-              <span data-plan-price="essential">7,62 €</span><small data-plan-period="essential">/semaine</small>
+              <span data-plan-price="essential">Gratuit</span><small data-plan-period="essential"></small>
             </div>
             <p class="offer-card__billing" data-plan-billing-note="essential">
-              Facturé 99 € / trimestre — soit 7,62 €/semaine pour l'accès site + IA master.
+              Accès libre et open source — aucun paiement requis.
             </p>
             <ul class="offer-card__features">
               <li>Cockpit, missions, cours et progression.</li>
@@ -1406,7 +1406,7 @@
               data-checkout-billing="trimester"
             >
               <span class="cta__label">
-                <span>Choisir Essentiel</span>
+                <span>Accéder gratuitement</span>
               </span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
@@ -1425,10 +1425,10 @@
               Pour pousser le raisonnement, corriger plus finement et tenir dans la durée.
             </p>
             <div class="offer-card__price">
-              <span data-plan-price="ia-plus">15,31 €</span><small data-plan-period="ia-plus">/semaine</small>
+              <span data-plan-price="ia-plus">Gratuit</span><small data-plan-period="ia-plus"></small>
             </div>
             <p class="offer-card__billing" data-plan-billing-note="ia-plus">
-              Ainsi 199 € pour le trimestre entier.
+              Accès libre et open source — aucun paiement requis.
             </p>
             <ul class="offer-card__features">
               <li>Tout Essentiel, avec plus d'usage IA.</li>
@@ -1445,24 +1445,24 @@
               data-checkout-billing="trimester"
             >
               <span class="cta__label">
-                <span>Choisir Excellence IA</span>
+                <span>Accéder gratuitement</span>
               </span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
           </article>
         </div>
 
-        <a class="cancel-proof-link" href="#se-desabonner" aria-label="Voir l'exemple de résiliation en un clic">
+        <a class="cancel-proof-link" href="https://github.com/MGio12/openLearn" aria-label="Voir le code source sur GitHub">
           <span>
-            <span class="cancel-proof-link__label">Facilité de résiliation</span>
-            <span class="cancel-proof-link__copy">Un exemple cliquable est juste en dessous. Tu peux le tester maintenant.</span>
+            <span class="cancel-proof-link__label">Code source ouvert</span>
+            <span class="cancel-proof-link__copy">Le projet est entièrement open source. Tu peux lire le code, le forker ou contribuer.</span>
           </span>
           <span class="cancel-proof-link__callout" aria-hidden="true">
             <span class="cancel-proof-link__click">
-              clique ici !!
+              GitHub
               <span class="cancel-proof-link__arrow">→</span>
             </span>
-            <span class="cancel-proof-link__pill">Résilie en 1 clic</span>
+            <span class="cancel-proof-link__pill">Open source MIT</span>
           </span>
         </a>
 
@@ -1487,7 +1487,7 @@
     </section>
 
     <!-- ============================================================
-         4. TRUST BAND — sécurité + transparence
+         4. TRUST BAND - sécurité + transparence
          Section sombre, contrastée. C'est le socle de confiance
          avant la pièce maîtresse (cancel preview).
          ============================================================ -->
@@ -1496,7 +1496,7 @@
         <div class="trust-band__head">
           <span class="kicker">★ Transparence</span>
           <h2>On te traite comme un élève. Pas comme un client.</h2>
-          <p>Dis-nous ce qui ne te convient pas : on le changera le plus vite possible, sans que tu aies à payer quoi que ce soit.</p>
+          <p>Dis-nous ce qui ne te convient pas : on le changera le plus vite possible. Le code est ouvert — tu peux aussi proposer la correction toi-même.</p>
         </div>
 
         <div class="trust-grid">
@@ -1505,10 +1505,10 @@
             <div class="stripe-row">
               <span class="stripe-badge">
                 <svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
-                Paiement géré par Stripe
+                Code open source — MIT
               </span>
               <span class="stripe-row__copy">
-                Stripe gère la carte et le reçu. Aucune information de carte stockée par Objectif Lycée.
+                Le code est entièrement lisible et auditable. Tu peux le forker, le modifier et l'adapter librement.
               </span>
             </div>
 
@@ -1516,29 +1516,29 @@
               <li>
                 <span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg></span>
                 <div>
-                  <strong>Aucune information de carte stockée.</strong>
-                  <span class="copy">Ton numéro de carte ne touche jamais nos serveurs. On ne le voit pas, on ne peut pas le toucher.</span>
+                  <strong>Aucune donnée vendue ou monétisée.</strong>
+                  <span class="copy">Zéro publicité ciblée. Zéro monétisation de tes données d'apprentissage. Le projet est open source, pas une plateforme publicitaire.</span>
                 </div>
               </li>
               <li>
                 <span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg></span>
                 <div>
                   <strong>Données personnelles protégées.</strong>
-                  <span class="copy">Les données utiles au compte sont protégées et stockées en Europe.</span>
+                  <span class="copy">Les données utiles au compte restent locales ou protégées. Tu peux les lire et les supprimer à tout moment.</span>
                 </div>
               </li>
               <li>
                 <span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg></span>
                 <div>
-                  <strong>Résiliation en 1 clic.</strong>
-                  <span class="copy">Pas de questionnaire "êtes-vous sûr ?", pas de coupon de rétention, pas trois écrans. L'écran exact est juste en dessous.</span>
+                  <strong>Open source et gratuit pour toujours.</strong>
+                  <span class="copy">Le code est sous licence MIT. Pas de verrouillage, pas d'abonnement caché, pas de changement de modèle futur. Tu peux forker et héberger toi-même.</span>
                 </div>
               </li>
               <li>
                 <span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg></span>
                 <div>
-                  <strong>Facture claire, TVA française.</strong>
-                  <span class="copy">Reçu par mail à chaque prélèvement — prêt pour ton dossier ou tes parents.</span>
+                  <strong>Contribution open source bienvenue.</strong>
+                  <span class="copy">Tu peux signaler un bug, proposer une correction de cours ou améliorer l'interface. Les PRs des lycéens sont les bienvenues.</span>
                 </div>
               </li>
             </ul>
@@ -1546,35 +1546,35 @@
 
           <aside class="trust-note">
             <p class="trust-note__label">Mot de l'équipe</p>
-            <h3>La seconde option finance plus de temps pour toi.</h3>
+            <h3>Ce projet est open source parce que l'éducation est un bien commun.</h3>
             <p>
-              Avec Excellence IA, tu peux poser des questions non stop. Cette offre nous permet
-              de dégager plus de temps pour les élèves qui veulent un accompagnement plus proche.
+              ObjectifLycée a été construit par un étudiant passé par une ZEP, avec l'IA comme partenaire de code.
+              Le but depuis le début : que chaque lycéen ait accès au même cadre de travail, quelle que soit sa situation.
             </p>
             <p>
-              Si une explication, une correction ou un conseil ne t'aide pas assez, tu peux le dire.
-              On corrige le plus vite possible, sans frais cachés ni supplément.
+              Si une explication, une correction ou une fonctionnalité manque, tu peux le signaler ou ouvrir une PR.
+              Le code est ouvert. Les améliorations viennent de la communauté.
             </p>
-            <span class="trust-note__sign">— l'équipe Objectif Lycée</span>
+            <span class="trust-note__sign">- l'équipe Objectif Lycée</span>
           </aside>
         </div>
       </div>
     </section>
 
     <!-- ============================================================
-         5. CANCEL DEMO — la pièce maîtresse
+         5. CANCEL DEMO - la pièce maîtresse
          Aperçu interactif du futur écran "Mon abonnement".
          Le bouton "Se désabonner" est grisé mais cliquable.
          Au clic, swap vers un état "Annulation confirmée"
-         avec lien "Annuler la résiliation" — zéro friction.
+         avec lien "Annuler la résiliation" - zéro friction.
          ============================================================ -->
     <section class="cancel-section wrap" id="se-desabonner" data-screen-label="03 Cancel demo">
       <div class="cancel-section__head">
-        <span class="kicker">★ Tu peux essayer maintenant</span>
-        <h2>Voici l'écran exact que tu verras pour partir.</h2>
+        <span class="kicker">★ Accès open source</span>
+        <h2>Ton accès est gratuit, sans condition.</h2>
         <p>
-          On n'a rien à cacher. <strong>Clique sur "Se désabonner"</strong> ci-dessous —
-          tu verras la suite, comme si tu étais déjà abonné. Aucun questionnaire, aucun délai.
+          Voici à quoi ressemble ton espace une fois connecté. <strong>Aucun paiement requis.</strong>
+          Tu peux supprimer ton compte ou réinitialiser tes données à tout moment, en un clic.
         </p>
       </div>
 
@@ -1587,65 +1587,65 @@
           <span class="cancel-preview__url"></span>
         </div>
 
-        <!-- ÉTAT 1 : abonnement actif -->
+        <!-- ÉTAT 1 : accès actif -->
         <div class="cancel-preview__body" data-cp-state="active">
           <div class="cp-status">
               <span class="pulse" aria-hidden="true"></span>
             <div class="cp-status__copy">
-              <span class="cp-status__label">Abonnement actif</span>
-              <span class="cp-status__value">Excellence IA · trimestre recommandé</span>
+              <span class="cp-status__label">Accès open source actif</span>
+              <span class="cp-status__value">Excellence IA · gratuit</span>
             </div>
           </div>
 
           <div class="cp-meta">
             <div class="cp-meta__row">
-              <span class="k">Démarré le</span>
+              <span class="k">Compte créé le</span>
               <span class="v">19 mai 2026</span>
             </div>
             <div class="cp-meta__row">
-              <span class="k">Prochain prélèvement</span>
-              <span class="v">199 € / trimestre</span>
+              <span class="k">Abonnement requis</span>
+              <span class="v">Aucun — open source</span>
             </div>
             <div class="cp-meta__row">
-              <span class="k">Moyen de paiement</span>
-              <span class="v">Visa •••• 4242</span>
+              <span class="k">Licence</span>
+              <span class="v">MIT — gratuit</span>
             </div>
           </div>
 
           <div class="cp-actions">
-            <a href="#" class="cp-action" tabindex="0">
-              <span>Voir mes reçus</span>
+            <a href="parametres.html" class="cp-action" tabindex="0">
+              <span>Paramètres du compte</span>
               <span class="cp-action__arrow">→</span>
             </a>
-            <a href="#" class="cp-action" tabindex="0">
-              <span>Changer d'offre (Essentiel ou Excellence IA)</span>
+            <a href="https://github.com/MGio12/openLearn" class="cp-action" tabindex="0">
+              <span>Contribuer au projet open source</span>
               <span class="cp-action__arrow">→</span>
             </a>
             <button type="button" class="cp-action cp-action--cancel" data-cp-cancel>
-              <span>Se désabonner</span>
+              <span>Réinitialiser mes données</span>
               <span class="cp-action__arrow">→</span>
             </button>
           </div>
         </div>
 
-        <!-- ÉTAT 2 : annulation confirmée -->
+        <!-- ÉTAT 2 : réinitialisation confirmée -->
         <div class="cp-confirmed" data-cp-state="cancelled" hidden>
           <div class="cp-confirmed__icon" aria-hidden="true">✓</div>
-          <h3>Annulation confirmée.</h3>
+          <h3>Données réinitialisées.</h3>
           <p>
-            <strong>Aucun prélèvement à venir.</strong> Tu gardes l'accès au cockpit jusqu'au
-            18 août 2026, puis l'abonnement se termine. Pas de mail de relance.
+            <strong>Ton accès reste actif et gratuit.</strong> Tes préférences locales ont été effacées.
+            Tu peux recommencer l'onboarding à tout moment. Pas de mail de relance.
           </p>
           <div class="cp-confirmed__row">
-            <span class="cp-confirmed__seal"><span class="dot"></span>2 secondes · 1 clic</span>
-            <button type="button" class="cp-undo" data-cp-undo>Annuler la résiliation</button>
+            <span class="cp-confirmed__seal"><span class="dot"></span>Open source · gratuit</span>
+            <button type="button" class="cp-undo" data-cp-undo>Annuler la réinitialisation</button>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ============================================================
-         6. FEATURES — progression en 4 étapes
+         6. FEATURES - progression en 4 étapes
          ============================================================ -->
     <section class="features wrap" data-screen-label="04 Features">
       <div class="section-head">
@@ -1691,12 +1691,12 @@
     </section>
 
     <!-- ============================================================
-         7. FAQ STRIP — last-mile objections + parents
+         7. FAQ STRIP - last-mile objections + parents
          ============================================================ -->
     <section class="faq" data-screen-label="05 FAQ">
       <div class="wrap">
         <div class="section-head" style="margin-bottom: 32px;">
-          <span class="kicker">★ Avant de payer</span>
+          <span class="kicker">★ Questions fréquentes</span>
           <h2>Réponses à vos questions.</h2>
         </div>
 
@@ -1726,10 +1726,10 @@
             </p>
           </details>
           <details class="faq-item faq-item--admin">
-            <summary>Mes parents peuvent payer à ma place ?</summary>
+            <summary>Comment contribuer au projet open source ?</summary>
             <p>
-              Oui. Le paiement accepte toutes les cartes (y compris prépayées). La facture peut être
-              adressée à l'élève ou au parent, tout en gardant un compte élève séparé pour travailler.
+              Le dépôt est sur GitHub. Tu peux signaler un bug, proposer une correction de cours ou améliorer l'interface.
+              Les contributions des lycéens sont particulièrement bienvenues — c'est aussi pour ça que le projet est open source.
             </p>
           </details>
           <details class="faq-item faq-item--wellbeing">
@@ -1765,24 +1765,24 @@
             </p>
           </details>
           <details class="faq-item faq-item--admin">
-            <summary>La TVA est-elle incluse ?</summary>
+            <summary>Est-ce vraiment gratuit — maintenant et dans le futur ?</summary>
             <p>
-              Oui — les prix affichés sont TTC, TVA française incluse. Reçu propre par
-              mail à chaque prélèvement, prêt pour ton dossier ou tes parents.
+              Oui. Le projet est sous licence MIT. Aucun abonnement, aucun changement de modèle prévu.
+              Si tu héberges ta propre version, tu gardes le contrôle total. C'est ça, l'open source.
             </p>
           </details>
           <details class="faq-item faq-item--admin">
-            <summary>Et si je me désabonne au milieu d'un cycle ?</summary>
+            <summary>Puis-je supprimer mon compte ou mes données ?</summary>
             <p>
-              L'accès reste actif <strong>jusqu'à la fin du cycle déjà payé</strong>, puis l'abonnement
-              s'arrête. Aucun nouveau prélèvement, aucun remboursement à demander.
+              Oui — depuis les paramètres, en un clic. Les données sont stockées localement dans ton navigateur.
+              <strong>Aucun serveur ne conserve tes informations personnelles sans ton accord.</strong>
             </p>
           </details>
         </div>
       </div>
     </section>
 
-    <!-- Stripe config (hidden — used by checkout.js to wire payment links) -->
+    <!-- Stripe config (hidden - used by checkout.js to wire payment links) -->
     <div id="configurer-stripe" class="checkout-config-anchor" aria-hidden="true">
       <aside class="setup" id="checkout-setup" hidden>
         <form class="setup-form" data-checkout-config-form>
@@ -1795,14 +1795,14 @@
 
     <div class="wrap">
       <footer class="foot">
-        <span>© Objectif Lycée — pour les lycéens qui veulent travailler juste.</span>
+        <span>© Objectif Lycée - pour les lycéens qui veulent travailler juste.</span>
         <span><a href="index.html">Accueil</a> · <a href="mailto:hello@objectiflycee.fr">Contact</a> · <a href="#">Mentions légales</a></span>
       </footer>
     </div>
   </main>
 
   <!-- ============================================================
-       STICKY MOBILE CTA — toujours visible, ancre l'offre recommandée
+       STICKY MOBILE CTA - toujours visible, ancre l'offre recommandée
        ============================================================ -->
   <a
     href="#configurer-stripe"
@@ -1813,17 +1813,17 @@
     aria-label="Choisir Excellence IA"
   >
     <span class="sticky-cta__price">
-      <span class="big" data-sticky-price>15,31 €</span>
-      <span class="per" data-sticky-period>/semaine</span>
+      <span class="big" data-sticky-price>Gratuit</span>
+      <span class="per" data-sticky-period></span>
     </span>
     <span class="sticky-cta__btn">
-      <span>Choisir Excellence IA</span>
+      <span>Accéder gratuitement</span>
       <span aria-hidden="true">→</span>
     </span>
   </a>
 
   <!-- ============================================================
-       JS — cancel demo
+       JS - cancel demo
        (Vanilla, no deps. Payment wiring loaded below.)
        ============================================================ -->
   <script>
@@ -1834,31 +1834,31 @@
       const PRICING = {
         weekly: {
           essential: {
-            price: '12,99 €',
-            period: '/semaine',
-            billing: 'Facturé chaque semaine — sans trimestre complet.',
+            price: ‘Gratuit’,
+            period: ‘’,
+            billing: ‘Accès libre et open source — aucun paiement requis.’,
           },
-          'ia-plus': {
-            price: '24,99 €',
-            period: '/semaine',
-            billing: 'Facturé chaque semaine — plus d’IA, sans engagement long.',
+          ‘ia-plus’: {
+            price: ‘Gratuit’,
+            period: ‘’,
+            billing: ‘Accès libre et open source — aucun paiement requis.’,
           },
-          stickyPrice: '24,99 €',
-          stickyPeriod: '/semaine',
+          stickyPrice: ‘Gratuit’,
+          stickyPeriod: ‘’,
         },
         trimester: {
           essential: {
-            price: '7,62 €',
-            period: '/semaine',
-            billing: 'Facturé 99 € / trimestre — soit 7,62 €/semaine pour l’accès site + IA master.',
+            price: ‘Gratuit’,
+            period: ‘’,
+            billing: ‘Accès libre et open source — aucun paiement requis.’,
           },
-          'ia-plus': {
-            price: '15,31 €',
-            period: '/semaine',
-            billing: 'Ainsi 199 € pour le trimestre entier.',
+          ‘ia-plus’: {
+            price: ‘Gratuit’,
+            period: ‘’,
+            billing: ‘Accès libre et open source — aucun paiement requis.’,
           },
-          stickyPrice: '15,31 €',
-          stickyPeriod: '/semaine',
+          stickyPrice: ‘Gratuit’,
+          stickyPeriod: ‘’,
         },
       };
 

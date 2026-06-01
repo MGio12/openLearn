@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
   ============================================================
-  Objectif Lycée — Cockpit
+  Objectif Lycée - Cockpit
   Drop-in replacement: paths use root-level CSS/JS.
   Navigation links point to final .html pages.
   ============================================================
@@ -11,7 +11,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Objectif Lycée — Cockpit</title>
+  <title>Objectif Lycée - Cockpit</title>
   <link rel="icon" type="image/webp" href="assets/brand/trophy-logo-home.webp">
   <link rel="stylesheet" href="colors_and_type.css">
   <link rel="stylesheet" href="styles.css">
@@ -60,10 +60,10 @@
     </div>
 
     <div class="sb-group">
-      <div class="head">Offre</div>
-      <a href="abonnement.html" class="sb-item">
-        <span class="ic"><i class="ph-bold ph-credit-card" aria-hidden="true"></i></span>
-        Abonnement
+      <div class="head">Compte</div>
+      <a href="openSource.html" class="sb-item">
+        <span class="ic"><i class="ph-bold ph-code" aria-hidden="true"></i></span>
+        Open source
       </a>
       <a href="parametres.html" class="sb-item">
         <span class="ic"><i class="ph-bold ph-gear" aria-hidden="true"></i></span>
@@ -72,11 +72,15 @@
     </div>
 
     <div class="sb-bottom">
+      <div class="sidebar-os-badge" aria-label="Projet open source sous licence MIT">
+        <i class="ph-bold ph-code" aria-hidden="true"></i>
+        Open source · MIT
+      </div>
       <a class="sb-about" href="apropos.html" aria-label="À propos d'Objectif Lycée">
         <span class="sb-about__icon" aria-hidden="true"><i class="ph-bold ph-info"></i></span>
         <span class="sb-about__label">À propos</span>
       </a>
-      <div class="sb-profile"><div class="av">OP</div><div class="who"><span class="nm">Profil démo</span><span class="role">Lycée</span></div></div>
+      <div class="sb-profile"><div class="av" data-user-initials>OP</div><div class="who"><span class="nm" data-user-full-name>Profil démo</span><span class="role" data-user-role>Lycée</span></div></div>
     </div>
   </aside>
 
@@ -91,6 +95,15 @@
         </div>
       </div>
 
+      <aside class="local-account-prompt" data-local-account-prompt hidden>
+        <div>
+          <strong>Compte local non créé</strong>
+          <span>Crée ton profil local pour retrouver la même mission, le même objectif et la même progression sur ces pages.</span>
+        </div>
+        <div class="local-account-prompt__actions">
+          <a href="onboarding.html">Créer ou reprendre</a>
+        </div>
+      </aside>
 
       <!-- DOMINANT HERO -->
       <div class="ap-mission" data-daily-mission-container data-testid="daily-mission">
@@ -196,6 +209,13 @@
             </div>
             <div class="ap-why-card__body">École d'ingé post-bac · ~18 mois</div>
           </article>
+          <article class="ap-why-card ap-why-card--bl" data-why-card="bl">
+            <div class="ap-why-card__head">
+              <i class="ph-bold ph-code" aria-hidden="true"></i>
+              <span>Open source</span>
+            </div>
+            <div class="ap-why-card__body">Ce projet est open source MIT. Le code derrière cet assistant est lisible, forkable, et fait partie de ta formation.</div>
+          </article>
         </div>
       </div>
 
@@ -217,7 +237,7 @@
           </li>
           <li class="ap-timeline__node ap-timeline__node--urgent" data-when="exam">
             <span class="ap-timeline__date" data-daily-mission-deadline>Contrôle vendredi</span>
-            <span class="ap-timeline__label">Contrôle · <span data-daily-mission-subject-topic>maths — suites</span></span>
+            <span class="ap-timeline__label">Contrôle · <span data-daily-mission-subject-topic>maths - suites</span></span>
           </li>
           <li class="ap-timeline__node ap-timeline__node--horizon" data-when="long-term">
             <span class="ap-timeline__date">Mars 2027 · ~18 mois</span>
@@ -225,6 +245,31 @@
             <a href="objectif.html" class="ap-timeline__link">Voir mon objectif →</a>
           </li>
         </ol>
+      </section>
+
+      <!-- Open Source strip -->
+      <section class="ap-os-strip" aria-label="Ce projet est open source">
+        <div class="ap-os-cell">
+          <span class="ap-os-cell__label"><i class="ph-bold ph-code" aria-hidden="true"></i> Open source</span>
+          <strong class="ap-os-cell__title">Tu étudies sur du code open source.</strong>
+          <p class="ap-os-cell__body">Le code de cette app est public, lisible par tout le monde, et disponible sous licence MIT.</p>
+          <a href="openSource.html" class="ap-os-cell__link">
+            En savoir plus <i class="ph-bold ph-arrow-right" aria-hidden="true"></i>
+          </a>
+        </div>
+        <div class="ap-os-cell">
+          <span class="ap-os-cell__label"><i class="ph-bold ph-robot" aria-hidden="true"></i> IA</span>
+          <strong class="ap-os-cell__title">Construit avec l'IA comme partenaire de code.</strong>
+          <p class="ap-os-cell__body">Claude Code comme co-pilote. Savoir utiliser l'IA est une compétence aussi importante que savoir coder.</p>
+        </div>
+        <div class="ap-os-cell">
+          <span class="ap-os-cell__label"><i class="ph-bold ph-git-fork" aria-hidden="true"></i> Contribuer</span>
+          <strong class="ap-os-cell__title">Fork-le. Améliore-le. C'est le tien.</strong>
+          <p class="ap-os-cell__body">La prochaine génération de contributeurs open source est au lycée maintenant.</p>
+          <a href="https://github.com/MGio12/openLearn" class="ap-os-cell__link" target="_blank" rel="noopener">
+            GitHub <i class="ph-bold ph-arrow-square-out" aria-hidden="true"></i>
+          </a>
+        </div>
       </section>
 
     </section>

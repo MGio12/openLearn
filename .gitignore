@@ -1,6 +1,8 @@
 ﻿screenshots/
 /output/
 node_modules/
+.astro/
+dist-courses/
 .superpowers/
 
 # ── GSD baseline (auto-generated) ──

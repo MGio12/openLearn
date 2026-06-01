@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TD Produit scalaire - Maths spécialité Première</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="../cours.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="../cours.js"></script>
+</head>
+<body class="has-course-sidebar">
+
+  <div class="progress-bar" aria-hidden="true">
+    <div class="progress-bar__fill" data-progress-fill></div>
+  </div>
+
+  <div class="section-bar" data-section-bar aria-hidden="true">
+    <span class="section-bar__chip" data-section-bar-chip>00</span>
+    <span class="section-bar__title" data-section-bar-title>TD Produit scalaire</span>
+    <span class="section-bar__total" data-section-bar-total>1/9</span>
+  </div>
+
+  <aside class="toc course-sidebar" aria-label="Plan du TD" data-course-sidebar>
+    <div class="sidebar-head">
+      <div>
+        <p class="toc-title">Plan</p>
+        <p class="sidebar-subtitle">TD Produit scalaire</p>
+      </div>
+      <button class="sidebar-toggle" type="button" aria-label="Replier le plan" aria-expanded="true" data-sidebar-toggle><span aria-hidden="true">‹</span></button>
+    </div>
+
+    <nav class="toc-links" aria-label="Sections du TD">
+      <a href="#objectifs" data-section-link><span class="toc-index">00</span><span class="toc-label">Objectifs</span></a>
+      <a href="#automatismes" data-section-link><span class="toc-index">A</span><span class="toc-label">Automatismes</span></a>
+      <a href="#methodes-guidees" data-section-link><span class="toc-index">G</span><span class="toc-label">Guidé</span></a>
+      <a href="#pieges" data-section-link><span class="toc-index">P</span><span class="toc-label">Pièges</span></a>
+      <a href="#choix" data-section-link><span class="toc-index">M</span><span class="toc-label">Choisir</span></a>
+      <a href="#controle" data-section-link><span class="toc-index">C</span><span class="toc-label">Contrôle</span></a>
+      <a href="#vingt-sur-vingt" data-section-link><span class="toc-index">20</span><span class="toc-label">20/20</span></a>
+      <a href="#revision" data-section-link><span class="toc-index">R</span><span class="toc-label">Révision</span></a>
+      <a href="#sources" data-section-link><span class="toc-index">S</span><span class="toc-label">Sources</span></a>
+    </nav>
+
+    <p class="sidebar-foot">Maths spé · TD</p>
+  </aside>
+
+  <header class="course-hero">
+    <nav class="topline" aria-label="Fil d'Ariane">
+      <a href="../../../..">Objectif Lycée</a>
+      <span>Maths spécialité</span>
+      <a href="index.html">Cours</a>
+      <span>TD corrigé</span>
+    </nav>
+
+    <div class="hero-grid">
+      <div>
+        <p class="hero-eyebrow"><span class="num">03</span> TD séparé</p>
+        <h1>Produit scalaire</h1>
+        <p class="hero-lead">40 exercices pour choisir la bonne expression du produit scalaire, prouver une orthogonalité et rédiger en coordonnées.</p>
+      </div>
+
+      <aside class="hero-side" aria-label="Organisation du TD">
+        <p class="hero-side__label">Objectif</p>
+        <h2>40 exercices, corrigés masqués</h2>
+        <div class="hero-side__steps">
+          <div class="hero-side__step"><span class="verb">Formule</span><span class="obj">à produire avant correction</span></div>
+          <div class="hero-side__step"><span class="verb">Angle</span><span class="obj">à produire avant correction</span></div>
+          <div class="hero-side__step"><span class="verb">Coordonnées</span><span class="obj">à produire avant correction</span></div>
+          <div class="hero-side__step"><span class="verb">Preuve</span><span class="obj">à produire avant correction</span></div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main class="course-layout" data-course-layout>
+    <article class="lesson course-lesson">
+
+      <section class="course-overview" aria-label="Repères du TD">
+        <div>
+          <p class="course-overview__title">TD d’entraînement</p>
+          <h3>Une page séparée pour travailler sans relire tout le cours</h3>
+          <p class="course-overview__lead">Chaque exercice indique la compétence entraînée, puis cache une réponse ou une correction. Les corrections détaillées montrent aussi la rédaction attendue et les erreurs qui coûtent des points.</p>
+        </div>
+        <div class="overview-flow">
+          <span>Automatismes</span>
+          <em>→</em>
+          <span>Méthodes</span>
+          <em>→</em>
+          <span>Contrôle</span>
+          <em>→</em>
+          <span>20/20</span>
+        </div>
+      </section>
+
+      <section id="objectifs" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">00</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Avant de commencer</p>
+            <h2>Ce TD reprend les points qui tombent vraiment</h2>
+          </div>
+        </div>
+        <p>Travaille dans l’ordre. Si un automatisme bloque, ouvre le corrigé, refais l’exercice sans regarder, puis seulement passe à la suite.</p>
+        <div class="diagnostic-grid">
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">1</span>Compétence</p>
+            <p>définitions par projection, norme et angle</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">2</span>Compétence</p>
+            <p>bilinéarité et identités remarquables</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">3</span>Compétence</p>
+            <p>orthogonalité</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">4</span>Compétence</p>
+            <p>expression analytique en repère orthonormé</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">5</span>Compétence</p>
+            <p>applications aux droites, cercles et longueurs</p>
+          </div>
+        </div>
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Pièges surveillés</p>
+          <p>oublier que le produit scalaire est un nombre ; utiliser une formule avec angle sans connaître les normes ; confondre vecteur directeur et vecteur normal ; développer \(\|\vec u+\vec v\|^2\) sans le terme \(2\vec u\cdot\vec v\).</p>
+        </div>
+      </section>
+
+      <section id="automatismes" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">A</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Automatismes</h2>
+          </div>
+        </div>
+        <p>10 exercices courts pour sécuriser les gestes de base.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 1 · Coordonnées 1</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : calculer analytiquement.</p>
+            <p>Calculer \((2;-3)\cdot(5;4)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-01">Voir le corrigé</button>
+            <div id="td-produit-scalaire-01" class="answer" hidden>
+              <p>\(2\times5+(-3)\times4=10-12=-2\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 2 · Norme</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : calculer \(\vec u\cdot\vec u\).</p>
+            <p>Si \(\vec u=(3;4)\), calculer \(\vec u\cdot\vec u\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-02">Voir le corrigé</button>
+            <div id="td-produit-scalaire-02" class="answer" hidden>
+              <p>\(\vec u\cdot\vec u=3^2+4^2=25\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 3 · Angle droit</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : repérer orthogonalité.</p>
+            <p>Si \(\vec u\cdot\vec v=0\) et \(\vec u,\vec v\) sont non nuls, que peut-on conclure ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-03">Voir le corrigé</button>
+            <div id="td-produit-scalaire-03" class="answer" hidden>
+              <p>Les vecteurs sont orthogonaux.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 4 · Formule avec angle</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : utiliser \(\|\vec u\|\,\|\vec v\|\cos\theta\).</p>
+            <p>Si \(\|\vec u\|=6\), \(\|\vec v\|=2\) et \(\theta=60^\circ\), calculer \(\vec u\cdot\vec v\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-04">Voir le corrigé</button>
+            <div id="td-produit-scalaire-04" class="answer" hidden>
+              <p>\(6\times2\times\frac12=6\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 5 · Produit négatif</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : interpréter un angle obtus.</p>
+            <p>Si \(\vec u\cdot\vec v<0\), l’angle entre les vecteurs est-il aigu ou obtus ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-05">Voir le corrigé</button>
+            <div id="td-produit-scalaire-05" class="answer" hidden>
+              <p>Il est obtus.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 6 · Développement 1</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : développer un carré vectoriel.</p>
+            <p>Développer \((\vec u+\vec v)^2\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-06">Voir le corrigé</button>
+            <div id="td-produit-scalaire-06" class="answer" hidden>
+              <p>\(\|\vec u+\vec v\|^2=\|\vec u\|^2+2\vec u\cdot\vec v+\|\vec v\|^2\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 7 · Développement 2</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : développer une différence.</p>
+            <p>Développer \((\vec u-\vec v)^2\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-07">Voir le corrigé</button>
+            <div id="td-produit-scalaire-07" class="answer" hidden>
+              <p>\(\|\vec u-\vec v\|^2=\|\vec u\|^2-2\vec u\cdot\vec v+\|\vec v\|^2\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 8 · Points</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : former des vecteurs.</p>
+            <p>Pour \(A(1;2)\), \(B(4;6)\), donner \(\overrightarrow{AB}\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-08">Voir le corrigé</button>
+            <div id="td-produit-scalaire-08" class="answer" hidden>
+              <p>\(\overrightarrow{AB}=(3;4)\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 9 · Produit de deux vecteurs points</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : coordonnées puis produit.</p>
+            <p>Avec \(A(0;1)\), \(B(2;5)\), \(C(3;0)\), calculer \(\overrightarrow{AB}\cdot\overrightarrow{AC}\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-09">Voir le corrigé</button>
+            <div id="td-produit-scalaire-09" class="answer" hidden>
+              <p>\(\overrightarrow{AB}=(2;4)\), \(\overrightarrow{AC}=(3;-1)\), donc \(2\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 10 · Vecteur normal</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : lier droite et produit scalaire.</p>
+            <p>Pour la droite \(3x-2y+5=0\), donner un vecteur normal.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-10">Voir le corrigé</button>
+            <div id="td-produit-scalaire-10" class="answer" hidden>
+              <p>Un vecteur normal est \((3;-2)\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="methodes-guidees" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">G</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Méthodes guidées</h2>
+          </div>
+        </div>
+        <p>8 exercices où l’aide disparaît progressivement.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 11 · Angle avec coordonnées</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : calculer un cosinus.</p>
+            <p>Soit \(\vec u=(1;2)\) et \(\vec v=(4;-2)\). Calculer \(\vec u\cdot\vec v\), puis dire si les vecteurs sont orthogonaux.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-11">Voir le corrigé</button>
+            <div id="td-produit-scalaire-11" class="answer" hidden>
+              <p>\(\vec u\cdot\vec v=1\times4+2\times(-2)=0\). Ils sont orthogonaux.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 12 · Longueur inconnue</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : utiliser Al-Kashi.</p>
+            <p>Dans un triangle, \(AB=5\), \(AC=7\), \(\widehat{BAC}=60^\circ\). Calculer \(\overrightarrow{AB}\cdot\overrightarrow{AC}\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-12">Voir le corrigé</button>
+            <div id="td-produit-scalaire-12" class="answer" hidden>
+              <p>\(5\times7\times\frac12=\frac{35}{2}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 13 · Développer un carré</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : utiliser bilinéarité.</p>
+            <p>On sait \(\|\vec u\|=3\), \(\|\vec v\|=4\), \(\vec u\cdot\vec v=5\). Calculer \(\|\vec u+\vec v\|^2\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-13">Voir le corrigé</button>
+            <div id="td-produit-scalaire-13" class="answer" hidden>
+              <p>\(9+2\times5+16=35\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 14 · Projection</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : choisir la formule par projection.</p>
+            <p>Si \(H\) est le projeté de \(C\) sur \((AB)\), avec \(AB=8\) et \(AH=3\), calculer \(\overrightarrow{AB}\cdot\overrightarrow{AC}\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-14">Voir le corrigé</button>
+            <div id="td-produit-scalaire-14" class="answer" hidden>
+              <p>\(\overrightarrow{AB}\cdot\overrightarrow{AC}=AB\times AH=24\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 15 · Prouver un angle droit</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : produit scalaire nul.</p>
+            <p>Avec \(A(1;1)\), \(B(5;3)\), \(C(3;7)\), prouver que \(\widehat{ABC}\) est droit.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-15">Voir le corrigé</button>
+            <div id="td-produit-scalaire-15" class="answer" hidden>
+              <p>\(\overrightarrow{BA}=(-4;-2)\), \(\overrightarrow{BC}=(-2;4)\), produit \(8-8=0\). Donc l’angle est droit en \(B\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 16 · Cercle de diamètre</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : utiliser orthogonalité.</p>
+            <p>Un point \(M\) vérifie \(\overrightarrow{MA}\cdot\overrightarrow{MB}=0\). Que peut-on dire de \(M\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-16">Voir le corrigé</button>
+            <div id="td-produit-scalaire-16" class="answer" hidden>
+              <p>Le point \(M\) appartient au cercle de diamètre \([AB]\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 17 · Droite normale</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : trouver une équation.</p>
+            <p>Donner une équation de la droite passant par \(A(2;-1)\) et de vecteur normal \((3;4)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-17">Voir le corrigé</button>
+            <div id="td-produit-scalaire-17" class="answer" hidden>
+              <p>\(3(x-2)+4(y+1)=0\), donc \(3x+4y-2=0\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 18 · Rédaction notée</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : justifier une orthogonalité.</p>
+            <p>Rédiger une preuve que les droites \((AB)\) et \((AC)\) sont perpendiculaires pour \(A(0;0)\), \(B(2;3)\), \(C(6;-4)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-18">Voir le corrigé</button>
+            <div id="td-produit-scalaire-18" class="answer" hidden>
+              <p>On calcule \(\overrightarrow{AB}=(2;3)\) et \(\overrightarrow{AC}=(6;-4)\).</p><p>\(\overrightarrow{AB}\cdot\overrightarrow{AC}=2\times6+3\times(-4)=12-12=0\).</p><p>Les deux vecteurs directeurs sont non nuls et orthogonaux. Donc les droites \((AB)\) et \((AC)\) sont perpendiculaires.</p><p>Erreur qui coûte des points : conclure « les points sont orthogonaux » au lieu de parler des vecteurs ou des droites.</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="pieges" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">P</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Pièges classiques</h2>
+          </div>
+        </div>
+        <p>6 exercices pour repérer les erreurs qui coûtent des points.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 19 · Nombre ou vecteur</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : identifier la nature.</p>
+            <p>Dire si \(\vec u\cdot\vec v\) est un vecteur ou un nombre.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-19">Voir le corrigé</button>
+            <div id="td-produit-scalaire-19" class="answer" hidden>
+              <p>C’est un nombre réel.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 20 · Carré vectoriel incomplet</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : ne pas oublier le facteur 2.</p>
+            <p>Corriger : \(\|\vec u+\vec v\|^2=\|\vec u\|^2+\|\vec v\|^2\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-20">Voir le corrigé</button>
+            <div id="td-produit-scalaire-20" class="answer" hidden>
+              <p>Il manque \(2\vec u\cdot\vec v\), sauf si les vecteurs sont orthogonaux.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 21 · Signe du cosinus</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : interpréter un angle.</p>
+            <p>Si l’angle vaut \(120^\circ\), le produit scalaire est-il positif ou négatif ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-21">Voir le corrigé</button>
+            <div id="td-produit-scalaire-21" class="answer" hidden>
+              <p>Négatif, car \(\cos(120^\circ)<0\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 22 · Vecteur opposé</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : gérer le signe.</p>
+            <p>Si \(\overrightarrow{BA}=-\overrightarrow{AB}\), que vaut \(\overrightarrow{BA}\cdot\overrightarrow{AC}\) par rapport à \(\overrightarrow{AB}\cdot\overrightarrow{AC}\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-22">Voir le corrigé</button>
+            <div id="td-produit-scalaire-22" class="answer" hidden>
+              <p>Il vaut l’opposé.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 23 · Coordonnées</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : ne pas mélanger les points.</p>
+            <p>Pour \(A(2;5)\), \(B(-1;7)\), corriger l’erreur \(\overrightarrow{AB}=(3;-2)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-23">Voir le corrigé</button>
+            <div id="td-produit-scalaire-23" class="answer" hidden>
+              <p>\(\overrightarrow{AB}=B-A=(-3;2)\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 24 · Droite</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : normal ou directeur.</p>
+            <p>Pour \(2x+5y-1=0\), le vecteur \((2;5)\) est-il directeur ou normal ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-24">Voir le corrigé</button>
+            <div id="td-produit-scalaire-24" class="answer" hidden>
+              <p>Il est normal. Un directeur possible est \((5;-2)\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="choix" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">M</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Choisir la méthode</h2>
+          </div>
+        </div>
+        <p>5 exercices où il faut décider avant de calculer.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 25 · Choix 1</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : formule analytique.</p>
+            <p>Si les vecteurs sont donnés par leurs coordonnées, quelle expression du produit scalaire choisir ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-25">Voir le corrigé</button>
+            <div id="td-produit-scalaire-25" class="answer" hidden>
+              <p>La formule analytique \(xx'+yy'\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 26 · Choix 2</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : formule avec angle.</p>
+            <p>Si les longueurs et l’angle sont connus, quelle formule choisir ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-26">Voir le corrigé</button>
+            <div id="td-produit-scalaire-26" class="answer" hidden>
+              <p>\(\vec u\cdot\vec v=\|\vec u\|\,\|\vec v\|\cos\theta\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 27 · Choix 3</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : preuve d’orthogonalité.</p>
+            <p>Pour prouver que deux droites sont perpendiculaires avec des coordonnées, quel test utiliser ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-27">Voir le corrigé</button>
+            <div id="td-produit-scalaire-27" class="answer" hidden>
+              <p>Calculer le produit scalaire de deux vecteurs directeurs et montrer qu’il vaut \(0\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 28 · Choix 4</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : droite cartésienne.</p>
+            <p>Pour écrire une droite avec un vecteur normal \(\vec n=(a;b)\), quelle forme utiliser ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-28">Voir le corrigé</button>
+            <div id="td-produit-scalaire-28" class="answer" hidden>
+              <p>\(a(x-x_A)+b(y-y_A)=0\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 29 · Choix 5</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : cercle de diamètre.</p>
+            <p>Quand l’énoncé contient \(\overrightarrow{MA}\cdot\overrightarrow{MB}=0\), quelle image géométrique reconnaître ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-29">Voir le corrigé</button>
+            <div id="td-produit-scalaire-29" class="answer" hidden>
+              <p>Le cercle de diamètre \([AB]\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="controle" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">C</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Niveau contrôle</h2>
+          </div>
+        </div>
+        <p>6 exercices à faire sans aide visible.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 30 · Contrôle 1</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : produit analytique.</p>
+            <p>Calculer \((4;-1)\cdot(-2;8)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-30">Voir le corrigé</button>
+            <div id="td-produit-scalaire-30" class="answer" hidden>
+              <p>\(-8-8=-16\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 31 · Contrôle 2</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : angle.</p>
+            <p>Si \(\|\vec u\|=10\), \(\|\vec v\|=3\) et \(\vec u\cdot\vec v=15\), calculer \(\cos\theta\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-31">Voir le corrigé</button>
+            <div id="td-produit-scalaire-31" class="answer" hidden>
+              <p>\(\cos\theta=\frac{15}{30}=\frac12\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 32 · Contrôle 3</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : orthogonalité.</p>
+            <p>Les vecteurs \((6;9)\) et \((3;-2)\) sont-ils orthogonaux ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-32">Voir le corrigé</button>
+            <div id="td-produit-scalaire-32" class="answer" hidden>
+              <p>Oui, \(6\times3+9\times(-2)=18-18=0\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 33 · Contrôle 4</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : norme.</p>
+            <p>Calculer \(\|(1;2)+(3;-6)\|^2\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-33">Voir le corrigé</button>
+            <div id="td-produit-scalaire-33" class="answer" hidden>
+              <p>La somme vaut \((4;-4)\), donc la norme au carré vaut \(32\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 34 · Contrôle 5</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : équation de droite.</p>
+            <p>Écrire une équation de la droite passant par \(A(-1;2)\) et de vecteur normal \((5;-3)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-34">Voir le corrigé</button>
+            <div id="td-produit-scalaire-34" class="answer" hidden>
+              <p>\(5(x+1)-3(y-2)=0\), soit \(5x-3y+11=0\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 35 · Contrôle 6</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : triangle rectangle.</p>
+            <p>Avec \(A(1;0)\), \(B(4;2)\), \(C(3;5)\), le triangle \(ABC\) est-il rectangle en \(B\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-35">Voir le corrigé</button>
+            <div id="td-produit-scalaire-35" class="answer" hidden>
+              <p>\(\overrightarrow{BA}=(-3;-2)\), \(\overrightarrow{BC}=(-1;3)\), produit \(3-6=-3\). Non.</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="vingt-sur-vingt" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">20</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Cap 20/20</h2>
+          </div>
+        </div>
+        <p>3 exercices plus longs, seulement après les blocs précédents.</p>
+        <div class="c-gate">
+          <p class="c-gate__label">Porte d’entrée</p>
+          <p class="c-gate__title">Avant ce bloc</p>
+          <p>Réussis au moins deux exercices de niveau contrôle sans regarder le corrigé. Le cap 20/20 n’est pas un raccourci : il combine les réflexes précédents.</p>
+        </div>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 36 · 20/20 1</h3>
+              <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : médiane.</p>
+            <p>On sait \(\|\vec u+\vec v\|^2=50\), \(\|\vec u\|=5\), \(\|\vec v\|=3\). Calculer \(\vec u\cdot\vec v\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-36">Voir le corrigé</button>
+            <div id="td-produit-scalaire-36" class="answer" hidden>
+              <p>\(50=25+2\vec u\cdot\vec v+9\), donc \(2\vec u\cdot\vec v=16\), soit \(8\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 37 · 20/20 2</h3>
+              <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : paramètre orthogonal.</p>
+            <p>Déterminer \(m\) pour que \((m;2)\) et \((3;m-1)\) soient orthogonaux.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-37">Voir le corrigé</button>
+            <div id="td-produit-scalaire-37" class="answer" hidden>
+              <p>\(3m+2(m-1)=0\), donc \(5m-2=0\) et \(m=\frac25\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 38 · 20/20 3</h3>
+              <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : lieu géométrique.</p>
+            <p>Traduire \(\overrightarrow{MA}\cdot\overrightarrow{MB}=0\) avec \(A(-2;0)\), \(B(4;0)\), puis donner le centre du lieu.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-38">Voir le corrigé</button>
+            <div id="td-produit-scalaire-38" class="answer" hidden>
+              <p>Le lieu est le cercle de diamètre \([AB]\). Son centre est \((1;0)\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="revision" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">R</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Révision mélangée</h2>
+          </div>
+        </div>
+        <p>2 exercices qui mélangent ce chapitre avec un autre réflexe.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 39 · Révision trigo</h3>
+              <span class="difficulty" aria-label="Niveau Révision">Révision</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : angle et cosinus.</p>
+            <p>Si \(\vec u\cdot\vec v=-\frac12\|\vec u\|\|\vec v\|\), donner une mesure possible de l’angle.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-39">Voir le corrigé</button>
+            <div id="td-produit-scalaire-39" class="answer" hidden>
+              <p>Une mesure possible est \(\frac{2\pi}{3}\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 40 · Révision géométrie repérée</h3>
+              <span class="difficulty" aria-label="Niveau Révision">Révision</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : vecteur normal.</p>
+            <p>Donner un vecteur directeur de la droite \(4x-y+7=0\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-produit-scalaire-40">Voir le corrigé</button>
+            <div id="td-produit-scalaire-40" class="answer" hidden>
+              <p>Un vecteur directeur est \((1;4)\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="sources" class="chapter-section recap-section">
+        <div class="section-marker">
+          <div class="section-marker__num">S</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Traçabilité</p>
+            <h2>Sources d’inspiration et adaptation</h2>
+          </div>
+        </div>
+        <p>Les exercices sont des variantes reformulées et recalculées à partir des sources validées. Les corrigés sont écrits pour le web : aide masquée, choix de méthode, rédaction et erreurs fréquentes.</p>
+        <div class="revision-grid">
+          <div class="revision-card"><p class="box-title">Source</p><p>Maths91, cours et exercices Produit scalaire</p></div>
+          <div class="revision-card"><p class="box-title">Source</p><p>Meilleurenmaths, fiche Produit scalaire</p></div>
+          <div class="revision-card"><p class="box-title">Source</p><p>MathsGuyon, cours Produit scalaire</p></div>
+        </div>
+      </section>
+    </article>
+  </main>
+</body>
+</html>

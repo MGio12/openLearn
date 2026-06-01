@@ -1,5 +1,5 @@
 /* ============================================================
-   Onboarding V2 — Carnet premium
+   Onboarding V2 - Carnet premium
    ============================================================ */
 
 * { box-sizing: border-box; }
@@ -20,7 +20,7 @@ body {
 button { font-family: inherit; }
 
 /* ============================================================
-   LAYOUT — desktop : profil gauche / question droite
+   LAYOUT - desktop : profil gauche / question droite
    ============================================================ */
 .ob-shell {
   display: grid;
@@ -54,7 +54,7 @@ button { font-family: inherit; }
 }
 
 /* ============================================================
-   TOP STRIP — brand + back + soft progress
+   TOP STRIP - brand + back + soft progress
    ============================================================ */
 .ob-top {
   display: flex;
@@ -209,7 +209,7 @@ button { font-family: inherit; }
 }
 
 /* ============================================================
-   CHOICES — carnet lines
+   CHOICES - carnet lines
    ============================================================ */
 .ob-choices {
   display: grid;
@@ -342,7 +342,7 @@ button { font-family: inherit; }
 .ob-arrow { font-family: var(--font-display); font-size: 18px; transform: translateY(-1px); }
 
 /* ============================================================
-   INPUTS — text fields (nom, autre, etc.)
+   INPUTS - text fields (nom, autre, etc.)
    ============================================================ */
 .ob-field {
   display: flex; flex-direction: column; gap: 6px;
@@ -369,7 +369,7 @@ button { font-family: inherit; }
 .ob-input:focus { outline: 3px solid var(--stabilo); outline-offset: 2px; }
 
 /* ============================================================
-   PROFILE PANEL — the IKEA-effect surface
+   PROFILE PANEL - the IKEA-effect surface
    ============================================================ */
 .ob-profile {
   background: var(--bg-panel);
@@ -380,7 +380,7 @@ button { font-family: inherit; }
   position: relative;
 }
 .ob-profile::before {
-  /* corner clip — looks like a folded card */
+  /* corner clip - looks like a folded card */
   content: "";
   position: absolute;
   top: -1px; right: 22px;
@@ -700,7 +700,7 @@ button { font-family: inherit; }
   font-size: 14.5px; line-height: 1.45; color: var(--ink);
 }
 
-/* Zeigarnik lock — mission "prête" but locked */
+/* Zeigarnik lock - mission "prête" but locked */
 .ob-mission-lock {
   display: flex; align-items: center; gap: 14px;
   padding: 14px 18px;
@@ -724,7 +724,7 @@ button { font-family: inherit; }
 .ob-mission-lock-text b { color: var(--ink); font-weight: 800; }
 
 /* ============================================================
-   SOCIAL PROOF — stats + 1 honest placeholder testimonial
+   SOCIAL PROOF - stats + 1 honest placeholder testimonial
    ============================================================ */
 .ob-stats {
   display: grid; grid-template-columns: repeat(3, 1fr);
@@ -816,7 +816,7 @@ button { font-family: inherit; }
 }
 
 /* ============================================================
-   RECAP — "Ton année en clair"
+   RECAP - "Ton année en clair"
    ============================================================ */
 .ob-recap {
   display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
@@ -1062,7 +1062,7 @@ button { font-family: inherit; }
 }
 .ob-paywall-summary-list li.is-locked { color: var(--ink-mute); text-decoration: line-through; text-decoration-color: rgba(18,18,18,0.3); }
 
-/* Anchor card — tutor cost comparison */
+/* Anchor card - tutor cost comparison */
 .ob-anchor {
   background: var(--paper-2);
   border: 2.5px solid var(--ink);
@@ -1109,7 +1109,7 @@ button { font-family: inherit; }
 }
 .ob-anchor-foot b { color: var(--ink); font-weight: 700; }
 
-/* Price hero — the decision */
+/* Price hero - the decision */
 .ob-price {
   background: var(--bg-panel);
   border: 3px solid var(--ink);
@@ -1212,7 +1212,7 @@ button { font-family: inherit; }
 }
 
 /* ============================================================
-   SLIDER — moyenne / heures / etc.
+   SLIDER - moyenne / heures / etc.
    ============================================================ */
 .ob-slider {
   display: flex; flex-direction: column; gap: 12px;
@@ -1274,7 +1274,7 @@ button { font-family: inherit; }
 }
 
 /* ============================================================
-   GAP — moyenne actuelle → visée
+   GAP - moyenne actuelle → visée
    ============================================================ */
 .ob-gap {
   display: flex; align-items: center; gap: 14px;
@@ -1305,7 +1305,7 @@ button { font-family: inherit; }
 }
 
 /* ============================================================
-   ECHEANCE — date picker / urgency
+   ECHEANCE - date picker / urgency
    ============================================================ */
 .ob-date-grid {
   display: grid;
@@ -1354,7 +1354,7 @@ button { font-family: inherit; }
 }
 
 /* ============================================================
-   INTRO — opening screen
+   INTRO - opening screen
    ============================================================ */
 .ob-intro {
   display: flex; flex-direction: column;
@@ -1390,7 +1390,7 @@ button { font-family: inherit; }
 .ob-intro-meta b { color: var(--ink); font-weight: 700; }
 
 /* ============================================================
-   RESPONSIVE — mobile
+   RESPONSIVE - mobile
    ============================================================ */
 @media (max-width: 880px) {
   .ob-shell {
@@ -1462,7 +1462,7 @@ button { font-family: inherit; }
 }
 
 /* ============================================================
-   FADE TRANSITIONS between screens — opt-in via .ob-fade-in
+   FADE TRANSITIONS between screens - opt-in via .ob-fade-in
    We use a transition rather than @keyframes so React re-mounts
    don't strand the element at opacity:0.
    ============================================================ */
@@ -1482,7 +1482,7 @@ button { font-family: inherit; }
 }
 
 /* ============================================================
-   SOCIAL PROOF V2 — stats compactes + avis avec étoiles
+   SOCIAL PROOF V2 - stats compactes + avis avec étoiles
    ============================================================ */
 .ob-stats-v2 {
   display: grid;
@@ -1658,14 +1658,14 @@ button { font-family: inherit; }
 }
 
 /* ============================================================
-   MULTI-SELECT counter — hidden (user asked to not show it)
+   MULTI-SELECT counter - hidden (user asked to not show it)
    ============================================================ */
 .ob-multi-counter {
   display: none;
 }
 
 /* ============================================================
-   DATE CARD — emoji in header
+   DATE CARD - emoji in header
    ============================================================ */
 .ob-date-emoji {
   display: inline-grid; place-items: center;
@@ -1680,7 +1680,7 @@ button { font-family: inherit; }
 }
 
 /* ============================================================
-   EFFORT screen — 2 columns (slider + upload)
+   EFFORT screen - 2 columns (slider + upload)
    ============================================================ */
 .ob-effort-grid {
   display: grid;
@@ -1813,7 +1813,7 @@ button { font-family: inherit; }
 }
 .ob-link-btn:hover { text-decoration: underline; }
 
-/* Gap card — colored emphasis */
+/* Gap card - colored emphasis */
 .ob-gap {
   background: var(--blue);
   border-color: var(--ink);
@@ -1837,7 +1837,7 @@ button { font-family: inherit; }
 }
 
 /* ============================================================
-   EQUATION (étape 8) — temps × intensité = résultat
+   EQUATION (étape 8) - temps × intensité = résultat
    ============================================================ */
 .ob-equation {
   background: var(--paper);

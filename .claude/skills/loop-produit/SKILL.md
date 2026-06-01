@@ -1,6 +1,6 @@
 ---
 name: loop-produit
-description: Loop produit en 4 étapes pour solo dev vibecoder — challenge du problème via /office-hours, spec structuré via /product-management:write-spec, review adversarial via /autoplan, puis vibecode. Use when the user says "loop produit", "j'ai une feature", "j'ai une idée", "spec une feature", "nouvelle feature", "avant de coder", "comment spec", "je veux développer X", or asks to plan a feature properly before implementing it. Also triggers on "tourne le loop", "fais tourner le loop", or any request to validate a feature idea before coding.
+description: Loop produit en 4 étapes pour solo dev vibecoder - challenge du problème via /office-hours, spec structuré via /product-management:write-spec, review adversarial via /autoplan, puis vibecode. Use when the user says "loop produit", "j'ai une feature", "j'ai une idée", "spec une feature", "nouvelle feature", "avant de coder", "comment spec", "je veux développer X", or asks to plan a feature properly before implementing it. Also triggers on "tourne le loop", "fais tourner le loop", or any request to validate a feature idea before coding.
 ---
 
 Skill orchestrateur pour solo dev qui vibecode des apps/sites. Objectif : convertir une idée vague en spec serré avec edge cases listés, **avant** d'écrire la moindre ligne de code, pour que l'IA produise du juste-bon du premier coup.
@@ -25,13 +25,13 @@ Ne **pas** invoquer pour :
 - Refactor sans changement de comportement utilisateur
 - Tâche de moins de 30 lignes de code (skip direct à l'implémentation)
 
-## Le loop — 4 étapes séquentielles
+## Le loop - 4 étapes séquentielles
 
-### Étape 1 — Challenge du problème (pas la solution)
+### Étape 1 - Challenge du problème (pas la solution)
 
 **Objectif** : valider que le problème existe vraiment et identifier 2-3 wedges précis.
 
-Demander à l'utilisateur de **décrire le problème en une phrase**, sans mentionner la solution. Si la phrase contient déjà la solution ("ajouter un bouton X"), reformuler : "ok, ça c'est la solution — quel problème est-ce que ça résout pour l'élève / l'utilisateur ?".
+Demander à l'utilisateur de **décrire le problème en une phrase**, sans mentionner la solution. Si la phrase contient déjà la solution ("ajouter un bouton X"), reformuler : "ok, ça c'est la solution - quel problème est-ce que ça résout pour l'élève / l'utilisateur ?".
 
 Puis invoquer :
 
@@ -56,7 +56,7 @@ Puis invoquer :
 
 Si une case n'est pas cochée, **rester en étape 1** et creuser. Ne pas passer à la spec d'un problème mal défini.
 
-### Étape 2 — Spec structuré
+### Étape 2 - Spec structuré
 
 **Objectif** : un PRD avec user stories, requirements priorisés, success metrics, et surtout **open questions + edge cases listés**.
 
@@ -79,7 +79,7 @@ Si la sortie n'a pas les 3 sections en gras, demander à l'IA de compléter avan
 - [ ] Open Questions, Out of Scope, Edge Cases sont remplies (pas vides, pas "TBD")
 - [ ] L'utilisateur a relu et n'a pas dit "non, c'est pas ça"
 
-### Étape 3 — Review adversarial du spec
+### Étape 3 - Review adversarial du spec
 
 **Objectif** : faire sortir les edge cases que l'utilisateur (et l'IA initiale) n'ont pas vus.
 
@@ -106,7 +106,7 @@ Pendant cette étape, **agréger les edge cases trouvés** dans la section "Edge
 
 Si un blocker majeur reste, **boucler à l'étape 2** pour réécrire la spec, pas à l'étape 1 (le problème est toujours valide).
 
-### Étape 4 — Vibecode
+### Étape 4 - Vibecode
 
 **Objectif** : implémenter avec un brief serré qui liste tout.
 
@@ -130,7 +130,7 @@ Pendant l'implémentation, **garder le PRD ouvert** comme checklist. Cocher chaq
 - [ ] Tous les edge cases listés ont un comportement testé (même si "afficher un message d'erreur")
 - [ ] La success metric est mesurable (instrumentation en place, même basique)
 
-## Exemple concret — paywall ObjectifLycée
+## Exemple concret - paywall ObjectifLycée
 
 Pour la feature "paywall après preuve de progrès" :
 
@@ -155,7 +155,7 @@ Résultat attendu : 2-3× moins d'allers-retours qu'un vibecode direct à partir
 - Les décisions prises sur les Open Questions
 - La checklist d'edge cases couverts vs reportés
 
-Ce fichier devient la référence pour les sessions de code suivantes — et pour les futures itérations sur la même feature.
+Ce fichier devient la référence pour les sessions de code suivantes - et pour les futures itérations sur la même feature.
 
 ## Liens vers la suite
 

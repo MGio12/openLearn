@@ -1,0 +1,309 @@
+/* ============================================================
+   Objectif Lycée - Open Source page styles
+   ============================================================ */
+
+.os-view {
+  display: block !important;
+  flex: none !important;
+  overflow: visible !important;
+  height: auto !important;
+  padding: 60px 30px 80px;
+}
+
+.os-section {
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 56px;
+}
+
+/* ===== Hero ===== */
+.os-hero {
+  margin-bottom: 64px;
+}
+.os-hero__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 16px;
+}
+.os-hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  text-transform: uppercase;
+  letter-spacing: -.02em;
+  line-height: 1.05;
+  margin: 0 0 20px;
+}
+.os-hero__tagline {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  max-width: 600px;
+  margin: 0 0 28px;
+}
+.os-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.os-badge {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border: var(--b) solid var(--ink);
+  border-radius: 999px;
+  background: var(--stabilo);
+  box-shadow: var(--sh-1);
+}
+.os-badge--outline {
+  background: transparent;
+}
+
+/* ===== Section headers ===== */
+.os-section__label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 12px;
+}
+.os-section__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  text-transform: uppercase;
+  letter-spacing: -.01em;
+  margin: 0 0 20px;
+}
+.os-section__body {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--ink);
+  margin: 0 0 20px;
+}
+
+/* ===== Divider ===== */
+.os-divider {
+  border: none;
+  border-top: var(--b) solid var(--ink);
+  margin: 0 0 56px;
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ===== Cards grid ===== */
+.os-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.os-card {
+  padding: 20px;
+  background: var(--paper-2);
+  border: var(--b) solid var(--ink);
+  border-radius: var(--r-3);
+  box-shadow: var(--sh-1);
+}
+.os-card__icon {
+  font-size: 22px;
+  margin-bottom: 10px;
+  line-height: 1;
+}
+.os-card__title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: -.01em;
+  margin: 0 0 8px;
+}
+.os-card__body {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+/* ===== Practices list ===== */
+.os-practices {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.os-practice {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--paper-2);
+  border: var(--b) solid var(--ink);
+  border-radius: var(--r-3);
+  align-items: start;
+}
+.os-practice__term {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--ink);
+  padding: 2px 0;
+}
+.os-practice__def {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--ink);
+  margin: 0;
+}
+
+/* ===== AI section ===== */
+.os-ai-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 20px;
+}
+.os-ai-card {
+  padding: 20px;
+  border: var(--b) solid var(--ink);
+  border-radius: var(--r-3);
+  box-shadow: var(--sh-1);
+}
+.os-ai-card--highlight {
+  background: var(--stabilo);
+}
+.os-ai-card--plain {
+  background: var(--paper-2);
+}
+.os-ai-card__head {
+  font-family: var(--font-display);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: -.01em;
+  margin: 0 0 10px;
+}
+.os-ai-card__body {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--ink);
+}
+
+/* ===== Examples list ===== */
+.os-examples {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+}
+.os-example {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  padding: 10px 16px;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: var(--r-2);
+}
+.os-example::before {
+  content: '> ';
+  color: var(--stabilo);
+  font-weight: 700;
+}
+
+/* ===== CTA block ===== */
+.os-cta {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 32px 28px;
+  background: var(--ink);
+  border: var(--b) solid var(--ink);
+  border-radius: var(--r-3);
+  box-shadow: var(--sh-2);
+}
+.os-cta__text {
+  flex: 1;
+  min-width: 220px;
+}
+.os-cta__label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  color: rgba(255,255,255,.5);
+  margin-bottom: 6px;
+}
+.os-cta__title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  color: var(--paper);
+  margin: 0;
+}
+.os-cta__actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.os-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 14px;
+  border: var(--b) solid var(--paper);
+  border-radius: var(--r-2);
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity .12s;
+}
+.os-btn:hover { opacity: .85; }
+.os-btn--primary {
+  background: var(--stabilo);
+  color: var(--ink);
+  border-color: var(--paper);
+  box-shadow: 4px 4px 0 var(--paper);
+}
+.os-btn--ghost {
+  background: transparent;
+  color: var(--paper);
+  border-color: rgba(255,255,255,.4);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 720px) {
+  .os-cards {
+    grid-template-columns: 1fr;
+  }
+  .os-ai-grid {
+    grid-template-columns: 1fr;
+  }
+  .os-practice {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .os-cta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .os-view {
+    padding: 40px 20px 80px;
+  }
+  .os-section {
+    margin-bottom: 40px;
+  }
+}

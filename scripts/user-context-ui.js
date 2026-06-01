@@ -1,4 +1,17 @@
 /* ============================================================
+   AGENT HEADER
+   Role: hydrate le contexte utilisateur visible sur les pages app.
+   Loaded by: pages racine apres model.js, store.js et scripts/dom.js.
+   Reads/writes: lit window.OutilPrepa, window.OutilPrepaModel et
+   window.OutilPrepaDom.setText; ecrit les libelles profil, dates,
+   semaine, objectif et etat compte local.
+   Public contract: data-user-*, data-current-day-*,
+   data-today-subtitle, data-week-label, data-planning-subtitle,
+   data-objective-*, data-weekday-offset, data-local-account-prompt,
+   body[data-local-account-state].
+   Verify: npm run verify:local-account ; npm run verify:s01.
+   Read next: `docs/agent-codebase-map.md` Zone 1 et Zone 5.
+
    OUTIL PREPA - Contexte utilisateur visible
    ------------------------------------------------------------
    Hydrate les noms, roles et libelles de date depuis l'etat
@@ -122,12 +135,28 @@
 
   var setText = root.OutilPrepaDom.setText;
 
+  function hasLocalAccount(profile) {
+    if (root.OutilPrepa && typeof root.OutilPrepa.hasLocalAccount === 'function') {
+      return root.OutilPrepa.hasLocalAccount();
+    }
+    return !!(profile && profile.localAccountId);
+  }
+
   function renderWeekHeaders(date) {
     var start = weekStart(date);
     document.querySelectorAll('[data-weekday-offset]').forEach(function (element) {
       var offset = Number(element.getAttribute('data-weekday-offset')) || 0;
       var current = addDays(start, offset);
       element.textContent = WEEKDAYS_SHORT[current.getDay()] + ' ' + current.getDate();
+    });
+  }
+
+  function renderAccountPrompts(profile) {
+    var isLocalAccount = hasLocalAccount(profile);
+    document.body.setAttribute('data-local-account-state', isLocalAccount ? 'ready' : 'missing');
+    document.querySelectorAll('[data-local-account-prompt]').forEach(function (element) {
+      element.hidden = isLocalAccount;
+      element.setAttribute('aria-hidden', String(isLocalAccount));
     });
   }
 
@@ -157,6 +186,7 @@
     setText('[data-objective-heading]', 'Objectif · ' + objectiveDisplay);
     setText('[data-objective-sub]', 'Impact dossier · ' + trackText + ' · ' + (objective.horizonLabel || 'Parcoursup') + ' · mise à jour aujourd\'hui');
     renderWeekHeaders(date);
+    renderAccountPrompts(profile);
   }
 
   root.OutilPrepaUserUI = {

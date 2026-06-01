@@ -1,57 +1,62 @@
-# Source map — Second degré
+# Carte de couverture - Pilote Second degré
+
+## Portée du pilote
+
+Le chapitre existe désormais sous deux formes complémentaires :
+
+- prototype vanilla : `prototypes/cours/maths-specialite/second-degre/index.html` et `td.html` ;
+- pilote Astro + MDX isolé : `src/pages/cours/second-degre/index.mdx` et `src/pages/cours/second-degre/td.mdx`.
+
+Le pilote Astro reprend le même périmètre mathématique, sans brancher la migration dans le site public.
 
 ## Notions reprises
+- forme développée, factorisée et canonique
+- discriminant, racines, racine double
+- signe d’un trinôme et inéquations
+- sommet, axe de symétrie, position relative
+- somme et produit des racines
 
-- Fonction polynôme du second degré définie sur \(\mathbb{R}\) par \(ax^2+bx+c\), avec \(a\ne0\).
-- Vocabulaire de trinôme, racine, sommet, axe de symétrie, minimum, maximum.
-- Formes développée, canonique et factorisée.
-- Équations simples avant discriminant : racine carrée, facteur commun, produit nul, carré nul, absence de solution réelle évidente.
-- Discriminant \(\Delta=b^2-4ac\), trois cas, racine double, deux racines distinctes.
-- Factorisation réelle selon le signe de \(\Delta\).
-- Somme et produit des racines.
-- Signe du trinôme, inéquations et position relative de deux courbes.
+## Méthodes et exemples à conserver
 
-## Méthodes et exemples conservés
+- lecture des coefficients avec leur signe ;
+- choix entre forme développée, canonique et factorisée ;
+- calcul du discriminant et distinction des trois cas ;
+- détermination du sommet et de l'axe de symétrie ;
+- tableau de signes d'un trinôme ;
+- somme et produit des racines ;
+- position relative de deux courbes par le signe de \(f-g\) ;
+- rédaction d'une inéquation de contrôle.
 
-- Lire le sommet et l'extremum depuis la forme canonique.
-- Résoudre une équation simple sans utiliser inutilement le discriminant.
-- Calculer \(\Delta\), conclure sur le nombre de racines, puis écrire les solutions.
-- Factoriser quand les racines réelles existent.
-- Construire un tableau de signes et choisir le bon intervalle.
-- Rédiger une résolution de contrôle en explicitant hypothèses, calculs et ensemble de solutions.
+## Exercices et TD adaptés
+- Automatismes courts pour forcer la récupération avant correction.
+- Méthodes guidées avec corrigés détaillés sur les gestes structurants.
+- Bloc "choisir la méthode" pour éviter l’application mécanique.
+- Niveau contrôle puis cap 20/20, avec une porte d’entrée explicite.
+- Révision mélangée pour reconnecter le chapitre aux autres notions de Première.
 
-## Exercices ou TD adaptés
+## Pièges et cas limites
+- oublier le signe de \(b\)
+- utiliser le discriminant alors qu’une factorisation immédiate existe
+- inverser le signe du trinôme quand \(a<0\)
+- confondre racine double et deux solutions
 
-- Forme canonique de \(2x^2-8x+3\).
-- Équations simples inspirées de Maths-et-tiques.
-- Discriminant sur \(2x^2-x-6=0\).
-- Factorisation de \(4x^2+19x-5\) et racine double de \(9x^2-6x+1\).
-- Somme-produit avec \(-2x^2+x+1\).
-- Inéquations \(x^2-2x-15<0\) et \(-2x^2+7x+4\ge0\).
-- Exercices de contrôle et 20/20 : meilleure forme, bénéfice, paramètre, domaine, position relative.
+## Sources utilisées
+- Maths91, cours et fiche d’exercices Second degré
+- Maths-et-tiques, Second degré parties 1 et 2
+- XyMaths, cours Second degré
+- MathGM, parcours Second degré
 
-## Pièges et cas limites ciblés
+## Graphes ou diagrammes exacts nécessaires
+- orientation \(a>0\) / \(a<0\) ;
+- trois cas du discriminant ;
+- sommet et axe de symétrie ;
+- signe de \(x^2-2x-15\) ;
+- position relative d'une parabole et d'une droite.
 
-- Oublier que \(a\ne0\).
-- Lire le mauvais signe dans \(a(x-\alpha)^2+\beta\).
-- Utiliser \(\Delta\) quand une forme simple suffit.
-- Écrire \(b^2<0\) quand \(b\) est négatif.
-- Chercher une factorisation réelle quand \(\Delta<0\).
-- Garder le mauvais intervalle dans une inéquation à cause du signe de \(a\).
-- Donner le résultat sans justifier l'ensemble de solutions.
-
-## Graphes exacts nécessaires
-
-- Orientation \(a>0/a<0\).
-- Sommet et axe de symétrie d'une forme canonique.
-- Trois cas du discriminant.
-- Signe d'un trinôme entre deux racines.
-- Maximum d'un bénéfice quadratique.
-- Position relative d'une parabole et d'une droite.
+Ces graphes sont rendus par JSXGraph dans le prototype vanilla et dans le pilote Astro. Aucun graphe n'est dessiné à la main.
 
 ## Éléments volontairement exclus
-
-- Démonstration complète des formules du discriminant depuis la forme canonique : trop lourde pour cette page V2.
-- Représentation graphique manuelle point par point : remplacée par des graphes exacts JSXGraph.
-- Exercices trop proches des PDFs en grande quantité : droits à vérifier avant publication.
-- Scoring automatique et correction IA de rédaction : hors prototype actuel.
+- Pas de recopie brute d’énoncés PDF.
+- Pas de schéma mathématique approximatif dessiné à la main.
+- Pas de corrigé visible par défaut : la tentative élève passe avant la lecture de la réponse.
+- Pas d'intégration du pilote Astro dans les liens publics avant validation utilisateur.

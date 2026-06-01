@@ -1,0 +1,20 @@
+---
+const { title = 'Rédaction de contrôle', weak = '', points = [] } = Astro.props;
+---
+
+<div class="exam-writing">
+  <div class="c-callout c-callout--warn">
+    <p class="c-callout__label"><span class="dot"></span>Brouillon insuffisant</p>
+    <p>{weak}</p>
+  </div>
+  <div class="worked-example">
+    <p class="worked-example__title">{title}</p>
+    <slot />
+  </div>
+  <div class="c-callout c-callout--key">
+    <p class="c-callout__label"><span class="dot"></span>Points qui rapportent</p>
+    <ul class="score-list">
+      {points.map((point) => <li>{point}</li>)}
+    </ul>
+  </div>
+</div>

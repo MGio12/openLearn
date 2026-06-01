@@ -59,9 +59,9 @@
 
     <div class="sb-group">
       <div class="head">Compte</div>
-      <a href="abonnement.html" class="sb-item">
-        <span class="ic"><i class="ph-bold ph-credit-card" aria-hidden="true"></i></span>
-        Abonnement
+      <a href="openSource.html" class="sb-item">
+        <span class="ic"><i class="ph-bold ph-code" aria-hidden="true"></i></span>
+        Open source
       </a>
       <a href="parametres.html" class="sb-item">
         <span class="ic"><i class="ph-bold ph-gear" aria-hidden="true"></i></span>
@@ -70,13 +70,17 @@
     </div>
 
     <div class="sb-bottom">
-      <a class="sb-about" href="apropos.html" aria-label="À propos d'Objectif Lycée">
+            <div class="sidebar-os-badge" aria-label="Projet open source sous licence MIT">
+        <i class="ph-bold ph-code" aria-hidden="true"></i>
+        Open source · MIT
+      </div>
+<a class="sb-about" href="apropos.html" aria-label="À propos d'Objectif Lycée">
         <span class="sb-about__icon" aria-hidden="true"><i class="ph-bold ph-info"></i></span>
         <span class="sb-about__label">À propos</span>
       </a>
       <div class="sb-profile">
-        <div class="av">OP</div>
-        <div class="who"><span class="nm">Profil démo</span><span class="role">Lycée</span></div>
+        <div class="av" data-user-initials>OP</div>
+        <div class="who"><span class="nm" data-user-full-name>Profil démo</span><span class="role" data-user-role>Lycée</span></div>
       </div>
     </div>
   </aside>
@@ -95,6 +99,16 @@
           </a>
         </div>
       </header>
+
+      <aside class="local-account-prompt" data-local-account-prompt hidden>
+        <div>
+          <strong>Compte local non créé</strong>
+          <span>Crée ton profil local pour retrouver la même mission, le même objectif et la même progression sur ces pages.</span>
+        </div>
+        <div class="local-account-prompt__actions">
+          <a href="onboarding.html">Créer ou reprendre</a>
+        </div>
+      </aside>
 
       <section class="pp-grade-panel" aria-labelledby="grade-title">
         <div class="pp-grade-panel__head">
@@ -133,7 +147,7 @@
         </div>
 
         <div class="pp-chart-shell" data-grade-chart-shell>
-          <svg class="pp-chart-svg" data-grade-chart role="img" aria-labelledby="grade-chart-title grade-chart-desc"></svg>
+          <div id="grade-progress-board" class="pp-chart-board" data-grade-chart role="img" aria-label="Courbe de progression des moyennes"></div>
           <div class="pp-chart-empty" data-grade-empty hidden>Aucune moyenne disponible pour cette sélection.</div>
         </div>
 
@@ -301,7 +315,9 @@
 (function () {
   'use strict';
 
-  var SVG_NS = 'http://www.w3.org/2000/svg';
+  var JSXGRAPH_CSS_URL = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraph.css';
+  var JSXGRAPH_JS_URL = 'https://cdn.jsdelivr.net/npm/jsxgraph@1.12.2/distrib/jsxgraphcore.js';
+  var JSXGRAPH_LOAD_TIMEOUT_MS = 8000;
   var PERIODS = [
     { id: 'global', label: 'Global' },
     { id: 't1', label: 'Trimestre 1' },
@@ -310,7 +326,10 @@
   ];
 
   var chartShell = document.querySelector('[data-grade-chart-shell]');
-  var chartSvg = document.querySelector('[data-grade-chart]');
+  var chartBoardElement = document.querySelector('[data-grade-chart]');
+  var chartBoard = null;
+  var chartRenderToken = 0;
+  var jsxGraphLoadPromise = null;
   var emptyState = document.querySelector('[data-grade-empty]');
   var subjectControls = document.querySelector('[data-grade-subject-controls]');
   var periodControls = document.querySelector('[data-grade-period-controls]');
@@ -411,6 +430,25 @@
     return period ? period.label : 'Global';
   }
 
+  function cssToken(name, fallback) {
+    var value = window.getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    return value || fallback;
+  }
+
+  function chartColors() {
+    return {
+      ink: cssToken('--ink', '#121212'),
+      inkSoft: cssToken('--ink-soft', '#4f4a43'),
+      inkMute: cssToken('--ink-mute', '#756f65'),
+      paper: cssToken('--paper', '#fffdf8'),
+      stabilo: cssToken('--stabilo', '#f8d955'),
+      blue: cssToken('--blue', '#c7d9d7'),
+      area: 'rgba(199, 217, 215, .46)',
+      grid: 'rgba(18, 18, 18, .12)',
+      guide: 'rgba(18, 18, 18, .10)',
+    };
+  }
+
   function selectedPoints(subject) {
     if (!subject) return [];
     if (activePeriod === 'global') return subject.points.slice();
@@ -425,19 +463,222 @@
     return [start].concat(termPoints);
   }
 
-  function createSvgElement(name, attributes) {
-    var element = document.createElementNS(SVG_NS, name);
-    Object.keys(attributes || {}).forEach(function (key) {
-      element.setAttribute(key, attributes[key]);
+  function loadJsxGraph() {
+    if (window.JXG) return Promise.resolve(window.JXG);
+    if (jsxGraphLoadPromise) return jsxGraphLoadPromise;
+
+    jsxGraphLoadPromise = new Promise(function (resolve, reject) {
+      var settled = false;
+      var timeout = window.setTimeout(function () {
+        settle(reject, new Error('JSXGraph load timed out'));
+      }, JSXGRAPH_LOAD_TIMEOUT_MS);
+
+      function settle(fn, value) {
+        if (settled) return;
+        settled = true;
+        window.clearTimeout(timeout);
+        fn(value);
+      }
+
+      if (!document.querySelector('link[href="' + JSXGRAPH_CSS_URL + '"]')) {
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = JSXGRAPH_CSS_URL;
+        link.dataset.progressJsxgraph = 'true';
+        document.head.appendChild(link);
+      }
+
+      var existingScript = document.querySelector('script[src="' + JSXGRAPH_JS_URL + '"]');
+      if (existingScript) {
+        existingScript.addEventListener('load', function () {
+          settle(resolve, window.JXG);
+        }, { once: true });
+        existingScript.addEventListener('error', function () {
+          settle(reject, new Error('JSXGraph failed to load'));
+        }, { once: true });
+        return;
+      }
+
+      var script = document.createElement('script');
+      script.src = JSXGRAPH_JS_URL;
+      script.async = true;
+      script.dataset.progressJsxgraph = 'true';
+      script.addEventListener('load', function () {
+        settle(resolve, window.JXG);
+      }, { once: true });
+      script.addEventListener('error', function () {
+        settle(reject, new Error('JSXGraph failed to load'));
+      }, { once: true });
+      document.head.appendChild(script);
     });
-    return element;
+
+    return jsxGraphLoadPromise;
   }
 
-  function appendSvg(parent, name, attributes, text) {
-    var element = createSvgElement(name, attributes);
-    if (typeof text === 'string') element.textContent = text;
-    parent.appendChild(element);
-    return element;
+  function freeGradeBoard() {
+    if (chartBoard && window.JXG && window.JXG.JSXGraph) {
+      window.JXG.JSXGraph.freeBoard(chartBoard);
+    }
+    chartBoard = null;
+    if (chartBoardElement) chartBoardElement.innerHTML = '';
+  }
+
+  function gradePointX(index, count) {
+    return count === 1 ? 0.5 : index;
+  }
+
+  function addFixedSegment(board, start, end, attrs) {
+    return board.create('segment', [start, end], Object.assign({
+      fixed: true,
+      highlight: false,
+    }, attrs || {}));
+  }
+
+  function addFixedText(board, position, text, attrs) {
+    return board.create('text', [position[0], position[1], text], Object.assign({
+      fixed: true,
+      highlight: false,
+      useMathJax: false,
+    }, attrs || {}));
+  }
+
+  function drawGradeChart(points, subject, period) {
+    if (!chartBoardElement || !window.JXG) return;
+
+    freeGradeBoard();
+
+    var colors = chartColors();
+    var lastIndex = Math.max(points.length - 1, 1);
+    var bboxLeft = -0.45;
+    var bboxRight = lastIndex + 0.35;
+    var bboxTop = 20.8;
+    var bboxBottom = -1.45;
+    var axisBottom = 0;
+    var startPoint = subject.points[0];
+    var currentPoint = points[points.length - 1];
+    var delta = currentPoint.value - startPoint.value;
+
+    chartBoardElement.setAttribute(
+      'aria-label',
+      subject.label + ', ' + periodLabel(period) + '. Départ ' + formatGrade(startPoint.value) + ', actuel ' + formatGrade(currentPoint.value) + ', évolution ' + formatDelta(delta) + '.'
+    );
+
+    chartBoard = window.JXG.JSXGraph.initBoard(chartBoardElement.id, {
+      boundingbox: [bboxLeft, bboxTop, bboxRight, bboxBottom],
+      axis: false,
+      grid: false,
+      keepaspectratio: false,
+      renderer: 'canvas',
+      showCopyright: false,
+      showNavigation: false,
+      pan: { enabled: false },
+      zoom: { enabled: false },
+      keyboard: { enabled: false },
+    });
+
+    [0, 5, 10, 15, 20].forEach(function (tick) {
+      addFixedSegment(chartBoard, [0, tick], [lastIndex, tick], {
+        strokeColor: colors.grid,
+        strokeWidth: 1,
+      });
+      if (tick === 0) return;
+      addFixedText(chartBoard, [-0.1, tick, String(tick)], String(tick), {
+        anchorX: 'right',
+        anchorY: 'middle',
+        cssClass: 'pp-chart-y-text',
+        color: colors.inkMute,
+        fontSize: 12,
+      });
+    });
+
+    addFixedSegment(chartBoard, [0, axisBottom], [lastIndex, axisBottom], {
+      strokeColor: colors.ink,
+      strokeWidth: 2,
+      strokeLinecap: 'round',
+    });
+
+    var coordinates = points.map(function (point, index) {
+      return {
+        x: gradePointX(index, points.length),
+        y: Math.max(0, Math.min(20, point.value)),
+        point: point,
+      };
+    });
+
+    if (coordinates.length > 1) {
+      var areaPoints = [[coordinates[0].x, axisBottom]]
+        .concat(coordinates.map(function (coord) {
+          return [coord.x, coord.y];
+        }))
+        .concat([[coordinates[coordinates.length - 1].x, axisBottom]]);
+
+      chartBoard.create('polygon', areaPoints, {
+        fillColor: colors.area,
+        fillOpacity: 1,
+        borders: { visible: false },
+        vertices: { visible: false },
+        fixed: true,
+        highlight: false,
+        hasInnerPoints: false,
+      });
+
+      chartBoard.create('curve', [
+        coordinates.map(function (coord) { return coord.x; }),
+        coordinates.map(function (coord) { return coord.y; }),
+      ], {
+        strokeColor: colors.ink,
+        strokeWidth: 4,
+        fixed: true,
+        highlight: false,
+      });
+    }
+
+    coordinates.forEach(function (coord, index) {
+      var isStart = index === 0;
+      var isCurrent = index === coordinates.length - 1;
+
+      addFixedSegment(chartBoard, [coord.x, coord.y], [coord.x, axisBottom], {
+        dash: 2,
+        strokeColor: colors.guide,
+        strokeWidth: 1,
+      });
+
+      chartBoard.create('point', [coord.x, coord.y], {
+        name: '',
+        withLabel: false,
+        fixed: true,
+        highlight: false,
+        showInfobox: false,
+        size: isCurrent ? 5 : 4,
+        face: 'o',
+        fillColor: isCurrent ? colors.stabilo : (isStart ? colors.blue : colors.paper),
+        strokeColor: colors.ink,
+        strokeWidth: isCurrent ? 4 : 3,
+      });
+
+      addFixedText(chartBoard, [coord.x, -0.65], coord.point.label || '', {
+        anchorX: 'middle',
+        anchorY: 'middle',
+        cssClass: 'pp-chart-x-text',
+        color: colors.inkMute,
+        fontSize: 12,
+      });
+
+      if (isStart || isCurrent) {
+        addFixedText(
+          chartBoard,
+          [coord.x, Math.min(19.7, coord.y + 1.45)],
+          (isStart ? 'Départ ' : 'Actuel ') + formatGrade(coord.point.value),
+          {
+            anchorX: isCurrent && !isStart ? 'right' : (isStart && !isCurrent ? 'left' : 'middle'),
+            anchorY: 'bottom',
+            cssClass: 'pp-chart-value-text',
+            color: colors.ink,
+            fontSize: 13,
+          }
+        );
+      }
+    });
   }
 
   function renderControls() {
@@ -484,12 +725,13 @@
   }
 
   function renderGradeChart() {
+    var renderToken = ++chartRenderToken;
     var subject = subjectById(activeSubjectId);
     var points = selectedPoints(subject);
 
     refreshControlState();
-    if (!chartSvg || !chartShell || !subject || !points.length) {
-      if (chartSvg) chartSvg.innerHTML = '';
+    if (!chartBoardElement || !chartShell || !subject || !points.length) {
+      freeGradeBoard();
       if (emptyState) emptyState.hidden = false;
       return;
     }
@@ -498,113 +740,6 @@
     var startPoint = subject.points[0];
     var currentPoint = points[points.length - 1];
     var delta = currentPoint.value - startPoint.value;
-    var shellStyle = window.getComputedStyle(chartShell);
-    var shellPaddingX = parseFloat(shellStyle.paddingLeft) + parseFloat(shellStyle.paddingRight);
-    var shellPaddingY = parseFloat(shellStyle.paddingTop) + parseFloat(shellStyle.paddingBottom);
-    var shellRect = chartShell.getBoundingClientRect();
-    var width = Math.max(300, Math.min(980, Math.round((shellRect.width || 760) - shellPaddingX)));
-    var height = Math.max(118, Math.round((shellRect.height || 240) - shellPaddingY));
-    var compactChart = height < 190;
-    var margin = compactChart
-      ? { top: 24, right: 18, bottom: 34, left: 30 }
-      : { top: 34, right: 32, bottom: 46, left: 38 };
-    var plotWidth = width - margin.left - margin.right;
-    var plotHeight = height - margin.top - margin.bottom;
-    var baselineY = margin.top + plotHeight;
-    var maxGrade = 20;
-    var minGrade = 0;
-
-    function x(index) {
-      if (points.length === 1) return margin.left + plotWidth / 2;
-      return margin.left + (plotWidth * index / (points.length - 1));
-    }
-
-    function y(value) {
-      return margin.top + ((maxGrade - value) / (maxGrade - minGrade)) * plotHeight;
-    }
-
-    chartSvg.innerHTML = '';
-    chartSvg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
-    chartSvg.setAttribute('width', String(width));
-    chartSvg.setAttribute('height', String(height));
-
-    appendSvg(chartSvg, 'title', { id: 'grade-chart-title' }, subject.label + ' - ' + periodLabel(activePeriod));
-    appendSvg(chartSvg, 'desc', { id: 'grade-chart-desc' }, 'Moyenne de départ ' + formatGrade(startPoint.value) + ', point actuel ' + formatGrade(currentPoint.value) + ', évolution ' + formatDelta(delta) + '.');
-
-    var gridGroup = appendSvg(chartSvg, 'g', { class: 'pp-chart-grid' });
-    [0, 5, 10, 15, 20].forEach(function (tick) {
-      var tickY = y(tick);
-      appendSvg(gridGroup, 'line', {
-        x1: margin.left,
-        y1: tickY.toFixed(2),
-        x2: (width - margin.right),
-        y2: tickY.toFixed(2),
-      });
-      appendSvg(gridGroup, 'text', {
-        x: 8,
-        y: (tickY + 4).toFixed(2),
-      }, String(tick));
-    });
-
-    appendSvg(chartSvg, 'line', {
-      class: 'pp-chart-axis',
-      x1: margin.left,
-      y1: baselineY,
-      x2: width - margin.right,
-      y2: baselineY,
-    });
-
-    var coordinates = points.map(function (point, index) {
-      return {
-        x: x(index),
-        y: y(Math.max(minGrade, Math.min(maxGrade, point.value))),
-        point: point,
-      };
-    });
-
-    if (coordinates.length > 1) {
-      var lineD = coordinates.map(function (coord, index) {
-        return (index === 0 ? 'M ' : 'L ') + coord.x.toFixed(2) + ' ' + coord.y.toFixed(2);
-      }).join(' ');
-      var areaD = lineD + ' L ' + coordinates[coordinates.length - 1].x.toFixed(2) + ' ' + baselineY.toFixed(2) + ' L ' + coordinates[0].x.toFixed(2) + ' ' + baselineY.toFixed(2) + ' Z';
-      appendSvg(chartSvg, 'path', { class: 'pp-chart-area', d: areaD });
-      appendSvg(chartSvg, 'path', { class: 'pp-chart-line', d: lineD });
-    }
-
-    coordinates.forEach(function (coord, index) {
-      var isStart = index === 0;
-      var isCurrent = index === coordinates.length - 1;
-      var pointClass = 'pp-chart-point' + (isStart ? ' is-start' : '') + (isCurrent ? ' is-current' : '');
-
-      appendSvg(chartSvg, 'line', {
-        class: 'pp-chart-point-guide',
-        x1: coord.x.toFixed(2),
-        y1: coord.y.toFixed(2),
-        x2: coord.x.toFixed(2),
-        y2: baselineY.toFixed(2),
-      });
-      appendSvg(chartSvg, 'circle', {
-        class: pointClass,
-        cx: coord.x.toFixed(2),
-        cy: coord.y.toFixed(2),
-        r: isCurrent ? 7 : 5,
-      });
-      appendSvg(chartSvg, 'text', {
-        class: 'pp-chart-x-label',
-        x: coord.x.toFixed(2),
-        y: height - 34,
-        'text-anchor': 'middle',
-      }, coord.point.label || '');
-
-      if (isStart || isCurrent) {
-        appendSvg(chartSvg, 'text', {
-          class: 'pp-chart-value-label',
-          x: coord.x.toFixed(2),
-          y: (coord.y - 14).toFixed(2),
-          'text-anchor': isCurrent && !isStart ? 'end' : (isStart && !isCurrent ? 'start' : 'middle'),
-        }, (isStart ? 'Départ ' : 'Actuel ') + formatGrade(coord.point.value));
-      }
-    });
 
     setText('[data-grade-start]', formatGrade(startPoint.value));
     setText('[data-grade-current]', formatGrade(currentPoint.value));
@@ -615,6 +750,23 @@
       ? 'Vue globale depuis l\'arrivée sur le site.'
       : periodLabel(activePeriod) + ' avec le départ site conservé.');
     setText('[data-grade-live]', subject.label + ', ' + periodLabel(activePeriod) + ', ' + formatDelta(delta) + ' depuis le départ.');
+
+    loadJsxGraph()
+      .then(function () {
+        if (renderToken !== chartRenderToken) return;
+        window.requestAnimationFrame(function () {
+          if (renderToken !== chartRenderToken) return;
+          drawGradeChart(points, subject, activePeriod);
+        });
+      })
+      .catch(function () {
+        if (renderToken !== chartRenderToken) return;
+        freeGradeBoard();
+        if (emptyState) {
+          emptyState.hidden = false;
+          emptyState.textContent = 'Le graphe de progression ne peut pas être chargé pour le moment.';
+        }
+      });
   }
 
   function todayISO() {

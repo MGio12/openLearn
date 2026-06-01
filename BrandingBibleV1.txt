@@ -1,4 +1,4 @@
-OBJECTIF LYCEE — BRANDING BIBLE V1
+OBJECTIF LYCEE - BRANDING BIBLE V1
 Vision du produit
 
 Objectif Lycee n’est pas simplement une application éducative.
@@ -495,7 +495,7 @@ Créer un engagement psychologique progressif.
 
 Pas simplement créer un compte.
 
-STEP 1 — Projection
+STEP 1 - Projection
 
 Questionner l’objectif :
 
@@ -504,7 +504,7 @@ retrouver confiance,
 arrêter de subir,
 devenir régulier,
 majorer.
-STEP 2 — Contexte
+STEP 2 - Contexte
 filière,
 année,
 bac, Parcoursup,
@@ -516,7 +516,7 @@ Ton :
 conversationnel,
 calme,
 rassurant.
-STEP 3 — Rythme réaliste
+STEP 3 - Rythme réaliste
 
 Jamais :
 
@@ -526,7 +526,7 @@ Mais :
 
 “Quel rythme semble réaliste pour toi ?”
 
-STEP 4 — Projection émotionnelle
+STEP 4 - Projection émotionnelle
 
 Montrer :
 
@@ -538,14 +538,14 @@ ambiance.
 
 L’utilisateur doit se projeter dans un environnement.
 
-STEP 5 — Première victoire immédiate
+STEP 5 - Première victoire immédiate
 
 L’utilisateur doit :
 
 réussir quelque chose,
 ressentir une mini progression,
 comprendre le système.
-STEP 6 — Email plus tard
+STEP 6 - Email plus tard
 
 L’inscription arrive après l’investissement psychologique.
 

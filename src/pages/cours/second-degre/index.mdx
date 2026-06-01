@@ -1,0 +1,531 @@
+import CourseShell from '../../../courses/components/CourseShell.astro';
+import KaTeXBlock from '../../../courses/components/KaTeXBlock.astro';
+import Reveal from '../../../courses/components/Reveal.astro';
+import MethodChoice from '../../../courses/components/MethodChoice.astro';
+import WorkedExample from '../../../courses/components/WorkedExample.astro';
+import ExamWriting from '../../../courses/components/ExamWriting.astro';
+import ExactGraph from '../../../courses/components/ExactGraph.astro';
+import {
+  agentContexts,
+  courseSections,
+  formChoiceCards,
+  heroSteps,
+  methodChoiceCards,
+  sourceCards,
+} from '../../../courses/data/second-degre.js';
+
+<CourseShell
+  title="Second degré"
+  lead="Voir la parabole, choisir la forme utile, calculer sans peur du signe, puis rédiger une copie qui sécurise les points."
+  sections={courseSections}
+  heroSteps={heroSteps}
+  flow={['Forme', 'Méthode', 'Rédaction', 'Exercices']}
+  overviewHeading="Ce chapitre se gagne en quatre réflexes"
+  overviewLead="Identifier la forme utile avant de calculer, puis écrire une conclusion qui tient debout."
+  alternateHref="/cours/second-degre/td/"
+  alternateLabel="TD corrigé"
+  agentContexts={agentContexts}
+>
+
+<section id="diagnostic" className="chapter-section">
+  <div className="section-marker">
+    <div className="section-marker__num">00</div>
+    <div className="section-marker__meta">
+      <p className="section-marker__kicker">Diagnostic éclair</p>
+      <h2>Avant de commencer : tu sais faire quoi ?</h2>
+    </div>
+  </div>
+
+  <p>Réponds avant d’ouvrir les corrections. Le but n’est pas d’avoir une note : c’est de savoir où ton attention doit aller pendant le chapitre.</p>
+
+  <div className="diagnostic-grid">
+    <Reveal id="diag-coefficients" marker="?">
+      <span slot="label">Question 1</span>
+      <p>Dans \(f(x)=2x^2-3x+1\), quels sont \(a\), \(b\) et \(c\) ?</p>
+      <p slot="answer">\(a=2\), \(b=-3\), \(c=1\). Le signe de \(b\) fait souvent perdre des points dans la suite.</p>
+    </Reveal>
+    <Reveal id="diag-sommet" marker="?">
+      <span slot="label">Question 2</span>
+      <p>Si \(f(x)=(x-4)^2-9\), où est le sommet de la parabole ?</p>
+      <p slot="answer">Le sommet est \(S(4;-9)\), car la parenthèse est nulle pour \(x=4\).</p>
+    </Reveal>
+    <Reveal id="diag-discriminant" marker="?">
+      <span slot="label">Question 3</span>
+      <p>Pour résoudre \(3x^2-15x+18=0\), quel calcul démarre la méthode générale ?</p>
+      <p slot="answer">Le discriminant : \(\Delta=b^2-4ac=(-15)^2-4\times3\times18=9\).</p>
+    </Reveal>
+    <Reveal id="diag-signe" marker="?">
+      <span slot="label">Question 4</span>
+      <p>Si \(a>0\) et que le trinôme a deux racines, où est-il négatif ?</p>
+      <p slot="answer">Entre les deux racines. Règle courte : signe de \(a\), sauf entre les racines.</p>
+    </Reveal>
+  </div>
+
+  <div className="c-callout c-callout--tip">
+    <p className="c-callout__label"><span className="dot"></span>Objectif de la session</p>
+    <p>Si tu réussis une seule chose aujourd’hui : apprendre à choisir entre forme canonique, discriminant, factorisation et tableau de signes.</p>
+  </div>
+
+  <button className="course-agent-trigger" type="button" data-course-agent-open="diagnostic-coefficients">Faire diagnostiquer ma réponse</button>
+</section>
+
+<section id="formes" className="chapter-section">
+  <div className="section-marker">
+    <div className="section-marker__num">01</div>
+    <div className="section-marker__meta">
+      <p className="section-marker__kicker">Définition et formes</p>
+      <h2>Un trinôme se reconnaît, puis se choisit sous la bonne forme</h2>
+    </div>
+  </div>
+
+  <p>Une fonction polynôme du second degré est une fonction définie sur les réels qui peut s’écrire \(f(x)=ax^2+bx+c\), avec \(a\), \(b\), \(c\) réels et \(a\neq0\). On l’appelle aussi un trinôme.</p>
+
+  <KaTeXBlock major lines={[
+    'f(x)=ax^2+bx+c',
+    'f(x)=a(x-\\alpha)^2+\\beta',
+    'f(x)=a(x-x_1)(x-x_2)'
+  ]} />
+
+  <MethodChoice choices={formChoiceCards} />
+
+  <div className="c-callout c-callout--tip">
+    <p className="c-callout__label"><span className="dot"></span>Image mentale</p>
+    <p>Les trois formes sont trois lunettes : la développée voit les coefficients, la canonique voit le sommet, la factorisée voit les zéros.</p>
+  </div>
+
+  <Reveal id="formes-lunettes" marker="?">
+    <span slot="label">Question lunettes</span>
+    <p>Pour \(f(x)=x^2+2x-8=(x+4)(x-2)=(x+1)^2-9\), quelle forme choisis-tu pour calculer \(f(0)\), résoudre \(f(x)=0\), puis donner le minimum ?</p>
+    <p slot="answer">Pour \(f(0)\), la forme développée est directe. Pour \(f(x)=0\), la forme factorisée donne \(x=-4\) ou \(x=2\). Pour le minimum, la forme canonique donne \(S(-1;-9)\).</p>
+  </Reveal>
+
+  <p>Le signe de \(a\) commande l’orientation de la parabole. Si \(a>0\), elle s’ouvre vers le haut et admet un minimum. Si \(a&lt;0\), elle s’ouvre vers le bas et admet un maximum.</p>
+
+  <ExactGraph
+    id="sd-astro-orientation"
+    type="orientation"
+    readout="Deux paraboles exactes"
+    detail="a>0 : minimum · a<0 : maximum"
+    caption="Les courbes sont calculées par JSXGraph : le signe de a décide l’ouverture."
+    bbox="[-5,8,5,-8]"
+  />
+
+  <Reveal id="formes-a-negatif" marker="?">
+    <span slot="label">Question immédiate</span>
+    <p>Dans \(p(x)=-3x^2+12x-5\), quelle est la forme visible et que vaut \(a\) ?</p>
+    <p slot="answer">La forme visible est la forme développée. Ici \(a=-3\), donc la parabole est tournée vers le bas et admet un maximum.</p>
+  </Reveal>
+</section>
+
+<section id="discriminant" className="chapter-section">
+  <div className="section-marker">
+    <div className="section-marker__num">02</div>
+    <div className="section-marker__meta">
+      <p className="section-marker__kicker">Méthode 1</p>
+      <h2>Le discriminant décide le nombre de racines</h2>
+    </div>
+  </div>
+
+  <p>Une racine du trinôme est une valeur de \(x\) pour laquelle \(f(x)=0\). Pour savoir combien il y en a, on calcule un nombre : le discriminant.</p>
+
+  <KaTeXBlock major tex={'\\Delta=b^2-4ac'} />
+
+  <div className="case-grid">
+    <div className="case-card"><p className="case-title">\(\Delta&lt;0\)</p><p>Aucune racine réelle. La parabole ne coupe pas l’axe des abscisses.</p></div>
+    <div className="case-card"><p className="case-title">\(\Delta=0\)</p><p>Une racine double : \(x_0=-b/(2a)\). La parabole touche l’axe en un seul point.</p></div>
+    <div className="case-card"><p className="case-title">\(\Delta>0\)</p><p>Deux racines distinctes : on applique les deux formules avec \(+\sqrt\Delta\) et \(-\sqrt\Delta\).</p></div>
+  </div>
+
+  <WorkedExample title="Exemple résolu · deux racines">
+    <p>Résoudre dans les réels l’équation \(2x^2-x-6=0\).</p>
+    <p>On reconnaît \(a=2\), \(b=-1\) et \(c=-6\).</p>
+    <KaTeXBlock lines={[
+      '\\begin{aligned}\\Delta&=(-1)^2-4\\times2\\times(-6)\\\\&=1+48\\\\&=49\\end{aligned}',
+      'x_1=\\frac{1-7}{4}=-\\frac{3}{2}',
+      'x_2=\\frac{1+7}{4}=2'
+    ]} />
+    <p>Les solutions sont \(-3/2\) et \(2\). La conclusion doit nommer l’ensemble des solutions, pas seulement poser deux nombres.</p>
+  </WorkedExample>
+
+  <WorkedExample title="Exemple résolu · aucun zéro réel">
+    <p>Pour \(3x^2-7x+5=0\), on a \(a=3\), \(b=-7\), \(c=5\).</p>
+    <KaTeXBlock tex={'\\begin{aligned}\\Delta&=(-7)^2-4\\times3\\times5\\\\&=49-60\\\\&=-11\\end{aligned}'} />
+    <p>Comme \(\Delta&lt;0\), l’équation n’a aucune solution réelle.</p>
+  </WorkedExample>
+
+  <ExactGraph
+    id="sd-astro-discriminant"
+    type="discriminant"
+    readout="Trois cas exacts du discriminant"
+    detail="0, 1 ou 2 intersections avec l’axe"
+    caption="Le discriminant compte les contacts avec l’axe des abscisses : aucun, un contact double, ou deux intersections."
+    bbox="[-6,8,6,-6]"
+  />
+
+  <Reveal id="discriminant-step" marker="?">
+    <span slot="label">Étape manquante</span>
+    <p>Pour \(5x^2-2x-3=0\), on a calculé \(\Delta=64\). Que valent les deux racines ?</p>
+    <p slot="answer">\(\sqrt\Delta=8\). Donc \(x_1=(2-8)/10=-3/5\) et \(x_2=(2+8)/10=1\).</p>
+  </Reveal>
+</section>
+
+<section id="sommet" className="chapter-section">
+  <div className="section-marker">
+    <div className="section-marker__num">03</div>
+    <div className="section-marker__meta">
+      <p className="section-marker__kicker">Méthode 2</p>
+      <h2>La forme canonique donne le sommet et l’extremum</h2>
+    </div>
+  </div>
+
+  <p>Pour répondre aux questions « sommet », « axe », « minimum » ou « maximum », la forme canonique est la plus efficace.</p>
+
+  <KaTeXBlock major lines={[
+    'f(x)=a(x-\\alpha)^2+\\beta',
+    '\\alpha=-\\frac{b}{2a}',
+    '\\beta=f(\\alpha)'
+  ]} />
+
+  <div className="method-grid">
+    <div className="method-step"><p>1. Lis \(a\), \(b\), \(c\) avec leurs signes.</p></div>
+    <div className="method-step"><p>2. Calcule \(\alpha=-b/(2a)\), l’abscisse du sommet.</p></div>
+    <div className="method-step"><p>3. Calcule \(\beta=f(\alpha)\).</p></div>
+    <div className="method-step"><p>4. Conclus : sommet \(S(\alpha;\beta)\), axe \(x=\alpha\), extremum \(\beta\).</p></div>
+  </div>
+
+  <WorkedExample title="Exemple résolu · forme canonique">
+    <p>Déterminer la forme canonique de \(f(x)=2x^2-8x+3\).</p>
+    <KaTeXBlock lines={[
+      '\\alpha=-\\frac{-8}{2\\times2}=2',
+      '\\begin{aligned}\\beta&=f(2)\\\\&=2\\times2^2-8\\times2+3\\\\&=-5\\end{aligned}',
+      'f(x)=2(x-2)^2-5'
+    ]} />
+    <p>Le sommet est \(S(2;-5)\), l’axe est \(x=2\), et le minimum vaut \(-5\).</p>
+  </WorkedExample>
+
+  <ExactGraph
+    id="sd-astro-sommet"
+    type="sommet"
+    readout="f(x)=2(x−2)²−5"
+    detail="Sommet S(2 ; −5) · axe x=2"
+    caption="La droite verticale passe par le sommet : elle sépare la parabole en deux parties symétriques."
+    bbox="[-1,6,6,-8]"
+  />
+
+  <Reveal id="sommet-parenthese" marker="?">
+    <span slot="label">Parenthèse à zéro</span>
+    <p>Pour \(k(x)=5-2(x+4)^2\), quelle valeur de \(x\) annule la parenthèse, et quel est l’extremum ?</p>
+    <p slot="answer">La parenthèse s’annule pour \(x=-4\). Comme \(a=-2&lt;0\), l’extremum est un maximum égal à \(5\).</p>
+  </Reveal>
+</section>
+
+<section id="signe" className="chapter-section">
+  <div className="section-marker">
+    <div className="section-marker__num">04</div>
+    <div className="section-marker__meta">
+      <p className="section-marker__kicker">Méthode 3</p>
+      <h2>Le signe du trinôme vient des racines et de \(a\)</h2>
+    </div>
+  </div>
+
+  <div className="c-callout c-callout--key">
+    <p className="c-callout__label"><span className="dot"></span>Règle du signe</p>
+    <p>Un trinôme \(ax^2+bx+c\) est toujours du signe de \(a\), sauf entre ses racines lorsqu’elles existent. Si \(\Delta&lt;0\), il garde le signe de \(a\) partout.</p>
+  </div>
+
+  <ExactGraph
+    id="sd-astro-signe"
+    type="signe"
+    readout="x² − 2x − 15"
+    detail="Négatif entre −3 et 5"
+    caption="La courbe est sous l’axe entre les deux racines : c’est cette zone que le tableau de signes traduit."
+    bbox="[-7,10,9,-20]"
+  />
+
+  <WorkedExample title="Exemple résolu · inéquation">
+    <p>Résoudre \(x^2-2x-15&lt;0\).</p>
+    <KaTeXBlock lines={[
+      '\\begin{aligned}\\Delta&=(-2)^2\\\\&\\quad -4\\times1\\times(-15)\\\\&=4+60\\\\&=64\\end{aligned}',
+      'x_1=-3\\quad x_2=5'
+    ]} />
+    <p>Comme \(a=1>0\), le trinôme est négatif entre les racines. L’inégalité stricte donne \(S=]-3;5[\).</p>
+  </WorkedExample>
+
+  <Reveal id="signe-large" marker="?">
+    <span slot="label">Question immédiate</span>
+    <p>Pour \(-2x^2+7x+4\geq0\), on a trouvé les racines \(-1/2\) et \(4\). Quel intervalle garder ?</p>
+    <p slot="answer">Comme \(a=-2&lt;0\), le trinôme est positif entre les racines. On garde \([-1/2;4]\), avec bornes incluses.</p>
+  </Reveal>
+</section>
+
+<section id="somme-produit" className="chapter-section">
+  <div className="section-marker">
+    <div className="section-marker__num">05</div>
+    <div className="section-marker__meta">
+      <p className="section-marker__kicker">Racines</p>
+      <h2>Somme et produit des racines donnent une seconde lecture</h2>
+    </div>
+  </div>
+
+  <p>Quand un trinôme admet deux racines \(x_1\) et \(x_2\), leur somme et leur produit permettent de vérifier vite ou de trouver une deuxième racine connue indirectement.</p>
+
+  <KaTeXBlock major lines={[
+    'x_1+x_2=-\\frac{b}{a}',
+    'x_1x_2=\\frac{c}{a}'
+  ]} />
+
+  <WorkedExample title="Exemple résolu · racine connue">
+    <p>Soit \(f(x)=-2x^2+x+1\). On sait que \(1\) est une racine. Déterminer l’autre.</p>
+    <KaTeXBlock lines={[
+      'x_1x_2=\\frac{c}{a}=-\\frac{1}{2}',
+      '1\\times x_2=-\\frac{1}{2}',
+      'x_2=-\\frac{1}{2}'
+    ]} />
+    <p>L’autre racine est \(-1/2\). On peut vérifier avec la somme.</p>
+  </WorkedExample>
+
+  <Reveal id="somme-produit-check" marker="✓">
+    <span slot="label">Vérification rapide</span>
+    <p>Pour \(3x^2-7x+2\), une racine est \(2\). Trouve l’autre par le produit, puis confirme par la somme.</p>
+    <p slot="answer">Produit : \(x_1x_2=2/3\). Comme \(x_1=2\), l’autre racine vaut \(1/3\). Somme : \(2+1/3=7/3\), cohérent avec \(-b/a\).</p>
+  </Reveal>
+</section>
+
+<section id="position-relative" className="chapter-section">
+  <div className="section-marker">
+    <div className="section-marker__num">06</div>
+    <div className="section-marker__meta">
+      <p className="section-marker__kicker">Application</p>
+      <h2>Position relative de deux courbes</h2>
+    </div>
+  </div>
+
+  <p>Pour savoir où la courbe de \(f\) est au-dessus de celle de \(g\), on n’essaie pas des valeurs au hasard : on étudie le signe de \(f(x)-g(x)\).</p>
+
+  <KaTeXBlock major lines={[
+    'C_f\\ \\text{au-dessus de}\\ C_g',
+    '\\Longleftrightarrow f(x)-g(x)\\geq0'
+  ]} />
+
+  <WorkedExample title="Exemple résolu · comparer une parabole et une droite">
+    <p>Soit \(f(x)=-x^2+8x-11\) et \(g(x)=x-1\). Déterminer où \(C_f\) est au-dessus de \(C_g\).</p>
+    <p>On étudie \(h(x)=f(x)-g(x)=-x^2+7x-10\).</p>
+    <KaTeXBlock lines={[
+      '\\begin{aligned}\\Delta&=7^2\\\\&\\quad -4\\times(-1)\\times(-10)\\\\&=49-40\\\\&=9\\end{aligned}',
+      'x_1=2\\quad x_2=5'
+    ]} />
+    <p>Comme le coefficient dominant de \(h\) est négatif, \(h\geq0\) entre les racines. Donc \(C_f\) est au-dessus de \(C_g\) sur \([2;5]\).</p>
+  </WorkedExample>
+
+  <ExactGraph
+    id="sd-astro-position"
+    type="position"
+    readout="Comparer parabole et droite"
+    detail="Cf au-dessus de Cg entre 2 et 5"
+    caption="Les deux courbes se croisent en x=2 et x=5. Entre ces points, la parabole est au-dessus de la droite."
+    bbox="[-1,8,8,-6]"
+  />
+
+  <Reveal id="position-linear" marker="?">
+    <span slot="label">Choix de méthode</span>
+    <p>Soit \(f(x)=x^2-3x+2\) et \(g(x)=x^2-x\). Faut-il calculer un discriminant ?</p>
+    <p slot="answer">Non. \(f(x)-g(x)=-2x+2\) est du premier degré : une résolution linéaire suffit.</p>
+  </Reveal>
+</section>
+
+<section id="choix-methode" className="chapter-section">
+  <div className="section-marker">
+    <div className="section-marker__num">07</div>
+    <div className="section-marker__meta">
+      <p className="section-marker__kicker">Différenciateur</p>
+      <h2>Choisir la méthode avant de calculer</h2>
+    </div>
+  </div>
+
+  <p>Beaucoup d’erreurs commencent avant la première ligne de calcul : l’élève applique une formule parce qu’il la connaît, pas parce que l’énoncé la demande.</p>
+
+  <MethodChoice choices={methodChoiceCards} />
+
+  <button className="course-agent-trigger" type="button" data-course-agent-open="choix-methode-inequation">Tester mon choix de méthode</button>
+
+  <div className="diagnostic-grid">
+    <Reveal id="choix-max" marker="?">
+      <span slot="label">Choisis sans calculer</span>
+      <p>« Déterminer la quantité qui maximise \(B(x)=-0,1x^2+77x-1500\). » Quelle méthode démarre le mieux ?</p>
+      <p slot="answer">Forme canonique ou \(\alpha=-b/(2a)\), car on cherche un extremum.</p>
+    </Reveal>
+    <Reveal id="choix-produit" marker="?">
+      <span slot="label">Choisis sans calculer</span>
+      <p>« Résoudre \((3x-1)(2x+3)=0\). » Quelle méthode démarre le mieux ?</p>
+      <p slot="answer">Produit nul directement. Le discriminant marcherait, mais il serait plus long.</p>
+    </Reveal>
+    <Reveal id="choix-inequation" marker="?">
+      <span slot="label">Choisis sans calculer</span>
+      <p>« Résoudre \(x^2-2x-15&lt;0\). » Quelle méthode démarre le mieux ?</p>
+      <p slot="answer">Racines puis règle du signe : l’énoncé demande où l’expression est négative.</p>
+    </Reveal>
+  </div>
+</section>
+
+<section id="redaction" className="chapter-section">
+  <div className="section-marker">
+    <div className="section-marker__num">08</div>
+    <div className="section-marker__meta">
+      <p className="section-marker__kicker">Copie notée</p>
+      <h2>Rédiger comme en contrôle</h2>
+    </div>
+  </div>
+
+  <p>Le bon résultat ne suffit pas toujours. Une copie solide laisse une trace : coefficients, discriminant, racines, signe, conclusion.</p>
+
+  <ExamWriting
+    weak="Delta=16, racines 1 et 5, donc [1;5]."
+    points={[
+      'Identifier explicitement a, b, c avec leur signe.',
+      'Écrire la formule du discriminant avant le calcul numérique.',
+      'Préciser le signe de Delta avant la conclusion sur les racines.',
+      'Justifier l’intervalle final par le signe de a.',
+      'Distinguer crochets ouverts et fermés selon l’inégalité.',
+    ]}
+  >
+    <p>Résoudre \(-x^2+6x-5\geq0\).</p>
+    <p>On a \(a=-1\), \(b=6\), \(c=-5\).</p>
+    <KaTeXBlock lines={[
+      '\\begin{aligned}\\Delta&=6^2-4\\times(-1)\\times(-5)\\\\&=36-20\\\\&=16\\end{aligned}',
+      'x_1=1\\quad x_2=5'
+    ]} />
+    <p>Comme \(a=-1&lt;0\), le trinôme est positif entre ses racines. L’inégalité est large, donc l’ensemble des solutions est \(S=[1;5]\).</p>
+  </ExamWriting>
+
+  <button className="course-agent-trigger" type="button" data-course-agent-open="redaction-inequation">Vérifier ma rédaction</button>
+</section>
+
+<section id="pieges" className="chapter-section">
+  <div className="section-marker">
+    <div className="section-marker__num">P</div>
+    <div className="section-marker__meta">
+      <p className="section-marker__kicker">Pièges fréquents</p>
+      <h2>Les erreurs qui coûtent un demi-point sans prévenir</h2>
+    </div>
+  </div>
+
+  <div className="revision-grid">
+    <div className="c-callout c-callout--warn"><p className="c-callout__label"><span className="dot"></span>Signe de \(b\)</p><p>Dans \(2x^2-3x+1\), \(b=-3\), pas \(3\). Mets les parenthèses dans \(b^2\).</p></div>
+    <div className="c-callout c-callout--warn"><p className="c-callout__label"><span className="dot"></span>Sommet inversé</p><p>Dans \(a(x-\alpha)^2+\beta\), le signe de \(\alpha\) est inversé dans la parenthèse.</p></div>
+    <div className="c-callout c-callout--warn"><p className="c-callout__label"><span className="dot"></span>Delta négatif</p><p>Si \(\Delta&lt;0\), n’invente pas de factorisation réelle.</p></div>
+    <div className="c-callout c-callout--warn"><p className="c-callout__label"><span className="dot"></span>Crochets</p><p>Inégalité stricte : bornes exclues. Inégalité large : bornes incluses.</p></div>
+  </div>
+</section>
+
+<section id="guides" className="chapter-section">
+  <div className="section-marker">
+    <div className="section-marker__num">G</div>
+    <div className="section-marker__meta">
+      <p className="section-marker__kicker">Exercices guidés</p>
+      <h2>L’aide disparaît progressivement</h2>
+    </div>
+  </div>
+
+  <Reveal id="guide-sommet" marker="1" label="Voir le corrigé">
+    <span slot="label">Guidé 1</span>
+    <p>Soit \(f(x)=x^2-6x+5\). Déterminer sa forme canonique, puis donner son sommet.</p>
+    <p slot="answer">\(\alpha=3\), \(\beta=f(3)=-4\). Donc \(f(x)=(x-3)^2-4\), sommet \(S(3;-4)\).</p>
+  </Reveal>
+
+  <Reveal id="guide-discriminant" marker="2" label="Voir le corrigé">
+    <span slot="label">Guidé 2</span>
+    <p>Résoudre \(3x^2-15x+18=0\).</p>
+    <p slot="answer">\(\Delta=9\). Les racines sont \(2\) et \(3\). L’ensemble des solutions est \(S=2;3\), avec les deux valeurs listées.</p>
+  </Reveal>
+
+  <Reveal id="guide-signe" marker="3" label="Voir le corrigé">
+    <span slot="label">Guidé 3</span>
+    <p>Résoudre \(-2x^2+7x+4\geq0\), sachant que les racines sont \(-1/2\) et \(4\).</p>
+    <p slot="answer">Comme \(a=-2&lt;0\), le trinôme est positif entre les racines. Solution : \([-1/2;4]\).</p>
+  </Reveal>
+</section>
+
+<section id="controle" className="chapter-section">
+  <div className="section-marker">
+    <div className="section-marker__num">C</div>
+    <div className="section-marker__meta">
+      <p className="section-marker__kicker">Niveau contrôle</p>
+      <h2>Exercices à réussir sans aide</h2>
+    </div>
+  </div>
+
+  <Reveal id="controle-forme" marker="C" label="Voir le corrigé">
+    <span slot="label">Contrôle 1</span>
+    <p>Soit \(f(x)=3(x-1)(x+2)\). Développer, donner le sommet, puis résoudre \(f(x)=0\).</p>
+    <p slot="answer">Développée : \(3x^2+3x-6\). Sommet : \(S(-1/2;-27/4)\). Racines : \(1\) et \(-2\).</p>
+  </Reveal>
+
+  <Reveal id="controle-profit" marker="C" label="Voir le corrigé">
+    <span slot="label">Contrôle 2</span>
+    <p>Pour \(B(x)=-0,1x^2+77x-1500\), déterminer la quantité qui maximise le bénéfice.</p>
+    <p slot="answer">Comme \(a&lt;0\), il y a un maximum. \(\alpha=-77/(2\times -0,1)=385\). La quantité optimale est \(385\).</p>
+  </Reveal>
+
+  <Reveal id="controle-sans-delta" marker="C" label="Voir le corrigé">
+    <span slot="label">Contrôle 3</span>
+    <p>Résoudre sans discriminant : \((3x-1)(2x+3)=0\), puis \(5x^2-3x=0\).</p>
+    <p slot="answer">Produit nul : \(x=1/3\) ou \(x=-3/2\). Facteur commun : \(x(5x-3)=0\), donc \(x=0\) ou \(x=3/5\).</p>
+  </Reveal>
+</section>
+
+<section id="vingt-sur-vingt" className="chapter-section">
+  <div className="section-marker">
+    <div className="section-marker__num">20</div>
+    <div className="section-marker__meta">
+      <p className="section-marker__kicker">Cap 20/20</p>
+      <h2>Pas de raccourci : passe la porte avant</h2>
+    </div>
+  </div>
+
+  <div className="c-gate">
+    <p className="c-gate__label">Porte d’entrée</p>
+    <p className="c-gate__title">Deux contrôles sans corrigé d’abord</p>
+    <p>Avant de tenter ces exercices, réussis au moins deux exercices de la section Contrôle sans ouvrir le corrigé.</p>
+  </div>
+
+  <Reveal id="vingt-parametre" marker="20" label="Voir le corrigé">
+    <span slot="label">20/20 · paramètre</span>
+    <p>Soit \(m\) réel. Déterminer selon \(m\) le nombre de solutions réelles de \(x^2-2x+m+1=0\).</p>
+    <p slot="answer">\(\Delta=-4m\). Si \(m&lt;0\), deux solutions ; si \(m=0\), une racine double ; si \(m>0\), aucune solution réelle.</p>
+  </Reveal>
+
+  <Reveal id="vingt-domaine" marker="20" label="Voir le corrigé">
+    <span slot="label">20/20 · domaine</span>
+    <p>Déterminer le domaine de la fonction \(h\) définie par : racine carrée de \(3x^2-5x+2\), puis division par \(x-1\).</p>
+    <p slot="answer">Il faut \(3x^2-5x+2\geq0\) et \(x\neq1\). Les racines sont \(2/3\) et \(1\). Domaine : \(]-\infty;2/3]\cup]1;+\infty[\).</p>
+  </Reveal>
+</section>
+
+<section id="revision" className="chapter-section recap-section">
+  <div className="section-marker">
+    <div className="section-marker__num">R</div>
+    <div className="section-marker__meta">
+      <p className="section-marker__kicker">Révision et suite</p>
+      <h2>Ce que tu dois revoir ensuite</h2>
+    </div>
+  </div>
+
+  <div className="revision-grid">
+    <div className="revision-card"><p className="box-title">Si tu as raté les signes</p><p>Refais les inéquations et vérifie toujours le signe de \(a\).</p></div>
+    <div className="revision-card"><p className="box-title">Si tu as raté les sommets</p><p>Reprends la forme canonique : la parenthèse doit s’annuler au sommet.</p></div>
+    <div className="revision-card"><p className="box-title">Si tu as trop calculé</p><p>Refais le bloc choisir la méthode. La forme visible donne souvent un raccourci.</p></div>
+    <div className="revision-card"><p className="box-title">Lien avec dérivation</p><p>Le signe d’un trinôme reviendra pour étudier des variations.</p></div>
+  </div>
+
+  <Reveal id="revision-fiche" marker="✎" label="Voir la fiche minimale">
+    <span slot="label">Dernière récupération active</span>
+    <p>Écris sans regarder : la formule de \(\Delta\), les trois cas, et la règle du signe.</p>
+    <p slot="answer">\(\Delta=b^2-4ac\). Si \(\Delta&lt;0\), aucune racine réelle. Si \(\Delta=0\), une racine double. Si \(\Delta>0\), deux racines. Signe : signe de \(a\), sauf entre les racines.</p>
+  </Reveal>
+
+  <div className="revision-grid">
+    {sourceCards.map((source) => <div className="revision-card"><p className="box-title">Source</p><p>{source}</p></div>)}
+  </div>
+</section>
+
+</CourseShell>

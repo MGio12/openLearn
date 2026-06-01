@@ -1,5 +1,17 @@
 /* ============================================================
-   OUTIL PREPA — État partagé (localStorage)
+   AGENT HEADER
+   Role: store local partage pour les pages app et le compte local.
+   Loaded by: pages racine et onboarding.html apres
+   assets/js/domain/model.js, avant les scripts de page.
+   Reads/writes: localStorage outilPrepa:v1; reset aussi
+   objectif-lycee-onboarding-v3. Expose window.OutilPrepa.
+   Public contract: state/getters, mission/focus/mood mutations,
+   history, subscribe/reset, applyOnboarding, hasLocalAccount,
+   saveLocalAccount, resetLocalAccount.
+   Verify: npm run verify:local-account ; npm run verify:localstorage.
+   Read next: `docs/agent-codebase-map.md` Zone 5, `docs/architecture.md`.
+
+   OUTIL PREPA - État partagé (localStorage)
    ------------------------------------------------------------
    Persiste les missions terminées, les jours actifs, le compteur
    de missions offertes restantes. Exposé via window.OutilPrepa.
@@ -31,6 +43,7 @@
   'use strict';
 
   var KEY = 'outilPrepa:v1';
+  var ONBOARDING_KEY = 'objectif-lycee-onboarding-v3';
   var MAX_STORAGE_BYTES = 512 * 1024;
   var storageWarningShown = false;
   var Model = window.OutilPrepaModel || null;
@@ -374,6 +387,36 @@
       emit();
       return state;
     },
+    hasLocalAccount: function () {
+      return !!(state.profile && state.profile.localAccountId);
+    },
+    saveLocalAccount: function (account) {
+      account = account || {};
+      var date = todayISO();
+      var payload = Object.assign({}, account, {
+        updatedAt: account.updatedAt || new Date().toISOString(),
+      });
+
+      if (Model && typeof Model.createProfileFromLocalAccount === 'function') {
+        state.profile = Model.createProfileFromLocalAccount(payload, state.profile);
+      }
+      if (Model && typeof Model.createObjectiveFromLocalAccount === 'function') {
+        state.objective = Model.createObjectiveFromLocalAccount(payload, state.objective);
+      }
+      if (Model && typeof Model.createMissionFromOnboarding === 'function') {
+        state.mission = Model.createMissionFromOnboarding({
+          matieres: state.profile && state.profile.prioritySubjectIds,
+          priorites: state.profile && state.profile.prioritySubjectIds,
+        });
+        state.missionProgress = Model.createMissionProgress(state.mission, { date: date });
+        state.focusSession = Model.createFocusSession(state.mission);
+        resetTodayForMission(date);
+      }
+
+      persist();
+      emit();
+      return state;
+    },
     startFocusSession: function () {
       var stamp = new Date().toISOString();
       if (Model && typeof Model.createFocusSession === 'function') {
@@ -491,6 +534,13 @@
       syncSubscriptionState();
       persist();
       emit();
+    },
+    resetLocalAccount: function () {
+      try {
+        localStorage.removeItem(ONBOARDING_KEY);
+      } catch (e) {}
+      this.reset();
+      return state;
     },
   };
 

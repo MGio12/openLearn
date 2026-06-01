@@ -1,5 +1,5 @@
 /* ============================================================
-   Objectif Lycée — Home (index.html) page styles
+   Objectif Lycée - Home (index.html) page styles
    ------------------------------------------------------------
    - Layout overrides for the cockpit view
    - Cahier margin rule (fond)
@@ -34,7 +34,7 @@ html, body { height: auto; overflow: visible; }
   position: relative;
 }
 
-/* ===== Cahier — marge verticale gauche ===== */
+/* ===== Cahier - marge verticale gauche ===== */
 /* Une ligne fine, orange très pâle, alignée avec le bord gauche
    du bloc centré (~960px max-width) puis 36px à l'extérieur.
    Sur viewports étroits (max() clamp), la ligne se cale à 24px
@@ -371,7 +371,7 @@ html, body { height: auto; overflow: visible; }
 }
 
 /* ============================================================
-   REVEAL IA — X-ray panel
+   REVEAL IA - X-ray panel
    ------------------------------------------------------------
    État fermé (data-why-open="false") : panneau invisible,
    non-interactif.
@@ -441,7 +441,7 @@ html, body { height: auto; overflow: visible; }
   line-height: 1.32;
 }
 
-/* Position des 4 cartes — aux 4 coins de la mission */
+/* Position des 4 cartes - aux 4 coins de la mission */
 .ap-why-card--tl { top: 0;      left: 16px; }
 .ap-why-card--tr { top: 0;      right: 16px; }
 .ap-why-card--bl { bottom: 0;   left: 16px; }
@@ -464,7 +464,7 @@ html, body { height: auto; overflow: visible; }
 }
 .ap-why-overlay[data-active="true"] { display: block; }
 
-/* Ambient fade — appliqué aux voisins quand le panel est ouvert */
+/* Ambient fade - appliqué aux voisins quand le panel est ouvert */
 .is-faded {
   opacity: 0.32;
   transition: opacity 220ms var(--ease-calm, ease);
@@ -678,7 +678,7 @@ html, body { height: auto; overflow: visible; }
    Responsive layers
    ============================================================ */
 
-/* Large screens — more breathing room */
+/* Large screens - more breathing room */
 @media (min-width: 1500px) {
   #view-today { --ap-mission-pad-x: 28px; }
   .view { padding: 60px 38px 22px; }
@@ -703,7 +703,7 @@ html, body { height: auto; overflow: visible; }
   .ap-timeline__label { font-size: 14px; }
 }
 
-/* Narrow desktop / portrait laptop — tighten without breaking layout */
+/* Narrow desktop / portrait laptop - tighten without breaking layout */
 @media (max-width: 1200px) and (min-width: 901px) {
   #view-today { --ap-mission-pad-x: 18px; }
   .view { padding: 60px 22px 14px; }
@@ -713,7 +713,7 @@ html, body { height: auto; overflow: visible; }
   .ap-steps { padding-left: 14px; }
 }
 
-/* Very short viewports — extra-tight to keep no-scroll */
+/* Very short viewports - extra-tight to keep no-scroll */
 @media (max-height: 720px) {
   #view-today { --ap-mission-pad-x: 18px; }
   .view { padding: 60px 28px 10px; }
@@ -732,7 +732,7 @@ html, body { height: auto; overflow: visible; }
   .ap-section { margin-bottom: 10px; }
 }
 
-/* Tablet / narrow window — stack mission and keep one content column */
+/* Tablet / narrow window - stack mission and keep one content column */
 @media (max-width: 900px) {
   .ap-head { align-items: flex-start; }
   .ap-mission { grid-template-columns: 1fr; gap: 20px; }
@@ -789,7 +789,7 @@ html, body { height: auto; overflow: visible; }
   .ap-next-item .dur { grid-area: dur; justify-self: end; }
 }
 
-/* ===== Reveal — fallback "drawer" sous 900px ===== */
+/* ===== Reveal - fallback "drawer" sous 900px ===== */
 /* En dessous de 900px, les 4 cartes ne tiennent plus aux 4 coins.
    On bascule en liste empilée sous la mission, sans connecteurs SVG. */
 @media (max-width: 900px) {
@@ -1032,6 +1032,68 @@ html, body { height: auto; overflow: visible; }
 
   .ap-proof-chip {
     padding: 11px 12px;
+  }
+}
+
+/* ===== Open Source strip ===== */
+.ap-os-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+}
+.ap-os-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 18px;
+  background: var(--paper-2);
+  border: var(--b) solid var(--ink);
+  border-radius: var(--r-3);
+  box-shadow: var(--sh-1);
+}
+.ap-os-cell__label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.ap-os-cell__title {
+  font-family: var(--font-display);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: -.01em;
+  margin: 0;
+  line-height: 1.2;
+}
+.ap-os-cell__body {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin: 0;
+}
+.ap-os-cell__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 4px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Responsive OS strip */
+@media (max-width: 720px) {
+  .ap-os-strip {
+    grid-template-columns: 1fr;
   }
 }
 

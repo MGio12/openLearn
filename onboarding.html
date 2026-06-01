@@ -1,9 +1,20 @@
 <!doctype html>
 <!--
   ============================================================
-  Objectif Lycée — Onboarding V2
+  AGENT HEADER
+  Role: hote HTML du diagnostic React et creation/reprise du compte local.
+  Loaded by: navigateur via onboarding.html, puis bundle precompile.
+  Reads/writes: declare window.__ONBOARDING_TWEAKS_DEFAULTS; le store
+  charge ici gere outilPrepa:v1 et peut rediriger vers index.html.
+  Public contract: #root, ordre React/ReactDOM ->
+  __ONBOARDING_TWEAKS_DEFAULTS -> analytics -> model -> store ->
+  redirect if hasLocalAccount -> parent-share -> onboarding.bundle.js.
+  Verify: npm run verify:onboarding ; npm run verify:local-account.
+  Read next: `docs/agent-codebase-map.md` Zone 2, `onboarding/state.jsx`.
+
+  Objectif Lycée - Onboarding V2
   ============================================================
-  14 écrans : intro · 9 questions calibrage · generation · mission · social · recap · paywall
+  15 écrans : intro · 9 questions calibrage · generation · mission · social · recap · paywall
   Voir onboarding/state.jsx pour le manifeste des écrans.
   ============================================================
 -->
@@ -11,7 +22,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Objectif Lycée — Diagnostic</title>
+  <title>Objectif Lycée - Diagnostic</title>
   <meta name="description" content="2 minutes pour transformer ton objectif, ta classe et tes priorités en une première mission utile aujourd'hui.">
   <meta name="theme-color" content="#F6F2EB">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='6' width='52' height='52' rx='12' fill='%23F4D35E' stroke='%23121212' stroke-width='5' transform='rotate(-6 32 32)'/%3E%3Ctext x='32' y='44' font-family='Arial Black, Impact, sans-serif' font-size='34' font-weight='900' text-anchor='middle' fill='%23121212' transform='rotate(-6 32 32)'%3EO%3C/text%3E%3C/svg%3E">
@@ -47,6 +58,19 @@
   </script>
 
   <script src="scripts/analytics.js"></script>
+  <script src="assets/js/domain/model.js"></script>
+  <script src="assets/js/state/store.js"></script>
+  <script>
+    (function () {
+      if (
+        window.OutilPrepa
+        && typeof window.OutilPrepa.hasLocalAccount === 'function'
+        && window.OutilPrepa.hasLocalAccount()
+      ) {
+        window.location.replace('index.html');
+      }
+    })();
+  </script>
   <script src="assets/js/shared/parent-share.js"></script>
   <script src="onboarding/onboarding.bundle.js"></script>
 </body>

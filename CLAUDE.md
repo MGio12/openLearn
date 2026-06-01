@@ -1,8 +1,9 @@
-# Claude Code — ObjectifLycee
+# Claude Code - ObjectifLycee
 
 ## Profil & stack
 - Solo dev, bases en info, pas ingénieur. Code simple, lisible dans 6 mois par moi-même.
-- Site statique : HTML/CSS/JS **vanilla**, pas de framework.
+- Site actuel : HTML/CSS/JS **vanilla**, pas de framework par défaut.
+- Exception cible pour les cours/TD : `docs/stack-cours-td-web.md` fixe Astro + MDX comme cible durable, sans migration tant qu'elle n'est pas explicitement demandée.
 - Arbo : `*.html` racine, `assets/css/pages/`, `assets/js/`, `data/`, `scripts/`, `docs/`.
 - **Exception `onboarding.html`** : React 18 production UMD via CDN unpkg + bundle précompilé `onboarding/onboarding.bundle.js`. Sources dans `onboarding/` à la racine : `onboarding.css` + 5 modules JSX (`state`, `profile`, `screens-early/mid/late`, `app`). Après modification des JSX, lancer `npm run build:onboarding`. State machine 15 écrans + moteur mission 9 matières × 8 blocages, persisté en `localStorage` clé `objectif-lycee-onboarding-v3`. Pas le pattern par défaut, ne pas étendre aux autres pages.
 
@@ -38,8 +39,8 @@ Raison : skills GSD dans `~/.codex/skills/`. Délègue le compute LLM lourd sur 
 Phases longues : `run_in_background: true` ou `timeout: 600000`.
 
 ## Pré-commit
-1. `/simplify` — duplication, code mort, sur-ingénierie sur le diff.
-2. `/review` — code review pré-merge (sécurité, bugs structurels).
+1. `/simplify` - duplication, code mort, sur-ingénierie sur le diff.
+2. `/review` - code review pré-merge (sécurité, bugs structurels).
 
 ## Itération visuelle
 Codex implémente → Playwright capture → Claude critique le screenshot → corrections → recapture. Boucle détaillée : `WORKFLOW.md` (Workflow 2).
@@ -50,18 +51,23 @@ Codex implémente → Playwright capture → Claude critique le screenshot → c
 - Pas de backticks dans JS embarqué dans heredocs PowerShell.
 
 ## Edge case KaTeX
-Ne **jamais** styler un tag générique (`.bloc span`, `.card div`, etc.) dans une zone contenant des formules — KaTeX découpe chaque formule en multiples `<span>`. Utiliser une classe dédiée sur l'élément exact. Cas détaillé : `docs/erreurs-rencontrees.md`.
+Ne **jamais** styler un tag générique (`.bloc span`, `.card div`, etc.) dans une zone contenant des formules - KaTeX découpe chaque formule en multiples `<span>`. Utiliser une classe dédiée sur l'élément exact. Cas détaillé : `docs/erreurs-rencontrees.md`.
 
 Les formules KaTeX ne doivent **jamais** être comprimées ou enfermées dans un scroll horizontal. Une formule trop longue doit prendre toute la largeur disponible puis passer en hauteur : utiliser `aligned`, plusieurs blocs `\[...\]`, ou du texte entre les étapes. Ne pas résoudre le problème avec `overflow-x: auto`, une réduction de police, ou une carte trop étroite.
 
 Les équations doivent être propres et écrites dans le langage mathématique adapté : KaTeX pour les expressions, symboles définis avant usage, notation stable entre méthode, exemple et correction. Quand une correction contient plusieurs réponses, plusieurs cas, ou plusieurs questions, les séparer clairement par parties numérotées, labels courts, ou blocs distincts. Ne jamais empiler trois réponses d'affilée dans un seul bloc d'équations sans phrase ni repère. Si une équation risque de passer à la ligne ou de déborder, la découper volontairement en étapes verticales avec `aligned`, plusieurs blocs `\[...\]`, ou du texte entre les lignes.
 
-## Visuels mathématiques — INTERDICTION
+## Visuels mathématiques - INTERDICTION
 - **Interdit :** dessiner à la main des courbes, paraboles, tangentes, axes, graphes ou schémas mathématiques approximatifs en SVG/Canvas/CSS/Bezier/HTML décoratif.
 - **Interdit :** faire semblant qu'un tracé manuel est un graphe mathématique fiable, même pour une intuition.
 - Pour une courbe exacte ou interactive : utiliser un langage/outil mathématique déterministe (`JSXGraph`, Desmos, GeoGebra, ou points calculés depuis une vraie fonction).
 - Pour une intuition visuelle non exacte : utiliser imagegen avec un prompt clair, sans axes, graduations, labels mathématiques ni formule dans l'image.
 - Si aucun outil mathématique exact n'est nécessaire, préférer une explication en langage mathématique + KaTeX plutôt qu'un dessin approximatif.
+
+## Graphes produit et progression
+- Pour les courbes de données visibles par l'élève, comme `progression.html`, ne pas écrire de SVG de graphe à la main. Utiliser un outil de graphe déterministe et maintenable (`JSXGraph` par défaut, Desmos/GeoGebra si besoin spécifique), avec des données explicites et des fonctions nommées.
+- Le conteneur du graphe doit s'adapter à sa boîte : privilégier `width: 100%`, `height: 100%`, `flex: 1 1 0%`, et les coordonnées logiques du graphe plutôt que des largeurs/hauteurs pixel fixes ou un plafonnement arbitraire.
+- Si JSXGraph est utilisé pour une courbe non interactive de progression, préférer le renderer `canvas` et désactiver navigation, zoom, pan et infobox, afin que le graphe reste un affichage stable plutôt qu'une calculatrice manipulable.
 
 ## Lecture minimale par scénario
 Objectif : ne pas tout relire. Charge seulement les fichiers utiles au travail en cours.
@@ -69,8 +75,8 @@ Objectif : ne pas tout relire. Charge seulement les fichiers utiles au travail e
 | Scénario | Lire en priorité | Pourquoi |
 |---|---|---|
 | Comprendre une zone code avant modification | `docs/agent-codebase-map.md` + doc métier du scénario ciblé | Carte courte : fichiers propriétaires, contrats DOM/data, commandes de vérification, pièges connus et fichiers à ne pas refactorer sans raison. Toute nouvelle zone partagée doit y ajouter un petit contrat. |
-| Créer ou modifier un cours de maths | `docs/regles-creation-cours-maths.md` → `docs/techniques-apprentissage-maths.md` → `docs/superpowers/specs/2026-05-19-structure-contenu-maths-premiere.md` → sources du chapitre dans `lien/premiere/math.md` | Règles qualité/rétention/monétisation, techniques d'apprentissage, structure de chapitre validée, puis PDFs de référence. |
-| Générer un cours depuis des PDF | `docs/pipeline-cours-ia.md` → `lien/premiere/math.md` → les fichiers de règles maths ci-dessus | Workflow PDF → extraction → page HTML+KaTeX, avec contraintes pédagogiques et sources validées. |
+| Créer ou modifier un cours ou TD de maths | `docs/stack-cours-td-web.md` → `docs/regles-creation-cours-maths.md` → `docs/techniques-apprentissage-maths.md` → `docs/superpowers/specs/2026-05-19-structure-contenu-maths-premiere.md` → sources du chapitre dans `lien/premiere/math.md` | Stack technique à utiliser selon la situation, règles qualité/rétention/monétisation, techniques d'apprentissage, structure de chapitre validée, puis PDFs de référence. |
+| Générer un cours ou TD depuis des PDF | `docs/stack-cours-td-web.md` → `docs/pipeline-cours-ia.md` → `lien/premiere/math.md` → les fichiers de règles maths ci-dessus | Choix des technos selon le besoin, workflow PDF → extraction → page web avec KaTeX/JSXGraph si nécessaire, contraintes pédagogiques et sources validées. |
 | Choisir les sources PDF Première maths | `lien/premiere/math.md` | Liens validés vers cours et TD Maths91/Maths-et-tiques. |
 | Ajouter des visuels pédagogiques | `docs/generation-image-cours.md` + `docs/erreurs-rencontrees.md` | Règles imagegen et pièges KaTeX/CSS à éviter. |
 | Concevoir des interactions IA dans les cours | `docs/vision-cours-ia-interactifs.md` + `docs/regles-creation-cours-maths.md` + `docs/techniques-apprentissage-maths.md` | Vision des blocs IA de compréhension, contexte minimal par bloc, profils de ton, garde-fous et logique de feedback. |
@@ -100,7 +106,7 @@ Objectif : ne pas tout relire. Charge seulement les fichiers utiles au travail e
 - Avant d'assembler une page, dresser une mini-carte de couverture : notions présentes dans les PDFs, méthodes, exemples, exercices adaptés, erreurs fréquentes, graphes exacts nécessaires, et points non repris volontairement.
 - Chaque section importante doit avoir une fonction pédagogique claire : apprendre une notion, faire choisir une méthode, faire produire une étape, faire rédiger, ou préparer un exercice de contrôle. Supprimer les blocs décoratifs qui n'ajoutent pas de math ou d'action élève.
 
-## Pages de cours — layout et sidebar
+## Pages de cours - layout et sidebar
 - Pages en HTML/CSS/JS vanilla. Un prototype peut rester dans `prototypes/cours/`, avec CSS/JS partagés par matière.
 - Structure attendue : `<body class="has-course-sidebar">`, `.course-layout[data-course-layout]`, `.course-sidebar[data-course-sidebar]`, `.sidebar-toggle[data-sidebar-toggle]`, liens de plan en `[data-section-link]`.
 - Sidebar de cours : fixe à l'extrême gauche, pleine hauteur, ouverte au premier chargement, repliée par changement de largeur. Ne jamais la replier par `transform` hors écran.

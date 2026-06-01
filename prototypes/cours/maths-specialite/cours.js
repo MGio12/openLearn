@@ -1,3 +1,17 @@
+/*
+ * AGENT HEADER
+ * Role: runtime partage des prototypes de cours et TD maths specialite.
+ * Loaded by: chaque chapitre HTML dans prototypes/cours/maths-specialite/.
+ * Reads/writes: rend KaTeX, initialise sidebar, revelations, graphes,
+ * tiroir IA et bloc Feynman; persiste outilPrepa:feynman:v1.
+ * Public contract: runtime lit data-course-layout/sidebar/toggle,
+ * data-section-link, data-reveal, data-chapter-curve, data-feynman*,
+ * data-course-id, data-feynman-endpoint; genere data-course-agent-drawer.
+ * Discoverability verified only: data-course-agent-entry/jump, .toc-agent-badge.
+ * Globals: window.__courseGraphInitializers, window.__OUTIL_PREPA_FEYNMAN_ENDPOINT.
+ * Verify: npm run verify:course-sidebar ; npm run verify:course-agent.
+ * Read next: `docs/agent-codebase-map.md` Zone 3, `docs/regles-creation-cours-maths.md`.
+ */
 window.__courseGraphInitializers = window.__courseGraphInitializers || [];
 
 window.addEventListener('DOMContentLoaded', async () => {
@@ -27,6 +41,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   initReadingProgress();
   initLazyCourseGraphs();
   initCourseAgent();
+  initFeynmanMethod();
   revealCourseWhenFontsAreReady();
 });
 
@@ -251,20 +266,27 @@ function initReadingProgress() {
 }
 
 const COURSE_AGENT_INPUT_MAX_LENGTH = 800;
+const FEYNMAN_STORAGE_KEY = 'outilPrepa:feynman:v1';
+const FEYNMAN_INPUT_MAX_LENGTH = 2500;
+const FEYNMAN_DEFAULT_ENDPOINT = '/api/ai/feynman';
 
-function initCourseAgent() {
+function readCourseAgentManifest() {
   const manifestScript = document.querySelector('script[type="application/json"][data-course-agent-contexts]');
-  const triggers = Array.from(document.querySelectorAll('[data-course-agent-open]'));
+  if (!manifestScript) return null;
 
-  if (!manifestScript || !triggers.length) return;
-
-  let manifest = null;
   try {
-    manifest = JSON.parse(manifestScript.textContent || '{}');
+    return JSON.parse(manifestScript.textContent || '{}');
   } catch (error) {
     console.warn('Manifeste du tiroir IA illisible.');
-    return;
+    return null;
   }
+}
+
+function initCourseAgent() {
+  const triggers = Array.from(document.querySelectorAll('[data-course-agent-open]'));
+  const manifest = readCourseAgentManifest();
+
+  if (!manifest || !triggers.length) return;
 
   const contexts = new Map((manifest.contexts || []).map((context) => [context.id, context]));
   if (!contexts.size) return;
@@ -366,6 +388,222 @@ function initCourseAgent() {
       trapCourseAgentFocus(event, drawer.root);
     }
   });
+}
+
+function initFeynmanMethod() {
+  const root = document.querySelector('[data-feynman]');
+  if (!root) return;
+
+  const input = root.querySelector('[data-feynman-input]');
+  const submit = root.querySelector('[data-feynman-submit]');
+  const reset = root.querySelector('[data-feynman-reset]');
+  const feedback = root.querySelector('[data-feynman-feedback]');
+  const count = root.querySelector('[data-feynman-count]');
+
+  if (!input || !submit || !reset || !feedback) return;
+
+  const manifest = readCourseAgentManifest();
+  const contexts = Array.isArray(manifest?.contexts) ? manifest.contexts : [];
+  const context = contexts.find((item) => item.id === root.dataset.feynmanContextId) || null;
+  const courseId = manifest?.courseId || root.dataset.courseId || window.location.pathname;
+
+  input.maxLength = FEYNMAN_INPUT_MAX_LENGTH;
+
+  const updateCount = () => {
+    if (input.value.length > FEYNMAN_INPUT_MAX_LENGTH) {
+      input.value = input.value.slice(0, FEYNMAN_INPUT_MAX_LENGTH);
+    }
+    if (count) count.textContent = `${input.value.length}/${FEYNMAN_INPUT_MAX_LENGTH}`;
+  };
+
+  const setFeedback = (message) => {
+    feedback.textContent = message;
+  };
+
+  const setLoading = (isLoading) => {
+    root.dataset.feynmanLoading = String(isLoading);
+    feedback.setAttribute('aria-busy', String(isLoading));
+    submit.disabled = isLoading;
+    submit.textContent = isLoading ? 'Analyse en cours...' : 'Méthode Feynman : analyser mon explication';
+  };
+
+  const savedAttempt = readFeynmanStorage().courses?.[courseId];
+  if (savedAttempt?.studentText) {
+    input.value = savedAttempt.studentText;
+    setFeedback(savedAttempt.feedback || 'Dernière tentative restaurée. Corrige ton texte, puis relance le retour.');
+  } else {
+    setFeedback('Écris ton explication avec tes mots, puis demande un retour. Le corrigé du cours reste la référence.');
+  }
+  updateCount();
+
+  const submitAnswer = async () => {
+    const studentText = input.value.trim();
+
+    if (!studentText) {
+      setFeedback('Écris quelques lignes avec tes mots avant de demander un retour.');
+      input.focus({ preventScroll: true });
+      return;
+    }
+
+    setLoading(true);
+    saveFeynmanAttempt(courseId, {
+      studentText,
+      feedback: '',
+      mode: 'pending',
+    });
+
+    try {
+      const endpoint = getFeynmanEndpoint(root);
+      if (!endpoint) {
+        const localFeedback = buildFeynmanFallbackFeedback(context);
+        saveFeynmanAttempt(courseId, {
+          studentText,
+          feedback: localFeedback,
+          mode: 'local',
+        });
+        setFeedback(localFeedback);
+        return;
+      }
+
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          studentText,
+          courseContext: buildFeynmanCourseContext(manifest, context),
+          profile: {
+            classLevel: 'premiere',
+            aiPreferences: {
+              tone: 'normal',
+              detailLevel: 'progressif',
+              allowDeepening: true,
+            },
+          },
+        }),
+      });
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok || data.ok === false) {
+        throw new Error(data.message || 'Le retour IA est indisponible pour le moment.');
+      }
+
+      const apiFeedback = typeof data.feedback === 'string' && data.feedback.trim()
+        ? data.feedback.trim()
+        : buildFeynmanFallbackFeedback(context);
+
+      saveFeynmanAttempt(courseId, {
+        studentText,
+        feedback: apiFeedback,
+        mode: data.mode || 'api',
+      });
+      setFeedback(apiFeedback);
+    } catch (error) {
+      const localFeedback = [
+        'Mode local sans IA : ton texte est sauvegardé sur cet appareil.',
+        'Le service de feedback n’a pas répondu. Relis ta version avec cette consigne : chaque phrase doit dire une idée, une condition, ou une méthode précise.',
+        context?.expectedAnswer ? `Compare ensuite avec l’attendu : ${context.expectedAnswer}` : 'Ajoute une phrase sur le moment où tu choisis la méthode, puis une phrase de conclusion.',
+      ].join('\n');
+
+      saveFeynmanAttempt(courseId, {
+        studentText,
+        feedback: localFeedback,
+        mode: 'local',
+      });
+      setFeedback(localFeedback);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const resetAttempt = () => {
+    input.value = '';
+    updateCount();
+    removeFeynmanAttempt(courseId);
+    setFeedback('Nouvelle tentative prête. Écris une explication complète avant de relancer la méthode Feynman.');
+    input.focus({ preventScroll: true });
+  };
+
+  input.addEventListener('input', updateCount);
+  submit.addEventListener('click', submitAnswer);
+  reset.addEventListener('click', resetAttempt);
+}
+
+function getFeynmanEndpoint(root) {
+  const configuredEndpoint = root.dataset.feynmanEndpoint || window.__OUTIL_PREPA_FEYNMAN_ENDPOINT;
+  if (configuredEndpoint) return configuredEndpoint;
+  if (window.location.protocol !== 'http:' && window.location.protocol !== 'https:') return '';
+  return FEYNMAN_DEFAULT_ENDPOINT;
+}
+
+function buildFeynmanCourseContext(manifest, context) {
+  const section = context?.sectionId ? document.getElementById(context.sectionId) : null;
+  const sectionTitle = section?.querySelector('h2')?.textContent?.trim() || context?.entryLabel || 'Méthode Feynman';
+
+  return {
+    courseId: manifest?.courseId || '',
+    courseTitle: manifest?.courseTitle || '',
+    sectionTitle,
+    minimalContext: context?.minimalContext || '',
+    expectedAnswer: context?.expectedAnswer || '',
+    commonMistakes: Array.isArray(context?.commonMistakes) ? context.commonMistakes : [],
+    feedbackGoal: context?.feedbackGoal || '',
+  };
+}
+
+function buildFeynmanFallbackFeedback(context) {
+  const expected = context?.expectedAnswer
+    ? `Compare ensuite avec l’attendu : ${context.expectedAnswer}`
+    : 'Vérifie que ton texte dit quoi faire, quand le faire, et comment conclure.';
+  const trap = Array.isArray(context?.commonMistakes) && context.commonMistakes[0]
+    ? `Piège à surveiller : ${context.commonMistakes[0]}`
+    : 'Piège à surveiller : ne récite pas une formule sans expliquer son rôle.';
+
+  return [
+    'Mode local sans IA : ton texte est sauvegardé sur cet appareil.',
+    'Consigne de relecture : surligne une phrase qui explique la méthode, une phrase qui donne une condition, et une phrase qui annonce la conclusion.',
+    expected,
+    trap,
+    'Prochaine tentative : corrige une phrase vague, ajoute un exemple court si nécessaire, puis relance.',
+  ].join('\n');
+}
+
+function readFeynmanStorage() {
+  try {
+    const raw = window.localStorage.getItem(FEYNMAN_STORAGE_KEY);
+    const parsed = raw ? JSON.parse(raw) : null;
+    if (parsed && typeof parsed === 'object' && parsed.courses && typeof parsed.courses === 'object') {
+      return parsed;
+    }
+  } catch (error) {}
+
+  return { version: 1, courses: {} };
+}
+
+function writeFeynmanStorage(storage) {
+  try {
+    window.localStorage.setItem(FEYNMAN_STORAGE_KEY, JSON.stringify(storage));
+  } catch (error) {}
+}
+
+function saveFeynmanAttempt(courseId, attempt) {
+  const storage = readFeynmanStorage();
+  storage.version = 1;
+  storage.courses = storage.courses || {};
+  storage.courses[courseId] = {
+    studentText: attempt.studentText,
+    feedback: attempt.feedback,
+    mode: attempt.mode,
+    updatedAt: new Date().toISOString(),
+  };
+  writeFeynmanStorage(storage);
+}
+
+function removeFeynmanAttempt(courseId) {
+  const storage = readFeynmanStorage();
+  if (storage.courses && Object.prototype.hasOwnProperty.call(storage.courses, courseId)) {
+    delete storage.courses[courseId];
+    writeFeynmanStorage(storage);
+  }
 }
 
 function createCourseAgentDrawer() {

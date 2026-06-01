@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Open Source - Objectif Lycée</title>
+  <link rel="icon" type="image/webp" href="assets/brand/trophy-logo-home.webp">
+  <link rel="stylesheet" href="colors_and_type.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css"></noscript>
+  <link rel="stylesheet" href="assets/css/pages/openSource.css">
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar">
+    <div class="sb-brand">
+      <span class="mark mark--image" aria-hidden="true">
+        <img src="assets/brand/trophy-logo-home.webp" alt="" width="52" height="52">
+      </span>
+      <span class="name">Objectif Lycée</span>
+    </div>
+
+    <div class="sb-group">
+      <div class="head">Cockpit</div>
+      <a href="index.html" class="sb-item">
+        <span class="ic"><i class="ph-bold ph-target" aria-hidden="true"></i></span>
+        Aujourd'hui
+      </a>
+      <a href="planning.html" class="sb-item">
+        <span class="ic"><i class="ph-bold ph-calendar-blank" aria-hidden="true"></i></span>
+        Planning
+      </a>
+      <a href="progression.html" class="sb-item">
+        <span class="ic"><i class="ph-bold ph-chart-line-up" aria-hidden="true"></i></span>
+        Progression
+      </a>
+    </div>
+
+    <div class="sb-group">
+      <div class="head">Travail</div>
+      <a href="contenu.html" class="sb-item">
+        <span class="ic"><i class="ph-bold ph-book-open-text" aria-hidden="true"></i></span>
+        Contenu
+      </a>
+      <a href="objectif.html" class="sb-item">
+        <span class="ic"><i class="ph-bold ph-squares-four" aria-hidden="true"></i></span>
+        Objectif
+      </a>
+    </div>
+
+    <div class="sb-group">
+      <div class="head">Compte</div>
+      <a href="openSource.html" class="sb-item active">
+        <span class="ic"><i class="ph-bold ph-code" aria-hidden="true"></i></span>
+        Open source
+      </a>
+      <a href="parametres.html" class="sb-item">
+        <span class="ic"><i class="ph-bold ph-gear" aria-hidden="true"></i></span>
+        Paramètres
+      </a>
+    </div>
+
+    <div class="sb-bottom">
+      <div class="sidebar-os-badge" aria-label="Projet open source sous licence MIT">
+        <i class="ph-bold ph-code" aria-hidden="true"></i>
+        Open source · MIT
+      </div>
+      <a class="sb-about" href="apropos.html" aria-label="À propos d'Objectif Lycée">
+        <span class="sb-about__icon" aria-hidden="true"><i class="ph-bold ph-info"></i></span>
+        <span class="sb-about__label">À propos</span>
+      </a>
+      <div class="sb-profile"><div class="av" data-user-initials>OP</div><div class="who"><span class="nm" data-user-full-name>Profil démo</span><span class="role" data-user-role>Lycée</span></div></div>
+    </div>
+  </aside>
+
+  <div class="main" style="overflow-y: auto;">
+    <section class="view os-view">
+
+      <!-- Hero -->
+      <div class="os-section os-hero">
+        <div class="os-hero__eyebrow">Open source · Licence MIT</div>
+        <h1 class="os-hero__title">ObjectifLycée<br>est open source.</h1>
+        <p class="os-hero__tagline">
+          Le code est lisible. Auditable. Forkable. Et tu peux y contribuer.
+          Ce projet appartient à tous les lycéens qui veulent construire quelque chose
+          de réel avec leurs études.
+        </p>
+        <div class="os-badges">
+          <span class="os-badge">MIT libre</span>
+          <span class="os-badge os-badge--outline">Code auditable</span>
+          <span class="os-badge os-badge--outline">Forkable</span>
+          <span class="os-badge os-badge--outline">IA comme partenaire</span>
+        </div>
+      </div>
+
+      <hr class="os-divider">
+
+      <!-- C'est quoi l'open source -->
+      <div class="os-section">
+        <div class="os-section__label">Comprendre</div>
+        <h2 class="os-section__title">L'open source, c'est quoi ?</h2>
+        <p class="os-section__body">
+          Un logiciel open source, c'est un logiciel dont le code source est public.
+          N'importe qui peut le lire, le comprendre, le modifier et l'améliorer.
+          C'est l'opposé d'un logiciel propriétaire, où le code est un secret gardé par une entreprise.
+        </p>
+        <p class="os-section__body">
+          L'open source repose sur une licence qui fixe les règles du jeu.
+          La licence MIT, celle d'ObjectifLycée, est la plus permissive qui soit :
+          tu peux faire ce que tu veux avec le code, tant que tu cites la source originale.
+        </p>
+        <div class="os-cards">
+          <div class="os-card">
+            <div class="os-card__icon"><i class="ph-bold ph-eye" aria-hidden="true"></i></div>
+            <div class="os-card__title">Lisible</div>
+            <div class="os-card__body">Tout le monde peut lire le code et comprendre comment l'app fonctionne. Aucune boîte noire.</div>
+          </div>
+          <div class="os-card">
+            <div class="os-card__icon"><i class="ph-bold ph-git-fork" aria-hidden="true"></i></div>
+            <div class="os-card__title">Forkable</div>
+            <div class="os-card__body">Tu peux copier le projet, l'adapter, le faire évoluer dans une direction différente. C'est légal et encouragé.</div>
+          </div>
+          <div class="os-card">
+            <div class="os-card__icon"><i class="ph-bold ph-users-three" aria-hidden="true"></i></div>
+            <div class="os-card__title">Contributif</div>
+            <div class="os-card__body">N'importe qui peut proposer une correction, une amélioration ou une nouvelle fonctionnalité.</div>
+          </div>
+        </div>
+        <p class="os-section__body" style="margin-top: 20px; font-size: .9rem; color: var(--ink-soft);">
+          Projets open source connus : Linux (le coeur de la plupart des serveurs du monde),
+          Firefox, VS Code, Wikipedia, Python, React. Ces outils font tourner l'internet.
+        </p>
+      </div>
+
+      <hr class="os-divider">
+
+      <!-- Pourquoi ce projet est open source -->
+      <div class="os-section">
+        <div class="os-section__label">La mission</div>
+        <h2 class="os-section__title">Pourquoi ObjectifLycée est open source</h2>
+        <p class="os-section__body">
+          Ce n'est pas un choix technique. C'est un choix de valeurs.
+        </p>
+        <div class="os-cards">
+          <div class="os-card">
+            <div class="os-card__icon"><i class="ph-bold ph-scales" aria-hidden="true"></i></div>
+            <div class="os-card__title">Accès égal</div>
+            <div class="os-card__body">La qualité de l'éducation ne devrait pas dépendre du revenu parental. ObjectifLycée sera toujours gratuit. Le code sera toujours ouvert.</div>
+          </div>
+          <div class="os-card">
+            <div class="os-card__icon"><i class="ph-bold ph-shield-check" aria-hidden="true"></i></div>
+            <div class="os-card__title">Transparence totale</div>
+            <div class="os-card__body">Tu vois exactement comment l'app calcule ta mission quotidienne. Rien n'est caché. Le code dit la vérité.</div>
+          </div>
+          <div class="os-card">
+            <div class="os-card__icon"><i class="ph-bold ph-rocket" aria-hidden="true"></i></div>
+            <div class="os-card__title">Compétence future</div>
+            <div class="os-card__body">Contribuer à l'open source dès le lycée, c'est une vraie compétence. C'est aussi une ligne de CV qui compte vraiment.</div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="os-divider">
+
+      <!-- Bonnes pratiques open source -->
+      <div class="os-section">
+        <div class="os-section__label">Savoir-faire</div>
+        <h2 class="os-section__title">Les bonnes pratiques</h2>
+        <p class="os-section__body">
+          L'open source a son vocabulaire, ses rituels, ses conventions.
+          Voici les termes que tu entendras partout et ce qu'ils veulent vraiment dire.
+        </p>
+        <div class="os-practices">
+          <div class="os-practice">
+            <div class="os-practice__term">Fork</div>
+            <p class="os-practice__def">Copier un projet dans ton propre espace GitHub pour expérimenter librement, sans risquer d'abîmer l'original. Point de départ de toute contribution.</p>
+          </div>
+          <div class="os-practice">
+            <div class="os-practice__term">Issue</div>
+            <p class="os-practice__def">Signaler un bug, poser une question ou proposer une idée directement sur le projet. Une bonne issue décrit le problème clairement, avec un exemple reproductible.</p>
+          </div>
+          <div class="os-practice">
+            <div class="os-practice__term">Pull request</div>
+            <p class="os-practice__def">Proposer une modification au projet original. Le mainteneur relira ton code, discutera avec toi, et fusionnera (ou non) ta contribution. C'est une conversation sur le code.</p>
+          </div>
+          <div class="os-practice">
+            <div class="os-practice__term">Code review</div>
+            <p class="os-practice__def">Relire le code d'un autre avant de le fusionner. On vérifie la logique, la lisibilité, les cas limites. C'est une compétence qui s'apprend et qui rend meilleur.</p>
+          </div>
+          <div class="os-practice">
+            <div class="os-practice__term">Licence MIT</div>
+            <p class="os-practice__def">Les règles du jeu : tu peux utiliser, modifier et redistribuer le code, même commercialement, tant que tu cites la source. La plus ouverte des licences courantes.</p>
+          </div>
+          <div class="os-practice">
+            <div class="os-practice__term">Documentation</div>
+            <p class="os-practice__def">Un bon projet s'explique lui-même. README clair, commentaires utiles, guide de contribution. La doc est souvent la meilleure première contribution.</p>
+          </div>
+          <div class="os-practice">
+            <div class="os-practice__term">Commit</div>
+            <p class="os-practice__def">Un enregistrement d'une modification dans l'historique Git. Un bon commit message dit pourquoi, pas juste quoi. L'historique Git est une mémoire collective.</p>
+          </div>
+        </div>
+      </div>
+
+      <hr class="os-divider">
+
+      <!-- L'IA comme partenaire -->
+      <div class="os-section">
+        <div class="os-section__label">Compétence clé</div>
+        <h2 class="os-section__title">L'IA comme partenaire de code</h2>
+        <p class="os-section__body">
+          ObjectifLycée a été construit avec Claude Code comme co-pilote.
+          Pas pour remplacer la réflexion, mais pour accélérer la boucle
+          hypothèse → test → correction. C'est une méthode, pas un raccourci.
+        </p>
+        <div class="os-ai-grid">
+          <div class="os-ai-card os-ai-card--highlight">
+            <div class="os-ai-card__head">Ce que l'IA fait bien</div>
+            <div class="os-ai-card__body">Expliquer une erreur en une phrase. Suggérer une refacto. Générer un squelette de code. Trouver un bug dans 50 lignes. Proposer des noms. Traduire une idée en code.</div>
+          </div>
+          <div class="os-ai-card os-ai-card--plain">
+            <div class="os-ai-card__head">Ce que tu dois garder</div>
+            <div class="os-ai-card__body">Comprendre pourquoi ça marche. Juger si la suggestion est juste. Décider de l'architecture. Vérifier les effets de bord. Relire avant de fusionner. L'IA se trompe.</div>
+          </div>
+        </div>
+        <p class="os-section__body" style="margin-top: 20px;">
+          Savoir poser les bonnes questions à une IA est une compétence aussi importante que savoir coder.
+          Ce projet est la preuve qu'un lycéen peut construire un vrai produit en maîtrisant cet outil.
+          Tu peux lire le code, voir comment il a été construit, et apprendre par l'exemple.
+        </p>
+        <p class="os-section__body" style="font-weight: 700;">
+          Exemples de requêtes IA utiles quand tu travailles sur ce projet :
+        </p>
+        <div class="os-examples">
+          <div class="os-example">Explique-moi pourquoi cette fonction retourne undefined</div>
+          <div class="os-example">Propose une version plus lisible de ce bloc CSS</div>
+          <div class="os-example">Qu'est-ce qui se passe si l'utilisateur n'a pas de localStorage ?</div>
+          <div class="os-example">Revois cette logique de tri et dis-moi si elle est correcte</div>
+          <div class="os-example">Comment écrire un bon message de commit pour ce changement ?</div>
+        </div>
+      </div>
+
+      <hr class="os-divider">
+
+      <!-- Le monde tech américain -->
+      <div class="os-section">
+        <div class="os-section__label">Pourquoi ça compte vraiment</div>
+        <h2 class="os-section__title">L'open source, c'est l'accès au monde tech mondial.</h2>
+        <p class="os-section__body">
+          Linux fait tourner 96 % des serveurs mondiaux. Android — 3,6 milliards d'appareils — est open source.
+          React a été ouvert par Meta. VS Code par Microsoft. Kubernetes par Google.
+          Git, l'outil qui gère le code de toutes ces entreprises, a été créé par Linus Torvalds à 21 ans dans sa chambre d'étudiant.
+        </p>
+        <p class="os-section__body">
+          Les États-Unis ont construit la Silicon Valley sur une culture : tu vaux ce que tu as construit, pas où tu as étudié.
+          Un profil GitHub avec de vraies contributions ouvre plus de portes dans une startup américaine qu'un diplôme
+          d'une école que personne ne connaît hors de France.
+          <strong>C'est la méritocratie la plus internationale qui existe.</strong>
+        </p>
+
+        <div class="os-cards" style="margin-top: 20px;">
+          <div class="os-card">
+            <div class="os-card__icon"><i class="ph-bold ph-globe" aria-hidden="true"></i></div>
+            <div class="os-card__title">Infrastructure mondiale</div>
+            <div class="os-card__body">Linux, Git, React, Node.js, Python, PostgreSQL — le web mondial tourne sur de l'open source. Pas sur du code propriétaire.</div>
+          </div>
+          <div class="os-card">
+            <div class="os-card__icon"><i class="ph-bold ph-buildings" aria-hidden="true"></i></div>
+            <div class="os-card__title">La culture Y Combinator</div>
+            <div class="os-card__body">Les meilleurs incubateurs américains recrutent des hackers qui ont construit quelque chose de réel. Un PR fusionné sur un projet open source est une preuve concrète.</div>
+          </div>
+          <div class="os-card">
+            <div class="os-card__icon"><i class="ph-bold ph-trend-up" aria-hidden="true"></i></div>
+            <div class="os-card__title">100M+ développeurs</div>
+            <div class="os-card__body">GitHub en 2024 : 100 millions de développeurs actifs. La plus grande bibliothèque de code publique de l'histoire humaine. Accessible depuis le lycée.</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 28px; padding: 20px 24px; background: var(--ink); border: var(--b) solid var(--ink); border-radius: var(--r-3);">
+          <p style="font-family: var(--font-display); font-size: 1.1rem; text-transform: uppercase; letter-spacing: -.01em; color: var(--stabilo); margin: 0 0 8px;">« Talk is cheap. Show me the code. »</p>
+          <p style="font-size: 13px; color: rgba(255,255,255,.7); margin: 0;"><strong style="color: var(--paper);">Linus Torvalds</strong> — créateur de Linux et de Git, les deux infrastructures sur lesquelles tourne l'économie numérique mondiale.</p>
+        </div>
+      </div>
+
+      <hr class="os-divider">
+
+      <!-- CTA -->
+      <div class="os-section">
+        <div class="os-cta">
+          <div class="os-cta__text">
+            <div class="os-cta__label">Prochaine étape</div>
+            <h2 class="os-cta__title">Rejoins la prochaine génération open source.</h2>
+          </div>
+          <div class="os-cta__actions">
+            <a href="https://github.com/MGio12/openLearn" class="os-btn os-btn--primary" target="_blank" rel="noopener">
+              <i class="ph-bold ph-github-logo" aria-hidden="true"></i>
+              Voir le code sur GitHub
+            </a>
+            <a href="https://github.com/MGio12/openLearn/blob/master/LICENSE" class="os-btn os-btn--ghost" target="_blank" rel="noopener">
+              Licence MIT
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </div>
+</div>
+
+<nav class="mobile-tabs" aria-label="Navigation principale">
+  <a href="index.html" class="mobile-tab">
+    <i class="ph-bold ph-target" aria-hidden="true"></i>
+    <span>Aujourd'hui</span>
+  </a>
+  <a href="planning.html" class="mobile-tab">
+    <i class="ph-bold ph-calendar-blank" aria-hidden="true"></i>
+    <span>Planning</span>
+  </a>
+  <a href="contenu.html" class="mobile-tab">
+    <i class="ph-bold ph-book-open-text" aria-hidden="true"></i>
+    <span>Contenu</span>
+  </a>
+  <a href="progression.html" class="mobile-tab">
+    <i class="ph-bold ph-chart-line-up" aria-hidden="true"></i>
+    <span>Progression</span>
+  </a>
+  <a href="objectif.html" class="mobile-tab">
+    <i class="ph-bold ph-squares-four" aria-hidden="true"></i>
+    <span>Objectif</span>
+  </a>
+</nav>
+<script src="assets/js/domain/model.js"></script>
+<script src="assets/js/state/store.js"></script>
+<script src="scripts/dom.js"></script>
+<script src="scripts/user-context-ui.js"></script>
+</body>
+</html>

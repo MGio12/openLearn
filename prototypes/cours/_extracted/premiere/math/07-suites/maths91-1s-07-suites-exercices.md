@@ -8,11 +8,11 @@ extracted_at: "2026-05-22T08:22:51+00:00"
 cleaned_at: "2026-05-22T08:26:17+00:00"
 ---
 
-## 1ère 2 − Suites — Fiche d’exercices
+## 1ère 2 − Suites - Fiche d’exercices
 
 Tous les résultats seront arrondis, si besoin, à \(10^{-6}\) près.
 
-### Exercice 1 — Clientèle
+### Exercice 1 - Clientèle
 
 Un fournisseur fait une étude sur la fidélité de sa clientèle depuis l’année 2018, où il y a eu 200 clients. Chaque année, sa clientèle est composée de 50% des clients de l’année précédente auxquels s’ajoutent 400 nouveaux clients. On note \(u_n\) le nombre de centaines de clients à l’année \(2018 + n\).
 
@@ -30,7 +30,7 @@ Un fournisseur fait une étude sur la fidélité de sa clientèle depuis l’ann
    (c) Déterminer le sens de variations de la suite \(u\).
 7. Déterminer la limite de la suite \(u\). Que peut-on en conclure pour le nombre de clients du fournisseur ?
 
-### Exercice 2 — Entreprise
+### Exercice 2 - Entreprise
 
 Le 1er Janvier 2018, une grande entreprise compte 1 500 employés. Une étude montre que lors de chaque année à venir, 10% de l’effectif précédent partira à la retraite. Pour ajuster les effectifs à ses besoins, l’entreprise embauche 100 nouveaux salariés chaque année. On note \(u_n\) le nombre d’employés de l’entreprise au premier janvier de l’année \(2018 + n\).
 
@@ -41,7 +41,7 @@ Le 1er Janvier 2018, une grande entreprise compte 1 500 employés. Une étude mo
    (c) Déterminer le sens de variations de la suite \(u\).
    (d) Déterminer la limite de la suite \(u\). Que peut-on en déduire pour l’entreprise ?
 
-### Exercice 3 — Attention au premier terme
+### Exercice 3 - Attention au premier terme
 
 On donne la suite \(u\) définie par \(u_1 = 3\) et pour tout entier naturel \(n\) non nul, \(u_{n+1} = \frac{1}{3} u_n + 1\).
 
@@ -52,25 +52,25 @@ On donne la suite \(u\) définie par \(u_1 = 3\) et pour tout entier naturel \(n
    (c) Étudier le sens de variations de la suite \(u\).
    (d) Déterminer la limite de la suite \(u\).
 
-### Exercice 4 — Représentation graphique de suite 1
+### Exercice 4 - Représentation graphique de suite 1
 
 Représenter graphiquement les premiers termes de la suite \(u\) définie par \(u_0 = -1{,}5\) et pour tout entier naturel \(n\), \(u_{n+1} = \sqrt{u_n + 2}\) :
 
 <!-- UNSURE: graphique non reproduit -->
 
-### Exercice 5 — Représentation graphique de suite 2
+### Exercice 5 - Représentation graphique de suite 2
 
 Représenter graphiquement les premiers termes de la suite \(u\) définie par \(u_0 = 1\) et pour tout entier naturel \(n\), \(u_{n+1} = u_n - 3\) :
 
 <!-- UNSURE: graphique non reproduit -->
 
-### Exercice 6 — Représentation graphique de suite 3
+### Exercice 6 - Représentation graphique de suite 3
 
 Représenter graphiquement les premiers termes de la suite \(u\) définie par \(u_0 = 1\) et pour tout entier naturel \(n\), \(u_{n+1} = \frac{1}{2} u_n^2 - 2 u_n + 1\) :
 
 <!-- UNSURE: graphique non reproduit -->
 
-### Exercice 7 — Colonie de vacances
+### Exercice 7 - Colonie de vacances
 
 Une colonie de vacances héberge des enfants dans des tentes de 10 places chacune. Pendant l’été 2017, 160 enfants ont participé à cette colonie. À la suite d’une étude prévisionnelle, on estime que, chaque année, 80% des enfants déjà inscrits se réinscrivent l’année suivante et 50 nouveaux enfants les rejoignent.
 
@@ -146,7 +146,7 @@ v_n = u_{n+1} - \frac{1}{4} u_n \quad \text{et} \quad w_n = u_n - 7.
    (b) En déduire que, pour tout entier naturel \(n\), \(u_n = 7 - \left(\frac{1}{4}\right)^{n-1}\).
    (c) Calculer la limite de la suite \((u_n)\).
 
-### Exercice 9 — Bouteille consignée
+### Exercice 9 - Bouteille consignée
 
 Chaque semaine, un agriculteur propose un panier de produits frais contenant une bouteille de jus de fruits consignée. Une étude statistique révèle que :
 - à l’issue de la 1ère semaine, la probabilité qu’un client rapporte la bouteille consignée la semaine suivante est \(0{,}9\) ;

@@ -1,3 +1,14 @@
+/*
+ * AGENT HEADER
+ * Role: rendu navigateur du recap parent depuis le hash public.
+ * Loaded by: parent.html apres scripts/analytics.js et assets/js/shared/parent-share.js.
+ * Reads/writes: lit location.hash p=..., window.OLParentShare et OLAnalytics;
+ * ecrit uniquement via textContent/hidden et ne persiste rien.
+ * Public contract: data-parent-fallback, data-parent-recap, data-parent-*,
+ * data-parent-checkout, evenements parent_recap_viewed/parent_recap_checkout_clicked.
+ * Verify: npm run verify:parent-share ; npm run verify:s05.
+ * Read next: `parent.html`, `assets/js/shared/parent-share.js`, puis `docs/agent-codebase-map.md` Zone 1 et Zone 5.
+ */
 (function () {
   "use strict";
 

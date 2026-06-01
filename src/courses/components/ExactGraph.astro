@@ -1,0 +1,21 @@
+---
+const {
+  id,
+  type,
+  caption,
+  readout,
+  detail,
+  bbox = '[-6,8,6,-8]',
+} = Astro.props;
+---
+
+<figure class="visual-block interactive-graph quadratic-graph">
+  <div class="graph-stage">
+    <div id={id} class="jxgbox curve-board" data-exact-graph data-graph-type={type} data-bbox={bbox}></div>
+    <p class="graph-readout" aria-live="polite">
+      <span>{readout}</span>
+      <strong>{detail}</strong>
+    </p>
+  </div>
+  <figcaption>{caption}</figcaption>
+</figure>

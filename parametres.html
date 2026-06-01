@@ -1,46 +1,33 @@
 <!doctype html>
 <!--
   ============================================================
-  Objectif Lycée — Paramètres (placeholder)
-  Préférences inclues dans cette page (sections internes).
+  AGENT HEADER
+  Role: hote HTML des parametres du compte local deja cree.
+  Loaded by: navigation directe vers parametres.html depuis les pages app.
+  Reads/writes: expose le formulaire; assets/js/pages/parametres.js lit/ecrit
+  window.OutilPrepa et redirige vers onboarding.html sans compte local.
+  Public contract: ordre scripts model -> store -> dom -> user-context-ui ->
+  parametres.js, data-account-*, champs name displayName/classLevel/
+  objectiveLabel/rhythm/tracks/prioritySubjectIds/tone/detailLevel/
+  allowDeepening.
+  Verify: npm run verify:local-account.
+  Read next: `assets/js/pages/parametres.js`, puis `docs/agent-codebase-map.md` Zone 1 et Zone 5.
+
+  Objectif Lycée - Paramètres
+  Compte local sans backend, persisté dans outilPrepa:v1.
   ============================================================
 -->
 <html lang="fr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Objectif Lycée — Paramètres</title>
+  <title>Objectif Lycée - Paramètres</title>
   <link rel="icon" type="image/webp" href="assets/brand/trophy-logo-home.webp">
   <link rel="stylesheet" href="colors_and_type.css">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="assets/css/pages/parametres.css">
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2/src/bold/style.css"></noscript>
-  <style>
-    html, body { height: auto; overflow: visible; }
-    .app { height: auto; min-height: 100vh; }
-    .main { overflow: visible; }
-    .view { display: block !important; flex: none !important; overflow: visible !important; height: auto !important; padding: 28px 36px 32px !important; background-image: none !important; }
-
-    .placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; min-height: calc(100vh - 120px); padding: 40px 20px; text-align: center; }
-    .placeholder__badge { display: inline-flex; align-items: center; gap: 8px; padding: 5px 13px; background: var(--stabilo-wash); border: 2px solid var(--ink); border-radius: 999px; font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
-    .placeholder__badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--orange-2); }
-    .placeholder h1 { font-family: var(--font-display); font-size: clamp(38px, 6vw, 60px); line-height: 1; text-transform: uppercase; margin: 0; letter-spacing: -.01em; }
-    .placeholder__intro { max-width: 520px; font-family: var(--font-body); font-size: 15px; line-height: 1.55; color: var(--ink-soft); margin: 0; }
-    .placeholder__plan { max-width: 580px; width: 100%; background: #FFFDF8; border: 2.5px solid var(--ink); border-radius: 14px; padding: 20px 26px; text-align: left; display: flex; flex-direction: column; gap: 14px; box-shadow: 6px 6px 0 var(--ink); }
-    .placeholder__plan h2 { font-family: var(--font-display); font-size: 14px; text-transform: uppercase; letter-spacing: .005em; margin: 0; color: var(--ink-soft); }
-    .placeholder__plan h3 { font-family: var(--font-body); font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--ink); margin: 8px 0 0; }
-    .placeholder__plan ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-    .placeholder__plan li { display: flex; align-items: flex-start; gap: 10px; font-family: var(--font-body); font-size: 14px; color: var(--ink); line-height: 1.45; }
-    .placeholder__plan li::before { content: '→'; color: var(--ink-soft); font-weight: 800; flex-shrink: 0; }
-    .placeholder__back { display: inline-flex; align-items: center; gap: 10px; padding: 11px 20px; background: var(--ink); color: var(--paper); border: 3px solid var(--ink); border-radius: 12px; box-shadow: 5px 5px 0 var(--stabilo); font-family: var(--font-body); font-weight: 800; font-size: 14px; text-decoration: none; transition: transform .15s, box-shadow .15s; }
-    .placeholder__back:hover { transform: translate(2px,2px); box-shadow: 3px 3px 0 var(--stabilo); }
-    .placeholder__back i { font-size: 16px; line-height: 1; }
-    @media (max-width: 640px) {
-      .view { padding: 18px 14px 90px !important; }
-      .placeholder { min-height: calc(100vh - 140px); gap: 18px; }
-      .placeholder__plan { padding: 16px 18px; }
-    }
-  </style>
 </head>
 <body>
 <div class="app">
@@ -59,53 +46,140 @@
     </div>
     <div class="sb-group">
       <div class="head">Compte</div>
-      <a href="abonnement.html" class="sb-item"><span class="ic"><i class="ph-bold ph-credit-card" aria-hidden="true"></i></span>Abonnement</a>
-      <a href="parametres.html" class="sb-item active"><span class="ic"><i class="ph-bold ph-gear" aria-hidden="true"></i></span>Paramètres</a>
+      <a href="openSource.html" class="sb-item"><span class="ic"><i class="ph-bold ph-code" aria-hidden="true"></i></span>Open source</a>
+      <a href="parametres.html" class="sb-item active" aria-current="page"><span class="ic"><i class="ph-bold ph-gear" aria-hidden="true"></i></span>Paramètres</a>
     </div>
     <div class="sb-bottom">
-      <a class="sb-about" href="apropos.html" aria-label="À propos d'Objectif Lycée">
+            <div class="sidebar-os-badge" aria-label="Projet open source sous licence MIT">
+        <i class="ph-bold ph-code" aria-hidden="true"></i>
+        Open source · MIT
+      </div>
+<a class="sb-about" href="apropos.html" aria-label="À propos d'Objectif Lycée">
         <span class="sb-about__icon" aria-hidden="true"><i class="ph-bold ph-info"></i></span>
         <span class="sb-about__label">À propos</span>
       </a>
-      <div class="sb-profile"><div class="av">OP</div><div class="who"><span class="nm">Profil démo</span><span class="role">Lycée</span></div></div>
+      <div class="sb-profile"><div class="av" data-user-initials>OP</div><div class="who"><span class="nm" data-user-full-name>Profil local</span><span class="role" data-user-role>Lycée</span></div></div>
     </div>
   </aside>
 
   <div class="main">
-    <section class="view active">
-      <div class="placeholder">
-        <span class="placeholder__badge"><span class="dot"></span>En préparation</span>
-        <h1>Paramètres</h1>
-        <p class="placeholder__intro">
-          Tout ce qui personnalise l'expérience : matières, rythme, notifications, données.
-          Préférences incluses dans cette page (pas une page à part).
-        </p>
-        <div class="placeholder__plan">
-          <h2>Ce qu'on prépare</h2>
+    <section class="view settings-view active">
+      <div class="settings-shell">
+        <header class="settings-hero">
+          <div>
+            <p class="settings-eyebrow">Compte local</p>
+            <h1>Paramètres</h1>
+            <p>Crée un profil utilisable sur cet appareil. Aucun mot de passe, aucun backend : les données restent dans le navigateur.</p>
+          </div>
+          <a class="settings-button settings-button--ghost" href="onboarding.html">Refaire le diagnostic</a>
+        </header>
 
-          <h3>Préférences</h3>
-          <ul>
-            <li>Matières prioritaires et intensité par matière.</li>
-            <li>Rythme de travail : léger, moyen, intense.</li>
-            <li>Heures préférées pour les sessions focus.</li>
-          </ul>
+        <form class="settings-form" data-account-form>
+          <section class="settings-card" aria-labelledby="account-profile-title">
+            <p class="settings-card__label" id="account-profile-title">Profil</p>
+            <div class="settings-grid">
+              <div class="settings-field">
+                <label for="displayName">Prénom ou pseudo</label>
+                <input id="displayName" name="displayName" autocomplete="given-name" placeholder="Lina">
+              </div>
+              <div class="settings-field">
+                <label for="classLevel">Classe</label>
+                <select id="classLevel" name="classLevel">
+                  <option value="seconde">Seconde</option>
+                  <option value="premiere">Première</option>
+                  <option value="terminale">Terminale</option>
+                  <option value="autre">Autre</option>
+                </select>
+              </div>
+              <div class="settings-field settings-field--wide">
+                <label for="objectiveLabel">Objectif principal</label>
+                <input id="objectiveLabel" name="objectiveLabel" placeholder="École d'ingénieur post-bac">
+              </div>
+              <div class="settings-field">
+                <label for="rhythm">Rythme</label>
+                <select id="rhythm" name="rhythm">
+                  <option value="leger">Léger · 3 h/semaine</option>
+                  <option value="moyen">Moyen · 5 h/semaine</option>
+                  <option value="intense">Intense · 7 h/semaine</option>
+                </select>
+              </div>
+            </div>
+          </section>
 
-          <h3>Notifications &amp; rappels</h3>
-          <ul>
-            <li>Quand on te rappelle ta mission du jour (et quand on se tait).</li>
-            <li>Alertes contrôle approche.</li>
-          </ul>
+          <section class="settings-card" aria-labelledby="account-subjects-title">
+            <p class="settings-card__label" id="account-subjects-title">Matières</p>
+            <div class="settings-grid">
+              <fieldset class="settings-checks">
+                <legend>Spécialités ou matières suivies</legend>
+                <div class="settings-check-grid">
+                  <label class="settings-check"><input type="checkbox" name="tracks" value="maths"> Maths</label>
+                  <label class="settings-check"><input type="checkbox" name="tracks" value="physique-chimie"> Physique-chimie</label>
+                  <label class="settings-check"><input type="checkbox" name="tracks" value="svt"> SVT</label>
+                  <label class="settings-check"><input type="checkbox" name="tracks" value="ses"> SES</label>
+                  <label class="settings-check"><input type="checkbox" name="tracks" value="hggsp"> HGGSP</label>
+                  <label class="settings-check"><input type="checkbox" name="tracks" value="francais-philo"> Français/philo</label>
+                  <label class="settings-check"><input type="checkbox" name="tracks" value="anglais"> Anglais</label>
+                  <label class="settings-check"><input type="checkbox" name="tracks" value="grand-oral"> Grand oral</label>
+                </div>
+              </fieldset>
 
-          <h3>Données &amp; confidentialité</h3>
-          <ul>
-            <li>Export de tes données, suppression du compte.</li>
-            <li>Gestion du partage avec parent ou prof particulier.</li>
-          </ul>
-        </div>
-        <a class="placeholder__back" href="index.html">
-          <i class="ph-bold ph-arrow-left"></i>
-          Retour au cockpit
-        </a>
+              <fieldset class="settings-checks">
+                <legend>Matières à renforcer en priorité</legend>
+                <div class="settings-check-grid">
+                  <label class="settings-check"><input type="checkbox" name="prioritySubjectIds" value="maths"> Maths</label>
+                  <label class="settings-check"><input type="checkbox" name="prioritySubjectIds" value="physique-chimie"> Physique-chimie</label>
+                  <label class="settings-check"><input type="checkbox" name="prioritySubjectIds" value="svt"> SVT</label>
+                  <label class="settings-check"><input type="checkbox" name="prioritySubjectIds" value="ses"> SES</label>
+                  <label class="settings-check"><input type="checkbox" name="prioritySubjectIds" value="hggsp"> HGGSP</label>
+                  <label class="settings-check"><input type="checkbox" name="prioritySubjectIds" value="francais-philo"> Français/philo</label>
+                  <label class="settings-check"><input type="checkbox" name="prioritySubjectIds" value="anglais"> Anglais</label>
+                  <label class="settings-check"><input type="checkbox" name="prioritySubjectIds" value="grand-oral"> Grand oral</label>
+                </div>
+              </fieldset>
+            </div>
+          </section>
+
+          <section class="settings-card" aria-labelledby="account-ai-title">
+            <p class="settings-card__label" id="account-ai-title">Préférences IA</p>
+            <div class="settings-grid">
+              <div class="settings-field">
+                <label for="tone">Ton</label>
+                <select id="tone" name="tone">
+                  <option value="direct">Direct</option>
+                  <option value="coach">Coach calme</option>
+                  <option value="prof">Prof détaillé</option>
+                </select>
+              </div>
+              <div class="settings-field">
+                <label for="detailLevel">Niveau de détail</label>
+                <select id="detailLevel" name="detailLevel">
+                  <option value="court">Court</option>
+                  <option value="progressif">Progressif</option>
+                  <option value="approfondi">Approfondi</option>
+                </select>
+              </div>
+              <label class="settings-check settings-field--wide">
+                <input type="checkbox" name="allowDeepening">
+                Autoriser l'IA à approfondir quand une lacune est détectée
+              </label>
+            </div>
+          </section>
+
+          <div class="settings-actions">
+            <button class="settings-button settings-button--primary" type="submit" data-account-save>Enregistrer le compte local</button>
+            <button class="settings-button settings-button--ghost" type="button" data-account-reset>Réinitialiser</button>
+            <p class="settings-status" data-account-status role="status"></p>
+          </div>
+        </form>
+
+        <aside class="settings-summary" aria-label="Résumé du compte local">
+          <div class="settings-summary__avatar" aria-hidden="true">OP</div>
+          <p class="settings-summary__label">Profil actif</p>
+          <h2 data-account-summary-name>Profil local</h2>
+          <p data-account-summary-meta>Chargement du profil...</p>
+          <p class="settings-summary__label">État</p>
+          <p data-account-summary-state>Lecture du stockage local...</p>
+        </aside>
       </div>
     </section>
   </div>
@@ -117,5 +191,10 @@
   <a href="progression.html" class="mobile-tab"><i class="ph-bold ph-chart-line-up" aria-hidden="true"></i><span>Progression</span></a>
   <a href="objectif.html" class="mobile-tab"><i class="ph-bold ph-squares-four" aria-hidden="true"></i><span>Objectif</span></a>
 </nav>
+<script src="assets/js/domain/model.js"></script>
+<script src="assets/js/state/store.js"></script>
+<script src="scripts/dom.js"></script>
+<script src="scripts/user-context-ui.js"></script>
+<script src="assets/js/pages/parametres.js"></script>
 </body>
 </html>

@@ -1,0 +1,8 @@
+---
+const { tex, lines = [], major = false } = Astro.props;
+const blocks = lines.length ? lines : [tex];
+---
+
+<div class:list={['formula-card', major && 'is-major']}>
+  {blocks.map((block) => <p>{`\\[${block}\\]`}</p>)}
+</div>

@@ -8,7 +8,7 @@
 
 Objectif Lycee ne doit pas seulement afficher de meilleurs cours. Le vrai produit est un cours qui oblige l'eleve a verifier sa comprehension pendant qu'il apprend.
 
-Les pages de cours doivent donc proposer des points d'entree d'ecriture contextualises. En v1, ces points d'entree ouvrent un tiroir IA partage : le bouton indique le contexte pedagogique, le tiroir porte la zone de reponse, puis une future route serveur pourra analyser cette reponse.
+Les pages de cours doivent donc proposer des points d'entree d'ecriture contextualises. En v1, ces points d'entree ouvrent un tiroir IA partage : le bouton indique le contexte pedagogique, le tiroir porte la zone de reponse, puis la route serveur locale `POST /api/ai/feynman` peut analyser cette reponse sans exposer de cle API au navigateur. Le chapitre pilote ajoute aussi un bloc final **Methode Feynman** : l'eleve explique le cours avec ses mots, le texte est sauvegarde localement par cours, puis le feedback IA ou le fallback de relecture l'aide a corriger sa synthese.
 
 L'IA ne remplace pas le cours. Elle sert a :
 
@@ -42,16 +42,23 @@ Cette structure doit permettre d'envoyer a l'IA seulement le contexte utile du p
 
 ## Contrat DOM minimal v1
 
-Tant qu'il n'y a pas de backend IA stabilise, les points d'entree IA doivent rester simples et securises par defaut :
+Tant que le composant Feynman n'est pas branche partout, les points d'entree IA doivent rester simples et securises par defaut :
 
 - les boutons de cours utilisent `button[data-course-agent-open="<contextId>"]` ;
 - le chapitre expose un manifeste JSON dans `script[type="application/json"][data-course-agent-contexts]` ;
 - le tiroir partage contient `textarea[data-course-agent-input]`, `button[data-course-agent-submit]`, `button[data-course-agent-close]` et une zone `data-course-agent-feedback` ;
 - la reponse eleve est bornee a 800 caracteres cote HTML et cote JS ;
+- le bloc final Feynman utilise une section `[data-feynman]`, un `textarea[data-feynman-input]`, `button[data-feynman-submit]`, `button[data-feynman-reset]`, `data-feynman-feedback`, et un `data-feynman-context-id` present dans le manifeste ;
+- la derniere tentative Feynman est stockee par cours dans `localStorage` cle `outilPrepa:feynman:v1`, puis effacee par `Recommencer` ;
 - le feedback IA, les erreurs et les messages d'etat sont rendus avec `textContent`, jamais avec du HTML issu de l'eleve ;
 - la correction complete reste statique ou en KaTeX controle par le cours ;
 - aucun HTML utilisateur n'est accepte dans une correction, un feedback, un indice ou un historique ;
 - aucune cle API, endpoint IA prive ou secret ne doit etre expose dans le navigateur.
+
+La route locale `POST /api/ai/feynman` vit dans `scripts/_server.cjs`. Elle valide le JSON, borne le texte eleve et le contexte du cours, renvoie un mock clair si `DEEPSEEK_API_KEY` est absente, et appelle DeepSeek cote serveur seulement si la cle est configuree. Le modele par defaut est `deepseek-v4-flash`, choisi apres verification de la documentation officielle DeepSeek le 2026-06-01.
+Quand une page de cours est ouverte en `file://` ou sans serveur local, le bloc Feynman ne tente pas d'appel reseau : il sauvegarde le texte et affiche une consigne de relecture explicite. Les cours restent donc utilisables sans cle IA ni serveur.
+
+Le feedback Feynman doit suivre un format stable en six rubriques : `Ce que tu as compris`, `Erreurs ou confusions`, `Notions manquees`, `Explication claire`, `Question de verification`, `Prochaine micro-action`. Ce format vaut pour le mock local comme pour l'appel DeepSeek. Il interdit les notes, les promesses de resultat garanti, les jugements humiliants, le HTML, et l'invention d'une notion absente du contexte sans le signaler.
 
 La v1 privilegie l'absence de HTML utilisateur plutot qu'un sanitizer externe. Si une future integration autorise un rendu riche, elle devra ajouter une limite stricte de format, un sanitizer audite et une verification dediee avant d'arriver dans les cours.
 
@@ -59,9 +66,9 @@ La v1 privilegie l'absence de HTML utilisateur plutot qu'un sanitizer externe. S
 
 Le pilote IA v1 est limite au chapitre `prototypes/cours/maths-specialite/second-degre/index.html`.
 
-Dans ce chapitre, les boutons IA restent places apres une production eleve : diagnostic de coefficients, choix de methode, puis redaction d'inequation. Ils ne doivent pas etre remontes comme des CTA generiques avant l'effort demande a l'eleve.
+Dans ce chapitre, les boutons IA restent places apres une production eleve : diagnostic de coefficients, choix de methode, puis redaction d'inequation. Ils ne doivent pas etre remontes comme des CTA generiques avant l'effort demande a l'eleve. La synthese Feynman arrive apres la revision, pour ne pas remplacer les corriges et pour obliger l'eleve a reformuler tout le chapitre avant le feedback.
 
-Pour eviter qu'un utilisateur conclue que l'IA est absente, le haut du cours expose un bloc compact `Feedback IA disponible` avec trois liens directs vers les sections `#diagnostic`, `#choix-methode` et `#redaction`. La sidebar marque les memes sections avec un petit libelle `IA`. Ces marqueurs servent a la decouvrabilite ; ils ne remplacent pas les boutons pedagogiques ni le manifeste de contextes.
+Pour eviter qu'un utilisateur conclue que l'IA est absente, le haut du cours expose un bloc compact `Feedback IA disponible` avec trois liens directs vers les sections `#diagnostic`, `#choix-methode` et `#redaction`. La sidebar marque les memes sections et la section `#feynman` avec un petit libelle `IA`. Ces marqueurs servent a la decouvrabilite ; ils ne remplacent pas les boutons pedagogiques ni le manifeste de contextes.
 
 ## Performance et architecture cible
 
@@ -76,7 +83,7 @@ Direction cible :
 - la requete envoie le minimum necessaire : identifiant du contexte, question, reponse eleve, contexte compact, niveau d'aide, ton choisi ;
 - les corrections deterministes simples peuvent etre verifiees sans IA quand c'est fiable ;
 - l'IA sert surtout aux reponses ouvertes, aux justifications, aux choix de methode et aux redactions ;
-- une future couche serveur pourra centraliser les prompts, les profils de ton, la securite, les quotas et l'historique.
+- la couche serveur locale centralise les prompts, les profils de ton et la securite ; les quotas et l'historique durable restent a ajouter plus tard.
 
 Le but est d'eviter deux erreurs :
 
@@ -85,17 +92,14 @@ Le but est d'eviter deux erreurs :
 
 ## Profils de ton
 
-L'utilisateur pourra choisir le style de retour. Le modele mental possible est "un agent par ton", mais l'implementation devrait surtout traiter ces agents comme des **profils de feedback** partageant les memes regles de securite et de pedagogie.
+Le serveur accepte actuellement quatre profils de feedback Feynman :
 
-Profils possibles :
+- **simple** : phrases courtes, mots directs, une action a la fois ;
+- **normal** : feedback clair, precis et progressif ;
+- **exigeant** : demande une justification propre et refuse les formulations floues ;
+- **coach-calme** : ton rassurant, correction ferme, prochaine action tres concrete.
 
-- **Prof patient** : explique lentement, reformule, donne des exemples simples.
-- **Coach exigeant** : demande une justification, refuse les reponses floues, pousse a rediger correctement.
-- **Examinateur** : juge la copie comme en controle, signale les points perdus et la redaction attendue.
-- **Socratique** : pose une question de relance avant de donner la correction.
-- **Mode rapide** : reponse courte, verdict clair, prochain geste.
-
-Chaque profil change le ton, la longueur et le type de relance. Il ne doit pas changer la verite mathematique, la correction de reference, ni les garde-fous.
+Chaque profil change le ton, la longueur et le type de relance. Il ne doit pas changer la verite mathematique, la correction de reference, ni les garde-fous. Si une valeur inconnue arrive du profil eleve, le serveur retombe sur `normal`.
 
 ## Regles constantes de feedback
 

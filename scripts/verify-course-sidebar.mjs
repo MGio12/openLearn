@@ -24,7 +24,10 @@ function listPrototypeCourseTargets() {
   const base = join(ROOT, 'prototypes', 'cours', 'maths-specialite');
   return readdirSync(base, { withFileTypes: true })
     .filter((entry) => entry.isDirectory())
-    .map((entry) => `prototypes/cours/maths-specialite/${entry.name}/index.html`)
+    .flatMap((entry) => [
+      `prototypes/cours/maths-specialite/${entry.name}/index.html`,
+      `prototypes/cours/maths-specialite/${entry.name}/td.html`,
+    ])
     .filter((target) => existsSync(resolve(ROOT, target)))
     .sort();
 }

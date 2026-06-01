@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Probabilités conditionnelles — cours V2</title>
+  <title>Probabilités conditionnelles - cours V2</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <link rel="stylesheet" href="../cours.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
@@ -227,6 +227,7 @@
       <a href="../../../..">Objectif Lycée</a>
       <span>Maths spécialité</span>
       <span>Cours</span>
+      <a href="td.html">TD corrigé</a>
     </nav>
 
     <div class="hero-grid">
@@ -270,7 +271,7 @@
   <main class="course-layout" data-course-layout>
     <article class="lesson course-lesson">
 
-      <!-- Overview band — single editorial section -->
+      <!-- Overview band - single editorial section -->
       <section class="course-overview" aria-label="Repères du chapitre">
         <div>
           <p class="course-overview__title">Fil conducteur</p>
@@ -426,7 +427,7 @@
         </div>
 
         <div class="c-callout c-callout--tip">
-          <p class="c-callout__label"><span class="dot"></span>Image mentale — indice = monde connu</p>
+          <p class="c-callout__label"><span class="dot"></span>Image mentale - indice = monde connu</p>
           <p>
             <strong>Phrase à retenir&nbsp;:</strong> l'indice après « sachant que » est le monde connu&nbsp;;
             tout le calcul se fait à l'intérieur de ce monde.
@@ -657,7 +658,7 @@
         </div>
 
         <div class="c-callout c-callout--tip">
-          <p class="c-callout__label"><span class="dot"></span>Réflexe — branche = conditionnelle, chemin = intersection</p>
+          <p class="c-callout__label"><span class="dot"></span>Réflexe - branche = conditionnelle, chemin = intersection</p>
           <p>
             <strong>Phrase à retenir&nbsp;:</strong> une branche du 2ᵉ étage répond à « sachant le nœud où je suis »&nbsp;;
             le chemin entier répond à « les deux événements se réalisent ».
@@ -907,7 +908,7 @@
         </div>
 
         <div class="c-callout c-callout--tip">
-          <p class="c-callout__label"><span class="dot"></span>Mémo technique — globalement = recoller tous les cas</p>
+          <p class="c-callout__label"><span class="dot"></span>Mémo technique - globalement = recoller tous les cas</p>
           <p>
             <strong>Phrase à retenir&nbsp;:</strong> quand l'énoncé demande une probabilité « globalement »,
             on recolle tous les cas possibles, chacun avec son poids.
@@ -1079,7 +1080,7 @@
         </p>
 
         <div class="c-callout c-callout--tip">
-          <p class="c-callout__label"><span class="dot"></span>Réflexe — l'info ne bouge pas le taux</p>
+          <p class="c-callout__label"><span class="dot"></span>Réflexe - l'info ne bouge pas le taux</p>
           <p>
             <strong>Phrase à retenir&nbsp;:</strong> si l'information \(A\) ne bouge pas le taux de \(B\),
             alors \(A\) et \(B\) sont indépendants&nbsp;: \(P_A(B)=P(B)\).
@@ -1242,7 +1243,7 @@
         </p>
 
         <div class="c-callout c-callout--tip">
-          <p class="c-callout__label"><span class="dot"></span>Réflexe — inverse = chemin utile / tous les chemins observés</p>
+          <p class="c-callout__label"><span class="dot"></span>Réflexe - inverse = chemin utile / tous les chemins observés</p>
           <p>
             <strong>Phrase à retenir&nbsp;:</strong> pour inverser une conditionnelle, le numérateur est le
             chemin utile, le dénominateur est tous les chemins qui mènent à ce que l'on observe.
@@ -1487,7 +1488,7 @@
         </p>
 
         <div class="c-callout c-callout--warn">
-          <p class="c-callout__label"><span class="dot"></span>Piège 1 — Confondre \(P_A(B)\) et \(P_B(A)\)</p>
+          <p class="c-callout__label"><span class="dot"></span>Piège 1 - Confondre \(P_A(B)\) et \(P_B(A)\)</p>
           <p>
             Ces deux probabilités sont en général <strong>différentes</strong>. \(P_A(B)\) part de \(A\) (univers
             restreint = \(A\))&nbsp;; \(P_B(A)\) part de \(B\). On l'a vu plus haut&nbsp;: pour les recrutés,
@@ -1496,7 +1497,7 @@
         </div>
 
         <div class="c-callout c-callout--warn">
-          <p class="c-callout__label"><span class="dot"></span>Piège 2 — Mettre une intersection sur le 2ᵉ étage</p>
+          <p class="c-callout__label"><span class="dot"></span>Piège 2 - Mettre une intersection sur le 2ᵉ étage</p>
           <p>
             Sur un arbre, le 2ᵉ étage porte <strong>des conditionnelles</strong>, jamais des intersections.
             Si tu y mets \(P(A\cap B)\) au lieu de \(P_A(B)\), la lecture est fausse, même si le produit final
@@ -1505,7 +1506,7 @@
         </div>
 
         <div class="c-callout c-callout--warn">
-          <p class="c-callout__label"><span class="dot"></span>Piège 3 — Oublier que la somme = 1</p>
+          <p class="c-callout__label"><span class="dot"></span>Piège 3 - Oublier que la somme = 1</p>
           <p>
             La somme des branches issues d'un même nœud vaut toujours 1. C'est ton premier contrôle de
             cohérence. Si la somme du 1er étage donne autre chose que 1, l'arbre est faux.
@@ -1513,7 +1514,7 @@
         </div>
 
         <div class="c-callout c-callout--warn">
-          <p class="c-callout__label"><span class="dot"></span>Piège 4 — Indépendance vs incompatibilité</p>
+          <p class="c-callout__label"><span class="dot"></span>Piège 4 - Indépendance vs incompatibilité</p>
           <p>
             Indépendants&nbsp;: \(P(A\cap B)=P(A)P(B)\). Incompatibles&nbsp;: \(P(A\cap B)=0\).
             Deux événements de probabilités strictement positives ne peuvent pas être les deux à la fois.
@@ -1522,7 +1523,7 @@
         </div>
 
         <div class="c-callout c-callout--warn">
-          <p class="c-callout__label"><span class="dot"></span>Piège 5 — Oublier la partition</p>
+          <p class="c-callout__label"><span class="dot"></span>Piège 5 - Oublier la partition</p>
           <p>
             Avant d'écrire « d'après la formule des probabilités totales », il faut <strong>vérifier</strong> que les
             événements utilisés forment bien une partition. Au lycée, c'est presque toujours \(A\) et
@@ -1531,7 +1532,7 @@
         </div>
 
         <div class="c-callout c-callout--warn">
-          <p class="c-callout__label"><span class="dot"></span>Piège 6 — Lecture floue de l'énoncé</p>
+          <p class="c-callout__label"><span class="dot"></span>Piège 6 - Lecture floue de l'énoncé</p>
           <p>
             « 40&nbsp;% des cadres sont des femmes » ne signifie pas \(P(F)=0{,}40\). Cela signifie \(P_C(F)=0{,}40\).
             La phrase contient « <em>des cadres</em> », donc on conditionne par cadre. Toujours décortiquer
@@ -1554,7 +1555,7 @@
 
         <div class="exercise">
           <div class="exercise-header">
-            <h3>Guidé 1 — Calculatrice graphique</h3>
+            <h3>Guidé 1 - Calculatrice graphique</h3>
             <span class="difficulty" aria-label="Niveau comprendre">Comprendre</span>
           </div>
           <p>
@@ -1579,7 +1580,7 @@
 
         <div class="exercise">
           <div class="exercise-header">
-            <h3>Guidé 2 — Tableau de contingence</h3>
+            <h3>Guidé 2 - Tableau de contingence</h3>
             <span class="difficulty" aria-label="Niveau comprendre">Comprendre</span>
           </div>
           <p>
@@ -1636,7 +1637,7 @@
 
         <div class="exercise">
           <div class="exercise-header">
-            <h3>Guidé 3 — Probabilité totale, deux cas</h3>
+            <h3>Guidé 3 - Probabilité totale, deux cas</h3>
             <span class="difficulty" aria-label="Niveau savoir refaire">Savoir refaire</span>
           </div>
           <p>
@@ -1671,7 +1672,7 @@
 
         <div class="exercise">
           <div class="exercise-header">
-            <h3>Guidé 4 — Indépendance à vérifier</h3>
+            <h3>Guidé 4 - Indépendance à vérifier</h3>
             <span class="difficulty" aria-label="Niveau savoir refaire">Savoir refaire</span>
           </div>
           <p>
@@ -1700,7 +1701,7 @@
 
         <div class="exercise">
           <div class="exercise-header">
-            <h3>Guidé 5 — Deux cas, partition à 2 branches</h3>
+            <h3>Guidé 5 - Deux cas, partition à 2 branches</h3>
             <span class="difficulty" aria-label="Niveau savoir refaire">Savoir refaire</span>
           </div>
           <p>
@@ -1751,7 +1752,7 @@
 
         <div class="exercise">
           <div class="exercise-header">
-            <h3>Contrôle 1 — Carrefour et conditionnelle inverse</h3>
+            <h3>Contrôle 1 - Carrefour et conditionnelle inverse</h3>
             <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
           </div>
           <p>
@@ -1800,7 +1801,7 @@
 
         <div class="exercise">
           <div class="exercise-header">
-            <h3>Contrôle 2 — Permis de conduire (AAC)</h3>
+            <h3>Contrôle 2 - Permis de conduire (AAC)</h3>
             <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
           </div>
           <p>
@@ -1839,7 +1840,7 @@
 
         <div class="exercise">
           <div class="exercise-header">
-            <h3>Contrôle 3 — Aiguilles défectueuses</h3>
+            <h3>Contrôle 3 - Aiguilles défectueuses</h3>
             <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
           </div>
           <p>
@@ -1890,7 +1891,7 @@
 
         <div class="exercise">
           <div class="exercise-header">
-            <h3>20/20 — Inconnue dans l'arbre (jus d'orange)</h3>
+            <h3>20/20 - Inconnue dans l'arbre (jus d'orange)</h3>
             <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
           </div>
           <p>
@@ -1922,7 +1923,7 @@
 
         <div class="exercise">
           <div class="exercise-header">
-            <h3>20/20 — Indépendance et choix</h3>
+            <h3>20/20 - Indépendance et choix</h3>
             <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
           </div>
           <p>
@@ -1958,7 +1959,7 @@
 
         <div class="exercise">
           <div class="exercise-header">
-            <h3>20/20 — Tri sélectif et bio</h3>
+            <h3>20/20 - Tri sélectif et bio</h3>
             <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
           </div>
           <p>
@@ -1993,7 +1994,7 @@
 
         <div class="exercise">
           <div class="exercise-header">
-            <h3>20/20 — Triathlon de Fabien</h3>
+            <h3>20/20 - Triathlon de Fabien</h3>
             <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
           </div>
           <p>
@@ -2091,7 +2092,7 @@
         <div class="c-callout c-callout--tip">
           <p class="c-callout__label"><span class="dot"></span>Suite naturelle</p>
           <p>
-            Le chapitre suivant — <em>variables aléatoires</em> — repose entièrement sur les arbres pondérés.
+            Le chapitre suivant - <em>variables aléatoires</em> - repose entièrement sur les arbres pondérés.
             Si l'arbre de probabilités te paraît mécanique aujourd'hui, la loi d'une variable aléatoire te
             paraîtra évidente demain.
           </p>
@@ -2102,7 +2103,7 @@
   </main>
 
   <!-- ============================================================
-       CHAPTER SETS — exact JSXGraph diagram for conditional probability
+       CHAPTER SETS - exact JSXGraph diagram for conditional probability
        ============================================================ -->
   <script>
     (function () {

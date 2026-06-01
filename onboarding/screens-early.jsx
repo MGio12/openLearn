@@ -1,5 +1,5 @@
 /* ============================================================
-   Screens — EARLY (Intro → Matières)
+   Screens - EARLY (Intro → Matières)
    ============================================================ */
 
 // Shared bits ----------------------------------------------------
@@ -24,7 +24,7 @@ function Choice({ choice, isSelected, isMulti, onSelect }) {
 }
 
 // ----------------------------------------------------------------
-// Generic question screen — handles single & multi
+// Generic question screen - handles single & multi
 // ----------------------------------------------------------------
 function QuestionScreen({
   title, microcopy, eyebrow, eyebrowPill,
@@ -111,7 +111,7 @@ function QuestionScreen({
 
       {helperBelow && <p className="ob-helper-below">{helperBelow}</p>}
 
-      {/* Contextual encouragement — shown after click */}
+      {/* Contextual encouragement - shown after click */}
       {encouragement && (
         <div className="ob-encouragement">
           <span className="ob-encouragement-mark">↳</span>
@@ -155,7 +155,7 @@ function IntroScreen({ onNext }) {
 
         <p className="ob-microcopy" style={{ maxWidth: 580, marginTop: 0 }}>
           On te pose {TOTAL_STEPS} questions. À la fin, tu obtiens une mission utile pour aujourd'hui,
-          choisie à partir de ton profil — pas au hasard.
+          choisie à partir de ton profil - pas au hasard.
         </p>
 
         <div className="ob-actions">
@@ -192,7 +192,7 @@ function ClasseScreen({ value, onAnswer }) {
 }
 
 // ----------------------------------------------------------------
-// 3. OBJECTIF — MULTI
+// 3. OBJECTIF - MULTI
 // ----------------------------------------------------------------
 function ObjectifScreen({ value, onAnswer }) {
   return (
@@ -211,7 +211,7 @@ function ObjectifScreen({ value, onAnswer }) {
 }
 
 // ----------------------------------------------------------------
-// 4. MOYENNE — actuelle → visée
+// 4. MOYENNE - actuelle → visée
 // ----------------------------------------------------------------
 function MoyenneScreen({ value, onAnswer, profile }) {
   const [current, setCurrent] = React.useState(value?.current ?? 11);
@@ -239,7 +239,7 @@ function MoyenneScreen({ value, onAnswer, profile }) {
       <div className="ob-slider">
         <div className="ob-slider-head">
           <span>Ma moyenne actuelle</span>
-          <span>0 — 20</span>
+          <span>0 - 20</span>
         </div>
         <div className="ob-slider-val">
           {current.toFixed(1)}<span className="unit">/ 20</span>
@@ -293,7 +293,7 @@ function MoyenneScreen({ value, onAnswer, profile }) {
 }
 
 // ----------------------------------------------------------------
-// 5. ÉCHÉANCES — MULTI, filtrée par classe, psy adaptée
+// 5. ÉCHÉANCES - MULTI, filtrée par classe, psy adaptée
 // ----------------------------------------------------------------
 function EcheanceScreen({ value, onAnswer, profile }) {
   const choices = echeancesForClasse(profile.classe);
@@ -301,7 +301,7 @@ function EcheanceScreen({ value, onAnswer, profile }) {
 
   const arr = Array.isArray(value) ? value : [];
 
-  // psy message — du dernier cliqué
+  // psy message - du dernier cliqué
   const lastVal = arr[arr.length - 1];
   const lastMsg = lastVal ? echeancePsyMessage(lastVal) : null;
 
@@ -371,7 +371,7 @@ function EcheanceScreen({ value, onAnswer, profile }) {
 }
 
 // ----------------------------------------------------------------
-// 6. MATIÈRES — MULTI, avec emotional helper
+// 6. MATIÈRES - MULTI, avec emotional helper
 // ----------------------------------------------------------------
 function MatiereScreen({ value, onAnswer }) {
   return (

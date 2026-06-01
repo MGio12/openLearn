@@ -2,7 +2,7 @@
 """
 Strip em-dashes from UTF-8 text files.
 
-U+2014 (—) is replaced by ASCII '-'.
+U+2014 (em dash) is replaced by ASCII '-'.
 U+2013 (–) en-dash is left intact (used for numeric ranges like "30–45").
 
 Idempotent: safe to run multiple times. Re-running on a stripped file
@@ -15,7 +15,7 @@ Usage:
 import sys
 import pathlib
 
-EM_DASH = "—"
+EM_DASH = chr(0x2014)
 REPLACEMENT = "-"
 
 

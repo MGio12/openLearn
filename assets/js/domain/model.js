@@ -1,4 +1,18 @@
 /* ============================================================
+   AGENT HEADER
+   Role: modele produit pur, normalise les profils, objectifs,
+   missions, progression, planning et etats d'abonnement.
+   Loaded by: pages racine, onboarding.html et scripts navigateur
+   avant assets/js/state/store.js.
+   Reads/writes: aucun DOM et aucun localStorage; expose
+   window.OutilPrepaModel.
+   Public contract: window.OutilPrepaModel.schemaVersion === 1,
+   DEFAULT_*, todayISO, createDefaultAppState, createScheduleForMission,
+   onboarding/local-account helpers, mission progress, focus session,
+   and subscription helpers.
+   Verify: npm run verify:local-account ; npm run verify:localstorage.
+   Read next: `docs/agent-codebase-map.md` Zone 5, `docs/architecture.md`.
+
    OUTIL PREPA - Modele de donnees central
    ------------------------------------------------------------
    Source commune pour les entites produit que les pages doivent
@@ -11,8 +25,16 @@
   // Schema version 1 is persisted by assets/js/state/store.js in localStorage key "outilPrepa:v1".
   var SCHEMA_VERSION = 1;
 
+  var DEFAULT_AI_PREFERENCES = {
+    tone: 'direct',
+    detailLevel: 'progressif',
+    allowDeepening: true,
+  };
+
   var DEFAULT_PROFILE = {
     id: 'profile-demo-maie',
+    localAccountId: null,
+    accountSource: 'fixture-demo-profile',
     source: 'fixture-demo-profile',
     displayName: 'Maïe',
     fullName: 'Maïe Durand',
@@ -24,6 +46,12 @@
     prioritySubjectIds: ['maths', 'physique-chimie'],
     timezone: 'Europe/Paris',
     email: null,
+    rhythm: 'moyen',
+    aiPreferences: {
+      tone: 'direct',
+      detailLevel: 'progressif',
+      allowDeepening: true,
+    },
   };
 
   var DEFAULT_OBJECTIVE = {
@@ -61,7 +89,7 @@
     id: 'mission-exponentielle-derivation',
     objectiveId: DEFAULT_OBJECTIVE.id,
     title: 'Exponentielle & dérivation',
-    taskTitle: 'Exponentielle & dérivation — exercice type contrôle',
+    taskTitle: 'Exponentielle & dérivation - exercice type contrôle',
     subjectId: 'maths',
     subjectLabel: 'Maths spé',
     topicId: 'expo-derivee',
@@ -82,7 +110,7 @@
     missionPageReason:
       'Pour ton école d’ingé, le bon pari est de sécuriser l’exponentielle maintenant. C’est court, au programme du contrôle de vendredi, et une bonne note en maths fait monter ton dossier.',
     focusIntro:
-      '25 min de focus, puis 20 min de correction propre — les 45 min y passent. Commence par les formules et trois dérivées. Note l’erreur que tu ne veux plus refaire.',
+      '25 min de focus, puis 20 min de correction propre - les 45 min y passent. Commence par les formules et trois dérivées. Note l’erreur que tu ne veux plus refaire.',
     completionSummary:
       'Tu viens de finir 25 min de focus. Ta mission avance, ton dossier s’épaissit.',
     recommendation:
@@ -127,7 +155,7 @@
         id: 'fiche-exponentielle',
         type: 'fiche',
         label: 'Fiche · Exponentielle, dérivée et variations',
-        meta: 'Chapitre fonctions — formules à sécuriser',
+        meta: 'Chapitre fonctions - formules à sécuriser',
       },
       {
         id: 'objectif-ingenieur',
@@ -569,6 +597,49 @@
     indecis: 4,
   };
 
+  var CLASS_LEVELS = {
+    Seconde: 'seconde',
+    'Première': 'premiere',
+    Premiere: 'premiere',
+    Terminale: 'terminale',
+    Autre: 'autre',
+    seconde: 'seconde',
+    premiere: 'premiere',
+    terminale: 'terminale',
+    autre: 'autre',
+  };
+
+  var SUBJECT_LABEL_IDS = {
+    Mathématiques: 'maths',
+    Mathematiques: 'maths',
+    maths: 'maths',
+    'Maths spé': 'maths',
+    'Physique-chimie': 'physique-chimie',
+    physique: 'physique-chimie',
+    SVT: 'svt',
+    svt: 'svt',
+    SES: 'ses',
+    ses: 'ses',
+    HGGSP: 'hggsp',
+    hggsp: 'hggsp',
+    Français: 'francais-philo',
+    Francais: 'francais-philo',
+    Philosophie: 'francais-philo',
+    Anglais: 'anglais',
+    anglais: 'anglais',
+    'Grand oral': 'grand-oral',
+    'grand-oral': 'grand-oral',
+  };
+
+  var ONBOARDING_OBJECTIVE_LABELS = {
+    remonter: 'Remonter une matière',
+    controle: 'Préparer un contrôle',
+    'stop-hasard': 'Arrêter de travailler au hasard',
+    dossier: 'Construire un meilleur dossier',
+    routine: 'Tenir une routine',
+    confiance: 'Reprendre confiance',
+  };
+
   var SUBJECT_IDS = {
     physique: 'physique-chimie',
     francais: 'francais-philo',
@@ -578,7 +649,7 @@
     physique: {
       id: 'mission-energie-mecanique-controle',
       title: 'Énergie mécanique',
-      taskTitle: 'Énergie mécanique — exercice type contrôle',
+      taskTitle: 'Énergie mécanique - exercice type contrôle',
       subjectId: 'physique-chimie',
       subjectLabel: 'Physique-chimie',
       topicId: 'energie-mecanique',
@@ -629,7 +700,7 @@
           id: 'fiche-energie-mecanique',
           type: 'fiche',
           label: 'Fiche · Énergie mécanique et conservation',
-          meta: 'Chapitre mécanique — méthode de rédaction',
+          meta: 'Chapitre mécanique - méthode de rédaction',
         },
         {
           id: 'objectif-scientifique',
@@ -642,7 +713,7 @@
     svt: {
       id: 'mission-genetique-schema-bilan',
       title: 'Génétique',
-      taskTitle: 'Génétique — schéma bilan et questions flash',
+      taskTitle: 'Génétique - schéma bilan et questions flash',
       subjectId: 'svt',
       subjectLabel: 'SVT',
       topicId: 'genetique',
@@ -690,14 +761,14 @@
           id: 'fiche-genetique',
           type: 'fiche',
           label: 'Fiche · Génétique, notions et schéma bilan',
-          meta: 'Chapitre SVT — compréhension active',
+          meta: 'Chapitre SVT - compréhension active',
         },
       ],
     },
     ses: {
       id: 'mission-ses-croissance-notions',
       title: 'Croissance économique',
-      taskTitle: 'Croissance — relier deux notions au cours',
+      taskTitle: 'Croissance - relier deux notions au cours',
       subjectId: 'ses',
       subjectLabel: 'SES',
       topicId: 'croissance',
@@ -745,7 +816,7 @@
           id: 'fiche-croissance',
           type: 'fiche',
           label: 'Fiche · Croissance, notions et exemples',
-          meta: 'Chapitre SES — copie structurée',
+          meta: 'Chapitre SES - copie structurée',
         },
       ],
     },
@@ -800,7 +871,7 @@
           id: 'fiche-intro-hggsp',
           type: 'fiche',
           label: 'Fiche · Introduction HGGSP',
-          meta: 'Méthode — dissertation et problématique',
+          meta: 'Méthode - dissertation et problématique',
         },
       ],
     },
@@ -855,14 +926,14 @@
           id: 'fiche-plan-detaille',
           type: 'fiche',
           label: 'Fiche · Plan détaillé',
-          meta: 'Méthode — structure et argument',
+          meta: 'Méthode - structure et argument',
         },
       ],
     },
     anglais: {
       id: 'mission-anglais-arguments',
       title: 'Expression écrite',
-      taskTitle: 'Expression écrite — reformuler 5 arguments',
+      taskTitle: 'Expression écrite - reformuler 5 arguments',
       subjectId: 'anglais',
       subjectLabel: 'Anglais',
       topicId: 'expression-ecrite',
@@ -910,14 +981,14 @@
           id: 'fiche-expression-anglaise',
           type: 'fiche',
           label: 'Fiche · Expression écrite',
-          meta: 'Anglais — reformulation et précision',
+          meta: 'Anglais - reformulation et précision',
         },
       ],
     },
     lv2: {
       id: 'mission-lv2-vocabulaire',
       title: 'Vocabulaire thématique',
-      taskTitle: 'Vocabulaire thématique — fiche mémo 20 mots',
+      taskTitle: 'Vocabulaire thématique - fiche mémo 20 mots',
       subjectId: 'lv2',
       subjectLabel: 'LV2',
       topicId: 'vocabulaire',
@@ -965,14 +1036,14 @@
           id: 'fiche-vocabulaire-lv2',
           type: 'fiche',
           label: 'Fiche · Vocabulaire thématique',
-          meta: 'Langue — mémorisation courte',
+          meta: 'Langue - mémorisation courte',
         },
       ],
     },
     'grand-oral': {
       id: 'mission-projet-motive-preuves',
       title: 'Projet motivé',
-      taskTitle: 'Projet motivé — noter 3 preuves concrètes',
+      taskTitle: 'Projet motivé - noter 3 preuves concrètes',
       subjectId: 'grand-oral',
       subjectLabel: 'Objectif',
       topicId: 'preuves-dossier',
@@ -1020,7 +1091,7 @@
           id: 'fiche-projet-motive',
           type: 'objective-proof',
           label: 'Fiche · Projet motivé',
-          meta: 'Dossier — preuves concrètes',
+          meta: 'Dossier - preuves concrètes',
         },
       ],
     },
@@ -1100,6 +1171,49 @@
     return prefix + '-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8);
   }
 
+  function cleanString(value, fallback) {
+    var text = typeof value === 'string' ? value.trim() : '';
+    return text || fallback || '';
+  }
+
+  function normalizeClassLevel(value, fallback) {
+    return CLASS_LEVELS[value] || fallback || DEFAULT_PROFILE.classLevel;
+  }
+
+  function normalizeSubjectKey(key) {
+    return SUBJECT_LABEL_IDS[key] || SUBJECT_IDS[key] || key || 'maths';
+  }
+
+  function normalizeSubjectList(list, fallback) {
+    var raw = Array.isArray(list) ? list : [];
+    var out = [];
+    raw.forEach(function (item) {
+      var subjectId = normalizeSubjectKey(item);
+      if (out.indexOf(subjectId) === -1) out.push(subjectId);
+    });
+    if (out.length) return out;
+    return Array.isArray(fallback) && fallback.length ? fallback.slice() : ['maths'];
+  }
+
+  function effortHours(value, fallback) {
+    if (typeof value === 'number') return value;
+    if (value && typeof value.hours === 'number') return value.hours;
+    if (typeof value === 'string' && WEEKLY_HOURS[value]) return WEEKLY_HOURS[value];
+    return fallback || DEFAULT_PROFILE.weeklyWorkloadHours;
+  }
+
+  function normalizeAiPreferences(input, fallback) {
+    input = input || {};
+    fallback = fallback || DEFAULT_AI_PREFERENCES;
+    return {
+      tone: cleanString(input.tone, fallback.tone || DEFAULT_AI_PREFERENCES.tone),
+      detailLevel: cleanString(input.detailLevel, fallback.detailLevel || DEFAULT_AI_PREFERENCES.detailLevel),
+      allowDeepening: typeof input.allowDeepening === 'boolean'
+        ? input.allowDeepening
+        : fallback.allowDeepening !== false,
+    };
+  }
+
   function createFocusSession(mission, overrides) {
     mission = mission || DEFAULT_MISSION;
     overrides = overrides || {};
@@ -1125,13 +1239,8 @@
     );
   }
 
-  function normalizeSubjectKey(key) {
-    return SUBJECT_IDS[key] || key || 'maths';
-  }
-
   function normalizePriorityKeys(priorities) {
-    var list = Array.isArray(priorities) ? priorities : [];
-    return list.length ? list.slice() : ['maths'];
+    return normalizeSubjectList(priorities, ['maths']);
   }
 
   function trackSubjectsForSpeciality(speciality) {
@@ -1143,20 +1252,75 @@
   function createProfileFromOnboarding(onboarding, existingProfile) {
     onboarding = onboarding || {};
     var next = deepMerge(DEFAULT_PROFILE, existingProfile || {});
-    var priorityKeys = normalizePriorityKeys(onboarding.priorites);
+    var onboardingSubjects = Array.isArray(onboarding.matieres) && onboarding.matieres.length
+      ? onboarding.matieres
+      : onboarding.priorites;
+    var priorityKeys = normalizePriorityKeys(onboardingSubjects);
+    var displayName = cleanString(onboarding.nom || onboarding.displayName, next.displayName);
 
-    next.classLevel = onboarding.classe || next.classLevel;
-    next.tracks = trackSubjectsForSpeciality(onboarding.specialite);
-    next.weeklyWorkloadHours = WEEKLY_HOURS[onboarding.rythme] || next.weeklyWorkloadHours;
-    next.prioritySubjectIds = priorityKeys.map(normalizeSubjectKey);
+    next.localAccountId = next.localAccountId || makeId('local-account');
+    next.accountSource = onboarding.source || 'onboarding';
+    next.source = onboarding.source || 'onboarding';
+    next.displayName = displayName;
+    next.fullName = cleanString(onboarding.fullName, displayName);
+    next.initials = displayName
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map(function (part) { return part.charAt(0).toUpperCase(); })
+      .join('') || next.initials;
+    next.classLevel = normalizeClassLevel(onboarding.classe, next.classLevel);
+    next.tracks = Array.isArray(onboarding.matieres) && onboarding.matieres.length
+      ? normalizeSubjectList(onboarding.matieres, next.tracks)
+      : trackSubjectsForSpeciality(onboarding.specialite);
+    next.weeklyWorkloadHours = effortHours(onboarding.effortHebdo || onboarding.rythme, next.weeklyWorkloadHours);
+    next.rhythm = onboarding.rythme || onboarding.rhythm || next.rhythm;
+    next.prioritySubjectIds = priorityKeys;
     next.email = onboarding.email || next.email || null;
+    next.aiPreferences = normalizeAiPreferences(onboarding.aiPreferences, next.aiPreferences);
     next.onboarding = {
       goal: onboarding.goal || null,
+      objectif: onboarding.objectif || null,
       classe: onboarding.classe || null,
       specialite: onboarding.specialite || null,
       rythme: onboarding.rythme || null,
+      niveau: onboarding.niveau || null,
+      blocage: onboarding.blocage || null,
       priorites: priorityKeys.slice(),
       completedAt: onboarding.completedAt || null,
+    };
+
+    return next;
+  }
+
+  function createProfileFromLocalAccount(input, existingProfile) {
+    input = input || {};
+    var next = deepMerge(DEFAULT_PROFILE, existingProfile || {});
+    var displayName = cleanString(input.displayName, next.displayName || 'Profil local');
+    var tracks = normalizeSubjectList(input.tracks, next.tracks);
+    var prioritySubjectIds = normalizeSubjectList(input.prioritySubjectIds, tracks);
+
+    next.localAccountId = next.localAccountId || input.localAccountId || makeId('local-account');
+    next.accountSource = input.source || 'settings';
+    next.source = input.source || 'settings';
+    next.displayName = displayName;
+    next.fullName = cleanString(input.fullName, displayName);
+    next.initials = displayName
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map(function (part) { return part.charAt(0).toUpperCase(); })
+      .join('') || next.initials;
+    next.classLevel = normalizeClassLevel(input.classLevel, next.classLevel);
+    next.tracks = tracks;
+    next.prioritySubjectIds = prioritySubjectIds;
+    next.rhythm = input.rhythm || next.rhythm || 'moyen';
+    next.weeklyWorkloadHours = effortHours(next.rhythm, next.weeklyWorkloadHours);
+    next.email = input.email || next.email || null;
+    next.aiPreferences = normalizeAiPreferences(input.aiPreferences, next.aiPreferences);
+    next.localAccount = {
+      objectiveLabel: cleanString(input.objectiveLabel, ''),
+      updatedAt: input.updatedAt || new Date().toISOString(),
     };
 
     return next;
@@ -1166,10 +1330,12 @@
     onboarding = onboarding || {};
     var next = deepMerge(DEFAULT_OBJECTIVE, existingObjective || {});
     var goal = onboarding.goal || 'ingenieur';
-    var prioritySubjectIds = normalizePriorityKeys(onboarding.priorites).map(normalizeSubjectKey);
+    var prioritySubjectIds = normalizePriorityKeys(
+      Array.isArray(onboarding.matieres) && onboarding.matieres.length ? onboarding.matieres : onboarding.priorites
+    );
 
     next.targetType = GOAL_TYPES[goal] || DEFAULT_OBJECTIVE.targetType;
-    next.targetLabel = GOAL_LABELS[goal] || DEFAULT_OBJECTIVE.targetLabel;
+    next.targetLabel = ONBOARDING_OBJECTIVE_LABELS[onboarding.objectif] || GOAL_LABELS[goal] || DEFAULT_OBJECTIVE.targetLabel;
     next.prioritySubjectIds = prioritySubjectIds;
     next.weightedSubjects = prioritySubjectIds.slice(0, 3).map(function (subjectId, index) {
       return {
@@ -1184,10 +1350,37 @@
     return next;
   }
 
+  function createObjectiveFromLocalAccount(input, existingObjective) {
+    input = input || {};
+    var next = deepMerge(DEFAULT_OBJECTIVE, existingObjective || {});
+    var prioritySubjectIds = normalizeSubjectList(input.prioritySubjectIds, next.prioritySubjectIds);
+
+    next.targetType = 'local-objective';
+    next.targetLabel = cleanString(input.objectiveLabel, next.targetLabel || DEFAULT_OBJECTIVE.targetLabel);
+    next.prioritySubjectIds = prioritySubjectIds;
+    next.weightedSubjects = prioritySubjectIds.slice(0, 3).map(function (subjectId, index) {
+      return {
+        subjectId: subjectId,
+        weight: [0.5, 0.3, 0.2][index] || 0.2,
+        reason: index === 0
+          ? 'Premier levier choisi dans le compte local.'
+          : 'Priorite secondaire choisie dans le compte local.',
+      };
+    });
+
+    return next;
+  }
+
   function firstMissionKeyFromOnboarding(onboarding) {
     onboarding = onboarding || {};
-    var priorities = normalizePriorityKeys(onboarding.priorites);
-    if (priorities[0]) return priorities[0];
+    var priorities = normalizePriorityKeys(
+      Array.isArray(onboarding.matieres) && onboarding.matieres.length ? onboarding.matieres : onboarding.priorites
+    );
+    if (priorities[0]) {
+      if (priorities[0] === 'physique-chimie') return 'physique';
+      if (priorities[0] === 'francais-philo') return 'francais';
+      return priorities[0];
+    }
     var tracks = trackSubjectsForSpeciality(onboarding.specialite);
     return tracks[0] === 'physique-chimie' ? 'physique' : tracks[0] || 'maths';
   }
@@ -1342,6 +1535,7 @@
     DEFAULT_PROFILE: clone(DEFAULT_PROFILE),
     DEFAULT_OBJECTIVE: clone(DEFAULT_OBJECTIVE),
     DEFAULT_MISSION: clone(DEFAULT_MISSION),
+    DEFAULT_AI_PREFERENCES: clone(DEFAULT_AI_PREFERENCES),
     DEFAULT_SUBSCRIPTION_STATE: clone(DEFAULT_SUBSCRIPTION_STATE),
     DEFAULT_SCHEDULE: clone(DEFAULT_SCHEDULE),
     todayISO: todayISO,
@@ -1351,6 +1545,8 @@
     createProfileFromOnboarding: createProfileFromOnboarding,
     createObjectiveFromOnboarding: createObjectiveFromOnboarding,
     createMissionFromOnboarding: createMissionFromOnboarding,
+    createProfileFromLocalAccount: createProfileFromLocalAccount,
+    createObjectiveFromLocalAccount: createObjectiveFromLocalAccount,
     createMissionProgress: createMissionProgress,
     createFocusSession: createFocusSession,
     deriveSubscriptionState: deriveSubscriptionState,

@@ -75,7 +75,11 @@ function activeCoursePages() {
       return statSync(path).isDirectory() && existsSync(join(path, 'index.html'));
     })
     .sort()
-    .map((name) => `prototypes/cours/maths-specialite/${name}/index.html`);
+    .flatMap((name) => [
+      `prototypes/cours/maths-specialite/${name}/index.html`,
+      `prototypes/cours/maths-specialite/${name}/td.html`,
+    ])
+    .filter((path) => existsSync(join(ROOT, path)));
 }
 
 function pageUrl(baseUrl, path) {

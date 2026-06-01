@@ -26,9 +26,9 @@
     if (api.isLocked()) {
       banner.classList.add('is-locked');
       if (countEl) countEl.textContent = String(api.freeLimit);
-      if (nounEl) nounEl.textContent = 'missions offertes utilisées';
-      if (hintEl) hintEl.textContent = 'Tu as essayé. Garde le plan personnalisé pour continuer.';
-      if (cta) cta.removeAttribute('hidden');
+      if (nounEl) nounEl.textContent = 'missions complétées';
+      if (hintEl) hintEl.textContent = 'Continue — tout est gratuit et open source.';
+      if (cta) cta.setAttribute('hidden', '');
       return;
     }
 
@@ -37,7 +37,7 @@
     if (nounEl) nounEl.textContent = remaining === 1 ? 'mission offerte restante' : 'missions offertes';
     if (hintEl) {
       if (used === 0) {
-        hintEl.textContent = 'Pas de carte bancaire — coche tes étapes pour avancer.';
+        hintEl.textContent = 'Pas de carte bancaire - coche tes étapes pour avancer.';
       } else {
         hintEl.textContent = 'Tu as déjà terminé ' + used + ' mission' + (used > 1 ? 's' : '') + '. Continue, c\'est offert.';
       }

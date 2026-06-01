@@ -1,4 +1,4 @@
-# Objectif Lycee — Vision Produit
+# Objectif Lycee - Vision Produit
 
 ## Promesse
 

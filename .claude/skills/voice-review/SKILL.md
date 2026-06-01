@@ -3,7 +3,7 @@ name: voice-review
 description: Audit et réécriture de texte français pour éliminer les "AI tells". Use when the user asks to review copy, sound more human, fix AI slop in French content, or polish the voice on pages like mission.html, index.html, onboarding.html.
 ---
 
-Skill spécifique à ObjectifLycee — site français pour lycéens. Détecte et corrige les marqueurs de texte généré par IA dans le copy français user-facing.
+Skill spécifique à ObjectifLycee - site français pour lycéens. Détecte et corrige les marqueurs de texte généré par IA dans le copy français user-facing.
 
 ## Mode opératoire
 
@@ -15,7 +15,7 @@ Skill spécifique à ObjectifLycee — site français pour lycéens. Détecte et
 
 ## Checklist des AI tells en français
 
-### Lexique surutilisé (rouge — toujours suspect)
+### Lexique surutilisé (rouge - toujours suspect)
 
 - **Verbes** : maîtriser, plonger, naviguer, accompagner, optimiser, déployer, exploiter
 - **Substantifs** : excellence, accompagnement personnalisé, méthodologie éprouvée, approche holistique, expérience unique, écosystème, synergie, paradigme
@@ -23,13 +23,13 @@ Skill spécifique à ObjectifLycee — site français pour lycéens. Détecte et
 - **Transitions** : par ailleurs, en outre, de plus, ainsi, néanmoins (en début de phrase)
 - **Tournures creuses** : "il convient de noter", "il est important de souligner", "dans le monde d'aujourd'hui", "à l'ère numérique"
 
-### Structures syntaxiques (orange — à varier)
+### Structures syntaxiques (orange - à varier)
 
 - **Triades partout** : trois adjectifs, trois bénéfices, trois étapes (l'IA aime les 3)
 - **Phrases d'égale longueur** : alterner court/long crée du rythme humain
 - **Nominalisations en chaîne** : "l'optimisation de la préparation par l'accompagnement de l'expert" → préférer verbes actifs
 - **Subordonnées "permettant de"** : "une méthode permettant d'atteindre" → "une méthode pour atteindre" (ou rien)
-- **Em-dashes (—) en rafale** : un par paragraphe max, sinon ça sent l'IA
+- **Em-dashes (-) en rafale** : un par paragraphe max, sinon ça sent l'IA
 
 ### Spécifique lycée / éducation (cliché du domaine)
 
@@ -62,7 +62,7 @@ Pour chaque AI tell détecté, appliquer dans cet ordre :
 > "Notre méthodologie éprouvée, fruit d'une approche personnalisée et rigoureuse, vous permettra d'atteindre l'excellence dans ton organisation de travail grâce à un accompagnement sur-mesure."
 
 **Après (voix humaine)** :
-> "Notre méthode marche. On l'a testée sur 200 lycéens l'an dernier — 78% ont gagne au moins un point de moyenne. Tu travailles avec un prof, pas une plateforme."
+> "Notre méthode marche. On l'a testée sur 200 lycéens l'an dernier - 78% ont gagne au moins un point de moyenne. Tu travailles avec un prof, pas une plateforme."
 
 Trois changements : preuve chiffrée, phrases courtes, adresse directe au lecteur.
 

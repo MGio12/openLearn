@@ -1,3 +1,17 @@
+/*
+ * AGENT HEADER
+ * Role: codec du lien parent public et normalisation du payload partage.
+ * Loaded by: onboarding.html pour creer le lien, parent.html pour le lire.
+ * Reads/writes: lit le profil/mission fournis en entree; ne lit aucun DOM
+ * et ne persiste rien.
+ * Public contract: window.OLParentShare createPayload/encodePayload/
+ * decodePayload/createParentUrl; payload v1 public avec version, date,
+ * classe, objectif, matiere, blocage, niveau, mission(action,duree,why,trace),
+ * offre(trialDays,pricePerMonth), optionnels heuresParSemaine/premiereEcheance;
+ * aucun nom, email, moyenne exacte, URL Stripe privee, token ou upload.
+ * Verify: npm run verify:parent-share ; npm run verify:s05.
+ * Read next: `docs/agent-codebase-map.md` Zone 1 et Zone 5.
+ */
 (function (root) {
   "use strict";
 

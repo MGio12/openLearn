@@ -1,4 +1,4 @@
-﻿/* Objectif Lycée — app dashboard styles. colors_and_type.css is
+﻿/* Objectif Lycée - app dashboard styles. colors_and_type.css is
    loaded in parallel via a <link> in each page (no sequential @import). */
 
 * { box-sizing: border-box; }
@@ -107,6 +107,22 @@ body {
   flex-direction: column;
   gap: 12px;
 }
+.sidebar-os-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  border: 1.5px dashed var(--ink-soft);
+  border-radius: 8px;
+  user-select: none;
+}
+.sidebar-os-badge .ph-bold { font-size: 13px; line-height: 1; }
 .sb-about {
   display: flex;
   align-items: center;
@@ -238,6 +254,60 @@ body {
 }
 .view.active { display: block; }
 @keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+.local-account-prompt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin: 0 0 22px;
+  padding: 14px 16px;
+  background: var(--paper);
+  border: 2.5px solid var(--ink);
+  border-radius: 12px;
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.local-account-prompt[hidden] { display: none !important; }
+.local-account-prompt strong,
+.local-account-prompt span {
+  display: block;
+  line-height: 1.35;
+}
+.local-account-prompt strong {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 900;
+}
+.local-account-prompt span {
+  max-width: 680px;
+  color: var(--ink-soft);
+  font-size: 13px;
+  font-weight: 700;
+}
+.local-account-prompt__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+}
+.local-account-prompt__actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 8px 12px;
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  background: var(--stabilo);
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 900;
+  text-decoration: none;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+.local-account-prompt__actions a:last-child {
+  background: var(--paper-2);
+}
 
 /* ===== S04 shared notebook craft layer ===== */
 .study-note,
@@ -955,7 +1025,7 @@ body {
   }
 }
 
-/* ===== MOBILE BOTTOM TABS — replaces hidden sidebar/topbar on small screens ===== */
+/* ===== MOBILE BOTTOM TABS - replaces hidden sidebar/topbar on small screens ===== */
 .mobile-tabs { display: none; }
 @media (max-width: 640px) {
   .mobile-tabs {

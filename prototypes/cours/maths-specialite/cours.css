@@ -1,5 +1,5 @@
 /* ============================================================
-   COURS V2 — Second degré
+   COURS V2 - Second degré
    Refonte visuelle du prototype : système de cartes resserré,
    typographie calibrée, rythme de section, sidebar nettoyée,
    barre de progression de lecture, ambiance papier + ink premium.
@@ -53,7 +53,7 @@
   --ink-soft:     #5F5B57;
   --ink-mute:     #8B857D;
 
-  /* Accent palette — limited */
+  /* Accent palette - limited */
   --stabilo:      #F4D35E;
   --stabilo-wash: #FBEAB0;
   --blue:         #C7D9D7;
@@ -64,7 +64,7 @@
   --beige:        #E8C7A9;
   --violet-soft:  #E5DCF3;
 
-  /* Borders + shadows — lighter than v1 */
+  /* Borders + shadows - lighter than v1 */
   --b:            2.5px solid var(--ink);
   --b-thin:       1.5px solid var(--ink);
   --b-hair:       1px solid rgba(18, 18, 18, 0.14);
@@ -138,7 +138,7 @@ body.has-course-sidebar:not(.is-course-ready) {
 }
 
 /* ============================================================
-   SIDEBAR — clean, no checkpoint clutter
+   SIDEBAR - clean, no checkpoint clutter
    ============================================================ */
 .has-course-sidebar {
   --course-sidebar-width: var(--sidebar-w);
@@ -315,7 +315,7 @@ body.has-course-sidebar:not(.is-course-ready) {
 .has-course-sidebar.is-course-sidebar-collapsed .course-sidebar:not(:hover):not(:focus-within) .sidebar-head,
 .has-course-sidebar.is-course-sidebar-collapsed:not(.is-sidebar-hover-locked) .course-sidebar:hover .sidebar-head,
 .has-course-sidebar.is-course-sidebar-collapsed .course-sidebar:focus-within .sidebar-head {
-  /* show always — the head holds the toggle */
+  /* show always - the head holds the toggle */
 }
 .has-course-sidebar.is-course-sidebar-collapsed .course-sidebar:not(:hover):not(:focus-within) .sidebar-head > div {
   display: none;
@@ -351,7 +351,7 @@ body.has-course-sidebar:not(.is-course-ready) {
 }
 
 /* ============================================================
-   HERO — calmer, more editorial
+   HERO - calmer, more editorial
    ============================================================ */
 .course-hero {
   position: relative;
@@ -438,7 +438,7 @@ body.has-course-sidebar:not(.is-course-ready) {
   color: var(--ink-2);
 }
 
-/* Hero side panel — 4 reflexes preview (instead of "promesse réaliste") */
+/* Hero side panel - 4 reflexes preview (instead of "promesse réaliste") */
 .hero-side {
   width: min(100%, 580px);
   padding: 24px 26px;
@@ -510,7 +510,7 @@ body.has-course-sidebar:not(.is-course-ready) {
 }
 
 /* ============================================================
-   CHAPTER SECTION — flat, rhythmic, no card-box around each
+   CHAPTER SECTION - flat, rhythmic, no card-box around each
    ============================================================ */
 .chapter-section {
   position: relative;
@@ -573,7 +573,7 @@ body.has-course-sidebar:not(.is-course-ready) {
 }
 
 /* ============================================================
-   COURSE-OVERVIEW — single editorial band
+   COURSE-OVERVIEW - single editorial band
    ============================================================ */
 .course-overview {
   margin-top: 0;
@@ -708,7 +708,7 @@ body.has-course-sidebar:not(.is-course-ready) {
 }
 
 /* ============================================================
-   FORMULA CARD — black, signature, more deliberate
+   FORMULA CARD - black, signature, more deliberate
    ============================================================ */
 .formula-card {
   width: 100%;
@@ -745,7 +745,7 @@ body.has-course-sidebar:not(.is-course-ready) {
 .katex .katex-mathml { display: none; }
 
 /* ============================================================
-   CALLOUT SYSTEM — unified card vocabulary
+   CALLOUT SYSTEM - unified card vocabulary
    Replaces .important, .teacher-note, .session-target, .gate-card
    variants: --key (yellow), --warn (red), --tip (blue), --note (beige)
    ============================================================ */
@@ -827,7 +827,7 @@ body.has-course-sidebar:not(.is-course-ready) {
 .c-gate p { margin: 0; font-size: 15px; line-height: 1.55; color: rgba(246, 242, 235, 0.85); }
 
 /* ============================================================
-   CHECK CARD — auto-evaluation, more subtle
+   CHECK CARD - auto-evaluation, more subtle
    ============================================================ */
 .check-card {
   max-width: 100%;
@@ -858,7 +858,7 @@ body.has-course-sidebar:not(.is-course-ready) {
 .check-card p { margin: 0; font-size: 16px; line-height: 1.55; color: var(--ink); }
 .check-card p + p { margin-top: 10px; }
 
-/* Reveal button — link-style, discreet (not chunky yellow buttons) */
+/* Reveal button - link-style, discreet (not chunky yellow buttons) */
 .reveal-button {
   display: inline-flex; align-items: center; gap: 6px;
   margin-top: 14px;
@@ -909,7 +909,7 @@ body.has-course-sidebar:not(.is-course-ready) {
 .answer p + p { margin-top: 8px; }
 
 /* ============================================================
-   COURSE AGENT — shared contextual bottom drawer
+   COURSE AGENT - shared contextual bottom drawer
    ============================================================ */
 .course-agent-trigger {
   display: inline-flex;
@@ -1150,7 +1150,156 @@ body.has-course-sidebar:not(.is-course-ready) {
 }
 
 /* ============================================================
-   WORKED EXAMPLE — slightly tinted paper with tape label
+   FEYNMAN METHOD - end-of-course written synthesis
+   ============================================================ */
+.feynman-method {
+  scroll-margin-top: 72px;
+}
+.feynman-method__card {
+  width: 100%;
+  max-width: 100%;
+  padding: 24px;
+  background: #FFF;
+  border: var(--b);
+  border-radius: 14px;
+  box-shadow: var(--sh-major);
+}
+.feynman-method__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding-bottom: 16px;
+  border-bottom: 1.5px dashed rgba(18, 18, 18, 0.18);
+}
+.feynman-method__head h3 {
+  margin: 4px 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(22px, 3vw, 30px);
+  line-height: 1.08;
+  text-transform: uppercase;
+}
+.feynman-method__eyebrow,
+.feynman-method__label,
+.feynman-method__meta {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.feynman-method__badge {
+  flex: 0 0 auto;
+  max-width: 190px;
+  padding: 6px 9px;
+  background: var(--green);
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: .08em;
+  text-align: center;
+  text-transform: uppercase;
+}
+.feynman-method__label {
+  display: block;
+  margin-top: 18px;
+  margin-bottom: 8px;
+  color: var(--ink);
+}
+.feynman-method__input {
+  display: block;
+  width: 100%;
+  min-height: 210px;
+  max-width: 100%;
+  resize: vertical;
+  padding: 16px 18px;
+  background: #FFF;
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.55;
+}
+.feynman-method__input::placeholder {
+  color: var(--ink-mute);
+}
+.feynman-method__input:focus-visible,
+.feynman-method__button:focus-visible {
+  outline: 3px solid var(--stabilo);
+  outline-offset: 3px;
+}
+.feynman-method__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 8px;
+  color: var(--ink-mute);
+}
+.feynman-method__actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+.feynman-method__button {
+  min-height: 42px;
+  max-width: 100%;
+  padding: 10px 14px;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+  cursor: pointer;
+}
+.feynman-method__button:disabled {
+  cursor: wait;
+  opacity: .68;
+}
+.feynman-method__button--secondary {
+  background: #FFF;
+  color: var(--ink);
+}
+.feynman-method__button--primary {
+  background: var(--ink);
+  color: var(--stabilo);
+  box-shadow: 2px 2px 0 var(--stabilo);
+}
+.feynman-method__feedback {
+  min-height: 96px;
+  margin-top: 18px;
+  padding: 16px 18px;
+  background: #EAF1DF;
+  border: 1.5px solid var(--green-2);
+  border-radius: 10px;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+.feynman-method__feedback[aria-busy="true"] {
+  background: var(--stabilo-wash);
+  border-color: var(--stabilo);
+}
+.feynman-method__note {
+  max-width: 760px;
+  color: var(--ink-soft);
+}
+
+/* ============================================================
+   WORKED EXAMPLE - slightly tinted paper with tape label
    ============================================================ */
 .worked-example {
   padding: 22px 26px 24px;
@@ -1180,7 +1329,7 @@ body.has-course-sidebar:not(.is-course-ready) {
 .worked-example p:last-child { margin-bottom: 0; }
 
 /* ============================================================
-   METHOD GRID — step cards
+   METHOD GRID - step cards
    ============================================================ */
 .method-grid {
   display: grid;
@@ -1210,7 +1359,7 @@ body.has-course-sidebar:not(.is-course-ready) {
 .method-step p { margin: 0; font-size: 15px; line-height: 1.5; color: var(--ink); }
 
 /* ============================================================
-   CHOICE / CASE / DIAGNOSTIC / REVISION GRIDS — unified
+   CHOICE / CASE / DIAGNOSTIC / REVISION GRIDS - unified
    ============================================================ */
 .choice-grid,
 .case-grid,
@@ -1269,7 +1418,7 @@ body.has-course-sidebar:not(.is-course-ready) {
   margin: 0;
 }
 
-/* Math language visual — keep the two-card layout but lighter */
+/* Math language visual - keep the two-card layout but lighter */
 .math-language-visual {
   padding: 0;
   border: var(--b-thin);
@@ -1308,7 +1457,7 @@ body.has-course-sidebar:not(.is-course-ready) {
 }
 
 /* ============================================================
-   INTERACTIVE GRAPH — quieter readout strip
+   INTERACTIVE GRAPH - quieter readout strip
    ============================================================ */
 .interactive-graph,
 .visual-block {
@@ -1366,7 +1515,7 @@ body.has-course-sidebar:not(.is-course-ready) {
 }
 
 /* ============================================================
-   SIGN TABLE — cleaner grid
+   SIGN TABLE - cleaner grid
    ============================================================ */
 .sign-table {
   overflow-x: auto;
@@ -1396,7 +1545,7 @@ body.has-course-sidebar:not(.is-course-ready) {
 .sign-head p { color: var(--ink-soft); }
 
 /* ============================================================
-   EXERCISES — flatter
+   EXERCISES - flatter
    ============================================================ */
 .exercise {
   padding: 24px 26px 22px;
@@ -1441,6 +1590,18 @@ body.has-course-sidebar:not(.is-course-ready) {
   background: #FEEAE5;
 }
 .exercise p { margin: 12px 0; line-height: 1.6; }
+.exercise .exercise-skill,
+.exercise .exercise-source {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.exercise .exercise-source {
+  color: var(--green-2);
+}
 .exercise .hint-line {
   margin: 0 0 4px;
   font-family: var(--font-mono);
@@ -1504,7 +1665,7 @@ body.has-course-sidebar:not(.is-course-ready) {
 }
 
 /* ============================================================
-   STICKY SECTION BAR — premium reading cue
+   STICKY SECTION BAR - premium reading cue
    ============================================================ */
 .section-bar {
   position: fixed;
@@ -1640,6 +1801,25 @@ body.has-course-sidebar:not(.is-course-ready) {
   .section-marker__num { font-size: 40px; }
   .chapter-section h2 { font-size: 26px; }
   .formula-card { padding: 16px 18px; }
+  .feynman-method__card {
+    padding: 18px 16px;
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+  .feynman-method__head,
+  .feynman-method__meta {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .feynman-method__badge {
+    max-width: 100%;
+  }
+  .feynman-method__actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .feynman-method__button {
+    width: 100%;
+  }
   .course-agent {
     padding: 0 0 env(safe-area-inset-bottom);
   }

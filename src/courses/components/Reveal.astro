@@ -1,0 +1,12 @@
+---
+const { id, label = 'Voir la réponse', marker = '?', tone = 'question' } = Astro.props;
+---
+
+<div class:list={['check-card', `check-card--${tone}`]}>
+  <p class="check-card__label"><span class="marker">{marker}</span><slot name="label">Question active</slot></p>
+  <slot />
+  <button class="reveal-button" type="button" data-reveal={id}>{label}</button>
+  <div id={id} class="answer" hidden>
+    <slot name="answer" />
+  </div>
+</div>

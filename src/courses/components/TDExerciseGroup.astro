@@ -1,0 +1,65 @@
+---
+const { groups = [] } = Astro.props;
+
+const levelLabels = {
+  auto: 'Automatisme',
+  guide: 'Guidé',
+  trap: 'Piège',
+  choice: 'Choix',
+  control: 'Contrôle',
+  twenty: '20/20',
+  revision: 'Révision',
+};
+
+const markerById = {
+  automatismes: 'A',
+  'methodes-guidees': 'G',
+  pieges: 'P',
+  choix: 'M',
+  controle: 'C',
+  'vingt-sur-vingt': '20',
+  revision: 'R',
+};
+
+let count = 1;
+const numberedGroups = groups.map((group) => ({
+  ...group,
+  marker: group.marker || markerById[group.id] || '•',
+  exercises: group.exercises.map((exercise) => ({ ...exercise, number: count++ })),
+}));
+---
+
+{numberedGroups.map((group) => (
+  <section id={group.id} class="chapter-section">
+    <div class="section-marker">
+      <div class="section-marker__num">{group.marker}</div>
+      <div class="section-marker__meta">
+        <p class="section-marker__kicker">TD corrigé</p>
+        <h2>{group.title}</h2>
+      </div>
+    </div>
+    <p>{group.intro}</p>
+    {group.gate && (
+      <div class="c-gate">
+        <p class="c-gate__label">Porte d'entrée</p>
+        <p class="c-gate__title">Avant ce bloc</p>
+        <p>{group.gate}</p>
+      </div>
+    )}
+    {group.exercises.map((exercise) => (
+      <article class="exercise">
+        <div class="exercise-header">
+          <h3>{`Exercice ${exercise.number} · ${exercise.title}`}</h3>
+          <span class="difficulty" aria-label={`Niveau ${levelLabels[exercise.level] || exercise.level}`}>{levelLabels[exercise.level] || exercise.level}</span>
+        </div>
+        <p class="exercise-skill">Ce que tu entraînes : {exercise.skill}.</p>
+        <p>{exercise.statement}</p>
+        {exercise.hint && <p class="hint-line">{exercise.hint}</p>}
+        <button class="reveal-button" type="button" data-reveal={`td-second-degre-${String(exercise.number).padStart(2, '0')}`}>Voir le corrigé</button>
+        <div id={`td-second-degre-${String(exercise.number).padStart(2, '0')}`} class="answer" hidden>
+          {(exercise.detail || [exercise.answer]).map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+      </article>
+    ))}
+  </section>
+))}

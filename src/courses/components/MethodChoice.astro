@@ -1,0 +1,13 @@
+---
+const { choices = [], title = '' } = Astro.props;
+---
+
+{title && <p class="block-intro">{title}</p>}
+<div class="choice-grid">
+  {choices.map((choice) => (
+    <div class="choice-card">
+      <p class="box-title">{choice.title}</p>
+      <p>{choice.body}</p>
+    </div>
+  ))}
+</div>

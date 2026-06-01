@@ -238,7 +238,7 @@ async function assertContentPageContract(page, pagePath, label) {
     assert(contract.labels[1] === 'Exos', `${label}: chapter ${index + 1} second action must be Exos`);
     assert(contract.labels[2] === 'Fiches', `${label}: chapter ${index + 1} third action must be Fiches`);
     assert(contract.hrefs[0]?.endsWith('/index.html'), `${label}: chapter ${index + 1} Cours link must target the chapter page`);
-    assert(contract.hrefs[1]?.endsWith('/index.html#guides'), `${label}: chapter ${index + 1} Exos link must target #guides`);
+    assert(contract.hrefs[1]?.endsWith('/td.html'), `${label}: chapter ${index + 1} Exos link must target the separate TD page`);
     assert(contract.hrefs[2]?.endsWith('/index.html#revision'), `${label}: chapter ${index + 1} Fiches link must target #revision`);
   }
 }
@@ -254,6 +254,30 @@ async function checkPage(browser, baseUrl, pagePath, viewport) {
   page.on('pageerror', (error) => errors.push(error.message));
 
   try {
+    if (pagePath === 'parametres.html') {
+      await page.addInitScript(() => {
+        localStorage.setItem('outilPrepa:v1', JSON.stringify({
+          schemaVersion: 1,
+          profile: {
+            localAccountId: 'local-account-redesign',
+            displayName: 'Lina',
+            fullName: 'Lina',
+            classLevel: 'premiere',
+            tracks: ['maths', 'physique-chimie'],
+            prioritySubjectIds: ['maths'],
+            aiPreferences: {
+              tone: 'direct',
+              detailLevel: 'progressif',
+              allowDeepening: true,
+            },
+          },
+          objective: {
+            targetLabel: 'Ecole d ingenieur post-bac',
+            prioritySubjectIds: ['maths'],
+          },
+        }));
+      });
+    }
     await page.goto(pageUrl(baseUrl, pagePath), { waitUntil: 'networkidle' });
     await assertPageHeadingContract(page, pagePath, label);
     await assertNoHorizontalOverflow(page, label);

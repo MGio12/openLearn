@@ -4,6 +4,9 @@
   "type": "module",
   "scripts": {
     "screenshot": "node scripts/screenshot.js",
+    "dev:courses": "astro dev --host 127.0.0.1 --port 4321",
+    "build:courses": "astro build",
+    "verify:courses-astro": "node scripts/verify-courses-astro.mjs",
     "build:onboarding": "node scripts/build-onboarding.mjs",
     "verify:course-sidebar": "node scripts/verify-course-sidebar.mjs",
     "verify:course-agent": "node scripts/verify-course-agent.mjs",
@@ -11,11 +14,13 @@
     "verify:redesign": "node scripts/verify-redesign-pages.mjs",
     "capture:redesign": "node scripts/capture-redesign-pages.mjs",
     "validate:json": "node scripts/validate-json.mjs",
+    "verify:local-account": "node scripts/verify-local-account.mjs",
     "verify:agent-map": "node scripts/verify-agent-map.mjs",
     "verify:unsafe-html": "node scripts/verify-unsafe-html.mjs",
     "verify:localstorage": "node scripts/verify-localstorage-keys.mjs",
+    "verify:ai-endpoint": "node scripts/verify-ai-endpoint.mjs",
     "verify:server-security": "node scripts/verify-server-security.mjs",
-    "verify": "npm run validate:json && npm run verify:agent-map && npm run verify:unsafe-html && npm run verify:localstorage && npm run verify:server-security && npm run verify:parent-share && npm run verify:onboarding && npm run verify:analytics && npm run verify:s01 && npm run verify:s02 && npm run verify:s03 && npm run verify:s04 && npm run verify:s05 && npm run verify:course-sidebar && npm run verify:course-agent && npm run verify:redesign && npm run verify:cwv",
+    "verify": "npm run validate:json && npm run verify:agent-map && npm run verify:unsafe-html && npm run verify:localstorage && npm run verify:local-account && npm run verify:ai-endpoint && npm run verify:server-security && npm run verify:parent-share && npm run verify:onboarding && npm run verify:analytics && npm run verify:s01 && npm run verify:s02 && npm run verify:s03 && npm run verify:s04 && npm run verify:s05 && npm run verify:course-sidebar && npm run verify:course-agent && npm run verify:redesign && npm run verify:cwv",
     "ralph:start": "bash scripts/codex-ralph.sh start",
     "ralph:run": "bash scripts/codex-ralph.sh run",
     "ralph:once": "bash scripts/codex-ralph.sh once",
@@ -32,6 +37,8 @@
     "verify:s05": "node scripts/verify-s05-tunnel.mjs"
   },
   "devDependencies": {
+    "@astrojs/mdx": "^6.0.1",
+    "astro": "^6.4.2",
     "esbuild": "^0.28.0",
     "pdf-parse": "^2.4.5",
     "playwright": "^1.60.0"

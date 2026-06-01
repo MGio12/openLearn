@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TD Probabilités conditionnelles - Maths spécialité Première</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="../cours.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="../cours.js"></script>
+</head>
+<body class="has-course-sidebar">
+
+  <div class="progress-bar" aria-hidden="true">
+    <div class="progress-bar__fill" data-progress-fill></div>
+  </div>
+
+  <div class="section-bar" data-section-bar aria-hidden="true">
+    <span class="section-bar__chip" data-section-bar-chip>00</span>
+    <span class="section-bar__title" data-section-bar-title>TD Probabilités conditionnelles</span>
+    <span class="section-bar__total" data-section-bar-total>1/9</span>
+  </div>
+
+  <aside class="toc course-sidebar" aria-label="Plan du TD" data-course-sidebar>
+    <div class="sidebar-head">
+      <div>
+        <p class="toc-title">Plan</p>
+        <p class="sidebar-subtitle">TD Probabilités conditionnelles</p>
+      </div>
+      <button class="sidebar-toggle" type="button" aria-label="Replier le plan" aria-expanded="true" data-sidebar-toggle><span aria-hidden="true">‹</span></button>
+    </div>
+
+    <nav class="toc-links" aria-label="Sections du TD">
+      <a href="#objectifs" data-section-link><span class="toc-index">00</span><span class="toc-label">Objectifs</span></a>
+      <a href="#automatismes" data-section-link><span class="toc-index">A</span><span class="toc-label">Automatismes</span></a>
+      <a href="#methodes-guidees" data-section-link><span class="toc-index">G</span><span class="toc-label">Guidé</span></a>
+      <a href="#pieges" data-section-link><span class="toc-index">P</span><span class="toc-label">Pièges</span></a>
+      <a href="#choix" data-section-link><span class="toc-index">M</span><span class="toc-label">Choisir</span></a>
+      <a href="#controle" data-section-link><span class="toc-index">C</span><span class="toc-label">Contrôle</span></a>
+      <a href="#vingt-sur-vingt" data-section-link><span class="toc-index">20</span><span class="toc-label">20/20</span></a>
+      <a href="#revision" data-section-link><span class="toc-index">R</span><span class="toc-label">Révision</span></a>
+      <a href="#sources" data-section-link><span class="toc-index">S</span><span class="toc-label">Sources</span></a>
+    </nav>
+
+    <p class="sidebar-foot">Maths spé · TD</p>
+  </aside>
+
+  <header class="course-hero">
+    <nav class="topline" aria-label="Fil d'Ariane">
+      <a href="../../../..">Objectif Lycée</a>
+      <span>Maths spécialité</span>
+      <a href="index.html">Cours</a>
+      <span>TD corrigé</span>
+    </nav>
+
+    <div class="hero-grid">
+      <div>
+        <p class="hero-eyebrow"><span class="num">05</span> TD séparé</p>
+        <h1>Probabilités conditionnelles</h1>
+        <p class="hero-lead">40 exercices pour traduire “sachant que”, poser un arbre, utiliser les probabilités totales et inverser une condition.</p>
+      </div>
+
+      <aside class="hero-side" aria-label="Organisation du TD">
+        <p class="hero-side__label">Objectif</p>
+        <h2>40 exercices, corrigés masqués</h2>
+        <div class="hero-side__steps">
+          <div class="hero-side__step"><span class="verb">Événements</span><span class="obj">à produire avant correction</span></div>
+          <div class="hero-side__step"><span class="verb">Arbre</span><span class="obj">à produire avant correction</span></div>
+          <div class="hero-side__step"><span class="verb">Totales</span><span class="obj">à produire avant correction</span></div>
+          <div class="hero-side__step"><span class="verb">Inverse</span><span class="obj">à produire avant correction</span></div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main class="course-layout" data-course-layout>
+    <article class="lesson course-lesson">
+
+      <section class="course-overview" aria-label="Repères du TD">
+        <div>
+          <p class="course-overview__title">TD d’entraînement</p>
+          <h3>Une page séparée pour travailler sans relire tout le cours</h3>
+          <p class="course-overview__lead">Chaque exercice indique la compétence entraînée, puis cache une réponse ou une correction. Les corrections détaillées montrent aussi la rédaction attendue et les erreurs qui coûtent des points.</p>
+        </div>
+        <div class="overview-flow">
+          <span>Automatismes</span>
+          <em>→</em>
+          <span>Méthodes</span>
+          <em>→</em>
+          <span>Contrôle</span>
+          <em>→</em>
+          <span>20/20</span>
+        </div>
+      </section>
+
+      <section id="objectifs" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">00</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Avant de commencer</p>
+            <h2>Ce TD reprend les points qui tombent vraiment</h2>
+          </div>
+        </div>
+        <p>Travaille dans l’ordre. Si un automatisme bloque, ouvre le corrigé, refais l’exercice sans regarder, puis seulement passe à la suite.</p>
+        <div class="diagnostic-grid">
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">1</span>Compétence</p>
+            <p>conditionnement \(P_A(B)\)</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">2</span>Compétence</p>
+            <p>intersection et arbre pondéré</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">3</span>Compétence</p>
+            <p>formule des probabilités totales</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">4</span>Compétence</p>
+            <p>indépendance</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">5</span>Compétence</p>
+            <p>conditionnelle inverse de type Bayes</p>
+          </div>
+        </div>
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Pièges surveillés</p>
+          <p>confondre \(P(A\cap B)\) et \(P_A(B)\) ; oublier la branche complémentaire ; inverser une probabilité conditionnelle sans recalcul ; arrondir trop tôt.</p>
+        </div>
+      </section>
+
+      <section id="automatismes" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">A</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Automatismes</h2>
+          </div>
+        </div>
+        <p>10 exercices courts pour sécuriser les gestes de base.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 1 · Notation</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : lire \(P_A(B)\).</p>
+            <p>Traduire \(P_A(B)\) en phrase.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-01">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-01" class="answer" hidden>
+              <p>C’est la probabilité de \(B\) sachant que \(A\) est réalisé.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 2 · Formule</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : calculer une conditionnelle.</p>
+            <p>Si \(P(A\cap B)=0{,}18\) et \(P(A)=0{,}30\), calculer \(P_A(B)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-02">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-02" class="answer" hidden>
+              <p>\(P_A(B)=\frac{0{,}18}{0{,}30}=0{,}6\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 3 · Intersection</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : produit sur une branche.</p>
+            <p>Si \(P(A)=0{,}4\) et \(P_A(B)=0{,}7\), calculer \(P(A\cap B)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-03">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-03" class="answer" hidden>
+              <p>\(0{,}4\times0{,}7=0{,}28\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 4 · Complément</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : probabilité complémentaire.</p>
+            <p>Si \(P(A)=0{,}35\), calculer \(P(\overline A)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-04">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-04" class="answer" hidden>
+              <p>\(0{,}65\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 5 · Branche complémentaire</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : compléter un arbre.</p>
+            <p>Si \(P_A(B)=0{,}22\), calculer \(P_A(\overline B)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-05">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-05" class="answer" hidden>
+              <p>\(0{,}78\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 6 · Totales</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : additionner deux chemins.</p>
+            <p>Si \(P(A\cap B)=0{,}12\) et \(P(\overline A\cap B)=0{,}28\), calculer \(P(B)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-06">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-06" class="answer" hidden>
+              <p>\(P(B)=0{,}40\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 7 · Indépendance</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : test simple.</p>
+            <p>Si \(P(A)=0{,}5\), \(P(B)=0{,}2\), \(P(A\cap B)=0{,}1\), les événements sont-ils indépendants ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-07">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-07" class="answer" hidden>
+              <p>Oui, car \(0{,}5\times0{,}2=0{,}1\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 8 · Pourcentage</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : convertir.</p>
+            <p>Écrire \(12\%\) sous forme décimale.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-08">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-08" class="answer" hidden>
+              <p>\(0{,}12\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 9 · Inverse</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : ne pas confondre.</p>
+            <p>Si \(P_A(B)=0{,}8\), peut-on conclure que \(P_B(A)=0{,}8\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-09">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-09" class="answer" hidden>
+              <p>Non. Il faut recalculer avec \(P(A\cap B)\) et \(P(B)\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 10 · Univers restreint</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : sens du conditionnement.</p>
+            <p>Dans “parmi les élèves internes, 30 % font option maths”, quel est l’événement conditionnant ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-10">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-10" class="answer" hidden>
+              <p>L’événement “être interne”.</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="methodes-guidees" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">G</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Méthodes guidées</h2>
+          </div>
+        </div>
+        <p>8 exercices où l’aide disparaît progressivement.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 11 · Arbre direct</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : calculer une intersection.</p>
+            <p>Dans une classe, \(40\%\) sont demi-pensionnaires. Parmi eux, \(25\%\) prennent le bus. Calculer la probabilité d’être demi-pensionnaire et de prendre le bus.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-11">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-11" class="answer" hidden>
+              <p>\(0{,}40\times0{,}25=0{,}10\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 12 · Probabilités totales</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : additionner les chemins.</p>
+            <p>\(P(A)=0{,}3\), \(P_A(B)=0{,}6\), \(P_{\overline A}(B)=0{,}2\). Calculer \(P(B)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-12">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-12" class="answer" hidden>
+              <p>\(P(B)=0{,}3\times0{,}6+0{,}7\times0{,}2=0{,}32\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 13 · Conditionnelle inverse</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : recalculer le dénominateur.</p>
+            <p>Avec les données précédentes, calculer \(P_B(A)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-13">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-13" class="answer" hidden>
+              <p>\(P(A\cap B)=0{,}18\), \(P(B)=0{,}32\). Donc \(P_B(A)=\frac{0{,}18}{0{,}32}=0{,}5625\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 14 · Tableau</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : passer du tableau à la formule.</p>
+            <p>Sur 200 élèves, 80 font latin, 50 font théâtre, 20 font les deux. Calculer \(P_{\text{latin}}(\text{théâtre})\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-14">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-14" class="answer" hidden>
+              <p>\(\frac{20}{80}=0{,}25\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 15 · Indépendance</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : comparer \(P_A(B)\) et \(P(B)\).</p>
+            <p>Si \(P(B)=0{,}4\) et \(P_A(B)=0{,}4\), que peut-on dire si \(P(A)>0\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-15">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-15" class="answer" hidden>
+              <p>\(A\) et \(B\) sont indépendants.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 16 · Complément dans l’arbre</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : calculer une branche manquante.</p>
+            <p>\(P(A)=0{,}55\), \(P_A(B)=0{,}8\), \(P_{\overline A}(\overline B)=0{,}3\). Calculer \(P(B)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-16">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-16" class="answer" hidden>
+              <p>\(P_{\overline A}(B)=0{,}7\). Donc \(P(B)=0{,}55\times0{,}8+0{,}45\times0{,}7=0{,}755\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 17 · Lecture phrase</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : nommer les événements.</p>
+            <p>Dans “un test est positif chez 98 % des malades et 4 % des non-malades”, nommer \(M\), \(T\), puis écrire deux probabilités.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-17">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-17" class="answer" hidden>
+              <p>\(M\) : malade, \(T\) : test positif. On lit \(P_M(T)=0{,}98\) et \(P_{\overline M}(T)=0{,}04\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 18 · Rédaction notée</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : rédiger une inverse.</p>
+            <p>Une maladie touche \(2\%\) d’une population. Le test est positif chez \(95\%\) des malades et \(3\%\) des non-malades. Rédiger le calcul de la probabilité d’être malade sachant que le test est positif.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-18">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-18" class="answer" hidden>
+              <p>On note \(M\) “être malade” et \(T\) “test positif”.</p><p>\(P(M\cap T)=0{,}02\times0{,}95=0{,}019\).</p><p>\(P(T)=0{,}02\times0{,}95+0{,}98\times0{,}03=0{,}0484\).</p><p>Donc \(P_T(M)=\frac{0{,}019}{0{,}0484}\approx0{,}392\).</p><p>Erreur qui coûte des points : répondre \(95\%\), qui est \(P_M(T)\), pas \(P_T(M)\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="pieges" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">P</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Pièges classiques</h2>
+          </div>
+        </div>
+        <p>6 exercices pour repérer les erreurs qui coûtent des points.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 19 · Intersection ou conditionnelle</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : distinguer les notations.</p>
+            <p>Si \(P(A)=0{,}2\) et \(P_A(B)=0{,}5\), un élève répond \(P(A\cap B)=0{,}5\). Corriger.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-19">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-19" class="answer" hidden>
+              <p>\(P(A\cap B)=0{,}2\times0{,}5=0{,}1\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 20 · Complément conditionnel</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : compléter dans le bon univers.</p>
+            <p>Si \(P_A(B)=0{,}7\), que vaut \(P_{\overline A}(B)\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-20">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-20" class="answer" hidden>
+              <p>On ne peut pas savoir. Le complément est \(P_A(\overline B)=0{,}3\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 21 · Arrondi</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : conserver les valeurs.</p>
+            <p>Pourquoi éviter d’arrondir \(0{,}0484\) en \(0{,}05\) avant une division ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-21">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-21" class="answer" hidden>
+              <p>Parce que cela change sensiblement la conditionnelle finale.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 22 · Indépendance</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : ne pas confondre incompatibilité.</p>
+            <p>Deux événements incompatibles non impossibles sont-ils indépendants ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-22">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-22" class="answer" hidden>
+              <p>Non. Si \(A\cap B=\varnothing\), alors \(P(A\cap B)=0\), alors que \(P(A)P(B)>0\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 23 · Pourcentage conditionnel</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : identifier la base.</p>
+            <p>“30 % des filles pratiquent le volley” signifie \(P_F(V)\) ou \(P_V(F)\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-23">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-23" class="answer" hidden>
+              <p>Cela signifie \(P_F(V)\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 24 · Total</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : ne pas oublier toutes les branches.</p>
+            <p>Pour calculer \(P(B)\) avec une partition \(A,\overline A\), combien de chemins faut-il additionner ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-24">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-24" class="answer" hidden>
+              <p>Deux chemins : \(A\cap B\) et \(\overline A\cap B\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="choix" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">M</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Choisir la méthode</h2>
+          </div>
+        </div>
+        <p>5 exercices où il faut décider avant de calculer.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 25 · Choix 1</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : arbre ou formule.</p>
+            <p>Si l’énoncé donne des “parmi ceux qui”, quel outil est le plus lisible ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-25">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-25" class="answer" hidden>
+              <p>Un arbre pondéré, car chaque “parmi” devient une branche conditionnelle.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 26 · Choix 2</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : tableau.</p>
+            <p>Si l’énoncé donne des effectifs dans deux catégories croisées, quel support choisir ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-26">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-26" class="answer" hidden>
+              <p>Un tableau de contingence.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 27 · Choix 3</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : inverse.</p>
+            <p>Quand l’énoncé demande “sachant que le test est positif”, quelle probabilité doit être au dénominateur ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-27">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-27" class="answer" hidden>
+              <p>La probabilité de l’événement conditionnant : \(P(T)\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 28 · Choix 4</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : indépendance.</p>
+            <p>Pour prouver l’indépendance, compares-tu \(P_A(B)\) à quoi ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-28">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-28" class="answer" hidden>
+              <p>À \(P(B)\), ou bien \(P(A\cap B)\) à \(P(A)P(B)\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 29 · Choix 5</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : complément.</p>
+            <p>Pour calculer “au moins un”, quel événement complémentaire est souvent plus simple ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-29">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-29" class="answer" hidden>
+              <p>“Aucun”. On calcule \(1-P(\text{aucun})\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="controle" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">C</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Niveau contrôle</h2>
+          </div>
+        </div>
+        <p>6 exercices à faire sans aide visible.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 30 · Contrôle 1</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : conditionnelle.</p>
+            <p>\(P(A)=0{,}6\), \(P(A\cap B)=0{,}18\). Calculer \(P_A(B)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-30">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-30" class="answer" hidden>
+              <p>\(0{,}18/0{,}6=0{,}3\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 31 · Contrôle 2</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : intersection.</p>
+            <p>\(P(A)=0{,}45\), \(P_A(B)=0{,}2\). Calculer \(P(A\cap B)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-31">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-31" class="answer" hidden>
+              <p>\(0{,}09\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 32 · Contrôle 3</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : totales.</p>
+            <p>\(P(A)=0{,}25\), \(P_A(B)=0{,}8\), \(P_{\overline A}(B)=0{,}4\). Calculer \(P(B)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-32">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-32" class="answer" hidden>
+              <p>\(0{,}25\times0{,}8+0{,}75\times0{,}4=0{,}5\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 33 · Contrôle 4</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : inverse.</p>
+            <p>Avec les données du contrôle 3, calculer \(P_B(A)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-33">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-33" class="answer" hidden>
+              <p>\(P(A\cap B)=0{,}2\), \(P(B)=0{,}5\), donc \(P_B(A)=0{,}4\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 34 · Contrôle 5</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : indépendance.</p>
+            <p>\(P(A)=0{,}3\), \(P(B)=0{,}7\), \(P(A\cap B)=0{,}21\). Les événements sont-ils indépendants ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-34">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-34" class="answer" hidden>
+              <p>Oui, car \(0{,}3\times0{,}7=0{,}21\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 35 · Contrôle 6</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : complément.</p>
+            <p>Dans un arbre, \(P(A)=0{,}4\), \(P_A(\overline B)=0{,}1\), \(P_{\overline A}(B)=0{,}5\). Calculer \(P(\overline B)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-35">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-35" class="answer" hidden>
+              <p>\(P_A(B)=0{,}9\), donc \(P(B)=0{,}4\times0{,}9+0{,}6\times0{,}5=0{,}66\). Ainsi \(P(\overline B)=0{,}34\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="vingt-sur-vingt" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">20</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Cap 20/20</h2>
+          </div>
+        </div>
+        <p>3 exercices plus longs, seulement après les blocs précédents.</p>
+        <div class="c-gate">
+          <p class="c-gate__label">Porte d’entrée</p>
+          <p class="c-gate__title">Avant ce bloc</p>
+          <p>Réussis au moins deux exercices de niveau contrôle sans regarder le corrigé. Le cap 20/20 n’est pas un raccourci : il combine les réflexes précédents.</p>
+        </div>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 36 · 20/20 1</h3>
+              <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : test médical.</p>
+            <p>Une maladie touche \(1\%\). Test positif chez \(99\%\) des malades et \(2\%\) des non-malades. Calculer \(P_T(M)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-36">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-36" class="answer" hidden>
+              <p>\(P(M\cap T)=0{,}0099\), \(P(T)=0{,}0099+0{,}99\times0{,}02=0{,}0297\). Donc \(P_T(M)=\frac13\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 37 · 20/20 2</h3>
+              <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : équation de probabilité.</p>
+            <p>On a \(P(A)=0{,}4\), \(P_A(B)=0{,}5\), \(P(B)=0{,}32\). Trouver \(P_{\overline A}(B)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-37">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-37" class="answer" hidden>
+              <p>\(0{,}32=0{,}4\times0{,}5+0{,}6x\), donc \(x=0{,}2\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 38 · 20/20 3</h3>
+              <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : indépendance paramétrée.</p>
+            <p>\(P(A)=0{,}6\), \(P_B(A)=0{,}75\), \(P(B)=p\). Trouver \(p\) pour que \(P(A\cap B)=0{,}3\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-38">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-38" class="answer" hidden>
+              <p>Il faut \(P_B(A)=\frac{P(A\cap B)}{P(B)}\), donc \(0{,}75=\frac{0{,}3}{p}\) et \(p=0{,}4\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="revision" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">R</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Révision mélangée</h2>
+          </div>
+        </div>
+        <p>2 exercices qui mélangent ce chapitre avec un autre réflexe.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 39 · Révision variables aléatoires</h3>
+              <span class="difficulty" aria-label="Niveau Révision">Révision</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : espérance de gain.</p>
+            <p>Un gain vaut \(10\) euros avec probabilité \(0{,}3\), sinon \(0\). Quelle est l’espérance ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-39">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-39" class="answer" hidden>
+              <p>\(10\times0{,}3+0\times0{,}7=3\) euros.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 40 · Révision suites</h3>
+              <span class="difficulty" aria-label="Niveau Révision">Révision</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : probabilité récurrente.</p>
+            <p>Si une probabilité suit \(p_{n+1}=0{,}8p_n+0{,}1\), calculer \(p_1\) pour \(p_0=0{,}5\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-probabilites-conditionnelles-40">Voir le corrigé</button>
+            <div id="td-probabilites-conditionnelles-40" class="answer" hidden>
+              <p>\(p_1=0{,}8\times0{,}5+0{,}1=0{,}5\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="sources" class="chapter-section recap-section">
+        <div class="section-marker">
+          <div class="section-marker__num">S</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Traçabilité</p>
+            <h2>Sources d’inspiration et adaptation</h2>
+          </div>
+        </div>
+        <p>Les exercices sont des variantes reformulées et recalculées à partir des sources validées. Les corrigés sont écrits pour le web : aide masquée, choix de méthode, rédaction et erreurs fréquentes.</p>
+        <div class="revision-grid">
+          <div class="revision-card"><p class="box-title">Source</p><p>Maths91, cours et exercices Probabilités</p></div>
+          <div class="revision-card"><p class="box-title">Source</p><p>MathGM, parcours Probabilités conditionnelles</p></div>
+          <div class="revision-card"><p class="box-title">Source</p><p>Annales2Maths, cours Probabilités conditionnelles</p></div>
+        </div>
+      </section>
+    </article>
+  </main>
+</body>
+</html>

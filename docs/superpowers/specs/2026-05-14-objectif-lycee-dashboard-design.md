@@ -1,4 +1,4 @@
-# Objectif Lycee — Dashboard Cockpit Implementation Spec
+# Objectif Lycee - Dashboard Cockpit Implementation Spec
 
 ## Scope
 

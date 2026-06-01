@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TD Géométrie repérée - Maths spécialité Première</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <link rel="stylesheet" href="../cours.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script defer src="../cours.js"></script>
+</head>
+<body class="has-course-sidebar">
+
+  <div class="progress-bar" aria-hidden="true">
+    <div class="progress-bar__fill" data-progress-fill></div>
+  </div>
+
+  <div class="section-bar" data-section-bar aria-hidden="true">
+    <span class="section-bar__chip" data-section-bar-chip>00</span>
+    <span class="section-bar__title" data-section-bar-title>TD Géométrie repérée</span>
+    <span class="section-bar__total" data-section-bar-total>1/9</span>
+  </div>
+
+  <aside class="toc course-sidebar" aria-label="Plan du TD" data-course-sidebar>
+    <div class="sidebar-head">
+      <div>
+        <p class="toc-title">Plan</p>
+        <p class="sidebar-subtitle">TD Géométrie repérée</p>
+      </div>
+      <button class="sidebar-toggle" type="button" aria-label="Replier le plan" aria-expanded="true" data-sidebar-toggle><span aria-hidden="true">‹</span></button>
+    </div>
+
+    <nav class="toc-links" aria-label="Sections du TD">
+      <a href="#objectifs" data-section-link><span class="toc-index">00</span><span class="toc-label">Objectifs</span></a>
+      <a href="#automatismes" data-section-link><span class="toc-index">A</span><span class="toc-label">Automatismes</span></a>
+      <a href="#methodes-guidees" data-section-link><span class="toc-index">G</span><span class="toc-label">Guidé</span></a>
+      <a href="#pieges" data-section-link><span class="toc-index">P</span><span class="toc-label">Pièges</span></a>
+      <a href="#choix" data-section-link><span class="toc-index">M</span><span class="toc-label">Choisir</span></a>
+      <a href="#controle" data-section-link><span class="toc-index">C</span><span class="toc-label">Contrôle</span></a>
+      <a href="#vingt-sur-vingt" data-section-link><span class="toc-index">20</span><span class="toc-label">20/20</span></a>
+      <a href="#revision" data-section-link><span class="toc-index">R</span><span class="toc-label">Révision</span></a>
+      <a href="#sources" data-section-link><span class="toc-index">S</span><span class="toc-label">Sources</span></a>
+    </nav>
+
+    <p class="sidebar-foot">Maths spé · TD</p>
+  </aside>
+
+  <header class="course-hero">
+    <nav class="topline" aria-label="Fil d'Ariane">
+      <a href="../../../..">Objectif Lycée</a>
+      <span>Maths spécialité</span>
+      <a href="index.html">Cours</a>
+      <span>TD corrigé</span>
+    </nav>
+
+    <div class="hero-grid">
+      <div>
+        <p class="hero-eyebrow"><span class="num">10</span> TD séparé</p>
+        <h1>Géométrie repérée</h1>
+        <p class="hero-lead">40 exercices pour calculer dans un repère : coordonnées, vecteurs, droites, intersections, cercles et projetés.</p>
+      </div>
+
+      <aside class="hero-side" aria-label="Organisation du TD">
+        <p class="hero-side__label">Objectif</p>
+        <h2>40 exercices, corrigés masqués</h2>
+        <div class="hero-side__steps">
+          <div class="hero-side__step"><span class="verb">Points</span><span class="obj">à produire avant correction</span></div>
+          <div class="hero-side__step"><span class="verb">Vecteurs</span><span class="obj">à produire avant correction</span></div>
+          <div class="hero-side__step"><span class="verb">Droites</span><span class="obj">à produire avant correction</span></div>
+          <div class="hero-side__step"><span class="verb">Cercles</span><span class="obj">à produire avant correction</span></div>
+        </div>
+      </aside>
+    </div>
+  </header>
+
+  <main class="course-layout" data-course-layout>
+    <article class="lesson course-lesson">
+
+      <section class="course-overview" aria-label="Repères du TD">
+        <div>
+          <p class="course-overview__title">TD d’entraînement</p>
+          <h3>Une page séparée pour travailler sans relire tout le cours</h3>
+          <p class="course-overview__lead">Chaque exercice indique la compétence entraînée, puis cache une réponse ou une correction. Les corrections détaillées montrent aussi la rédaction attendue et les erreurs qui coûtent des points.</p>
+        </div>
+        <div class="overview-flow">
+          <span>Automatismes</span>
+          <em>→</em>
+          <span>Méthodes</span>
+          <em>→</em>
+          <span>Contrôle</span>
+          <em>→</em>
+          <span>20/20</span>
+        </div>
+      </section>
+
+      <section id="objectifs" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">00</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Avant de commencer</p>
+            <h2>Ce TD reprend les points qui tombent vraiment</h2>
+          </div>
+        </div>
+        <p>Travaille dans l’ordre. Si un automatisme bloque, ouvre le corrigé, refais l’exercice sans regarder, puis seulement passe à la suite.</p>
+        <div class="diagnostic-grid">
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">1</span>Compétence</p>
+            <p>coordonnées de points et vecteurs</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">2</span>Compétence</p>
+            <p>milieu, distance, colinéarité</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">3</span>Compétence</p>
+            <p>équations cartésiennes et réduites de droites</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">4</span>Compétence</p>
+            <p>vecteurs directeurs et normaux</p>
+          </div>
+          <div class="check-card">
+            <p class="check-card__label"><span class="marker">5</span>Compétence</p>
+            <p>équations de cercles et intersections simples</p>
+          </div>
+        </div>
+        <div class="c-callout c-callout--warn">
+          <p class="c-callout__label"><span class="dot"></span>Pièges surveillés</p>
+          <p>faire départ moins arrivée au lieu d’arrivée moins départ ; confondre vecteur directeur et normal ; oublier de tester un point dans une droite ; mal développer ((x-a)^2+(y-b)^2=r^2).</p>
+        </div>
+      </section>
+
+      <section id="automatismes" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">A</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Automatismes</h2>
+          </div>
+        </div>
+        <p>10 exercices courts pour sécuriser les gestes de base.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 1 · Vecteur 1</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : calculer des coordonnées.</p>
+            <p>Avec \(A(2;-1)\) et \(B(5;3)\), calculer \(\overrightarrow{AB}\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-01">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-01" class="answer" hidden>
+              <p>\(\overrightarrow{AB}=(3;4)\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 2 · Milieu</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : formule du milieu.</p>
+            <p>Milieu de \(A(-2;5)\) et \(B(4;1)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-02">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-02" class="answer" hidden>
+              <p>\(M(1;3)\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 3 · Distance</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : formule de distance.</p>
+            <p>Calculer \(AB\) pour \(A(1;1)\), \(B(4;5)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-03">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-03" class="answer" hidden>
+              <p>\(AB=\sqrt{3^2+4^2}=5\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 4 · Colinéarité</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : déterminant.</p>
+            <p>Les vecteurs \((2;6)\) et \((1;3)\) sont-ils colinéaires ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-04">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-04" class="answer" hidden>
+              <p>Oui, le second est la moitié du premier.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 5 · Équation réduite</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : lire pente et ordonnée.</p>
+            <p>Dans \(y=3x-4\), donner le coefficient directeur.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-05">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-05" class="answer" hidden>
+              <p>Le coefficient directeur est \(3\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 6 · Vecteur directeur</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : équation cartésienne.</p>
+            <p>Pour \(2x-5y+1=0\), donner un vecteur directeur.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-06">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-06" class="answer" hidden>
+              <p>Un vecteur directeur est \((5;2)\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 7 · Vecteur normal</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : équation cartésienne.</p>
+            <p>Pour \(2x-5y+1=0\), donner un vecteur normal.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-07">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-07" class="answer" hidden>
+              <p>Un vecteur normal est \((2;-5)\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 8 · Appartenance droite</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : tester un point.</p>
+            <p>Le point \(A(1;2)\) appartient-il à \(3x-y-1=0\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-08">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-08" class="answer" hidden>
+              <p>Oui, \(3\times1-2-1=0\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 9 · Cercle</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : lire centre et rayon.</p>
+            <p>Lire le centre et le rayon de \((x-2)^2+(y+3)^2=25\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-09">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-09" class="answer" hidden>
+              <p>Centre \(C(2;-3)\), rayon \(5\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 10 · Intersection axe</h3>
+              <span class="difficulty" aria-label="Niveau Automatisme">Automatisme</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : poser une coordonnée nulle.</p>
+            <p>Trouver l’intersection de \(y=2x-6\) avec l’axe des abscisses.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-10">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-10" class="answer" hidden>
+              <p>On pose \(y=0\), donc \(x=3\). Point \((3;0)\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="methodes-guidees" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">G</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Méthodes guidées</h2>
+          </div>
+        </div>
+        <p>8 exercices où l’aide disparaît progressivement.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 11 · Équation avec directeur</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : point et vecteur directeur.</p>
+            <p>Donner une équation de la droite passant par \(A(1;2)\) et de vecteur directeur \((3;4)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-11">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-11" class="answer" hidden>
+              <p>Un vecteur normal est \((4;-3)\). Donc \(4(x-1)-3(y-2)=0\), soit \(4x-3y+2=0\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 12 · Équation avec normal</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : point et normal.</p>
+            <p>Donner une équation de la droite passant par \(A(-2;1)\) et de vecteur normal \((5;2)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-12">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-12" class="answer" hidden>
+              <p>\(5(x+2)+2(y-1)=0\), soit \(5x+2y+8=0\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 13 · Intersection de droites</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : résoudre un système.</p>
+            <p>Trouver l’intersection de \(y=2x+1\) et \(y=-x+7\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-13">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-13" class="answer" hidden>
+              <p>\(2x+1=-x+7\), donc \(x=2\), \(y=5\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 14 · Parallélisme</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : comparer les directions.</p>
+            <p>Les droites \(2x-3y+1=0\) et \(4x-6y+5=0\) sont-elles parallèles ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-14">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-14" class="answer" hidden>
+              <p>Oui, leurs vecteurs normaux \((2;-3)\) et \((4;-6)\) sont colinéaires.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 15 · Perpendicularité</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : produit scalaire.</p>
+            <p>Les droites de vecteurs directeurs \((2;5)\) et \((5;-2)\) sont-elles perpendiculaires ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-15">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-15" class="answer" hidden>
+              <p>Oui, \(2\times5+5\times(-2)=0\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 16 · Cercle</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : écrire une équation.</p>
+            <p>Écrire l’équation du cercle de centre \(C(-1;4)\) et de rayon \(3\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-16">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-16" class="answer" hidden>
+              <p>\((x+1)^2+(y-4)^2=9\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 17 · Point sur cercle</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : tester une équation.</p>
+            <p>Le point \(A(2;1)\) appartient-il au cercle \((x-1)^2+(y+1)^2=5\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-17">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-17" class="answer" hidden>
+              <p>Oui, \((2-1)^2+(1+1)^2=1+4=5\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 18 · Rédaction notée</h3>
+              <span class="difficulty" aria-label="Niveau Guidé">Guidé</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : prouver un alignement.</p>
+            <p>Rédiger une preuve que \(A(1;2)\), \(B(3;6)\), \(C(4;8)\) sont alignés.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-18">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-18" class="answer" hidden>
+              <p>\(\overrightarrow{AB}=(2;4)\) et \(\overrightarrow{AC}=(3;6)\).</p><p>On calcule le déterminant : \(2\times6-4\times3=12-12=0\).</p><p>Les vecteurs \(\overrightarrow{AB}\) et \(\overrightarrow{AC}\) sont colinéaires. Donc les points \(A\), \(B\), \(C\) sont alignés.</p><p>Erreur qui coûte des points : écrire seulement “ça se voit” sans calcul de colinéarité.</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="pieges" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">P</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Pièges classiques</h2>
+          </div>
+        </div>
+        <p>6 exercices pour repérer les erreurs qui coûtent des points.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 19 · Sens du vecteur</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : arrivée moins départ.</p>
+            <p>Corriger \(\overrightarrow{AB}=(x_A-x_B;y_A-y_B)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-19">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-19" class="answer" hidden>
+              <p>La bonne formule est \((x_B-x_A;y_B-y_A)\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 20 · Normal ou directeur</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : ne pas confondre.</p>
+            <p>Pour \(ax+by+c=0\), \((a;b)\) est quel type de vecteur ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-20">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-20" class="answer" hidden>
+              <p>Un vecteur normal.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 21 · Pente verticale</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : équation impossible en (y=mx+p).</p>
+            <p>La droite \(x=3\) admet-elle une équation réduite \(y=mx+p\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-21">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-21" class="answer" hidden>
+              <p>Non, c’est une droite verticale.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 22 · Rayon au carré</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : lire le cercle.</p>
+            <p>Dans \((x-1)^2+(y-2)^2=16\), le rayon vaut-il \(16\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-22">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-22" class="answer" hidden>
+              <p>Non, le rayon vaut \(4\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 23 · Appartenance</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : tester les deux coordonnées.</p>
+            <p>Pourquoi ne suffit-il pas de remplacer seulement \(x\) pour tester un point sur une droite ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-23">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-23" class="answer" hidden>
+              <p>Il faut remplacer \(x\) et \(y\), car l’équation lie les deux coordonnées.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 24 · Déterminant</h3>
+              <span class="difficulty" aria-label="Niveau Piège">Piège</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : ordre des produits.</p>
+            <p>Pour tester \((a;b)\) et \((c;d)\), écrire le déterminant.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-24">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-24" class="answer" hidden>
+              <p>\(ad-bc\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="choix" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">M</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Choisir la méthode</h2>
+          </div>
+        </div>
+        <p>5 exercices où il faut décider avant de calculer.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 25 · Choix 1</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : milieu ou distance.</p>
+            <p>Pour prouver qu’un point est équidistant de \(A\) et \(B\), quelle formule utiliser ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-25">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-25" class="answer" hidden>
+              <p>La formule de distance, souvent au carré pour éviter les racines.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 26 · Choix 2</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : alignement.</p>
+            <p>Pour prouver un alignement avec coordonnées, quel test utiliser ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-26">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-26" class="answer" hidden>
+              <p>La colinéarité de deux vecteurs.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 27 · Choix 3</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : droite par point et normal.</p>
+            <p>Si un vecteur normal est donné, quelle forme d’équation écrire ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-27">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-27" class="answer" hidden>
+              <p>\(a(x-x_A)+b(y-y_A)=0\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 28 · Choix 4</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : intersection.</p>
+            <p>Pour trouver l’intersection de deux droites, quelle méthode ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-28">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-28" class="answer" hidden>
+              <p>Résoudre le système formé par leurs équations.</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 29 · Choix 5</h3>
+              <span class="difficulty" aria-label="Niveau Choix">Choix</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : cercle.</p>
+            <p>Si l’énoncé donne un centre et un rayon, quelle forme d’équation choisir ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-29">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-29" class="answer" hidden>
+              <p>\((x-a)^2+(y-b)^2=r^2\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="controle" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">C</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Niveau contrôle</h2>
+          </div>
+        </div>
+        <p>6 exercices à faire sans aide visible.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 30 · Contrôle 1</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : vecteur.</p>
+            <p>Calculer \(\overrightarrow{AB}\) pour \(A(-3;4)\), \(B(2;-5)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-30">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-30" class="answer" hidden>
+              <p>\((5;-9)\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 31 · Contrôle 2</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : distance.</p>
+            <p>Calculer \(AB\) pour \(A(-1;2)\), \(B(5;-6)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-31">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-31" class="answer" hidden>
+              <p>\(AB=\sqrt{6^2+(-8)^2}=10\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 32 · Contrôle 3</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : droite.</p>
+            <p>Écrire une équation de la droite passant par \(A(0;3)\) et \(B(2;7)\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-32">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-32" class="answer" hidden>
+              <p>Coefficient directeur \(2\), donc \(y=2x+3\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 33 · Contrôle 4</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : intersection.</p>
+            <p>Trouver l’intersection de \(x+y=5\) et \(2x-y=4\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-33">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-33" class="answer" hidden>
+              <p>En ajoutant : \(3x=9\), donc \(x=3\), \(y=2\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 34 · Contrôle 5</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : cercle.</p>
+            <p>Donner centre et rayon de \(x^2+y^2-4x+6y-12=0\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-34">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-34" class="answer" hidden>
+              <p>\((x-2)^2+(y+3)^2=25\). Centre \((2;-3)\), rayon \(5\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 35 · Contrôle 6</h3>
+              <span class="difficulty" aria-label="Niveau contrôle">Contrôle</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : appartenance cercle.</p>
+            <p>Le point \(A(5;-3)\) appartient-il au cercle de centre \(C(2;1)\) et rayon \(5\) ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-35">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-35" class="answer" hidden>
+              <p>\(CA=\sqrt{3^2+(-4)^2}=5\), donc oui.</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="vingt-sur-vingt" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">20</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Cap 20/20</h2>
+          </div>
+        </div>
+        <p>3 exercices plus longs, seulement après les blocs précédents.</p>
+        <div class="c-gate">
+          <p class="c-gate__label">Porte d’entrée</p>
+          <p class="c-gate__title">Avant ce bloc</p>
+          <p>Réussis au moins deux exercices de niveau contrôle sans regarder le corrigé. Le cap 20/20 n’est pas un raccourci : il combine les réflexes précédents.</p>
+        </div>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 36 · 20/20 1</h3>
+              <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : droite et cercle.</p>
+            <p>Trouver les intersections de \(y=0\) avec le cercle \((x-1)^2+y^2=9\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-36">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-36" class="answer" hidden>
+              <p>On obtient \((x-1)^2=9\), donc \(x=-2\) ou \(x=4\). Points \((-2;0)\) et \((4;0)\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 37 · 20/20 2</h3>
+              <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : paramètre alignement.</p>
+            <p>Déterminer \(m\) pour que \(A(0;1)\), \(B(2;5)\), \(C(3;m)\) soient alignés.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-37">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-37" class="answer" hidden>
+              <p>\(\overrightarrow{AB}=(2;4)\), \(\overrightarrow{AC}=(3;m-1)\). Déterminant \(2(m-1)-12=0\), donc \(m=7\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 38 · 20/20 3</h3>
+              <span class="difficulty" aria-label="Niveau 20 sur 20">20/20</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : projeté simple.</p>
+            <p>Le projeté orthogonal de \(A(2;5)\) sur la droite \(y=1\) est quel point ?</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-38">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-38" class="answer" hidden>
+              <p>C’est \(H(2;1)\), car la projection verticale conserve l’abscisse.</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="revision" class="chapter-section">
+        <div class="section-marker">
+          <div class="section-marker__num">R</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">TD corrigé</p>
+            <h2>Révision mélangée</h2>
+          </div>
+        </div>
+        <p>2 exercices qui mélangent ce chapitre avec un autre réflexe.</p>
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 39 · Révision produit scalaire</h3>
+              <span class="difficulty" aria-label="Niveau Révision">Révision</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : orthogonalité.</p>
+            <p>Prouver que les droites de vecteurs directeurs \((1;3)\) et \((6;-2)\) sont perpendiculaires.</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-39">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-39" class="answer" hidden>
+              <p>Le produit scalaire vaut \(6-6=0\).</p>
+            </div>
+          </article>
+
+          <article class="exercise">
+            <div class="exercise-header">
+              <h3>Exercice 40 · Révision second degré</h3>
+              <span class="difficulty" aria-label="Niveau Révision">Révision</span>
+            </div>
+            <p class="exercise-skill">Ce que tu entraînes : cercle et équation.</p>
+            <p>Développer \((x-2)^2+(y+1)^2=9\).</p>
+            
+            
+            <button class="reveal-button" type="button" data-reveal="td-geometrie-reperee-40">Voir le corrigé</button>
+            <div id="td-geometrie-reperee-40" class="answer" hidden>
+              <p>\(x^2-4x+4+y^2+2y+1=9\), donc \(x^2+y^2-4x+2y-4=0\).</p>
+            </div>
+          </article>
+      </section>
+
+      <section id="sources" class="chapter-section recap-section">
+        <div class="section-marker">
+          <div class="section-marker__num">S</div>
+          <div class="section-marker__meta">
+            <p class="section-marker__kicker">Traçabilité</p>
+            <h2>Sources d’inspiration et adaptation</h2>
+          </div>
+        </div>
+        <p>Les exercices sont des variantes reformulées et recalculées à partir des sources validées. Les corrigés sont écrits pour le web : aide masquée, choix de méthode, rédaction et erreurs fréquentes.</p>
+        <div class="revision-grid">
+          <div class="revision-card"><p class="box-title">Source</p><p>Maths-et-tiques, Géométrie repérée</p></div>
+          <div class="revision-card"><p class="box-title">Source</p><p>Ching@Math, équation cartésienne</p></div>
+          <div class="revision-card"><p class="box-title">Source</p><p>Maths91, notions repérées dans Produit scalaire</p></div>
+        </div>
+      </section>
+    </article>
+  </main>
+</body>
+</html>

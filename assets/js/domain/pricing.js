@@ -10,35 +10,35 @@
   var PLANS = {
     weekly: {
       essential: {
-        price: '12,99 €',
-        period: '/semaine',
-        total: '12,99 € / semaine',
-        billing: 'Facturé chaque semaine — sans trimestre complet.',
+        price: ‘Gratuit’,
+        period: ‘’,
+        total: ‘Gratuit — open source’,
+        billing: ‘Accès libre et open source — aucun paiement requis.’,
       },
-      'ia-plus': {
-        price: '24,99 €',
-        period: '/semaine',
-        total: '24,99 € / semaine',
-        billing: 'Facturé chaque semaine — plus d’IA, sans engagement long.',
+      ‘ia-plus’: {
+        price: ‘Gratuit’,
+        period: ‘’,
+        total: ‘Gratuit — open source’,
+        billing: ‘Accès libre et open source — aucun paiement requis.’,
       },
-      stickyPrice: '24,99 €',
-      stickyPeriod: '/semaine',
+      stickyPrice: ‘Gratuit’,
+      stickyPeriod: ‘’,
     },
     trimester: {
       essential: {
-        price: '7,62 €',
-        period: '/semaine',
-        total: '99 € / trimestre',
-        billing: 'Facturé 99 € / trimestre — soit 7,62 €/semaine pour l’accès site + IA master.',
+        price: ‘Gratuit’,
+        period: ‘’,
+        total: ‘Gratuit — open source’,
+        billing: ‘Accès libre et open source — aucun paiement requis.’,
       },
-      'ia-plus': {
-        price: '15,31 €',
-        period: '/semaine',
-        total: '199 € / trimestre',
-        billing: 'Ainsi 199 € pour le trimestre entier.',
+      ‘ia-plus’: {
+        price: ‘Gratuit’,
+        period: ‘’,
+        total: ‘Gratuit — open source’,
+        billing: ‘Accès libre et open source — aucun paiement requis.’,
       },
-      stickyPrice: '15,31 €',
-      stickyPeriod: '/semaine',
+      stickyPrice: ‘Gratuit’,
+      stickyPeriod: ‘’,
     },
   };
 
