@@ -8,7 +8,6 @@ const ROOT = join(__dirname, '..');
 const CHECKOUT_PATH = join(ROOT, 'checkout.html');
 const MERCI_PATH = join(ROOT, 'merci.html');
 const CHECKOUT_JS_PATH = join(ROOT, 'assets', 'js', 'pages', 'checkout.js');
-const PRICING_JS_PATH = join(ROOT, 'assets', 'js', 'domain', 'pricing.js');
 const CHECKOUT_URL = pathToFileURL(CHECKOUT_PATH).href;
 
 const VIEWPORTS = [
@@ -16,7 +15,7 @@ const VIEWPORTS = [
   { label: 'mobile', width: 390, height: 844 },
 ];
 
-const REQUIRED_FILES = [CHECKOUT_PATH, MERCI_PATH, CHECKOUT_JS_PATH, PRICING_JS_PATH];
+const REQUIRED_FILES = [CHECKOUT_PATH, MERCI_PATH, CHECKOUT_JS_PATH];
 const STRIPE_PAYMENT_LINK_PATTERN = /^https:\/\/(buy|checkout)\.stripe\.com\/.+/i;
 const SECRET_PATTERNS = [/sk_live/i, /sk_test/i, /rk_live/i, /rk_test/i];
 
@@ -78,28 +77,22 @@ function assertStaticHonestyCopy() {
   }
 }
 
-function assertCheckoutButtonsStartNeedsConfig() {
+function assertCheckoutButtonsHaveCheckoutContract() {
   const source = readProjectFile(CHECKOUT_PATH);
   const buttons = source.match(/<a\b[^>]*\bdata-checkout-button\b[^>]*>/gi) || [];
   assert(buttons.length > 0, 'checkout.html: expected at least one static [data-checkout-button] link');
 
   buttons.forEach((button, index) => {
-    assert(
-      /\bdata-checkout-state=["']needs-config["']/.test(button),
-      `checkout.html: static [data-checkout-button] #${index + 1} must start with data-checkout-state="needs-config" before JS marks it ready`,
-    );
+    assert(/\bdata-checkout-plan=["'][^"']+["']/.test(button), `checkout.html: static [data-checkout-button] #${index + 1} must declare data-checkout-plan`);
+    assert(/\bdata-checkout-billing=["'][^"']+["']/.test(button), `checkout.html: static [data-checkout-button] #${index + 1} must declare data-checkout-billing`);
   });
 }
 
 function assertCheckoutStaticWiring() {
   const source = readProjectFile(CHECKOUT_PATH);
-  assert(source.includes('assets/js/domain/pricing.js'), 'checkout.html: must load pricing.js before checkout page script');
   assert(source.includes('assets/js/pages/checkout.js'), 'checkout.html: must load assets/js/pages/checkout.js');
   assert(!source.includes('scripts/checkout.js'), 'checkout.html: must not load legacy scripts/checkout.js');
-  assert(
-    source.indexOf('assets/js/domain/pricing.js') < source.indexOf('assets/js/pages/checkout.js'),
-    'checkout.html: pricing.js must load before checkout.js',
-  );
+  assert(!source.includes('assets/js/domain/pricing.js'), 'checkout.html: restored static pricing markup must not load pricing.js without data-pricing markers');
 }
 
 async function collectConsoleErrors(page) {
@@ -276,7 +269,7 @@ async function assertInvalidPaymentLinkFallback(browser) {
 assertRequiredFilesExist();
 assertNoStripeSecrets();
 assertStaticHonestyCopy();
-assertCheckoutButtonsStartNeedsConfig();
+assertCheckoutButtonsHaveCheckoutContract();
 assertCheckoutStaticWiring();
 
 let browser;

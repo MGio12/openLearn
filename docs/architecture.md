@@ -54,8 +54,9 @@ Les prix, libellés de facturation, limites gratuites et états d'abonnement son
 
 État actuel :
 
-- `assets/js/domain/pricing.js` expose `window.OPPricing`, source de vérité des libellés de prix visibles sur checkout.
-- `assets/js/pages/checkout.js` hydrate les prix depuis `window.OPPricing`, valide les Payment Links Stripe, synchronise les CTA `data-checkout-button`, et stocke l'URL de test dans `localStorage` clé `outilPrepa:stripe.checkoutUrl`.
+- `checkout.html` reprend le checkout V2 inline : deux offres visibles dès le premier écran, toggle semaine/trimestre dans la page, sans charger `assets/js/domain/pricing.js`.
+- `assets/js/domain/pricing.js` expose `window.OPPricing` pour centraliser les libellés si les marqueurs `data-pricing-*` sont réintroduits sur checkout ou sur une autre page.
+- `assets/js/pages/checkout.js` valide les Payment Links Stripe, synchronise les CTA `data-checkout-button`, expose `window.OP_UPDATE_CHECKOUT_BUTTONS` pour le toggle tarifaire inline, et stocke l'URL de test dans `localStorage` clé `outilPrepa:stripe.checkoutUrl`.
 - Le compteur d'essai gratuit vit dans le store `window.OutilPrepa`; son rendu est dans `assets/js/ui/free-trial-banner.js`.
 
 ## Modèle et store locaux
@@ -74,12 +75,14 @@ Le helper partagé expose seulement les opérations nécessaires : créer le pay
 ## Pages de cours
 
 Les chapitres de maths restent des documents HTML riches. Le contenu pédagogique, l'ordre des notions, les exemples, les exercices et les corrections restent dans `index.html`.
+Les TD longs peuvent vivre dans une page `td.html` séparée, reliée depuis le chapitre et depuis les boutons `Exos` de `contenu.html`, tout en réutilisant le même shell KaTeX/sidebar/corrections.
 
 Artefacts attendus par chapitre :
 
 ```text
 prototypes/cours/maths-specialite/<chapitre>/
   index.html
+  td.html           # si page d'entraînement séparée
   sources.md
   source-map.md
   generation-notes.md
@@ -116,10 +119,11 @@ Garde-fous principaux :
 - `npm run verify:course-sidebar`
 - `npm run verify:course-agent`
 - `npm run verify:redesign`
+- `npm run verify:cwv`
 - `node scripts/verify-course-sidebar.mjs <page-de-cours>`
 - `git diff --check`
 
-`npm run verify` inclut `validate:json`, `verify:agent-map`, `verify:unsafe-html`, `verify:localstorage`, `verify:server-security`, `verify:parent-share`, `verify:onboarding`, `verify:analytics`, `verify:s01` à `verify:s05`, `verify:course-sidebar`, `verify:course-agent`, `verify:redesign` et `verify:cwv`. `verify:agent-map` contrôle que la carte `docs/agent-codebase-map.md` garde 5 zones maximum, que les commandes `npm run ...` documentées existent dans `package.json`, que les chemins critiques référencés existent encore, et que `CLAUDE.md` pointe vers la carte. `verify:unsafe-html` scanne les sources HTML/JS/JSX et refuse `insertAdjacentHTML`, `dangerouslySetInnerHTML` ou un `innerHTML` non vide sans commentaire proche `unsafe-html-allow`. Le bundle généré `onboarding/onboarding.bundle.js` est exclu : l'autorisation doit vivre dans la source JSX. `verify:localstorage` refuse toute clé non documentée, sauf lecture/migration de l'ancienne clé checkout. `verify:server-security` lance `_server.cjs` sur une racine temporaire et contrôle `SITE_ROOT`, le rejet de traversal et les messages d'erreur sans fuite de chemin.
+`npm run verify` inclut `validate:json`, `verify:agent-map`, `verify:unsafe-html`, `verify:localstorage`, `verify:server-security`, `verify:parent-share`, `verify:onboarding`, `verify:analytics`, `verify:s01` à `verify:s05`, `verify:course-sidebar`, `verify:course-agent`, `verify:redesign` et `verify:cwv`. `verify:course-sidebar` et `verify:cwv` couvrent aussi les `td.html` de `prototypes/cours/maths-specialite/`. `verify:agent-map` contrôle que la carte `docs/agent-codebase-map.md` garde 5 zones maximum, que les commandes `npm run ...` documentées existent dans `package.json`, que les chemins critiques référencés existent encore, et que `CLAUDE.md` pointe vers la carte. `verify:unsafe-html` scanne les sources HTML/JS/JSX et refuse `insertAdjacentHTML`, `dangerouslySetInnerHTML` ou un `innerHTML` non vide sans commentaire proche `unsafe-html-allow`. Le bundle généré `onboarding/onboarding.bundle.js` est exclu : l'autorisation doit vivre dans la source JSX. `verify:localstorage` refuse toute clé non documentée, sauf lecture/migration de l'ancienne clé checkout. `verify:server-security` lance `_server.cjs` sur une racine temporaire et contrôle `SITE_ROOT`, le rejet de traversal et les messages d'erreur sans fuite de chemin.
 
 Pour un chapitre de cours, ne pas appeler une page finie tant que les notes de sources/génération existent, que KaTeX ne déborde pas, que les corrections se révèlent, que les graphes exacts éventuels sont visibles, et que la sidebar passe en ouvert/replié/hover/focus/mobile.
 Le pilote IA de cours est vérifié par `npm run verify:course-agent` : manifeste JSON valide, boutons reliés à des contextes existants, tiroir desktop/mobile, focus textarea, refus d'envoi vide, feedback texte sans HTML utilisateur, fermeture et absence d'overflow.

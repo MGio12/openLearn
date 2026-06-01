@@ -21,9 +21,10 @@ Contrat DOM/data principal :
 
 - La mission du jour est le contrat central du parcours. `scripts/mission-ui.js` hydrate les cibles `data-daily-mission-*` depuis `window.OutilPrepa` ou `window.OutilPrepaModel`. Le conteneur dashboard standard est `data-daily-mission-container`.
 - Les checklists utilisent `data-mission-action` ou `data-daily-mission-checklist` + `data-mission-step`, puis persistent via `assets/js/ui/mission-checklist.js`. Chaque `[data-mission-action]` doit porter un index explicite : `data-mission-step` ou `data-mission-index`.
-- Les boutons checkout utilisent `data-checkout-button`, `data-checkout-plan`, `data-checkout-billing`, et demarrent dans le HTML avec `data-checkout-state="needs-config"`. `assets/js/pages/checkout.js` remplace ensuite cet etat par `ready` seulement quand une Payment Link Stripe valide est resolue.
+- Les boutons checkout utilisent `data-checkout-button`, `data-checkout-plan` et `data-checkout-billing`. `checkout.html` reprend le checkout V2 inline : prix visibles des deux offres, toggle semaine/trimestre, puis `assets/js/pages/checkout.js` resout la Payment Link Stripe et ajoute `href` + `data-checkout-state` (`ready` ou `needs-config`) au chargement.
 - `data-when` est un contrat visuel de timeline uniquement, pas une source de logique.
 - Le partage parent passe par `parent.html#p=...` et le payload v1 de `assets/js/shared/parent-share.js`. Ce payload est public : il ne doit contenir aucune donnee sensible, et `parent.html` doit l'afficher avec `textContent`, jamais avec du HTML utilisateur.
+- `progression.html` rend la courbe des moyennes avec JSXGraph en renderer canvas sur le conteneur `data-grade-chart`. Ne pas revenir a un SVG trace a la main ; le conteneur doit rester fluide (`width: 100%`, `height: 100%`, flex) et les donnees doivent passer par le contrat `data-grade-*`.
 
 Commandes de verification :
 
@@ -36,13 +37,13 @@ Commandes de verification :
 
 Pieges connus :
 
-- `assets/js/pages/checkout.js` porte le cablage Payment Link de checkout, l'etat UI des CTA, l'hydratation des prix depuis `window.OPPricing`, et la migration lecture seule de l'ancienne cle checkout.
+- `assets/js/pages/checkout.js` porte le cablage Payment Link de checkout, l'etat UI des CTA, et la migration lecture seule de l'ancienne cle checkout. Le toggle tarifaire de `checkout.html` est inline et appelle `window.OP_UPDATE_CHECKOUT_BUTTONS` quand il change `data-checkout-billing`.
 - Le payload parent ne doit contenir ni nom, email, moyenne exacte, photo, metadonnee d'upload, URL Stripe privee, token, ni texte libre non borne.
 - La mission du jour est un concept transversal, pas une nouvelle page dediee a creer par reflexe.
 
 Ne pas refactorer sans raison :
 
-- `progression.html`, qui contient encore un gros graphe inline et son contrat `data-grade-*`.
+- `progression.html`, qui contient encore le graphe de moyennes inline et son contrat `data-grade-*`.
 - `scripts/mission-ui.js`, car plusieurs pages racine dependent de ses cibles `data-daily-mission-*`.
 - `assets/js/shared/parent-share.js`, car le hash parent est public et doit rester compatible.
 
@@ -91,20 +92,23 @@ Fichiers proprietaires :
 - Sources Premiere : `lien/premiere/math.md`.
 - Prototypes : `prototypes/cours/maths-specialite/`.
 - Partage matiere : `prototypes/cours/maths-specialite/cours.css`, `prototypes/cours/maths-specialite/cours.js`.
+- Generateur TD Premiere spe : `scripts/generate-maths-specialite-td.mjs`.
 - Notes de chapitre : `sources.md`, `source-map.md`, `generation-notes.md`, `verification-notes.md` dans chaque dossier de chapitre.
 
 Contrat DOM/data principal :
 
 - Une page de cours utilise `body.has-course-sidebar`, `data-course-layout`, `data-course-sidebar`, `data-sidebar-toggle`, et `data-section-link`.
+- Une page TD se nomme `td.html`, reutilise le shell cours, garde les corrections masquees via `data-reveal`, et les liens `Exos` de `contenu.html` pointent vers cette page separee.
 - Le tiroir IA de cours est partage par `prototypes/cours/maths-specialite/cours.js` et `cours.css`. Un chapitre pilote expose `script[type="application/json"][data-course-agent-contexts]`, et chaque bouton `button[data-course-agent-open="<contextId>"]` doit pointer vers un contexte existant. Le pilote `second-degre` ajoute aussi un bloc haut de page `[data-course-agent-entry]`, trois liens `[data-course-agent-jump]` et des marqueurs `.toc-agent-badge` dans la sidebar pour rendre les boutons IA trouvables sans les deplacer.
 - Les formules exactes restent en KaTeX. Les courbes, graphes et constructions exactes passent par JSXGraph, Desmos, GeoGebra, ou des points calcules depuis une vraie fonction.
 - Les corrections et aides doivent etre revelables, et chaque notion importante doit demander une production eleve.
 
 Commandes de verification :
 
-- `npm run verify:course-sidebar` verifie tous les prototypes `prototypes/cours/maths-specialite/*/index.html`.
+- `npm run verify:course-sidebar` verifie tous les prototypes `prototypes/cours/maths-specialite/*/index.html` et `prototypes/cours/maths-specialite/*/td.html`.
 - `npm run verify:course-agent` verifie le pilote IA `second-degre` : manifeste, boutons, liens de decouvrabilite, marqueurs sidebar, tiroir desktop/mobile, focus, feedback texte et absence d'overflow.
 - `node scripts/verify-course-sidebar.mjs prototypes/cours/maths-specialite/second-degre/index.html`
+- `node scripts/generate-maths-specialite-td.mjs`
 - `git diff --check`
 
 Pieges connus :
@@ -175,7 +179,7 @@ Contrat DOM/data principal :
 
 - `window.OutilPrepaModel` expose le modele demo, la mission, le planning, la progression et les helpers de normalisation.
 - `window.OutilPrepa` persiste le store `localStorage` cle `outilPrepa:v1`, notifie les abonnes, et ne doit pas contenir de selection DOM.
-- `assets/js/domain/pricing.js` expose `window.OPPricing` comme source de verite des libelles prix visibles checkout.
+- `assets/js/domain/pricing.js` expose `window.OPPricing` comme source partageable de libelles prix, mais `checkout.html` utilise actuellement son propre toggle tarifaire inline et ne le charge pas.
 - `assets/js/pages/checkout.js` peut stocker une URL Stripe locale dans `localStorage` cle `outilPrepa:stripe.checkoutUrl` pour le navigateur de test. L'ancienne cle `op.stripe.checkoutUrl` est seulement lue puis migree.
 - Le flow onboarding persiste separement dans `objectif-lycee-onboarding-v3`.
 - `assets/js/state/store.js` doit etre charge apres `assets/js/domain/model.js` : s'il manque `window.OutilPrepaModel.todayISO`, il echoue avec une erreur explicite plutot qu'un `TypeError` implicite.
@@ -198,4 +202,4 @@ Ne pas refactorer sans raison :
 
 - `assets/js/domain/model.js`, gros fichier central encore utilise comme modele commun.
 - `assets/js/state/store.js`, store local expose via `window.OutilPrepa`.
-- `assets/js/domain/pricing.js`, source partagee des prix visibles.
+- `assets/js/domain/pricing.js`, source partageable des prix si les marqueurs `data-pricing-*` sont reintroduits.
