@@ -1,4 +1,4 @@
-# ObjectifLycée
+# openLearn
 
 **Free. Open source. Built for every French high school student - not just the ones whose parents can pay for a tutor.**
 
@@ -9,7 +9,7 @@
 
 ---
 
-ObjectifLycée is a free, open source study cockpit for French high school students (*lycéens*). It gives you one clear mission every day - based on your upcoming tests and what matters most right now - so you stop opening your notebook and staring at it.
+openLearn is a free, open source study cockpit for French high school students (*lycéens*). It gives you one clear mission every day - based on your upcoming tests and what matters most right now - so you stop opening your notebook and staring at it.
 
 **No subscription. No paywall. No credit card. Ever.**
 
@@ -19,11 +19,11 @@ ObjectifLycée is a free, open source study cockpit for French high school stude
 
 Because a student's shot at a good education shouldn't depend on what their parents earn.
 
-Private tutoring in France runs 30-45 €/hour. Most students who need it can't afford it. ObjectifLycée is open source so every student - ZEP school or private lycée - gets the same framework.
+Private tutoring in France runs 30-45 €/hour. Most students who need it can't afford it. openLearn is open source so every student - ZEP school or private lycée - gets the same framework.
 
 But there's a deeper reason. **We want to train the next generation of open source contributors, starting from high school.**
 
-When you use ObjectifLycée, you're not just studying. You're using software built by a student, with AI as a coding partner, on a codebase you can read, fork, and improve. The goal is for you to go from user to contributor. Knowing how to use AI well - asking the right questions, reviewing code, understanding an architecture - is a skill that'll matter as much as anything else in your curriculum. Maybe more.
+When you use openLearn, you're not just studying. You're using software built by a student, with AI as a coding partner, on a codebase you can read, fork, and improve. The goal is for you to go from user to contributor. Knowing how to use AI well - asking the right questions, reviewing code, understanding an architecture - is a skill that'll matter as much as anything else in your curriculum. Maybe more.
 
 This project is a live example of what you can build with HTML, CSS, vanilla JS, and an AI pair-programmer. No backend. No framework. No build step for most pages. You could fork it tonight.
 
@@ -31,7 +31,7 @@ This project is a live example of what you can build with HTML, CSS, vanilla JS,
 
 ---
 
-## What is ObjectifLycée?
+## What is openLearn?
 
 A static study cockpit that runs entirely in your browser:
 
@@ -222,7 +222,7 @@ This project is under the **MIT License**. You can:
 
 If you improve it in a way that helps other students, consider sending it back as a pull request.
 
-**ObjectifLycée is open source because education is a public good. Not a product.**
+**openLearn is open source because education is a public good. Not a product.**
 
 ---
 
@@ -250,7 +250,7 @@ Key rules for math courses:
 
 Built by Max - a student in *classe preparatoire scientifique*, previously at a ZEP school in France.
 
-The project started from a simple observation: private tutoring gives students one thing beyond content - someone who notices when they're stuck, slows down, and gives them the next concrete step. ObjectifLycée tries to make that available to everyone, every evening, through open source software and AI.
+The project started from a simple observation: private tutoring gives students one thing beyond content - someone who notices when they're stuck, slows down, and gives them the next concrete step. openLearn tries to make that available to everyone, every evening, through open source software and AI.
 
 The code is simple on purpose. It should be readable by someone who has been coding for six months. If you find something confusing, that's a bug - open an issue.
 
@@ -262,5 +262,5 @@ MIT - see [LICENSE](LICENSE)
 
 ---
 
-*ObjectifLycée - free, open source study tools for French high school students.*
+*openLearn - free, open source study tools for French high school students.*
 *Because the next generation of open source contributors is sitting in lycee right now.*
