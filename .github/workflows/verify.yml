@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate JSON manifests
+        run: npm run validate:json
+
+      - name: Verify agent map
+        run: npm run verify:agent-map
+
+      - name: Verify unsafe HTML
+        run: npm run verify:unsafe-html
+
+      - name: Verify localStorage keys
+        run: npm run verify:localstorage
+
+      - name: Check whitespace
+        run: git diff --check
