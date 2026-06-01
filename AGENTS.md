@@ -1,115 +1,107 @@
-# Agent Guide
+# AGENTS.md - ObjectifLycée
 
-Use `CLAUDE.md` as the source of truth for this project.
+ObjectifLycée is a free, open source study cockpit for French high school students. It gives every lycéen a clear daily mission based on their objectives and upcoming tests - replacing 30-45 €/hr private tutoring with open source software and AI. MIT license. Built by a student, for students.
 
-It contains the stack, editing rules, scenario-based reading map, and the latest course-generation rules.
+This file is the entry point for both human contributors and AI agents (Codex, Claude Code, or any coding assistant). Start here, then read `CLAUDE.md` for the full project rules.
 
-After any repository file edit and before the final response, run the project skill `.agents/skills/doc-impact-review`. If the change affects behavior, architecture, commands, analytics, pricing, onboarding, funnel, course pages, or project conventions, update the relevant Markdown docs first. If no doc update is useful, say so briefly in the final response.
+---
 
-## Course Page Agent
+## How to contribute
 
-When the task is to create, modify, review, or generalize a maths course page, act as the **Course Page Agent**.
+1. Read `README.md` for the project overview and setup instructions.
+2. Read `CLAUDE.md` for the full editing rules, stack conventions, and scenario-based reading map.
+3. For math courses specifically, read `docs/regles-creation-cours-maths.md` before touching any course page.
+4. Run `npm run verify` before submitting a PR. Run `npm run verify:course-sidebar` if you touched a course page.
+5. Run `git diff --check` to catch whitespace issues.
 
-Before editing, read:
+**If you are a high school student contributing for the first time: that is exactly the point.** Open a small PR, ask questions in issues, learn how the codebase works.
+
+---
+
+## For AI agents (Codex, Claude Code, and others)
+
+### Source of truth
+
+- `CLAUDE.md` is the project source of truth: stack, editing rules, scenario-based reading map, course rules.
+- `docs/agent-codebase-map.md` maps every shared area of the codebase to its owner files, DOM contracts, and verification commands.
+
+### After any file edit
+
+Before the final response, run the project skill `.agents/skills/doc-impact-review`. It reads the current diff, picks candidate docs from the reading map in `CLAUDE.md`, and decides whether any Markdown documentation needs updating. If the change affects behavior, architecture, commands, analytics, pricing, onboarding, funnel, course pages, or project conventions - update the relevant docs. If no update is useful, say so briefly.
+
+### Course Page Agent role
+
+When the task is to create, modify, review, or generalize a math course page, act as the **Course Page Agent**.
+
+Before editing, read in order:
 
 1. `CLAUDE.md`
 2. `docs/regles-creation-cours-maths.md`
 3. `docs/techniques-apprentissage-maths.md`
 4. `docs/pipeline-cours-ia.md`
 5. `docs/generation-image-cours.md`
-6. `lien/premiere/math.md` when working on Première maths sources or choosing PDFs.
-7. The existing prototype page and shared course CSS/JS for the relevant subject.
+6. `lien/premiere/math.md` when working on Première maths sources or choosing PDFs
+7. The existing prototype page and shared course CSS/JS for the subject
 
-The goal is not to make a prettier PDF. The goal is to make a web course that forces the student to understand, answer, retry, choose a method, and write a proper solution.
+The goal is not to make a prettier PDF. The goal is a web course that forces the student to understand, answer, retry, choose a method, and write a proper solution.
 
-## Zero-Ambiguity Rule
+Before writing HTML, produce a short internal source map: notions from the main PDF, methods and solved examples to keep, exercises to adapt, common traps, exact graphs needed.
 
-The course must never leave a student guessing what a symbol means, why a method is chosen, what step comes next, or what the final answer is.
+Maths91 is the default backbone for programme coverage and exercises. Maths-et-tiques is a complement for intuition and alternate explanations. Use `lien/premiere/math.md` for validated links. Do not produce a chapter from memory when PDFs exist.
 
-When clarity requires more words, write more words. When a metaphor helps remove confusion, use one. When a non-exact mental image would help, generate an image with imagegen, but keep mathematical curves, axes, labels, and formulas out of that image. Exact maths still belongs in KaTeX, JSXGraph, Desmos, GeoGebra, or calculated objects.
-
-The agent's job is to improve expert material, not reinvent the chapter. Start from the validated PDFs, extract the plan, map the expert course, and reuse almost all of its mathematical substance: definitions, hypotheses, properties, methods, examples, exercises, edge cases, and expected writing. Then improve what the web can improve: sequencing, active questions, hidden corrections, method-choice blocks, cleaner explanations, exact graphs, and less ambiguous notation.
-
-Do not replace an expert PDF with a generic AI lesson. If a PDF already teaches a notion well, preserve it and make it clearer, more interactive, and easier to practice.
-
-## Subagent Contract For Course Pages
-
-If you are a subagent working on a course page, do not treat the page as a layout task only. Your job is to preserve the math, the source coverage, and the learning sequence.
-
-Before writing HTML, produce a short internal source map:
-
-- notions from the main course PDF;
-- methods and solved examples to keep;
-- exercises or TD items to adapt;
-- common traps and edge cases;
-- exact graphs or diagrams that are needed.
-
-Maths91 is the default backbone for programme coverage and exercises. Maths-et-tiques is a complement for intuition, alternate explanations, and useful examples. Use the links listed in `lien/premiere/math.md`; do not invent a chapter from memory when validated PDFs exist.
-
-## Non-Negotiable Course Rules
+### Non-negotiable course rules
 
 - Lower the entry difficulty, never the final standard.
-- Do not promise `20/20` as a guaranteed visible commercial claim. Treat it as a training target.
-- Every important notion must make the student produce something: immediate question, missing step, near-transfer exercise, method choice, or clean written answer.
-- Every method needs a solved example, then progressively less help.
-- Keep mathematical consistency across the chapter: same notation, same variable names when possible, coherent order of definitions, methods, examples, exercises, and corrections.
-- Include more actual mathematics than marketing copy: definitions, hypotheses, formulas, cases, examples, proofs or justifications when useful, and exam-style exercises.
-- Do not replace source material with generic explanations. Adapt the PDFs into an interactive course, but keep their mathematical substance.
-- Include at least one "choose the method" block in a chapter.
-- Include clean exam-style writing with mistakes that cost points.
-- The `20/20` level must be gated by earlier control-level practice, not presented as a shortcut.
-- The paywall, if present, must come after proof of value.
+- Every important notion must make the student produce something: immediate question, missing step, method choice, or clean written answer.
+- Keep mathematical consistency: same notation, same variable names, coherent order of definitions, methods, examples, exercises, corrections.
+- Include more actual mathematics than explanatory prose.
+- Do not replace source material with generic AI explanations.
+- The paywall, if present, comes after proof of value.
 
-## Visuals And Maths
+### KaTeX and formula layout
 
-- Never draw curves, parabolas, tangents, axes, graphs, or mathematical diagrams by hand with SVG, Canvas, CSS, Bezier, or decorative HTML.
-- For exact or interactive maths, use deterministic tools: KaTeX, JSXGraph, Desmos, GeoGebra, or points calculated from a real function.
-- When a notion depends on reading a curve, add an exact graph if it helps: function shape, roots, sign, extremum, tangent, relative position of two curves, or geometric construction.
-- For non-exact intuition, use imagegen with a clear prompt and no axes, graduations, formulas, or critical mathematical labels.
-- If no exact visual tool is needed, prefer mathematical language plus KaTeX over an approximate drawing.
+- Never compress a formula to make it fit. Never use horizontal scrolling.
+- A long formula must use the full width, then move vertically with `aligned`, multiple `\[...\]` blocks, or text between steps.
+- Do not style generic tags (`span`, `div`, `em`) inside any area that may contain KaTeX.
+- When a correction has multiple answers or cases, separate them clearly. Do not stack answers in one equation block with no explanation.
 
-## KaTeX And Formula Layout
+### Graphs and visuals
 
-- Never compress a KaTeX formula to make it fit.
-- Never use horizontal scrolling for KaTeX formulas.
-- A long formula must use the full available width, then move vertically with `aligned`, multiple `\[...\]` blocks, or explanatory text between steps.
-- Do not reduce formula font size aggressively on mobile.
-- Do not put important formulas inside narrow cards or multi-column layouts.
-- Write equations in the appropriate mathematical language: use KaTeX for real mathematical expressions, define symbols before using them, and keep the notation stable inside the example and correction.
-- When a correction contains several answers or cases, separate them clearly with numbered parts, short labels, or distinct display blocks. Do not stack three unrelated answers in one equation block with no explanation.
-- Match correction structure to the exercise structure: if the exercise has questions 1, 2, 3, the answer must visibly keep parts 1, 2, 3.
-- Do not rely on accidental browser line wrapping inside equations. If an equation would wrap or overflow, rewrite it as intentional vertical steps with `aligned`, separate `\[...\]` blocks, or explanatory text between lines.
-- Avoid styling generic tags such as `span`, `div`, or `em` inside any area that may contain KaTeX.
+- Never draw curves, axes, graphs, or mathematical diagrams by hand with SVG, Canvas, CSS, or decorative HTML.
+- For exact or interactive math: KaTeX, JSXGraph, Desmos, GeoGebra, or points calculated from a real function.
+- For non-exact intuition: imagegen with no axes, graduations, formulas, or critical labels in the image.
 
-## Course Page Layout Defaults
+### Course sidebar
 
-- A course prototype may live in `prototypes/cours/` before integration into the public site.
-- Shared subject assets should remain simple vanilla HTML/CSS/JS.
-- Prefer a classic left sidebar for the plan:
-  - open on first page load;
-  - fixed to the far-left edge;
-  - full height when open or collapsed;
-  - collapsed by width, not by translating it off-screen;
-  - no internal sidebar scrolling for a short chapter plan;
-  - closed rail fully visible;
-  - closed rail arrow centered and decorative, not clickable;
-  - the real toggle button closes the open sidebar only;
-  - hover/focus can temporarily reveal the plan.
-- The content area must be wide enough for text and formulas, then responsive on mobile without horizontal overflow.
+- Fixed to the far-left edge, full height, open on first load, collapsed by viewport width.
+- Closed rail stays visible. Closed arrow is centered, decorative, and not clickable.
+- The toggle button closes the open sidebar only.
+- Hover/focus can temporarily reveal the plan on the closed rail.
 
-## Required Verification For Course Pages
-
-Before calling a course page done, verify:
+### Verification before marking a course page done
 
 - KaTeX renders without console errors.
-- No KaTeX formula has `scrollWidth > clientWidth`.
-- No formula block uses horizontal scroll.
+- No formula has `scrollWidth > clientWidth`. No horizontal scroll on formulas.
 - Exact graph boards render when the chapter uses curves or diagrams.
 - Reveal/correction buttons work.
 - Sidebar open, collapsed, hover/focus, desktop, and mobile states work.
-- In the collapsed sidebar, the visible arrow is centered and non-clickable.
-- No incoherent text overlap or horizontal page overflow.
+- Closed sidebar arrow is centered and non-clickable.
+- No text overlap or horizontal page overflow.
 - `git diff --check` passes.
-- Run the project verification command when available.
+- `npm run verify:course-sidebar` passes.
+- `npm run verify:course-agent` passes if the AI block is present.
 
-Document any layout issue and its cause in the chapter notes when the fix teaches a reusable rule.
+---
+
+## Stack at a glance
+
+| Layer | Choice |
+|---|---|
+| Pages | HTML / CSS / JS vanilla (no framework, no build step) |
+| Math rendering | KaTeX |
+| Math graphs | JSXGraph (deterministic, exact) |
+| Onboarding | React 18 via UMD CDN - pre-compiled at `onboarding/onboarding.bundle.js` |
+| Icons | Phosphor Icons |
+| AI feedback pilot | Feynman-method block in `prototypes/cours/maths-specialite/second-degre/` |
+
+The codebase is intentionally simple. It should be readable by someone who has been coding for six months. If something is confusing, that is a bug.
