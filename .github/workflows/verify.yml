@@ -1,8 +1,6 @@
-name: CI
+name: Verify
 
 on:
-  push:
-    branches: [master]
   pull_request:
     branches: [master]
 
@@ -21,17 +19,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Validate JSON manifests
-        run: npm run validate:json
+      - name: Run general site check
+        run: npm run verify
 
-      - name: Verify agent map
-        run: npm run verify:agent-map
+      - name: Run course sidebar check
+        run: npm run verify:course-sidebar
 
-      - name: Verify unsafe HTML
-        run: npm run verify:unsafe-html
-
-      - name: Verify localStorage keys
-        run: npm run verify:localstorage
-
-      - name: Check whitespace
+      - name: Check for whitespace issues
         run: git diff --check
+
+      - name: Run course agent check if course directory is touched
+        if: github.event.pull_request.changed_files[*] == 'course/*'
+        run: npm run verify:course-agent
